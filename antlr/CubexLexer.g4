@@ -13,17 +13,18 @@ CLASS : 'class';
 SUPER : 'super';
 FUN  : 'fun';
 EXTENDS : 'extends';
-ID : [a-zA-Z] [a-zA-Z_0-9\']*;
+VARFUNID : [a-z] [a-zA-Z_0-9]*;
+TYPEID : [A-Z] [a-zA-Z_0-9]*;
 INTEGER : [0-9]+;
 
 THROUGH : '..';
-TOINF : '...';
+ONW : '...';
 LDOT : '<.';
 DOTL : '.<';
 LL : '<<';
 LDOTDOT : '<..';
 LEQ : '<=';
-GREQ : '>=';
+GEQ : '>=';
 EQEQ : '==';
 NEQ :'!=';
 DOT : '.';
@@ -41,6 +42,7 @@ RBRACE : '}';
 STAR : '*';
 SLASH : '/';
 PERCENT : '%';
+PLPL : '++';
 PLUS : '+';
 DASH : '-';
 LANGLE : '<';
@@ -50,5 +52,5 @@ AMPERSAND : '&';
 PIPE : '|';
 
 WS : [ \t\r\n]+ -> skip; // skip spaces, tabs, newlines
-NESTEDCOMMENT : '`' (.*? NESTEDCOMMENT? .*? )? '\'' -> skip;
+NESTEDCOMMENT : '`' .*? (NESTEDCOMMENT .*?)* '\'' -> skip;
 COMMENT : '#' .*? [\r\n] -> skip;
