@@ -1,0 +1,56 @@
+lexer grammar CubexLexer;
+
+STRING : '"' .*? '"';
+RETURN : 'return';
+WHILE : 'while';
+IF : 'if';
+ELSE : 'else';
+TRUE : 'true';
+FALSE : 'false';
+FOR : 'for';
+INTERFACE : 'interface';
+CLASS : 'class';
+SUPER : 'super';
+FUN  : 'fun';
+EXTENDS : 'extends';
+VARFUNID : [a-z] [a-zA-Z_0-9]*;
+TYPEID : [A-Z] [a-zA-Z_0-9]*;
+INTEGER : [0-9]+;
+
+THROUGH : '..';
+ONW : '...';
+LDOT : '<.';
+DOTL : '.<';
+LL : '<<';
+LDOTDOT : '<..';
+LEQ : '<=';
+GEQ : '>=';
+EQEQ : '==';
+NEQ :'!=';
+DOT : '.';
+LBRACKET : '[';
+RBRACKET : ']';
+COLON : ':';
+GET : ':=';
+EQUAL : '=';
+LPAREN : '(';
+RPAREN : ')';
+COMMA : ',';
+SEMICOLON : ';';
+LBRACE : '{';
+RBRACE : '}';
+STAR : '*';
+SLASH : '/';
+PERCENT : '%';
+PLPL : '++';
+PLUS : '+';
+DASH : '-';
+LANGLE : '<';
+RANGLE : '>';
+BANG : '!';
+AMPERSAND : '&';
+PIPE : '|';
+
+WS : [ \t\r\n]+ -> skip; // skip spaces, tabs, newlines
+NESTEDCOMMENT : '`' .*? (NESTEDCOMMENT .*?)* '\'' -> skip;
+COMMENT : '#' .*? [\r\n] -> skip;
