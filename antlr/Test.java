@@ -37,7 +37,7 @@ public class Test {
 		//Change tokens based on PA1 stuff
 		for(Token t : lex.getAllTokens()){
 			//Need conditions for variable names and type names
-			if(!firstTime){
+			if(firstTime){
 				firstTime = false;
 			}
 			else{
