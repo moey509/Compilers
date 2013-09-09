@@ -89,7 +89,6 @@ public class Test {
 	}
 	
 	static class LexerErrorListener implements ANTLRErrorListener {
-
 		@Override
 		public void reportAmbiguity(@NotNull Parser arg0, @NotNull DFA arg1,
 				int arg2, int arg3, boolean arg4, @NotNull BitSet arg5,
