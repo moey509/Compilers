@@ -8,18 +8,16 @@ import java.util.Scanner;
 
 import org.antlr.v4.runtime.ANTLRErrorListener;
 import org.antlr.v4.runtime.ANTLRFileStream;
-import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Parser;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;
-import org.antlr.v4.runtime.RuleContext;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.atn.ATNConfigSet;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.misc.Nullable;
 
-public class Test {
+public class Lexer {
 
 	static boolean lexedWithError = false;
 	/**
@@ -53,7 +51,7 @@ public class Test {
 		//Change tokens based on PA1 stuff
 		List<? extends Token> list = lex.getAllTokens();
 		if(lexedWithError){
-			System.out.println("error");
+			System.out.print("error");
 			return;
 		}
 		for(Token t : list){
@@ -113,10 +111,10 @@ public class Test {
 			return;
 		}
 		
-		private class lexException extends Exception{
-			public lexException(){ super(); }
-			
-		}
+//		private class lexException extends Exception{
+//			public lexException(){ super(); }
+//			
+//		}
 
 		@Override
 		public void syntaxError(Recognizer<?, ?> arg0, @Nullable Object arg1,
