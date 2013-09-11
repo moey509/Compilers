@@ -1,4 +1,0 @@
-class<T> Foo {
-  Bar bar ;
-  Baz baz ;
-}

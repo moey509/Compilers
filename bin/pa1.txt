@@ -1,6 +1,0 @@
-1. We did not discuss this assignment with any other group, but we did go to Lee for help in clarifying what kinds of expressions need their own separate tokens.
-2. Distribution of work: 
-  Jimmy worked on creating the Java wrapper for the lexer.
-  Ansha worked on creating the g4 files for the lexer and dummy parser.
-  Matt and Toshi worked on test cases.
-3. Additional Comments: none
