@@ -13,8 +13,11 @@ CLASS : 'class';
 SUPER : 'super';
 FUN  : 'fun';
 EXTENDS : 'extends';
-VARFUNID : [a-z] [a-zA-Z_0-9]*;
-TYPEID : [A-Z] [a-zA-Z_0-9]*;
+THING: 'Thing';
+NOTHING: 'Nothing';
+VARFUN : [a-z] [a-zA-Z_0-9]*;
+TYPE : [A-Z] [a-zA-Z_0-9]+;
+TYPEPARAM : [A-Z];
 INTEGER : [0-9]+;
 
 THROUGH : '..';

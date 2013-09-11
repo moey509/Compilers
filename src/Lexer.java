@@ -77,7 +77,9 @@ public class Lexer {
 			else if(map.get(t.getType()).equalsIgnoreCase("VARFUNID")){
 				System.out.print("name");
 			}
-			else if(map.get(t.getType()).equalsIgnoreCase("TYPEID")){
+			else if(map.get(t.getType()).equalsIgnoreCase("TYPE") || 
+					map.get(t.getType()).equalsIgnoreCase("THING") || 
+					map.get(t.getType()).equalsIgnoreCase("NOTHING")){
 				System.out.print("Name");
 			}
 			else{
