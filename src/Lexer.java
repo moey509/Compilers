@@ -26,15 +26,15 @@ public class Lexer {
 	 */
 	public static void main(String[] args) throws IOException {
 		// Create HashMap. ID number -> token name
-		HashMap<Integer, String> map = new HashMap<Integer, String>();
-		Scanner sc = new Scanner(new BufferedReader(new FileReader("antlr/CubexLexer.tokens")));
-		while(sc.hasNext()){
-			String s = sc.nextLine();
-			if(!s.contains("'")){
-				String[] arr = (s.split("="));
-				map.put(Integer.parseInt(arr[1]), arr[0]);
-			}
-		}
+//		HashMap<Integer, String> map = new HashMap<Integer, String>();
+//		Scanner sc = new Scanner(new BufferedReader(new FileReader("antlr/CubexLexer.tokens")));
+//		while(sc.hasNext()){
+//			String s = sc.nextLine();
+//			if(!s.contains("'")){
+//				String[] arr = (s.split("="));
+//				map.put(Integer.parseInt(arr[1]), arr[0]);
+//			}
+//		}
 		
 		//Lexing starts here
 		CubexLexer lex = new CubexLexer(new ANTLRFileStream(args[0]));
@@ -60,24 +60,24 @@ public class Lexer {
 			else{
 				System.out.print(" ");
 			}
-			if (map.get(t.getType()).equalsIgnoreCase("Integer")) {
+			if (t.getType()==19) { //Integer
 				System.out.print(0);
 			}
-			else if (map.get(t.getType()).equalsIgnoreCase("false") || map.get(t.getType()).equalsIgnoreCase("true")){
+			else if (t.getType()==7|| t.getType()==6){ //true false
 				System.out.print("true");
 			}
-			else if(map.get(t.getType()).equalsIgnoreCase("String")){
+			else if(t.getType()==1){ //String
 				System.out.print("\"\"");
 			}
-			else if(map.get(t.getType()).equalsIgnoreCase("Comment") || map.get(t.getType()).equalsIgnoreCase("NestedComment") || map.get(t.getType()).equalsIgnoreCase("WS")){
+			else if(t.getType()==55|| t.getType()==54|| t.getType()==53){
 				System.out.print("");
 			}
-			else if(map.get(t.getType()).equalsIgnoreCase("VARFUNID")){
+			else if(t.getType()==16){ //varfun
 				System.out.print("name");
 			}
-			else if(map.get(t.getType()).equalsIgnoreCase("TYPE") || 
-					map.get(t.getType()).equalsIgnoreCase("THING") || 
-					map.get(t.getType()).equalsIgnoreCase("NOTHING")){
+			else if(t.getType()==17 ||  //type
+					t.getType()==14||  //thing
+					t.getType()==15){ //nothing
 				System.out.print("Name");
 			}
 			else{
