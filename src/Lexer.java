@@ -25,17 +25,6 @@ public class Lexer {
 	 * @throws IOException 
 	 */
 	public static void main(String[] args) throws IOException {
-		// Create HashMap. ID number -> token name
-//		HashMap<Integer, String> map = new HashMap<Integer, String>();
-//		Scanner sc = new Scanner(new BufferedReader(new FileReader("antlr/CubexLexer.tokens")));
-//		while(sc.hasNext()){
-//			String s = sc.nextLine();
-//			if(!s.contains("'")){
-//				String[] arr = (s.split("="));
-//				map.put(Integer.parseInt(arr[1]), arr[0]);
-//			}
-//		}
-		
 		//Lexing starts here
 		CubexLexer lex = new CubexLexer(new ANTLRFileStream(args[0]));
 
@@ -60,24 +49,21 @@ public class Lexer {
 			else{
 				System.out.print(" ");
 			}
-			if (t.getType()==19) { //Integer
+			if (t.getType()==CubexLexer.INTEGER) { //Integer
 				System.out.print(0);
 			}
-			else if (t.getType()==7|| t.getType()==6){ //true false
+			else if (t.getType()==CubexLexer.TRUE|| t.getType()==CubexLexer.FALSE){ //true false
 				System.out.print("true");
 			}
-			else if(t.getType()==1){ //String
+			else if(t.getType()==CubexLexer.STRING){ //String
 				System.out.print("\"\"");
 			}
-			else if(t.getType()==55|| t.getType()==54|| t.getType()==53){
-				System.out.print("");
-			}
-			else if(t.getType()==16){ //varfun
+			else if(t.getType()==CubexLexer.VARFUN){ //varfun
 				System.out.print("name");
 			}
-			else if(t.getType()==17 ||  //type
-					t.getType()==14||  //thing
-					t.getType()==15){ //nothing
+			else if(t.getType()==CubexLexer.TYPE ||  //type
+					t.getType()==CubexLexer.THING||  //thing
+					t.getType()==CubexLexer.NOTHING){ //nothing
 				System.out.print("Name");
 			}
 			else{
