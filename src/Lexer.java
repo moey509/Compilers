@@ -38,10 +38,7 @@ public class Lexer {
 		
 		//Lexing starts here
 		CubexLexer lex = new CubexLexer(new ANTLRFileStream(args[0]));
-//		if(lex.hasErred){ //Doesn't do anything right now
-//			System.out.println("error");
-//			return;
-//		}
+
 		lex.removeErrorListeners();
 		
 		LexerErrorListener listener = new LexerErrorListener();
@@ -54,6 +51,7 @@ public class Lexer {
 			System.out.print("error");
 			return;
 		}
+		
 		for(Token t : list){
 			//Need conditions for variable names and type names
 			if(firstTime){

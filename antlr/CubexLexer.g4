@@ -1,6 +1,6 @@
 lexer grammar CubexLexer;
 
-STRING : '"' [^\t\r\n]*? '"';
+STRING : '"' ~[\t\r\n]*? '"';
 RETURN : 'return';
 WHILE : 'while';
 IF : 'if';
@@ -55,5 +55,5 @@ AMPERSAND : '&';
 PIPE : '|';
 
 WS : [ \t\r\n]+ -> skip; // skip spaces, tabs, newlines
-NESTEDCOMMENT : '`' [^`]*? (NESTEDCOMMENT [^`]*?)* '\'' -> skip;
+NESTEDCOMMENT : '`' ~[`]*? (NESTEDCOMMENT ~[`]*?)* '\'' -> skip;
 COMMENT : '#' .*? [\r\n] -> skip;
