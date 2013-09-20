@@ -8,6 +8,7 @@ ELSE : 'else';
 TRUE : 'true';
 FALSE : 'false';
 FOR : 'for';
+IN: 'in';
 INTERFACE : 'interface';
 CLASS : 'class';
 SUPER : 'super';

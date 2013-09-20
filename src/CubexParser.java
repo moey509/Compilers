@@ -14,22 +14,22 @@ public class CubexParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		CLASS=10, STAR=42, WHILE=3, LL=24, ONW=21, LANGLE=48, LBRACE=40, THING=14, 
-		FOR=8, LDOTDOT=25, DOTL=23, LPAREN=36, TYPE=17, IF=4, LBRACKET=31, RPAREN=37, 
-		SLASH=43, COMMA=38, EQUAL=35, RETURN=2, NOTHING=15, PIPE=52, GET=34, PLUS=46, 
-		TYPEPARAM=18, SUPER=11, GEQ=27, RANGLE=49, RBRACKET=32, COMMENT=55, DOT=30, 
-		LDOT=22, EQEQ=28, INTEGER=19, PLPL=45, RBRACE=41, PERCENT=44, DASH=47, 
-		ELSE=5, AMPERSAND=51, BANG=50, SEMICOLON=39, TRUE=6, COLON=33, WS=53, 
-		NEQ=29, THROUGH=20, INTERFACE=9, VARFUN=16, FUN=12, FALSE=7, EXTENDS=13, 
-		NESTEDCOMMENT=54, STRING=1, LEQ=26;
+		CLASS=11, STAR=43, WHILE=3, ONW=22, LL=25, LANGLE=49, LBRACE=41, THING=15, 
+		FOR=8, LDOTDOT=26, DOTL=24, LPAREN=37, TYPE=18, IF=4, LBRACKET=32, RPAREN=38, 
+		SLASH=44, IN=9, COMMA=39, EQUAL=36, RETURN=2, NOTHING=16, PIPE=53, GET=35, 
+		PLUS=47, TYPEPARAM=19, SUPER=12, GEQ=28, RANGLE=50, RBRACKET=33, COMMENT=56, 
+		DOT=31, LDOT=23, EQEQ=29, INTEGER=20, PLPL=46, RBRACE=42, PERCENT=45, 
+		DASH=48, ELSE=5, AMPERSAND=52, BANG=51, SEMICOLON=40, TRUE=6, COLON=34, 
+		WS=54, NEQ=30, THROUGH=21, INTERFACE=10, VARFUN=17, FUN=13, FALSE=7, EXTENDS=14, 
+		NESTEDCOMMENT=55, STRING=1, LEQ=27;
 	public static final String[] tokenNames = {
 		"<INVALID>", "STRING", "'return'", "'while'", "'if'", "'else'", "'true'", 
-		"'false'", "'for'", "'interface'", "'class'", "'super'", "'fun'", "'extends'", 
-		"'Thing'", "'Nothing'", "VARFUN", "TYPE", "TYPEPARAM", "INTEGER", "'..'", 
-		"'...'", "'<.'", "'.<'", "'<<'", "'<..'", "'<='", "'>='", "'=='", "'!='", 
-		"'.'", "'['", "']'", "':'", "':='", "'='", "'('", "')'", "','", "';'", 
-		"'{'", "'}'", "'*'", "'/'", "'%'", "'++'", "'+'", "'-'", "'<'", "'>'", 
-		"'!'", "'&'", "'|'", "WS", "NESTEDCOMMENT", "COMMENT"
+		"'false'", "'for'", "'in'", "'interface'", "'class'", "'super'", "'fun'", 
+		"'extends'", "'Thing'", "'Nothing'", "VARFUN", "TYPE", "TYPEPARAM", "INTEGER", 
+		"'..'", "'...'", "'<.'", "'.<'", "'<<'", "'<..'", "'<='", "'>='", "'=='", 
+		"'!='", "'.'", "'['", "']'", "':'", "':='", "'='", "'('", "')'", "','", 
+		"';'", "'{'", "'}'", "'*'", "'/'", "'%'", "'++'", "'+'", "'-'", "'<'", 
+		"'>'", "'!'", "'&'", "'|'", "WS", "NESTEDCOMMENT", "COMMENT"
 	};
 	public static final int
 		RULE_file = 0;
@@ -67,11 +67,11 @@ public class CubexParser extends Parser {
 		public TerminalNode PERCENT(int i) {
 			return getToken(CubexParser.PERCENT, i);
 		}
-		public TerminalNode DASH(int i) {
-			return getToken(CubexParser.DASH, i);
-		}
 		public TerminalNode AMPERSAND(int i) {
 			return getToken(CubexParser.AMPERSAND, i);
+		}
+		public TerminalNode DASH(int i) {
+			return getToken(CubexParser.DASH, i);
 		}
 		public TerminalNode TYPE(int i) {
 			return getToken(CubexParser.TYPE, i);
@@ -123,6 +123,7 @@ public class CubexParser extends Parser {
 		public List<TerminalNode> PLPL() { return getTokens(CubexParser.PLPL); }
 		public List<TerminalNode> LDOT() { return getTokens(CubexParser.LDOT); }
 		public List<TerminalNode> CLASS() { return getTokens(CubexParser.CLASS); }
+		public List<TerminalNode> IN() { return getTokens(CubexParser.IN); }
 		public TerminalNode SLASH(int i) {
 			return getToken(CubexParser.SLASH, i);
 		}
@@ -172,8 +173,11 @@ public class CubexParser extends Parser {
 		public TerminalNode TRUE(int i) {
 			return getToken(CubexParser.TRUE, i);
 		}
-		public List<TerminalNode> IF() { return getTokens(CubexParser.IF); }
 		public List<TerminalNode> AMPERSAND() { return getTokens(CubexParser.AMPERSAND); }
+		public List<TerminalNode> IF() { return getTokens(CubexParser.IF); }
+		public TerminalNode IN(int i) {
+			return getToken(CubexParser.IN, i);
+		}
 		public TerminalNode EQUAL(int i) {
 			return getToken(CubexParser.EQUAL, i);
 		}
@@ -266,12 +270,12 @@ public class CubexParser extends Parser {
 			setState(5);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << STRING) | (1L << RETURN) | (1L << WHILE) | (1L << IF) | (1L << ELSE) | (1L << TRUE) | (1L << FALSE) | (1L << FOR) | (1L << INTERFACE) | (1L << CLASS) | (1L << SUPER) | (1L << FUN) | (1L << EXTENDS) | (1L << VARFUN) | (1L << TYPE) | (1L << INTEGER) | (1L << THROUGH) | (1L << ONW) | (1L << LDOT) | (1L << DOTL) | (1L << LL) | (1L << LDOTDOT) | (1L << LEQ) | (1L << GEQ) | (1L << EQEQ) | (1L << NEQ) | (1L << DOT) | (1L << LBRACKET) | (1L << RBRACKET) | (1L << COLON) | (1L << GET) | (1L << EQUAL) | (1L << LPAREN) | (1L << RPAREN) | (1L << COMMA) | (1L << SEMICOLON) | (1L << LBRACE) | (1L << RBRACE) | (1L << STAR) | (1L << SLASH) | (1L << PERCENT) | (1L << PLPL) | (1L << PLUS) | (1L << DASH) | (1L << LANGLE) | (1L << RANGLE) | (1L << BANG) | (1L << AMPERSAND) | (1L << PIPE))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << STRING) | (1L << RETURN) | (1L << WHILE) | (1L << IF) | (1L << ELSE) | (1L << TRUE) | (1L << FALSE) | (1L << FOR) | (1L << IN) | (1L << INTERFACE) | (1L << CLASS) | (1L << SUPER) | (1L << FUN) | (1L << EXTENDS) | (1L << VARFUN) | (1L << TYPE) | (1L << INTEGER) | (1L << THROUGH) | (1L << ONW) | (1L << LDOT) | (1L << DOTL) | (1L << LL) | (1L << LDOTDOT) | (1L << LEQ) | (1L << GEQ) | (1L << EQEQ) | (1L << NEQ) | (1L << DOT) | (1L << LBRACKET) | (1L << RBRACKET) | (1L << COLON) | (1L << GET) | (1L << EQUAL) | (1L << LPAREN) | (1L << RPAREN) | (1L << COMMA) | (1L << SEMICOLON) | (1L << LBRACE) | (1L << RBRACE) | (1L << STAR) | (1L << SLASH) | (1L << PERCENT) | (1L << PLPL) | (1L << PLUS) | (1L << DASH) | (1L << LANGLE) | (1L << RANGLE) | (1L << BANG) | (1L << AMPERSAND) | (1L << PIPE))) != 0)) {
 				{
 				{
 				setState(2);
 				_la = _input.LA(1);
-				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << STRING) | (1L << RETURN) | (1L << WHILE) | (1L << IF) | (1L << ELSE) | (1L << TRUE) | (1L << FALSE) | (1L << FOR) | (1L << INTERFACE) | (1L << CLASS) | (1L << SUPER) | (1L << FUN) | (1L << EXTENDS) | (1L << VARFUN) | (1L << TYPE) | (1L << INTEGER) | (1L << THROUGH) | (1L << ONW) | (1L << LDOT) | (1L << DOTL) | (1L << LL) | (1L << LDOTDOT) | (1L << LEQ) | (1L << GEQ) | (1L << EQEQ) | (1L << NEQ) | (1L << DOT) | (1L << LBRACKET) | (1L << RBRACKET) | (1L << COLON) | (1L << GET) | (1L << EQUAL) | (1L << LPAREN) | (1L << RPAREN) | (1L << COMMA) | (1L << SEMICOLON) | (1L << LBRACE) | (1L << RBRACE) | (1L << STAR) | (1L << SLASH) | (1L << PERCENT) | (1L << PLPL) | (1L << PLUS) | (1L << DASH) | (1L << LANGLE) | (1L << RANGLE) | (1L << BANG) | (1L << AMPERSAND) | (1L << PIPE))) != 0)) ) {
+				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << STRING) | (1L << RETURN) | (1L << WHILE) | (1L << IF) | (1L << ELSE) | (1L << TRUE) | (1L << FALSE) | (1L << FOR) | (1L << IN) | (1L << INTERFACE) | (1L << CLASS) | (1L << SUPER) | (1L << FUN) | (1L << EXTENDS) | (1L << VARFUN) | (1L << TYPE) | (1L << INTEGER) | (1L << THROUGH) | (1L << ONW) | (1L << LDOT) | (1L << DOTL) | (1L << LL) | (1L << LDOTDOT) | (1L << LEQ) | (1L << GEQ) | (1L << EQEQ) | (1L << NEQ) | (1L << DOT) | (1L << LBRACKET) | (1L << RBRACKET) | (1L << COLON) | (1L << GET) | (1L << EQUAL) | (1L << LPAREN) | (1L << RPAREN) | (1L << COMMA) | (1L << SEMICOLON) | (1L << LBRACE) | (1L << RBRACE) | (1L << STAR) | (1L << SLASH) | (1L << PERCENT) | (1L << PLPL) | (1L << PLUS) | (1L << DASH) | (1L << LANGLE) | (1L << RANGLE) | (1L << BANG) | (1L << AMPERSAND) | (1L << PIPE))) != 0)) ) {
 				_errHandler.recoverInline(this);
 				}
 				consume();
@@ -295,8 +299,8 @@ public class CubexParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\uacf5\uee8c\u4f5d\u8b0d\u4a45\u78bd\u1b2f\u3378\39\13\4\2\t\2\3\2\7"+
-		"\2\6\n\2\f\2\16\2\t\13\2\3\2\2\3\2\2\3\5\2\3\17\22\23\25\66\n\2\7\3\2"+
+		"\3\uacf5\uee8c\u4f5d\u8b0d\u4a45\u78bd\u1b2f\u3378\3:\13\4\2\t\2\3\2\7"+
+		"\2\6\n\2\f\2\16\2\t\13\2\3\2\2\3\2\2\3\5\2\3\20\23\24\26\67\n\2\7\3\2"+
 		"\2\2\4\6\t\2\2\2\5\4\3\2\2\2\6\t\3\2\2\2\7\5\3\2\2\2\7\b\3\2\2\2\b\3\3"+
 		"\2\2\2\t\7\3\2\2\2\3\7";
 	public static final ATN _ATN =
