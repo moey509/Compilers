@@ -1,5 +1,3 @@
-package src;
-
 // Generated from CubexParser.g4 by ANTLR 4.1
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
