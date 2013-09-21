@@ -8,6 +8,12 @@ type returns [CubexType cub]
 	|
 	|
 
+iface returns [CubexInterface cub]
+	: INTERFACE name=(VARFUN | TYPE) LANGLE kcon=*bigtheta* RANGLE  EXTENDS t=type LBRACE *listfunctions* RBRACE
+
+class returns [CubexClass cub] 
+	: CLASS name=(VARFUN | TYPE) LANGLE kcon=*bigtheta* RANGLE LPAREN tcon=*RO* RPAREN EXTENDS t=type LBRACE *weird things* RBRACE
+
 expr returns [CubexExpression cub]
 	: VARFUN { $cub = new CubexVariable($VARFUN.text) }
 	| name=(VARFUN | TYPE) LANGLE tes=exprs RANGLE LPAREN pes=exprs RPAREN { $cub = new CubexFunctionCall($name.text, $tes.cub, $pes.cub) }
@@ -57,6 +63,8 @@ expr returns [CubexExpression cub]
 		         ? new CubexOnwards($l.cub, true)
 				 : new CubexOnwards($l.cub, false)}
 exprs returns [List<CubexExpression> cub]
+
+
 	
 statement returns [CubexExpression cub]
   : LBRACE statement (statement)* RBRACE
