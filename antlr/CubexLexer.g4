@@ -17,7 +17,7 @@ EXTENDS : 'extends';
 THING: 'Thing';
 NOTHING: 'Nothing';
 VARFUN : [a-z] [a-zA-Z_0-9]*;
-TYPE : [A-Z] [a-zA-Z_0-9]+;
+CLASSID : [A-Z] [a-zA-Z_0-9]+;
 TYPEPARAM : [A-Z];
 INTEGER : [0-9]+;
 
