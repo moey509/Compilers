@@ -90,9 +90,9 @@ exprs returns [List<CubexExpression> cub] : { $cub = new ArrayList<CubexExpressi
                                         	)?
 ;
 
-fun
-    : FUN VARFUN t=tscheme s=statement? {$cub = new CubexFun($VARFUN.text, $t.cub, $s.cub)}
-;
+func
+    : FUN VARFUN t=tscheme s=statement?
+    ;
 
 statement
     : LBRACE statement* RBRACE
@@ -104,17 +104,17 @@ statement
 ;
 
 iface
-	: INTERFACE name=(VARFUN | TYPE) LANGLE kcont RANGLE (EXTENDS type)? LBRACE fun* RBRACE
+	: INTERFACE name=(VARFUN | TYPE) LANGLE kcont RANGLE (EXTENDS type)? LBRACE func* RBRACE
 ;
 
 class
-	: CLASS (VARFUN | TYPE) (LANGLE kcont RANGLE)? LPAREN tcont RPAREN (EXTENDS type)? LBRACE statement* (SUPER LPAREN expr* RPAREN SEMICOLON)? fun* VARFUN tscheme statement?)* RBRACE
+	: CLASS (VARFUN | TYPE) (LANGLE kcont RANGLE)? LPAREN tcont RPAREN (EXTENDS type)? LBRACE statement* (SUPER LPAREN expr* RPAREN SEMICOLON)? func* VARFUN tscheme statement?)* RBRACE
 ;
 	
 program
     : statement
     | statement+ program
-    | fun+ CLASSID tscheme statement)+ program
+    | func+ CLASSID tscheme statement)+ program
     | iface program
     | class program
 ;
