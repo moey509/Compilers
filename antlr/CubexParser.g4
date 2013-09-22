@@ -1,38 +1,32 @@
 parser grammar CubexParser;
 options { tokenVocab = CubexLexer; }
 
-kcont returns [List<CubexType> cub] : { $cub = new ArrayList<CubexType>(); }
-                                        (t=TYPEPARAM { $cub.add(CubexType.getTypeParam($t.text)); }
-                                         (COMMA t=TYPEPARAM { $cub.add(CubexType.getTypeParam($t.text)); })*
-                                        )?
-;
-ttuple returns [CubexTypeTuple cub] : VARFUN COLON t=type { $cub = new CubexTypeTuple($VARFUN.text, $t.cub) }
+kcont 
+	: (t=TYPEPARAM (COMMA t=TYPEPARAM)*)?
 ;
 
-tcont returns [List<CubexTypeTuple> cub] : { $cub = new ArrayList<CubexTypeTuple>(); }
-                                        (t=ttuple { $cub.add($t.cub); }
-                                         (COMMA t=ttuple { $cub.add($t.cub); })*
-                                        )?
+ttuple 
+	: VARFUN COLON type 
 ;
 
-type returns [CubexType cub]
-	: TYPEPARAM { $cub = CubexType.getTypeParam($TYPEPARAM.text); }
-	| CLASSID t=types { $cub = CubexType.getTypeDeclaration($t.cub); }
-	| t1=type AMPERSAND t2=type { $cub = CubexType.getIntersection($t1.cub, $t2.cub)}
-	| THING { $cub = CubexType.getThing() }
-	| NOTHING { $cub = CubexType.getNothing() }
+tcont 
+	: (t=ttuple (COMMA t=ttuple)*)?
 ;
 
-types returns [List<CubexType> cub] : { $cub = new ArrayList<CubexType>(); }
-                                        (t=type { $cub.add($t.cub); }
-                                         (COMMA t=type { $cub.add($t.cub); })*
-                                        )?
+type
+	: TYPEPARAM
+	| CLASSID types
+	| type AMPERSAND type
+	| THING
+	| NOTHING
 ;
 
-tscheme returns [CubexTypeScheme cub] 
-	: (LANGLE kcont RANGLE)? LPAREN tcont RPAREN COLON type { 
-		$cub = kcont == null ? new CubexTypeScheme(null, $tcont.cub, $type.cub) 
-							 : new CubexTypeScheme($kcont.cub, $tcont.cub, $type.cub)}
+types 
+	: (t=type (COMMA t=type)*)?
+;
+
+tscheme
+	: (LANGLE kcont RANGLE)? LPAREN tcont RPAREN COLON type
 ;
 
 expr returns [CubexExpression cub]
