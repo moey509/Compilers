@@ -12,13 +12,13 @@ public class CubexFunctionCall extends CubexExpression {
 	protected CubexType calculateType(CubexContext context) throws NoSuchTypeException {
 		CubexFunction function = context.getFunction(mName);
 		if (function == null)
-			throw new NoSuchTypeException();
+			throw new NoSuchTypeException("Error in CubexFunctionCall");
 		List<CubexType> types = new ArrayList<CubexType>(mArguments.size());
 		for (CubexExpression arg : mArguments)
 			types.add(arg.getType(context));
 		Collection<? extends CubexType> returns = function.getTypes(types);
 		if (returns.size() != 1)
-			throw new NoSuchTypeException();
+			throw new NoSuchTypeException("Error in CubexFunctionCall");
 		return returns.iterator().next();
 	}
 }

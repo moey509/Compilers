@@ -4,7 +4,7 @@ public class CubexNegative extends CubexUnaryExpression {
 	}
 	protected CubexType calculateType(CubexType arg) throws NoSuchTypeException {
 		if (!arg.isInt())
-			throw new NoSuchTypeException();
+			throw new NoSuchTypeException("Error in CubexNegative");
 		return CubexType.getInt();
 	}
 }

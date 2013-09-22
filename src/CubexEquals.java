@@ -4,7 +4,7 @@ public class CubexEquals extends CubexBinaryExpression {
 	}
 	protected CubexType calculateType(CubexType left, CubexType right) throws NoSuchTypeException {
 		if (!left.equals(right))
-			throw new NoSuchTypeException();
+			throw new NoSuchTypeException("Error in CubexEquals");
 		return CubexType.getBool();
 	}
 }

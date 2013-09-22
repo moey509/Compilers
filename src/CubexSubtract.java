@@ -4,7 +4,7 @@ public class CubexSubtract extends CubexBinaryExpression {
 	}
 	protected CubexType calculateType(CubexType left, CubexType right) throws NoSuchTypeException {
 		if (!left.isInt() || !right.isInt())
-			throw new NoSuchTypeException();
+			throw new NoSuchTypeException("Error in CubexSubtract");
 		return CubexType.getInt();
 	}
 }
