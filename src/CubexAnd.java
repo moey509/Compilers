@@ -2,9 +2,8 @@ public class CubexAnd extends CubexBinaryExpression {
 	public CubexAnd(CubexExpression left, CubexExpression right) {
 		super(left, right);
 	}
-	protected CubexType calculateType(CubexType left, CubexType right) throws NoSuchTypeException {
-		if (!left.isBool() || !right.isBool())
-			throw new NoSuchTypeException("Error in CubexAnd");
-		return CubexType.getBool();
+	
+	public String toString(){
+		return getmLeft().toString() + " . and < > ( " + getmRight().toString() + " )";
 	}
 }

@@ -2,9 +2,7 @@ public class CubexLessStrict extends CubexBinaryExpression {
 	public CubexLessStrict(CubexExpression left, CubexExpression right) {
 		super(left, right);
 	}
-	protected CubexType calculateType(CubexType left, CubexType right) throws NoSuchTypeException {
-		if (!left.isInt() || !right.isInt())
-			throw new NoSuchTypeException("Error in CubexLessStrict");
-		return CubexType.getBool();
+	public String toString(){
+		return getmLeft().toString() + " . lessThan < > ( " + getmRight().toString() + " , true )";
 	}
 }

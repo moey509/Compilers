@@ -1,10 +1,12 @@
-public abstract class CubexUnaryExpression extends CubexExpression {
+public class CubexUnaryExpression extends CubexExpression {
 	private CubexExpression mArgument;
 	public CubexUnaryExpression(CubexExpression arg) {
-		mArgument = arg;
+		setmArgument(arg);
 	}
-	protected CubexType calculateType(CubexContext context) throws NoSuchTypeException {
-		return calculateType(mArgument.getType(context));
+	public CubexExpression getmArgument() {
+		return mArgument;
 	}
-	protected abstract CubexType calculateType(CubexType arg) throws NoSuchTypeException;
+	public void setmArgument(CubexExpression mArgument) {
+		this.mArgument = mArgument;
+	}
 }
