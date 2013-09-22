@@ -1,18 +1,39 @@
 parser grammar CubexParser;
 options { tokenVocab = CubexLexer; }
 
+kcont returns [List<CubexType> cub] : { $cub = new ArrayList<CubexType>(); }
+                                        (t=TYPEPARAM { $cub.add(CubexType.getTypeParam($t.text)); }
+                                         (COMMA t=TYPEPARAM { $cub.add(CubexType.getTypeParam($t.text)); })*
+                                        )?
+;
+ttuple returns [CubexTypeTuple cub] : VARFUN COLON t=type { $cub = new CubexTypeTuple($VARFUN.text, $t.cub) }
+;
+
+tcont returns [List<CubexTypeTuple> cub] : { $cub = new ArrayList<CubexTypeTuple>(); }
+                                        (t=ttuple { $cub.add($t.cub); }
+                                         (COMMA t=ttuple { $cub.add($t.cub); })*
+                                        )?
+;
+
 type returns [CubexType cub]
-	: TYPEPARAM { 
-	| TYPE
-	|
-	|
-	|
+	: TYPEPARAM { $cub = CubexType.getTypeParam($TYPEPARAM.text); }
+	| CLASSID t=types { $cub = CubexType.getTypeDeclaration($t.cub); }
+	| t1=type AMPERSAND t2=type { $cub = CubexType.getIntersection($t1.cub, $t2.cub)}
+	| THING { $cub = CubexType.getThing() }
+	| NOTHING { $cub = CubexType.getNothing() }
+;
 
-iface returns [CubexInterface cub]
-	: INTERFACE name=(VARFUN | TYPE) LANGLE kcon=*bigtheta* RANGLE  EXTENDS t=type LBRACE *listfunctions* RBRACE
+types returns [List<CubexType> cub] : { $cub = new ArrayList<CubexType>(); }
+                                        (t=type { $cub.add($t.cub); }
+                                         (COMMA t=type { $cub.add($t.cub); })*
+                                        )?
+;
 
-class returns [CubexClass cub] 
-	: CLASS name=(VARFUN | TYPE) LANGLE kcon=*bigtheta* RANGLE LPAREN tcon=*RO* RPAREN EXTENDS t=type LBRACE *weird things* RBRACE
+tscheme returns [CubexTypeScheme cub] 
+	: (LANGLE kcont RANGLE)? LPAREN tcont RPAREN COLON type { 
+		$cub = kcont == null ? new CubexTypeScheme(null, $tcont.cub, $type.cub) 
+							 : new CubexTypeScheme($kcont.cub, $tcont.cub, $type.cub)}
+;
 
 expr returns [CubexExpression cub]
 	: VARFUN { $cub = new CubexVariable($VARFUN.text) }
@@ -62,14 +83,38 @@ expr returns [CubexExpression cub]
 		{ $cub = $op.type == ONW
 		         ? new CubexOnwards($l.cub, true)
 				 : new CubexOnwards($l.cub, false)}
-exprs returns [List<CubexExpression> cub]
+;
+exprs returns [List<CubexExpression> cub] : { $cub = new ArrayList<CubexExpression>(); }
+                                        	(e=expr { $cub.add($e.cub); }
+                                        	(COMMA e=expr { $cub.add($e.cub); })*
+                                        	)?
+;
 
+fun
+    : FUN VARFUN t=tscheme s=statement? {$cub = new CubexFun($VARFUN.text, $t.cub, $s.cub)}
+;
 
+statement
+    : LBRACE statement* RBRACE
+    | CLASSID GET expr SEMICOLON
+    | IF LPAREN expr RPAREN statement (ELSE statement)?
+    | WHILE LPAREN expr RPAREN statement
+    | FOR LPAREN VARFUN IN expr RPAREN statement
+    | (RETURN| EQUAL) expr
+;
+
+iface
+	: INTERFACE name=(VARFUN | TYPE) LANGLE kcont RANGLE (EXTENDS type)? LBRACE fun* RBRACE
+;
+
+class
+	: CLASS (VARFUN | TYPE) (LANGLE kcont RANGLE)? LPAREN tcont RPAREN (EXTENDS type)? LBRACE statement* (SUPER LPAREN expr* RPAREN SEMICOLON)? fun* VARFUN tscheme statement?)* RBRACE
+;
 	
-statement returns [CubexExpression cub]
-  : LBRACE statement (statement)* RBRACE
-  | CLASSID GET expr SEMICOLON
-  | IF LPAREN expr RPAREN statement ELSE statement
-  | WHILE LPAREN expr RPAREN statement
-  | FOR LPAREN VARFUN IN expr RPAREN statement
-  | RETURN expr;
+program
+    : statement
+    | statement+ program
+    | fun+ CLASSID tscheme statement)+ program
+    | iface program
+    | class program
+;
