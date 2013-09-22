@@ -16,7 +16,7 @@ public class CubexLexer extends Lexer {
 	public static final int
 		STRING=1, RETURN=2, WHILE=3, IF=4, ELSE=5, TRUE=6, FALSE=7, FOR=8, IN=9, 
 		INTERFACE=10, CLASS=11, SUPER=12, FUN=13, EXTENDS=14, THING=15, NOTHING=16, 
-		VARFUN=17, TYPE=18, TYPEPARAM=19, INTEGER=20, THROUGH=21, ONW=22, LDOT=23, 
+		VARFUN=17, CLASSID=18, TYPEPARAM=19, INTEGER=20, THROUGH=21, ONW=22, LDOT=23, 
 		DOTL=24, LL=25, LDOTDOT=26, LEQ=27, GEQ=28, EQEQ=29, NEQ=30, DOT=31, LBRACKET=32, 
 		RBRACKET=33, COLON=34, GET=35, EQUAL=36, LPAREN=37, RPAREN=38, COMMA=39, 
 		SEMICOLON=40, LBRACE=41, RBRACE=42, STAR=43, SLASH=44, PERCENT=45, PLPL=46, 
@@ -30,7 +30,7 @@ public class CubexLexer extends Lexer {
 		"<INVALID>",
 		"STRING", "'return'", "'while'", "'if'", "'else'", "'true'", "'false'", 
 		"'for'", "'in'", "'interface'", "'class'", "'super'", "'fun'", "'extends'", 
-		"'Thing'", "'Nothing'", "VARFUN", "TYPE", "TYPEPARAM", "INTEGER", "'..'", 
+		"'Thing'", "'Nothing'", "VARFUN", "CLASSID", "TYPEPARAM", "INTEGER", "'..'", 
 		"'...'", "'<.'", "'.<'", "'<<'", "'<..'", "'<='", "'>='", "'=='", "'!='", 
 		"'.'", "'['", "']'", "':'", "':='", "'='", "'('", "')'", "','", "';'", 
 		"'{'", "'}'", "'*'", "'/'", "'%'", "'++'", "'+'", "'-'", "'<'", "'>'", 
@@ -39,7 +39,7 @@ public class CubexLexer extends Lexer {
 	public static final String[] ruleNames = {
 		"STRING", "RETURN", "WHILE", "IF", "ELSE", "TRUE", "FALSE", "FOR", "IN", 
 		"INTERFACE", "CLASS", "SUPER", "FUN", "EXTENDS", "THING", "NOTHING", "VARFUN", 
-		"TYPE", "TYPEPARAM", "INTEGER", "THROUGH", "ONW", "LDOT", "DOTL", "LL", 
+		"CLASSID", "TYPEPARAM", "INTEGER", "THROUGH", "ONW", "LDOT", "DOTL", "LL", 
 		"LDOTDOT", "LEQ", "GEQ", "EQEQ", "NEQ", "DOT", "LBRACKET", "RBRACKET", 
 		"COLON", "GET", "EQUAL", "LPAREN", "RPAREN", "COMMA", "SEMICOLON", "LBRACE", 
 		"RBRACE", "STAR", "SLASH", "PERCENT", "PLPL", "PLUS", "DASH", "LANGLE", 
