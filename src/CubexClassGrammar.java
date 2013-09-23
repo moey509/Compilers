@@ -36,7 +36,7 @@ public class CubexClassGrammar {
 		build.append(expressions.toString());
 		build.append(" ) ; ");
 		build.append(functions.toString());
-		build.append(" } ");
+		build.append(" }");
 		
 		return build.toString();
 	}

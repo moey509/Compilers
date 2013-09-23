@@ -1,4 +1,3 @@
-
 public class CubexTypeName implements CubexTypeGrammar{
 	private String name;
 	

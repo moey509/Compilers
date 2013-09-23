@@ -15,7 +15,7 @@ public final class CubexIf implements CubexStatement {
 		if (s2 != null) {
 			temp += " " + s2.toString();
 		}
-		return "if (" + e.toString() + ") " + s1.toString() + temp;
+		return "if ( " + e.toString() + " ) " + s1.toString() + temp;
 	}
 
 }

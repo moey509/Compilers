@@ -8,6 +8,6 @@ public final class CubexBind implements CubexStatement {
 	}
 
 	public String toString() {
-		return classid + ":=" + e.toString();
+		return classid + " := " + e.toString();
 	}
 }
