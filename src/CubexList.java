@@ -22,7 +22,7 @@ public class CubexList<T> implements CubexStatement {
 				firstTime = false;
 			}
 			else{
-				if (separator.equals(" ")) {
+				if (separator.equals(" ") || separator.equals("")) {
 					sb.append(separator);
 				}
 				else {

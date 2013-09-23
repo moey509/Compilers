@@ -1,0 +1,1 @@
+interface MyInterface < Integer , String , Character > extends Boolean < > & Boolean < >  { } class myClass < > ( zardoz : Zardoz < > , hello : Hello < > ) extends Nothing < > { }  
