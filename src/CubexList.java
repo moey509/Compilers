@@ -18,19 +18,18 @@ public class CubexList<T> implements CubexStatement {
 		boolean firstTime = true;
 
 		for (T s : contextCollection){
-			sb.append(s.toString());
-
 			if(firstTime){
 				firstTime = false;
 			}
 			else{
-				if (separator.equals(" ")) {
+				if (separator.equals(" ") || separator.equals("")) {
 					sb.append(separator);
 				}
 				else {
 					sb.append(" " + separator + " ");
 				}					
 			}
+			sb.append(s.toString());
 		}
 		
 		return sb.toString();

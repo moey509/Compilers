@@ -6,6 +6,6 @@ public class CubexProgramStatementList implements CubexProgramType {
 	}
 
 	public String toString() {
-		return statementList.toString();
+		return statementList.toString(" ");
 	}
 }
