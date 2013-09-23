@@ -21,22 +21,33 @@ public class CubexClassGrammar {
 	}
 	
 	public String toString() {
+		String kSpace = kindcontext.size() == 0 ? "" : " ";
+		String tSpace = typecontext.size() == 0 ? "" : " ";
+		String sSpace = statements.size() == 0 ? "" : " ";
+		String eSpace = expressions.size() == 0 ? "" : " ";
+		String fSpace = functions.size() == 0 ? "" : " ";
+		
 		StringBuilder build = new StringBuilder();
 		build.append("class ");
 		build.append(name);
 		build.append(" < ");
 		build.append(kindcontext.toString());
-		build.append(" > ( ");
+		build.append(kSpace);
+		build.append("> ( ");
 		build.append(typecontext.toString());
-		build.append(" ) extends ");
-		build.append((typecontext==null) ? "Thing" : typecontext.toString());
+		build.append(tSpace);
+		build.append(") extends ");
+		build.append((typecontext.size()==0) ? "Thing" : typecontext.toString());
 		build.append(" { ");
 		build.append(statements.toString());
-		build.append(" super ( ");
+		build.append(sSpace);
+		build.append("super ( ");
 		build.append(expressions.toString());
-		build.append(" ) ; ");
+		build.append(eSpace);
+		build.append(") ; ");
 		build.append(functions.toString());
-		build.append(" }");
+		build.append(fSpace);
+		build.append("}");
 		
 		return build.toString();
 	}

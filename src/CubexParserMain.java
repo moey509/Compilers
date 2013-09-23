@@ -48,7 +48,7 @@ public class CubexParserMain {
 			System.out.print("parser error");
 			return;
 		}
-		System.out.println(cubParser.programAST);
+		System.out.print(cubParser.programAST);
 
 	}
 	
