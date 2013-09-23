@@ -7,6 +7,16 @@
 for f in ../parser_tests/*.in
 do 
   echo "running: $f..."
-  java CubexParserMain $f
-  printf '\n'
+  
+  #java CubexParserMain $f
+#  printf '\n'
+  temp="$f"
+  len=${#f}
+  new=`expr $len - 3`
+#  echo `expr $len - 3`
+  out=${temp:0:new}
+  outFile="$out.out"
+#  echo $outFile
+  diff <(java CubexParserMain $f) $outFile
+  printf '\n\n'
 done 
