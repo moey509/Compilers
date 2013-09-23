@@ -6,6 +6,6 @@ public final class CubexListStatement implements CubexStatement {
 	}
 
 	public String toString() {
-		return "{" + cList.toString(",") + "}";
+		return "{ " + cList.toString(",") + " }";
 	}
 }

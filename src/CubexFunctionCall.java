@@ -10,6 +10,6 @@ public final class CubexFunctionCall extends CubexExpression {
 	}
 
 	public String toString() {
-		return v_vc + "<" + typeParams.toString(",") + ">" + "(" + functionParams.toString(",") + ")";
+		return v_vc + " < " + typeParams.toString(",") + " > ( " + functionParams.toString(",") + " )";
 	}
 }

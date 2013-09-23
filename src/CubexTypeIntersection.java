@@ -10,6 +10,6 @@ public class CubexTypeIntersection implements CubexTypeGrammar {
 
 	@Override
 	public String toString() {
-		return typeGrammar1.toString() + "&" + typeGrammar2.toString();
+		return typeGrammar1.toString() + " & " + typeGrammar2.toString();
 	}
 }

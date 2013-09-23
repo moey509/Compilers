@@ -10,7 +10,7 @@ public final class CubexFor implements CubexStatement {
 	}
 
 	public String toString() {
-		return "for (" + varfun + " in " + e.toString() + ") " + s.toString();
+		return "for ( " + varfun + " in " + e.toString() + " ) " + s.toString();
 	}
 }
 

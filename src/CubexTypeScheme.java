@@ -11,7 +11,7 @@ public class CubexTypeScheme {
 	}
 
 	public String toString(String separator) {
-		return "<" + kindContext.toString(separator) + ">("
-				+ typeContext.toString(separator) + ") : " + typeGrammar;
+		return "< " + kindContext.toString(separator) + " > ( "
+				+ typeContext.toString(separator) + " ) : " + typeGrammar;
 	}
 }

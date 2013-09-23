@@ -8,6 +8,6 @@ public final class CubexWhile implements CubexStatement {
 	}
 
 	public String toString() {
-		return "while (" + e.toString() + ") " + s.toString();
+		return "while ( " + e.toString() + " ) " + s.toString();
 	}
 }
