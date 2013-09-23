@@ -116,12 +116,12 @@ funcs returns [CubexList<CubexFunctionDef> cub]
 
 statement returns [CubexStatement cub]
   : LBRACE s=statementsopt RBRACE { $cub = new CubexListStatement($s.cub); }
-  | c=CLASSID GET e=expr SEMICOLON { $cub = new CubexBind($c.text, $e.cub); }
+  | c=VARFUN GET e=expr SEMICOLON { $cub = new CubexBind($c.text, $e.cub); }
   | IF LPAREN e=expr RPAREN s1=statement ELSE s2=statement { $cub = new CubexIf($e.cub, $s1.cub, $s2.cub); }
   | IF LPAREN e=expr RPAREN s1=statement { $cub = new CubexIf($e.cub, $s1.cub, null); }
   | WHILE LPAREN e=expr RPAREN s2=statement { $cub = new CubexWhile($e.cub, $s2.cub); }
   | FOR LPAREN VARFUN IN e=expr RPAREN s2=statement { $cub = new CubexFor($VARFUN.text, $e.cub, $s2.cub); }
-  | (RETURN| EQUAL) e=expr { $cub = new CubexReturn($e.cub); }
+  | (RETURN| EQUAL) e=expr SEMICOLON { $cub = new CubexReturn($e.cub); }
 ;
 
 statements returns [CubexList<CubexStatement> cub]
