@@ -65,7 +65,7 @@ expr returns [CubexExpression cub]
             : $op.type == SLASH
             ? new CubexDivide($l.cub, $r.cub)
             : new CubexMod($l.cub, $r.cub); }
-  | l=expr (PLUS | DASH) r=expr
+  | l=expr op=(PLUS | DASH) r=expr
     { $cub = $op.type == PLUS
              ? new CubexAdd($l.cub, $r.cub)
              : new CubexSubtract($l.cub, $r.cub); }
@@ -102,7 +102,8 @@ exprs returns [CubexList<CubexExpression> cub]
 ;
 
 funcoption returns [CubexFunctionDef cub]
-  : FUN VARFUN t=tscheme (s=statement | SEMICOLON) {$cub = new CubexFunctionDef($VARFUN.text, $t.cub, $s.cub);}
+  : { CubexStatement state = null; }
+    FUN VARFUN t=tscheme (s=statement {state=$s.cub;} | SEMICOLON) {$cub = new CubexFunctionDef($VARFUN.text, $t.cub, state);}
 ;
 
 func returns [CubexFunctionDef cub]
