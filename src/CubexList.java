@@ -18,8 +18,6 @@ public class CubexList<T> implements CubexStatement {
 		boolean firstTime = true;
 
 		for (T s : contextCollection){
-			sb.append(s.toString());
-
 			if(firstTime){
 				firstTime = false;
 			}
@@ -31,6 +29,7 @@ public class CubexList<T> implements CubexStatement {
 					sb.append(" " + separator + " ");
 				}					
 			}
+			sb.append(s.toString());
 		}
 		
 		return sb.toString();
