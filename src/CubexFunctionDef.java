@@ -2,12 +2,12 @@
 public class CubexFunctionDef {
 	String name;
 	CubexTypeScheme typescheme;
-	CubexList<CubexStatement> statements;
+	CubexStatement statement;
 	
-	public CubexFunctionDef(String n, CubexTypeScheme tscheme, CubexList<CubexStatement> s) {
+	public CubexFunctionDef(String n, CubexTypeScheme tscheme, CubexStatement s) {
 		name = n;
 		typescheme = tscheme;
-		statements = s;
+		statement = s;
 	}
 	
 	public String toString() {
@@ -16,9 +16,9 @@ public class CubexFunctionDef {
 		build.append(name);
 		build.append(" ");
 		build.append(typescheme.toString());
-		if (statements!=null) {
+		if (statement!=null) {
 			build.append(" ");
-			build.append(statements.toString());
+			build.append(statement.toString());
 		}
 		build.append(" ;");
 		

@@ -2,11 +2,10 @@ parser grammar CubexParser;
 options { tokenVocab = CubexLexer; }
 
 @header {
-package tools;
 import java.util.*;
 }
 @parser::members {
-  CubexProgram programAST = new CubexProgram();
+  CubexProgram programAST; 
 }
 
 kcont returns [CubexList<String> cub] : { $cub = new CubexList<String>(); }
@@ -26,33 +25,33 @@ tcont returns [CubexList<CubexTypeTuple> cub] : { $cub = new CubexList<CubexType
 
 type returns [CubexTypeGrammar cub]
   : TYPEPARAM { $cub = new CubexTypeName($TYPEPARAM.text); }
-  | CLASSID (LANGLE t=types RANGLE)? { $cub = t==null ? CubexType.getTypeDeclaration($CLASSID.text, $t.cub); 
-                                                      : CubexType.getTypeDeclaration($CLASSID.text, null);}
-  | t1=type AMPERSAND t2=type { $cub = new CubexTypeIntersection(t1, t2) }
+  | CLASSID (LANGLE t=types RANGLE)? { $cub = ($t.cub==null) ? new CubexTypeClass($CLASSID.text, $t.cub) 
+                                                      : new CubexTypeClass($CLASSID.text, null);}
+  | t1=type AMPERSAND t2=type { $cub = new CubexTypeIntersection($t1.cub, $t2.cub); }
   | THING { $cub = new CubexTypeName($THING.text); }
   | NOTHING { $cub = new CubexTypeName($NOTHING.text); }
 ;
 
-types returns [CubexList<CubexTypeGrammar> cub] : { $cub = new CubexList<cubexTypeGrammar>(); }
+types returns [CubexList<CubexTypeGrammar> cub] : { $cub = new CubexList<CubexTypeGrammar>(); }
                                         (t=type { $cub.add($t.cub); }
                                          (COMMA t=type { $cub.add($t.cub); })*
                                         )?
 ;
 
 tscheme returns [CubexTypeScheme cub] 
-  : (LANGLE kcont RANGLE)? LPAREN tcont RPAREN COLON type { 
-    $cub = kcont == null ? new CubexTypeScheme(null, $tcont.cub, $type.cub) 
+  : (LANGLE k=kcont RANGLE)? LPAREN tcont RPAREN COLON type { 
+    $cub = ($k.cub==null) ? new CubexTypeScheme(null, $tcont.cub, $type.cub) 
                : new CubexTypeScheme($kcont.cub, $tcont.cub, $type.cub);}
 ;
 
 expr returns [CubexExpression cub]
-  : VARFUN { $cub = new CubexVariable($VARFUN.text); }
+  : VARFUN { $cub = new CubexExpression($VARFUN.text); }
   | name=(VARFUN | CLASSID) (LANGLE tes=types RANGLE)? LPAREN pes=exprs RPAREN 
-    { $cub = tes == null ? new CubexFunctionCall($name.text, null, $pes.cub) 
+    { $cub = ($tes.cub == null) ? new CubexFunctionCall($name.text, null, $pes.cub) 
                          : new CubexFunctionCall($name.text, $tes.cub, $pes.cub); }
   | ex=expr DOT VARFUN (LANGLE tes=types RANGLE)? LPAREN pes=exprs RPAREN 
-    { $cub = tes == null ? new CubexFunctionCall($ex.cub, null, $pes.cub)
-                         : new CubexFunctionCall($ex.cub, $tes.cub, $pes.cub); }
+    { $cub = ($tes.cub == null) ? new CubexFunctionApp($ex.cub, $VARFUN.text, null, $pes.cub)
+                         : new CubexFunctionApp($ex.cub, $VARFUN.text, $tes.cub, $pes.cub); }
   | LBRACKET es=exprs RBRACKET {$cub = new CubexIterable($es.cub); }
   | ex=expr PLPL ex2=expr { $cub = new CubexAppend($ex.cub, $ex2.cub); }
   | TRUE { $cub = new CubexBoolean(true); }
@@ -89,15 +88,15 @@ expr returns [CubexExpression cub]
          ? new CubexThrough($l.cub, $r.cub, false, true)
          : $op.type == DOTL
          ? new CubexThrough($l.cub, $r.cub, true, false)
-         : $op.type == LL
-         ? new CubexThrough($l.cub, $r.cub, false, false);} 
+         : new CubexThrough($l.cub, $r.cub, false, false);
+    } 
   | l=expr op=(ONW | LDOTDOT)
     { $cub = $op.type == ONW
              ? new CubexOnwards($l.cub, true)
          : new CubexOnwards($l.cub, false);}
 ;
-exprs returns [CubexList cub] 
-  : { $cub = new CubexList(); }
+exprs returns [CubexList<CubexExpression> cub] 
+  : { $cub = new CubexList<CubexExpression>(); }
     (e=expr { $cub.add($e.cub); }
     (COMMA e=expr { $cub.add($e.cub); })*
     )?
@@ -112,13 +111,13 @@ func returns [CubexFunctionDef cub]
 ;
 
 funcs returns [CubexList<CubexFunctionDef> cub]
-  : { $cub = new ArrayList<CubexFunctionDef>(); }
+  : { $cub = new CubexList<CubexFunctionDef>(); }
     (f=func { $cub.add($f.cub); } )+
 ;
 
 statement returns [CubexStatement cub]
   : LBRACE s=statementsopt RBRACE { $cub = new CubexListStatement($s.cub); }
-  | CLASSID GET e=expr SEMICOLON { $cub = new CubexBind($e.cub); }
+  | c=CLASSID GET e=expr SEMICOLON { $cub = new CubexBind($c.text, $e.cub); }
   | IF LPAREN e=expr RPAREN s1=statement (ELSE s2=statement)? { $cub = new CubexIf($e.cub, $s1.cub, $s2.cub); }
   | WHILE LPAREN e=expr RPAREN s=statement { $cub = new CubexWhile($e.cub, $s.cub); }
   | FOR LPAREN VARFUN IN e=expr RPAREN s=statement { $cub = new CubexFor($VARFUN.text, $e.cub, $s.cub); }
@@ -131,7 +130,7 @@ statements returns [CubexList<CubexStatement> cub]
 ;
 
 statementsopt returns [CubexList<CubexStatement> cub]
-  : { $cub = new CubexList<CubexStatement(); }
+  : { $cub = new CubexList<CubexStatement>(); }
     (s = statement { $cub.add($s.cub); })*
 ;
 
@@ -148,11 +147,11 @@ classgrammar returns [CubexClassGrammar cub]
 ;
   
 program returns [CubexProgram cub]
-  : s=statement { $cub = new CubexProgramStatement($s.cub); }
-  | s=statements program { $cub = new CubexProgramStatementList($s.cub); }
-  | f=funcs program { $cub = new CubexProgramFunctionDefList($f.cub); }+
-  | i=iface program { $cub = new CubexProgramInterface($i.cub); }
-  | c=classgrammar program { $cub = new CubexProgramClassGrammar($c.cub); }
+  : s=statement { $cub = new CubexProgram(new CubexProgramStatement($s.cub), null); }
+  | s=statements p=program { $cub = new CubexProgram(new CubexProgramStatementList($s.cub), $p.cub); }
+  | f=funcs p=program { $cub = new CubexProgram(new CubexProgramFunctionList($f.cub), $p.cub); }
+  | i=iface p=program { $cub = new CubexProgram(new CubexProgramInterface($i.cub), $p.cub); }
+  | c=classgrammar p=program { $cub = new CubexProgram(new CubexProgramClassGrammar($c.cub), $p.cub); }
 ;
 
-fullprogram : p=program { programAST = $p.cub };
+fullprogram : p=program { programAST = $p.cub; };

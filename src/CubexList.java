@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class CubexList<T> {
+public class CubexList<T> implements CubexStatement {
 	private List<T> contextCollection = new ArrayList<T>();
 	
 	public void add(T object) {
