@@ -10,7 +10,7 @@ import java.util.*;
 
 kcont returns [CubexList<String> cub] : { $cub = new CubexList<String>(); }
                                         (t=TYPEPARAM { $cub.add($t.text); }
-                                         (COMMA t=TYPEPARAM { $cub.add($t.text); })*
+                                          (COMMA t=TYPEPARAM { $cub.add($t.text); })*
                                         )?
 ;
 
@@ -18,40 +18,39 @@ ttuple returns [CubexTypeTuple cub] : VARFUN COLON t=type { $cub = new CubexType
 ;
 
 tcont returns [CubexList<CubexTypeTuple> cub] : { $cub = new CubexList<CubexTypeTuple>(); }
-                                        (t=ttuple { $cub.add($t.cub); }
-                                         (COMMA t=ttuple { $cub.add($t.cub); })*
-                                        )?
+                                                (t=ttuple { $cub.add($t.cub); }
+                                                 (COMMA t=ttuple { $cub.add($t.cub); })*
+                                                )?
 ;
 
 type returns [CubexTypeGrammar cub]
   : TYPEPARAM { $cub = new CubexTypeName($TYPEPARAM.text); }
-  | CLASSID (LANGLE t=types RANGLE)? { $cub = ($t.cub==null) ? new CubexTypeClass($CLASSID.text, $t.cub) 
-                                                      : new CubexTypeClass($CLASSID.text, null);}
+  | {CubexList<CubexTypeGrammar> typeslist = new CubexList<CubexTypeGrammar>();} 
+    CLASSID (LANGLE (t=types { typeslist = $t.cub; } ) RANGLE)? { $cub = new CubexTypeClass($CLASSID.text, typeslist); }
   | t1=type AMPERSAND t2=type { $cub = new CubexTypeIntersection($t1.cub, $t2.cub); }
   | THING { $cub = new CubexTypeName($THING.text); }
   | NOTHING { $cub = new CubexTypeName($NOTHING.text); }
 ;
 
 types returns [CubexList<CubexTypeGrammar> cub] : { $cub = new CubexList<CubexTypeGrammar>(); }
-                                        (t=type { $cub.add($t.cub); }
-                                         (COMMA t=type { $cub.add($t.cub); })*
-                                        )?
+                                                  (t=type { $cub.add($t.cub); }
+                                                  (COMMA t=type { $cub.add($t.cub); })*
+                                                  )?
 ;
 
 tscheme returns [CubexTypeScheme cub] 
-  : (LANGLE k=kcont RANGLE)? LPAREN tcont RPAREN COLON type { 
-    $cub = ($k.cub==null) ? new CubexTypeScheme(null, $tcont.cub, $type.cub) 
-               : new CubexTypeScheme($kcont.cub, $tcont.cub, $type.cub);}
+  : {CubexList<String> kcontlist = new CubexList<String>();} 
+    (LANGLE k=kcont { kcontlist = $k.cub; }  RANGLE)? LPAREN tcont RPAREN COLON type { 
+    $cub = new CubexTypeScheme(kcontlist, $tcont.cub, $type.cub); }
 ;
 
 expr returns [CubexExpression cub]
   : VARFUN { $cub = new CubexExpression($VARFUN.text); }
-  | name=(VARFUN | CLASSID) (LANGLE tes=types RANGLE)? LPAREN pes=exprs RPAREN 
-    { $cub = ($tes.cub == null) ? new CubexFunctionCall($name.text, null, $pes.cub) 
-                         : new CubexFunctionCall($name.text, $tes.cub, $pes.cub); }
-  | ex=expr DOT VARFUN (LANGLE tes=types RANGLE)? LPAREN pes=exprs RPAREN 
-    { $cub = ($tes.cub == null) ? new CubexFunctionApp($ex.cub, $VARFUN.text, null, $pes.cub)
-                         : new CubexFunctionApp($ex.cub, $VARFUN.text, $tes.cub, $pes.cub); }
+  | {CubexList<CubexTypeGrammar> teslist = new CubexList<CubexTypeGrammar>();} 
+    name=(VARFUN | CLASSID) (LANGLE tes=types { teslist = $tes.cub; }  RANGLE)? LPAREN pes=exprs RPAREN 
+    { $cub = new CubexFunctionCall($name.text, teslist, $pes.cub); }
+  |  ex=expr DOT VARFUN {CubexList<CubexTypeGrammar> teslist = new CubexList<CubexTypeGrammar>();} (LANGLE tes=types { teslist = $tes.cub; }  RANGLE)? LPAREN pes=exprs RPAREN 
+    { $cub = new CubexFunctionApp($ex.cub, $VARFUN.text, teslist, $pes.cub); }
   | LBRACKET es=exprs RBRACKET {$cub = new CubexIterable($es.cub); }
   | ex=expr PLPL ex2=expr { $cub = new CubexAppend($ex.cub, $ex2.cub); }
   | TRUE { $cub = new CubexBoolean(true); }
@@ -93,7 +92,7 @@ expr returns [CubexExpression cub]
   | l=expr op=(ONW | LDOTDOT)
     { $cub = $op.type == ONW
              ? new CubexOnwards($l.cub, true)
-         : new CubexOnwards($l.cub, false);}
+             : new CubexOnwards($l.cub, false);}
 ;
 exprs returns [CubexList<CubexExpression> cub] 
   : { $cub = new CubexList<CubexExpression>(); }
@@ -118,7 +117,8 @@ funcs returns [CubexList<CubexFunctionDef> cub]
 statement returns [CubexStatement cub]
   : LBRACE s=statementsopt RBRACE { $cub = new CubexListStatement($s.cub); }
   | c=CLASSID GET e=expr SEMICOLON { $cub = new CubexBind($c.text, $e.cub); }
-  | IF LPAREN e=expr RPAREN s1=statement (ELSE s2=statement)? { $cub = new CubexIf($e.cub, $s1.cub, $s2.cub); }
+  | IF LPAREN e=expr RPAREN s1=statement ELSE s2=statement { $cub = new CubexIf($e.cub, $s1.cub, $s2.cub); }
+  | IF LPAREN e=expr RPAREN s1=statement { $cub = new CubexIf($e.cub, $s1.cub, null); }
   | WHILE LPAREN e=expr RPAREN s2=statement { $cub = new CubexWhile($e.cub, $s2.cub); }
   | FOR LPAREN VARFUN IN e=expr RPAREN s2=statement { $cub = new CubexFor($VARFUN.text, $e.cub, $s2.cub); }
   | (RETURN| EQUAL) e=expr { $cub = new CubexReturn($e.cub); }
@@ -135,15 +135,26 @@ statementsopt returns [CubexList<CubexStatement> cub]
 ;
 
 iface returns [CubexInterface cub]
-  : { CubexList<CubexFunctionDef> list = new CubexList<CubexFunctionDef>(); }
-    INTERFACE name=(VARFUN | CLASSID) LANGLE k=kcont RANGLE (EXTENDS t=type)? LBRACE (f=funcoption { list.add($f.cub); })* RBRACE
-    { $cub = new CubexInterface($name.text, $k.cub, $t.cub, list); }
+  : { CubexList<CubexFunctionDef> list = new CubexList<CubexFunctionDef>(); 
+      CubexList<String> klist = new CubexList<String>();
+      CubexTypeGrammar typegrammar = new CubexTypeName("Thing");
+    }
+    INTERFACE name=(VARFUN | CLASSID) (LANGLE k=kcont RANGLE { klist = $k.cub; }  )?
+    ((EXTENDS t=type) { typegrammar = $t.cub; } )?
+    LBRACE (f=funcoption { list.add($f.cub); })* RBRACE
+    { $cub = new CubexInterface($name.text, klist, typegrammar, list); }
 ;
   
 classgrammar returns [CubexClassGrammar cub]
-  : { CubexList<CubexFunctionDef> list = new CubexList<CubexFunctionDef>(); }
-    CLASS name=(VARFUN | CLASSID) (LANGLE k=kcont RANGLE)? LPAREN t=tcont RPAREN (EXTENDS ty=type)? LBRACE s=statementsopt (SUPER LPAREN e=exprs RPAREN SEMICOLON)? (f=func { list.add($f.cub); })* RBRACE
-    { $cub = new CubexClassGrammar($name.text, $k.cub, $t.cub, $ty.cub, $s.cub, $e.cub, list); }
+  : { CubexList<CubexFunctionDef> list = new CubexList<CubexFunctionDef>(); 
+      CubexList<String> klist = new CubexList<String>();
+      CubexTypeGrammar typegrammar = new CubexTypeName("Thing");
+      CubexList<CubexExpression> elist = new CubexList<CubexExpression>();
+    }
+    CLASS name=(VARFUN | CLASSID) (LANGLE k=kcont RANGLE { klist = $k.cub; }  )? LPAREN t=tcont RPAREN 
+    ((EXTENDS ty=type) { typegrammar = $ty.cub; } )? LBRACE s=statementsopt 
+    ((SUPER LPAREN e=exprs RPAREN SEMICOLON) { elist = $e.cub; } )? (f=func { list.add($f.cub); })* RBRACE
+    { $cub = new CubexClassGrammar($name.text, klist, $t.cub, typegrammar, $s.cub, elist, list); }
 ;
   
 program returns [CubexProgram cub]
