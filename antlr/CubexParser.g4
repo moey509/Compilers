@@ -119,8 +119,8 @@ statement returns [CubexStatement cub]
   : LBRACE s=statementsopt RBRACE { $cub = new CubexListStatement($s.cub); }
   | c=CLASSID GET e=expr SEMICOLON { $cub = new CubexBind($c.text, $e.cub); }
   | IF LPAREN e=expr RPAREN s1=statement (ELSE s2=statement)? { $cub = new CubexIf($e.cub, $s1.cub, $s2.cub); }
-  | WHILE LPAREN e=expr RPAREN s=statement { $cub = new CubexWhile($e.cub, $s.cub); }
-  | FOR LPAREN VARFUN IN e=expr RPAREN s=statement { $cub = new CubexFor($VARFUN.text, $e.cub, $s.cub); }
+  | WHILE LPAREN e=expr RPAREN s2=statement { $cub = new CubexWhile($e.cub, $s2.cub); }
+  | FOR LPAREN VARFUN IN e=expr RPAREN s2=statement { $cub = new CubexFor($VARFUN.text, $e.cub, $s2.cub); }
   | (RETURN| EQUAL) e=expr { $cub = new CubexReturn($e.cub); }
 ;
 
@@ -148,10 +148,10 @@ classgrammar returns [CubexClassGrammar cub]
   
 program returns [CubexProgram cub]
   : s=statement { $cub = new CubexProgram(new CubexProgramStatement($s.cub), null); }
-  | s=statements p=program { $cub = new CubexProgram(new CubexProgramStatementList($s.cub), $p.cub); }
+  | s2=statements p=program { $cub = new CubexProgram(new CubexProgramStatementList($s2.cub), $p.cub); }
   | f=funcs p=program { $cub = new CubexProgram(new CubexProgramFunctionList($f.cub), $p.cub); }
   | i=iface p=program { $cub = new CubexProgram(new CubexProgramInterface($i.cub), $p.cub); }
-  | c=classgrammar p=program { $cub = new CubexProgram(new CubexProgramClassGrammar($c.cub), $p.cub); }
+  | c=classgrammar p=program { $cub = new CubexProgram(new CubexProgramClass($c.cub), $p.cub); }
 ;
 
 fullprogram : p=program { programAST = $p.cub; };

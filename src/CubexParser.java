@@ -1225,8 +1225,8 @@ public class CubexParser extends Parser {
 				setState(290); match(LPAREN);
 				setState(291); ((StatementContext)_localctx).e = expr(0);
 				setState(292); match(RPAREN);
-				setState(293); ((StatementContext)_localctx).s = statement();
-				 ((StatementContext)_localctx).cub =  new CubexWhile(((StatementContext)_localctx).e.cub, ((StatementContext)_localctx).s.cub); 
+				setState(293); ((StatementContext)_localctx).s2 = statement();
+				 ((StatementContext)_localctx).cub =  new CubexWhile(((StatementContext)_localctx).e.cub, ((StatementContext)_localctx).s2.cub); 
 				}
 				break;
 			case FOR:
@@ -1238,8 +1238,8 @@ public class CubexParser extends Parser {
 				setState(299); match(IN);
 				setState(300); ((StatementContext)_localctx).e = expr(0);
 				setState(301); match(RPAREN);
-				setState(302); ((StatementContext)_localctx).s = statement();
-				 ((StatementContext)_localctx).cub =  new CubexFor((((StatementContext)_localctx).VARFUN!=null?((StatementContext)_localctx).VARFUN.getText():null), ((StatementContext)_localctx).e.cub, ((StatementContext)_localctx).s.cub); 
+				setState(302); ((StatementContext)_localctx).s2 = statement();
+				 ((StatementContext)_localctx).cub =  new CubexFor((((StatementContext)_localctx).VARFUN!=null?((StatementContext)_localctx).VARFUN.getText():null), ((StatementContext)_localctx).e.cub, ((StatementContext)_localctx).s2.cub); 
 				}
 				break;
 			case RETURN:
@@ -1605,6 +1605,7 @@ public class CubexParser extends Parser {
 	public static class ProgramContext extends ParserRuleContext {
 		public CubexProgram cub;
 		public StatementContext s;
+		public StatementsContext s2;
 		public ProgramContext p;
 		public FuncsContext f;
 		public IfaceContext i;
@@ -1650,9 +1651,9 @@ public class CubexParser extends Parser {
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(390); ((ProgramContext)_localctx).s = statements();
+				setState(390); ((ProgramContext)_localctx).s2 = statements();
 				setState(391); ((ProgramContext)_localctx).p = program();
-				 ((ProgramContext)_localctx).cub =  new CubexProgram(new CubexProgramStatementList(((ProgramContext)_localctx).s.cub), ((ProgramContext)_localctx).p.cub); 
+				 ((ProgramContext)_localctx).cub =  new CubexProgram(new CubexProgramStatementList(((ProgramContext)_localctx).s2.cub), ((ProgramContext)_localctx).p.cub); 
 				}
 				break;
 
@@ -1679,7 +1680,7 @@ public class CubexParser extends Parser {
 				{
 				setState(402); ((ProgramContext)_localctx).c = classgrammar();
 				setState(403); ((ProgramContext)_localctx).p = program();
-				 ((ProgramContext)_localctx).cub =  new CubexProgram(new CubexProgramClassGrammar(((ProgramContext)_localctx).c.cub), ((ProgramContext)_localctx).p.cub); 
+				 ((ProgramContext)_localctx).cub =  new CubexProgram(new CubexProgramClass(((ProgramContext)_localctx).c.cub), ((ProgramContext)_localctx).p.cub); 
 				}
 				break;
 			}

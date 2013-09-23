@@ -1,4 +1,4 @@
-public final class CubexFunctionApp {
+public final class CubexFunctionApp extends CubexExpression {
 	private CubexExpression expr;
 	private String v_v;
 	private CubexList<CubexTypeGrammar> typeParams;
