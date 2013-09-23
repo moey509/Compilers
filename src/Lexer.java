@@ -1,11 +1,6 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.BitSet;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Scanner;
-
 import org.antlr.v4.runtime.ANTLRErrorListener;
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.Parser;
@@ -20,58 +15,54 @@ import org.antlr.v4.runtime.misc.Nullable;
 public class Lexer {
 
 	static boolean lexedWithError = false;
+
 	/**
 	 * @param args
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IOException {
-		//Lexing starts here
+		// Lexing starts here
 		CubexLexer lex = new CubexLexer(new ANTLRFileStream(args[0]));
 
 		lex.removeErrorListeners();
-		
+
 		LexerErrorListener listener = new LexerErrorListener();
 		lex.addErrorListener(listener);
-		
+
 		boolean firstTime = true;
-		//Change tokens based on PA1 stuff
+		// Change tokens based on PA1 stuff
 		List<? extends Token> list = lex.getAllTokens();
-		if(lexedWithError){
+		if (lexedWithError) {
 			System.out.print("error");
 			return;
 		}
-		
-		for(Token t : list){
-			//Need conditions for variable names and type names
-			if(firstTime){
+
+		for (Token t : list) {
+			// Need conditions for variable names and type names
+			if (firstTime) {
 				firstTime = false;
-			}
-			else{
+			} else {
 				System.out.print(" ");
 			}
-			if (t.getType()==CubexLexer.INTEGER) { //Integer
+			if (t.getType() == CubexLexer.INTEGER) { // Integer
 				System.out.print(0);
-			}
-			else if (t.getType()==CubexLexer.TRUE|| t.getType()==CubexLexer.FALSE){ //true false
+			} else if (t.getType() == CubexLexer.TRUE
+					|| t.getType() == CubexLexer.FALSE) { // true false
 				System.out.print("true");
-			}
-			else if(t.getType()==CubexLexer.STRING){ //String
+			} else if (t.getType() == CubexLexer.STRING) { // String
 				System.out.print("\"\"");
-			}
-			else if(t.getType()==CubexLexer.VARFUN){ //varfun
+			} else if (t.getType() == CubexLexer.VARFUN) { // varfun
 				System.out.print("name");
-			}
-			else if(t.getType()==CubexLexer.TYPE ||  //type
-					t.getType()==CubexLexer.THING||  //thing
-					t.getType()==CubexLexer.NOTHING){ //nothing
+			} else if (t.getType() == CubexLexer.CLASSID || // type
+					t.getType() == CubexLexer.THING || // thing
+					t.getType() == CubexLexer.NOTHING) { // nothing
 				System.out.print("Name");
-			}
-			else{
+			} else {
 				System.out.print(t.getText());
 			}
 		}
 	}
-	
+
 	static class LexerErrorListener implements ANTLRErrorListener {
 		@Override
 		public void reportAmbiguity(@NotNull Parser arg0, @NotNull DFA arg1,
@@ -96,15 +87,16 @@ public class Lexer {
 			// TODO Auto-generated method stub
 			return;
 		}
-		
-//		private class lexException extends Exception{
-//			public lexException(){ super(); }
-//			
-//		}
+
+		// private class lexException extends Exception{
+		// public lexException(){ super(); }
+		//
+		// }
 
 		@Override
 		public void syntaxError(Recognizer<?, ?> arg0, @Nullable Object arg1,
-				int arg2, int arg3, String arg4, @Nullable RecognitionException arg5) {
+				int arg2, int arg3, String arg4,
+				@Nullable RecognitionException arg5) {
 			// TODO Auto-generated method stub
 			lexedWithError = true;
 		}
