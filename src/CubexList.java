@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 import java.util.List;
 
-
+/*
+ * List with no spaces
+ */
 public class CubexList<T> implements CubexStatement {
 	private List<T> contextCollection = new ArrayList<T>();
 	
@@ -11,6 +13,14 @@ public class CubexList<T> implements CubexStatement {
 	
 	public void remove(T object) {
 		contextCollection.remove(object);
+	}
+	
+	public int size(){
+		return contextCollection.size();
+	}
+	
+	public String toString(){
+		return this.toString(" ");
 	}
 	
 	public String toString(String separator) {

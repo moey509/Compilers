@@ -6,6 +6,7 @@ public final class CubexListStatement implements CubexStatement {
 	}
 
 	public String toString() {
-		return "{ " + cList.toString(",") + " }";
+		String rightSpace = cList.size() == 0 ? "" : " ";
+		return "{ " + cList.toString(" ") + rightSpace + "}";
 	}
 }

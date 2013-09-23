@@ -3,6 +3,7 @@ public class CubexIterable extends CubexExpression{
 	public CubexIterable(CubexList<CubexExpression> listIn) { list = listIn; }
 	
 	public String toString(){
-		return "[ " + list.toString(",") + " ]";
+		String rightSpace = list.size() == 0 ? "" : " ";
+		return "[ " + list.toString(",") + rightSpace + "]";
 	}
 }

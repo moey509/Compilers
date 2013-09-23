@@ -8,6 +8,7 @@ public class CubexTypeClass implements CubexTypeGrammar {
 	}
 
 	public String toString() {
-		return name.toString() + " < " + typeList.toString(",") + " >";
+		String rightSpace = typeList.size() == 0 ? "" : " ";
+		return name.toString() + " < " + typeList.toString(",") + rightSpace + ">";
 	}
 }

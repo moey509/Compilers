@@ -13,6 +13,8 @@ public final class CubexFunctionApp extends CubexExpression {
 
 	public String toString() {
 		//TODO: check to make sure that the expr.toString() is what we are looking for
-		return expr.toString() + " " + v_v + " < " + typeParams.toString(",") + " > ( " + functionParams.toString(",") + " )";
+		String rightSpace1 = typeParams.size() == 0 ? "" : " ";
+		String rightSpace2 = functionParams.size() == 0 ? "" : " ";
+		return expr.toString() + " . " + v_v + " < " + typeParams.toString(",") + rightSpace1 + "> ( " + functionParams.toString(",") + rightSpace2 + ")";
 	}
 }

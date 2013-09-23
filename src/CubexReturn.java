@@ -6,7 +6,7 @@ public final class CubexReturn implements CubexStatement {
 	}
 
 	public String toString() {
-		return "return " + e.toString();
+		return "return " + e.toString() + " ;";
 	}
 }
 

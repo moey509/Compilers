@@ -12,16 +12,20 @@ public class CubexInterface {
 	}
 	
 	public String toString() {
+		String rightSpace1 = kindcontext.size() == 0 ? "" : " ";
+		String rightSpace2 = list.size() == 0 ? "" : " ";
 		StringBuilder build = new StringBuilder();
 		build.append("interface ");
 		build.append(name);
 		build.append(" < ");
 		build.append(kindcontext.toString());
-		build.append(" > extends ");
+		build.append(rightSpace1);
+		build.append("> extends ");
 		build.append((typecontext==null) ? "Thing" : typecontext.toString());
 		build.append(" { ");
 		build.append(list.toString());
-		build.append(" }");
+		build.append(rightSpace2);
+		build.append("}");
 		return build.toString();
 	}
 

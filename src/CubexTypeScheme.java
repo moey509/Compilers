@@ -10,8 +10,14 @@ public class CubexTypeScheme {
 		this.typeGrammar = typeGrammar;
 	}
 
+	public String toString() {
+		return this.toString(" ");
+	}
+	
 	public String toString(String separator) {
-		return "< " + kindContext.toString(separator) + " > ( "
-				+ typeContext.toString(separator) + " ) : " + typeGrammar;
+		String rightSpace1 = kindContext.size() == 0 ? "" : " ";
+		String rightSpace2 = typeContext.size() == 0 ? "" : " ";
+		return "< " + kindContext.toString(separator) + rightSpace1 + "> ( "
+				+ typeContext.toString(separator) + rightSpace2 + ") : " + typeGrammar;
 	}
 }
