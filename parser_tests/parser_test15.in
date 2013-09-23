@@ -1,0 +1,1 @@
+class MyClass1<MyClass2<MyClass3>, MyClass4>() { super("man");}
