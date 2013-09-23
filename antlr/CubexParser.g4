@@ -46,6 +46,7 @@ tscheme returns [CubexTypeScheme cub]
 
 expr returns [CubexExpression cub]
   : VARFUN { $cub = new CubexExpression($VARFUN.text); }
+  | LPAREN e=expr RPAREN  { $cub = $e.cub; }
   | {CubexList<CubexTypeGrammar> teslist = new CubexList<CubexTypeGrammar>();} 
     name=(VARFUN | CLASSID) (LANGLE tes=types { teslist = $tes.cub; }  RANGLE)? LPAREN pes=exprs RPAREN 
     { $cub = new CubexFunctionCall($name.text, teslist, $pes.cub); }
