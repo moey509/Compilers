@@ -7,7 +7,9 @@
 for f in ../parser_tests/*.in
 do 
   echo "running: $f..."
-  
+  printf "  contents of file: "
+  cat $f
+  echo "--EOF--"
   #java CubexParserMain $f
 #  printf '\n'
   temp="$f"
