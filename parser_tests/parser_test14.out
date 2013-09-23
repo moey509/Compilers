@@ -1,1 +1,1 @@
-return a . negative ( ) . plus ( b . times ( c . times ( d . minus ( e . times ( f . negative ( ) ) ) ) ) ) 
+return a . negative ( ) . plus ( b . times ( c . times ( d . minus ( e . times ( f . negative ( ) ) ) ) ) ) ; 

@@ -1,1 +1,1 @@
-interface MyInterface < I , S , C > extends Boolean < > & Boolean < >  { } class myClass < > ( zardoz : Zardoz < > , hello : Hello < > ) extends Nothing < > { super ( ) ; }  
+interface MyInterface < I , S , C > extends Boolean < > & Boolean < >  { } class myClass < > ( zardoz : Zardoz < > , hello : Hello < > ) extends Nothing < > { super ( ) ; } return 0 ; 
