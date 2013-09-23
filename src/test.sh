@@ -4,7 +4,17 @@
 
 # diff <(java blah) filename
 
-for f in ../parser_tests/*.in
+dir=""
+if [ -z "$1" ]
+then 
+  dir="../parser_tests/*in"
+  .
+else
+  dir="$1/*in"
+  .
+fi
+#for f in ../parser_tests/*.in
+for f in $dir
 do 
   echo "running: $f..."
   printf "  contents of file: "
