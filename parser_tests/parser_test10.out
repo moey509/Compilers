@@ -1,1 +1,1 @@
-fun foo < X , Y > ( ) : Z { return e } interface MyInterface < > extends Thing < > { } 
+fun foo < X , Y > ( ) : Z { return e ; } interface MyInterface < > extends Thing { } 
