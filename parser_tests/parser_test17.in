@@ -1,0 +1,1 @@
+return [true, false, 42, "zardoz", [hello, world], true++false, hello.world<T>(e), world<>()];
