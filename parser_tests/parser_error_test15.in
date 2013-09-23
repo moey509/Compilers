@@ -1,0 +1,1 @@
+interface MyInterface { fun myFun() : Int fun myFun() : String }

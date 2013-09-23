@@ -1,18 +1,1 @@
-interface MyInterface {
-    fun foo() : Bar
-}
-
-class MyClass {
-	fun foo() : Bar {
-		a := 1 + 2 * 3;
-		return -a;
-	}
-	
-	fun zardoz(hello:Boolean) : Boolean {
-		if (true) {
-		return hello;
-		} else {		
-		return !hello;
-		}
-	}
-}
+class MyClass() { } return " ";

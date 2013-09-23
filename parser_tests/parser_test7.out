@@ -1,1 +1,1 @@
-while ( 0 . equals ( 0 ) ) { x := ( 4 . modulo ( 2 ) . minus ( 1 ) ) . divide ( 6 ) ; if ( 1 . lessThan ( 2 , false ) and 3 . lessThan ( 4 , true ) and 6 . lessThan ( 5 , false ) and 8 . lessThan ( 7 , true ) ) return true; } 
+while ( 0 . equals < > ( 0 ) ) { x := ( 4 . modulo < > ( 2 ) . minus < > ( 1 ) ) . divide < > ( 6 ) ; if ( 1 . lessThan < > ( 2 , false ) . and < > ( 3 . lessThan < > ( 4 , true ) . and < > ( 6 . lessThan < > ( 5 , false ) . or < > ( 8 . lessThan < > ( 7 , true ) ) ) ) ) return ( " a " . equals < > ( " b " ) . negate < > ( ) ; } 

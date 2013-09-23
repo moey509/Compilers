@@ -96,11 +96,8 @@ expr returns [CubexExpression cub]
     { $cub = new CubexEquals($l.cub, $r.cub);
       if ($op.type == NEQ) $cub = new CubexNegate($cub); 
     }
-  | l=expr op=(AMPERSAND | PIPE) r=expr 
-    { $cub = $op.type==AMPERSAND
-      ? new CubexAnd($l.cub, $r.cub)
-      : new CubexOr($l.cub, $r.cub);
-    } 
+  | l=expr op=AMPERSAND r=expr { $cub = new CubexAnd($l.cub, $r.cub); } 
+  | l=expr op=PIPE r=expr { $cub = new CubexOr($l.cub, $r.cub); }
 ;
 exprs returns [CubexList<CubexExpression> cub] 
   : { $cub = new CubexList<CubexExpression>(); }

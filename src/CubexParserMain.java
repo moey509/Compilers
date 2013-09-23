@@ -44,7 +44,7 @@ public class CubexParserMain {
 		cubParser.fullprogram();
 		//ParseTree parseTree = xiParser.fullprogram();
 		
-		if(cubParser.programAST == null){
+		if(cubParser.getNumberOfSyntaxErrors() > 0){
 			System.out.print("parser error");
 			return;
 		}

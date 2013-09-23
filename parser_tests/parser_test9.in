@@ -1,4 +1,5 @@
-interface MyInterface<Integer, String, Character> extends Boolean & Boolean{ }
+interface MyInterface<I, S, C> extends Boolean & Boolean{ }
 
 class MyClass<>(zardoz:Zardoz, hello:Hello) extends Nothing { }
 
+return 0;
