@@ -1,11 +1,19 @@
-public abstract class CubexBinaryExpression extends CubexExpression {
+public class CubexBinaryExpression extends CubexExpression {
 	private CubexExpression mLeft, mRight;
 	public CubexBinaryExpression(CubexExpression left, CubexExpression right) {
-		mLeft = left;
-		mRight = right;
+		setmLeft(left);
+		setmRight(right);
 	}
-	protected CubexType calculateType(CubexContext context) throws NoSuchTypeException {
-		return calculateType(mLeft.getType(context), mRight.getType(context));
+	public CubexExpression getmLeft() {
+		return mLeft;
 	}
-	protected abstract CubexType calculateType(CubexType left, CubexType right) throws NoSuchTypeException;
+	public void setmLeft(CubexExpression mLeft) {
+		this.mLeft = mLeft;
+	}
+	public CubexExpression getmRight() {
+		return mRight;
+	}
+	public void setmRight(CubexExpression mRight) {
+		this.mRight = mRight;
+	}
 }

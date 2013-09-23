@@ -2,9 +2,8 @@ public class CubexDivide extends CubexBinaryExpression {
 	public CubexDivide(CubexExpression left, CubexExpression right) {
 		super(left, right);
 	}
-	protected CubexType calculateType(CubexType left, CubexType right) throws NoSuchTypeException {
-		if (!left.isInt() || !right.isInt())
-			throw new NoSuchTypeException("Error in CubexDivide");
-		return CubexType.getInt();
+	
+	public String toString(){
+		return getmLeft().toString() + " . divide < > ( " + getmRight().toString() + " )";
 	}
 }

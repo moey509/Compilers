@@ -5,9 +5,8 @@ public class CubexOnwards extends CubexUnaryExpression {
 		super(l);
 		include = incl;
 	}
-	@Override
-	protected CubexType calculateType(CubexType arg) throws NoSuchTypeException {
-		return CubexType.getArray(CubexType.getInt());
+	
+	public String toString(){
+		return getmArgument().toString() + " . onwards < > ( " + (include ? "true" : "false") + " )";
 	}
-
 }

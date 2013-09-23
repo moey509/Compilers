@@ -7,10 +7,9 @@ public class CubexThrough extends CubexBinaryExpression {
 		includeLeft = inclL;
 		includeRight = inclR;
 	}
-	@Override
-	protected CubexType calculateType(CubexType left, CubexType right)
-			throws NoSuchTypeException {
-		return CubexType.getArray(CubexType.getInt());
+	public String toString(){
+		String incL = includeLeft ? "true" : "false";
+		String incR = includeRight ? "true" : "false";
+		return getmLeft().toString() + " . through < > ( " + getmRight().toString() + " , " + incL + " , " + incR + " )";
 	}
-
 }
