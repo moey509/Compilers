@@ -1,1 +1,1 @@
-interface MyInterface<In> { }
+interface MyInterface<In> { } return 1;

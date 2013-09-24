@@ -1,0 +1,2 @@
+class MyClass extends Thing { } 
+return true;

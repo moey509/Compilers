@@ -1,0 +1,11 @@
+Compilers PA2 text file
+
+1. We discussed this assignment with Sean Ogden's group and took test files from Piazza.
+
+2. Distribution of work: 
+  Jimmy and Ansha worked on the .g4 file
+  The entire group was responsible for the java classes for parsing.
+  Jimmy was responsible for the main class.
+  The entire group was responsible for test files.
+
+3. Additional Comments: none
