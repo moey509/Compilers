@@ -1,1 +1,1 @@
-for ( i in "hello" ) for ( j in k . onward ( false ) ) return true ;
+for ( i in "hello" ) for ( i in k . onwards ( false ) ) return true ;
