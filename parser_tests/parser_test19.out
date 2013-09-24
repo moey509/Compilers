@@ -1,1 +1,1 @@
-fun ross < T > ( ) : Tate k := 1 ; return ross < Type < > > ( ) ;
+fun ross < T > ( ) : Tate < > k := 1 ; return ross < Type < > > ( ) ;
