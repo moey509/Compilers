@@ -2,12 +2,12 @@
 public class CubexInterface {
 	String name;
 	CubexList<String> kindcontext;
-	CubexTypeGrammar typecontext;
+	CubexTypeGrammar type;
 	CubexList<CubexFunctionDef> list;
 	public CubexInterface(String n, CubexList<String> k, CubexTypeGrammar t, CubexList<CubexFunctionDef> l) {
 		name = n;
 		kindcontext = k;
-		typecontext = t;
+		type = t;
 		list = l;
 	}
 	
@@ -21,7 +21,7 @@ public class CubexInterface {
 		build.append(kindcontext.toString(","));
 		build.append(rightSpace1);
 		build.append("> extends ");
-		build.append((typecontext==null) ? "Thing" : typecontext.toString());
+		build.append(type);
 		build.append(" { ");
 		build.append(list.toString());
 		build.append(rightSpace2);

@@ -37,7 +37,7 @@ public class CubexClassGrammar {
 		build.append(typecontext.toString());
 		build.append(tSpace);
 		build.append(") extends ");
-		build.append((typecontext.size()==0) ? "Thing" : typecontext.toString());
+		build.append(type);
 		build.append(" { ");
 		build.append(statements.toString());
 		build.append(sSpace);
