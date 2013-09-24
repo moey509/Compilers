@@ -15,7 +15,7 @@ public class CubexFunctionDef {
 		build.append("fun ");
 		build.append(name);
 		build.append(" ");
-		build.append(typescheme.toString());
+		build.append(typescheme.toString(","));
 		if (statement!=null) {
 			build.append(" ");
 			build.append(statement.toString());
