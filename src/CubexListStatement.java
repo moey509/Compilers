@@ -1,5 +1,6 @@
 public final class CubexListStatement implements CubexStatement {
 	private CubexList<CubexStatement> cList;
+	public static boolean flatten = false;
 
 	public CubexListStatement(CubexList<CubexStatement> cList) {
 		this.cList = cList;
@@ -7,6 +8,14 @@ public final class CubexListStatement implements CubexStatement {
 
 	public String toString() {
 		String rightSpace = cList.size() == 0 ? "" : " ";
-		return "{ " + cList.toString(" ") + rightSpace + "}";
+		if(flatten){
+			return cList.toString(" ");
+		}
+		else{
+			flatten = true;
+			String s = "{ " + cList.toString(" ") + rightSpace + "}";
+			flatten = false;
+			return s;
+		}
 	}
 }
