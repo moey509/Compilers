@@ -13,7 +13,7 @@ public class CubexInterface {
 	
 	public String toString() {
 		String rightSpace1 = kindcontext.size() == 0 ? "" : " ";
-		String rightSpace2 = list.size() == 0 ? "" : " ";
+		String rightSpace2 = list.size() == 0 ? "" : " ; ";
 		StringBuilder build = new StringBuilder();
 		build.append("interface ");
 		build.append(name);
@@ -23,7 +23,7 @@ public class CubexInterface {
 		build.append("> extends ");
 		build.append(type);
 		build.append(" { ");
-		build.append(list.toString());
+		build.append(list.toString(";"));
 		build.append(rightSpace2);
 		build.append("}");
 		return build.toString();
