@@ -1,2 +1,1 @@
-#no super
 class MyClass<C>() extends MyOtherClass { }
