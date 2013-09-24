@@ -1,0 +1,14 @@
+# typechecker test program 16 (stage 8)
+
+class A(s : String)
+{
+	super();
+	fun getString() : String = s;
+}
+
+class B()
+{
+	super("Hello World!");
+}
+
+return B().getString();
