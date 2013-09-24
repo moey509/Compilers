@@ -1,2 +1,3 @@
 return ((true));
 fun foo (y : Integer) : Integer = y * 4;
+{ }
