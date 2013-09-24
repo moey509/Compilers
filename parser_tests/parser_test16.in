@@ -1,5 +1,5 @@
 interface MyInterface {
-    fun foo() : Bar
+    fun foo() : Bar;
 }
 
 class MyClass() {
