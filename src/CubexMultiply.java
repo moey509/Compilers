@@ -3,6 +3,6 @@ public class CubexMultiply extends CubexBinaryExpression {
 		super(left, right);
 	}
 	public String toString(){
-		return getmLeft().toString() + " . multiply < > ( " + getmRight().toString() + " )";
+		return getmLeft().toString() + " . times < > ( " + getmRight().toString() + " )";
 	}
 }
