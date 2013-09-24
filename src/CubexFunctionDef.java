@@ -20,7 +20,6 @@ public class CubexFunctionDef {
 			build.append(" ");
 			build.append(statement.toString());
 		}
-		build.append(" ;");
 		
 		return build.toString();
 	}
