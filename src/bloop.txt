@@ -1,0 +1,340 @@
+running: ../parser_tests/fold_test1.in...
+  contents of file: class Compilers() {
+     a := 1;
+     {b := 2;
+      c := 3;}
+     d := 4;
+}
+a:=1;--EOF--
+
+
+running: ../parser_tests/lexer_error_test1.in...
+  contents of file: `this `should `fail--EOF--
+
+
+running: ../parser_tests/lexer_error_test2.in...
+  contents of file: something"
+thing "something--EOF--
+
+
+running: ../parser_tests/lexer_error_test3.in...
+  contents of file: `blah ' blah 'blah `--EOF--
+
+
+running: ../parser_tests/parser_error_test10.in...
+  contents of file: #no super
+class MyClass<C>() extends MyOtherClass { }--EOF--
+
+
+running: ../parser_tests/parser_error_test11.in...
+  contents of file: return false--EOF--
+
+
+running: ../parser_tests/parser_error_test12.in...
+  contents of file: v := true--EOF--
+
+
+running: ../parser_tests/parser_error_test13.in...
+  contents of file: # parser test program 2
+interface GoodStudent extends Student
+{
+	fun doHomework() : GoodGrade;
+	fun askQuestion() : Knowledge;
+--EOF--
+1c1
+< parser error
+\ No newline at end of file
+---
+> parser error
+
+
+running: ../parser_tests/parser_error_test14.in...
+  contents of file: `this should error'--EOF--
+
+
+running: ../parser_tests/parser_error_test15.in...
+  contents of file: interface MyInterface { fun myFun() : Int fun myFun() : String }--EOF--
+
+
+running: ../parser_tests/parser_error_test1.in...
+  contents of file:  --EOF--
+
+
+running: ../parser_tests/parser_error_test2.in...
+  contents of file: while (true) foo();--EOF--
+
+
+running: ../parser_tests/parser_error_test3.in...
+  contents of file: error();--EOF--
+
+
+running: ../parser_tests/parser_error_test4.in...
+  contents of file: interface myInterface { } --EOF--
+
+
+running: ../parser_tests/parser_error_test5.in...
+  contents of file: interface MyInterface<In> { }--EOF--
+
+
+running: ../parser_tests/parser_error_test6.in...
+  contents of file: if (blah) {eff} {this} else {lol};--EOF--
+
+
+running: ../parser_tests/parser_error_test7.in...
+  contents of file: return i++;--EOF--
+
+
+running: ../parser_tests/parser_error_test8.in...
+  contents of file: for (foo) return bar();--EOF--
+
+
+running: ../parser_tests/parser_error_test9.in...
+  contents of file: fun foo() : Bar;--EOF--
+
+
+running: ../parser_tests/parser_test10.in...
+  contents of file: fun foo <X, Y> ( ) : Z { return e; } interface MyInterface{ } return true ;--EOF--
+1c1
+< fun foo < X Y > ( ) : Z return e ; interface MyInterface < > extends Thing { } return true ;
+\ No newline at end of file
+---
+> fun foo < X , Y > ( ) : Z { return e ; } interface MyInterface < > extends Thing { } return true ;
+\ No newline at end of file
+
+
+running: ../parser_tests/parser_test11.in...
+  contents of file: return ((true));
+fun foo (y : Integer) : Integer = y * 4;
+{ }--EOF--
+1c1
+< return true ; fun foo < > ( y : Integer < > ) : Integer < > return y . times < > ( 4 ) ; { }
+> return ( ( true ) ) ; fun foo < > ( y : Integer ) : Integer return y . times ( 4 ) ; { } 
+\ No newline at end of file
+
+
+running: ../parser_tests/parser_test12.in...
+  contents of file: for (i in 5..10) { }
+for (i in 5...) { } 
+  --EOF--
+1c1
+< for ( i in 5 . through < > ( 10 , true , true ) ) { } for ( i in 5 . onwards < > ( true ) ) { }
+> for ( i in 5 . through < > ( 10 , true , true ) ) { } for ( i in 5 . onwards < > ( true ) ) { } 
+
+
+running: ../parser_tests/parser_test13.in...
+  contents of file: return 0..3;
+return 0<.3;
+return 0.<3;
+return 0<<3;
+return 0...;
+return 0<..;
+return (0..3)++(4..5);--EOF--
+1c1
+< return 0 . through < > ( 3 , true , true ) ; return 0 . through < > ( 3 , false , true ) ; return 0 . through < > ( 3 , true , false ) ; return 0 . through < > ( 3 , false , false ) ; return 0 . onwards < > ( true ) ; return 0 . onwards < > ( false ) ; return 0 . through < > ( 3 , true , true ) ++ 4 . through < > ( 5 , true , true ) ;
+\ No newline at end of file
+---
+> return 0 . through < > ( 3 , true , true ) ; return 0 . through < > ( 3 , false , true ) ; return 0 . through < > ( 3 , true , false ) ; return 0 . through < > ( 3 , false , false ) ; return 0 . onward < > ( true ) ; return 0 . onwards < > ( false ) ; return ( 0 . through < > ( 3 , true , true ) ) ++ ( 4 . through < > ( 5 , true, true ) ) ;
+\ No newline at end of file
+
+
+running: ../parser_tests/parser_test14.in...
+  contents of file: return -a+b*c*(d-e*-f);--EOF--
+1c1
+< return a . negative < > ( ) . plus < > ( b . times < > ( c ) . times < > ( d . minus < > ( e . times < > ( f . negative < > ( ) ) ) ) ) ;
+> return a . negative < > ( ) . plus < > ( b . times < > ( c . times < > ( d . minus < > ( e . times < > ( f . negative < > ( ) ) ) ) ) ) ; 
+\ No newline at end of file
+
+
+running: ../parser_tests/parser_test15.in...
+  contents of file: class MyClass1 () extends MyClass2<MyClass3, MyClass4> { super("man");} return true;--EOF--
+1c1
+< class MyClass1 < > ( ) extends MyClass2 < MyClass3 < > , MyClass4 < > > { super ( "man" ) ; } return true ;
+> class MyClass1 < > ( ) extends MyClass2 < MyClass3 < > , MyClass4 < > > { super ( "man" ) ; } return true ;
+
+
+running: ../parser_tests/parser_test16.in...
+  contents of file: interface MyInterface {
+    fun foo() : Bar;
+}
+
+class MyClass() {
+	fun foo() : Bar {
+		a := 1 + 2 * 3;
+		return -a;
+	}
+	
+	fun zardoz(hello:Boolean) : Boolean {
+		if (true) {
+		return hello;
+		} else {		
+		return !hello;
+		}
+	}
+}
+
+return "one";--EOF--
+1c1
+< interface MyInterface < > extends Thing { fun foo < > ( ) : Bar < > } class MyClass < > ( ) extends Thing { super ( ) ; fun foo < > ( ) : Bar < > { a := 1 . plus < > ( 2 . times < > ( 3 ) ) ; return a . negative < > ( ) ; } fun zardoz < > ( hello : Boolean < > ) : Boolean < > if ( true ) return hello ; else return hello . negate < > ( ) ; } return "one" ;
+\ No newline at end of file
+---
+> interface MyInterface < > extends Thing { fun foo < > ( ) : Bar < > } class MyClass < > ( ) extends Thing { super ( ) ; fun foo < > ( ) : Bar < > { a := 1 . plus < > ( 2 . times < > ( 3 ) ) ; return a . negative < > ( ) ; } fun zardoz < > ( hello : Boolean < > ) : Boolean < > { if ( true ) { return hello ; } else return hello . negate < > ( ) ; } } return "one" ;
+\ No newline at end of file
+
+
+running: ../parser_tests/parser_test17.in...
+  contents of file: return [true, false, 42, "zardoz", [hello, world], true++false, hello.world<T>(e), world<>()];--EOF--
+
+
+running: ../parser_tests/parser_test18.in...
+  contents of file: if (MyClass()) return true;--EOF--
+
+
+running: ../parser_tests/parser_test19.in...
+  contents of file: fun ross<T>() : Tate k:=1;
+return ross<Type>();
+--EOF--
+1c1
+< fun ross < T > ( ) : Tate < > k := 1 ; return ross < Type < > > ( ) ;
+> fun ross < T > ( ) : Tate < > k := 1 ; return ross < Type < > > ( ) ;
+
+
+running: ../parser_tests/parser_test1.in...
+  contents of file: # parser test program 1
+return 5+3;--EOF--
+1c1
+< return 5 . plus < > ( 3 ) ;
+> return 5 . plus < > ( 3 ) ;
+
+
+running: ../parser_tests/parser_test20.in...
+  contents of file: ##
+return (a != b);
+return [a<<b];
+return [a.b().c().d<T>()];--EOF--
+1c1,3
+< return a . equals < > ( b ) . negate < > ( ) ; return [ a . through < > ( b , false , false ) ] ; return [ a . b < > ( ) . c < > ( ) . d < T > ( ) ] ;
+\ No newline at end of file
+---
+> return ( a . equals < > ( b ) . negate < > ( ) ) ;
+> return [ a . range < > ( b , false , false ) ] ;
+> return [ a . b < > ( ) . c < > ( ) . d < T > ( ) ] ; 
+\ No newline at end of file
+
+
+running: ../parser_tests/parser_test21.in...
+  contents of file: class Fib (v : Int) extends InterviewQuestions {
+    super();
+
+    fun fib(n : Int) : Int {
+        if ( n == 1 | n == 2 ) {
+         return 1; 
+        }
+        first := 1;
+        second := 1;
+        while(n > 2) {
+            tmp := second;
+            second := first + second;
+            first := tmp;
+            n := n - 1;
+        }
+        return second;
+    }
+}
+
+return 5;--EOF--
+1c1
+< class Fib < > ( v : Int < > ) extends InterviewQuestions < > { super ( ) ; fun fib < > ( n : Int < > ) : Int < > { if ( n . equals < > ( 1 ) . or < > ( n . equals < > ( 2 ) ) ) return 1 ; else { } first := 1 ; second := 1 ; while ( 2 . lessThan < > ( n , true ) ) tmp := second ; second := first . plus < > ( second ) ; first := tmp ; n := n . minus < > ( 1 ) ; return second ; } } return 5 ;
+> class Fib < > ( v : Int < > ) extends InterviewQuestions < > { super ( ) ; fun fib < > ( n : Int < > ) : Int < > { if ( n . equals < > ( 1 ) . or < > ( n . equals < > ( 2 ) ) ) return 1 ; else { } first := 1 ; second := 1 ; while ( 2 . lessThan < > ( n , true ) ) { tmp := second ; second := first . plus < > ( second ) ; first := tmp ; n := n . minus < > ( 1 ) ; } return second ; } } return 5 ;
+\ No newline at end of file
+
+
+running: ../parser_tests/parser_test22.in...
+  contents of file: for (i in "hello") for (i in k<..) return true;--EOF--
+1c1
+< for ( i in "hello" ) for ( i in k . onwards < > ( false ) ) return true ;
+> for ( i in "hello" ) for ( i in k . onwards < > ( false ) ) return true ;
+
+
+running: ../parser_tests/parser_test23.in...
+  contents of file: if ("your `dad' " `hai' == 999 * 32 / (- 1 - 1) ) return x; #grrr;
+else { return 69; }
+--EOF--
+1c1
+< if ( "your `dad' " . equals < > ( 999 . times < > ( 32 ) . divide < > ( 1 . negative < > ( ) . minus < > ( 1 ) ) ) ) return x ; else return 69 ;
+> if ( "your `dad' " . equals < > ( 999 . times < > ( 32 ) . divide < > ( 1 . negative < > ( ) . minus < > ( 1 ) ) ) ) return x ; else return 69 ;
+
+
+running: ../parser_tests/parser_test24.in...
+  contents of file: return - 1 - 1;
+--EOF--
+
+
+running: ../parser_tests/parser_test2.in...
+  contents of file: # parser test program 2
+interface GoodStudent extends Student
+{
+	fun doHomework() : GoodGrade;
+	fun askQuestion() : Knowledge;
+}
+return "hello world";--EOF--
+1c1
+< interface GoodStudent < > extends Student < > { fun doHomework < > ( ) : GoodGrade < > fun askQuestion < > ( ) : Knowledge < > } return "hello world" ;
+> interface GoodStudent < > extends Student < > { fun doHomework < > ( ) : GoodGrade < > ; fun askQuestion < > ( ) : Knowledge < > ; } return "hello world" ;
+\ No newline at end of file
+
+
+running: ../parser_tests/parser_test3.in...
+  contents of file: # parser test program 3
+if(a>b) {z:=a-b; x:=u.v(z);}--EOF--
+
+
+running: ../parser_tests/parser_test4.in...
+  contents of file: # parser test program 4
+return "hello
+world!";--EOF--
+
+
+running: ../parser_tests/parser_test5.in...
+  contents of file: # parser test program 5
+"hello world!"--EOF--
+
+
+running: ../parser_tests/parser_test6.in...
+  contents of file: class MyClass() { } return " ";--EOF--
+
+
+running: ../parser_tests/parser_test7.in...
+  contents of file: while (0 == 0) {
+    x := (4 % 2 - 1) / 6;
+    if (1 < 2 & 3 <= 4 & 5 > 6 | 7 >= 8)
+   		return ("a" != "b");  
+}--EOF--
+1c1
+< while ( 0 . equals < > ( 0 ) ) { x := 4 . modulo < > ( 2 ) . minus < > ( 1 ) . divide < > ( 6 ) ; if ( 1 . lessThan < > ( 2 , true ) . and < > ( 3 . lessThan < > ( 4 , false ) ) . and < > ( 6 . lessThan < > ( 5 , true ) ) . or < > ( 8 . lessThan < > ( 7 , false ) ) ) return "a" . equals < > ( "b" ) . negate < > ( ) ; else { } }
+> while ( 0 . equals < > ( 0 ) ) { x := 4 . modulo < > ( 2 ) . minus < > ( 1 ) . divide < > ( 6 ) ; if ( 1 . lessThan < > ( 2 , true ) . and < > ( 3 . lessThan < > ( 4 , true ) . and < > ( 6 . lessThan < > ( 5 , false ) . or < > ( 8 . lessThan < > ( 7 , true ) ) ) ) ) return ( " a " . equals < > ( " b " ) . negate < > ( ) ; } 
+\ No newline at end of file
+
+
+running: ../parser_tests/parser_test8.in...
+  contents of file: {one := 1;{one := 1;{one := 1;{one := 1;}}{one := 1;}}}                        --EOF--
+1c1
+< { one := 1 ; one := 1 ; one := 1 ; one := 1 ; one := 1 ; }
+\ No newline at end of file
+---
+> one := 1 ; one := 1 ; one := 1 ; one := 1 ; one := 1 ;
+\ No newline at end of file
+
+
+running: ../parser_tests/parser_test9.in...
+  contents of file: interface MyInterface<I, S, C> extends Boolean & Boolean{ }
+
+class MyClass<A,B>(zardoz:Zardoz, hello:Hello) extends Nothing { }
+
+return 0;--EOF--
+1c1
+< interface MyInterface < I , S , C > extends Boolean < > & Boolean < > { } class MyClass < A , B > ( zardoz : Zardoz < > , hello : Hello < > ) extends Nothing { super ( ) ; } return 0 ;
+\ No newline at end of file
+---
+> interface MyInterface < I , S , C > extends Boolean < > & Boolean < > { } class myClass < A , B > ( zardoz : Zardoz < > , hello : Hello < > ) extends Nothing < > { super ( ) ; } return 0 ; 
+
+

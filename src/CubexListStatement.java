@@ -12,9 +12,10 @@ public final class CubexListStatement implements CubexStatement {
 			return cList.toString(" ");
 		}
 		else{
+			boolean prev = flatten;
 			flatten = true;
 			String s = "{ " + cList.toString(" ") + rightSpace + "}";
-			flatten = false;
+			flatten = prev;
 			return s;
 		}
 	}

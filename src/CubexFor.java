@@ -10,7 +10,11 @@ public final class CubexFor implements CubexStatement {
 	}
 
 	public String toString() {
-		return "for ( " + varfun + " in " + e.toString() + " ) " + s.toString();
+		boolean prev = CubexListStatement.flatten;
+		CubexListStatement.flatten = false;
+		String result = "for ( " + varfun + " in " + e.toString() + " ) " + s.toString();
+		CubexListStatement.flatten = prev;
+		return result;
 	}
 }
 

@@ -11,14 +11,18 @@ public final class CubexIf implements CubexStatement {
 	}
 
 	public String toString() {
-		String temp = " else";
+		String temp;
 		if (s2 != null) {
-			temp += " " + s2.toString();
+			temp = s2.toString();
 		}
 		else{
-			temp += " { }";
+			temp = "{ }";
 		}
-		return "if ( " + e.toString() + " ) " + s1.toString() + temp;
+		boolean prev = CubexListStatement.flatten;
+		CubexListStatement.flatten = false;
+		String newString = "if ( " + e.toString() + " ) " + s1.toString() + " else " + temp;
+		CubexListStatement.flatten = prev;
+		return newString;
 	}
 
 }
