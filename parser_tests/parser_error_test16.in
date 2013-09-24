@@ -1,0 +1,4 @@
+class Hello() extends World{ 
+	fun Eff() : Hello = 2;
+} 
+return true;
