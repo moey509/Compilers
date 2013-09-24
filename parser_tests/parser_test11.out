@@ -1,1 +1,2 @@
-return true ; fun foo < > ( y : Integer ) : Integer < > return y . times ( 4 ) ; { } 
+return true ; fun foo < > ( y : Integer < > ) : Integer < > return y . times < > ( 4 ) ; { } 
+return true ; fun foo < > ( y : Integer < > ) : Integer < > return y . times < > ( 4 ) ; { }
