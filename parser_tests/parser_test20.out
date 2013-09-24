@@ -1,1 +1,1 @@
-return ( a . equals < > ( b ) . negate < > ( ) ) ; return [ a . range < > ( b , false , false ) ] ; return [ a . b < > ( ) . c < > ( ) . d < T > ( ) ] ; 
+return a . equals < > ( b ) . negate < > ( ) ; return [ a . through < > ( b , false , false ) ] ; return [ a . b < > ( ) . c < > ( ) . d < T > ( ) ] ;
