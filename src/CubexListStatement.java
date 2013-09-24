@@ -8,7 +8,7 @@ public final class CubexListStatement implements CubexStatement {
 
 	public String toString() {
 		String rightSpace = cList.size() == 0 ? "" : " ";
-		if(flatten){
+		if(flatten || (cList.size() == 1)){
 			return cList.toString(" ");
 		}
 		else{
