@@ -18,7 +18,7 @@ public class CubexInterface {
 		build.append("interface ");
 		build.append(name);
 		build.append(" < ");
-		build.append(kindcontext.toString());
+		build.append(kindcontext.toString(","));
 		build.append(rightSpace1);
 		build.append("> extends ");
 		build.append((typecontext==null) ? "Thing" : typecontext.toString());
