@@ -19,6 +19,10 @@ public class CubexList<T> implements CubexStatement {
 		return contextCollection.size();
 	}
 	
+	public boolean isEmpty() {
+		return contextCollection.isEmpty();
+	}
+	
 	public String toString(){
 		return this.toString(" ");
 	}
