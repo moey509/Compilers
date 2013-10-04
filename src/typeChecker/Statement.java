@@ -1,5 +1,5 @@
 package typeChecker;
 
-public class Class {
+public class Statement {
 
 }

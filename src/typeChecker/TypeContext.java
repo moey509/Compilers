@@ -7,8 +7,7 @@ public class TypeContext {
 	private Map<String, Type> contextMap;
 	
 	public TypeContext(){
-		contextMap = new HashMap<String, Type>();
-				
+		contextMap = new HashMap<String, Type>();			
 	}
 	
 	public void put(String variableName, Type type){

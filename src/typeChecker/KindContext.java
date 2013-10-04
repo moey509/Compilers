@@ -16,9 +16,7 @@ public class KindContext {
 	}
 	
 	public void addAll(Collection<String> nameCollection){
-		for (String s : nameCollection){
-			contextSet.addAll(nameCollection);
-		}
+		contextSet.addAll(nameCollection);
 	}
 	
 	public void remove(String typeParamNames){
@@ -28,5 +26,4 @@ public class KindContext {
 	public boolean contains(String typeParamNames){
 		return contextSet.contains(typeParamNames);
 	}
-	
 }
