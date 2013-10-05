@@ -3,18 +3,20 @@ package typeChecker;
 import java.util.HashMap;
 import java.util.Map;
 
+import parsingTokens.context.CubexTypeScheme;
+
 public class FunctionContext {
-	private Map<String, TypeScheme> nameToTypeSchemeMap;
+	private Map<String, CubexTypeScheme> nameToTypeSchemeMap;
 	
 	public FunctionContext(){
-		nameToTypeSchemeMap = new HashMap<String, TypeScheme>();
+		nameToTypeSchemeMap = new HashMap<String, CubexTypeScheme>();
 	}
 	
-	public void put(String functionName, TypeScheme typeScheme){
+	public void put(String functionName, CubexTypeScheme typeScheme){
 		nameToTypeSchemeMap.put(functionName, typeScheme);
 	}
 	
-	public TypeScheme get(String functionName){
+	public CubexTypeScheme get(String functionName){
 		return nameToTypeSchemeMap.get(functionName);
 	}
 	

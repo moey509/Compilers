@@ -1,11 +1,13 @@
 package typeChecker;
 
+import parsingTokens.context.CubexTypeScheme;
+
 public class Function {
 	String functionName;
-	TypeScheme typeScheme;
+	CubexTypeScheme typeScheme;
 	Statement statement;
 	
-	public Function(String functionName, TypeScheme typeScheme,
+	public Function(String functionName, CubexTypeScheme typeScheme,
 			Statement statement) {
 		this.functionName = functionName;
 		this.typeScheme = typeScheme;
@@ -16,7 +18,7 @@ public class Function {
 		return functionName;
 	}
 
-	public TypeScheme getTypeScheme() {
+	public CubexTypeScheme getTypeScheme() {
 		return typeScheme;
 	}
 

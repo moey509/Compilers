@@ -1,6 +1,6 @@
-package parsingTokens.context;
+package parsingTokens;
 
-import parsingTokens.CubexListStatement;
+import parsingTokens.context.CubexTypeTuple;
 import parsingTokens.expressions.CubexExpression;
 import parsingTokens.expressions.CubexFunctionDef;
 import parsingTokens.statements.CubexList;
@@ -8,13 +8,13 @@ import parsingTokens.statements.CubexStatement;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 
 public class CubexClassGrammar {
-	String name;
-	CubexList<String> kindcontext;
+	public String name;
+	public CubexList<String> kindcontext;
 	CubexList<CubexTypeTuple> typecontext;
-	CubexTypeGrammar type;
+	public CubexTypeGrammar type;
 	CubexList<CubexStatement> statements;
 	CubexList<CubexExpression> expressions;
-	CubexList<CubexFunctionDef> functions;
+	public CubexList<CubexFunctionDef> functions;
 	
 	public CubexClassGrammar(String n, CubexList<String> k, CubexList<CubexTypeTuple> typecont, CubexTypeGrammar t, 
 			CubexList<CubexStatement> s, CubexList<CubexExpression> e, CubexList<CubexFunctionDef> f) {

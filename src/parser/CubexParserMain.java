@@ -29,11 +29,7 @@ public class CubexParserMain {
 
 		ErrorListener listener = new ErrorListener();
 		cubLexer.addErrorListener(listener);
-		List<? extends Token> list1 = cubLexer.getAllTokens();
-		if (lexedWithError) {
-			System.out.print("lexer error");
-			return;
-		}
+		//List<? extends Token> list1 = cubLexer.getAllTokens();
 //		for (Token t : list1) {
 //			System.out.print(t.getText() + " "); 
 //		}
@@ -46,13 +42,21 @@ public class CubexParserMain {
 		
 		cubParser.fullprogram();
 		//ParseTree parseTree = xiParser.fullprogram();
-		
+		if (lexedWithError) {
+			System.out.print("lexer error");
+			return;
+		}
 		if(cubParser.getNumberOfSyntaxErrors() > 0){
 			System.out.print("parser error");
 			return;
 		}
 		System.out.print(cubParser.programAST);
-
+		if(cubParser.programAST.typeCheck()){
+			System.out.println("accept");
+		}
+		else{
+			System.out.println("reject");
+		}
 	}
 	
 	static class ErrorListener implements ANTLRErrorListener {

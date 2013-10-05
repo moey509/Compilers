@@ -4,8 +4,8 @@ import parsingTokens.context.CubexTypeScheme;
 import parsingTokens.statements.CubexStatement;
 
 public class CubexFunctionDef {
-	String name;
-	CubexTypeScheme typescheme;
+	public String name;
+	public CubexTypeScheme typescheme;
 	CubexStatement statement;
 	
 	public CubexFunctionDef(String n, CubexTypeScheme tscheme, CubexStatement s) {

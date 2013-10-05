@@ -1,6 +1,6 @@
 package parsingTokens.program;
 
-import parsingTokens.context.CubexClassGrammar;
+import parsingTokens.CubexClassGrammar;
 
 public class CubexProgramClass implements CubexProgramType {
 	private CubexClassGrammar cubexClass;

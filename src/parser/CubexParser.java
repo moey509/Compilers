@@ -9,9 +9,9 @@ import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.misc.*;
 import org.antlr.v4.runtime.tree.*;
 
+import parsingTokens.CubexClassGrammar;
 import parsingTokens.CubexInterface;
 import parsingTokens.CubexListStatement;
-import parsingTokens.context.CubexClassGrammar;
 import parsingTokens.context.CubexTypeScheme;
 import parsingTokens.context.CubexTypeTuple;
 import parsingTokens.expressions.CubexAppend;
