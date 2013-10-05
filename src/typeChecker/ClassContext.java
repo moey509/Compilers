@@ -4,17 +4,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ClassContext {
-	Map<String,AbstractClassInterface> contextMap;
+	Map<String,ClassContextElement> contextMap;
 	
 	public ClassContext(){
-		contextMap = new HashMap<String, AbstractClassInterface>();
+		contextMap = new HashMap<String, ClassContextElement>();
 	}
 	
-	public void put(String name, AbstractClassInterface value){
+	public void put(String name, ClassContextElement value){
 		contextMap.put(name, value);
 	}
 	
-	public AbstractClassInterface get(String name){
+	public ClassContextElement get(String name){
 		return contextMap.get(name);
 	}
 }

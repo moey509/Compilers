@@ -5,10 +5,10 @@ import parsingTokens.statements.CubexList;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 
 public class CubexInterface {
-	String name;
-	CubexList<String> kindcontext;
-	CubexTypeGrammar type;
-	CubexList<CubexFunctionDef> list;
+	public String name;
+	public CubexList<String> kindcontext;
+	public CubexTypeGrammar type;
+	public CubexList<CubexFunctionDef> list;
 	public CubexInterface(String n, CubexList<String> k, CubexTypeGrammar t, CubexList<CubexFunctionDef> l) {
 		name = n;
 		kindcontext = k;
