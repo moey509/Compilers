@@ -3,19 +3,21 @@ package typeChecker;
 import java.util.HashMap;
 import java.util.Map;
 
+import parsingTokens.typeGrammar.CubexTypeGrammar;
+
 public class TypeContext {
-	private Map<String, Type> contextMap;
+	private Map<String, CubexTypeGrammar> contextMap;
 	
 	public TypeContext(){
-		contextMap = new HashMap<String, Type>();			
+		contextMap = new HashMap<String, CubexTypeGrammar>();			
 	}
 	
-	public void put(String variableName, Type type){
+	public void put(String variableName, CubexTypeGrammar type){
 		contextMap.put(variableName, type);
 	}
 	
 	public void merge(TypeContext typeContext){
-		for (Map.Entry<String, Type> entry : typeContext.iterable()){
+		for (Map.Entry<String, CubexTypeGrammar> entry : typeContext.iterable()){
 			contextMap.put(entry.getKey(), entry.getValue());
 		}
 	}
@@ -24,11 +26,11 @@ public class TypeContext {
 		contextMap.remove(variableName);
 	}
 	
-	public Type get(String variableName){
+	public CubexTypeGrammar get(String variableName){
 		return contextMap.get(variableName);
 	}
 	
-	public Iterable<Map.Entry<String, Type>> iterable(){
+	public Iterable<Map.Entry<String, CubexTypeGrammar>> iterable(){
 		return contextMap.entrySet();
 	}
 }

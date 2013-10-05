@@ -6,7 +6,7 @@ import java.util.Map;
 import parsingTokens.context.CubexTypeScheme;
 
 public class FunctionContext {
-	private Map<String, CubexTypeScheme> nameToTypeSchemeMap;
+	public Map<String, CubexTypeScheme> nameToTypeSchemeMap;
 	
 	public FunctionContext(){
 		nameToTypeSchemeMap = new HashMap<String, CubexTypeScheme>();

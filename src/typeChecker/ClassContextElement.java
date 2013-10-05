@@ -15,6 +15,8 @@ public class ClassContextElement{
 	KindContext kindContext;
 	HashMap<String, CubexTypeScheme> functionMap = new HashMap<String, CubexTypeScheme>();
 	
+	
+	//Duplicated code between for classes and interfaces...
 	public ClassContextElement(CubexInterface element) {
 		isClass = true;
 		name = element.name;
