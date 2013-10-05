@@ -1,2 +1,4 @@
 package parsingTokens.statements;
-public interface CubexStatement {}
+public interface CubexStatement {
+
+}
