@@ -20,7 +20,7 @@ import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.misc.Nullable;
 
 import parser.CubexParser;
-import parsingTokens.context.CubexClassGrammar;
+import parsingTokens.CubexClassGrammar;
 import parsingTokens.context.CubexTypeTuple;
 import parsingTokens.statements.CubexList;
 import parsingTokens.typeGrammar.CubexTypeClass;
