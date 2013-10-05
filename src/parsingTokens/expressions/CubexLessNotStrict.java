@@ -1,6 +1,5 @@
 package parsingTokens.expressions;
 
-import parsingTokens.context.CubexExpression;
 
 public class CubexLessNotStrict extends CubexBinaryExpression {
 	public CubexLessNotStrict(CubexExpression left, CubexExpression right) {

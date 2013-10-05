@@ -1,6 +1,6 @@
 package parsingTokens.statements;
 
-import parsingTokens.context.CubexExpression;
+import parsingTokens.expressions.CubexExpression;
 
 public final class CubexReturn implements CubexStatement {
 	private CubexExpression e;

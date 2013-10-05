@@ -1,4 +1,4 @@
-package parsingTokens;
+package parsingTokens.typeGrammar;
 public class CubexTypeIntersection implements CubexTypeGrammar {
 	private CubexTypeGrammar typeGrammar1;
 	private CubexTypeGrammar typeGrammar2;

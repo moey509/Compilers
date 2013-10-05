@@ -1,6 +1,5 @@
-package parsingTokens;
+package parsingTokens.expressions;
 
-import parsingTokens.context.CubexExpression;
 
 public class CubexUnaryExpression extends CubexExpression {
 	private CubexExpression mArgument;

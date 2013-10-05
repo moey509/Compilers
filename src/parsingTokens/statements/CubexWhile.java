@@ -1,7 +1,7 @@
 package parsingTokens.statements;
 
 import parsingTokens.CubexListStatement;
-import parsingTokens.context.CubexExpression;
+import parsingTokens.expressions.CubexExpression;
 
 public final class CubexWhile implements CubexStatement {
 	private CubexExpression e;

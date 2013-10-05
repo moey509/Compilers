@@ -1,7 +1,7 @@
 package parsingTokens.program;
 
-import parsingTokens.CubexList;
 import parsingTokens.expressions.CubexFunctionDef;
+import parsingTokens.statements.CubexList;
 
 public class CubexProgramFunctionList implements CubexProgramType {
 	private CubexList<CubexFunctionDef> functionList;

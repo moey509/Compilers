@@ -1,7 +1,7 @@
 package parsingTokens.operations;
 
-import parsingTokens.CubexUnaryExpression;
-import parsingTokens.context.CubexExpression;
+import parsingTokens.expressions.CubexExpression;
+import parsingTokens.expressions.CubexUnaryExpression;
 
 public class CubexNegate extends CubexUnaryExpression {
 	public CubexNegate(CubexExpression arg) {

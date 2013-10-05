@@ -1,8 +1,6 @@
-package parsingTokens;
+package parsingTokens.statements;
 import java.util.ArrayList;
 import java.util.List;
-
-import parsingTokens.statements.CubexStatement;
 
 /*
  * List with no spaces

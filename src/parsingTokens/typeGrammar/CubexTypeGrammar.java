@@ -1,4 +1,4 @@
-package parsingTokens;
+package parsingTokens.typeGrammar;
 public interface CubexTypeGrammar {
 
 }

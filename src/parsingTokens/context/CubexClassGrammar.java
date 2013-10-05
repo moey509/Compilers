@@ -1,10 +1,11 @@
 package parsingTokens.context;
 
-import parsingTokens.CubexList;
 import parsingTokens.CubexListStatement;
-import parsingTokens.CubexTypeGrammar;
+import parsingTokens.expressions.CubexExpression;
 import parsingTokens.expressions.CubexFunctionDef;
+import parsingTokens.statements.CubexList;
 import parsingTokens.statements.CubexStatement;
+import parsingTokens.typeGrammar.CubexTypeGrammar;
 
 public class CubexClassGrammar {
 	String name;

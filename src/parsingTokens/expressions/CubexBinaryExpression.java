@@ -1,6 +1,5 @@
 package parsingTokens.expressions;
 
-import parsingTokens.context.CubexExpression;
 
 public class CubexBinaryExpression extends CubexExpression {
 	private CubexExpression mLeft, mRight;

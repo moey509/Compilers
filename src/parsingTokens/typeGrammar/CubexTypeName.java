@@ -1,4 +1,6 @@
-package parsingTokens;
+package parsingTokens.typeGrammar;
+
+
 public class CubexTypeName implements CubexTypeGrammar{
 	private String name;
 	

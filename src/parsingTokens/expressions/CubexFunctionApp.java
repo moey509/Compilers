@@ -1,8 +1,7 @@
 package parsingTokens.expressions;
 
-import parsingTokens.CubexList;
-import parsingTokens.CubexTypeGrammar;
-import parsingTokens.context.CubexExpression;
+import parsingTokens.statements.CubexList;
+import parsingTokens.typeGrammar.CubexTypeGrammar;
 
 public final class CubexFunctionApp extends CubexExpression {
 	private CubexExpression expr;

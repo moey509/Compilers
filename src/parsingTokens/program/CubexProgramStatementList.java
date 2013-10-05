@@ -1,6 +1,6 @@
 package parsingTokens.program;
 
-import parsingTokens.CubexList;
+import parsingTokens.statements.CubexList;
 import parsingTokens.statements.CubexStatement;
 
 public class CubexProgramStatementList implements CubexProgramType {

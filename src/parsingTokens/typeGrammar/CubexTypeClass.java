@@ -1,4 +1,7 @@
-package parsingTokens;
+package parsingTokens.typeGrammar;
+
+import parsingTokens.statements.CubexList;
+
 public class CubexTypeClass implements CubexTypeGrammar {
 	private String name;
 	private CubexList<CubexTypeGrammar> typeList;

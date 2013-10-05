@@ -1,6 +1,6 @@
-package parsingTokens;
+package parsingTokens.expressions;
 
-import parsingTokens.context.CubexExpression;
+import parsingTokens.statements.CubexList;
 
 public class CubexIterable extends CubexExpression{
 	CubexList<CubexExpression> list;

@@ -1,7 +1,7 @@
 package parsingTokens.operations;
 
-import parsingTokens.context.CubexExpression;
 import parsingTokens.expressions.CubexBinaryExpression;
+import parsingTokens.expressions.CubexExpression;
 
 public class CubexAnd extends CubexBinaryExpression {
 	public CubexAnd(CubexExpression left, CubexExpression right) {

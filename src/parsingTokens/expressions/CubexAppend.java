@@ -1,6 +1,5 @@
 package parsingTokens.expressions;
 
-import parsingTokens.context.CubexExpression;
 
 public class CubexAppend extends CubexExpression{
 	CubexExpression e1, e2;

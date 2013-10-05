@@ -1,6 +1,8 @@
 package parsingTokens;
 
 import parsingTokens.expressions.CubexFunctionDef;
+import parsingTokens.statements.CubexList;
+import parsingTokens.typeGrammar.CubexTypeGrammar;
 
 public class CubexInterface {
 	String name;

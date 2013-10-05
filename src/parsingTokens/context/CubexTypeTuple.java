@@ -1,6 +1,6 @@
 package parsingTokens.context;
 
-import parsingTokens.CubexTypeGrammar;
+import parsingTokens.typeGrammar.CubexTypeGrammar;
 
 public class CubexTypeTuple {
 	private String name;
