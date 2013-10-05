@@ -1,7 +1,7 @@
 package parser;
 import java.io.IOException;
 import java.util.BitSet;
-//import java.util.List;
+import java.util.List;
 
 import lexer.CubexLexer;
 
@@ -12,6 +12,7 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Parser;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;
+import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.atn.ATNConfigSet;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.misc.NotNull;
@@ -28,7 +29,7 @@ public class CubexParserMain {
 
 		ErrorListener listener = new ErrorListener();
 		cubLexer.addErrorListener(listener);
-		//List<? extends Token> list1 = cubLexer.getAllTokens();
+		List<? extends Token> list1 = cubLexer.getAllTokens();
 		if (lexedWithError) {
 			System.out.print("lexer error");
 			return;
