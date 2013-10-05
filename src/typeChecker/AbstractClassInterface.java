@@ -1,12 +1,18 @@
 package typeChecker;
 
-import java.util.Map;
+import java.util.LinkedList;
+import java.util.List;
 
 public abstract class AbstractClassInterface {
 	String name;
 	KindContext kindContext;
-	Type extension;
+	List<Type> extendedTypes;
 	
-	Map<String,Function> nameToFunctionMap;
+	public AbstractClassInterface(String name, KindContext kindContext) {
+		this.name = name;
+		this.kindContext = kindContext;
+		this.extendedTypes = new LinkedList<Type>();
+		extendedTypes.add(new Type("Thing"));
+	}
 	
 }
