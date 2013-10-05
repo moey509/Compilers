@@ -107,7 +107,7 @@ public class CubexParser extends Parser {
 	public ATN getATN() { return _ATN; }
 
 
-	  CubexProgram programAST; 
+	public CubexProgram programAST; 
 
 	public CubexParser(TokenStream input) {
 		super(input);

@@ -1,12 +1,14 @@
 package typeChecker;
 
+import parsingTokens.typeGrammar.CubexTypeGrammar;
+
 public class TypeScheme {
 	private KindContext kindContext;
 	private TypeContext typeContext;
-	private Type returnType;
+	private CubexTypeGrammar returnType;
 	
 	public TypeScheme(KindContext kindContext, TypeContext typeContext,
-			Type returnType) {
+			CubexTypeGrammar returnType) {
 		this.kindContext = kindContext;
 		this.typeContext = typeContext;
 		this.returnType = returnType;
@@ -20,7 +22,7 @@ public class TypeScheme {
 		return typeContext;
 	}
 
-	public Type getReturnType() {
+	public CubexTypeGrammar getReturnType() {
 		return returnType;
 	}
 

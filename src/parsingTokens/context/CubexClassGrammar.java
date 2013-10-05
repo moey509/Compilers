@@ -8,13 +8,13 @@ import parsingTokens.statements.CubexStatement;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 
 public class CubexClassGrammar {
-	String name;
-	CubexList<String> kindcontext;
-	CubexList<CubexTypeTuple> typecontext;
-	CubexTypeGrammar type;
-	CubexList<CubexStatement> statements;
-	CubexList<CubexExpression> expressions;
-	CubexList<CubexFunctionDef> functions;
+	public String name;
+	public CubexList<String> kindcontext;
+	public CubexList<CubexTypeTuple> typecontext;
+	public CubexTypeGrammar type;
+	public CubexList<CubexStatement> statements;
+	public CubexList<CubexExpression> expressions;
+	public CubexList<CubexFunctionDef> functions;
 	
 	public CubexClassGrammar(String n, CubexList<String> k, CubexList<CubexTypeTuple> typecont, CubexTypeGrammar t, 
 			CubexList<CubexStatement> s, CubexList<CubexExpression> e, CubexList<CubexFunctionDef> f) {
@@ -27,6 +27,14 @@ public class CubexClassGrammar {
 		functions = f;
 		
 	}
+	
+	public CubexClassGrammar(String name, CubexList<String> kindContext, CubexList<CubexTypeTuple> typeContext, CubexTypeGrammar type){
+		this.name = name;
+		this.kindcontext = kindContext;
+		this.typecontext = typeContext;
+		this.type = type;
+	}
+	
 	
 	public String toString() {
 		String kSpace = kindcontext.size() == 0 ? "" : " ";
