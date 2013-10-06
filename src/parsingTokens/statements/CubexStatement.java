@@ -1,5 +1,10 @@
 package parsingTokens.statements;
 
+
+import parsingTokens.expressions.CubexExpression;
+import parsingTokens.typeGrammar.CubexTypeClass;
+import typeChecker.CubexCompleteContext;
+
 import parsingTokens.expressions.CubexExpression;
 import parsingTokens.typeGrammar.CubexTypeClass;
 import typeChecker.CubexCompleteContext;
