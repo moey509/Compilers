@@ -1,16 +1,16 @@
 package parsingTokens.typeGrammar;
 public class CubexTypeIntersection extends CubexTypeGrammar {
-	private CubexTypeGrammar name;
-	private CubexTypeGrammar name2;
+	private CubexTypeGrammar typeGrammar1;
+	private CubexTypeGrammar typeGrammar2;
 
 	public CubexTypeIntersection(CubexTypeGrammar typeGrammar1,
 			CubexTypeGrammar typeGrammar2) {
-		this.name = typeGrammar1;
-		this.name2 = typeGrammar2;
+		this.typeGrammar1 = typeGrammar1;
+		this.typeGrammar2 = typeGrammar2;
 	}
 
 	@Override
 	public String toString() {
-		return name.toString() + " & " + name2.toString();
+		return typeGrammar1.toString() + " & " + typeGrammar2.toString();
 	}
 }
