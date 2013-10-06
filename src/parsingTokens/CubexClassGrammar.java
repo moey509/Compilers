@@ -10,10 +10,10 @@ import parsingTokens.typeGrammar.CubexTypeGrammar;
 public class CubexClassGrammar {
 	public String name;
 	public CubexList<String> kindcontext;
-	CubexList<CubexTypeTuple> typecontext;
+	public CubexList<CubexTypeTuple> typecontext;
 	public CubexTypeGrammar type;
-	CubexList<CubexStatement> statements;
-	CubexList<CubexExpression> expressions;
+	public CubexList<CubexStatement> statements;
+	public CubexList<CubexExpression> expressions;
 	public CubexList<CubexFunctionDef> functions;
 	
 	public CubexClassGrammar(String n, CubexList<String> k, CubexList<CubexTypeTuple> typecont, CubexTypeGrammar t, 
@@ -27,6 +27,14 @@ public class CubexClassGrammar {
 		functions = f;
 		
 	}
+	
+	public CubexClassGrammar(String name, CubexList<String> kindContext, CubexList<CubexTypeTuple> typeContext, CubexTypeGrammar type){
+		this.name = name;
+		this.kindcontext = kindContext;
+		this.typecontext = typeContext;
+		this.type = type;
+	}
+	
 	
 	public String toString() {
 		String kSpace = kindcontext.size() == 0 ? "" : " ";
