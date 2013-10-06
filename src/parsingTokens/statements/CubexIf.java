@@ -1,9 +1,9 @@
 package parsingTokens.statements;
 
-import parsingTokens.CubexListStatement;
 import parsingTokens.expressions.CubexExpression;
+import typeChecker.CubexCompleteContext;
 
-public final class CubexIf implements CubexStatement {
+public final class CubexIf extends CubexStatement {
 	private CubexExpression e;  // if e:
 	private CubexStatement s1;	//{	s1 }
 	private CubexStatement s2;	// else {s2}
@@ -29,5 +29,4 @@ public final class CubexIf implements CubexStatement {
 		CubexListStatement.flatten = prev;
 		return newString;
 	}
-
 }

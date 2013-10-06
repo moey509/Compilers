@@ -30,7 +30,7 @@ public class ClassContextElement{
 	public ClassContextElement(CubexClassGrammar element) {
 		isClass = true;
 		name = element.name;
-		type = element.type;
+		type = element.extendsType;
 		kindContext.addAll(element.kindcontext.contextCollection);
 		for(CubexFunctionDef def : element.functions.contextCollection){
 			functionMap.put(def.name, def.typescheme);

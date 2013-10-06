@@ -1,10 +1,9 @@
 package parsingTokens.statements;
 
-import parsingTokens.CubexListStatement;
 import parsingTokens.expressions.CubexExpression;
+import typeChecker.CubexCompleteContext;
 
-public final class CubexWhile implements CubexStatement {
-	private CubexExpression e;
+public final class CubexWhile extends CubexStatement {
 	private CubexStatement s;
 
 	public CubexWhile(CubexExpression e, CubexStatement s) {

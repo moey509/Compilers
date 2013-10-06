@@ -11,7 +11,7 @@ import org.antlr.v4.runtime.tree.*;
 
 import parsingTokens.CubexClassGrammar;
 import parsingTokens.CubexInterface;
-import parsingTokens.CubexListStatement;
+import parsingTokens.CubexList;
 import parsingTokens.context.CubexTypeScheme;
 import parsingTokens.context.CubexTypeTuple;
 import parsingTokens.expressions.CubexAppend;
@@ -46,7 +46,7 @@ import parsingTokens.program.CubexProgramStatementList;
 import parsingTokens.statements.CubexBind;
 import parsingTokens.statements.CubexFor;
 import parsingTokens.statements.CubexIf;
-import parsingTokens.statements.CubexList;
+import parsingTokens.statements.CubexListStatement;
 import parsingTokens.statements.CubexReturn;
 import parsingTokens.statements.CubexStatement;
 import parsingTokens.statements.CubexWhile;

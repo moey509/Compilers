@@ -1,6 +1,6 @@
 package parsingTokens.context;
 
-import parsingTokens.statements.CubexList;
+import parsingTokens.CubexList;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 
 public class CubexTypeScheme {

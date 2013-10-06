@@ -1,10 +1,10 @@
 package parsingTokens.statements;
 
 import parsingTokens.expressions.CubexExpression;
+import typeChecker.CubexCompleteContext;
 
-public final class CubexBind implements CubexStatement {
+public final class CubexBind extends CubexStatement {
 	private String classid;
-	private CubexExpression e;
 
 	public CubexBind(String classid, CubexExpression e) {
 		this.classid = classid;
@@ -13,5 +13,10 @@ public final class CubexBind implements CubexStatement {
 
 	public String toString() {
 		return classid + " := " + e.toString() + " ;";
+	}
+	
+	public boolean typeCheck(CubexCompleteContext c){
+		
+		return false;
 	}
 }

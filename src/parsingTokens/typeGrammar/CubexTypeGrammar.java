@@ -1,4 +1,4 @@
 package parsingTokens.typeGrammar;
-public interface CubexTypeGrammar {
-
+public abstract class CubexTypeGrammar {
+	public String name;
 }

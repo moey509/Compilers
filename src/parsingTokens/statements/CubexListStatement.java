@@ -1,12 +1,22 @@
-package parsingTokens;
+package parsingTokens.statements;
 
+import parsingTokens.CubexList;
+
+<<<<<<< HEAD:src/parsingTokens/statements/CubexListStatement.java
+=======
 import parsingTokens.statements.CubexList;
 import parsingTokens.statements.CubexStatement;
+import typeChecker.CubexCompleteContext;
+>>>>>>> 5832f6138642e0af48d3b41f9a0774ef5499e82f:src/parsingTokens/CubexListStatement.java
 
-public final class CubexListStatement implements CubexStatement {
+public final class CubexListStatement extends CubexStatement {
 	private CubexList<CubexStatement> cList;
 	public static boolean flatten = false;
 
+	public CubexListStatement(){
+		cList = new CubexList<CubexStatement>();
+	}
+	
 	public CubexListStatement(CubexList<CubexStatement> cList) {
 		this.cList = cList;
 	}
@@ -23,5 +33,11 @@ public final class CubexListStatement implements CubexStatement {
 			flatten = prev;
 			return s;
 		}
+	}
+
+	@Override
+	public boolean typeCheck(CubexCompleteContext c) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
