@@ -4,12 +4,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 import parsingTokens.context.CubexTypeScheme;
+import parsingTokens.typeGrammar.CubexTypeGrammar;
 
 public class FunctionContext {
 	public Map<String, CubexTypeScheme> nameToTypeSchemeMap;
 	
 	public FunctionContext(){
 		nameToTypeSchemeMap = new HashMap<String, CubexTypeScheme>();
+	}
+	
+	public void merge(FunctionContext funcContext){
+		for (Map.Entry<String, CubexTypeScheme> entry : funcContext.iterable()){
+			nameToTypeSchemeMap.put(entry.getKey(), entry.getValue());
+		}
 	}
 	
 	public void put(String functionName, CubexTypeScheme typeScheme){
@@ -22,5 +29,9 @@ public class FunctionContext {
 	
 	public void remove(String functionName){
 		nameToTypeSchemeMap.remove(functionName);		
+	}
+	
+	public Iterable<Map.Entry<String, CubexTypeScheme>> iterable(){
+		return nameToTypeSchemeMap.entrySet();
 	}
 }

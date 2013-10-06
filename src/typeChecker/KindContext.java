@@ -19,6 +19,10 @@ public class KindContext {
 		contextSet.addAll(nameCollection);
 	}
 	
+	public void addAll(KindContext cont){
+		contextSet.addAll(cont.contextSet);
+	}
+	
 	public void remove(String typeParamNames){
 		contextSet.remove(typeParamNames);
 	}

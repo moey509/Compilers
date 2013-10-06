@@ -1,5 +1,6 @@
 package typeChecker;
 
+import parsingTokens.context.CubexTypeScheme;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 
 public class CubexCompleteContext {
@@ -25,15 +26,39 @@ public class CubexCompleteContext {
 		return new CubexCompleteContext(classContext, kindContext, functionContext, typeContext, mutableTypeContext);
 	}
 	
-	public CubexCompleteContext appendTypeContext(TypeContext t){
-		CubexCompleteContext clone = this.clone();
-		clone.typeContext.merge(t);
-		return clone;
+	public void appendClassContext(ClassContext t){
+		classContext.merge(t);
+	}
+	public void appendClassContext(String s, ClassContextElement t){
+		classContext.put(s, t);
 	}
 	
-	public CubexCompleteContext appendTypeContextElement(String s, CubexTypeGrammar t){
-		CubexCompleteContext clone = this.clone();
-		clone.typeContext.put(s, t);
-		return clone;
+	public void appendKindContext(KindContext t){
+		kindContext.addAll(t);
 	}
+	public void appendKindContext(String s){
+		kindContext.add(s);
+	}
+	
+	public void appendFunctionContext(FunctionContext t){
+		functionContext.merge(t);
+	}
+	public void appendFunctionContext(String s, CubexTypeScheme t){
+		functionContext.put(s, t);
+	}
+	
+	public void appendTypeContext(TypeContext t){
+		typeContext.merge(t);
+	}
+	public void appendTypeContext(String s, CubexTypeGrammar t){
+		typeContext.put(s, t);
+	}
+	
+	public void appendMutableTypeContext(TypeContext t){
+		mutableTypeContext.merge(t);
+	}
+	public void appendMutableTypeContext(String s, CubexTypeGrammar t){
+		mutableTypeContext.put(s, t);
+	}
+	
 }

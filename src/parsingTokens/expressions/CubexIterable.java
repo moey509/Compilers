@@ -19,7 +19,6 @@ public class CubexIterable extends CubexExpression{
 	public boolean typeCheck(CubexCompleteContext c, CubexTypeClass t){
 		for(int i = 0; i < list.size(); i++){
 			if(!list.get(i).typeCheck(c, t.typeList.get(0))){
-				System.out.println("nooooo");
 				return false;
 			}
 		}
