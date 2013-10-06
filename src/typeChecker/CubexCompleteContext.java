@@ -4,11 +4,11 @@ import parsingTokens.context.CubexTypeScheme;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 
 public class CubexCompleteContext {
-	ClassContext classContext;
-	KindContext kindContext;
-	FunctionContext functionContext;
-	TypeContext typeContext;
-	TypeContext mutableTypeContext;
+	public ClassContext classContext;
+	public KindContext kindContext;
+	public FunctionContext functionContext;
+	public TypeContext typeContext;
+	public TypeContext mutableTypeContext;
 
 	CubexCompleteContext(ClassContext c, KindContext k, FunctionContext f,
 			TypeContext t, TypeContext mt) {
@@ -26,9 +26,11 @@ public class CubexCompleteContext {
 	//
 	// return null;
 	// }
+	
+	// Returns a shadow copy where the two type contexts are also shallow copied
 	public CubexCompleteContext clone() {
 		return new CubexCompleteContext(classContext, kindContext,
-				functionContext, typeContext, mutableTypeContext);
+				functionContext, typeContext.clone(), mutableTypeContext.clone());
 	}
 
 	public void appendClassContext(ClassContext t) {

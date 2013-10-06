@@ -6,10 +6,17 @@ import java.util.Map;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 
 public class TypeContext {
-	private Map<String, CubexTypeGrammar> contextMap;
+	private HashMap<String, CubexTypeGrammar> contextMap;
 	
 	public TypeContext(){
 		contextMap = new HashMap<String, CubexTypeGrammar>();			
+	}
+	
+	// If the context needs to be modified, remove the mapping and add a new one back in
+	public TypeContext clone() {
+		TypeContext tc = new TypeContext();
+		tc.contextMap = (HashMap<String, CubexTypeGrammar>) this.contextMap.clone();
+		return tc;
 	}
 	
 	public void put(String variableName, CubexTypeGrammar type){
