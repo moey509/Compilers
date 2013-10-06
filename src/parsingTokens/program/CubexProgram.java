@@ -1,5 +1,6 @@
 package parsingTokens.program;
 
+import Exception.SemanticException;
 import typeChecker.CubexCompleteContext;
 
 public class CubexProgram {
@@ -19,7 +20,7 @@ public class CubexProgram {
 			return programType.toString() + " " + nextProgram.toString();
 		}
 	}
-	public boolean typeCheck(CubexCompleteContext c){
+	public boolean typeCheck(CubexCompleteContext c) throws SemanticException{
 		return programType.typeCheck(c) && (nextProgram == null || nextProgram.typeCheck(c));
 	}
 }

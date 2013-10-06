@@ -18,6 +18,7 @@ public class CubexProgramStatementList implements CubexProgramType {
 	@Override
 	public boolean typeCheck(CubexCompleteContext c) {
 		// TODO Auto-generated method stub
+		System.out.println("programStatementList");
 		return false;
 	}
 }

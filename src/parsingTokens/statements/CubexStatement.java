@@ -1,10 +1,10 @@
 package parsingTokens.statements;
 
 
+import Exception.SemanticException;
 import parsingTokens.expressions.CubexExpression;
 import parsingTokens.typeGrammar.CubexTypeClass;
 import typeChecker.CubexCompleteContext;
-
 import parsingTokens.expressions.CubexExpression;
 import parsingTokens.typeGrammar.CubexTypeClass;
 import typeChecker.CubexCompleteContext;
@@ -16,11 +16,11 @@ public abstract class CubexStatement {
 		return false;
 	}
 	//For returns, given true/false for return and a type t
-	public boolean typeCheck(CubexCompleteContext c, boolean b, CubexTypeClass t) {
+	public boolean typeCheck(CubexCompleteContext c, boolean b, CubexTypeClass t) throws SemanticException {
 		return false;
 	}
-	public boolean typeCheck(CubexCompleteContext c) {
+	public boolean typeCheck(CubexCompleteContext c) throws SemanticException{
 		// TODO Auto-generated method stub
-		return false;
+		throw new SemanticException("");
 	}
 }

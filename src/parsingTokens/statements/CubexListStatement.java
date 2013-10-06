@@ -1,5 +1,6 @@
 package parsingTokens.statements;
 
+import Exception.SemanticException;
 import parsingTokens.CubexList;
 import parsingTokens.statements.CubexStatement;
 import typeChecker.CubexCompleteContext;
@@ -27,8 +28,9 @@ public final class CubexListStatement extends CubexStatement {
 	}
 
 	@Override
-	public boolean typeCheck(CubexCompleteContext c) {
+	public boolean typeCheck(CubexCompleteContext c) throws SemanticException{
 		// TODO Auto-generated method stub
+		System.out.println("hiii");
 		for(int i = 0; i < cList.size(); i++){
 			if(!cList.get(i).typeCheck(c)){
 				return false;

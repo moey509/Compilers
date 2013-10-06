@@ -21,6 +21,7 @@ import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.misc.Nullable;
 
+import Exception.SemanticException;
 import parser.CubexParser;
 import parsingTokens.CubexClassGrammar;
 import parsingTokens.CubexList;
@@ -67,9 +68,11 @@ public class TypeCheckerMain {
 			return;
 		}
 		System.out.print(cubParser.programAST);
-		if (cubParser.programAST.typeCheck(null)) {
+		try {
+			cubParser.programAST.typeCheck(null);
 			System.out.println("accept");
-		} else {
+		} catch (SemanticException e) {
+			// TODO Auto-generated catch block
 			System.out.println("reject");
 		}
 	}

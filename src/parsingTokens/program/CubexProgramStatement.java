@@ -1,5 +1,6 @@
 package parsingTokens.program;
 
+import Exception.SemanticException;
 import parsingTokens.CubexList;
 import parsingTokens.statements.CubexStatement;
 import parsingTokens.typeGrammar.CubexTypeClass;
@@ -18,7 +19,7 @@ public class CubexProgramStatement implements CubexProgramType {
 		return statement.toString();
 	}
 	//Top rule in Program Checking
-	public boolean typeCheck(CubexCompleteContext c){
+	public boolean typeCheck(CubexCompleteContext c) throws SemanticException{
 		CubexList<CubexTypeGrammar> l = new CubexList<CubexTypeGrammar>();
 		l.add(new CubexTypeName("String"));
 		CubexTypeClass t = new CubexTypeClass("Iterable", l);
