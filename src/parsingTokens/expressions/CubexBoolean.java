@@ -8,4 +8,8 @@ public final class CubexBoolean extends CubexExpression {
 	public String toString(){
 		return mValue ? "true" : "false";
 	}
+	
+	public CubexTypeGrammar typeCheck(){
+		return 
+	}
 }

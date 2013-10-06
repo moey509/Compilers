@@ -9,56 +9,87 @@ public class CubexCompleteContext {
 	FunctionContext functionContext;
 	TypeContext typeContext;
 	TypeContext mutableTypeContext;
-	CubexCompleteContext(ClassContext c, KindContext k, FunctionContext f, TypeContext t, TypeContext mt){
+
+	CubexCompleteContext(ClassContext c, KindContext k, FunctionContext f,
+			TypeContext t, TypeContext mt) {
 		classContext = c;
 		kindContext = k;
 		functionContext = f;
 		typeContext = t;
 		mutableTypeContext = mt;
 	}
-	//TODO: implement adding onto the complete context
-//	CubexCompleteContext add(ClassContext c, KindContext k, FunctionContext f, TypeContext t, TypeContext mt){
-//		CubexCompleteContext ccc = new CubexCompleteContext(c, k, f, t, mt);
-//		
-//		return null;
-//	}
-	public CubexCompleteContext clone(){
-		return new CubexCompleteContext(classContext, kindContext, functionContext, typeContext, mutableTypeContext);
+
+	// TODO: implement adding onto the complete context
+	// CubexCompleteContext add(ClassContext c, KindContext k, FunctionContext
+	// f, TypeContext t, TypeContext mt){
+	// CubexCompleteContext ccc = new CubexCompleteContext(c, k, f, t, mt);
+	//
+	// return null;
+	// }
+	public CubexCompleteContext clone() {
+		return new CubexCompleteContext(classContext, kindContext,
+				functionContext, typeContext, mutableTypeContext);
 	}
-	
-	public void appendClassContext(ClassContext t){
+
+	public void appendClassContext(ClassContext t) {
 		classContext.merge(t);
 	}
-	public void appendClassContext(String s, ClassContextElement t){
+
+	public void appendClassContext(String s, ClassContextElement t) {
 		classContext.put(s, t);
 	}
-	
-	public void appendKindContext(KindContext t){
+
+	public ClassContextElement getElementFromClassContext(String s) {
+		return classContext.get(s);
+	}
+
+	public void appendKindContext(KindContext t) {
 		kindContext.addAll(t);
 	}
-	public void appendKindContext(String s){
+
+	public void appendKindContext(String s) {
 		kindContext.add(s);
 	}
-	
-	public void appendFunctionContext(FunctionContext t){
+
+	public boolean kindContextContainsTypeParam(String typeParameter) {
+		return kindContext.contains(typeParameter);
+	}
+
+	public void appendFunctionContext(FunctionContext t) {
 		functionContext.merge(t);
 	}
-	public void appendFunctionContext(String s, CubexTypeScheme t){
+
+	public void appendFunctionContext(String s, CubexTypeScheme t) {
 		functionContext.put(s, t);
 	}
-	
-	public void appendTypeContext(TypeContext t){
+
+	public CubexTypeScheme getTypeSchemeFromFunctionContext(String s) {
+		return functionContext.get(s);
+	}
+
+	public void appendTypeContext(TypeContext t) {
 		typeContext.merge(t);
 	}
-	public void appendTypeContext(String s, CubexTypeGrammar t){
+
+	public void appendTypeContext(String s, CubexTypeGrammar t) {
 		typeContext.put(s, t);
 	}
-	
-	public void appendMutableTypeContext(TypeContext t){
+
+	public CubexTypeGrammar getTypeGrammarFromTypeContext(String variableName) {
+		return typeContext.get(variableName);
+	}
+
+	public void appendMutableTypeContext(TypeContext t) {
 		mutableTypeContext.merge(t);
 	}
-	public void appendMutableTypeContext(String s, CubexTypeGrammar t){
+
+	public void appendMutableTypeContext(String s, CubexTypeGrammar t) {
 		mutableTypeContext.put(s, t);
 	}
-	
+
+	public CubexTypeGrammar getTypeGrammarFromMutableTypeContext(
+			String variableName) {
+		return mutableTypeContext.get(variableName);
+	}
+
 }
