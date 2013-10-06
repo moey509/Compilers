@@ -5,7 +5,7 @@ import java.util.List;
 /*
  * List with no spaces
  */
-public class CubexList<T> implements CubexStatement {
+public class CubexList<T> {
 	public List<T> contextCollection = new ArrayList<T>();
 	
 	public void add(T object) {

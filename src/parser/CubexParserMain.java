@@ -51,12 +51,12 @@ public class CubexParserMain {
 			return;
 		}
 		System.out.print(cubParser.programAST);
-		if(cubParser.programAST.typeCheck()){
-			System.out.println("accept");
-		}
-		else{
-			System.out.println("reject");
-		}
+//		if(cubParser.programAST.typeCheck()){
+//			System.out.println("accept");
+//		}
+//		else{
+//			System.out.println("reject");
+//		}
 	}
 	
 	static class ErrorListener implements ANTLRErrorListener {
