@@ -2,12 +2,9 @@ package parsingTokens.statements;
 
 import parsingTokens.CubexList;
 
-<<<<<<< HEAD:src/parsingTokens/statements/CubexListStatement.java
-=======
-import parsingTokens.statements.CubexList;
+
 import parsingTokens.statements.CubexStatement;
 import typeChecker.CubexCompleteContext;
->>>>>>> 5832f6138642e0af48d3b41f9a0774ef5499e82f:src/parsingTokens/CubexListStatement.java
 
 public final class CubexListStatement extends CubexStatement {
 	private CubexList<CubexStatement> cList;

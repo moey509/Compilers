@@ -359,9 +359,6 @@ public class TypeCheckerMain {
 		CubexTypeClass stringType = new CubexTypeClass("String", new CubexList<CubexTypeGrammar>());
 		typeMap.put("String", stringType);
 		
-		type
-		ClassContextElement stringClassContextElement = new ClassContextElement(
-				new CubexClassGrammar("String", classConte))
 		
 		
 		
