@@ -1,5 +1,7 @@
 package typeChecker;
 
+import parsingTokens.typeGrammar.CubexTypeGrammar;
+
 public class CubexCompleteContext {
 	ClassContext classContext;
 	KindContext kindContext;
@@ -19,4 +21,19 @@ public class CubexCompleteContext {
 //		
 //		return null;
 //	}
+	public CubexCompleteContext clone(){
+		return new CubexCompleteContext(classContext, kindContext, functionContext, typeContext, mutableTypeContext);
+	}
+	
+	public CubexCompleteContext appendTypeContext(TypeContext t){
+		CubexCompleteContext clone = this.clone();
+		clone.typeContext.merge(t);
+		return clone;
+	}
+	
+	public CubexCompleteContext appendTypeContextElement(String s, CubexTypeGrammar t){
+		CubexCompleteContext clone = this.clone();
+		clone.typeContext.put(s, t);
+		return clone;
+	}
 }

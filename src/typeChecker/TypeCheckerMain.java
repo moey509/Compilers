@@ -63,7 +63,12 @@ public class TypeCheckerMain {
 			return;
 		}
 		System.out.print(cubParser.programAST);
-
+		if(cubParser.programAST.typeCheck(null)){
+			System.out.println("accept");
+		}
+		else{
+			System.out.println("reject");
+		}
 	}
 	
 	static class ErrorListener implements ANTLRErrorListener {

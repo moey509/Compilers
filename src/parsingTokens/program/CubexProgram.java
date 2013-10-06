@@ -1,5 +1,7 @@
 package parsingTokens.program;
 
+import typeChecker.CubexCompleteContext;
+
 public class CubexProgram {
 	CubexProgramType programType;
 	CubexProgram nextProgram;
@@ -16,5 +18,8 @@ public class CubexProgram {
 		else {
 			return programType.toString() + " " + nextProgram.toString();
 		}
+	}
+	public boolean typeCheck(CubexCompleteContext c){
+		return programType.typeCheck(c) && (nextProgram == null || nextProgram.typeCheck(c));
 	}
 }

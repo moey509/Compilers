@@ -12,6 +12,10 @@ public class CubexList<T> {
 		contextCollection.add(object);
 	}
 	
+	public T get(int i){
+		return contextCollection.get(i);
+	}
+	
 	public void remove(T object) {
 		contextCollection.remove(object);
 	}

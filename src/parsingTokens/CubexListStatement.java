@@ -2,8 +2,9 @@ package parsingTokens;
 
 import parsingTokens.statements.CubexList;
 import parsingTokens.statements.CubexStatement;
+import typeChecker.CubexCompleteContext;
 
-public final class CubexListStatement implements CubexStatement {
+public final class CubexListStatement extends CubexStatement {
 	private CubexList<CubexStatement> cList;
 	public static boolean flatten = false;
 
@@ -23,5 +24,11 @@ public final class CubexListStatement implements CubexStatement {
 			flatten = prev;
 			return s;
 		}
+	}
+
+	@Override
+	public boolean typeCheck(CubexCompleteContext c) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

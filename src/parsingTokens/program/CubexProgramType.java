@@ -1,4 +1,7 @@
 package parsingTokens.program;
-public interface CubexProgramType {
 
+import typeChecker.CubexCompleteContext;
+
+public interface CubexProgramType {
+	public boolean typeCheck(CubexCompleteContext c);
 }

@@ -2,10 +2,10 @@ package parsingTokens.statements;
 
 import parsingTokens.CubexListStatement;
 import parsingTokens.expressions.CubexExpression;
+import typeChecker.CubexCompleteContext;
 
-public final class CubexFor implements CubexStatement {
+public final class CubexFor extends CubexStatement {
 	private String varfun;
-	private CubexExpression e;
 	private CubexStatement s;
 
 	public CubexFor(String varfun, CubexExpression e, CubexStatement s) {
