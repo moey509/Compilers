@@ -20,7 +20,10 @@ public class CubexProgram {
 			return programType.toString() + " " + nextProgram.toString();
 		}
 	}
-	public boolean typeCheck(CubexCompleteContext c) throws SemanticException{
-		return programType.typeCheck(c) && (nextProgram == null || nextProgram.typeCheck(c));
+	public void typeCheck(CubexCompleteContext c) throws SemanticException{
+		programType.typeCheck(c);
+		if(nextProgram != null){
+			nextProgram.typeCheck(c);
+		}
 	}
 }

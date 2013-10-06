@@ -134,7 +134,6 @@ public class TypeCheckerMain {
 		defineInput(typeContext, typeMap);
 	}
 
-	// Define Thing
 	public void defineThing(ClassContext classContext,
 			Map<String, CubexTypeClass> typeMap) {
 
@@ -151,7 +150,6 @@ public class TypeCheckerMain {
 		 */
 	}
 
-	// Define Thing
 	public void defineNothing(ClassContext classContext,
 			Map<String, CubexTypeClass> typeMap) {
 
@@ -393,7 +391,7 @@ public class TypeCheckerMain {
 
 	public void defineFunctions(ClassContext classContext,
 			FunctionContext functionContext, Map<String, CubexTypeClass> typeMap) {
-		
+
 		// Define character
 		CubexList<CubexTypeTuple> characterFunctionArguments = new CubexList<CubexTypeTuple>();
 		characterFunctionArguments.add(new CubexTypeTuple("unicode", typeMap
@@ -405,15 +403,17 @@ public class TypeCheckerMain {
 		// Define string
 		CubexTypeClass characterIterable = typeMap.get("Iterable");
 		characterIterable.getTypeList().add(typeMap.get("Character"));
-		
+
 		CubexList<CubexTypeTuple> stringFunctionArguments = new CubexList<CubexTypeTuple>();
-		stringFunctionArguments.add(new CubexTypeTuple("characters", characterIterable));
+		stringFunctionArguments.add(new CubexTypeTuple("characters",
+				characterIterable));
 		functionContext.put("character",
 				new CubexTypeScheme(new CubexList<String>(),
 						stringFunctionArguments, typeMap.get("String")));
 	}
-	
-	public void defineInput(TypeContext typeContext, Map<String, CubexTypeClass> typeMap){
+
+	public void defineInput(TypeContext typeContext,
+			Map<String, CubexTypeClass> typeMap) {
 		CubexTypeClass stringIterable = typeMap.get("Iterable");
 		stringIterable.getTypeList().add(typeMap.get("String"));
 		typeContext.put("input", stringIterable);

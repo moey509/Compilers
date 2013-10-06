@@ -1,5 +1,6 @@
 package parsingTokens.expressions;
 
+import Exception.SemanticException;
 import parsingTokens.CubexList;
 import parsingTokens.typeGrammar.CubexTypeClass;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
@@ -15,14 +16,14 @@ public class CubexExpression {
 		return name;
 	}
 	//Check if the expression is of some type
-	public boolean typeCheck(CubexCompleteContext c, CubexTypeGrammar t){
-		return false;
+	public CubexCompleteContext typeCheck(CubexCompleteContext c, CubexTypeGrammar t) throws SemanticException{
+		throw new SemanticException("");
 	}
-	public boolean typeCheck(CubexCompleteContext c, CubexTypeClass t){
-		return false;
+	public CubexCompleteContext typeCheck(CubexCompleteContext c, CubexTypeClass t) throws SemanticException{
+		throw new SemanticException("");
 	}
 	//Check if the expression is of some list of types
-	public boolean typeCheck(CubexCompleteContext c, CubexList<CubexTypeGrammar> t){
-		return false;
+	public CubexCompleteContext typeCheck(CubexCompleteContext c, CubexList<CubexTypeGrammar> t) throws SemanticException{
+		throw new SemanticException("");
 	}
 }

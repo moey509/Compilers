@@ -1,6 +1,7 @@
 package parsingTokens.expressions;
 
 
+import Exception.SemanticException;
 import parsingTokens.CubexList;
 import parsingTokens.typeGrammar.CubexTypeClass;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
@@ -18,16 +19,17 @@ public class CubexIterable extends CubexExpression{
 	
 	//Must check that all expressions are of type t: vc<t>
 	//Rule 5.5
-	public boolean typeCheck(CubexCompleteContext c, CubexTypeClass t){
+	public CubexCompleteContext typeCheck(CubexCompleteContext c, CubexTypeClass t) throws SemanticException{
 		for(int i = 0; i < list.size(); i++){
-			if(!list.get(i).typeCheck(c, t.typeList.get(0))){
-				return false;
-			}
+			//TODO: change to returning something false
+//			if(!list.get(i).typeCheck(c, t.typeList.get(0))){
+//				return null;
+//			}
 		}
-		return true;
+		return c;
 	}
 	//Check if the expression is of some list of types
-	public boolean typeCheck(CubexCompleteContext c, CubexList<CubexTypeGrammar> t){
-		return false;
+	public CubexCompleteContext typeCheck(CubexCompleteContext c, CubexList<CubexTypeGrammar> t) throws SemanticException{
+		throw new SemanticException("");
 	}
 }

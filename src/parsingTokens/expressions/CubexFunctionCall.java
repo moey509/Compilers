@@ -8,7 +8,9 @@ public final class CubexFunctionCall extends CubexExpression {
 	private CubexList<CubexTypeGrammar> typeParams;
 	private CubexList<CubexExpression> functionParams;
 
-	public CubexFunctionCall(String v_vc, CubexList<CubexTypeGrammar> typeParams, CubexList<CubexExpression> functionParams) {
+	public CubexFunctionCall(String v_vc,
+			CubexList<CubexTypeGrammar> typeParams,
+			CubexList<CubexExpression> functionParams) {
 		this.v_vc = v_vc;
 		this.typeParams = typeParams;
 		this.functionParams = functionParams;
@@ -17,6 +19,7 @@ public final class CubexFunctionCall extends CubexExpression {
 	public String toString() {
 		String rightSpace1 = typeParams.size() == 0 ? "" : " ";
 		String rightSpace2 = functionParams.size() == 0 ? "" : " ";
-		return v_vc + " < " + typeParams.toString(",") + rightSpace1 + "> ( " + functionParams.toString(",") + rightSpace2 + ")";
+		return v_vc + " < " + typeParams.toString(",") + rightSpace1 + "> ( "
+				+ functionParams.toString(",") + rightSpace2 + ")";
 	}
 }

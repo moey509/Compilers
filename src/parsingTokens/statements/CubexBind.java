@@ -1,5 +1,6 @@
 package parsingTokens.statements;
 
+import Exception.SemanticException;
 import parsingTokens.expressions.CubexExpression;
 import parsingTokens.typeGrammar.CubexTypeClass;
 import typeChecker.CubexCompleteContext;
@@ -16,11 +17,11 @@ public final class CubexBind extends CubexStatement {
 		return classid + " := " + e.toString() + " ;";
 	}
 	//TODO: handle types that aren't part of the original cubex language
-	public boolean typeCheck(CubexCompleteContext c, boolean bool, CubexTypeClass t) {
+	public CubexCompleteContext typeCheck(CubexCompleteContext c, boolean bool, CubexTypeClass t) throws SemanticException {
 		//7.4
 		if(!bool){
 			return e.typeCheck(c, t);
 		}
-		return false;
+		throw new SemanticException("");
 	}
 }
