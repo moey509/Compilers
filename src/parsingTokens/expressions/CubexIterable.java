@@ -26,7 +26,7 @@ public class CubexIterable extends CubexExpression{
 //				return null;
 //			}
 		}
-		throw new SemanticException("");
+		return c;
 	}
 	//Check if the expression is of some list of types
 	public CubexCompleteContext typeCheck(CubexCompleteContext c, CubexList<CubexTypeGrammar> t) throws SemanticException{
