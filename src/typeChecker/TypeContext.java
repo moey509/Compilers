@@ -26,6 +26,10 @@ public class TypeContext {
 		contextMap.remove(variableName);
 	}
 	
+	public boolean containsKey(String variableName){
+		return contextMap.containsKey(variableName);
+	}
+	
 	public CubexTypeGrammar get(String variableName){
 		return contextMap.get(variableName);
 	}

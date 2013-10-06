@@ -22,6 +22,10 @@ public class ClassContext {
 		contextMap.put(name, value);
 	}
 	
+	public boolean containsKey(String name){
+		return contextMap.containsKey(name);
+	}
+	
 	public ClassContextElement get(String name){
 		return contextMap.get(name);
 	}

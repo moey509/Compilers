@@ -39,6 +39,10 @@ public class CubexCompleteContext {
 		classContext.put(s, t);
 	}
 
+	public boolean containsClassName(String s){
+		return classContext.containsKey(s);
+	}
+	
 	public ClassContextElement getElementFromClassContext(String s) {
 		return classContext.get(s);
 	}
@@ -62,6 +66,10 @@ public class CubexCompleteContext {
 	public void appendFunctionContext(String s, CubexTypeScheme t) {
 		functionContext.put(s, t);
 	}
+	
+	public boolean containsFunctionName(String s){
+		return functionContext.containsKey(s);
+	}
 
 	public CubexTypeScheme getTypeSchemeFromFunctionContext(String s) {
 		return functionContext.get(s);
@@ -74,6 +82,10 @@ public class CubexCompleteContext {
 	public void appendTypeContext(String s, CubexTypeGrammar t) {
 		typeContext.put(s, t);
 	}
+	
+	public boolean containsTypeVariableInTypeContext(String s){
+		return typeContext.containsKey(s);
+	}
 
 	public CubexTypeGrammar getTypeGrammarFromTypeContext(String variableName) {
 		return typeContext.get(variableName);
@@ -85,6 +97,10 @@ public class CubexCompleteContext {
 
 	public void appendMutableTypeContext(String s, CubexTypeGrammar t) {
 		mutableTypeContext.put(s, t);
+	}
+	
+	public boolean containsTypeVariableInMutableTypeContext(String s){
+		return mutableTypeContext.containsKey(s);
 	}
 
 	public CubexTypeGrammar getTypeGrammarFromMutableTypeContext(

@@ -23,6 +23,10 @@ public class FunctionContext {
 		nameToTypeSchemeMap.put(functionName, typeScheme);
 	}
 	
+	public boolean containsKey(String functionName){
+		return nameToTypeSchemeMap.containsKey(functionName);
+	}
+	
 	public CubexTypeScheme get(String functionName){
 		return nameToTypeSchemeMap.get(functionName);
 	}
