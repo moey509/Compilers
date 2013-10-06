@@ -12,7 +12,7 @@ public final class CubexString extends CubexExpression {
 		return mValue;
 	}
 
-	/*public boolean typeCheck(CubexCompleteContext c, CubexTypeGrammar t) throws SemanticException{
+	public CubexCompleteContext typeCheck(CubexCompleteContext c, CubexTypeGrammar t) throws SemanticException{
 		throw new SemanticException("");
-	}*/
+	}
 }
