@@ -2,21 +2,22 @@
 
 interface List<T>
 {
-	fun getFirst() : Iterable<T>;
+	fun getFirst() : Iterable<T> = [];
 	fun getRest() : List<T>;
-	fun getIterable() : Iterable<T>;
-	fun append(l: List<T>) : List<T>
-	{
-		for(e in getFirst())
-		{
-			return Cons<T>(e,getRest().append(l));
-		}
-		return l;
-	}
+	fun getIterable() : Iterable<T> = [];
+	fun append(l: List<T>) : List<T>;
 	fun reverse() : List<T>;
 }
 
-class Cons<T> extends List<T>(elem : T,rest : List<T>)
+class Nil<T>() extends List<T>
+{
+	super();
+	fun getRest() : List<T> = Nil<T>();
+	fun reverse() : List<T> = Nil<T>();
+	fun append(l:List<T>) : List<T> = l;
+}
+
+class Cons<T>(elem : T,rest : List<T>) extends List<T>
 {
 	super();
 	fun getFirst() : Iterable<T> = [elem];
@@ -25,19 +26,14 @@ class Cons<T> extends List<T>(elem : T,rest : List<T>)
 	{
 		return [elem] ++ rest.getIterable();
 	}
+	fun append(l:List<T>) : List<T>
+	{
+		return Cons<T>(elem,rest.append(l));
+	}
 	fun reverse() : List<T>
 	{
 		return r.reverse().append(Cons<T>(elem,Nil<T>()));
 	}
-}
-
-class Nil<T> extends List<T>()
-{
-	super();
-	fun getFirst() : Iterable<T> = [];
-	fun getRest() : List<T> = Nil<T>();
-	fun getIterable() : Iterable<T> = [];
-	fun reverse() : List<T> = Nil<T>();
 }
 
 fun strToCons<T>(iter : Iterable<T> ) : List<T>
@@ -50,4 +46,4 @@ fun strToCons<T>(iter : Iterable<T> ) : List<T>
 	return ret.reverse();
 }
 
-return string(strToCons<Character>("Hello World!").getIterable());
+return [string(strToCons<Character>("Hello World!").getIterable())];

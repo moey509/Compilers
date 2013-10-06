@@ -43,4 +43,4 @@ fun strToCons<T>(iter : Iterable<T>) : Iterable<Cons<T>>
 	return ret.reverse();
 }
 
-return string(strToCons<Character>("Hello World!").getIterable());
+return [string(strToCons<Character>("Hello World!").getIterable())];

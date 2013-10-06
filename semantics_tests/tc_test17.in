@@ -27,6 +27,6 @@ fun getBuildingData(b : Building) : String = concat(b.getAddress(),b.getName());
 
 fun getAssetData(a : Asset) : String = b.getManagerName();
 
-branch = Branch("1 Main Road", "Main Branch", 9001, "Chuck Norris");
+branch := Branch("1 Main Road", "Main Branch", 9001, "Chuck Norris");
 
-return concat(getBuildingData(branch),getAssetData(branch));
+return [concat(getBuildingData(branch),getAssetData(branch))];

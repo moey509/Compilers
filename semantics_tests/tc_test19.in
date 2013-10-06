@@ -1,13 +1,13 @@
 # typechecker test program 19
 
-class A()
+class Aa()
 {
 	super();
 }
 
-interface B extends A
+interface Bb extends Aa
 {
 	fun tastic() : String;
 }
 
-return "Nope";
+return ["Nope"];

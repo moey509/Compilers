@@ -37,4 +37,4 @@ fun sum (list : Iterable<Integer>) : Integer
 	return ret;
 }
 
-return inToStr(sum(1..4));
+return [intToStr(sum(1..4))];

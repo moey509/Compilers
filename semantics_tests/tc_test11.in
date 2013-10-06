@@ -39,4 +39,4 @@ fun merge<T> (l1 : Iterable<T>, l2 : Iterable<T>) : Iterable<T>
 	return ret ++ l2;
 }
 
-return string(merge<Character>("HloWrd","el ol!"));
+return [string(merge<Character>("HloWrd","el ol!"))];

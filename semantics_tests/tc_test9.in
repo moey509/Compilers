@@ -11,4 +11,4 @@ for(v in lst)
 	sum := sum + v;
 
 # should be 20
-return "20";
+return ["20"];

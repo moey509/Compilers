@@ -12,4 +12,4 @@ fun concatAll(strings : Iterable<String>) : String
 	return ret;
 }
 
-return concat(input);
+return [concatAll(input)];
