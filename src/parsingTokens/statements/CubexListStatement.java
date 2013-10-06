@@ -28,15 +28,16 @@ public final class CubexListStatement extends CubexStatement {
 	}
 
 	@Override
-	public boolean typeCheck(CubexCompleteContext c) throws SemanticException{
+	public CubexCompleteContext typeCheck(CubexCompleteContext c) throws SemanticException{
 		// TODO Auto-generated method stub
 		System.out.println("hiii");
 		for(int i = 0; i < cList.size(); i++){
-			if(!cList.get(i).typeCheck(c)){
-				return false;
-			}
+			//TODO: Must check for something to be true/false here
+//			if(!cList.get(i).typeCheck(c)){
+//				return null;
+//			}
 			
 		}
-		return true;
+		throw new SemanticException("");
 	}
 }

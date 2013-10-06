@@ -16,10 +16,10 @@ public abstract class CubexStatement {
 		return false;
 	}
 	//For returns, given true/false for return and a type t
-	public boolean typeCheck(CubexCompleteContext c, boolean b, CubexTypeClass t) throws SemanticException {
-		return false;
+	public CubexCompleteContext typeCheck(CubexCompleteContext c, boolean b, CubexTypeClass t) throws SemanticException {
+		throw new SemanticException("");
 	}
-	public boolean typeCheck(CubexCompleteContext c) throws SemanticException{
+	public CubexCompleteContext typeCheck(CubexCompleteContext c) throws SemanticException{
 		// TODO Auto-generated method stub
 		throw new SemanticException("");
 	}

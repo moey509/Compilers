@@ -1,5 +1,6 @@
 package parsingTokens.program;
 
+import Exception.SemanticException;
 import parsingTokens.CubexInterface;
 import typeChecker.CubexCompleteContext;
 
@@ -15,8 +16,8 @@ public class CubexProgramInterface implements CubexProgramType {
 	}
 
 	@Override
-	public boolean typeCheck(CubexCompleteContext c) {
+	public CubexCompleteContext typeCheck(CubexCompleteContext c) throws SemanticException {
 		// TODO Auto-generated method stub
-		return false;
+		throw new SemanticException("");
 	}
 }

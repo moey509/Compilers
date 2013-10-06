@@ -1,5 +1,6 @@
 package parsingTokens.expressions;
 
+import Exception.SemanticException;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import typeChecker.CubexCompleteContext;
 
@@ -9,7 +10,7 @@ public final class CubexString extends CubexExpression {
 	public String toString(){
 		return mValue;
 	}
-	public boolean typeCheck(CubexCompleteContext c, CubexTypeGrammar t){
-		return t.name.equals("String");
+	public CubexCompleteContext typeCheck(CubexCompleteContext c, CubexTypeGrammar t) throws SemanticException{
+		throw new SemanticException("");
 	}
 }
