@@ -7,6 +7,9 @@ import parsingTokens.CubexList;
 import parsingTokens.statements.CubexList;
 import parsingTokens.statements.CubexStatement;
 import typeChecker.CubexCompleteContext;
+<<<<<<< HEAD:src/parsingTokens/statements/CubexListStatement.java
+>>>>>>> 5832f6138642e0af48d3b41f9a0774ef5499e82f:src/parsingTokens/CubexListStatement.java
+=======
 >>>>>>> 5832f6138642e0af48d3b41f9a0774ef5499e82f:src/parsingTokens/CubexListStatement.java
 
 public final class CubexListStatement extends CubexStatement {

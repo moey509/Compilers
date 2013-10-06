@@ -7,6 +7,9 @@ import parsingTokens.statements.CubexList;
 import parsingTokens.typeGrammar.CubexTypeClass;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import typeChecker.CubexCompleteContext;
+<<<<<<< HEAD
+>>>>>>> 5832f6138642e0af48d3b41f9a0774ef5499e82f
+=======
 >>>>>>> 5832f6138642e0af48d3b41f9a0774ef5499e82f
 
 public class CubexIterable extends CubexExpression{

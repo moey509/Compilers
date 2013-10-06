@@ -1,7 +1,13 @@
 package parsingTokens.statements;
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 public interface CubexStatement {
+=======
+import parsingTokens.expressions.CubexExpression;
+import parsingTokens.typeGrammar.CubexTypeClass;
+import typeChecker.CubexCompleteContext;
+>>>>>>> 5832f6138642e0af48d3b41f9a0774ef5499e82f
 =======
 import parsingTokens.expressions.CubexExpression;
 import parsingTokens.typeGrammar.CubexTypeClass;

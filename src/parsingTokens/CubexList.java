@@ -6,7 +6,11 @@ import java.util.List;
  * List with no spaces
  */
 <<<<<<< HEAD:src/parsingTokens/CubexList.java
+<<<<<<< HEAD:src/parsingTokens/CubexList.java
 public class CubexList<T>{
+=======
+public class CubexList<T> {
+>>>>>>> 5832f6138642e0af48d3b41f9a0774ef5499e82f:src/parsingTokens/statements/CubexList.java
 =======
 public class CubexList<T> {
 >>>>>>> 5832f6138642e0af48d3b41f9a0774ef5499e82f:src/parsingTokens/statements/CubexList.java
