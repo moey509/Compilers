@@ -10,10 +10,10 @@ import parsingTokens.typeGrammar.CubexTypeGrammar;
 
 public class ClassContextElement{
 	boolean isClass; //Class or interface
-	String name;
-	CubexTypeGrammar type;
-	KindContext kindContext;
-	HashMap<String, CubexTypeScheme> functionMap = new HashMap<String, CubexTypeScheme>();
+	public String name;
+	public CubexTypeGrammar type;
+	public KindContext kindContext;
+	public HashMap<String, CubexTypeScheme> functionMap = new HashMap<String, CubexTypeScheme>();
 	
 	
 	//Duplicated code between for classes and interfaces...

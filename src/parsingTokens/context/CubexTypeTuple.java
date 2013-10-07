@@ -11,6 +11,14 @@ public class CubexTypeTuple {
 		this.typeGrammar = typeGrammar;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public CubexTypeGrammar getTypeGrammar() {
+		return typeGrammar;
+	}
+
 	public String toString() {
 		return name + " : " + typeGrammar.toString();
 	}

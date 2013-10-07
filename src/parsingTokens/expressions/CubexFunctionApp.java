@@ -3,9 +3,13 @@ package parsingTokens.expressions;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
 import parsingTokens.context.CubexTypeScheme;
+import parsingTokens.context.CubexTypeTuple;
 import parsingTokens.typeGrammar.CubexTypeClass;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
+import typeChecker.ClassContextElement;
 import typeChecker.CubexCompleteContext;
+import typeChecker.KindContext;
+import typeChecker.TypeContext;
 
 public final class CubexFunctionApp extends CubexExpression {
 	private CubexExpression expr;
@@ -30,8 +34,33 @@ public final class CubexFunctionApp extends CubexExpression {
 	// Check if the expression is of some type
 	public CubexTypeGrammar typeCheck(CubexCompleteContext c, CubexTypeGrammar t)
 			throws SemanticException {
-		CubexTypeScheme typeScheme = c.getTypeSchemeFromFunctionContext(v_v);
-		typeScheme.
+		CubexTypeGrammar objectType = expr.typeCheck(c, t);
+		ClassContextElement classContext;
+		CubexTypeScheme typeScheme;
+		if (c.containsClassName(objectType.name)) {
+			classContext = c.getElementFromClassContext(objectType.name);
+		}
+		else {
+			throw new SemanticException("");
+		}
+		if(classContext.functionMap.containsKey(v_v)){
+			typeScheme = classContext.functionMap.get(v_v);
+		}
+		else {
+			throw new SemanticException("");
+		}
+		
+		CubexList<String> kindContext = typeScheme.getKindContext();
+		
+		
+		
+		CubexList<CubexTypeTuple> typeContext = typeScheme.getTypeContext();
+
+		for (int i = 0; i < typeContext.size(); i++){
+			if typeContext.get(i).
+		
+		CubexTypeGrammar typeGrammar = typeScheme.getTypeGrammar();
+		
 	}
 
 	public CubexTypeGrammar typeCheck(CubexCompleteContext c, CubexTypeClass t)
