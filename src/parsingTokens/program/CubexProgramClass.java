@@ -16,7 +16,7 @@ public class CubexProgramClass implements CubexProgramType {
 	}
 
 	@Override
-	public void typeCheck(CubexCompleteContext c) throws SemanticException {
+	public CubexCompleteContext typeCheck(CubexCompleteContext c) throws SemanticException {
 		// TODO Auto-generated method stub
 		throw new SemanticException("");
 	}

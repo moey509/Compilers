@@ -17,60 +17,21 @@ public class CubexAppend extends CubexExpression {
 	public String toString() {
 		return e1.toString() + " ++ " + e2.toString();
 	}
-
-	// Check if the expression is of some type
-	public CubexTypeGrammar typeCheck(CubexCompleteContext c, CubexTypeGrammar t)
-			throws SemanticException {
-		//
-		// TODO: Implement type intersection
-		//
-		CubexList<CubexTypeGrammar> iterableType = new CubexList<CubexTypeGrammar>();
-		CubexTypeGrammar e1Type = e1.typeCheck(c, t);
-		CubexTypeGrammar e2Type = e2.typeCheck(c, t);
+	
+	public CubexTypeGrammar typeCheck(CubexCompleteContext c) throws SemanticException{
+		CubexTypeGrammar e1Type = e1.typeCheck(c);
+		CubexTypeGrammar e2Type = e2.typeCheck(c);
 		if (!(e1Type.getName().equals("Iterable") && e2Type.getName().equals("Iterable"))){
 			throw new SemanticException("Must append arguments of type Iterable");
 		}
-		iterableType.add(e1Type.equals(e2Type) ? e1Type
-						: new CubexTypeClass("Thing",
-								new CubexList<CubexTypeGrammar>()));
-
-		return new CubexTypeClass("Iterable", iterableType);
-	}
-
-	public CubexTypeGrammar typeCheck(CubexCompleteContext c, CubexTypeClass t)
-			throws SemanticException {
-		//
-		// TODO: Implement type intersection
-		//
-		CubexList<CubexTypeGrammar> iterableType = new CubexList<CubexTypeGrammar>();
-		CubexTypeGrammar e1Type = e1.typeCheck(c, t);
-		CubexTypeGrammar e2Type = e2.typeCheck(c, t);
-		if (!(e1Type.getName().equals("Iterable") && e2Type.getName().equals("Iterable"))){
-			throw new SemanticException("Must append arguments of type Iterable");
-		}
-		iterableType.add(e1Type.equals(e2Type) ? e1Type
-						: new CubexTypeClass("Thing",
-								new CubexList<CubexTypeGrammar>()));
-
-		return new CubexTypeClass("Iterable", iterableType);
-	}
-
-	// Check if the expression is of some list of types
-	public CubexTypeGrammar typeCheck(CubexCompleteContext c,
-			CubexList<CubexTypeGrammar> t) throws SemanticException {
-		//
-		// TODO: Implement type intersection
-		//
-		CubexList<CubexTypeGrammar> iterableType = new CubexList<CubexTypeGrammar>();
-		CubexTypeGrammar e1Type = e1.typeCheck(c, t);
-		CubexTypeGrammar e2Type = e2.typeCheck(c, t);
-		if (!(e1Type.getName().equals("Iterable") && e2Type.getName().equals("Iterable"))){
-			throw new SemanticException("Must append arguments of type Iterable");
-		}
-		iterableType.add(e1Type.equals(e2Type) ? e1Type
-						: new CubexTypeClass("Thing",
-								new CubexList<CubexTypeGrammar>()));
-
-		return new CubexTypeClass("Iterable", iterableType);
+		CubexList<CubexTypeGrammar> list = e1Type.getTypeList();
+		CubexList<CubexTypeGrammar> list2 = e2Type.getTypeList();
+		
+		//TODO: Check to see that each pair of types is a subtype and return something or other. Something like this?
+//		CubexList<CubexTypeGrammar> iterableType = new CubexList<CubexTypeGrammar>();
+//		iterableType.add(e1Type.equals(e2Type) ? e1Type
+//				: new CubexTypeClass("Thing",
+//						new CubexList<CubexTypeGrammar>()));
+		return null;
 	}
 }

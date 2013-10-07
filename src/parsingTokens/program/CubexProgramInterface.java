@@ -2,6 +2,7 @@ package parsingTokens.program;
 
 import Exception.SemanticException;
 import parsingTokens.CubexInterface;
+import typeChecker.ClassContext;
 import typeChecker.CubexCompleteContext;
 
 public class CubexProgramInterface implements CubexProgramType {
@@ -16,8 +17,10 @@ public class CubexProgramInterface implements CubexProgramType {
 	}
 
 	@Override
-	public void typeCheck(CubexCompleteContext c) throws SemanticException {
+	public CubexCompleteContext typeCheck(CubexCompleteContext c) throws SemanticException {
 		// TODO Auto-generated method stub
-		throw new SemanticException("");
+		ClassContext cont = cubexInterface.typeCheck(c);
+		c.appendClassContext(cont);
+		return c;
 	}
 }

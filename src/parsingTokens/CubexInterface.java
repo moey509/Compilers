@@ -1,6 +1,8 @@
 package parsingTokens;
 
 import parsingTokens.typeGrammar.CubexTypeGrammar;
+import typeChecker.ClassContext;
+import typeChecker.CubexCompleteContext;
 
 public class CubexInterface {
 	public String name;
@@ -30,6 +32,11 @@ public class CubexInterface {
 		build.append(rightSpace2);
 		build.append("}");
 		return build.toString();
+	}
+
+	public ClassContext typeCheck(CubexCompleteContext c) {
+		// TODO Write this
+		return null;
 	}
 
 }

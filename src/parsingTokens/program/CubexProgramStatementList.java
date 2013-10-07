@@ -19,20 +19,24 @@ public class CubexProgramStatementList implements CubexProgramType {
 	}
 
 	@Override
-	public void typeCheck(CubexCompleteContext c) throws SemanticException {
+	public CubexCompleteContext typeCheck(CubexCompleteContext c) throws SemanticException {
 		TypeContextReturn ret;
 		CubexCompleteContext tempContext = c.clone();
 		TypeContext nextContext = null;
 		tempContext.kindContext = null;
+		
 		for(int i = 0; i < statementList.size(); i++){
 			tempContext.mutableTypeContext = nextContext;
 			//TODO:needs typeCheckReturns method
-			ret = statementList.get(i).typeCheckReturns(tempContext);
+			ret = null;//TODO: write typeCheckReturns? =statementList.get(i).typeCheckReturns(tempContext);
 			nextContext = ret.typeContext;
 			//TODO:Check for ret.typeContext <: Iterable<String>
 			if(ret.guaranteedToReturn){
 				throw new SemanticException("");
 			}
 		}
+		
+		tempContext.appendTypeContext(tempContext.mutableTypeContext);
+		return tempContext;
 	}
 }
