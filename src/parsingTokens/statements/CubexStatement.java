@@ -5,9 +5,10 @@ import Exception.SemanticException;
 import parsingTokens.expressions.CubexExpression;
 import parsingTokens.typeGrammar.CubexTypeClass;
 import typeChecker.CubexCompleteContext;
+import typeChecker.TypeContextReturn;
+import typeChecker.TypeContext;
 import parsingTokens.expressions.CubexExpression;
 import parsingTokens.typeGrammar.CubexTypeClass;
-import typeChecker.CubexCompleteContext;
 
 public abstract class CubexStatement {
 	public CubexExpression e;
@@ -16,10 +17,10 @@ public abstract class CubexStatement {
 		return false;
 	}
 	//For returns, given true/false for return and a type t
-	public CubexCompleteContext typeCheck(CubexCompleteContext c, boolean b, CubexTypeClass t) throws SemanticException {
+	public TypeContextReturn typeCheckReturn(CubexCompleteContext c) throws SemanticException {
 		throw new SemanticException("");
 	}
-	public CubexCompleteContext typeCheck(CubexCompleteContext c) throws SemanticException{
+	public TypeContext typeCheck(CubexCompleteContext c) throws SemanticException{
 		// TODO Auto-generated method stub
 		throw new SemanticException("");
 	}

@@ -3,6 +3,7 @@ package typeChecker;
 import java.util.HashMap;
 import java.util.Map;
 
+import Exception.SemanticException;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 
 public class TypeContext {
@@ -25,6 +26,13 @@ public class TypeContext {
 	
 	public void merge(TypeContext typeContext){
 		for (Map.Entry<String, CubexTypeGrammar> entry : typeContext.iterable()){
+			contextMap.put(entry.getKey(), entry.getValue());
+		}
+	}
+	
+	public void noConflictMerge(TypeContext typeContext) throws SemanticException {
+		for (Map.Entry<String, CubexTypeGrammar> entry : typeContext.iterable()){
+			if (contextMap.containsKey(entry.getKey())) throw new SemanticException("Conflict upon TypeContext noConflictMerge");
 			contextMap.put(entry.getKey(), entry.getValue());
 		}
 	}
