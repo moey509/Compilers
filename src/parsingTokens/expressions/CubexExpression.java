@@ -38,6 +38,6 @@ public class CubexExpression {
 //	}
 	
 	public CubexTypeGrammar typeCheck(CubexCompleteContext c) throws SemanticException{
-		throw new SemanticException("");
+		return null;
 	}
 }
