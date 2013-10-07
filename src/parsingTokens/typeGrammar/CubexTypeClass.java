@@ -10,6 +10,10 @@ public class CubexTypeClass extends CubexTypeGrammar {
 		this.typeList = typeList;
 	}
 	
+	public String getName(){
+		return this.name;
+	}
+	
 	public CubexList<CubexTypeGrammar> getTypeList(){
 		return typeList;
 	}

@@ -8,6 +8,13 @@ public class CubexTypeIntersection extends CubexTypeGrammar {
 		this.typeGrammar1 = typeGrammar1;
 		this.typeGrammar2 = typeGrammar2;
 	}
+	
+
+	@Override
+	public String getName() {
+		// TODO IMPLEMENT THIS
+		return typeGrammar1.getName();
+	}
 
 	@Override
 	public String toString() {

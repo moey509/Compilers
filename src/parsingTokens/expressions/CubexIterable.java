@@ -42,6 +42,7 @@ public class CubexIterable extends CubexExpression {
 			throws SemanticException {
 
 		for (int i = 0; i < list.size(); i++) {
+			//TODO: Fix this so that it gets the type intersection
 			if (!list.get(0).typeCheck(c, t)
 					.equals(list.get(i).typeCheck(c, t))) {
 				CubexList<CubexTypeGrammar> iterableType = new CubexList<CubexTypeGrammar>();
@@ -59,6 +60,7 @@ public class CubexIterable extends CubexExpression {
 			throws SemanticException {
 
 		for (int i = 0; i < list.size(); i++) {
+			//TODO: Fix this so that it gets the type intersection
 			if (!list.get(0).typeCheck(c, t)
 					.equals(list.get(i).typeCheck(c, t))) {
 				CubexList<CubexTypeGrammar> iterableType = new CubexList<CubexTypeGrammar>();
@@ -77,6 +79,7 @@ public class CubexIterable extends CubexExpression {
 			CubexList<CubexTypeGrammar> t) throws SemanticException {
 
 		for (int i = 0; i < list.size(); i++) {
+			//TODO: Fix this so that it gets the type intersection
 			if (!list.get(0).typeCheck(c, t)
 					.equals(list.get(i).typeCheck(c, t))) {
 				CubexList<CubexTypeGrammar> iterableType = new CubexList<CubexTypeGrammar>();
