@@ -3,9 +3,9 @@ package typeChecker;
 import java.util.HashMap;
 
 import parsingTokens.CubexClassGrammar;
+import parsingTokens.CubexFunctionDef;
 import parsingTokens.CubexInterface;
 import parsingTokens.context.CubexTypeScheme;
-import parsingTokens.expressions.CubexFunctionDef;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 
 public class ClassContextElement{

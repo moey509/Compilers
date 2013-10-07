@@ -2,7 +2,6 @@ package parsingTokens;
 
 import parsingTokens.context.CubexTypeTuple;
 import parsingTokens.expressions.CubexExpression;
-import parsingTokens.expressions.CubexFunctionDef;
 import parsingTokens.statements.CubexListStatement;
 import parsingTokens.statements.CubexStatement;
 import parsingTokens.typeGrammar.CubexTypeGrammar;

@@ -10,6 +10,7 @@ import org.antlr.v4.runtime.misc.*;
 import org.antlr.v4.runtime.tree.*;
 
 import parsingTokens.CubexClassGrammar;
+import parsingTokens.CubexFunctionDef;
 import parsingTokens.CubexInterface;
 import parsingTokens.CubexList;
 import parsingTokens.context.CubexTypeScheme;
@@ -19,7 +20,6 @@ import parsingTokens.expressions.CubexBoolean;
 import parsingTokens.expressions.CubexExpression;
 import parsingTokens.expressions.CubexFunctionApp;
 import parsingTokens.expressions.CubexFunctionCall;
-import parsingTokens.expressions.CubexFunctionDef;
 import parsingTokens.expressions.CubexInteger;
 import parsingTokens.expressions.CubexIterable;
 import parsingTokens.expressions.CubexLessNotStrict;

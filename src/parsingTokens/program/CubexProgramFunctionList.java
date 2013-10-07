@@ -1,8 +1,8 @@
 package parsingTokens.program;
 
 import Exception.SemanticException;
+import parsingTokens.CubexFunctionDef;
 import parsingTokens.CubexList;
-import parsingTokens.expressions.CubexFunctionDef;
 import typeChecker.CubexCompleteContext;
 
 

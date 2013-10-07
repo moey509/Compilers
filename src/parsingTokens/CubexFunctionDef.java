@@ -1,4 +1,4 @@
-package parsingTokens.expressions;
+package parsingTokens;
 
 import parsingTokens.context.CubexTypeScheme;
 import parsingTokens.statements.CubexStatement;
