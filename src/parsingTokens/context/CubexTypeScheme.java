@@ -19,6 +19,18 @@ public class CubexTypeScheme {
 		return this.toString(" ");
 	}
 	
+	public CubexList<String> getKindContext() {
+		return kindContext;
+	}
+
+	public CubexList<CubexTypeTuple> getTypeContext() {
+		return typeContext;
+	}
+
+	public CubexTypeGrammar getTypeGrammar() {
+		return typeGrammar;
+	}
+
 	public String toString(String separator) {
 		String rightSpace1 = kindContext.size() == 0 ? "" : " ";
 		String rightSpace2 = typeContext.size() == 0 ? "" : " ";
