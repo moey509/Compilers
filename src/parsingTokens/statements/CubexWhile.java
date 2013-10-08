@@ -45,7 +45,7 @@ public final class CubexWhile extends CubexStatement {
 		if (!etype.name.equals("Boolean")) throw new SemanticException("CubexIf: e is not a boolean");
 
 		TypeContextReturn t = s.typeCheckReturn(c);
-		if (!t.typeContext.entrySet().containsAll(c.mutableTypeContext.entrySet())) {
+		if (!t.typeContext.containsAll(c, c.mutableTypeContext)) {
 			throw new SemanticException("CubexWhile: Resultant context does not contain initial context");
 		}
 		return new TypeContextReturn(c.typeContext.clone(), false, t.retType);

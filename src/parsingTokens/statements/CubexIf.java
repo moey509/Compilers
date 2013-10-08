@@ -41,7 +41,7 @@ public final class CubexIf extends CubexStatement {
 		if (!etype.name.equals("Boolean")) throw new SemanticException("CubexIf: e is not a boolean");
 		TypeContext t1 = s1.typeCheck(c);
 		TypeContext t2 = s2.typeCheck(c);
-		return t1.intersection(t2);
+		return t1.intersection(c, t2);
 		
 	}
 	
@@ -52,8 +52,8 @@ public final class CubexIf extends CubexStatement {
 		if (!etype.name.equals("Boolean")) throw new SemanticException("CubexIf: e is not a boolean");
 		TypeContextReturn t1 = s1.typeCheckReturn(c);
 		TypeContextReturn t2 = s2.typeCheckReturn(c);
-		TypeContext t = t1.typeContext.intersection(t2.typeContext);
+		TypeContext t = t1.typeContext.intersection(c, t2.typeContext);
 		boolean g = t1.guaranteedToReturn && t2.guaranteedToReturn;
-		return new TypeContextReturn(t, g, t1.retType.join(t2.retType));
+		return new TypeContextReturn(t, g, t1.retType.join(c, t2.retType));
 	}
 }

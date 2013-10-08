@@ -38,16 +38,26 @@ public class TypeContext {
 		}
 	}
 	
-	public TypeContext intersection(TypeContext t2) {
+	public TypeContext intersection(CubexCompleteContext c, TypeContext t2) {
 		TypeContext t = new TypeContext();
 		for (String name : contextMap.keySet()) {
 			if (t2.containsKey(name)) {
 				CubexTypeGrammar type1 = get(name);
 				CubexTypeGrammar type2 = t2.get(name);
-				t.put(name, type1.join(type2));
+				t.put(name, type1.join(c, type2));
 			}
 		}
 		return t;
+	}
+	
+	// returns whether this TypeContext contains all of t's entries with their values or a subtype of their values
+	// each of t's entries must be in this, and each of t's entry's values must be a supertype of that in this
+	public boolean containsAll(CubexCompleteContext c, TypeContext t) {
+		for (String name: t.contextMap.keySet()) {
+			if (!contextMap.containsKey(name)) return false;
+			if (!t.get(name).subtype(c, get(name))) return false;
+		}
+		return true;
 	}
 	
 	public void remove(String variableName){
