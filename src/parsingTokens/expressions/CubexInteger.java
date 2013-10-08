@@ -18,18 +18,8 @@ public final class CubexInteger extends CubexExpression {
 	}
 	
 	// Check if the expression is of some type
-	public CubexTypeGrammar typeCheck(CubexCompleteContext c, CubexTypeGrammar t)
+	public CubexTypeGrammar typeCheck(CubexCompleteContext c)
 			throws SemanticException {
-		return new CubexTypeClass("Integer", new CubexList<CubexTypeGrammar>());
-	}
-
-	public CubexTypeGrammar typeCheck(CubexCompleteContext c, CubexTypeClass t)
-			throws SemanticException {
-		return new CubexTypeClass("Integer", new CubexList<CubexTypeGrammar>());
-	}
-
-	public CubexTypeGrammar typeCheck(CubexCompleteContext c,
-			CubexList<CubexTypeGrammar> t) throws SemanticException {
 		return new CubexTypeClass("Integer", new CubexList<CubexTypeGrammar>());
 	}
 }

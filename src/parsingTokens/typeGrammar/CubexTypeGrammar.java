@@ -3,7 +3,7 @@ package parsingTokens.typeGrammar;
 import parsingTokens.CubexList;
 
 public abstract class CubexTypeGrammar {
-	public String name;
+	public String name = "";
 	
 	public abstract String getName();
 	
@@ -19,8 +19,17 @@ public abstract class CubexTypeGrammar {
 	}
 	
 	public CubexTypeGrammar join(CubexTypeGrammar t) {
-		//TODO: IMPLEMENT THIS
-		if (this.equals(t)) return t;
-		else return t;
+		//TODO: IMPLEMENT THIS BETTER
+		//If we join with nothing, then return ourself
+		if(t == null || t.name.equals("")){ 
+			return this; 
+		}
+		//Without subtypes, if we join things that are not equal or one is of type Thing, we return Thing,
+		if(name.equals("Thing") || t.name.equals("Thing") || !name.equals(t.name)){
+			return new CubexTypeName("Thing");
+		}
+		else {
+			return this;
+		}
 	}
 }

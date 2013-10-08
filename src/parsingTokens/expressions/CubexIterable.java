@@ -40,17 +40,14 @@ public class CubexIterable extends CubexExpression {
 	// Check if the expression is of some type
 	public CubexTypeGrammar typeCheck(CubexCompleteContext c)
 			throws SemanticException {
+		CubexTypeGrammar type;
+		CubexTypeGrammar joinedType = null;
 		for (int i = 0; i < list.size(); i++) {
-			//TODO: Fix this so that it gets the type intersection
-			if (!list.get(0).typeCheck(c).equals(list.get(i).typeCheck(c))) {
-				CubexList<CubexTypeGrammar> iterableType = new CubexList<CubexTypeGrammar>();
-				iterableType.add(new CubexTypeClass("Thing",
-						new CubexList<CubexTypeGrammar>()));
-				return new CubexTypeClass("Iterable", iterableType);
-			}
+			type = list.get(i).typeCheck(c);
+			joinedType = type.join(joinedType);
 		}
 		CubexList<CubexTypeGrammar> iterableType = new CubexList<CubexTypeGrammar>();
-		iterableType.add(list.get(0).typeCheck(c));
+		iterableType.add(joinedType);
 		return new CubexTypeClass("Iterable", iterableType);
 	}
 }
