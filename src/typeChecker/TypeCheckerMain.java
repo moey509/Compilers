@@ -63,6 +63,7 @@ public class TypeCheckerMain {
 		cubParser.fullprogram();
 		// ParseTree parseTree = xiParser.fullprogram();
 
+		CubexCompleteContext c = (new TypeCheckerMain()).initialize();
 		if (cubParser.getNumberOfSyntaxErrors() > 0) {
 			System.out.print("parser error");
 			return;
@@ -136,7 +137,7 @@ public class TypeCheckerMain {
 		defineFunctions(classContext, functionContext, typeMap);
 		defineInput(typeContext, typeMap);
 
-		return new CubexCompleteContext(classContext, functionContext,
+		return new CubexCompleteContext(classContext, kindContext, functionContext,
 				typeContext, mutableTypeContext);
 	}
 
