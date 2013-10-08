@@ -7,6 +7,8 @@ import parsingTokens.typeGrammar.CubexTypeClass;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import parsingTokens.typeGrammar.CubexTypeName;
 import typeChecker.CubexCompleteContext;
+import typeChecker.KindContext;
+import typeChecker.TypeContext;
 import typeChecker.TypeContextReturn;
 
 public class CubexProgramStatement implements CubexProgramType {
@@ -25,12 +27,12 @@ public class CubexProgramStatement implements CubexProgramType {
 		CubexList<CubexTypeGrammar> l = new CubexList<CubexTypeGrammar>();
 		l.add(new CubexTypeName("String"));
 		CubexTypeClass t = new CubexTypeClass("Iterable", l);
-		c.kindContext = null;
-		c.mutableTypeContext = null;
+		c.kindContext = new KindContext();
+		c.mutableTypeContext = new TypeContext();
 		TypeContextReturn ret = statement.typeCheckReturn(c);
 		//TODO:Check for ret.typeContext <: Iterable<String>
-		if(ret.guaranteedToReturn){
-			throw new SemanticException("");
+		if(!ret.guaranteedToReturn){
+			throw new SemanticException("CubexProgramStatement");
 		}
 		
 		return c;

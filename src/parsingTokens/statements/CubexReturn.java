@@ -31,7 +31,6 @@ public final class CubexReturn extends CubexStatement {
 		CubexTypeGrammar etype = e.typeCheck(copy0);
 		
 		return new TypeContextReturn(c.mutableTypeContext.clone(), true, etype);
-		
 	}
 }
 

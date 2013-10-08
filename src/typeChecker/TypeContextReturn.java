@@ -13,6 +13,6 @@ public class TypeContextReturn {
 		retType = rt;
 	}
 	public TypeContextReturn typeCheckReturn(CubexCompleteContext c) throws SemanticException{
-		throw new SemanticException("");
+		throw new SemanticException("TypeContextReturn");
 	}
 }

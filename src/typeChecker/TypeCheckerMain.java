@@ -68,13 +68,14 @@ public class TypeCheckerMain {
 			System.out.print("parser error");
 			return;
 		}
-		System.out.print(cubParser.programAST);
+		// TODO GET RID OF THIS PRINT STATEMENT BEFORE WE SUBMIT
+		System.out.println(cubParser.programAST);
 		try {
-			cubParser.programAST.typeCheck(null);
+			cubParser.programAST.typeCheck(c);
 			System.out.println("accept");
 		} catch (SemanticException e) {
-			// TODO Auto-generated catch block
-			System.out.println("reject");
+			// TODO GET RID OF e.toString() BEFORE WE SUBMIT
+			System.out.println("reject" + e.toString());
 		}
 	}
 
