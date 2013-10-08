@@ -21,9 +21,9 @@ public class ClassContextElement{
 	public ClassContextElement(CubexInterface element) {
 		isClass = true;
 		name = element.name;
-		type = element.type;
-		kindContext.addAll(element.kindcontext.contextCollection);
-		for(CubexFunctionDef def : element.list.contextCollection){
+		type = element.extendsType;
+		kindContext.addAll(element.kindContext.contextCollection);
+		for(CubexFunctionDef def : element.functionList.contextCollection){
 			functionMap.put(def.name, def.typescheme);
 		}
 	}
