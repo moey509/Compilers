@@ -32,6 +32,10 @@ public class CubexList<T>{
 		return this.toString(" ");
 	}
 	
+	public Iterable<T> iterable(){
+		return contextCollection;
+	}
+	
 	public String toString(String separator) {
 		StringBuilder sb = new StringBuilder();
 		boolean firstTime = true;

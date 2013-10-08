@@ -4,5 +4,5 @@ import Exception.SemanticException;
 import typeChecker.CubexCompleteContext;
 
 public interface CubexProgramType {
-	public void typeCheck(CubexCompleteContext c) throws SemanticException;
+	public CubexCompleteContext typeCheck(CubexCompleteContext c) throws SemanticException;
 }

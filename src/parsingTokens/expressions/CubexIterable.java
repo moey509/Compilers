@@ -38,13 +38,11 @@ public class CubexIterable extends CubexExpression {
 	// }
 
 	// Check if the expression is of some type
-	public CubexTypeGrammar typeCheck(CubexCompleteContext c, CubexTypeGrammar t)
+	public CubexTypeGrammar typeCheck(CubexCompleteContext c)
 			throws SemanticException {
-
 		for (int i = 0; i < list.size(); i++) {
 			//TODO: Fix this so that it gets the type intersection
-			if (!list.get(0).typeCheck(c, t)
-					.equals(list.get(i).typeCheck(c, t))) {
+			if (!list.get(0).typeCheck(c).equals(list.get(i).typeCheck(c))) {
 				CubexList<CubexTypeGrammar> iterableType = new CubexList<CubexTypeGrammar>();
 				iterableType.add(new CubexTypeClass("Thing",
 						new CubexList<CubexTypeGrammar>()));
@@ -52,45 +50,7 @@ public class CubexIterable extends CubexExpression {
 			}
 		}
 		CubexList<CubexTypeGrammar> iterableType = new CubexList<CubexTypeGrammar>();
-		iterableType.add(list.get(0).typeCheck(c, t));
+		iterableType.add(list.get(0).typeCheck(c));
 		return new CubexTypeClass("Iterable", iterableType);
 	}
-
-	public CubexTypeGrammar typeCheck(CubexCompleteContext c, CubexTypeClass t)
-			throws SemanticException {
-
-		for (int i = 0; i < list.size(); i++) {
-			//TODO: Fix this so that it gets the type intersection
-			if (!list.get(0).typeCheck(c, t)
-					.equals(list.get(i).typeCheck(c, t))) {
-				CubexList<CubexTypeGrammar> iterableType = new CubexList<CubexTypeGrammar>();
-				iterableType.add(new CubexTypeClass("Thing",
-						new CubexList<CubexTypeGrammar>()));
-				return new CubexTypeClass("Iterable", iterableType);
-			}
-		}
-		CubexList<CubexTypeGrammar> iterableType = new CubexList<CubexTypeGrammar>();
-		iterableType.add(list.get(0).typeCheck(c, t));
-		return new CubexTypeClass("Iterable", iterableType);
-	}
-
-	// Check if the expression is of some list of types
-	public CubexTypeGrammar typeCheck(CubexCompleteContext c,
-			CubexList<CubexTypeGrammar> t) throws SemanticException {
-
-		for (int i = 0; i < list.size(); i++) {
-			//TODO: Fix this so that it gets the type intersection
-			if (!list.get(0).typeCheck(c, t)
-					.equals(list.get(i).typeCheck(c, t))) {
-				CubexList<CubexTypeGrammar> iterableType = new CubexList<CubexTypeGrammar>();
-				iterableType.add(new CubexTypeClass("Thing",
-						new CubexList<CubexTypeGrammar>()));
-				return new CubexTypeClass("Iterable", iterableType);
-			}
-		}
-		CubexList<CubexTypeGrammar> iterableType = new CubexList<CubexTypeGrammar>();
-		iterableType.add(list.get(0).typeCheck(c, t));
-		return new CubexTypeClass("Iterable", iterableType);
-	}
-
 }
