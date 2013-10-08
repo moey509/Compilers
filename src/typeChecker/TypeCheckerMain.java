@@ -116,11 +116,14 @@ public class TypeCheckerMain {
 		}
 	}
 
-	public void initialize() {
+	public CubexCompleteContext initialize() {
 		ClassContext classContext = new ClassContext();
 		FunctionContext functionContext = new FunctionContext();
+		KindContext kindContext = new KindContext();
 		TypeContext typeContext = new TypeContext();
+		TypeContext mutableTypeContext = new TypeContext();
 		Map<String, CubexTypeClass> typeMap = new HashMap<String, CubexTypeClass>();
+
 		// Map<String, CubexTypeClass> typeClassMap = new
 
 		defineThing(classContext, typeMap);
@@ -132,6 +135,9 @@ public class TypeCheckerMain {
 		defineString(classContext, typeMap);
 		defineFunctions(classContext, functionContext, typeMap);
 		defineInput(typeContext, typeMap);
+
+		return new CubexCompleteContext(classContext, functionContext,
+				typeContext, mutableTypeContext);
 	}
 
 	public void defineThing(ClassContext classContext,
