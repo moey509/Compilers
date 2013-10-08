@@ -4,6 +4,7 @@ import Exception.SemanticException;
 import parsingTokens.CubexList;
 import parsingTokens.typeGrammar.CubexTypeClass;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
+import parsingTokens.typeGrammar.CubexTypeName;
 import typeChecker.CubexCompleteContext;
 
 public class CubexExpression {
@@ -38,6 +39,6 @@ public class CubexExpression {
 //	}
 	
 	public CubexTypeGrammar typeCheck(CubexCompleteContext c) throws SemanticException{
-		return null;
+		return new CubexTypeName(name);
 	}
 }

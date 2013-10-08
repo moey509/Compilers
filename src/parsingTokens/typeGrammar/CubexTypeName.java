@@ -1,6 +1,5 @@
 package parsingTokens.typeGrammar;
 
-
 public class CubexTypeName extends CubexTypeGrammar{	
 	public CubexTypeName(String name) {
 		this.name = name;

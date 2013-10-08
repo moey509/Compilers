@@ -63,17 +63,19 @@ public class TypeCheckerMain {
 		cubParser.fullprogram();
 		// ParseTree parseTree = xiParser.fullprogram();
 
+		CubexCompleteContext c = (new TypeCheckerMain()).initialize();
 		if (cubParser.getNumberOfSyntaxErrors() > 0) {
 			System.out.print("parser error");
 			return;
 		}
-		System.out.print(cubParser.programAST);
+		// TODO GET RID OF THIS PRINT STATEMENT BEFORE WE SUBMIT
+		System.out.println(cubParser.programAST);
 		try {
-			cubParser.programAST.typeCheck(null);
+			cubParser.programAST.typeCheck(c);
 			System.out.println("accept");
 		} catch (SemanticException e) {
-			// TODO Auto-generated catch block
-			System.out.println("reject");
+			// TODO GET RID OF e.toString() BEFORE WE SUBMIT
+			System.out.println("reject" + e.toString());
 		}
 	}
 
@@ -116,11 +118,14 @@ public class TypeCheckerMain {
 		}
 	}
 
-	public void initialize() {
+	public CubexCompleteContext initialize() {
 		ClassContext classContext = new ClassContext();
 		FunctionContext functionContext = new FunctionContext();
+		KindContext kindContext = new KindContext();
 		TypeContext typeContext = new TypeContext();
+		TypeContext mutableTypeContext = new TypeContext();
 		Map<String, CubexTypeClass> typeMap = new HashMap<String, CubexTypeClass>();
+
 		// Map<String, CubexTypeClass> typeClassMap = new
 
 		defineThing(classContext, typeMap);
@@ -132,6 +137,9 @@ public class TypeCheckerMain {
 		defineString(classContext, typeMap);
 		defineFunctions(classContext, functionContext, typeMap);
 		defineInput(typeContext, typeMap);
+
+		return new CubexCompleteContext(classContext, kindContext, functionContext,
+				typeContext, mutableTypeContext);
 	}
 
 	public void defineThing(ClassContext classContext,

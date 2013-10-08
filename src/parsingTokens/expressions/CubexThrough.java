@@ -26,24 +26,11 @@ public class CubexThrough extends CubexBinaryExpression {
 				+ getmRight().toString() + " , " + incL + " , " + incR + " )";
 	}
 
-	// Check if the expression is of some type
-	public CubexTypeGrammar typeCheck(CubexCompleteContext c, CubexTypeGrammar t)
-			throws SemanticException {
-		
-		
-		return new CubexTypeClass("Boolean", new CubexList<CubexTypeGrammar>());
-	}
-
-	public CubexTypeGrammar typeCheck(CubexCompleteContext c, CubexTypeClass t)
-			throws SemanticException {
-		
-		
-		return new CubexTypeClass("Boolean", new CubexList<CubexTypeGrammar>());
-	}
-
-	// Check if the expression is of some list of types
+	//Returns an Iterable of Integer
 	public CubexTypeGrammar typeCheck(CubexCompleteContext c,
 			CubexList<CubexTypeGrammar> t) throws SemanticException {
-		return new CubexTypeClass("Boolean", new CubexList<CubexTypeGrammar>());
+		CubexList<CubexTypeGrammar> l = new CubexList<CubexTypeGrammar>();
+		l.add(new CubexTypeClass("Integer", new CubexList<CubexTypeGrammar>()));
+		return new CubexTypeClass("Iterable", l);
 	}
 }

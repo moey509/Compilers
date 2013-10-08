@@ -1,4 +1,5 @@
 package typeChecker;
+import Exception.SemanticException;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 
 public class TypeContextReturn {
@@ -11,5 +12,7 @@ public class TypeContextReturn {
 		guaranteedToReturn = guarantee;
 		retType = rt;
 	}
-
+	public TypeContextReturn typeCheckReturn(CubexCompleteContext c) throws SemanticException{
+		throw new SemanticException("TypeContextReturn");
+	}
 }

@@ -28,7 +28,6 @@ public final class CubexInteger extends CubexExpression {
 		return new CubexTypeClass("Integer", new CubexList<CubexTypeGrammar>());
 	}
 
-	// Check if the expression is of some list of types
 	public CubexTypeGrammar typeCheck(CubexCompleteContext c,
 			CubexList<CubexTypeGrammar> t) throws SemanticException {
 		return new CubexTypeClass("Integer", new CubexList<CubexTypeGrammar>());

@@ -1,6 +1,7 @@
 package typeChecker;
 
 import java.util.HashMap;
+import java.util.List;
 
 import parsingTokens.CubexClassGrammar;
 import parsingTokens.CubexFunctionDef;
@@ -12,7 +13,7 @@ public class ClassContextElement{
 	boolean isClass; //Class or interface
 	public String name;
 	public CubexTypeGrammar type;
-	public KindContext kindContext;
+	public KindContext kindContext = new KindContext();
 	public HashMap<String, CubexTypeScheme> functionMap = new HashMap<String, CubexTypeScheme>();
 	
 	
