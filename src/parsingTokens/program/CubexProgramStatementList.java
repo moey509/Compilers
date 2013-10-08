@@ -27,7 +27,7 @@ public class CubexProgramStatementList implements CubexProgramType {
 		for(int i = 0; i < statementList.size(); i++){
 			tempContext.mutableTypeContext = nextContext;
 			//TODO:needs typeCheckReturns method
-			ret = statementList.get(i).typeCheckReturns(tempContext);
+			ret = statementList.get(i).typeCheckReturn(tempContext);
 			nextContext = ret.typeContext;
 			//TODO:Check for ret.typeContext <: Iterable<String>
 			if(ret.guaranteedToReturn){

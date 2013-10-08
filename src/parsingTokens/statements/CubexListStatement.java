@@ -57,8 +57,7 @@ public final class CubexListStatement extends CubexStatement {
 			if (prevReturnContext.guaranteedToReturn || prevReturnContext.retType!=null) {
 				if (rettypeupdated) {
 					// assumes equality of all tau's
-					if (!prevReturnContext.retType.equals(rettype) )
-						throw new SemanticException("CubexListStatement return types not equal (guaranteed to return)");
+					rettype = rettype.join(prevReturnContext.retType);
 				} else {
 					rettypeupdated = true;
 					rettype = prevReturnContext.retType;

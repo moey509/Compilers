@@ -1,15 +1,20 @@
 package parsingTokens.typeGrammar;
 
-import Exception.SemanticException;
-
 public abstract class CubexTypeGrammar {
 	public String name;
 	
 	public abstract String getName();
 	
-	// this equals t
-	public boolean equals(CubexTypeGrammar t) throws SemanticException{
+	// checks for subtyping equals
+	// o.equals(e) must be true if e is a subtype of o
+	public boolean equals(Object o) {
+		// TODO: IMPLEMENT THIS
+		return true;
+	}
+	
+	public CubexTypeGrammar join(CubexTypeGrammar t) {
 		//TODO: IMPLEMENT THIS
-		throw new SemanticException("Need to implement CubexTypeGrammar.equals");
+		if (this.equals(t)) return t;
+		else return t;
 	}
 }

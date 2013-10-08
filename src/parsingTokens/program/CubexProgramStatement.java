@@ -27,7 +27,7 @@ public class CubexProgramStatement implements CubexProgramType {
 		CubexTypeClass t = new CubexTypeClass("Iterable", l);
 		c.kindContext = null;
 		c.mutableTypeContext = null;
-		TypeContextReturn ret = statement.typeCheckReturns(c);
+		TypeContextReturn ret = statement.typeCheckReturn(c);
 		//TODO:Check for ret.typeContext <: Iterable<String>
 		if(ret.guaranteedToReturn){
 			throw new SemanticException("");

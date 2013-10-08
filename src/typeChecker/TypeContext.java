@@ -2,6 +2,7 @@ package typeChecker;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import Exception.SemanticException;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
@@ -37,6 +38,18 @@ public class TypeContext {
 		}
 	}
 	
+	public TypeContext intersection(TypeContext t2) {
+		TypeContext t = new TypeContext();
+		for (String name : contextMap.keySet()) {
+			if (t2.containsKey(name)) {
+				CubexTypeGrammar type1 = get(name);
+				CubexTypeGrammar type2 = t2.get(name);
+				t.put(name, type1.join(type2));
+			}
+		}
+		return t;
+	}
+	
 	public void remove(String variableName){
 		contextMap.remove(variableName);
 	}
@@ -50,6 +63,10 @@ public class TypeContext {
 	}
 	
 	public Iterable<Map.Entry<String, CubexTypeGrammar>> iterable(){
+		return contextMap.entrySet();
+	}
+	
+	public Set<Map.Entry<String, CubexTypeGrammar>> entrySet() {
 		return contextMap.entrySet();
 	}
 }

@@ -1,7 +1,10 @@
 package parsingTokens.statements;
 
+import Exception.SemanticException;
 import parsingTokens.expressions.CubexExpression;
 import typeChecker.CubexCompleteContext;
+import typeChecker.TypeContext;
+import typeChecker.TypeContextReturn;
 
 public final class CubexFor extends CubexStatement {
 	private String varfun;
@@ -20,6 +23,14 @@ public final class CubexFor extends CubexStatement {
 		CubexListStatement.flatten = prev;
 		return result;
 	}
+	
+//	public TypeContext typeCheck(CubexCompleteContext c) throws SemanticException {
+//		
+//	}
+//	
+//	public TypeContextReturn typeCheckReturn(CubexCompleteContext c) throws SemanticException {
+//		
+//	}
 }
 
 
