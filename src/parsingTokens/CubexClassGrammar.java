@@ -5,6 +5,7 @@ import parsingTokens.expressions.CubexExpression;
 import parsingTokens.statements.CubexListStatement;
 import parsingTokens.statements.CubexStatement;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
+import typeChecker.CubexCompleteContext;
 
 public class CubexClassGrammar {
 	public String name;
@@ -74,4 +75,8 @@ public class CubexClassGrammar {
 		return build.toString();
 	}
 
+	public CubexCompleteContext typeCheck(CubexCompleteContext context){
+		
+		return null;
+	}
 }
