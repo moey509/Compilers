@@ -25,13 +25,12 @@ public class CubexProgramStatement implements CubexProgramType {
 	//TODO:make sure contexts setting to null is correct
 	public CubexCompleteContext typeCheck(CubexCompleteContext c) throws SemanticException{
 		CubexList<CubexTypeGrammar> l = new CubexList<CubexTypeGrammar>();
-		l.add(new CubexTypeName("String"));
-		CubexTypeClass t = new CubexTypeClass("Iterable", l);
 		c.kindContext = new KindContext();
 		c.mutableTypeContext = new TypeContext();
 		TypeContextReturn ret = statement.typeCheckReturn(c);
 		//TODO:Check for ret.typeContext <: Iterable<String>
-		if(!ret.guaranteedToReturn){
+		CubexList<CubexTypeGrammar> typeList = ret.retType.getTypeList();
+		if(!ret.guaranteedToReturn || typeList.size() != 1 || !typeList.get(0).name.equals("String")){
 			throw new SemanticException("CubexProgramStatement");
 		}
 		
