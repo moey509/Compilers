@@ -1,5 +1,6 @@
 package typeChecker;
 
+import Exception.SemanticException;
 import parsingTokens.context.CubexTypeScheme;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 
@@ -108,6 +109,28 @@ public class CubexCompleteContext {
 	public CubexTypeGrammar getTypeGrammarFromMutableTypeContext(
 			String variableName) {
 		return mutableTypeContext.get(variableName);
+	}
+	
+	public CubexTypeScheme methodLookup(CubexTypeGrammar object, String methodName) throws SemanticException{
+		ClassContextElement classContext;
+		if (containsClassName(object.name)) {
+			classContext = getElementFromClassContext(object.name);
+		} else {
+			throw new SemanticException("");
+		}
+		if (classContext.functionMap.containsKey(methodName)) {
+			return classContext.functionMap.get(methodName);
+		} else {
+			throw new SemanticException("");
+		}
+	}
+	
+	public CubexTypeScheme methodLookup(String methodName) throws SemanticException{
+		if (containsFunctionName(methodName)) {
+			return getTypeSchemeFromFunctionContext(methodName);
+		} else {
+			throw new SemanticException("");
+		}
 	}
 
 }

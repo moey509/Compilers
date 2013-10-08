@@ -40,20 +40,7 @@ public final class CubexFunctionApp extends CubexExpression {
 	public CubexTypeGrammar typeCheck(CubexCompleteContext c, CubexTypeGrammar t)
 			throws SemanticException {
 		CubexTypeGrammar objectType = expr.typeCheck(c);
-		ClassContextElement classContext;
-		CubexTypeScheme typeScheme;
-		if (c.containsClassName(objectType.name)) {
-			classContext = c.getElementFromClassContext(objectType.name);
-		} else {
-			throw new SemanticException("");
-		}
-		if (classContext.functionMap.containsKey(v_v)) {
-			typeScheme = classContext.functionMap.get(v_v);
-		} else {
-			throw new SemanticException("");
-		}
-
-		CubexList<String> kindContext = typeScheme.getKindContext();
+		CubexTypeScheme typeScheme = c.methodLookup(objectType, v_v);
 		// TODO
 
 		CubexList<CubexTypeTuple> typeContext = typeScheme.getTypeContext();
@@ -64,27 +51,13 @@ public final class CubexFunctionApp extends CubexExpression {
 				throw new SemanticException("");
 		}
 		return typeScheme.getTypeGrammar();
-
 	}
 
 	public CubexTypeGrammar typeCheck(CubexCompleteContext c, CubexTypeClass t)
 			throws SemanticException {
 		CubexTypeGrammar objectType = expr.typeCheck(c);
-		ClassContextElement classContext;
-		CubexTypeScheme typeScheme;
-		if (c.containsClassName(objectType.name)) {
-			classContext = c.getElementFromClassContext(objectType.name);
-		} else {
-			throw new SemanticException("");
-		}
-		if (classContext.functionMap.containsKey(v_v)) {
-			typeScheme = classContext.functionMap.get(v_v);
-		} else {
-			throw new SemanticException("");
-		}
-
-		CubexList<String> kindContext = typeScheme.getKindContext();
-		//TODO
+		CubexTypeScheme typeScheme = c.methodLookup(objectType, v_v);
+		// TODO
 
 		CubexList<CubexTypeTuple> typeContext = typeScheme.getTypeContext();
 
@@ -100,20 +73,7 @@ public final class CubexFunctionApp extends CubexExpression {
 	public CubexTypeGrammar typeCheck(CubexCompleteContext c,
 			CubexList<CubexTypeGrammar> t) throws SemanticException {
 		CubexTypeGrammar objectType = expr.typeCheck(c);
-		ClassContextElement classContext;
-		CubexTypeScheme typeScheme;
-		if (c.containsClassName(objectType.name)) {
-			classContext = c.getElementFromClassContext(objectType.name);
-		} else {
-			throw new SemanticException("");
-		}
-		if (classContext.functionMap.containsKey(v_v)) {
-			typeScheme = classContext.functionMap.get(v_v);
-		} else {
-			throw new SemanticException("");
-		}
-
-		CubexList<String> kindContext = typeScheme.getKindContext();
+		CubexTypeScheme typeScheme = c.methodLookup(objectType, v_v);
 		// TODO
 
 		CubexList<CubexTypeTuple> typeContext = typeScheme.getTypeContext();
