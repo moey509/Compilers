@@ -50,10 +50,16 @@ public class CubexInterface {
 
 		
 		for (String s : kindContext.iterable()){
-			//do something
+			//do something with kind context
 		}
-		ClassContextElement superElement = context
-				.getElementFromClassContext(extendsType.getName());
+		
+		ClassContextElement superElement;
+		if (context.containsClassName(extendsType.getName())) {
+			superElement = context.getElementFromClassContext(extendsType.getName());
+		}
+		else {
+			throw new SemanticException("Supertype not found");
+		}
 		Map<String, CubexTypeScheme> superTypeFunctions = superElement.functionMap;
 
 		for (CubexFunctionDef function : functionList.iterable()) {
@@ -66,7 +72,6 @@ public class CubexInterface {
 									+ " does not agree with the supertype function parameters.");
 				}
 			}
-			
 		}
 		return context;
 	}

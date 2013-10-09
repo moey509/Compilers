@@ -21,24 +21,31 @@ public class CubexExpression {
 		return name;
 	}
 
-//	// Check if the expression is of some type
-//	public CubexTypeGrammar typeCheck(CubexCompleteContext c,
-//			CubexTypeGrammar t) throws SemanticException {
-//		throw new SemanticException("");
-//	}
-//
-//	public CubexTypeGrammar typeCheck(CubexCompleteContext c,
-//			CubexTypeClass t) throws SemanticException {
-//		throw new SemanticException("");
-//	}
-//
-//	// Check if the expression is of some list of types
-//	public CubexTypeGrammar typeCheck(CubexCompleteContext c,
-//			CubexList<CubexTypeGrammar> t) throws SemanticException {
-//		throw new SemanticException("");
-//	}
-	
-	public CubexTypeGrammar typeCheck(CubexCompleteContext c) throws SemanticException{
-		return new CubexTypeName(name);
+	// // Check if the expression is of some type
+	// public CubexTypeGrammar typeCheck(CubexCompleteContext c,
+	// CubexTypeGrammar t) throws SemanticException {
+	// throw new SemanticException("");
+	// }
+	//
+	// public CubexTypeGrammar typeCheck(CubexCompleteContext c,
+	// CubexTypeClass t) throws SemanticException {
+	// throw new SemanticException("");
+	// }
+	//
+	// // Check if the expression is of some list of types
+	// public CubexTypeGrammar typeCheck(CubexCompleteContext c,
+	// CubexList<CubexTypeGrammar> t) throws SemanticException {
+	// throw new SemanticException("");
+	// }
+
+	public CubexTypeGrammar typeCheck(CubexCompleteContext c)
+			throws SemanticException {
+		if (c.containsTypeVariableInMutableTypeContext(name)) {
+			return c.getTypeGrammarFromMutableTypeContext(name);
+		} else if (c.containsTypeVariableInTypeContext(name)) {
+			return c.getTypeGrammarFromTypeContext(name);
+		} else {
+			throw new SemanticException("Variable " + name + " does not exist");
+		}
 	}
 }
