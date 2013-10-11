@@ -3,6 +3,7 @@ package parsingTokens.typeGrammar;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
 import typeChecker.CubexCompleteContext;
+import typeChecker.TypeContext;
 
 public class CubexTypeClass extends CubexTypeGrammar {
 	public CubexList<CubexTypeGrammar> typeList;
@@ -30,6 +31,16 @@ public class CubexTypeClass extends CubexTypeGrammar {
 			throw new SemanticException("");
 		}
 	}
+	
+	public CubexTypeGrammar replaceParams(TypeContext cont){
+		CubexList<CubexTypeGrammar> list = new CubexList<CubexTypeGrammar>();
+		for (CubexTypeGrammar i : typeList.contextCollection) {
+			list.add(i.replaceParams(cont));
+		}
+		return new CubexTypeClass(getName(), list);
+	}
+	
+	
 	
 
 }

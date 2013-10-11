@@ -1,6 +1,7 @@
 package parsingTokens.typeGrammar;
 
 import typeChecker.CubexCompleteContext;
+import typeChecker.TypeContext;
 import Exception.SemanticException;
 
 public class CubexTypeName extends CubexTypeGrammar{	
@@ -21,6 +22,14 @@ public class CubexTypeName extends CubexTypeGrammar{
 		if (!c.kindContext.contains(name)){
 			throw new SemanticException("");
 		}
+	}
+	
+	public CubexTypeGrammar replaceParams(TypeContext cont) {
+		if (cont.containsKey(getName())) {
+			return cont.get(getName());
+		}
+		
+		return this;
 	}
 
 }

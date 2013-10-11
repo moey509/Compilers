@@ -2,7 +2,11 @@ package parsingTokens.typeGrammar;
 
 import Exception.SemanticException;
 import parsingTokens.CubexList;
+import typeChecker.ClassContext;
+import typeChecker.ClassContextElement;
 import typeChecker.CubexCompleteContext;
+import typeChecker.KindContext;
+import typeChecker.TypeContext;
 
 public abstract class CubexTypeGrammar {
 	public String name = "";
@@ -50,10 +54,15 @@ public abstract class CubexTypeGrammar {
 			return equals;
 		}
 		if (t instanceof CubexTypeClass) {
+			ClassContext psi = c.classContext;
+			ClassContextElement elem = psi.get(t.getName());
+			//elem.type
 			return true;
 		}
 		throw new SemanticException("Type check error: checking different type parameters");
 	}
+	
+	public abstract CubexTypeGrammar replaceParams(TypeContext cont);
 	
 	public CubexTypeGrammar join(CubexCompleteContext c, CubexTypeGrammar t) throws SemanticException {
 		//TODO: IMPLEMENT THIS BETTER
