@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import parsingTokens.context.CubexTypeScheme;
-import parsingTokens.typeGrammar.CubexTypeGrammar;
 
 public class FunctionContext {
 	public Map<String, CubexTypeScheme> nameToTypeSchemeMap;
