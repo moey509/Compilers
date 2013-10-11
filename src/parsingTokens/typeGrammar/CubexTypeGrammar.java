@@ -13,8 +13,8 @@ public abstract class CubexTypeGrammar {
 	
 	public abstract String getName() throws SemanticException;
 	
-	public CubexList<CubexTypeGrammar> getTypeList(){
-		return null;
+	public CubexList<CubexTypeGrammar> getTypeList() throws SemanticException {
+		throw new SemanticException("No type list in this type");
 	}
 	
 	public boolean equalType(CubexTypeGrammar t) {
@@ -56,13 +56,19 @@ public abstract class CubexTypeGrammar {
 		if (t instanceof CubexTypeClass) {
 			ClassContext psi = c.classContext;
 			ClassContextElement elem = psi.get(t.getName());
-			//elem.type
-			return true;
+			TypeContext replaceCont = new TypeContext();
+			if (elem.kindContext.size() != t.getTypeList().size())
+				throw new SemanticException("Type check error: # type params different from that of class/interface");
+			for (int i = 0; i<elem.kindContext.size(); i++) {
+				replaceCont.put(elem.kindContext.contextSet.get(i), t.getTypeList().get(i));
+			}
+			
+			CubexTypeGrammar retype = elem.type.replaceParams(replaceCont);
+			return subtype(c, retype);
 		}
 		throw new SemanticException("Type check error: checking different type parameters");
 	}
 	
-	public abstract CubexTypeGrammar replaceParams(TypeContext cont);
 	
 	public CubexTypeGrammar join(CubexCompleteContext c, CubexTypeGrammar t) throws SemanticException {
 		//TODO: IMPLEMENT THIS BETTER
@@ -80,4 +86,6 @@ public abstract class CubexTypeGrammar {
 	}
 	
 	public abstract void validate(CubexCompleteContext c) throws SemanticException;
+
+	public abstract CubexTypeGrammar replaceParams(TypeContext cont);
 }
