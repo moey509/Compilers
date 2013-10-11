@@ -12,6 +12,12 @@ public class CubexList<T>{
 		contextCollection.add(object);
 	}
 	
+	public void add(CubexList<T> tempList) {
+		for(int i = 0; i < tempList.size(); i++){
+			contextCollection.add(tempList.get(i));
+		}
+	}
+	
 	public T get(int i){
 		return contextCollection.get(i);
 	}

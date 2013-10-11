@@ -36,6 +36,17 @@ public class CubexClassGrammar {
 		functions = f;
 
 	}
+	
+	public void flatten(){
+		CubexList<CubexStatement> returnList = new CubexList<CubexStatement>();
+		CubexList<CubexStatement> tempList = new CubexList<CubexStatement>();
+		for(int i = 0; i < statements.size(); i++){
+			CubexStatement s = statements.get(i);
+			tempList = s.flatten();
+			returnList.add(tempList);
+		}
+		statements = returnList;
+	}
 
 	public CubexClassGrammar(String name, CubexList<String> kindContext,
 			CubexList<CubexTypeTuple> typeContext, CubexTypeGrammar extendsType) {

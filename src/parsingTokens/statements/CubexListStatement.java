@@ -15,6 +15,22 @@ public final class CubexListStatement extends CubexStatement {
 	public CubexListStatement(CubexList<CubexStatement> cList) {
 		this.cList = cList;
 	}
+	
+	public CubexList<CubexStatement> flatten(){
+		CubexList<CubexStatement> returnList = new CubexList<CubexStatement>();
+		CubexList<CubexStatement> tempList = new CubexList<CubexStatement>();
+		for(int i = 0; i < cList.size(); i++){
+			CubexStatement s = cList.get(i);
+			tempList = s.flatten();
+			returnList.add(tempList);
+		}
+		cList = returnList;
+		return returnList;
+	}
+	
+	public void add(CubexStatement s){
+		
+	}
 
 	public String toString() {
 		String rightSpace = cList.size() == 0 ? "" : " ";
@@ -23,9 +39,9 @@ public final class CubexListStatement extends CubexStatement {
 		}
 		else{
 			boolean prev = flatten;
-			flatten = true;
+			//flatten = true;
 			String s = "{ " + cList.toString(" ") + rightSpace + "}";
-			flatten = prev;
+			//flatten = prev;
 			return s;
 		}
 	}

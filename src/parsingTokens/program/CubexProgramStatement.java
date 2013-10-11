@@ -15,6 +15,7 @@ public class CubexProgramStatement implements CubexProgramType {
 	private CubexStatement statement;
 
 	public CubexProgramStatement(CubexStatement statement) {
+		statement.flatten();
 		this.statement = statement;
 	}
 

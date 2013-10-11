@@ -2,6 +2,7 @@ package parsingTokens.statements;
 
 
 import Exception.SemanticException;
+import parsingTokens.CubexList;
 import parsingTokens.expressions.CubexExpression;
 import typeChecker.CubexCompleteContext;
 import typeChecker.TypeContextReturn;
@@ -20,5 +21,11 @@ public abstract class CubexStatement {
 	public TypeContext typeCheck(CubexCompleteContext c) throws SemanticException{
 		// TODO Auto-generated method stub
 		throw new SemanticException("CubexStatement does not implement typeCheck");
+	}
+	public CubexList<CubexStatement> flatten() {
+		// If not a statement list, return a statement list of size 1
+		CubexList<CubexStatement> l = new CubexList<CubexStatement>();
+		l.add(this);
+		return l;
 	}
 }

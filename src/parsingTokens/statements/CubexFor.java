@@ -14,7 +14,7 @@ public final class CubexFor extends CubexStatement {
 	public CubexFor(String varfun, CubexExpression e, CubexStatement s) {
 		this.varfun = varfun;
 		this.e = e;
-		this.s = s;
+		this.s = new CubexListStatement(s.flatten());
 	}
 
 	public String toString() {

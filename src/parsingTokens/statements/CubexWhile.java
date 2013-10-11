@@ -12,7 +12,7 @@ public final class CubexWhile extends CubexStatement {
 
 	public CubexWhile(CubexExpression e, CubexStatement s) {
 		this.e = e;
-		this.s = s;
+		this.s = new CubexListStatement(s.flatten());
 	}
 
 	public String toString() {

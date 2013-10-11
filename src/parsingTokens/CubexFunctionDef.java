@@ -1,6 +1,7 @@
 package parsingTokens;
 
 import parsingTokens.context.CubexTypeScheme;
+import parsingTokens.statements.CubexListStatement;
 import parsingTokens.statements.CubexStatement;
 
 public class CubexFunctionDef {
@@ -12,6 +13,9 @@ public class CubexFunctionDef {
 		name = n;
 		typescheme = tscheme;
 		statement = s;
+		if(s != null){
+			statement = new CubexListStatement(s.flatten());
+		}
 	}
 
 	public String toString() {
