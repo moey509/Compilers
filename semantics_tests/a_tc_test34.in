@@ -1,0 +1,11 @@
+# parser test [for statement] (stage 1)
+list := [2];
+a := 4;
+for (i in list)
+{
+	i := "string";
+	a := "sd";
+	a := 3;
+}
+b := a;
+return ["hello"];

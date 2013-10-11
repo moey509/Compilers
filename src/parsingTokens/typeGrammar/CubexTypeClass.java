@@ -1,6 +1,8 @@
 package parsingTokens.typeGrammar;
 
+import Exception.SemanticException;
 import parsingTokens.CubexList;
+import typeChecker.CubexCompleteContext;
 
 public class CubexTypeClass extends CubexTypeGrammar {
 	public CubexList<CubexTypeGrammar> typeList;
@@ -22,4 +24,12 @@ public class CubexTypeClass extends CubexTypeGrammar {
 		String rightSpace = typeList.size() == 0 ? "" : " ";
 		return name.toString() + " < " + typeList.toString(",") + rightSpace + ">";
 	}
+
+	public void validate(CubexCompleteContext c) throws SemanticException{
+		if (!c.containsClassName(name)){
+			throw new SemanticException("");
+		}
+	}
+	
+
 }

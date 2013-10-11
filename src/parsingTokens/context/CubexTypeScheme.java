@@ -2,6 +2,7 @@ package parsingTokens.context;
 
 import parsingTokens.CubexList;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
+import typeChecker.CubexCompleteContext;
 
 public class CubexTypeScheme {
 	private CubexList<String> kindContext;
@@ -36,5 +37,9 @@ public class CubexTypeScheme {
 		String rightSpace2 = typeContext.size() == 0 ? "" : " ";
 		return "< " + kindContext.toString(separator) + rightSpace1 + "> ( "
 				+ typeContext.toString(separator) + rightSpace2 + ") : " + typeGrammar;
+	}
+	
+	public void validate(CubexCompleteContext context){
+		
 	}
 }
