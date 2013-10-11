@@ -125,4 +125,11 @@ public class CubexCompleteContext {
 			throw new SemanticException("");
 		}
 	}
+	
+	public FunctionContext methodContextLookup(String methodName, KindContext kindContext){
+		
+		
+		return functionContext;
+		
+	}
 }

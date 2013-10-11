@@ -6,6 +6,7 @@ import parsingTokens.context.CubexTypeScheme;
 import parsingTokens.context.CubexTypeTuple;
 import parsingTokens.typeGrammar.CubexTypeClass;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
+import parsingTokens.typeGrammar.CubexTypeName;
 import typeChecker.ClassContextElement;
 import typeChecker.CubexCompleteContext;
 
@@ -32,7 +33,8 @@ public final class CubexFunctionCall extends CubexExpression {
 	// Check if the expression is of some type
 	public CubexTypeGrammar typeCheck(CubexCompleteContext c, CubexTypeGrammar t)
 			throws SemanticException {
-		CubexTypeScheme typeScheme = c.methodLookup(v_vc);
+		CubexTypeGrammar nothing = new CubexTypeName("Nothing");
+		CubexTypeScheme typeScheme = c.methodLookup(nothing, v_vc);
 
 		CubexList<String> kindContext = typeScheme.getKindContext();
 		// TODO implement this later
