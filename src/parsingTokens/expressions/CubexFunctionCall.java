@@ -32,7 +32,7 @@ public final class CubexFunctionCall extends CubexExpression {
 	// Check if the expression is of some type
 	public CubexTypeGrammar typeCheck(CubexCompleteContext c, CubexTypeGrammar t)
 			throws SemanticException {
-		CubexTypeScheme typeScheme = c.methodLookup(v_vc);
+		CubexTypeScheme typeScheme = c.methodLookup(t, v_vc);
 
 		CubexList<String> kindContext = typeScheme.getKindContext();
 		// TODO implement this later
