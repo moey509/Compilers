@@ -36,4 +36,12 @@ public class CubexTypeIntersection extends CubexTypeGrammar {
 		CubexTypeGrammar t2 = typeGrammar2.replaceParams(cont);
 		return new CubexTypeIntersection(t1, t2);
 	}
+	
+	public boolean equalType(CubexTypeGrammar t) throws SemanticException {
+		if (t instanceof CubexTypeIntersection) {
+			CubexTypeIntersection t1 = (CubexTypeIntersection) t;
+			return typeGrammar1.equalType(t1.typeGrammar1) && typeGrammar2.equalType(t1.typeGrammar2);
+		}
+		return false;
+	}
 }

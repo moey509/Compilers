@@ -31,5 +31,12 @@ public class CubexTypeName extends CubexTypeGrammar{
 		
 		return this;
 	}
+	
+	public boolean equalType(CubexTypeGrammar t) throws SemanticException {
+		if (t instanceof CubexTypeName) {
+			return getName().equals(t.getName());
+		}
+		return false;
+	}
 
 }

@@ -5,7 +5,6 @@ import parsingTokens.CubexList;
 import typeChecker.ClassContext;
 import typeChecker.ClassContextElement;
 import typeChecker.CubexCompleteContext;
-import typeChecker.KindContext;
 import typeChecker.TypeContext;
 
 public abstract class CubexTypeGrammar {
@@ -17,16 +16,11 @@ public abstract class CubexTypeGrammar {
 		throw new SemanticException("No type list in this type");
 	}
 	
-	public boolean equalType(CubexTypeGrammar t) {
-		// TODO: IMPLEMENT THIS
-		return true;
-		
-	}
+	public abstract boolean equalType(CubexTypeGrammar t) throws SemanticException;
 	
 	// o.subtype(c, e) must be true if e is a subtype of o in the context of c
 	// e :< o
 	public boolean subtype(CubexCompleteContext c, CubexTypeGrammar t) throws SemanticException {
-		// TODO: IMPLEMENT THIS
 		if (equalType(t)) return true;
 		if (getName().equals("Thing")) return true;
 		if (t.getName().equals("Nothing")) return true;

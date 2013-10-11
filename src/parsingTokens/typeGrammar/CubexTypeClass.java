@@ -40,6 +40,21 @@ public class CubexTypeClass extends CubexTypeGrammar {
 		return new CubexTypeClass(getName(), list);
 	}
 	
+	public boolean equalType(CubexTypeGrammar t) throws SemanticException  {
+		if (t instanceof CubexTypeClass) {
+			if (!getName().equals(t.getName())) return false;
+			CubexList<CubexTypeGrammar> thislist = getTypeList();
+			CubexList<CubexTypeGrammar> tlist = getTypeList();
+			if (thislist.size() != tlist.size()) return false;
+			for (int i=0; i<thislist.size(); i++) {
+				boolean equals = thislist.get(i).equalType(tlist.get(i));
+				if (!equals) return false;
+			}
+			return true;
+		}
+		return false;
+	}
+	
 	
 	
 
