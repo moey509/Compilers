@@ -43,7 +43,7 @@ public class CubexInterface {
 		return build.toString();
 	}
 
-	public CubexCompleteContext typeCheck(CubexCompleteContext context)
+	public ClassContext typeCheck(CubexCompleteContext context)
 			throws SemanticException {
 		ClassContextElement element = new ClassContextElement(this);
 		context.appendClassContext(name, element);
@@ -73,7 +73,7 @@ public class CubexInterface {
 				}
 			}
 		}
-		return context;
+		return context.classContext;
 	}
 
 }
