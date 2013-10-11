@@ -114,18 +114,30 @@ public class CubexCompleteContext {
 			String variableName) {
 		return mutableTypeContext.get(variableName);
 	}
+<<<<<<< HEAD
 
 	public CubexTypeScheme methodLookup(CubexTypeGrammar object,
 			String methodName) throws SemanticException {
 		ClassContextElement classContext;
+=======
+	
+	public CubexTypeScheme methodLookup(CubexTypeGrammar object, String methodName) throws SemanticException{
+		ClassContextElement cCont;
+>>>>>>> 2dd00efdf47a07e07f742b6da8048ca6ad81e658
 		if (containsClassName(object.name)) {
-			classContext = getElementFromClassContext(object.name);
+			cCont = getElementFromClassContext(object.name);
 		} else {
 			throw new SemanticException("");
 		}
+<<<<<<< HEAD
 		if (classContext.functionMap.containsKey(methodName)) {
 
 			return classContext.functionMap.get(methodName);
+=======
+		if (cCont.functionMap.containsKey(methodName)) {
+			
+			return cCont.functionMap.get(methodName);
+>>>>>>> 2dd00efdf47a07e07f742b6da8048ca6ad81e658
 		} else {
 			throw new SemanticException("");
 		}

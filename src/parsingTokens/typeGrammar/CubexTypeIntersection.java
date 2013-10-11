@@ -1,11 +1,12 @@
 package parsingTokens.typeGrammar;
 
 import typeChecker.CubexCompleteContext;
+import typeChecker.TypeContext;
 import Exception.SemanticException;
 
 public class CubexTypeIntersection extends CubexTypeGrammar {
-	private CubexTypeGrammar typeGrammar1;
-	private CubexTypeGrammar typeGrammar2;
+	CubexTypeGrammar typeGrammar1;
+	CubexTypeGrammar typeGrammar2;
 
 	public CubexTypeIntersection(CubexTypeGrammar typeGrammar1,
 			CubexTypeGrammar typeGrammar2) {
@@ -15,20 +16,32 @@ public class CubexTypeIntersection extends CubexTypeGrammar {
 	
 
 	@Override
-	public String getName() {
-		// TODO IMPLEMENT THIS
-		return typeGrammar1.getName();
+	public String getName() throws SemanticException {
+		throw new SemanticException("CubexTypeIntersection does not have name");
 	}
 
 	@Override
 	public String toString() {
 		return typeGrammar1.toString() + " & " + typeGrammar2.toString();
 	}
-
-
+	
 	@Override
 	public void validate(CubexCompleteContext c) throws SemanticException {
-		// TODO Auto-generated method stub
-		
+		// TODO: Might need to change later
+		throw new SemanticException("CubexTypeIntersection does not implement validate");
+	}
+	
+	public CubexTypeGrammar replaceParams(TypeContext cont) {
+		CubexTypeGrammar t1 = typeGrammar1.replaceParams(cont);
+		CubexTypeGrammar t2 = typeGrammar2.replaceParams(cont);
+		return new CubexTypeIntersection(t1, t2);
+	}
+	
+	public boolean equalType(CubexTypeGrammar t) throws SemanticException {
+		if (t instanceof CubexTypeIntersection) {
+			CubexTypeIntersection t1 = (CubexTypeIntersection) t;
+			return typeGrammar1.equalType(t1.typeGrammar1) && typeGrammar2.equalType(t1.typeGrammar2);
+		}
+		return false;
 	}
 }
