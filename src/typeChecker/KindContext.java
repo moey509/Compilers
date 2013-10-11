@@ -4,11 +4,17 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import parsingTokens.CubexList;
+
 public class KindContext {
 	private Set<String> contextSet;
 	
 	public KindContext(){
 		contextSet = new HashSet<String>();
+	}
+	
+	public KindContext(CubexList<String> stringList){
+		contextSet = new HashSet<String>(stringList.contextCollection);
 	}
 	
 	public void add(String typeParamNames){

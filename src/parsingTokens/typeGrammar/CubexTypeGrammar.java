@@ -1,5 +1,6 @@
 package parsingTokens.typeGrammar;
 
+import Exception.SemanticException;
 import parsingTokens.CubexList;
 import typeChecker.CubexCompleteContext;
 
@@ -33,4 +34,6 @@ public abstract class CubexTypeGrammar {
 			return this;
 		}
 	}
+	
+	public abstract void validate(CubexCompleteContext c) throws SemanticException;
 }
