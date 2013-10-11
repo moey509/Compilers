@@ -147,23 +147,25 @@ public class CubexClassGrammar {
 		completeContext.kindContext = kindContext1;
 		
 		CubexCompleteContext completeContext1 = completeContext.clone();		
-		TypeContext typeContext1 = context.typeContext.clone();
+		completeContext1.typeContext = context.typeContext.clone();
 		
 		for (CubexStatement statement : statements.iterable()){
-			completeContext1.typeContext = typeContext1;
-			typeContext1 = statement.typeCheck(completeContext1);
+			completeContext1.mutableTypeContext = statement.typeCheck(completeContext1);
 		}
 		
 		
 		// 8.2.G,H
-		CubexCompleteContext completeContext2 = completeContext.clone();
+		CubexCompleteContext completeContext2 = completeContext1.clone();
+		completeContext2.typeContext.noConflictMerge(completeContext2.mutableTypeContext);
+		completeContext2.mutableTypeContext = new TypeContext();
 		
 		CubexTypeGrammar superType;
 		if (extendsType.equals(context.getTypeGrammarFromTypeContext("Thing"))) {
 			superType = context.getTypeGrammarFromTypeContext("Thing");
 		}
 		else {
-			superType = completeCo
+			CubexTypeScheme superTypeScheme = completeContext2.functionContext.get(extendsType.getName());
+			//Implement this later
 		}
 		
 		
