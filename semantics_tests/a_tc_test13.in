@@ -1,0 +1,6 @@
+# parser test [if statement][test e] (stage 1)
+if ("string") 
+{
+	a := 2;
+}
+return ["hello"];

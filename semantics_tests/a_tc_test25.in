@@ -1,0 +1,7 @@
+# parser test [while statement][check boolean] (stage 1)
+while ("string")
+{
+	a := 0;
+}
+
+return ["hello"];

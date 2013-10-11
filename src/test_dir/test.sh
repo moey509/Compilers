@@ -7,7 +7,7 @@
 dir=""
 if [ -z "$1" ]
 then 
-  dir="../parser_tests/*in"
+  dir="../../parser_tests/*in"
   .
 else
   dir="$1/*in"
@@ -29,6 +29,6 @@ do
   out=${temp:0:new}
   outFile="$out.out"
 #  echo $outFile
-  diff <(java CubexParserMain $f) $outFile
+  diff <(java parser.CubexParserMain $f) $outFile
   printf '\n\n'
 done 

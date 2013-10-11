@@ -1,0 +1,10 @@
+# parser test program 10 6.2 (stage 1)
+a := 1;
+b := 2;
+c := 5;
+f := "string";
+g := a;
+b := "bloop";
+f:= 2;
+f := f + 2;
+return ["wot"];

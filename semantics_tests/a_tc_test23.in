@@ -1,0 +1,12 @@
+# parser test [if statement][temporary context] (stage 1)
+a := 2;
+if (a < 3) 
+{
+	i := 2;
+}
+else
+{
+	i := "string";
+}
+b := i;
+return ["hello"];

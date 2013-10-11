@@ -1,0 +1,14 @@
+# parser test program 5.3, 5.4 (stage 1)
+class Map<T,T>(key : T, value : T)
+{
+	fun getKey() : T = key;
+	fun getVal() : T = value;
+	fun updateKey<T>(newKey : T) : T = 
+	{
+		return newKey;
+	}
+}
+
+a := Map<Integer<>, Character<>>(4, 'm');
+b := a.updateKey<Integer<>>(3);
+return ["bloop"];

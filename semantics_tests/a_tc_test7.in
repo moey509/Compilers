@@ -1,0 +1,2 @@
+# parser test program 7 (stage 1)
+return [["hello"], ["world"]];

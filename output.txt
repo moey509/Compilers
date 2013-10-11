@@ -1,0 +1,381 @@
+running: ../parser_tests/lexer_error_test1.in...
+  contents of file: `this `should `fail--EOF--
+
+
+running: ../parser_tests/lexer_error_test2.in...
+  contents of file: something"
+thing "something--EOF--
+
+
+running: ../parser_tests/lexer_error_test3.in...
+  contents of file: `blah ' blah 'blah `--EOF--
+
+
+running: ../parser_tests/parser_error_test10.in...
+  contents of file: #no super
+class MyClass<C>() extends MyOtherClass { }--EOF--
+1c1
+< class MyClass < CubexList@79095fd7 > ( CubexList@56735a55 ) extends CubexList@56735a55 { CubexList@2f2faeca super ( CubexList@637c67f9 ) ; CubexList@7c8e3f75 }
+---
+> parser error
+\ No newline at end of file
+
+
+running: ../parser_tests/parser_error_test11.in...
+  contents of file: return false--EOF--
+
+
+running: ../parser_tests/parser_error_test12.in...
+  contents of file: v := true--EOF--
+
+
+running: ../parser_tests/parser_error_test13.in...
+  contents of file: # parser test program 2
+interface GoodStudent extends Student
+{
+	fun doHomework() : GoodGrade;
+	fun askQuestion() : Knowledge;
+--EOF--
+Exception in thread "main" java.lang.NullPointerException
+	at CubexProgramInterface.toString(CubexProgramInterface.java:9)
+	at CubexProgram.toString(CubexProgram.java:13)
+	at java.lang.String.valueOf(String.java:2854)
+	at java.io.PrintStream.println(PrintStream.java:821)
+	at CubexParserMain.main(CubexParserMain.java:51)
+0a1
+> parser error;
+\ No newline at end of file
+
+
+running: ../parser_tests/parser_error_test14.in...
+  contents of file: `this should error'--EOF--
+
+
+running: ../parser_tests/parser_error_test15.in...
+  contents of file: interface MyInterface { fun myFun() : Int fun myFun() : String }--EOF--
+1c1
+< interface MyInterface < CubexList@7b9585ef > extends Thing { CubexList@158c4d4c }
+---
+> parser error
+\ No newline at end of file
+
+
+running: ../parser_tests/parser_error_test1.in...
+  contents of file:  --EOF--
+
+
+running: ../parser_tests/parser_error_test2.in...
+  contents of file: while (true) foo();--EOF--
+
+
+running: ../parser_tests/parser_error_test3.in...
+  contents of file: error();--EOF--
+
+
+running: ../parser_tests/parser_error_test4.in...
+  contents of file: interface myInterface { } --EOF--
+1c1
+< interface myInterface < CubexList@7a0e046e > extends Thing { CubexList@2e45105c }
+---
+> parser error
+\ No newline at end of file
+
+
+running: ../parser_tests/parser_error_test5.in...
+  contents of file: interface MyInterface<In> { }--EOF--
+1c1
+< interface MyInterface < CubexList@27b7516d > extends Thing { CubexList@7442df79 }
+---
+> parser error
+\ No newline at end of file
+
+
+running: ../parser_tests/parser_error_test6.in...
+  contents of file: if (blah) {eff} {this} else {lol};--EOF--
+
+
+running: ../parser_tests/parser_error_test7.in...
+  contents of file: return i++;--EOF--
+
+
+running: ../parser_tests/parser_error_test8.in...
+  contents of file: for (foo) return bar();--EOF--
+
+
+running: ../parser_tests/parser_error_test9.in...
+  contents of file: fun foo() : Bar;--EOF--
+1c1
+< CubexList@74a60905 CubexList@409a6317
+---
+> parser error
+\ No newline at end of file
+
+
+running: ../parser_tests/parser_test10.in...
+  contents of file: fun foo <X, Y> ( ) : Z { return e; } interface MyInterface{ };--EOF--
+1c1
+< CubexList@9293709 interface MyInterface < CubexList@70dc3491 > extends Thing { CubexList@8ff557a }
+---
+> fun foo < X , Y > ( ) : Z { return e ; } interface MyInterface < > extends Thing { } 
+\ No newline at end of file
+
+
+running: ../parser_tests/parser_test11.in...
+  contents of file: return ((true));
+fun foo (y : Integer) : Integer = y * 4;--EOF--
+1c1
+< parser error
+\ No newline at end of file
+---
+> return ( ( true ) ) ; fun foo < > ( y : Integer ) : Integer return y . times ( 4 ) ;
+\ No newline at end of file
+
+
+running: ../parser_tests/parser_test12.in...
+  contents of file: for (i in 5..10) { }
+for (i in 5...) { } 
+  --EOF--
+1c1
+< for ( i in 5 . through < > ( 10 , true , true ) ) {  } for ( i in 5 . onwards < > ( true ) ) {  }
+---
+> for ( i in 5 . through < > ( 10 , true , true ) ) { } for ( i in 5 . onward < > ( true ) ) { } 
+\ No newline at end of file
+
+
+running: ../parser_tests/parser_test13.in...
+  contents of file: return 0..3;
+return 0<.3;
+return 0.<3;
+return 0<<3;
+return 0...;
+return 0<..;
+return (0..3)++(4..5);--EOF--
+1c1
+< return 0 . through < > ( 3 , true , true ) return 0 . through < > ( 3 , false , true ) return 0 . through < > ( 3 , true , false ) return 0 . through < > ( 3 , false , false ) return 0 . onwards < > ( true ) return 0 . onwards < > ( false )
+---
+> return 0 . through < > ( 3 , true , true ) ; return 0 . through < > ( 3 , false , true ) ; return 0 . through < > ( 3 , true , false ) ; return 0 . through < > ( 3 , false , false ) ; return 0 . onward < > ( true ) ; return 0 . onward < > ( false ) ; return ( 0 . through < > ( 3 , true , true ) ) ++ ( 4 . through < > ( 5 , true, true ) ) ;
+\ No newline at end of file
+
+
+running: ../parser_tests/parser_test14.in...
+  contents of file: return -a+b*c*(d-e*-f);--EOF--
+1c1
+< parser error
+\ No newline at end of file
+---
+> return a . negative ( ) . plus ( b . times ( c . times ( d . minus ( e . times ( f . negative ( ) ) ) ) ) ) ; 
+\ No newline at end of file
+
+
+running: ../parser_tests/parser_test15.in...
+  contents of file: class MyClass1<MyClass2<MyClass3>, MyClass4>() { super("man");} return true;--EOF--
+Exception in thread "main" java.lang.NullPointerException
+	at CubexProgramClass.toString(CubexProgramClass.java:9)
+	at CubexProgram.toString(CubexProgram.java:13)
+	at java.lang.String.valueOf(String.java:2854)
+	at java.io.PrintStream.println(PrintStream.java:821)
+	at CubexParserMain.main(CubexParserMain.java:51)
+0a1
+> class MyClass1 < MyClass2 < MyClass3 < > > , MyClass4 < > > ( ) extends Thing { super ( "man" ) ; } return true ;
+\ No newline at end of file
+
+
+running: ../parser_tests/parser_test16.in...
+  contents of file: interface MyInterface {
+    fun foo() : Bar
+}
+
+class MyClass() {
+	fun foo() : Bar {
+		a := 1 + 2 * 3;
+		return -a;
+	}
+	
+	fun zardoz(hello:Boolean) : Boolean {
+		if (true) {
+		return hello;
+		} else {		
+		return !hello;
+		}
+	}
+}
+
+return "one";--EOF--
+1c1
+< interface MyInterface < CubexList@5119015b > extends Thing { CubexList@40a826f5 } class MyClass < CubexList@5f95bffc > ( CubexList@606f6a6a ) extends CubexList@606f6a6a { CubexList@32b3869c super ( CubexList@284a85c5 ) ; CubexList@34945d2d } return "one"
+---
+> interface MyInterface < > extends Thing < > { fun foo < > ( ) : Bar < > ; } class MyClass < > ( ) extends Thing < > { fun foo < > ( ) : Bar < > { super ( ) ; a := 1 . plus < > ( 2 . times < > ( 3 ) ) ; return a . negative ( ) ; } fun zardoz < > ( hello : Boolean ) : Boolean < > { if ( true ) { return hello ; } else return hello . negate ( ) ; } } return "one" ;
+\ No newline at end of file
+
+
+running: ../parser_tests/parser_test17.in...
+  contents of file: return [true, false, 42, "zardoz", [hello, world], true++false, hello.world<T>(e), world<>()];--EOF--
+1c1
+< return [ true , false , 42 , "zardoz" , [ hello , world ] , true ++ false , hello world < T > ( e ) , world <  > (  ) ]
+---
+> return [ true , false , 42 , "zardoz" , [ hello , world ] , true ++ false , hello . world < T > ( e ) , world < > ( ) ] ;
+\ No newline at end of file
+
+
+running: ../parser_tests/parser_test18.in...
+  contents of file: if (MyClass()) return true;--EOF--
+1c1
+< if ( MyClass <  > (  ) ) return true else
+---
+> if ( MyClass < > ( ) ) return true ;
+\ No newline at end of file
+
+
+running: ../parser_tests/parser_test19.in...
+  contents of file: fun ross<T>() : Tate k:=1;
+return ross<Type>();
+--EOF--
+1c1
+< CubexList@7344119b return ross < Type <  > > (  )
+---
+> fun ross < T > ( ) : Tate k := 1 ; return ross < Type > ( ) ;
+\ No newline at end of file
+
+
+running: ../parser_tests/parser_test1.in...
+  contents of file: # parser test program 1
+return 5+3;--EOF--
+1c1
+< return 5 . plus < > ( 3 )
+---
+> return 5 . add < > ( 3 ) ;
+\ No newline at end of file
+
+
+running: ../parser_tests/parser_test20.in...
+  contents of file: ##
+return (a != b);
+return [a<<b];
+return [a.b().c().d<T>()];--EOF--
+1c1,3
+< parser error
+\ No newline at end of file
+---
+> return ( a . equals < > ( b ) . negate < > ( ) ) ;
+> return [ a . range < > ( b , false , false ) ] ;
+> return [ a . b < > ( ) . c < > ( ) . d < T > ( ) ] ; 
+\ No newline at end of file
+
+
+running: ../parser_tests/parser_test21.in...
+  contents of file: class Fib (v : Int) extends InterviewQuestions {
+    super();
+
+    fun fib(n : Int) : Int {
+        if ( n == 1 | n == 2 ) {
+         return 1; 
+        }
+        first := 1;
+        second := 1;
+        while(n > 2) {
+            tmp := second;
+            second := first + second;
+            first := tmp;
+            n := n - 1;
+        }
+        return second;
+    }
+}
+
+return 5;--EOF--
+1c1
+< class Fib < CubexList@ca9f25 > ( CubexList@7696368a ) extends CubexList@7696368a { CubexList@7fd6dad8 super ( CubexList@72b9dc79 ) ; CubexList@839c6c7 } return 5
+---
+> class Fib < > ( v : Int < > ) extends InterviewQuestions < > { super ( ) ; fun fib < > ( n : Int < > ) : Int < > { if ( n . equals < > ( 1 ) . or < > ( n . equals < > ( 2 ) ) ) return 1 ; else { } first := 1 ; second := 1 ; while ( 2 . lessThan < > ( n , true ) ) { tmp := second ; second := first . plus < > ( second ) ; first := tmp ; n := n . minus < > ( 1 ) ; } return second ; } } return 5 ;
+\ No newline at end of file
+
+
+running: ../parser_tests/parser_test22.in...
+  contents of file: for (i in "hello") for (i in k<..) return true;--EOF--
+1c1
+< for ( i in "hello" ) for ( i in k . onwards < > ( false ) ) return true
+---
+> for ( i in "hello" ) for ( j in k . onward ( false ) ) return true ;
+\ No newline at end of file
+
+
+running: ../parser_tests/parser_test2.in...
+  contents of file: # parser test program 2
+interface GoodStudent extends Student
+{
+	fun doHomework() : GoodGrade;
+	fun askQuestion() : Knowledge;
+}
+return "hello world";--EOF--
+1c1
+< interface GoodStudent < CubexList@138ada25 > extends Student <  > { CubexList@f7bd29 } return "hello world"
+---
+> interface GoodStudent < > extends Student < > { fun doHomework < > ( ) : GoodGrade < > ; fun askQuestion < > ( ) : Knowledge < > ; } return "hello world" ;
+\ No newline at end of file
+
+
+running: ../parser_tests/parser_test3.in...
+  contents of file: # parser test program 3
+if(a>b) {z:=a-b; x:=u.v(z);}--EOF--
+1c1
+< if ( b . lessThan < > ( a , true ) ) { z := a . minus < > ( b ) , x := u v <  > ( z ) } else
+---
+> if ( b . lessThan < > ( a , true ) ) { z := a . minus < > ( b ) ; x := u . v < > ( z ) ; } else { }
+\ No newline at end of file
+
+
+running: ../parser_tests/parser_test4.in...
+  contents of file: # parser test program 4
+return "hello
+world!";--EOF--
+
+
+running: ../parser_tests/parser_test5.in...
+  contents of file: # parser test program 5
+"hello world!"--EOF--
+
+
+running: ../parser_tests/parser_test6.in...
+  contents of file: class MyClass() { } return " ";--EOF--
+1c1
+< class MyClass < CubexList@3cd0a12d > ( CubexList@2505b08c ) extends CubexList@2505b08c { CubexList@1889ca51 super ( CubexList@7e41986c ) ; CubexList@47e1b36 } return " "
+---
+> class MyClass < > ( ) extends Thing { super ( ) ; } return " " ;
+\ No newline at end of file
+
+
+running: ../parser_tests/parser_test7.in...
+  contents of file: while (0 == 0) {
+    x := (4 % 2 - 1) / 6;
+    if (1 < 2 & 3 <= 4 & 5 > 6 | 7 >= 8)
+   		return ("a" != "b");  
+}--EOF--
+1c1
+< parser error
+\ No newline at end of file
+---
+> while ( 0 . equals < > ( 0 ) ) { x := ( 4 . modulo < > ( 2 ) . minus < > ( 1 ) ) . divide < > ( 6 ) ; if ( 1 . lessThan < > ( 2 , false ) . and < > ( 3 . lessThan < > ( 4 , true ) . and < > ( 6 . lessThan < > ( 5 , false ) . or < > ( 8 . lessThan < > ( 7 , true ) ) ) ) ) return ( " a " . equals < > ( " b " ) . negate < > ( ) ; } 
+\ No newline at end of file
+
+
+running: ../parser_tests/parser_test8.in...
+  contents of file: {one := 1;{one := 1;{one := 1;{one := 1;}}{one := 1;}}}                        --EOF--
+1c1
+< { one := 1 , { one := 1 , { one := 1 , { one := 1 } } , { one := 1 } } }
+---
+> one := 1 ; one := 1 ; one := 1 ; one := 1 ; one := 1 ;
+\ No newline at end of file
+
+
+running: ../parser_tests/parser_test9.in...
+  contents of file: interface MyInterface<I, S, C> extends Boolean & Boolean{ }
+
+class MyClass<>(zardoz:Zardoz, hello:Hello) extends Nothing { }
+
+return 0;--EOF--
+1c1
+< interface MyInterface < CubexList@71ee88dd > extends Boolean <  > & Boolean <  > { CubexList@635b9f9a } class MyClass < CubexList@144b6a6c > ( CubexList@6337e2dc ) extends CubexList@6337e2dc { CubexList@6a0f0c67 super ( CubexList@1f77497 ) ; CubexList@1d076683 } return 0
+---
+> interface MyInterface < I , S , C > extends Boolean < > & Boolean < >  { } class myClass < > ( zardoz : Zardoz < > , hello : Hello < > ) extends Nothing < > { super ( ) ; } return 0 ; 
+\ No newline at end of file
+
