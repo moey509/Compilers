@@ -119,18 +119,10 @@ public class CubexCompleteContext {
 			throw new SemanticException("");
 		}
 		if (classContext.functionMap.containsKey(methodName)) {
+			
 			return classContext.functionMap.get(methodName);
 		} else {
 			throw new SemanticException("");
 		}
 	}
-	
-	public CubexTypeScheme methodLookup(String methodName) throws SemanticException{
-		if (containsFunctionName(methodName)) {
-			return getTypeSchemeFromFunctionContext(methodName);
-		} else {
-			throw new SemanticException("");
-		}
-	}
-
 }

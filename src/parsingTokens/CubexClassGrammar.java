@@ -19,6 +19,7 @@ import typeChecker.FunctionContext;
 import typeChecker.KindContext;
 import typeChecker.TypeCheckerMain;
 import typeChecker.TypeContext;
+import typeChecker.TypeContextReturn;
 
 public class CubexClassGrammar {
 	public String name;
@@ -193,8 +194,17 @@ public class CubexClassGrammar {
 				temp.add(s);
 			}
 			completeContext3.kindContext.addAll(temp);
-			completeContext3.typeContext = function.statement
-					.typeCheck(completeContext2);
+			TypeContextReturn returns =
+					function.statement
+					.typeCheckReturn(completeContext2);
+			if (returns.guaranteedToReturn){
+				if (!returns.retType.equals(function.typescheme.getTypeGrammar())){
+					throw new SemanticException("");
+				}
+			}
+			else {
+				throw new SemanticException("");
+			}
 		}
 
 		// 10.2.I
