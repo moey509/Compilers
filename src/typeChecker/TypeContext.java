@@ -17,7 +17,7 @@ public class TypeContext {
 	// If the context needs to be modified, remove the mapping and add a new one back in
 	public TypeContext clone() {
 		TypeContext tc = new TypeContext();
-		tc.contextMap = (HashMap<String, CubexTypeGrammar>) this.contextMap.clone();
+		tc.contextMap = new HashMap<String, CubexTypeGrammar>( this.contextMap);
 		return tc;
 	}
 	

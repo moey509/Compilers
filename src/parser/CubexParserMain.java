@@ -29,12 +29,16 @@ public class CubexParserMain {
 
 		ErrorListener listener = new ErrorListener();
 		cubLexer.addErrorListener(listener);
-		//List<? extends Token> list1 = cubLexer.getAllTokens();
+		List<? extends Token> list1 = cubLexer.getAllTokens();
 //		for (Token t : list1) {
 //			System.out.print(t.getText() + " "); 
 //		}
 //		System.out.print("\n");
 		cubLexer.reset();
+		if (lexedWithError) {
+			System.out.print("lexer error");
+			return;
+		}
 		CubexParser cubParser = new CubexParser(new CommonTokenStream(cubLexer));
 		cubParser.removeErrorListeners();
 		ErrorListener plistener = new ErrorListener();
@@ -42,10 +46,6 @@ public class CubexParserMain {
 		
 		cubParser.fullprogram();
 		//ParseTree parseTree = xiParser.fullprogram();
-		if (lexedWithError) {
-			System.out.print("lexer error");
-			return;
-		}
 		if(cubParser.getNumberOfSyntaxErrors() > 0){
 			System.out.print("parser error");
 			return;
