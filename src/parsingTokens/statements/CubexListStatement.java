@@ -10,6 +10,7 @@ import typeChecker.TypeContextReturn;
 
 public final class CubexListStatement extends CubexStatement {
 	private CubexList<CubexStatement> cList;
+	public static boolean flatten = false;
 
 	public CubexListStatement(CubexList<CubexStatement> cList) {
 		this.cList = cList;
@@ -27,13 +28,9 @@ public final class CubexListStatement extends CubexStatement {
 		return returnList;
 	}
 	
-	public void add(CubexStatement s){
-		
-	}
-
 	public String toString() {
 		String rightSpace = cList.size() == 0 ? "" : " ";
-		if((cList.size() == 1)){
+		if(flatten || (cList.size() == 1)){
 			return cList.toString(" ");
 		}
 		else{

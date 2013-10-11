@@ -40,7 +40,6 @@ public class CubexClassGrammar {
 		statements = s;
 		expressions = e;
 		functions = f;
-
 	}
 
 	public void flatten() {
@@ -84,7 +83,9 @@ public class CubexClassGrammar {
 		build.append(") extends ");
 		build.append(extendsType);
 		build.append(" { ");
+		CubexListStatement.flatten = true;
 		build.append(statements.toString());
+		CubexListStatement.flatten = false;
 		build.append(sSpace);
 		build.append("super ( ");
 		build.append(expressions.toString(","));
