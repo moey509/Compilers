@@ -33,4 +33,10 @@ public class ClassContext {
 	public Iterable<Map.Entry<String, ClassContextElement>> iterable(){
 		return contextMap.entrySet();
 	}
+	
+	public ClassContext clone(){
+		ClassContext clone = new ClassContext();
+		clone.merge(this);
+		return clone;
+	}
 }
