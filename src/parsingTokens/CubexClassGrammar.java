@@ -15,6 +15,8 @@ import typeChecker.ClassContext;
 import typeChecker.ClassContextElement;
 import typeChecker.CubexCompleteContext;
 import typeChecker.FunctionContext;
+import typeChecker.TypeCheckerMain;
+import typeChecker.TypeContext;
 
 public class CubexClassGrammar {
 	public String name;
@@ -107,7 +109,6 @@ public class CubexClassGrammar {
 		
 
 		CubexTypeScheme thisTypeScheme;
-
 		
 		// Find supertype
 		if (context.containsClassName(extendsType.getName())) {
@@ -135,6 +136,12 @@ public class CubexClassGrammar {
 		thisTypeScheme = new CubexTypeScheme(kindcontext, typecontext, thisType);
 		funContext1.put(name, thisTypeScheme);
 		
+		// 8.2.D,E,F
+		TypeContext typeContext1 = context.typeContext.clone();
+		for (CubexStatement statement : statements.iterable()){
+			
+		}
+		
 		
 		
 		// 8.2.I
@@ -143,7 +150,15 @@ public class CubexClassGrammar {
 			functionContext2.put(fun.name, fun.typescheme);
 		}
 		
+
 		// 8.2.J
+		CubexCompleteContext context2 = context.clone();
+		context2.classContext = classContext1;
+		for (CubexFunctionDef function : functions.iterable()){
+
+			context2.kindContext.addAll(function.typescheme.
+			context2.typeContext = function.statement.typeCheck(context2);
+		}
 		
 		
 		// 8.2.K
