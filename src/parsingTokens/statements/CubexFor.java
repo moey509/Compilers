@@ -18,10 +18,7 @@ public final class CubexFor extends CubexStatement {
 	}
 
 	public String toString() {
-		boolean prev = CubexListStatement.flatten;
-		CubexListStatement.flatten = false;
 		String result = "for ( " + varfun + " in " + e.toString() + " ) " + s.toString();
-		CubexListStatement.flatten = prev;
 		return result;
 	}
 	

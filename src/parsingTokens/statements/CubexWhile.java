@@ -16,10 +16,7 @@ public final class CubexWhile extends CubexStatement {
 	}
 
 	public String toString() {
-		boolean prev = CubexListStatement.flatten;
-		CubexListStatement.flatten = false;
 		String s2 = "while ( " + e.toString() + " ) " + s.toString();
-		CubexListStatement.flatten = prev;
 		return s2;
 	}
 	

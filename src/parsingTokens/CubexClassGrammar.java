@@ -80,9 +80,7 @@ public class CubexClassGrammar {
 		build.append(") extends ");
 		build.append(extendsType);
 		build.append(" { ");
-		CubexListStatement.flatten = true;
 		build.append(statements.toString());
-		CubexListStatement.flatten = false;
 		build.append(sSpace);
 		build.append("super ( ");
 		build.append(expressions.toString(","));

@@ -32,10 +32,7 @@ public final class CubexIf extends CubexStatement {
 		else{
 			temp = "{ }";
 		}
-		boolean prev = CubexListStatement.flatten;
-		CubexListStatement.flatten = false;
 		String newString = "if ( " + e.toString() + " ) " + s1.toString() + " else " + temp;
-		CubexListStatement.flatten = prev;
 		return newString;
 	}
 	
