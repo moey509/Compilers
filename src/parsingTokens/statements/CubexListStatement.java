@@ -53,6 +53,7 @@ public final class CubexListStatement extends CubexStatement {
 			cclone.mutableTypeContext = prev;
 			prevReturnContext = cList.get(i).typeCheckReturn(c);
 			prev = prevReturnContext.typeContext;
+			guaranteed = prevReturnContext.guaranteedToReturn || guaranteed;
 			// assuming that if gauranteedToReturn==True, the return type can't be "anything" (null)
 			if (prevReturnContext.guaranteedToReturn || prevReturnContext.retType!=null) {
 				if (rettypeupdated) {
