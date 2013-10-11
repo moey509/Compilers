@@ -1,7 +1,11 @@
 package parsingTokens.typeGrammar;
+
+import typeChecker.CubexCompleteContext;
+import Exception.SemanticException;
+
 public class CubexTypeIntersection extends CubexTypeGrammar {
-	private CubexTypeGrammar typeGrammar1;
-	private CubexTypeGrammar typeGrammar2;
+	CubexTypeGrammar typeGrammar1;
+	CubexTypeGrammar typeGrammar2;
 
 	public CubexTypeIntersection(CubexTypeGrammar typeGrammar1,
 			CubexTypeGrammar typeGrammar2) {
@@ -11,13 +15,18 @@ public class CubexTypeIntersection extends CubexTypeGrammar {
 	
 
 	@Override
-	public String getName() {
-		// TODO IMPLEMENT THIS
-		return typeGrammar1.getName();
+	public String getName() throws SemanticException {
+		throw new SemanticException("CubexTypeIntersection does not have name");
 	}
 
 	@Override
 	public String toString() {
 		return typeGrammar1.toString() + " & " + typeGrammar2.toString();
+	}
+	
+	@Override
+	public void validate(CubexCompleteContext c) throws SemanticException {
+		// TODO Auto-generated method stub
+
 	}
 }
