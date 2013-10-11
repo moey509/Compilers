@@ -112,15 +112,15 @@ public class CubexCompleteContext {
 	}
 	
 	public CubexTypeScheme methodLookup(CubexTypeGrammar object, String methodName) throws SemanticException{
-		ClassContextElement classContext;
+		ClassContextElement cCont;
 		if (containsClassName(object.name)) {
-			classContext = getElementFromClassContext(object.name);
+			cCont = getElementFromClassContext(object.name);
 		} else {
 			throw new SemanticException("");
 		}
-		if (classContext.functionMap.containsKey(methodName)) {
+		if (cCont.functionMap.containsKey(methodName)) {
 			
-			return classContext.functionMap.get(methodName);
+			return cCont.functionMap.get(methodName);
 		} else {
 			throw new SemanticException("");
 		}
