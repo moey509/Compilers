@@ -1,5 +1,6 @@
 package parsingTokens;
 
+import java.util.LinkedList;
 import java.util.Map;
 
 import Exception.SemanticException;
@@ -15,6 +16,7 @@ import typeChecker.ClassContext;
 import typeChecker.ClassContextElement;
 import typeChecker.CubexCompleteContext;
 import typeChecker.FunctionContext;
+import typeChecker.KindContext;
 import typeChecker.TypeCheckerMain;
 import typeChecker.TypeContext;
 
@@ -40,11 +42,11 @@ public class CubexClassGrammar {
 		functions = f;
 
 	}
-	
-	public void flatten(){
+
+	public void flatten() {
 		CubexList<CubexStatement> returnList = new CubexList<CubexStatement>();
 		CubexList<CubexStatement> tempList = new CubexList<CubexStatement>();
-		for(int i = 0; i < statements.size(); i++){
+		for (int i = 0; i < statements.size(); i++) {
 			CubexStatement s = statements.get(i);
 			tempList = s.flatten();
 			returnList.add(tempList);
@@ -136,10 +138,34 @@ public class CubexClassGrammar {
 		thisTypeScheme = new CubexTypeScheme(kindcontext, typecontext, thisType);
 		funContext1.put(name, thisTypeScheme);
 		
+		KindContext kindContext1 = new KindContext();
+		for (String s : kindcontext.iterable()){
+			kindContext1.add(s);
+		}
+		
 		// 8.2.D,E,F
+		CubexCompleteContext completeContext = context.clone();
+		completeContext.classContext = classContext1;
+		completeContext.kindContext = kindContext1;
+		
+		CubexCompleteContext completeContext1 = completeContext.clone();		
 		TypeContext typeContext1 = context.typeContext.clone();
+		
 		for (CubexStatement statement : statements.iterable()){
-			
+			completeContext1.typeContext = typeContext1;
+			typeContext1 = statement.typeCheck(completeContext1);
+		}
+		
+		
+		// 8.2.G,H
+		CubexCompleteContext completeContext2 = completeContext.clone();
+		
+		CubexTypeGrammar superType;
+		if (extendsType.equals(context.getTypeGrammarFromTypeContext("Thing"))) {
+			superType = context.getTypeGrammarFromTypeContext("Thing");
+		}
+		else {
+			superType = completeCo
 		}
 		
 		
@@ -152,12 +178,16 @@ public class CubexClassGrammar {
 		
 
 		// 8.2.J
-		CubexCompleteContext context2 = context.clone();
-		context2.classContext = classContext1;
+		CubexCompleteContext completeContext3= context.clone();
+		completeContext3.classContext = classContext1;
 		for (CubexFunctionDef function : functions.iterable()){
 
-			context2.kindContext.addAll(function.typescheme.
-			context2.typeContext = function.statement.typeCheck(context2);
+			KindContext temp = new KindContext();
+			for (String s : function.typescheme.getKindContext().iterable()){
+				temp.add(s);
+			}
+			completeContext3.kindContext.addAll(temp);
+			completeContext3.typeContext = function.statement.typeCheck(completeContext2);
 		}
 		
 		
