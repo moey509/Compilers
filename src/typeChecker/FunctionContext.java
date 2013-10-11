@@ -38,4 +38,10 @@ public class FunctionContext {
 	public Iterable<Map.Entry<String, CubexTypeScheme>> iterable(){
 		return nameToTypeSchemeMap.entrySet();
 	}
+	
+	public FunctionContext clone(){
+		FunctionContext output = new FunctionContext();
+		output.merge(this);
+		return output;
+	}
 }

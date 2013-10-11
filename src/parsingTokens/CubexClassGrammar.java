@@ -11,8 +11,10 @@ import parsingTokens.statements.CubexStatement;
 import parsingTokens.typeGrammar.CubexTypeClass;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import parsingTokens.typeGrammar.CubexTypeName;
+import typeChecker.ClassContext;
 import typeChecker.ClassContextElement;
 import typeChecker.CubexCompleteContext;
+import typeChecker.FunctionContext;
 
 public class CubexClassGrammar {
 	public String name;
@@ -85,8 +87,18 @@ public class CubexClassGrammar {
 	public CubexCompleteContext typeCheck(CubexCompleteContext context)
 			throws SemanticException {
 		
-		// Find supertype
+		ClassContext classContext1;
+		FunctionContext funContext1;
+		FunctionContext funContext2;
+		
 		ClassContextElement superElement;
+		ClassContextElement thisElement;
+		
+
+		CubexTypeScheme thisTypeScheme;
+
+		
+		// Find supertype
 		if (context.containsClassName(extendsType.getName())) {
 			superElement = context.getElementFromClassContext(extendsType.getName());
 		}
@@ -94,21 +106,34 @@ public class CubexClassGrammar {
 			throw new SemanticException("Supertype not found");
 		}
 		
+		
 		// Create Type Grammar
 		CubexList<CubexTypeGrammar> kindList = new CubexList<CubexTypeGrammar>();
 		for(String s : kindcontext.iterable()){
 			kindList.add(new CubexTypeName(s));
 		}
-		CubexTypeGrammar thisType = new CubexTypeClass(name, kindList);		
+		CubexTypeGrammar thisType = new CubexTypeClass(name, kindList);	
+		
+		// 8.2.B
+		classContext1 = context.classContext.clone();
+		classContext1.put(name, new ClassContextElement(this));
+		
 		
 		// 8.2.C
-		CubexTypeScheme typeScheme = new CubexTypeScheme(kindcontext, typecontext, thisType);
-		context.appendFunctionContext(name, typeScheme);
+		funContext1 = context.functionContext.clone();
+		thisTypeScheme = new CubexTypeScheme(kindcontext, typecontext, thisType);
+		funContext1.put(name, thisTypeScheme);
+		
+		
 		
 		// 8.2.I
+		FunctionContext functionContext2 = funContext1.clone();
 		for (CubexFunctionDef fun : functions.iterable()){
-			context.appendFunctionContext(fun.name, fun.typescheme);
+			functionContext2.put(fun.name, fun.typescheme);
 		}
+		
+		// 8.2.J
+		
 		
 		// 8.2.K
 		Map<String, CubexTypeScheme> superTypeFunctions = superElement.functionMap;
