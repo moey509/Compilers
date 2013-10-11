@@ -1,0 +1,7 @@
+# parser test [for statement] (stage 1)
+list := 4;
+for (i in list)
+{
+	c := 4;
+}
+return ["hello"];
