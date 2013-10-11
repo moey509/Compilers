@@ -10,7 +10,7 @@ import parsingTokens.context.CubexTypeScheme;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 
 public class ClassContextElement{
-	boolean isClass; //Class or interface
+	private boolean isClass; //Class or interface
 	public String name;
 	public CubexTypeGrammar type;
 	public KindContext kindContext = new KindContext();
@@ -19,11 +19,11 @@ public class ClassContextElement{
 	
 	//Duplicated code between for classes and interfaces...
 	public ClassContextElement(CubexInterface element) {
-		isClass = true;
+		isClass = false;
 		name = element.name;
-		type = element.type;
-		kindContext.addAll(element.kindcontext.contextCollection);
-		for(CubexFunctionDef def : element.list.contextCollection){
+		type = element.extendsType;
+		kindContext.addAll(element.kindContext.contextCollection);
+		for(CubexFunctionDef def : element.functionList.contextCollection){
 			functionMap.put(def.name, def.typescheme);
 		}
 	}
@@ -36,6 +36,10 @@ public class ClassContextElement{
 		for(CubexFunctionDef def : element.functions.contextCollection){
 			functionMap.put(def.name, def.typescheme);
 		}
+	}
+	
+	public boolean isClass(){
+		return isClass;
 	}
 	
 }

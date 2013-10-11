@@ -1,10 +1,18 @@
 package parsingTokens;
 
+import java.util.Map;
+
+import Exception.SemanticException;
+import parsingTokens.context.CubexTypeScheme;
 import parsingTokens.context.CubexTypeTuple;
 import parsingTokens.expressions.CubexExpression;
 import parsingTokens.statements.CubexListStatement;
 import parsingTokens.statements.CubexStatement;
+import parsingTokens.typeGrammar.CubexTypeClass;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
+import parsingTokens.typeGrammar.CubexTypeName;
+import typeChecker.ClassContextElement;
+import typeChecker.CubexCompleteContext;
 
 public class CubexClassGrammar {
 	public String name;
@@ -74,4 +82,48 @@ public class CubexClassGrammar {
 		return build.toString();
 	}
 
+	public CubexCompleteContext typeCheck(CubexCompleteContext context)
+			throws SemanticException {
+		
+		// Find supertype
+		ClassContextElement superElement;
+		if (context.containsClassName(extendsType.getName())) {
+			superElement = context.getElementFromClassContext(extendsType.getName());
+		}
+		else {
+			throw new SemanticException("Supertype not found");
+		}
+		
+		// Create Type Grammar
+		CubexList<CubexTypeGrammar> kindList = new CubexList<CubexTypeGrammar>();
+		for(String s : kindcontext.iterable()){
+			kindList.add(new CubexTypeName(s));
+		}
+		CubexTypeGrammar thisType = new CubexTypeClass(name, kindList);		
+		
+		// 8.2.C
+		CubexTypeScheme typeScheme = new CubexTypeScheme(kindcontext, typecontext, thisType);
+		context.appendFunctionContext(name, typeScheme);
+		
+		// 8.2.I
+		for (CubexFunctionDef fun : functions.iterable()){
+			context.appendFunctionContext(fun.name, fun.typescheme);
+		}
+		
+		// 8.2.K
+		Map<String, CubexTypeScheme> superTypeFunctions = superElement.functionMap;
+		for (CubexFunctionDef function : functions.iterable()) {
+			if (superTypeFunctions.containsKey(function.name)) {
+				if (superTypeFunctions.get(function.name).equals(
+						function.typescheme)) {
+					throw new SemanticException(
+							"Type parameters for function "
+									+ function.name
+									+ " does not agree with the supertype function parameters.");
+				}
+			}
+		}
+
+		return context;
+	}
 }
