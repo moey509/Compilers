@@ -14,6 +14,7 @@ public class CubexIf extends CubexStatement {
 
 	// if there is no else statement, let s2 be null
 	public CubexIf(CubexExpression e, CubexStatement s1, CubexStatement s2) {
+		super();
 		this.e = e;
 		this.s1 = new CubexListStatement(s1.flatten());
 		if(s2 != null){
