@@ -1,0 +1,9 @@
+# parser test [return statements] [return on both branches of if]
+if (true) 
+{
+	return [];
+}
+else
+{
+	return [];
+}
