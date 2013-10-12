@@ -1,5 +1,7 @@
 package parsingTokens.expressions;
 
+import java.util.ArrayList;
+
 import Exception.SemanticException;
 import parsingTokens.CubexList;
 import parsingTokens.context.CubexTypeScheme;
@@ -41,17 +43,26 @@ public final class CubexFunctionApp extends CubexExpression {
 			throws SemanticException {
 		CubexTypeGrammar objectType = expr.typeCheck(c);
 		CubexTypeScheme typeScheme = c.methodLookup(objectType, v_v);
-		// TODO
+
+		ArrayList<String> kContext = new ArrayList<String>(typeScheme.getKindContext().contextCollection);
+		ArrayList<CubexTypeGrammar> params = new ArrayList<CubexTypeGrammar>(typeParams.contextCollection);
+		
+		if (kContext.size() != params.size()){
+			throw new SemanticException("Incorrect number of parameters");
+		}
+		TypeContext cont = new TypeContext();
+		for (int i = 0; i < kContext.size(); i++){
+			cont.put(kContext.get(i), params.get(i));
+		}
 
 		CubexList<CubexTypeTuple> typeContext = typeScheme.getTypeContext();
-
-		TypeContext cont = new TypeContext(typeContext);
 
 		for (int i = 0; i < typeContext.size(); i++) {
 			CubexTypeGrammar paramExpr = functionParams.get(i).typeCheck(c);
 			if (!typeContext.get(i).getTypeGrammar().equals(paramExpr))
 				throw new SemanticException("");
 		}
-		CubexTypeGrammar output = typeScheme.getTypeGrammar().replaceParams(cont)
+		CubexTypeGrammar output = typeScheme.getTypeGrammar().replaceParams(cont);
+		return output;
 	}
 }
