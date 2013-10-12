@@ -64,7 +64,7 @@ public abstract class CubexTypeGrammar {
 	}
 	
 	
-	public CubexTypeGrammar join(ClassContext c, CubexTypeGrammar t) throws SemanticException {
+	public CubexTypeGrammar join(CubexCompleteContext c, CubexTypeGrammar t) throws SemanticException {
 		//TODO: IMPLEMENT THIS BETTER
 		//If we join with nothing, then return ourself
 		if(t == null || this.equalType(t)){ 
@@ -77,6 +77,9 @@ public abstract class CubexTypeGrammar {
 //		else {
 //			return this;
 //		}
+		if (subtype(c, t)) return this;
+		if (t.subtype(c, this)) return t;
+
 		return null;
 
 	}

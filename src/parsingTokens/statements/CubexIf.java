@@ -56,6 +56,6 @@ public final class CubexIf extends CubexStatement {
 		TypeContextReturn t2 = s2.typeCheckReturn(c);
 		TypeContext t = t1.typeContext.intersection(c, t2.typeContext);
 		boolean g = t1.guaranteedToReturn && t2.guaranteedToReturn;
-		return new TypeContextReturn(t, g, t1.retType.join(c.classContext, t2.retType));
+		return new TypeContextReturn(t, g, t1.retType.join(c, t2.retType));
 	}
 }

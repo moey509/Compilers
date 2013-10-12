@@ -67,7 +67,7 @@ public final class CubexListStatement extends CubexStatement {
 			if (prevReturnContext.guaranteedToReturn || prevReturnContext.retType!=null) {
 				if (rettypeupdated) {
 					// assumes equality of all tau's
-					rettype = rettype.join(c.classContext, prevReturnContext.retType);
+					rettype = rettype.join(c, prevReturnContext.retType);
 				} else {
 					rettypeupdated = true;
 					rettype = prevReturnContext.retType;

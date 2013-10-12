@@ -44,7 +44,7 @@ public class CubexIterable extends CubexExpression {
 		CubexTypeGrammar joinedType = null;
 		for (int i = 0; i < list.size(); i++) {
 			type = list.get(i).typeCheck(c);
-			joinedType = type.join(c.classContext, joinedType);
+			joinedType = type.join(c, joinedType);
 		}
 		CubexList<CubexTypeGrammar> iterableType = new CubexList<CubexTypeGrammar>();
 		iterableType.add(joinedType);
