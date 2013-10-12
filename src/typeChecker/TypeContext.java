@@ -44,7 +44,7 @@ public class TypeContext {
 			if (t2.containsKey(name)) {
 				CubexTypeGrammar type1 = get(name);
 				CubexTypeGrammar type2 = t2.get(name);
-				t.put(name, type1.join(c, type2));
+				t.put(name, type1.join(c.classContext, type2));
 			}
 		}
 		return t;

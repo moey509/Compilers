@@ -64,19 +64,21 @@ public abstract class CubexTypeGrammar {
 	}
 	
 	
-	public CubexTypeGrammar join(CubexCompleteContext c, CubexTypeGrammar t) throws SemanticException {
+	public CubexTypeGrammar join(ClassContext c, CubexTypeGrammar t) throws SemanticException {
 		//TODO: IMPLEMENT THIS BETTER
 		//If we join with nothing, then return ourself
-		if(t == null || t.getName().equals("")){ 
+		if(t == null || this.equalType(t)){ 
 			return this; 
 		}
 		//Without subtypes, if we join things that are not equal or one is of type Thing, we return Thing,
-		if(getName().equals("Thing") || t.getName().equals("Thing") || !getName().equals(t.getName())){
-			return new CubexTypeName("Thing");
-		}
-		else {
-			return this;
-		}
+//		if(getName().equals("Thing") || t.getName().equals("Thing") || !getName().equals(t.getName())){
+//			return new CubexTypeName("Thing");
+//		}
+//		else {
+//			return this;
+//		}
+		return null;
+
 	}
 	
 	public abstract void validate(CubexCompleteContext c) throws SemanticException;
