@@ -1,1 +1,12 @@
+{q:="hello";
+return ["hello","hello again","hello again again"];
+{
+a := 2;
+q := true;
+b:=3;
+}
+}
+fun hello<>(i : Integer<>) : Iterable<String> {
+	return "hello";
+}
 return ["hello","hello again","hello again again"];
