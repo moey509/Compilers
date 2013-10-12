@@ -161,6 +161,12 @@ public class CubexCompleteContext {
 						throw new SemanticException("Type Schemes do not match");
 				}
 			}
+			
+			///////////
+			//       //
+			// 8.2.C //
+			//       //
+			///////////
 
 			return fContext1;
 
@@ -168,6 +174,6 @@ public class CubexCompleteContext {
 	}
 
 	public CubexTypeGrammar methodImplementedCheck() {
-		return null;
+		
 	}
 }
