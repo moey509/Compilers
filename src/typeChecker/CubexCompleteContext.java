@@ -72,7 +72,8 @@ public class CubexCompleteContext {
 	public void appendFunctionContext(FunctionContext t) {
 		functionContext.merge(t);
 	}
-
+	
+	//TODO: Make sure appending the function context does not overload
 	public void appendFunctionContext(String s, CubexTypeScheme t) {
 		functionContext.put(s, t);
 	}
