@@ -1,0 +1,12 @@
+# parser test [function calls] [usage of immutable]
+
+c := 4;
+
+fun a (a : Integer) : Integer
+{	
+	d := a + c;
+	return d;
+}
+
+d := a(6);
+return ["blah"];
