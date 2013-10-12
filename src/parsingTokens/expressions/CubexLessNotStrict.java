@@ -15,8 +15,7 @@ public class CubexLessNotStrict extends CubexBinaryExpression {
 		return getmLeft().toString() + " . lessThan < > ( " + getmRight().toString() + " , false )";
 	}
 	
-	public CubexTypeGrammar typeCheck(CubexCompleteContext c,
-			CubexList<CubexTypeGrammar> t) throws SemanticException {
+	public CubexTypeGrammar typeCheck(CubexCompleteContext c) throws SemanticException {
 		return new CubexTypeClass("Boolean", new CubexList<CubexTypeGrammar>());
 	}
 }
