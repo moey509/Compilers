@@ -19,7 +19,6 @@ public abstract class CubexStatement {
 		throw new SemanticException("CubexStatement does not implement typeCheckReturn");
 	}
 	public TypeContext typeCheck(CubexCompleteContext c) throws SemanticException{
-		// TODO Auto-generated method stub
 		throw new SemanticException("CubexStatement does not implement typeCheck");
 	}
 	public CubexList<CubexStatement> flatten() {
