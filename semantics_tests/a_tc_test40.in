@@ -1,0 +1,23 @@
+# parser test [scoping in classes] 
+
+a := true;
+c := a;
+
+interface A<T>(a : Integer, b : String) 
+{
+	fun first() : Integer = a;
+	fun second() : String = b;
+}
+
+class B<T>(a : Integer) extends A<T>
+{
+	super(a, "str");
+	fun cAdd() : Integer<> = first() + 6;
+}
+
+if (a)
+{
+	c := false;
+}
+
+return ["blah"];

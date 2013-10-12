@@ -31,7 +31,7 @@ public class CubexProgramStatement implements CubexProgramType {
 		TypeContextReturn ret = statement.typeCheckReturn(c);
 		//TODO:Check for ret.typeContext <: Iterable<String>
 		CubexList<CubexTypeGrammar> typeList = ret.retType.getTypeList();
-		if(!ret.guaranteedToReturn || typeList.size() != 1 || !typeList.get(0).getName().equals("String")){
+		if(!ret.guaranteedToReturn || ret.retType.getName() != "Iterable" || typeList.size() != 1 || !typeList.get(0).getName().equals("String")){
 			throw new SemanticException("CubexProgramStatement");
 		}
 		

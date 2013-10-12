@@ -1,0 +1,14 @@
+# parser test [name hiding from supertype, no args] 
+interface A<T>() 
+{
+	fun aFun() : Integer = 0;
+}
+
+class B<T>() extends A<T>
+{
+	fun aFun() : Boolean<> = True;
+}
+
+b := B<T>();
+a := b.aFun() + 6;
+return ["blah"];

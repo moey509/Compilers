@@ -1,0 +1,23 @@
+# parser test [using data from immutables] 
+
+c := 4;
+
+interface A<T>(a : Integer, b : String) 
+{
+	fun first() : Integer = c;
+	fun second() : String = b;
+
+}
+
+class B<T>(a : Integer) extends A<T>
+{
+	super(a, "str");
+	fun cAdd() : Integer<> = first() + 6;
+	fun third() : Boolean<> 
+	{
+		c := false;
+		return true;
+	}
+}
+
+return ["blah"];
