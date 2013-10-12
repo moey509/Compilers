@@ -1,0 +1,10 @@
+# parser test [function calls] [join failure]
+
+c := 4;
+
+fun a (a : Integer, b : String) : Integer
+{
+	return false;
+	return a;
+}
+return ["blah"];

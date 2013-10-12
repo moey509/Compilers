@@ -1,5 +1,7 @@
 package parsingTokens.expressions;
 
+import java.util.ArrayList;
+
 import Exception.SemanticException;
 import parsingTokens.CubexList;
 import parsingTokens.context.CubexTypeScheme;
@@ -7,8 +9,8 @@ import parsingTokens.context.CubexTypeTuple;
 import parsingTokens.typeGrammar.CubexTypeClass;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import parsingTokens.typeGrammar.CubexTypeName;
-import typeChecker.ClassContextElement;
 import typeChecker.CubexCompleteContext;
+import typeChecker.TypeContext;
 
 public final class CubexFunctionCall extends CubexExpression {
 	private String v_vc;
@@ -30,30 +32,7 @@ public final class CubexFunctionCall extends CubexExpression {
 				+ functionParams.toString(",") + rightSpace2 + ")";
 	}
 
-	// Check if the expression is of some type
-	public CubexTypeGrammar typeCheck(CubexCompleteContext c, CubexTypeGrammar t)
-			throws SemanticException {
-
-		CubexTypeGrammar nothing = new CubexTypeName("Nothing");
-		CubexTypeScheme typeScheme = c.methodLookup(nothing, v_vc);
-
-
-		CubexList<String> kindContext = typeScheme.getKindContext();
-		// TODO implement this later
-
-		CubexList<CubexTypeTuple> typeContext = typeScheme.getTypeContext();
-
-		for (int i = 0; i < typeContext.size(); i++) {
-			CubexTypeGrammar paramExpr = functionParams.get(i).typeCheck(c);
-			if (!typeContext.get(i).getTypeGrammar().equals(paramExpr))
-				throw new SemanticException("");
-		}
-		return typeScheme.getTypeGrammar();
-
-	}
-
-	public CubexTypeGrammar typeCheck(CubexCompleteContext c, CubexTypeClass t)
-			throws SemanticException {
+	public CubexTypeGrammar typeCheck(CubexCompleteContext c) throws SemanticException {
 		CubexTypeScheme typeScheme;
 		if (c.containsFunctionName(v_vc)) {
 			typeScheme = c.getTypeSchemeFromFunctionContext(v_vc);
@@ -61,8 +40,18 @@ public final class CubexFunctionCall extends CubexExpression {
 			throw new SemanticException("");
 		}
 
-		CubexList<String> kindContext = typeScheme.getKindContext();
-		// TODO implement this later
+		ArrayList<String> kContext = new ArrayList<String>(
+				typeScheme.getKindContext().contextCollection);
+		ArrayList<CubexTypeGrammar> params = new ArrayList<CubexTypeGrammar>(
+				typeParams.contextCollection);
+
+		if (kContext.size() != params.size()) {
+			throw new SemanticException("Incorrect number of parameters");
+		}
+		TypeContext cont = new TypeContext();
+		for (int i = 0; i < kContext.size(); i++) {
+			cont.put(kContext.get(i), params.get(i));
+		}
 
 		CubexList<CubexTypeTuple> typeContext = typeScheme.getTypeContext();
 
@@ -71,31 +60,8 @@ public final class CubexFunctionCall extends CubexExpression {
 			if (!typeContext.get(i).getTypeGrammar().equals(paramExpr))
 				throw new SemanticException("");
 		}
-		return typeScheme.getTypeGrammar();
-
-	}
-
-	// Check if the expression is of some list of types
-	public CubexTypeGrammar typeCheck(CubexCompleteContext c,
-			CubexList<CubexTypeGrammar> t) throws SemanticException {
-		CubexTypeScheme typeScheme;
-		if (c.containsFunctionName(v_vc)) {
-			typeScheme = c.getTypeSchemeFromFunctionContext(v_vc);
-		} else {
-			throw new SemanticException("");
-		}
-
-		CubexList<String> kindContext = typeScheme.getKindContext();
-		// TODO implement this later
-
-		CubexList<CubexTypeTuple> typeContext = typeScheme.getTypeContext();
-
-		for (int i = 0; i < typeContext.size(); i++) {
-			CubexTypeGrammar paramExpr = functionParams.get(i).typeCheck(c);
-			if (!typeContext.get(i).getTypeGrammar().equals(paramExpr))
-				throw new SemanticException("");
-		}
-		return typeScheme.getTypeGrammar();
-
+		CubexTypeGrammar output = typeScheme.getTypeGrammar().replaceParams(
+				cont);
+		return output;
 	}
 }

@@ -1,4 +1,4 @@
-# parser test [using data from immutables] 
+# parser test [changing the type of an immutable] 
 
 c := 4;
 

@@ -3,9 +3,13 @@ package parsingTokens.program;
 import Exception.SemanticException;
 import parsingTokens.CubexFunctionDef;
 import parsingTokens.CubexList;
+import parsingTokens.context.CubexTypeTuple;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import typeChecker.CubexCompleteContext;
 import typeChecker.FunctionContext;
+import typeChecker.KindContext;
+import typeChecker.TypeContext;
+import typeChecker.TypeContextReturn;
 
 
 public class CubexProgramFunctionList implements CubexProgramType {
@@ -23,20 +27,30 @@ public class CubexProgramFunctionList implements CubexProgramType {
 	public CubexCompleteContext typeCheck(CubexCompleteContext c) throws SemanticException {
 		// Create delta'
 		for(int i = 0; i < functionList.size(); i++){
-			c.appendFunctionContext(functionList.get(i).name, functionList.get(i).typescheme);
+			CubexFunctionDef fun = functionList.get(i);
+			c.appendFunctionContext(fun.name, fun.typescheme);
 		}
+		//Validate gamma, tau, and statements of each function
 		for(int i = 0; i < functionList.size(); i++){
-			//Check to see if function context is valid under the kind context or class context
-			//for(CubexTypeGrammar g : c.functionContext.)
-			//Check to see if return type is valid under the kind context or class context
-
-			//Check to see if statement is valid under current complete context
-
-			//Check to see if the statement returns the correct type
-
-			//TODO:function typecheck stuff
+			//Check that all types are valid given a class and kind context
+			CubexFunctionDef fun = functionList.get(i);
+			CubexList<CubexTypeTuple> list = fun.typescheme.getTypeContext();
+			c.kindContext = new KindContext(fun.typescheme.getKindContext());
+			c.mutableTypeContext = new TypeContext(fun.typescheme.getTypeContext());
+			//Validate gamma
+			for(int j = 0; j < fun.typescheme.getTypeContext().size(); j++){
+				list.get(j).getTypeGrammar().validate(c);
+			}
+			//Validate type
+			fun.typescheme.getTypeGrammar().validate(c);
+			
+			TypeContextReturn ret = fun.statement.typeCheckReturn(c);
+			if(ret.guaranteedToReturn == false || !(fun.typescheme.getTypeGrammar().subtype(c, ret.retType))){
+				throw new SemanticException("");
+			}
 		}
-		
+		c.kindContext = new KindContext();
+		c.mutableTypeContext = new TypeContext();
 		return c;
 	}
 }

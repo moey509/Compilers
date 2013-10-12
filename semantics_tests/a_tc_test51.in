@@ -1,0 +1,13 @@
+# parser test [function calls] [overlapping function names]
+
+fun a (a : Integer, b : String) : Integer
+{
+	c := false;
+	return a;
+}
+
+fun a (a : Integer, b : String) : String
+{	
+	return b;
+}
+return ["blah"];

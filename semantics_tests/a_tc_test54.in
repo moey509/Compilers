@@ -1,0 +1,12 @@
+# parser test [function calls] [illegal usage of mutable]
+
+c := 4;
+
+fun a (a : Integer) : Integer
+{	
+	d := a + c;
+	return d;
+}
+
+a := d;
+return ["blah"];
