@@ -1,0 +1,10 @@
+# parser test [function calls] [changing value of immutables]
+
+c := 4;
+
+fun a (a : Integer, b : String) : Integer
+{
+	c := 3;
+	return a;
+}
+return ["blah"];

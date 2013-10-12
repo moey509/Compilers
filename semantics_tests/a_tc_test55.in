@@ -1,0 +1,12 @@
+# parser test [function calls] [incorrect return type]
+
+c := 4;
+
+fun a (a : Integer) : Integer
+{	
+	d := a + c;
+	return true;
+}
+
+d := a(6);
+return ["blah"];

@@ -1,4 +1,4 @@
-# parser test [calling generic methods] 
+# parser test [calling generic methods] [joining correctly]
 
 c := "str";
 
@@ -11,7 +11,11 @@ interface A<T>(a : Integer, b : String)
 
 class B<T>(a : T)
 {
-	fun getIter() : Iterable<T> = [a]
+	fun getIter() : Iterable<T> 
+	{
+		return [a];
+		return ["string"];
+	}
 }
 
 b := B<TI>(c);

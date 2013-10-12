@@ -7,6 +7,6 @@ class C<T>(a : T)
 	fun blah<T>() : Integer = a;
 }
 
-a := C<Boolean>(true);
+a := C<Boolean>(1);
 b := a.blah(); 
 return ["blah"];

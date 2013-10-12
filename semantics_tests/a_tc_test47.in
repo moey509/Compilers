@@ -1,0 +1,9 @@
+# parser test [function calls] 
+
+a := 4;
+
+fun a (a : Integer, b : String) : Integer
+{
+	return a;
+}
+return ["blah"];
