@@ -1,5 +1,6 @@
 package typeChecker;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -7,14 +8,18 @@ import java.util.Set;
 import parsingTokens.CubexList;
 
 public class KindContext {
-	private Set<String> contextSet;
+	public ArrayList<String> contextSet;
 	
 	public KindContext(){
-		contextSet = new HashSet<String>();
+		contextSet = new ArrayList<String>();
 	}
 	
 	public KindContext(CubexList<String> stringList){
-		contextSet = new HashSet<String>(stringList.contextCollection);
+		contextSet = new ArrayList<String>(stringList.contextCollection);
+	}
+	
+	public int size() {
+		return contextSet.size();
 	}
 	
 	public void add(String typeParamNames){
