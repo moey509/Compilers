@@ -10,6 +10,7 @@ public class CubexThrough extends CubexBinaryExpression {
 	private boolean includeLeft;
 	private boolean includeRight;
 	private CubexExpression expr;
+	public CubexFunctionApp function;
 
 	public CubexThrough(CubexExpression l, CubexExpression r, boolean inclL,
 			boolean inclR) {
@@ -28,8 +29,12 @@ public class CubexThrough extends CubexBinaryExpression {
 
 	//Returns an Iterable of Integer
 	public CubexTypeGrammar typeCheck(CubexCompleteContext c) throws SemanticException {
-		CubexList<CubexTypeGrammar> l = new CubexList<CubexTypeGrammar>();
-		l.add(new CubexTypeClass("Integer", new CubexList<CubexTypeGrammar>()));
-		return new CubexTypeClass("Iterable", l);
+		CubexList<CubexExpression> l = new CubexList<CubexExpression>();
+		l.add(super.getmRight());
+		l.add(new CubexBoolean(false));
+		l.add(new CubexBoolean(false));
+		function = new CubexFunctionApp(super.getmLeft(), "through",
+				new CubexList<CubexTypeGrammar>(), l);
+		return function.typeCheck(c);
 	}
 }
