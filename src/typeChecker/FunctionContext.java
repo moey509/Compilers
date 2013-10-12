@@ -77,4 +77,8 @@ public class FunctionContext {
 		}
 		return output;
 	}
+	
+	public String toString() {
+		return "Function Context: " + nameToTypeSchemeMap.toString();
+	}
 }

@@ -42,5 +42,9 @@ public class KindContext {
 	public boolean contains(String typeParamNames){
 		return contextSet.contains(typeParamNames);
 	}
+	
+	public String toString() {
+		return "Kind Context: " + contextSet.toString();
+	}
 
 }

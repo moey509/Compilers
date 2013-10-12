@@ -19,16 +19,13 @@ public class CubexLessStrict extends CubexBinaryExpression {
 				+ getmRight().toString() + " , true )";
 	}
 
-	public CubexTypeGrammar typeCheck(CubexCompleteContext c,
-			CubexList<CubexTypeGrammar> t) throws SemanticException {
+	public CubexTypeGrammar typeCheck(CubexCompleteContext c) throws SemanticException {
 		CubexList<CubexExpression> l = new CubexList<CubexExpression>();
 		l.add(super.getmRight());
 		function = new CubexFunctionApp(super.getmLeft(), "lessThan",
 				new CubexList<CubexTypeGrammar>(), l);
-		function.typeCheck(c);
 		return function.typeCheck(c);
 
-		// return new CubexTypeClass("Boolean", new
-		// CubexList<CubexTypeGrammar>());
+		//return new CubexTypeClass("Boolean", new CubexList<CubexTypeGrammar>());
 	}
 }

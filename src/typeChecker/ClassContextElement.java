@@ -1,6 +1,8 @@
 package typeChecker;
 
 import java.util.HashMap;
+
+import Exception.SemanticException;
 import parsingTokens.CubexClassGrammar;
 import parsingTokens.CubexFunctionDef;
 import parsingTokens.CubexInterface;
@@ -41,6 +43,15 @@ public class ClassContextElement {
 
 	public boolean isClass() {
 		return isClass;
+	}
+	
+	public String toString(){
+		try {
+			return " extends " + type.getName() + ". " + kindContext.toString() + ". Functions:" + functionMap.toString();
+		} catch (SemanticException e) {
+			e.printStackTrace();
+			return "ERROR";
+		} 
 	}
 
 }
