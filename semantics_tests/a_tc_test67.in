@@ -1,0 +1,9 @@
+# parser test [return statements [while]] [join return failure]
+fun a() : Integer
+{
+	while (true)
+	{
+		return 8;
+	}
+	return [];
+}
