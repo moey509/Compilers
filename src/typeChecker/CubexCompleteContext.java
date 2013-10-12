@@ -1,9 +1,12 @@
 package typeChecker;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import Exception.SemanticException;
+import parsingTokens.CubexList;
 import parsingTokens.context.CubexTypeScheme;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 
@@ -132,7 +135,7 @@ public class CubexCompleteContext {
 	}
 
 	public FunctionContext methodContextLookup(String methodName,
-			KindContext kContext) throws SemanticException {
+			KindContext kContext, CubexList<CubexTypeGrammar> lst) throws SemanticException {
 		if (!classContext.containsKey(methodName))
 			throw new SemanticException("");
 		else {
@@ -162,18 +165,18 @@ public class CubexCompleteContext {
 				}
 			}
 			
-			///////////
-			//       //
-			// 8.2.C //
-			//       //
-			///////////
-
-			return fContext1;
-
+			Map<String, CubexTypeGrammar> map = new HashMap<String, CubexTypeGrammar>();
+			ArrayList<CubexTypeGrammar> arrList = new ArrayList<CubexTypeGrammar>();
+			for (CubexTypeGrammar tg : lst.iterable()){
+				arrList.add(tg);
+			}
+			for (String s : kContext.contextSet){
+				int i = 0;
+				map.put(s, arrList.get(i));
+				i++;
+			}
+			
+			return fContext1.replace(map);
 		}
-	}
-
-	public CubexTypeGrammar methodImplementedCheck() {
-		
 	}
 }
