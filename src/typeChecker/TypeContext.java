@@ -89,4 +89,8 @@ public class TypeContext {
 	public Set<Map.Entry<String, CubexTypeGrammar>> entrySet() {
 		return contextMap.entrySet();
 	}
+	
+	public String toString(){
+		return "Type Context: " + contextMap.toString();
+	}
 }

@@ -182,5 +182,10 @@ public class CubexCompleteContext {
 			return fContext1.replace(map);
 		}
 	}
+	
+	public String toString(){
+		return classContext.toString() + "\n" + kindContext.toString() + "\n" + functionContext.toString() + "\n" + typeContext.toString() + "\n"
+				+ "Mutable " + mutableTypeContext.toString();
+	}
 
 }

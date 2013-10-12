@@ -39,4 +39,8 @@ public class ClassContext {
 		clone.merge(this);
 		return clone;
 	}
+	
+	public String toString(){
+		return "Class Context: " + contextMap.toString();
+	}
 }

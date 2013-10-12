@@ -21,9 +21,17 @@ public class CubexProgram {
 		}
 	}
 	public void typeCheck(CubexCompleteContext c) throws SemanticException{
-		c = programType.typeCheck(c);
+
+		try {
+			c = programType.typeCheck(c);
+		} catch (SemanticException e) {
+			e.printStackTrace();
+			System.out.println(c.toString());
+			throw e;
+		}
 		if(nextProgram != null){
 			nextProgram.typeCheck(c);
 		}
+		
 	}
 }
