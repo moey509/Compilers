@@ -27,5 +27,6 @@ public class CubexLessNotStrict extends CubexBinaryExpression {
 		function.typeCheck(c);
 		return function.typeCheck(c);
 		//return new CubexTypeClass("Boolean", new CubexList<CubexTypeGrammar>());
+
 	}
 }

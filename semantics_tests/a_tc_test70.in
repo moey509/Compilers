@@ -1,0 +1,10 @@
+# parser test [return statements [for]] [join return failure]
+fun a() : Integer
+{
+	for (i in [])
+	{
+		return 8;
+	}
+	return [];
+}
+return [];

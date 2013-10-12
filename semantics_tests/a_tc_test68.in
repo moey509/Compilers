@@ -1,0 +1,6 @@
+# parser test [return statements [for]] [join return ok]
+for (i in [])
+{
+	return [];
+}
+return [];

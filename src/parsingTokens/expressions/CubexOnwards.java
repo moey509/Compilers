@@ -19,8 +19,7 @@ public class CubexOnwards extends CubexUnaryExpression {
 	}
 
 	//Returns an Iterable of Integer
-		public CubexTypeGrammar typeCheck(CubexCompleteContext c,
-				CubexList<CubexTypeGrammar> t) throws SemanticException {
+		public CubexTypeGrammar typeCheck(CubexCompleteContext c) throws SemanticException {
 			CubexList<CubexTypeGrammar> l = new CubexList<CubexTypeGrammar>();
 			l.add(new CubexTypeClass("Integer", new CubexList<CubexTypeGrammar>()));
 			return new CubexTypeClass("Iterable", l);
