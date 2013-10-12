@@ -24,7 +24,7 @@ public final class CubexWhile extends CubexStatement {
 		CubexCompleteContext copy0 = c.clone();
 		copy0.typeContext.noConflictMerge(copy0.mutableTypeContext);
 		CubexTypeGrammar etype = e.typeCheck(copy0);
-		if (!etype.name.equals("Boolean")) throw new SemanticException("CubexIf: e is not a boolean");
+		if (!etype.getName().equals("Boolean")) throw new SemanticException("CubexIf: e is not a boolean");
 
 		TypeContext t = s.typeCheck(c);
 		if (!t.entrySet().containsAll(c.mutableTypeContext.entrySet())) {
@@ -39,7 +39,7 @@ public final class CubexWhile extends CubexStatement {
 		CubexCompleteContext copy0 = c.clone();
 		copy0.typeContext.noConflictMerge(copy0.mutableTypeContext);
 		CubexTypeGrammar etype = e.typeCheck(copy0);
-		if (!etype.name.equals("Boolean")) throw new SemanticException("CubexIf: e is not a boolean");
+		if (!etype.getName().equals("Boolean")) throw new SemanticException("CubexIf: e is not a boolean");
 
 		TypeContextReturn t = s.typeCheckReturn(c);
 		if (!t.typeContext.containsAll(c, c.mutableTypeContext)) {

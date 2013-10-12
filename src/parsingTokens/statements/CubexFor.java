@@ -31,7 +31,7 @@ public final class CubexFor extends CubexStatement {
 		CubexCompleteContext copy0 = c.clone();
 		copy0.typeContext.noConflictMerge(copy0.mutableTypeContext);
 		CubexTypeGrammar etype = e.typeCheck(copy0);
-		if (!etype.name.equals("Iterable")) throw new SemanticException("CubexFor: e is not an Iterable");
+		if (!etype.getName().equals("Iterable")) throw new SemanticException("CubexFor: e is not an Iterable");
 
 		CubexCompleteContext copy1 = c.clone();
 		copy1.mutableTypeContext.put(varfun, etype.getTypeList().get(0));
@@ -52,7 +52,7 @@ public final class CubexFor extends CubexStatement {
 		CubexCompleteContext copy0 = c.clone();
 		copy0.typeContext.noConflictMerge(copy0.mutableTypeContext);
 		CubexTypeGrammar etype = e.typeCheck(copy0);
-		if (!etype.name.equals("Iterable")) throw new SemanticException("CubexFor: e is not an Iterable");
+		if (!etype.getName().equals("Iterable")) throw new SemanticException("CubexFor: e is not an Iterable");
 
 		CubexCompleteContext copy1 = c.clone();
 		copy1.mutableTypeContext.put(varfun, etype.getTypeList().get(0));
