@@ -2,6 +2,7 @@ package typeChecker;
 import Exception.SemanticException;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 
+// Represents a triple for return statements. Includes current context, boolean, and return type
 public class TypeContextReturn {
 	public TypeContext typeContext;
 	public boolean guaranteedToReturn;

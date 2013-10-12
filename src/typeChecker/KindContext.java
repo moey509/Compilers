@@ -7,6 +7,7 @@ import java.util.Set;
 
 import parsingTokens.CubexList;
 
+// represents a list of the type-parameter names. Stuff in 'name'< > 
 public class KindContext {
 	public ArrayList<String> contextSet;
 	

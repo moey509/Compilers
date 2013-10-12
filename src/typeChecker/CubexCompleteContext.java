@@ -10,6 +10,7 @@ import parsingTokens.CubexList;
 import parsingTokens.context.CubexTypeScheme;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 
+// Represents a complete context. Purpose: packaging reasons.
 public class CubexCompleteContext {
 	public ClassContext classContext;
 	public KindContext kindContext;

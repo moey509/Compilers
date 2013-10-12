@@ -6,6 +6,7 @@ import typeChecker.CubexCompleteContext;
 import typeChecker.TypeContext;
 import Exception.SemanticException;
 
+// Represents single letter type params
 public class CubexTypeName extends CubexTypeGrammar{	
 	public CubexTypeName(String name) {
 		this.name = name;

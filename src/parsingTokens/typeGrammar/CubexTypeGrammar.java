@@ -10,6 +10,7 @@ import typeChecker.ClassContextElement;
 import typeChecker.CubexCompleteContext;
 import typeChecker.TypeContext;
 
+// Represents any sort of Cubex Type
 public abstract class CubexTypeGrammar {
 	protected String name;
 	//always use getName() to get a type's name
