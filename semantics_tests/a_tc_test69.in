@@ -1,0 +1,5 @@
+# parser test [return statements [for]] [join return failure]
+for (i in [])
+{
+	return [];
+}
