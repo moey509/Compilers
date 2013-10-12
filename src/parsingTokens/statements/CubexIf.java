@@ -7,8 +7,8 @@ import typeChecker.CubexCompleteContext;
 import typeChecker.TypeContext;
 import typeChecker.TypeContextReturn;
 
-public final class CubexIf extends CubexStatement {
-//	private CubexExpression e;  // if e:
+public class CubexIf extends CubexStatement {
+	private CubexExpression e;  // if e:
 	private CubexStatement s1;	//{	s1 }
 	private CubexStatement s2;	// else {s2}
 
