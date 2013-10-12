@@ -72,10 +72,10 @@ public class TypeCheckerMain {
 		System.out.println(cubParser.programAST);
 		try {
 			cubParser.programAST.typeCheck(c);
-			System.out.println("accept");
+			System.out.print("accept");
 		} catch (SemanticException e) {
 			// TODO GET RID OF e.toString() BEFORE WE SUBMIT
-			System.out.println("reject");// + e.toString());
+			System.out.print("reject");// + e.toString());
 		}
 	}
 
@@ -222,10 +222,8 @@ public class TypeCheckerMain {
 		// Define through
 		CubexList<CubexTypeTuple> throughFunctionArguments = new CubexList<CubexTypeTuple>();
 		throughFunctionArguments.add(new CubexTypeTuple("upper", booleanType));
-		throughFunctionArguments.add(new CubexTypeTuple("includeLower",
-				booleanType));
-		throughFunctionArguments.add(new CubexTypeTuple("includeUpper",
-				booleanType));
+		throughFunctionArguments.add(new CubexTypeTuple("includeLower", booleanType));
+		throughFunctionArguments.add(new CubexTypeTuple("includeUpper", booleanType));
 		booleanClassContextElement.functionMap.put("through",
 				new CubexTypeScheme(new CubexList<String>(),
 						throughFunctionArguments, iterableBooleanType));
