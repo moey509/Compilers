@@ -1,7 +1,10 @@
 package parsingTokens.typeGrammar;
 
+import java.util.ArrayList;
+
 import Exception.SemanticException;
 import parsingTokens.CubexList;
+import typeChecker.ClassContextElement;
 import typeChecker.CubexCompleteContext;
 import typeChecker.TypeContext;
 
@@ -58,7 +61,20 @@ public class CubexTypeClass extends CubexTypeGrammar {
 		return false;
 	}
 	
-	
+	public ArrayList<CubexTypeClass> joinHelper(CubexCompleteContext c, CubexTypeGrammar t,
+		ArrayList<CubexTypeClass> a) throws SemanticException {
+		// check for subtyping
+		if (subtype(c, t) && !getName().equals("Thing")) {
+			a.add(this);
+			return a;
+		}
+
+		//recursive call
+		String nom = getName();
+		ClassContextElement elem = c.classContext.get(nom);
+		return elem.type.joinHelper(c, t, a);
+	}
+
 	
 
 }

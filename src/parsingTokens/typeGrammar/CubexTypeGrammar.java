@@ -1,5 +1,8 @@
 package parsingTokens.typeGrammar;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import Exception.SemanticException;
 import parsingTokens.CubexList;
 import typeChecker.ClassContext;
@@ -9,13 +12,17 @@ import typeChecker.TypeContext;
 
 public abstract class CubexTypeGrammar {
 	protected String name;
+	//always use getName() to get a type's name
+	// always check for "Thing" and "Nothing" using getName, because they can either be CubexTypeName or CubexTypeClass
 	
 	public abstract String getName() throws SemanticException;
 	
+	// only works for CubexTypeIntersection!
 	public CubexList<CubexTypeGrammar> getTypeList() throws SemanticException {
 		throw new SemanticException("No type list in this type");
 	}
 	
+	// check that two types are equal
 	public abstract boolean equalType(CubexTypeGrammar t) throws SemanticException;
 	
 	// o.subtype(c, e) must be true if e is a subtype of o in the context of c
@@ -26,7 +33,7 @@ public abstract class CubexTypeGrammar {
 		if (t.getName().equals("Nothing")) return true;
 		if (t instanceof CubexTypeIntersection) {
 			CubexTypeIntersection ti = (CubexTypeIntersection) t;
-			return subtype(c, ti.typeGrammar1) && subtype(c, ti.typeGrammar2);
+			return subtype(c, ti.typeGrammar1) || subtype(c, ti.typeGrammar2);
 		}
 		if (this instanceof CubexTypeIntersection) {
 			CubexTypeIntersection ti = (CubexTypeIntersection) this;
@@ -63,9 +70,13 @@ public abstract class CubexTypeGrammar {
 		throw new SemanticException("Type check error: checking different type parameters");
 	}
 	
+	// convention: clone the ArrayList when passing to multiple different branches
+	// only the first element in the ArrayList can be a Class type ("as opposed to interface")
+	public abstract ArrayList<CubexTypeClass> joinHelper(CubexCompleteContext c, CubexTypeGrammar t, 
+			ArrayList<CubexTypeClass> a) throws SemanticException;
 	
+	// should NOT be called with a that that has generics that haven't already been replaced with real types
 	public CubexTypeGrammar join(CubexCompleteContext c, CubexTypeGrammar t) throws SemanticException {
-		//TODO: IMPLEMENT THIS BETTER
 		//If we join with nothing, then return ourself
 		if(t == null || this.equalType(t)){ 
 			return this; 
@@ -77,14 +88,30 @@ public abstract class CubexTypeGrammar {
 //		else {
 //			return this;
 //		}
+		// if one is a subtype of the other, return the supertype
 		if (subtype(c, t)) return this;
 		if (t.subtype(c, this)) return t;
 
-		return null;
+		ArrayList<CubexTypeClass> a = joinHelper(c, t, new ArrayList<CubexTypeClass>());
+		return buildIntersection(a.iterator());
 
 	}
 	
+	public static CubexTypeGrammar buildIntersection(Iterator<CubexTypeClass> iter) {
+		if (iter.hasNext()) {
+			CubexTypeClass next = iter.next();
+			if (iter.hasNext()) {
+				return new CubexTypeIntersection(next, buildIntersection(iter));
+			} else {
+				return next;
+			}
+		}
+		return null;
+	}
+	
+	// type validation (figure 4)
 	public abstract void validate(CubexCompleteContext c) throws SemanticException;
 
+	// replaces generics with non-generic types
 	public abstract CubexTypeGrammar replaceParams(TypeContext cont);
 }
