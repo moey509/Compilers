@@ -14,7 +14,7 @@ public class CubexTypeClass extends CubexTypeGrammar {
 	}
 	
 	public String getName(){
-		return this.getName();
+		return this.name;
 	}
 	
 	public CubexList<CubexTypeGrammar> getTypeList(){
@@ -23,7 +23,7 @@ public class CubexTypeClass extends CubexTypeGrammar {
 
 	public String toString() {
 		String rightSpace = typeList.size() == 0 ? "" : " ";
-		return name.toString() + " < " + typeList.toString(",") + rightSpace + ">";
+		return getName().toString() + " < " + typeList.toString(",") + rightSpace + ">";
 	}
 
 	public void validate(CubexCompleteContext c) throws SemanticException{
