@@ -72,8 +72,8 @@ public class CubexCompleteContext {
 	public void appendFunctionContext(FunctionContext t) {
 		functionContext.merge(t);
 	}
-	
-	//TODO: Make sure appending the function context does not overload
+
+	// TODO: Make sure appending the function context does not overload
 	public void appendFunctionContext(String s, CubexTypeScheme t) {
 		functionContext.put(s, t);
 	}
@@ -182,10 +182,11 @@ public class CubexCompleteContext {
 			return fContext1.replace(map);
 		}
 	}
-	
-	public String toString(){
-		return classContext.toString() + "\n" + kindContext.toString() + "\n" + functionContext.toString() + "\n" + typeContext.toString() + "\n"
-				+ "Mutable " + mutableTypeContext.toString();
+
+	public String toString() {
+		return classContext.toString() + "\n" + kindContext.toString() + "\n"
+				+ functionContext.toString() + "\n" + typeContext.toString()
+				+ "\n" + "Mutable " + mutableTypeContext.toString();
 	}
 
 }
