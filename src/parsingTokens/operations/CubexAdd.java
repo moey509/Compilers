@@ -1,7 +1,12 @@
 package parsingTokens.operations;
 
+import Exception.SemanticException;
+import parsingTokens.CubexList;
 import parsingTokens.expressions.CubexBinaryExpression;
 import parsingTokens.expressions.CubexExpression;
+import parsingTokens.typeGrammar.CubexTypeClass;
+import parsingTokens.typeGrammar.CubexTypeGrammar;
+import typeChecker.CubexCompleteContext;
 
 public class CubexAdd extends CubexBinaryExpression {
 	public CubexAdd(CubexExpression left, CubexExpression right) {
@@ -10,5 +15,9 @@ public class CubexAdd extends CubexBinaryExpression {
 	
 	public String toString(){
 		return getmLeft().toString() + " . plus < > ( " + getmRight().toString() + " )";
+	}
+	
+	public CubexTypeGrammar typeCheck(CubexCompleteContext c) throws SemanticException {
+		return new CubexTypeClass("Integer", new CubexList<CubexTypeGrammar>());
 	}
 }
