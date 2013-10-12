@@ -17,6 +17,7 @@ public class TypeContext {
 	}
 	
 	public TypeContext(CubexList<CubexTypeTuple> lst){
+		contextMap = new HashMap<String, CubexTypeGrammar>();
 		for (CubexTypeTuple tup : lst.iterable()){
 			contextMap.put(tup.getName(), tup.getTypeGrammar());
 		}
