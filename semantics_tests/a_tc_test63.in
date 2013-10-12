@@ -1,0 +1,11 @@
+# parser test [return statements] [triple join return win]
+if (true) 
+{
+	return [];
+}
+else
+{
+	return [];
+}
+d := 2;
+return [];

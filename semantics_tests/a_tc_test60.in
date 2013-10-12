@@ -1,0 +1,5 @@
+# parser test [return statements] [only if block returns]
+if (true) 
+{
+	return [];
+}
