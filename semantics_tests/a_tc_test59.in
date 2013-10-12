@@ -1,0 +1,9 @@
+# parser test [return statements] [only else returns]
+if (true) 
+{
+	a := 3;
+}
+else
+{
+	return [];
+}

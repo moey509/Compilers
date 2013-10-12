@@ -1,0 +1,15 @@
+# parser test [return statements] [join return success]
+fun blah () : Iterable<T>
+{
+	if (true) 
+	{
+		return [4];
+	}
+	else
+	{
+		return ["sdf"];
+	}
+	return [true];
+}
+
+return ["sd"];

@@ -1,0 +1,10 @@
+# parser test [return statements] [join return failure]
+if (true) 
+{
+	return [];
+}
+else
+{
+	return [];
+}
+return 3;

@@ -1,5 +1,7 @@
 package parsingTokens.typeGrammar;
 
+import java.util.ArrayList;
+
 import typeChecker.CubexCompleteContext;
 import typeChecker.TypeContext;
 import Exception.SemanticException;
@@ -43,5 +45,11 @@ public class CubexTypeIntersection extends CubexTypeGrammar {
 			return typeGrammar1.equalType(t1.typeGrammar1) && typeGrammar2.equalType(t1.typeGrammar2);
 		}
 		return false;
+	}
+	
+	public ArrayList<CubexTypeClass> joinHelper(CubexCompleteContext c, CubexTypeGrammar t, 
+			ArrayList<CubexTypeClass> a) throws SemanticException {
+		ArrayList<CubexTypeClass> arr = joinHelper(c, t, a);
+		return joinHelper(c, t, arr);
 	}
 }

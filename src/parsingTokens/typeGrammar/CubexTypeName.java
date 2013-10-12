@@ -1,5 +1,7 @@
 package parsingTokens.typeGrammar;
 
+import java.util.ArrayList;
+
 import typeChecker.CubexCompleteContext;
 import typeChecker.TypeContext;
 import Exception.SemanticException;
@@ -41,5 +43,10 @@ public class CubexTypeName extends CubexTypeGrammar{
 		}
 		return false;
 	}
-
+	
+	public ArrayList<CubexTypeClass> joinHelper(CubexCompleteContext c, CubexTypeGrammar t,
+			ArrayList<CubexTypeClass> a) throws SemanticException {
+		throw new SemanticException("joinHelper not implemented in CubexTypeName");
+	}
+	
 }

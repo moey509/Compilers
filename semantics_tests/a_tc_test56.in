@@ -1,0 +1,2 @@
+# parser test [return statements] [no return]
+a := 3;
