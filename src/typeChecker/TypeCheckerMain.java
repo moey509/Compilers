@@ -138,8 +138,8 @@ public class TypeCheckerMain {
 		defineFunctions(classContext, functionContext, typeMap);
 		defineInput(typeContext, typeMap);
 
-		return new CubexCompleteContext(classContext, kindContext, functionContext,
-				typeContext, mutableTypeContext);
+		return new CubexCompleteContext(classContext, kindContext,
+				functionContext, typeContext, mutableTypeContext);
 	}
 
 	public void defineThing(ClassContext classContext,
@@ -199,7 +199,8 @@ public class TypeCheckerMain {
 		classContext.put("Boolean", booleanClassContextElement);
 
 		// Define boolean iterable
-		CubexTypeClass iterableBooleanType = typeMap.get("Iterable");
+		CubexTypeClass iterableBooleanType = new CubexTypeClass("Iterable",
+				new CubexList<CubexTypeGrammar>());
 		iterableBooleanType.getTypeList().add(booleanType);
 
 		// Define negate
@@ -222,8 +223,10 @@ public class TypeCheckerMain {
 		// Define through
 		CubexList<CubexTypeTuple> throughFunctionArguments = new CubexList<CubexTypeTuple>();
 		throughFunctionArguments.add(new CubexTypeTuple("upper", booleanType));
-		throughFunctionArguments.add(new CubexTypeTuple("includeLower", booleanType));
-		throughFunctionArguments.add(new CubexTypeTuple("includeUpper", booleanType));
+		throughFunctionArguments.add(new CubexTypeTuple("includeLower",
+				booleanType));
+		throughFunctionArguments.add(new CubexTypeTuple("includeUpper",
+				booleanType));
 		booleanClassContextElement.functionMap.put("through",
 				new CubexTypeScheme(new CubexList<String>(),
 						throughFunctionArguments, iterableBooleanType));
@@ -265,7 +268,8 @@ public class TypeCheckerMain {
 		classContext.put("Integer", integerClassContextElement);
 
 		// Define integer iterable
-		CubexTypeClass iterableIntegerType = typeMap.get("Iterable");
+		CubexTypeClass iterableIntegerType = new CubexTypeClass("Iterable",
+				new CubexList<CubexTypeGrammar>());
 		iterableIntegerType.getTypeList().add(integerType);
 
 		// Define negative
@@ -374,8 +378,12 @@ public class TypeCheckerMain {
 			Map<String, CubexTypeClass> typeMap) {
 
 		// Define character iterable
-		CubexTypeClass characterIterable = typeMap.get("Iterable");
-		characterIterable.getTypeList().add(typeMap.get("Character"));
+
+		CubexTypeClass characterIterable = new CubexTypeClass("Iterable",
+				new CubexList<CubexTypeGrammar>());
+		characterIterable.getTypeList().add(
+				new CubexTypeClass("Character",
+						new CubexList<CubexTypeGrammar>()));
 
 		// Define String
 		CubexTypeClass stringType = new CubexTypeClass("String",
@@ -424,7 +432,5 @@ public class TypeCheckerMain {
 		stringIterable.getTypeList().add(typeMap.get("String"));
 		typeContext.put("input", stringIterable);
 	}
-	
-	
 
 }
