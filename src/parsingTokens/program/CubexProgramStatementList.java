@@ -3,6 +3,7 @@ package parsingTokens.program;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
 import parsingTokens.statements.CubexStatement;
+import parsingTokens.typeGrammar.CubexTypeGrammar;
 import typeChecker.CubexCompleteContext;
 import typeChecker.KindContext;
 import typeChecker.TypeContext;
@@ -39,8 +40,13 @@ public class CubexProgramStatementList implements CubexProgramType {
 			ret = statementList.get(i).typeCheckReturn(tempContext);
 			nextContext = ret.typeContext;
 			//TODO:Check for ret.typeContext <: Iterable<String>
+			//CubexList<CubexTypeGrammar> typeList = ret.retType.getTypeList();
 			if(ret.guaranteedToReturn){
-				throw new SemanticException("");
+				if(ret.retType == null)throw new SemanticException("");
+				CubexList<CubexTypeGrammar> typeList = ret.retType.getTypeList();
+				if(ret.retType.getName() != "Iterable" || typeList.size() != 1 || !typeList.get(0).getName().equals("String")){
+					throw new SemanticException("");
+				}
 			}
 		}
 		
