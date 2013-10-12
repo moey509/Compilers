@@ -33,6 +33,9 @@ public class CubexTypeName extends CubexTypeGrammar{
 	}
 	
 	public boolean equalType(CubexTypeGrammar t) throws SemanticException {
+		if (getName().equals("Thing") && t.getName().equals("Thing")) return true;
+		if (getName().equals("Nothing") && t.getName().equals("Nothing")) return true;
+
 		if (t instanceof CubexTypeName) {
 			return getName().equals(t.getName());
 		}

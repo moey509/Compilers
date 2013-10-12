@@ -8,7 +8,7 @@ import typeChecker.CubexCompleteContext;
 import typeChecker.TypeContext;
 
 public abstract class CubexTypeGrammar {
-	public String name = "";
+	protected String name;
 	
 	public abstract String getName() throws SemanticException;
 	
@@ -67,7 +67,7 @@ public abstract class CubexTypeGrammar {
 	public CubexTypeGrammar join(CubexCompleteContext c, CubexTypeGrammar t) throws SemanticException {
 		//TODO: IMPLEMENT THIS BETTER
 		//If we join with nothing, then return ourself
-		if(t == null || t.name.equals("")){ 
+		if(t == null || t.getName().equals("")){ 
 			return this; 
 		}
 		//Without subtypes, if we join things that are not equal or one is of type Thing, we return Thing,

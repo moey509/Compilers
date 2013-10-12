@@ -121,8 +121,8 @@ public class CubexCompleteContext {
 	public CubexTypeScheme methodLookup(CubexTypeGrammar object,
 			String methodName) throws SemanticException {
 		ClassContextElement classContext;
-		if (containsClassName(object.name)) {
-			classContext = getElementFromClassContext(object.name);
+		if (containsClassName(object.getName())) {
+			classContext = getElementFromClassContext(object.getName());
 		} else {
 			throw new SemanticException("");
 		}
@@ -141,7 +141,7 @@ public class CubexCompleteContext {
 		else {
 			ClassContextElement ele = classContext.get(methodName);
 			CubexTypeGrammar extendsType = ele.type;
-			ClassContextElement superEle = classContext.get(extendsType.name);
+			ClassContextElement superEle = classContext.get(extendsType.getName());
 
 			FunctionContext fContext2 = new FunctionContext();
 			for (Entry<String, CubexTypeScheme> entry : superEle.functionMap
@@ -179,4 +179,5 @@ public class CubexCompleteContext {
 			return fContext1.replace(map);
 		}
 	}
+
 }

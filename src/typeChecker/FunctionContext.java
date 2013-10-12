@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import Exception.SemanticException;
 import parsingTokens.CubexList;
 import parsingTokens.context.CubexTypeScheme;
 import parsingTokens.context.CubexTypeTuple;
@@ -48,15 +49,15 @@ public class FunctionContext {
 		return output;
 	}
 	
-	public FunctionContext replace(Map<String, CubexTypeGrammar> map){
+	public FunctionContext replace(Map<String, CubexTypeGrammar> map) throws SemanticException{
 		FunctionContext output = new FunctionContext();
 		for (Entry<String, CubexTypeScheme> entry : nameToTypeSchemeMap.entrySet()){
 			String str = entry.getKey();
 			CubexTypeScheme oldScheme = entry.getValue();
 			CubexList<String> k = oldScheme.getKindContext();
 			CubexTypeGrammar returnType;
-			if (map.containsKey(oldScheme.getTypeGrammar().name)){
-				returnType = map.get(oldScheme.getTypeGrammar().name);
+			if (map.containsKey(oldScheme.getTypeGrammar().getName())){
+				returnType = map.get(oldScheme.getTypeGrammar().getName());
 			}
 			else{
 				returnType = oldScheme.getTypeGrammar();
@@ -64,8 +65,8 @@ public class FunctionContext {
 			
 			CubexList<CubexTypeTuple> outputTuples = new CubexList<CubexTypeTuple>();
 			for (CubexTypeTuple blah : oldScheme.getTypeContext().iterable()){
-				if (map.containsKey(blah.getTypeGrammar().name)){
-					outputTuples.add(new CubexTypeTuple(blah.getName(), map.get(blah.getTypeGrammar().name)));
+				if (map.containsKey(blah.getTypeGrammar().getName())){
+					outputTuples.add(new CubexTypeTuple(blah.getName(), map.get(blah.getTypeGrammar().getName())));
 				}
 				else {
 					outputTuples.add(new CubexTypeTuple(blah.getName(), blah.getTypeGrammar()));
