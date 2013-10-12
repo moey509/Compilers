@@ -1,0 +1,5 @@
+# parser test [return statements [while]] [join return failture]
+while (true)
+{
+	return [];
+}

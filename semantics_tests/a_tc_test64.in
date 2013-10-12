@@ -1,0 +1,7 @@
+# parser test [return statements [while]] [join return ok]
+while (true)
+{
+	return [];
+}
+
+return [];
