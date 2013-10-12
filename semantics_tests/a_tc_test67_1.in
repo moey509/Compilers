@@ -1,10 +1,10 @@
 # parser test [return statements [while]] [join return failure]
-fun a() : Integer
+fun a() : Iterable<T>
 {
 	while (true)
 	{
-		return 8;
+		return [4];
 	}
-	return [];
+	return ["stri"];
 }
 return [];
