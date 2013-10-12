@@ -9,6 +9,7 @@ import parsingTokens.CubexList;
 import parsingTokens.context.CubexTypeTuple;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 
+// Represents a mapping between variable / function / method names to their types
 public class TypeContext {
 	private HashMap<String, CubexTypeGrammar> contextMap;
 	
