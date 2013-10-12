@@ -6,11 +6,8 @@ import Exception.SemanticException;
 import parsingTokens.CubexList;
 import parsingTokens.context.CubexTypeScheme;
 import parsingTokens.context.CubexTypeTuple;
-import parsingTokens.typeGrammar.CubexTypeClass;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
-import typeChecker.ClassContextElement;
 import typeChecker.CubexCompleteContext;
-import typeChecker.KindContext;
 import typeChecker.TypeContext;
 
 public final class CubexFunctionApp extends CubexExpression {
@@ -29,8 +26,6 @@ public final class CubexFunctionApp extends CubexExpression {
 	}
 
 	public String toString() {
-		// TODO: check to make sure that the expr.toString() is what we are
-		// looking for
 		String rightSpace1 = typeParams.size() == 0 ? "" : " ";
 		String rightSpace2 = functionParams.size() == 0 ? "" : " ";
 		return expr.toString() + " . " + v_v + " < " + typeParams.toString(",")
@@ -44,14 +39,16 @@ public final class CubexFunctionApp extends CubexExpression {
 		CubexTypeGrammar objectType = expr.typeCheck(c);
 		CubexTypeScheme typeScheme = c.methodLookup(objectType, v_v);
 
-		ArrayList<String> kContext = new ArrayList<String>(typeScheme.getKindContext().contextCollection);
-		ArrayList<CubexTypeGrammar> params = new ArrayList<CubexTypeGrammar>(typeParams.contextCollection);
-		
-		if (kContext.size() != params.size()){
+		ArrayList<String> kContext = new ArrayList<String>(
+				typeScheme.getKindContext().contextCollection);
+		ArrayList<CubexTypeGrammar> params = new ArrayList<CubexTypeGrammar>(
+				typeParams.contextCollection);
+
+		if (kContext.size() != params.size()) {
 			throw new SemanticException("Incorrect number of parameters");
 		}
 		TypeContext cont = new TypeContext();
-		for (int i = 0; i < kContext.size(); i++){
+		for (int i = 0; i < kContext.size(); i++) {
 			cont.put(kContext.get(i), params.get(i));
 		}
 
@@ -62,7 +59,8 @@ public final class CubexFunctionApp extends CubexExpression {
 			if (!typeContext.get(i).getTypeGrammar().equals(paramExpr))
 				throw new SemanticException("");
 		}
-		CubexTypeGrammar output = typeScheme.getTypeGrammar().replaceParams(cont);
+		CubexTypeGrammar output = typeScheme.getTypeGrammar().replaceParams(
+				cont);
 		return output;
 	}
 }
