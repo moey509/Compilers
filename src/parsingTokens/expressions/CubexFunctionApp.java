@@ -37,7 +37,7 @@ public final class CubexFunctionApp extends CubexExpression {
 	}
 
 	// Check if the expression is of some type
-	public CubexTypeGrammar typeCheck(CubexCompleteContext c, CubexTypeGrammar t)
+	public CubexTypeGrammar typeCheck(CubexCompleteContext c)
 			throws SemanticException {
 		CubexTypeGrammar objectType = expr.typeCheck(c);
 		CubexTypeScheme typeScheme = c.methodLookup(objectType, v_v);
@@ -45,44 +45,13 @@ public final class CubexFunctionApp extends CubexExpression {
 
 		CubexList<CubexTypeTuple> typeContext = typeScheme.getTypeContext();
 
-		for (int i = 0; i < typeContext.size(); i++) {
-			CubexTypeGrammar paramExpr = functionParams.get(i).typeCheck(c);
-			if (!typeContext.get(i).getTypeGrammar().equals(paramExpr))
-				throw new SemanticException("");
-		}
-		return typeScheme.getTypeGrammar();
-	}
-
-	public CubexTypeGrammar typeCheck(CubexCompleteContext c, CubexTypeClass t)
-			throws SemanticException {
-		CubexTypeGrammar objectType = expr.typeCheck(c);
-		CubexTypeScheme typeScheme = c.methodLookup(objectType, v_v);
-		// TODO
-
-		CubexList<CubexTypeTuple> typeContext = typeScheme.getTypeContext();
+		TypeContext cont = new TypeContext(typeContext);
 
 		for (int i = 0; i < typeContext.size(); i++) {
 			CubexTypeGrammar paramExpr = functionParams.get(i).typeCheck(c);
 			if (!typeContext.get(i).getTypeGrammar().equals(paramExpr))
 				throw new SemanticException("");
 		}
-		return typeScheme.getTypeGrammar();
-	}
-
-	// Check if the expression is of some list of types
-	public CubexTypeGrammar typeCheck(CubexCompleteContext c,
-			CubexList<CubexTypeGrammar> t) throws SemanticException {
-		CubexTypeGrammar objectType = expr.typeCheck(c);
-		CubexTypeScheme typeScheme = c.methodLookup(objectType, v_v);
-		// TODO
-
-		CubexList<CubexTypeTuple> typeContext = typeScheme.getTypeContext();
-
-		for (int i = 0; i < typeContext.size(); i++) {
-			CubexTypeGrammar paramExpr = functionParams.get(i).typeCheck(c);
-			if (!typeContext.get(i).getTypeGrammar().equals(paramExpr))
-				throw new SemanticException("");
-		}
-		return typeScheme.getTypeGrammar();
+		CubexTypeGrammar output = typeScheme.getTypeGrammar().replaceParams(cont)
 	}
 }

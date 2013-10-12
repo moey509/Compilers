@@ -135,13 +135,15 @@ public class CubexCompleteContext {
 	}
 
 	public FunctionContext methodContextLookup(String methodName,
-			KindContext kContext, CubexList<CubexTypeGrammar> lst) throws SemanticException {
+			KindContext kContext, CubexList<CubexTypeGrammar> lst)
+			throws SemanticException {
 		if (!classContext.containsKey(methodName))
 			throw new SemanticException("");
 		else {
 			ClassContextElement ele = classContext.get(methodName);
 			CubexTypeGrammar extendsType = ele.type;
-			ClassContextElement superEle = classContext.get(extendsType.getName());
+			ClassContextElement superEle = classContext.get(extendsType
+					.getName());
 
 			FunctionContext fContext2 = new FunctionContext();
 			for (Entry<String, CubexTypeScheme> entry : superEle.functionMap
@@ -164,18 +166,18 @@ public class CubexCompleteContext {
 						throw new SemanticException("Type Schemes do not match");
 				}
 			}
-			
+
 			Map<String, CubexTypeGrammar> map = new HashMap<String, CubexTypeGrammar>();
 			ArrayList<CubexTypeGrammar> arrList = new ArrayList<CubexTypeGrammar>();
-			for (CubexTypeGrammar tg : lst.iterable()){
+			for (CubexTypeGrammar tg : lst.iterable()) {
 				arrList.add(tg);
 			}
-			for (String s : kContext.contextSet){
+			for (String s : kContext.contextSet) {
 				int i = 0;
 				map.put(s, arrList.get(i));
 				i++;
 			}
-			
+
 			return fContext1.replace(map);
 		}
 	}

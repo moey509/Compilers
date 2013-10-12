@@ -5,6 +5,8 @@ import java.util.Map;
 import java.util.Set;
 
 import Exception.SemanticException;
+import parsingTokens.CubexList;
+import parsingTokens.context.CubexTypeTuple;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 
 public class TypeContext {
@@ -12,6 +14,12 @@ public class TypeContext {
 	
 	public TypeContext(){
 		contextMap = new HashMap<String, CubexTypeGrammar>();			
+	}
+	
+	public TypeContext(CubexList<CubexTypeTuple> lst){
+		for (CubexTypeTuple tup : lst.iterable()){
+			contextMap.put(tup.getName(), tup.getTypeGrammar());
+		}
 	}
 	
 	// If the context needs to be modified, remove the mapping and add a new one back in
