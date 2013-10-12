@@ -1,0 +1,17 @@
+# parser test [overlapping interface names] 
+
+c := 4;
+
+class A<T>(a : Integer, b : String) 
+{
+	fun first() : Integer = c;
+	fun second() : String = b;
+
+}
+
+class A<T>()
+{
+	fun first() : Integer = 3;
+}
+
+return ["blah"];

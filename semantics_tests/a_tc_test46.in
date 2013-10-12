@@ -1,0 +1,18 @@
+# parser test [calling generic methods] 
+
+c := "str";
+
+interface A<T>(a : Integer, b : String) 
+{
+	fun first() : Integer;
+	fun second() : String;
+
+}
+
+class B<T>(a : T)
+{
+	fun getIter() : Iterable<T> = [a]
+}
+
+b := B<TI>(c);
+return b.getIter();
