@@ -56,7 +56,7 @@ public final class CubexFunctionApp extends CubexExpression {
 
 		for (int i = 0; i < typeContext.size(); i++) {
 			CubexTypeGrammar paramExpr = functionParams.get(i).typeCheck(c);
-			if (!typeContext.get(i).getTypeGrammar().subtype(c, paramExpr))
+			if (!typeContext.get(i).getTypeGrammar().isSuperTypeOf(c, paramExpr))
 				throw new SemanticException("Expected argument of type "
 						+ typeContext.get(i).getTypeGrammar()
 						+ " but received " + paramExpr);

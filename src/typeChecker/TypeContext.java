@@ -65,7 +65,7 @@ public class TypeContext {
 	public boolean containsAll(CubexCompleteContext c, TypeContext t) throws SemanticException {
 		for (String name: t.contextMap.keySet()) {
 			if (!contextMap.containsKey(name)) return false;
-			if (!t.get(name).subtype(c, get(name))) return false;
+			if (!t.get(name).isSuperTypeOf(c, get(name))) return false;
 		}
 		return true;
 	}
