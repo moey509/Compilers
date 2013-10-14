@@ -76,7 +76,7 @@ public class TypeCheckerMain {
 			System.out.print("accept");
 		} catch (SemanticException e) {
 			// TODO GET RID OF e.toString() BEFORE WE SUBMIT
-			System.out.print("reject");
+			System.out.print("reject" + e.toString());
 		}
 	}
 
