@@ -64,9 +64,9 @@ public class TypeCheckerMain {
 		// ParseTree parseTree = xiParser.fullprogram();
 
 		CubexCompleteContext c = (new TypeCheckerMain()).initialize();
-		System.out.println(c.typeContext);
-		System.out.println(c.classContext);
-		System.out.println(c.functionContext);
+//		System.out.println(c.typeContext);
+//		System.out.println(c.classContext);
+//		System.out.println(c.functionContext);
 		//System.out.println(c.classContext);
 		if (cubParser.getNumberOfSyntaxErrors() > 0) {
 			System.out.print("reject");

@@ -29,7 +29,6 @@ public final class CubexReturn extends CubexStatement {
 		CubexCompleteContext copy0 = c.clone();
 		copy0.typeContext.noConflictMerge(copy0.mutableTypeContext);
 		CubexTypeGrammar etype = e.typeCheck(copy0);
-
 		return new TypeContextReturn(c.mutableTypeContext.clone(), true, etype);
 	}
 }
