@@ -27,11 +27,8 @@ public class CubexAppend extends CubexExpression {
 		CubexList<CubexTypeGrammar> list = e1Type.getTypeList();
 		CubexList<CubexTypeGrammar> list2 = e2Type.getTypeList();
 		
-		//TODO: Check to see that each pair of types is a subtype and return something or other. Something like this?
-//		CubexList<CubexTypeGrammar> iterableType = new CubexList<CubexTypeGrammar>();
-//		iterableType.add(e1Type.equals(e2Type) ? e1Type
-//				: new CubexTypeClass("Thing",
-//						new CubexList<CubexTypeGrammar>()));
-		return null;
+		CubexList<CubexTypeGrammar> output = new CubexList<CubexTypeGrammar>();
+		output.add(list.get(0).join(c, list2.get(0)));
+		return new CubexTypeClass("Iterable", output);
 	}
 }
