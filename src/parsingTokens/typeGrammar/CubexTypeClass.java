@@ -50,7 +50,7 @@ public class CubexTypeClass extends CubexTypeGrammar {
 		if (t instanceof CubexTypeClass) {
 			if (!getName().equals(t.getName())) return false;
 			CubexList<CubexTypeGrammar> thislist = getTypeList();
-			CubexList<CubexTypeGrammar> tlist = getTypeList();
+			CubexList<CubexTypeGrammar> tlist = t.getTypeList();
 			if (thislist.size() != tlist.size()) return false;
 			for (int i=0; i<thislist.size(); i++) {
 				boolean equals = thislist.get(i).equalType(tlist.get(i));
@@ -64,7 +64,7 @@ public class CubexTypeClass extends CubexTypeGrammar {
 	public ArrayList<CubexTypeClass> joinHelper(CubexCompleteContext c, CubexTypeGrammar t,
 		ArrayList<CubexTypeClass> a) throws SemanticException {
 		// check for subtyping
-		if (subtype(c, t) && !getName().equals("Thing")) {
+		if (isSuperTypeOf(c, t) && !getName().equals("Thing")) {
 			a.add(this);
 			return a;
 		}
