@@ -41,7 +41,6 @@ public final class CubexListStatement extends CubexStatement {
 
 	@Override
 	public TypeContext typeCheck(CubexCompleteContext c) throws SemanticException{
-		//System.out.println("hiii");
 		TypeContext prev = c.mutableTypeContext;
 		for(int i = 0; i < cList.size(); i++){
 			CubexCompleteContext cclone = c.clone();

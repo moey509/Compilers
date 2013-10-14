@@ -47,7 +47,7 @@ public class TypeCheckerMain {
 		cubLexer.addErrorListener(listener);
 		List<? extends Token> list1 = cubLexer.getAllTokens();
 		if (lexedWithError) {
-			System.out.print("lexer error");
+			System.out.print("reject");
 			return;
 		}
 		// for (Token t : list1) {
@@ -64,9 +64,9 @@ public class TypeCheckerMain {
 		// ParseTree parseTree = xiParser.fullprogram();
 
 		CubexCompleteContext c = (new TypeCheckerMain()).initialize();
-		System.out.println(c.classContext);
+		//System.out.println(c.classContext);
 		if (cubParser.getNumberOfSyntaxErrors() > 0) {
-			System.out.print("parser error");
+			System.out.print("reject");
 			return;
 		}
 		// TODO GET RID OF THIS PRINT STATEMENT BEFORE WE SUBMIT
