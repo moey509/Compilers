@@ -27,7 +27,7 @@ public class CubexProgramStatement implements CubexProgramType {
 	public CubexCompleteContext typeCheck(CubexCompleteContext c) throws SemanticException{
 		CubexList<CubexTypeGrammar> l = new CubexList<CubexTypeGrammar>();
 		c.kindContext = new KindContext();
-		c.mutableTypeContext = new TypeContext();
+		c.mutableTypeContext = new TypeContext();	
 		TypeContextReturn ret = statement.typeCheckReturn(c);
 		//TODO:Check for ret.typeContext <: Iterable<String>
 		CubexList<CubexTypeGrammar> typeList = ret.retType.getTypeList();
