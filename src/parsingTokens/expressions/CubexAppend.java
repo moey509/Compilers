@@ -32,6 +32,8 @@ public class CubexAppend extends CubexExpression {
 //		iterableType.add(e1Type.equals(e2Type) ? e1Type
 //				: new CubexTypeClass("Thing",
 //						new CubexList<CubexTypeGrammar>()));
+
+		//TODO: Don't return null here
 		return null;
 	}
 }

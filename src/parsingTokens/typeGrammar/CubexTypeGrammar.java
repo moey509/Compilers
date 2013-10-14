@@ -25,31 +25,33 @@ public abstract class CubexTypeGrammar {
 	
 	// check that two types are equal
 	public abstract boolean equalType(CubexTypeGrammar t) throws SemanticException;
-	
+	//TODO: when I check for subtypes, should I also check that the types are valid? or is this handled elsewhere
 	// o.subtype(c, e) must be true if e is a subtype of o in the context of c
 	// e :< o
-	public boolean subtype(CubexCompleteContext c, CubexTypeGrammar t) throws SemanticException {
+	public boolean isSuperTypeOf(CubexCompleteContext c, CubexTypeGrammar t) throws SemanticException {
 		if (equalType(t)) return true;
-		if (getName().equals("Thing")) return true;
-		if (t.getName().equals("Nothing")) return true;
+		if (getName().equals("Thing")) return true; //Thing is a super type of everything
+		if(t.getName().equals("Thing")) return false; //Thing isn't a subtype of anything
+		if (t.getName().equals("Nothing")) return true; //Nothing is a subtype of everything
+		if (getName().equals("Nothing")) return false; //Nothing isn't a super type of anything
 		if (t instanceof CubexTypeIntersection) {
 			CubexTypeIntersection ti = (CubexTypeIntersection) t;
-			return subtype(c, ti.typeGrammar1) || subtype(c, ti.typeGrammar2);
+			return isSuperTypeOf(c, ti.typeGrammar1) || isSuperTypeOf(c, ti.typeGrammar2);
 		}
 		if (this instanceof CubexTypeIntersection) {
 			CubexTypeIntersection ti = (CubexTypeIntersection) this;
-			return ti.typeGrammar1.subtype(c, t) && ti.typeGrammar2.subtype(c, t);
+			return ti.typeGrammar1.isSuperTypeOf(c, t) && ti.typeGrammar2.isSuperTypeOf(c, t);
 		}
 		if (this instanceof CubexTypeClass && t instanceof CubexTypeClass && name.equals(t.name)) {
-			CubexList<CubexTypeGrammar> left = ((CubexTypeClass) this).typeList;
-			CubexList<CubexTypeGrammar> right = ((CubexTypeClass) t).typeList;
-			if (right.size() != left.size()) return false;
+			CubexList<CubexTypeGrammar> superType = ((CubexTypeClass) this).typeList;
+			CubexList<CubexTypeGrammar> subType = ((CubexTypeClass) t).typeList;
+			if (superType.size() != subType.size()) return false;
 			if (getName().equals("Iterable")) {
-				return right.get(0).subtype(c, left.get(0));
+				return superType.get(0).isSuperTypeOf(c, subType.get(0));
 			}
 			boolean equals = true;
-			for (int i=0; i<right.size(); i++) {
-				equals = equals && right.get(i).subtype(c, left.get(i)) && left.get(i).subtype(c, right.get(i));
+			for (int i=0; i<superType.size(); i++) {
+				equals = equals && superType.get(i).isSuperTypeOf(c, subType.get(i)) && subType.get(i).isSuperTypeOf(c, superType.get(i));
 				if (!equals) return false;
 			}
 
@@ -59,6 +61,7 @@ public abstract class CubexTypeGrammar {
 			ClassContext psi = c.classContext;
 			ClassContextElement elem = psi.get(t.getName());
 			TypeContext replaceCont = new TypeContext();
+
 			if (elem.kindContext.size() != t.getTypeList().size())
 				throw new SemanticException("Type check error: # type params different from that of class/interface");
 			for (int i = 0; i<elem.kindContext.size(); i++) {
@@ -66,7 +69,7 @@ public abstract class CubexTypeGrammar {
 			}
 			
 			CubexTypeGrammar retype = elem.type.replaceParams(replaceCont);
-			return subtype(c, retype);
+			return isSuperTypeOf(c, retype);
 		}
 		throw new SemanticException("Type check error: checking different type parameters");
 	}
@@ -90,8 +93,8 @@ public abstract class CubexTypeGrammar {
 //			return this;
 //		}
 		// if one is a subtype of the other, return the supertype
-		if (subtype(c, t)) return this;
-		if (t.subtype(c, this)) return t;
+		if (isSuperTypeOf(c, t)) return this;
+		if (t.isSuperTypeOf(c, this)) return t;
 
 		ArrayList<CubexTypeClass> a = joinHelper(c, t, new ArrayList<CubexTypeClass>());
 		return buildIntersection(a.iterator());

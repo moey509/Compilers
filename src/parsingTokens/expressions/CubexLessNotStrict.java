@@ -21,6 +21,7 @@ public class CubexLessNotStrict extends CubexBinaryExpression {
 			CubexList<CubexTypeGrammar> t) throws SemanticException {
 		CubexList<CubexExpression> l = new CubexList<CubexExpression>();
 		l.add(super.getmRight());
+		l.add(new CubexBoolean(false));
 		function = new CubexFunctionApp(super.getmLeft(), "lessThan", new CubexList<CubexTypeGrammar>(), l);
 		function.typeCheck(c);
 		return function.typeCheck(c);

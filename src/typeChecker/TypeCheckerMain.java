@@ -47,7 +47,7 @@ public class TypeCheckerMain {
 		cubLexer.addErrorListener(listener);
 		List<? extends Token> list1 = cubLexer.getAllTokens();
 		if (lexedWithError) {
-			System.out.print("lexer error");
+			System.out.print("reject");
 			return;
 		}
 		// for (Token t : list1) {
@@ -64,8 +64,9 @@ public class TypeCheckerMain {
 		// ParseTree parseTree = xiParser.fullprogram();
 
 		CubexCompleteContext c = (new TypeCheckerMain()).initialize();
+		//System.out.println(c.classContext);
 		if (cubParser.getNumberOfSyntaxErrors() > 0) {
-			System.out.print("parser error");
+			System.out.print("reject");
 			return;
 		}
 		// TODO GET RID OF THIS PRINT STATEMENT BEFORE WE SUBMIT
@@ -81,25 +82,19 @@ public class TypeCheckerMain {
 
 	static class ErrorListener implements ANTLRErrorListener {
 		@Override
-		public void reportAmbiguity(@NotNull Parser arg0, @NotNull DFA arg1,
-				int arg2, int arg3, boolean arg4, @NotNull BitSet arg5,
-				@NotNull ATNConfigSet arg6) {
+		public void reportAmbiguity(@NotNull Parser arg0, @NotNull DFA arg1, int arg2, int arg3, boolean arg4, @NotNull BitSet arg5, @NotNull ATNConfigSet arg6) {
 			// TODO Auto-generated method stub
 			return;
 		}
 
 		@Override
-		public void reportAttemptingFullContext(@NotNull Parser arg0,
-				@NotNull DFA arg1, int arg2, int arg3, @Nullable BitSet arg4,
-				@NotNull ATNConfigSet arg5) {
+		public void reportAttemptingFullContext(@NotNull Parser arg0, @NotNull DFA arg1, int arg2, int arg3, @Nullable BitSet arg4, @NotNull ATNConfigSet arg5) {
 			// TODO Auto-generated method stub
 			return;
 		}
 
 		@Override
-		public void reportContextSensitivity(@NotNull Parser arg0,
-				@NotNull DFA arg1, int arg2, int arg3, int arg4,
-				@NotNull ATNConfigSet arg5) {
+		public void reportContextSensitivity(@NotNull Parser arg0, @NotNull DFA arg1, int arg2, int arg3, int arg4, @NotNull ATNConfigSet arg5) {
 			// TODO Auto-generated method stub
 			return;
 		}
@@ -110,9 +105,7 @@ public class TypeCheckerMain {
 		// }
 
 		@Override
-		public void syntaxError(Recognizer<?, ?> arg0, @Nullable Object arg1,
-				int arg2, int arg3, String arg4,
-				@Nullable RecognitionException arg5) {
+		public void syntaxError(Recognizer<?, ?> arg0, @Nullable Object arg1, int arg2, int arg3, String arg4, @Nullable RecognitionException arg5) {
 			// TODO Auto-generated method stub
 			lexedWithError = true;
 		}
@@ -138,16 +131,12 @@ public class TypeCheckerMain {
 		defineFunctions(classContext, functionContext, typeMap);
 		defineInput(typeContext, typeMap);
 
-		return new CubexCompleteContext(classContext, kindContext, functionContext,
-				typeContext, mutableTypeContext);
+		return new CubexCompleteContext(classContext, kindContext, functionContext, typeContext, mutableTypeContext);
 	}
 
-	public void defineThing(ClassContext classContext,
-			Map<String, CubexTypeClass> typeMap) {
-
+	public void defineThing(ClassContext classContext, Map<String, CubexTypeClass> typeMap) { 
 		// Define Thing
-		CubexTypeClass thingType = new CubexTypeClass("Thing",
-				new CubexList<CubexTypeGrammar>());
+		CubexTypeClass thingType = new CubexTypeClass("Thing", new CubexList<CubexTypeGrammar>());
 		typeMap.put("Thing", thingType);
 
 		/*
@@ -158,80 +147,67 @@ public class TypeCheckerMain {
 		 */
 	}
 
-	public void defineNothing(ClassContext classContext,
-			Map<String, CubexTypeClass> typeMap) {
+	public void defineNothing(ClassContext classContext, Map<String, CubexTypeClass> typeMap) {
 
 		// Define Thing
-		CubexTypeClass nothingType = new CubexTypeClass("Nothing",
-				new CubexList<CubexTypeGrammar>());
+		CubexTypeClass nothingType = new CubexTypeClass("Nothing", new CubexList<CubexTypeGrammar>());
 		typeMap.put("Nothing", nothingType);
 	}
 
-	public void defineIterable(ClassContext classContext,
-			Map<String, CubexTypeClass> typeMap) {
+	public void defineIterable(ClassContext classContext, Map<String, CubexTypeClass> typeMap) {
 
 		// Define Iterable
 		CubexList<CubexTypeGrammar> genericTypeList = new CubexList<CubexTypeGrammar>();
 		genericTypeList.add(new CubexTypeName("E"));
-		CubexTypeClass iterableType = new CubexTypeClass("Iterable",
-				genericTypeList);
+		CubexTypeClass iterableType = new CubexTypeClass("Iterable", genericTypeList);
 		typeMap.put("Iterable", iterableType);
 
 		CubexList<String> iterableKindContext = new CubexList<String>();
 		iterableKindContext.add("E");
-		ClassContextElement iterableClassContextElement = new ClassContextElement(
-				new CubexClassGrammar("Iterable", iterableKindContext,
-						new CubexList<CubexTypeTuple>(), typeMap.get("Thing")));
+		ClassContextElement iterableClassContextElement = new ClassContextElement(new CubexClassGrammar("Iterable", iterableKindContext,
+				new CubexList<CubexTypeTuple>(), typeMap.get("Thing")));
 		classContext.put("Iterable", iterableClassContextElement);
 	}
 
-	public void defineBoolean(ClassContext classContext,
-			Map<String, CubexTypeClass> typeMap) {
+	public void defineBoolean(ClassContext classContext, Map<String, CubexTypeClass> typeMap) {
 
 		// Define Boolean
-		CubexTypeClass booleanType = new CubexTypeClass("Boolean",
-				new CubexList<CubexTypeGrammar>());
+		CubexTypeClass booleanType = new CubexTypeClass("Boolean", new CubexList<CubexTypeGrammar>());
 		typeMap.put("Boolean", booleanType);
 
-		ClassContextElement booleanClassContextElement = new ClassContextElement(
-				new CubexClassGrammar("Boolean", new CubexList<String>(),
-						new CubexList<CubexTypeTuple>(), typeMap.get("Thing")));
+		ClassContextElement booleanClassContextElement = new ClassContextElement(new CubexClassGrammar("Boolean", new CubexList<String>(),
+				new CubexList<CubexTypeTuple>(), typeMap.get("Thing")));
 		classContext.put("Boolean", booleanClassContextElement);
 
 		// Define boolean iterable
-		CubexTypeClass iterableBooleanType = typeMap.get("Iterable");
+		CubexTypeClass iterableBooleanType = new CubexTypeClass("Iterable", new CubexList<CubexTypeGrammar>());
 		iterableBooleanType.getTypeList().add(booleanType);
 
 		// Define negate
-		booleanClassContextElement.functionMap.put("negate",
-				new CubexTypeScheme(new CubexList<String>(),
-						new CubexList<CubexTypeTuple>(), booleanType));
+		booleanClassContextElement.functionMap.put("negate", new CubexTypeScheme(new CubexList<String>(),
+				new CubexList<CubexTypeTuple>(), booleanType));
 
 		// Define and
 		CubexList<CubexTypeTuple> andFunctionArguments = new CubexList<CubexTypeTuple>();
 		andFunctionArguments.add(new CubexTypeTuple("that", booleanType));
-		booleanClassContextElement.functionMap.put("and", new CubexTypeScheme(
-				new CubexList<String>(), andFunctionArguments, booleanType));
+		booleanClassContextElement.functionMap.put("and", new CubexTypeScheme(new CubexList<String>(), andFunctionArguments, booleanType));
 
 		// Define or
 		CubexList<CubexTypeTuple> orFunctionArguments = new CubexList<CubexTypeTuple>();
 		orFunctionArguments.add(new CubexTypeTuple("that", booleanType));
-		booleanClassContextElement.functionMap.put("or", new CubexTypeScheme(
-				new CubexList<String>(), orFunctionArguments, booleanType));
+		booleanClassContextElement.functionMap.put("or", new CubexTypeScheme(new CubexList<String>(), orFunctionArguments, booleanType));
 
 		// Define through
 		CubexList<CubexTypeTuple> throughFunctionArguments = new CubexList<CubexTypeTuple>();
 		throughFunctionArguments.add(new CubexTypeTuple("upper", booleanType));
 		throughFunctionArguments.add(new CubexTypeTuple("includeLower", booleanType));
 		throughFunctionArguments.add(new CubexTypeTuple("includeUpper", booleanType));
-		booleanClassContextElement.functionMap.put("through",
-				new CubexTypeScheme(new CubexList<String>(),
-						throughFunctionArguments, iterableBooleanType));
+		booleanClassContextElement.functionMap.put("through", new CubexTypeScheme(new CubexList<String>(),
+				throughFunctionArguments, iterableBooleanType));
 
 		// Define onward
 		CubexList<CubexTypeTuple> onwardFunctionArguments = new CubexList<CubexTypeTuple>();
-		onwardFunctionArguments
-				.add(new CubexTypeTuple("inclusive", booleanType));
+		onwardFunctionArguments.add(new CubexTypeTuple("inclusive", booleanType));
 		booleanClassContextElement.functionMap.put("onward",
 				new CubexTypeScheme(new CubexList<String>(),
 						onwardFunctionArguments, iterableBooleanType));
@@ -239,60 +215,52 @@ public class TypeCheckerMain {
 		// Define lessThan
 		CubexList<CubexTypeTuple> lessThanFunctionArguments = new CubexList<CubexTypeTuple>();
 		lessThanFunctionArguments.add(new CubexTypeTuple("that", booleanType));
-		booleanClassContextElement.functionMap.put("lessThan",
-				new CubexTypeScheme(new CubexList<String>(),
-						lessThanFunctionArguments, booleanType));
+		booleanClassContextElement.functionMap.put("lessThan", new CubexTypeScheme(new CubexList<String>(),
+				lessThanFunctionArguments, booleanType));
 
 		// Define equals
 		CubexList<CubexTypeTuple> equalsFunctionArguments = new CubexList<CubexTypeTuple>();
 		equalsFunctionArguments.add(new CubexTypeTuple("that", booleanType));
-		booleanClassContextElement.functionMap.put("equals",
-				new CubexTypeScheme(new CubexList<String>(),
-						equalsFunctionArguments, booleanType));
+		booleanClassContextElement.functionMap.put("equals", new CubexTypeScheme(new CubexList<String>(),
+				equalsFunctionArguments, booleanType));
 	}
 
-	public void defineInteger(ClassContext classContext,
-			Map<String, CubexTypeClass> typeMap) {
+	public void defineInteger(ClassContext classContext, Map<String, CubexTypeClass> typeMap) {
 
 		// Define Integer
-		CubexTypeClass integerType = new CubexTypeClass("Integer",
-				new CubexList<CubexTypeGrammar>());
+		CubexTypeClass integerType = new CubexTypeClass("Integer", new CubexList<CubexTypeGrammar>());
 		typeMap.put("Integer", integerType);
 
-		ClassContextElement integerClassContextElement = new ClassContextElement(
-				new CubexClassGrammar("Integer", new CubexList<String>(),
-						new CubexList<CubexTypeTuple>(), typeMap.get("Thing")));
+		ClassContextElement integerClassContextElement = new ClassContextElement(new CubexClassGrammar("Integer", new CubexList<String>(),
+				new CubexList<CubexTypeTuple>(), typeMap.get("Thing")));
 		classContext.put("Integer", integerClassContextElement);
 
 		// Define integer iterable
-		CubexTypeClass iterableIntegerType = typeMap.get("Iterable");
+		CubexTypeClass iterableIntegerType = new CubexTypeClass("Iterable",
+				new CubexList<CubexTypeGrammar>());
 		iterableIntegerType.getTypeList().add(integerType);
 
 		// Define negative
-		integerClassContextElement.functionMap.put("negative",
-				new CubexTypeScheme(new CubexList<String>(),
-						new CubexList<CubexTypeTuple>(), integerType));
+		integerClassContextElement.functionMap.put("negative", new CubexTypeScheme(new CubexList<String>(),
+				new CubexList<CubexTypeTuple>(), integerType));
 
 		// Define times
 		CubexList<CubexTypeTuple> timesFunctionArguments = new CubexList<CubexTypeTuple>();
 		timesFunctionArguments.add(new CubexTypeTuple("factor", integerType));
-		integerClassContextElement.functionMap.put("times",
-				new CubexTypeScheme(new CubexList<String>(),
-						timesFunctionArguments, integerType));
+		integerClassContextElement.functionMap.put("times", new CubexTypeScheme(new CubexList<String>(),
+				timesFunctionArguments, integerType));
 
 		// Define divide
 		CubexList<CubexTypeTuple> divideFunctionArguments = new CubexList<CubexTypeTuple>();
 		divideFunctionArguments.add(new CubexTypeTuple("divisor", integerType));
-		integerClassContextElement.functionMap.put("divide",
-				new CubexTypeScheme(new CubexList<String>(),
-						divideFunctionArguments, iterableIntegerType));
+		integerClassContextElement.functionMap.put("divide", new CubexTypeScheme(new CubexList<String>(),
+				divideFunctionArguments, iterableIntegerType));
 
 		// Define modulo
 		CubexList<CubexTypeTuple> moduloFunctionArguments = new CubexList<CubexTypeTuple>();
 		moduloFunctionArguments.add(new CubexTypeTuple("modulus", integerType));
-		integerClassContextElement.functionMap.put("modulo",
-				new CubexTypeScheme(new CubexList<String>(),
-						moduloFunctionArguments, iterableIntegerType));
+		integerClassContextElement.functionMap.put("modulo", new CubexTypeScheme(new CubexList<String>(),
+				moduloFunctionArguments, iterableIntegerType));
 
 		// Define plus
 		CubexList<CubexTypeTuple> plusFunctionArguments = new CubexList<CubexTypeTuple>();
@@ -302,129 +270,100 @@ public class TypeCheckerMain {
 
 		// Define minus
 		CubexList<CubexTypeTuple> minusFunctionArguments = new CubexList<CubexTypeTuple>();
-		minusFunctionArguments
-				.add(new CubexTypeTuple("subtrahend", integerType));
-		integerClassContextElement.functionMap.put("minus",
-				new CubexTypeScheme(new CubexList<String>(),
-						minusFunctionArguments, integerType));
+		minusFunctionArguments.add(new CubexTypeTuple("subtrahend", integerType));
+		integerClassContextElement.functionMap.put("minus", new CubexTypeScheme(new CubexList<String>(),
+				minusFunctionArguments, integerType));
 
 		// Define through
 		CubexList<CubexTypeTuple> throughFunctionArguments = new CubexList<CubexTypeTuple>();
 		throughFunctionArguments.add(new CubexTypeTuple("upper", integerType));
-		throughFunctionArguments.add(new CubexTypeTuple("includeLower", typeMap
-				.get("Boolean")));
-		throughFunctionArguments.add(new CubexTypeTuple("includeUpper", typeMap
-				.get("Boolean")));
-		integerClassContextElement.functionMap.put("through",
-				new CubexTypeScheme(new CubexList<String>(),
-						throughFunctionArguments, iterableIntegerType));
+		throughFunctionArguments.add(new CubexTypeTuple("includeLower", typeMap.get("Boolean")));
+		throughFunctionArguments.add(new CubexTypeTuple("includeUpper", typeMap.get("Boolean")));
+		integerClassContextElement.functionMap.put("through", new CubexTypeScheme(new CubexList<String>(),
+				throughFunctionArguments, iterableIntegerType));
 
 		// Define onward
 		CubexList<CubexTypeTuple> onwardFunctionArguments = new CubexList<CubexTypeTuple>();
 		onwardFunctionArguments.add(new CubexTypeTuple("inclusive", typeMap
 				.get("Boolean")));
-		integerClassContextElement.functionMap.put("onward",
-				new CubexTypeScheme(new CubexList<String>(),
-						onwardFunctionArguments, iterableIntegerType));
+		integerClassContextElement.functionMap.put("onward", new CubexTypeScheme(new CubexList<String>(),
+				onwardFunctionArguments, iterableIntegerType));
 
 		// Define lessThan
 		CubexList<CubexTypeTuple> lessThanFunctionArguments = new CubexList<CubexTypeTuple>();
 		lessThanFunctionArguments.add(new CubexTypeTuple("that", integerType));
-		integerClassContextElement.functionMap.put("lessThan",
-				new CubexTypeScheme(new CubexList<String>(),
-						lessThanFunctionArguments, typeMap.get("Boolean")));
+		integerClassContextElement.functionMap.put("lessThan", new CubexTypeScheme(new CubexList<String>(),
+				lessThanFunctionArguments, typeMap.get("Boolean")));
 
 		// Define equals
 		CubexList<CubexTypeTuple> equalsFunctionArguments = new CubexList<CubexTypeTuple>();
 		equalsFunctionArguments.add(new CubexTypeTuple("that", integerType));
-		integerClassContextElement.functionMap.put("equals",
-				new CubexTypeScheme(new CubexList<String>(),
-						equalsFunctionArguments, typeMap.get("Boolean")));
+		integerClassContextElement.functionMap.put("equals", new CubexTypeScheme(new CubexList<String>(), equalsFunctionArguments, 
+				typeMap.get("Boolean")));
 	}
 
-	public void defineCharacter(ClassContext classContext,
-			Map<String, CubexTypeClass> typeMap) {
+	public void defineCharacter(ClassContext classContext, Map<String, CubexTypeClass> typeMap) {
 
 		// Define character
-		CubexTypeClass characterType = new CubexTypeClass("Character",
-				new CubexList<CubexTypeGrammar>());
+		CubexTypeClass characterType = new CubexTypeClass("Character", new CubexList<CubexTypeGrammar>());
 		typeMap.put("Character", characterType);
 
-		ClassContextElement characterClassContextElement = new ClassContextElement(
-				new CubexClassGrammar("Character", new CubexList<String>(),
-						new CubexList<CubexTypeTuple>(), typeMap.get("Thing")));
+		ClassContextElement characterClassContextElement = new ClassContextElement(new CubexClassGrammar("Character", new CubexList<String>(),
+				new CubexList<CubexTypeTuple>(), typeMap.get("Thing")));
 		classContext.put("Character", characterClassContextElement);
 
 		// Define unicode
-		characterClassContextElement.functionMap
-				.put("unicode",
-						new CubexTypeScheme(new CubexList<String>(),
-								new CubexList<CubexTypeTuple>(), typeMap
-										.get("Integer")));
+		characterClassContextElement.functionMap.put("unicode", new CubexTypeScheme(new CubexList<String>(), new CubexList<CubexTypeTuple>(), 
+				typeMap.get("Integer")));
 
 		// Define equals
 		CubexList<CubexTypeTuple> equalsFunctionArguments = new CubexList<CubexTypeTuple>();
 		equalsFunctionArguments.add(new CubexTypeTuple("that", characterType));
-		characterClassContextElement.functionMap.put("equals",
-				new CubexTypeScheme(new CubexList<String>(),
-						equalsFunctionArguments, typeMap.get("Boolean")));
+		characterClassContextElement.functionMap.put("equals", new CubexTypeScheme(new CubexList<String>(), equalsFunctionArguments, typeMap.get("Boolean")));
 	}
 
-	public void defineString(ClassContext classContext,
-			Map<String, CubexTypeClass> typeMap) {
+	public void defineString(ClassContext classContext, Map<String, CubexTypeClass> typeMap) {
 
 		// Define character iterable
-		CubexTypeClass characterIterable = typeMap.get("Iterable");
-		characterIterable.getTypeList().add(typeMap.get("Character"));
+
+		CubexTypeClass characterIterable = new CubexTypeClass("Iterable", new CubexList<CubexTypeGrammar>());
+		characterIterable.getTypeList().add(new CubexTypeClass("Character",
+				new CubexList<CubexTypeGrammar>()));
 
 		// Define String
-		CubexTypeClass stringType = new CubexTypeClass("String",
-				new CubexList<CubexTypeGrammar>());
+		CubexTypeClass stringType = new CubexTypeClass("String", new CubexList<CubexTypeGrammar>());
 		typeMap.put("String", stringType);
 
-		ClassContextElement stringClassContextElement = new ClassContextElement(
-				new CubexClassGrammar("String", new CubexList<String>(),
-						new CubexList<CubexTypeTuple>(), characterIterable));
+		ClassContextElement stringClassContextElement = 
+				new ClassContextElement(new CubexClassGrammar("String", new CubexList<String>(), new CubexList<CubexTypeTuple>(), characterIterable));
 		classContext.put("String", stringClassContextElement);
 
 		// Define equals
 		CubexList<CubexTypeTuple> equalsFunctionArguments = new CubexList<CubexTypeTuple>();
 		equalsFunctionArguments.add(new CubexTypeTuple("that", stringType));
-		stringClassContextElement.functionMap.put("equals",
-				new CubexTypeScheme(new CubexList<String>(),
-						equalsFunctionArguments, typeMap.get("Boolean")));
+		stringClassContextElement.functionMap.put("equals", new CubexTypeScheme(new CubexList<String>(), equalsFunctionArguments, typeMap.get("Boolean")));
 	}
 
-	public void defineFunctions(ClassContext classContext,
-			FunctionContext functionContext, Map<String, CubexTypeClass> typeMap) {
+	public void defineFunctions(ClassContext classContext, FunctionContext functionContext, Map<String, CubexTypeClass> typeMap) {
 
 		// Define character
 		CubexList<CubexTypeTuple> characterFunctionArguments = new CubexList<CubexTypeTuple>();
-		characterFunctionArguments.add(new CubexTypeTuple("unicode", typeMap
-				.get("Integer")));
-		functionContext.put("character",
-				new CubexTypeScheme(new CubexList<String>(),
-						characterFunctionArguments, typeMap.get("Boolean")));
+		characterFunctionArguments.add(new CubexTypeTuple("unicode", typeMap.get("Integer")));
+		functionContext.put("character", new CubexTypeScheme(new CubexList<String>(), characterFunctionArguments, typeMap.get("Boolean")));
 
 		// Define string
 		CubexTypeClass characterIterable = typeMap.get("Iterable");
 		characterIterable.getTypeList().add(typeMap.get("Character"));
 
 		CubexList<CubexTypeTuple> stringFunctionArguments = new CubexList<CubexTypeTuple>();
-		stringFunctionArguments.add(new CubexTypeTuple("characters",
-				characterIterable));
-		functionContext.put("character",
-				new CubexTypeScheme(new CubexList<String>(),
-						stringFunctionArguments, typeMap.get("String")));
+		stringFunctionArguments.add(new CubexTypeTuple("characters", characterIterable));
+		functionContext.put("character", new CubexTypeScheme(new CubexList<String>(), stringFunctionArguments, typeMap.get("String")));
 	}
 
-	public void defineInput(TypeContext typeContext,
-			Map<String, CubexTypeClass> typeMap) {
+	public void defineInput(TypeContext typeContext, Map<String, CubexTypeClass> typeMap) {
 		CubexTypeClass stringIterable = typeMap.get("Iterable");
 		stringIterable.getTypeList().add(typeMap.get("String"));
 		typeContext.put("input", stringIterable);
 	}
-	
-	
 
 }
