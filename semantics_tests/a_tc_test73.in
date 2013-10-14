@@ -1,0 +1,8 @@
+# parser test [subtying] [type <: Thing]
+fun a(i : Thing) : Integer
+{
+	return 0;
+}
+
+a := a(3);
+return [];
