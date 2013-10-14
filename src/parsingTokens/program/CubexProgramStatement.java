@@ -23,7 +23,6 @@ public class CubexProgramStatement implements CubexProgramType {
 		return statement.toString();
 	}
 	//Top rule in Program Checking
-	//TODO:make sure contexts setting to null is correct
 	public CubexCompleteContext typeCheck(CubexCompleteContext c) throws SemanticException{
 		CubexList<CubexTypeGrammar> l = new CubexList<CubexTypeGrammar>();
 		c.kindContext = new KindContext();
