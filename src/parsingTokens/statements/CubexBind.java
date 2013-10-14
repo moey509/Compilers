@@ -35,6 +35,7 @@ public final class CubexBind extends CubexStatement {
 	
 	public TypeContextReturn typeCheckReturn(CubexCompleteContext c) throws SemanticException{
 		TypeContext t = typeCheck(c);
+		//TODO fix bug with returning null
 		return new TypeContextReturn(t, false, null);
 	}
 	
