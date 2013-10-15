@@ -39,31 +39,33 @@ public final class CubexFunctionCall extends CubexExpression {
 		} else {
 			throw new SemanticException("");
 		}
+		
+		//Get the Function Kind Context
+		ArrayList<String> kContext = new ArrayList<String>(typeScheme.getKindContext().contextCollection);
+		
+		//Get the Function Types
+		ArrayList<CubexTypeGrammar> params = new ArrayList<CubexTypeGrammar>(typeParams.contextCollection);
 
-		ArrayList<String> kContext = new ArrayList<String>(
-				typeScheme.getKindContext().contextCollection);
-		ArrayList<CubexTypeGrammar> params = new ArrayList<CubexTypeGrammar>(
-				typeParams.contextCollection);
-
+		//Check to see if number of Function type params matches the number of types given to the function
 		if (kContext.size() != params.size()) {
 			throw new SemanticException("Incorrect number of parameters");
 		}
+		
 		TypeContext cont = new TypeContext();
 		for (int i = 0; i < kContext.size(); i++) {
 			cont.put(kContext.get(i), params.get(i));
 		}
-
+		
 		CubexList<CubexTypeTuple> typeContext = typeScheme.getTypeContext();
 
 		for (int i = 0; i < typeContext.size(); i++) {
 			CubexTypeGrammar paramExpr = functionParams.get(i).typeCheck(c);
-			if (!typeContext.get(i).getTypeGrammar().isSuperTypeOf(c, paramExpr))
-				throw new SemanticException("Expected argument of type "
-						+ typeContext.get(i).getTypeGrammar()
-						+ " but received " + paramExpr);
+			//Replace generic types and check for supertype
+			if (!typeContext.get(i).getTypeGrammar().replaceParams(cont).isSuperTypeOf(c, paramExpr)){
+				throw new SemanticException("Expected argument of type " + typeContext.get(i).getTypeGrammar() + " but received " + paramExpr);
+			}
 		}
-		CubexTypeGrammar output = typeScheme.getTypeGrammar().replaceParams(
-				cont);
+		CubexTypeGrammar output = typeScheme.getTypeGrammar().replaceParams(cont);
 		return output;
 	}
 }

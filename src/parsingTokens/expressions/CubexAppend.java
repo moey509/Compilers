@@ -21,14 +21,26 @@ public class CubexAppend extends CubexExpression {
 	public CubexTypeGrammar typeCheck(CubexCompleteContext c) throws SemanticException{
 		CubexTypeGrammar e1Type = e1.typeCheck(c);
 		CubexTypeGrammar e2Type = e2.typeCheck(c);
-		if (!(e1Type.getName().equals("Iterable") && e2Type.getName().equals("Iterable"))){
+		CubexTypeGrammar join = e1Type.join(c, e2Type);
+		
+		CubexList<CubexTypeGrammar> nothingList = new CubexList<CubexTypeGrammar>();
+		nothingList.add(new CubexTypeClass("Nothing", new CubexList<CubexTypeGrammar>()));
+		CubexTypeClass nothing = new CubexTypeClass("Iterable", nothingList);
+		
+		//To get an iterable of something or if thats not possible, Thing which does not type check
+		join = join.join(c, nothing);
+		
+		//Join must have type iterable
+		if (!(join.getName().equals("Iterable"))){
 			throw new SemanticException("Must append arguments of type Iterable");
 		}
-		CubexList<CubexTypeGrammar> list = e1Type.getTypeList();
-		CubexList<CubexTypeGrammar> list2 = e2Type.getTypeList();
-		
-		CubexList<CubexTypeGrammar> output = new CubexList<CubexTypeGrammar>();
-		output.add(list.get(0).join(c, list2.get(0)));
-		return new CubexTypeClass("Iterable", output);
+//		CubexList<CubexTypeGrammar> list = e1Type.getTypeList();
+//		CubexList<CubexTypeGrammar> list2 = e2Type.getTypeList();
+//		
+//		CubexList<CubexTypeGrammar> output = new CubexList<CubexTypeGrammar>();
+//		output.add(list.get(0).join(c, list2.get(0)));
+//		return new CubexTypeClass("Iterable", output);
+
+		return e1Type.join(c,e2Type);
 	}
 }

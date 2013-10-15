@@ -67,7 +67,6 @@ public abstract class CubexTypeGrammar {
 			for (int i = 0; i<elem.kindContext.size(); i++) {
 				replaceCont.put(elem.kindContext.contextSet.get(i), t.getTypeList().get(i));
 			}
-			
 			CubexTypeGrammar retype = elem.type.replaceParams(replaceCont);
 			return isSuperTypeOf(c, retype);
 		}

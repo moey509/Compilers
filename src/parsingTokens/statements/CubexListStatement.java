@@ -52,14 +52,14 @@ public final class CubexListStatement extends CubexStatement {
 	
 	public TypeContextReturn typeCheckReturn(CubexCompleteContext c) throws SemanticException {
 		TypeContextReturn prevReturnContext = null;
-		TypeContext prev = c.mutableTypeContext;
+		TypeContext prev = c.mutableTypeContext.clone();
+		CubexCompleteContext cclone = c.clone();
 		CubexTypeGrammar rettype = null;
 		boolean rettypeupdated = false;
 		boolean guaranteed = false;
 		for (int i=0; i<cList.size(); i++) {
-			CubexCompleteContext cclone = c.clone();
 			cclone.mutableTypeContext = prev;
-			prevReturnContext = cList.get(i).typeCheckReturn(c);
+			prevReturnContext = cList.get(i).typeCheckReturn(cclone);
 			prev = prevReturnContext.typeContext;
 			guaranteed = prevReturnContext.guaranteedToReturn || guaranteed;
 			// assuming that if gauranteedToReturn==True, the return type can't be "anything" (null)

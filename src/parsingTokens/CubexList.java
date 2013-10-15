@@ -4,8 +4,6 @@ import java.util.List;
 
 
 public class CubexList<T>{
-
-
 	public List<T> contextCollection = new ArrayList<T>();
 	
 	public void add(T object) {

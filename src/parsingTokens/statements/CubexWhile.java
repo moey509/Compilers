@@ -30,7 +30,7 @@ public final class CubexWhile extends CubexStatement {
 		if (!t.entrySet().containsAll(c.mutableTypeContext.entrySet())) {
 			throw new SemanticException("CubexWhile: Resultant context does not contain initial context");
 		}
-		return c.typeContext.clone();
+		return c.mutableTypeContext.clone();
 		
 		
 	}
@@ -45,7 +45,7 @@ public final class CubexWhile extends CubexStatement {
 		if (!t.typeContext.containsAll(c, c.mutableTypeContext)) {
 			throw new SemanticException("CubexWhile: Resultant context does not contain initial context");
 		}
-		return new TypeContextReturn(c.typeContext.clone(), false, t.retType);
+		return new TypeContextReturn(c.mutableTypeContext.clone(), false, t.retType);
 		
 	}
 }

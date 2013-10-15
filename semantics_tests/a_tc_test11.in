@@ -9,6 +9,6 @@ class Map<T,T>(key : T, value : T)
 	}
 }
 
-a := Map<Integer<>, Character<>>(4, 'm');
+a := Map<Integer<>, Boolean>(4, true);
 b := a.updateKey<Integer<>>(3);
 return ["bloop"];

@@ -56,10 +56,11 @@ public final class CubexFor extends CubexStatement {
 
 		CubexCompleteContext copy1 = c.clone();
 		copy1.mutableTypeContext.put(varfun, etype.getTypeList().get(0));
+
 		TypeContextReturn gamma = s.typeCheckReturn(copy1);
 		if (!gamma.typeContext.containsAll(copy1, c.mutableTypeContext))
 			throw new SemanticException("CubexFor: Initial content is not a subset of context returned by s");
-		return new TypeContextReturn(c.typeContext.clone(), false, gamma.retType);
+		return new TypeContextReturn(c.mutableTypeContext.clone(), false, gamma.retType);
 				
 		
 	}

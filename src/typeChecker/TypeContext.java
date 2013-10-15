@@ -60,12 +60,19 @@ public class TypeContext {
 		return t;
 	}
 	
+	//TODO: Is this comment correct, I'm looking for this :> t, so why am i seeing if the type in t are a supertype of the types in this?
 	// returns whether this TypeContext contains all of t's entries with their values or a subtype of their values
 	// each of t's entries must be in this, and each of t's entry's values must be a supertype of that in this
 	public boolean containsAll(CubexCompleteContext c, TypeContext t) throws SemanticException {
 		for (String name: t.contextMap.keySet()) {
-			if (!contextMap.containsKey(name)) return false;
-			if (!t.get(name).isSuperTypeOf(c, get(name))) return false;
+			if (!contextMap.containsKey(name)) {
+				return false;
+			}
+			//TODO: this if statement is backwards?
+			//if (!t.get(name).isSuperTypeOf(c, get(name))){
+			if (!get(name).isSuperTypeOf(c, t.get(name))){
+				return false;
+			}
 		}
 		return true;
 	}

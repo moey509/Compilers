@@ -50,7 +50,7 @@ public class CubexProgramStatementList implements CubexProgramType {
 			}
 		}
 		
-		tempContext.appendTypeContext(tempContext.mutableTypeContext);
+		tempContext.appendTypeContext(nextContext);
 		return tempContext;
 	}
 }

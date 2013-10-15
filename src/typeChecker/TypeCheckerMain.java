@@ -39,7 +39,8 @@ public class TypeCheckerMain {
 	static boolean parsedWithError = false;
 
 	public static void main(String[] args) throws IOException {
-		CharStream charStream = new ANTLRFileStream(args[0]);
+		//CharStream charStream = new ANTLRFileStream(args[0]);
+		CharStream charStream = new ANTLRFileStream("semantics_tests/a_tc_test8.in");
 		CubexLexer cubLexer = new CubexLexer(charStream);
 		cubLexer.removeErrorListeners();
 
@@ -64,6 +65,9 @@ public class TypeCheckerMain {
 		// ParseTree parseTree = xiParser.fullprogram();
 
 		CubexCompleteContext c = (new TypeCheckerMain()).initialize();
+//		System.out.println(c.typeContext);
+//		System.out.println(c.classContext);
+//		System.out.println(c.functionContext);
 		//System.out.println(c.classContext);
 		if (cubParser.getNumberOfSyntaxErrors() > 0) {
 			System.out.print("reject");
@@ -76,7 +80,7 @@ public class TypeCheckerMain {
 			System.out.print("accept");
 		} catch (SemanticException e) {
 			// TODO GET RID OF e.toString() BEFORE WE SUBMIT
-			System.out.print("reject");
+			System.out.print("reject" + e.toString());
 		}
 	}
 
@@ -349,19 +353,19 @@ public class TypeCheckerMain {
 		// Define character
 		CubexList<CubexTypeTuple> characterFunctionArguments = new CubexList<CubexTypeTuple>();
 		characterFunctionArguments.add(new CubexTypeTuple("unicode", typeMap.get("Integer")));
-		functionContext.put("character", new CubexTypeScheme(new CubexList<String>(), characterFunctionArguments, typeMap.get("Boolean")));
+		functionContext.put("character", new CubexTypeScheme(new CubexList<String>(), characterFunctionArguments, typeMap.get("Character")));
 
 		// Define string
-		CubexTypeClass characterIterable = typeMap.get("Iterable");
+		CubexTypeClass characterIterable = new CubexTypeClass("Iterable", new CubexList<CubexTypeGrammar>());
 		characterIterable.getTypeList().add(typeMap.get("Character"));
 
 		CubexList<CubexTypeTuple> stringFunctionArguments = new CubexList<CubexTypeTuple>();
 		stringFunctionArguments.add(new CubexTypeTuple("characters", characterIterable));
-		functionContext.put("character", new CubexTypeScheme(new CubexList<String>(), stringFunctionArguments, typeMap.get("String")));
+		functionContext.put("string", new CubexTypeScheme(new CubexList<String>(), stringFunctionArguments, typeMap.get("String")));
 	}
 
 	public void defineInput(TypeContext typeContext, Map<String, CubexTypeClass> typeMap) {
-		CubexTypeClass stringIterable = typeMap.get("Iterable");
+		CubexTypeClass stringIterable = new CubexTypeClass("Iterable", new CubexList<CubexTypeGrammar>());
 		stringIterable.getTypeList().add(typeMap.get("String"));
 		typeContext.put("input", stringIterable);
 	}

@@ -1,7 +1,9 @@
 package parsingTokens.statements;
 
 import Exception.SemanticException;
+import parsingTokens.CubexList;
 import parsingTokens.expressions.CubexExpression;
+import parsingTokens.typeGrammar.CubexTypeClass;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import typeChecker.CubexCompleteContext;
 import typeChecker.TypeContext;
@@ -36,7 +38,7 @@ public final class CubexBind extends CubexStatement {
 	public TypeContextReturn typeCheckReturn(CubexCompleteContext c) throws SemanticException{
 		TypeContext t = typeCheck(c);
 		//TODO fix bug with returning null
-		return new TypeContextReturn(t, false, null);
+		return new TypeContextReturn(t, false, new CubexTypeClass("Nothing", new CubexList<CubexTypeGrammar>()));
 	}
 	
 }

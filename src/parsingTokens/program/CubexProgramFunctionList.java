@@ -43,7 +43,6 @@ public class CubexProgramFunctionList implements CubexProgramType {
 			}
 			//Validate type
 			fun.typescheme.getTypeGrammar().validate(c);
-			
 			TypeContextReturn ret = fun.statement.typeCheckReturn(c);
 			//fun.typescheme.getTypeGrammar().isSuperTypeOf(c, ret.retType);
 			if(ret.guaranteedToReturn == false || !(fun.typescheme.getTypeGrammar().isSuperTypeOf(c, ret.retType))){
