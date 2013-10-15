@@ -5,5 +5,5 @@ if (a < 3)
 	a := true;
 }
 else
-b := i;
+b := a;
 return ["hello"];

@@ -3,7 +3,7 @@ class Map<T,T>(key : T, value : T)
 {
 	fun getKey() : T = key;
 	fun getVal() : T = value;
-	fun updateKey<T>(newKey : T) : T = 
+	fun updateKey<T>(newKey : T) : T
 	{
 		return newKey;
 	}
