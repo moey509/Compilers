@@ -8,7 +8,12 @@ def getnum(fname):
 # find command to compile all code: javac Exception/* lexer/* parser/* parsingTokens/* typeChecker/* -d test_dir
 # run code: java -classpath test_dir/ CubexParserMain
 
-print "sadf"
+print "[INFO] Started Compiling..."
+myout = subprocess.check_output("javac Exception/*java lexer/*java parser/*java parsingTokens/*java typeChecker/*java", shell=True)
+print "[INFO] Finished Compiling..."
+
+print "[INFO] Started Running files.."
+
 for fname in sorted(glob.glob("../parser_tests/*.in"), key=getnum):
     num = getnum(fname)
     print "[INFO] running java parser.CubexParserMain %s" % fname
@@ -26,3 +31,4 @@ for fname in sorted(glob.glob("../parser_tests/*.in"), key=getnum):
         print("*" * 10)
     else:
         print("TEST %s OK" % num)
+print "[INFO] Finished Running Files"
