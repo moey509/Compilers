@@ -47,8 +47,6 @@ public abstract class CubexTypeGrammar {
 			CubexList<CubexTypeGrammar> subType = ((CubexTypeClass) t).typeList;
 			if (superType.size() != subType.size()) return false;
 			if (getName().equals("Iterable")) {
-//				System.out.println("super: " + superType.get(0));
-//				System.out.println("sub " + subType.get(0));
 				return superType.get(0).isSuperTypeOf(c, subType.get(0));
 			}
 			boolean equals = true;
@@ -69,10 +67,7 @@ public abstract class CubexTypeGrammar {
 			for (int i = 0; i<elem.kindContext.size(); i++) {
 				replaceCont.put(elem.kindContext.contextSet.get(i), t.getTypeList().get(i));
 			}
-//			System.out.println("type: " + elem.type);
 			CubexTypeGrammar retype = elem.type.replaceParams(replaceCont);
-//			System.out.println("retype: " + retype);
-//			System.out.println(this + " is a supertype of " + retype);
 			return isSuperTypeOf(c, retype);
 		}
 		throw new SemanticException("Type check error: checking different type parameters");
