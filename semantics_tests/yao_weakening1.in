@@ -11,7 +11,7 @@ class Bb() extends Aa
 
 if (true)
 	a := Aa("hello");
-eles
+else
 	a := Bb();
 
 return [a.getString()];

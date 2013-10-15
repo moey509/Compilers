@@ -1,19 +1,19 @@
 # parser test program 9 (stage 1)
-class A<T>()
+class Aa<T>()
 {
 
 }
 
-class B<T>() extends A<T>
+class Bb<T>() extends Aa<T>
 {
 	super();
 }
 
-fun blah<T>(a : A<T>) : A<T>
+fun blah<T>(a : Aa<T>) : Aa<T>
 {
 	return a;
 }
 
-a := B<T>();
+a := Bb<T>();
 b := blah<T>(a);
 return ["el oh el"];

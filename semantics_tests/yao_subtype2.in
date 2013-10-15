@@ -9,7 +9,7 @@ class Bb() extends Aa
 	super("Hello World!");
 }
 
-ia = Iterable<Aa>();
-ib = Iterable<Bb>();
-ia = ib;
+ia := Iterable<Aa>();
+ib := Iterable<Bb>();
+ia := ib;
 return ["accept"];
