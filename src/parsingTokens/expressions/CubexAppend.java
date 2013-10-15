@@ -34,6 +34,13 @@ public class CubexAppend extends CubexExpression {
 		if (!(join.getName().equals("Iterable"))){
 			throw new SemanticException("Must append arguments of type Iterable");
 		}
+//		CubexList<CubexTypeGrammar> list = e1Type.getTypeList();
+//		CubexList<CubexTypeGrammar> list2 = e2Type.getTypeList();
+//		
+//		CubexList<CubexTypeGrammar> output = new CubexList<CubexTypeGrammar>();
+//		output.add(list.get(0).join(c, list2.get(0)));
+//		return new CubexTypeClass("Iterable", output);
+
 		return e1Type.join(c,e2Type);
 	}
 }
