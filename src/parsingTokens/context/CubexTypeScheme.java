@@ -1,5 +1,6 @@
 package parsingTokens.context;
 
+import Exception.SemanticException;
 import parsingTokens.CubexList;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import typeChecker.CubexCompleteContext;
@@ -39,7 +40,9 @@ public class CubexTypeScheme {
 				+ typeContext.toString(separator) + rightSpace2 + ") : " + typeGrammar;
 	}
 	
-	public void validate(CubexCompleteContext context){
-		
+	public void validate(CubexCompleteContext context) throws SemanticException{
+		for (CubexTypeTuple tuple : getTypeContext().iterable()) {
+			tuple.getTypeGrammar().validate(context);
+		}
 	}
 }

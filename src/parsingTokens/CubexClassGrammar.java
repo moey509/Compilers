@@ -1,5 +1,6 @@
 package parsingTokens;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
 
@@ -98,129 +99,154 @@ public class CubexClassGrammar {
 
 		return build.toString();
 	}
-
-	public CubexCompleteContext typeCheck(CubexCompleteContext context)
-			throws SemanticException {
-
-		ClassContext classContext1;
-		FunctionContext funContext1;
-		FunctionContext funContext2;
-
+	//TODO: Need a way to get functions from supertype
+	public CubexCompleteContext typeCheck(CubexCompleteContext originalContext)	throws SemanticException {
+		CubexCompleteContext context = originalContext.clone();
+		context.kindContext = new KindContext(kindcontext);
 		ClassContextElement superElement;
-		ClassContextElement thisElement;
 
-		CubexTypeScheme thisTypeScheme;
-
-		// Find supertype
-		if (context.containsClassName(extendsType.getName())) {
-			superElement = context.getElementFromClassContext(extendsType
-					.getName());
+		// Find constructable component
+		if (extendsType.getName().equals("Thing") || context.containsClassName(extendsType.getName())) {
+			superElement = context.getElementFromClassContext(extendsType.getName());
 		} else {
 			throw new SemanticException("Supertype not found");
-		}
-
-		// Create Type Grammar
+		}		
+		FunctionContext funContextPrime = new FunctionContext();
+		
+		// Create class context prime
+		ClassContext classContextPrime = new ClassContext();
+		classContextPrime.put(name, new ClassContextElement(this));
+		context.classContext.merge(classContextPrime);
+		
+		//Create function context prime
 		CubexList<CubexTypeGrammar> kindList = new CubexList<CubexTypeGrammar>();
 		for (String s : kindcontext.iterable()) {
 			kindList.add(new CubexTypeName(s));
 		}
 		CubexTypeGrammar thisType = new CubexTypeClass(name, kindList);
-
-		// 10.2.B
-		classContext1 = context.classContext.clone();
-		classContext1.put(name, new ClassContextElement(this));
-
-		// 10.2.C
-		funContext1 = context.functionContext.clone();
-		thisTypeScheme = new CubexTypeScheme(kindcontext, typecontext, thisType);
-		funContext1.put(name, thisTypeScheme);
-
-		// 10.2.D
+		CubexTypeScheme typeScheme = new CubexTypeScheme(kindcontext, typecontext, thisType);
+		funContextPrime.put(name, typeScheme);
+		context.functionContext.merge(funContextPrime);
+		
+		// Check that all function type schemes are valid
 		for (CubexFunctionDef fun : functions.iterable()) {
-			CubexCompleteContext completeContext3 = context.clone();
-			completeContext3.appendClassContext(classContext1);
-			CubexTypeScheme scheme = fun.typescheme;
-			completeContext3.kindContext = new KindContext(
-					scheme.getKindContext());
-
-			for (CubexTypeTuple tuple : scheme.getTypeContext().iterable()) {
-				tuple.getTypeGrammar().validate(completeContext3);
-			}
+			fun.typescheme.validate(context);
 		}
-
-		// 10.2.E,F
-		KindContext kindContext1 = new KindContext();
-		for (String s : kindcontext.iterable())
-			kindContext1.add(s);
-		CubexCompleteContext completeContext = context.clone();
-		completeContext.classContext = classContext1;
-		completeContext.kindContext = kindContext1;
-
-		CubexCompleteContext completeContext1 = completeContext.clone();
-		completeContext1.typeContext = context.typeContext.clone();
-
+		
+		//Check that all type grammars in type context are valid
+		for(int i = 0; i < typecontext.size(); i++){
+			typecontext.get(i).getTypeGrammar().validate(context);
+		}
+		
+		//Set initial mutable type context to the classes type context
+		context.mutableTypeContext = new TypeContext(typecontext);
+		
 		for (CubexStatement statement : statements.iterable()) {
-			completeContext1.mutableTypeContext = statement
-					.typeCheck(completeContext1);
+			context.mutableTypeContext = statement.typeCheck(context);
 		}
-
-		// 10.2.F
-		CubexCompleteContext completeContext2 = completeContext1.clone();
-		completeContext2.typeContext
-				.noConflictMerge(completeContext2.mutableTypeContext);
-		completeContext2.mutableTypeContext = new TypeContext();
-
-		CubexTypeGrammar superType;
-		if (extendsType.equals(context.getTypeGrammarFromTypeContext("Thing"))) {
-			superType = context.getTypeGrammarFromTypeContext("Thing");
-		} else {
-			CubexTypeScheme superTypeScheme = completeContext2.functionContext
-					.get(extendsType.getName());
-		}
-
-		// 10.2.G
-		FunctionContext functionContext2 = funContext1.clone();
-		for (CubexFunctionDef fun : functions.iterable()) {
-			functionContext2.put(fun.name, fun.typescheme);
-		}
-
-		// 10.2.H
-		CubexCompleteContext completeContext3 = context.clone();
-		completeContext3.classContext = classContext1;
-		for (CubexFunctionDef function : functions.iterable()) {
-
-			KindContext temp = new KindContext();
-			for (String s : function.typescheme.getKindContext().iterable()) {
-				temp.add(s);
-			}
-			completeContext3.kindContext.addAll(temp);
-			TypeContextReturn returns =
-					function.statement
-					.typeCheckReturn(completeContext2);
-			if (returns.guaranteedToReturn){
-				if (!returns.retType.equals(function.typescheme.getTypeGrammar())){
-					throw new SemanticException("");
-				}
-			}
-			else {
-				throw new SemanticException("");
-			}
-		}
-
-		// 10.2.I
-		Map<String, CubexTypeScheme> superTypeFunctions = superElement.functionMap;
-		for (CubexFunctionDef function : functions.iterable()) {
-			if (superTypeFunctions.containsKey(function.name)) {
-				if (superTypeFunctions.get(function.name).equals(
-						function.typescheme)) {
-					throw new SemanticException(
-							"Type parameters for function "
-									+ function.name
-									+ " does not agree with the supertype function parameters.");
+		
+		context.typeContext.noConflictMerge(context.mutableTypeContext);
+		//TODO: Check to see that super call is valid ??
+		if(!superElement.name.equals("Thing")){
+			Map<String, CubexTypeScheme> superTypeFunctions = superElement.functionMap;
+			for (CubexFunctionDef function : functions.iterable()) {
+				if (superTypeFunctions.containsKey(function.name)) {
+					if (superTypeFunctions.get(function.name).equals(function.typescheme)) {
+						throw new SemanticException("Type parameters for function "	+ function.name	+ " does not agree with the supertype function parameters.");
+					}
 				}
 			}
 		}
-
-		return context;
+		
+		HashSet<String> kindContextElements = new HashSet<String>();
+		for (String s : this.kindcontext.iterable()){
+			kindContextElements.add(s);
+		}
+		//Add all functions to function context 
+		//For every element in the kind context of a function, check to make sure its not in the classes kind context
+		FunctionContext funContextDoublePrime = new FunctionContext();
+		for (CubexFunctionDef fun : functions.iterable()){
+			funContextDoublePrime.put(fun.name, fun.typescheme);	
+			for (String s : fun.typescheme.getKindContext().iterable()){
+				if(kindContextElements.contains(s)) throw new SemanticException("CubexClassGrammar: TypeScheme overlap");
+			}
+		}
+		
+		//Complete function context
+		context.functionContext.merge(funContextDoublePrime);
+		
+		//Check to see that all statements are valid under a lot of contexts
+		KindContext originalKindContext = context.kindContext.clone();
+		//Merge type contexts
+		context.typeContext.merge(context.mutableTypeContext);
+		
+		//Create complete context and then typecheck function statement
+		for(CubexFunctionDef fun : functions.iterable()){
+			context.kindContext = originalKindContext.clone();
+			context.kindContext.addAll(new KindContext(fun.typescheme.getKindContext()));
+			context.mutableTypeContext = new TypeContext(fun.typescheme.getTypeContext());
+			TypeContextReturn ret = fun.statement.typeCheckReturn(context);
+			if(ret.guaranteedToReturn == false || !ret.retType.isSuperTypeOf(context, fun.typescheme.getTypeGrammar())){
+				throw new SemanticException("CubexClassGrammar: Function does not return or returns wrong type");
+			}
+		}
+		
+		// 10.2.E,F
+//		KindContext kindContext1 = new KindContext();
+//		for (String s : kindcontext.iterable()){
+//			kindContext1.add(s);
+//		}
+//		CubexCompleteContext completeContext = context.clone();
+//		completeContext.classContext = context.classContext;
+//		completeContext.kindContext = kindContext1;
+//
+//		CubexCompleteContext completeContext1 = completeContext.clone();
+//		completeContext1.typeContext = context.typeContext.clone();
+//
+//		for (CubexStatement statement : statements.iterable()) {
+//			completeContext1.mutableTypeContext = statement.typeCheck(completeContext1);
+//		}
+//
+//		// 10.2.F
+//		CubexCompleteContext completeContext2 = completeContext1.clone();
+//		completeContext2.typeContext.noConflictMerge(completeContext2.mutableTypeContext);
+//		completeContext2.mutableTypeContext = new TypeContext();
+//
+//		CubexTypeGrammar superType;
+//		if (extendsType.equals(context.getTypeGrammarFromTypeContext("Thing"))) {
+//			superType = context.getTypeGrammarFromTypeContext("Thing");
+//		} else {
+//			CubexTypeScheme superTypeScheme = completeContext2.functionContext.get(extendsType.getName());
+//		}
+//
+//		// 10.2.G
+//		FunctionContext functionContext2 = context.functionContext;
+//		for (CubexFunctionDef fun : functions.iterable()) {
+//			functionContext2.put(fun.name, fun.typescheme);
+//		}
+//
+//		// 10.2.H
+//		context = context.clone();
+//		context.classContext = context.classContext;
+//		for (CubexFunctionDef function : functions.iterable()) {
+//
+//			KindContext temp = new KindContext();
+//			for (String s : function.typescheme.getKindContext().iterable()) {
+//				temp.add(s);
+//			}
+//			context.kindContext.addAll(temp);
+//			TypeContextReturn returns =	function.statement.typeCheckReturn(completeContext2);
+//			if (returns.guaranteedToReturn){
+//				if (!returns.retType.equals(function.typescheme.getTypeGrammar())){
+//					throw new SemanticException("");
+//				}
+//			}
+//			else {
+//				throw new SemanticException("");
+//			}
+//		}
+		originalContext.classContext.merge(classContextPrime);
+		originalContext.functionContext.merge(funContextPrime);
+		return originalContext;
 	}
 }

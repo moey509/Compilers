@@ -7,7 +7,9 @@ import parsingTokens.CubexList;
 import parsingTokens.context.CubexTypeScheme;
 import parsingTokens.context.CubexTypeTuple;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
+import typeChecker.ClassContextElement;
 import typeChecker.CubexCompleteContext;
+import typeChecker.KindContext;
 import typeChecker.TypeContext;
 
 public final class CubexFunctionApp extends CubexExpression {
@@ -34,7 +36,12 @@ public final class CubexFunctionApp extends CubexExpression {
 	// Check if the expression is of some type
 	public CubexTypeGrammar typeCheck(CubexCompleteContext c) throws SemanticException {
 		CubexTypeGrammar objectType = expr.typeCheck(c);
-		CubexTypeScheme typeScheme = c.methodLookup(objectType, v_v);
+		ClassContextElement element = c.classContext.get(objectType.getName());
+		//TODO: Is this right, if type is nothing it always works?
+		if(objectType.getName().equals("Nothing")){
+			return objectType;
+		}
+		CubexTypeScheme typeScheme = element.functionMap.get(v_v);
 
 		ArrayList<String> kContext = new ArrayList<String>(typeScheme.getKindContext().contextCollection);
 		ArrayList<CubexTypeGrammar> params = new ArrayList<CubexTypeGrammar>(typeParams.contextCollection);
@@ -42,16 +49,23 @@ public final class CubexFunctionApp extends CubexExpression {
 		if (kContext.size() != params.size()) {
 			throw new SemanticException("Incorrect number of parameters");
 		}
+		
+		//TODO: What's the difference between these two?
 		TypeContext cont = new TypeContext();
 		for (int i = 0; i < kContext.size(); i++) {
 			cont.put(kContext.get(i), params.get(i));
+		}
+		KindContext kcont = c.classContext.get(objectType.getName()).kindContext;
+		CubexList<CubexTypeGrammar> types = objectType.getTypeList();
+		for (int i = 0; i < kcont.size(); i++){
+			cont.put(kcont.contextSet.get(i), types.get(i));
 		}
 
 		CubexList<CubexTypeTuple> typeContext = typeScheme.getTypeContext();
 
 		for (int i = 0; i < typeContext.size(); i++) {
 			CubexTypeGrammar paramExpr = functionParams.get(i).typeCheck(c);
-			if (!typeContext.get(i).getTypeGrammar().isSuperTypeOf(c, paramExpr)){
+			if (!typeContext.get(i).getTypeGrammar().replaceParams(cont).isSuperTypeOf(c, paramExpr)){
 				throw new SemanticException("Expected argument of type " + typeContext.get(i).getTypeGrammar() + " but received " + paramExpr);
 			}
 		}

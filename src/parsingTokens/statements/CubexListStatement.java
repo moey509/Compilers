@@ -74,8 +74,5 @@ public final class CubexListStatement extends CubexStatement {
 			}
 		}
 		return new TypeContextReturn(prev, guaranteed, rettype);
-		
-		
-		
 	}
 }

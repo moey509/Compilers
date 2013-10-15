@@ -40,7 +40,7 @@ public class TypeCheckerMain {
 
 	public static void main(String[] args) throws IOException {
 		//CharStream charStream = new ANTLRFileStream(args[0]);
-		CharStream charStream = new ANTLRFileStream("semantics_tests/a_tc_test8.in");
+		CharStream charStream = new ANTLRFileStream("semantics_tests/tc_test12.in");
 		CubexLexer cubLexer = new CubexLexer(charStream);
 		cubLexer.removeErrorListeners();
 
@@ -143,12 +143,12 @@ public class TypeCheckerMain {
 		CubexTypeClass thingType = new CubexTypeClass("Thing", new CubexList<CubexTypeGrammar>());
 		typeMap.put("Thing", thingType);
 
-		/*
-		 * ClassContextElement thingClassContextElement = new
-		 * ClassContextElement( new CubexClassGrammar("Thing", new
-		 * CubexList<String>(), new CubexList<CubexTypeTuple>(), null));
-		 * classContext.put("Thing", thingClassContextElement);
-		 */
+		
+		ClassContextElement thingClassContextElement = new
+		ClassContextElement( new CubexClassGrammar("Thing", new
+		CubexList<String>(), new CubexList<CubexTypeTuple>(), thingType));
+		classContext.put("Thing", thingClassContextElement);
+		 
 	}
 
 	public void defineNothing(ClassContext classContext, Map<String, CubexTypeClass> typeMap) {

@@ -19,6 +19,14 @@ public class KindContext {
 		contextSet = new ArrayList<String>(stringList.contextCollection);
 	}
 	
+	public KindContext clone(){
+		KindContext context = new KindContext();
+		for(String s : contextSet){
+			context.contextSet.add(s);
+		}
+		return context;
+	}
+	
 	public int size() {
 		return contextSet.size();
 	}

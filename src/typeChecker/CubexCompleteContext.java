@@ -37,8 +37,8 @@ public class CubexCompleteContext {
 
 	// Returns a shadow copy where the two type contexts are also shallow copied
 	public CubexCompleteContext clone() {
-		return new CubexCompleteContext(classContext, kindContext,
-				functionContext, typeContext.clone(),
+		return new CubexCompleteContext(classContext, kindContext.clone(),
+				functionContext.clone(), typeContext.clone(),
 				mutableTypeContext.clone());
 	}
 

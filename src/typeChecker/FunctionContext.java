@@ -17,8 +17,17 @@ public class FunctionContext {
 		nameToTypeSchemeMap = new HashMap<String, CubexTypeScheme>();
 	}
 	
+	public FunctionContext clone(){
+		FunctionContext fc = new FunctionContext();
+		fc.nameToTypeSchemeMap = new HashMap<String, CubexTypeScheme>( this.nameToTypeSchemeMap);
+		return fc;
+	}
+	
 	public void merge(FunctionContext funcContext){
 		for (Map.Entry<String, CubexTypeScheme> entry : funcContext.iterable()){
+			if(nameToTypeSchemeMap.containsKey(entry.getKey())){
+				//TODO: Check to see if the type scheme and type context are congruent
+			}
 			nameToTypeSchemeMap.put(entry.getKey(), entry.getValue());
 		}
 	}
@@ -41,12 +50,6 @@ public class FunctionContext {
 	
 	public Iterable<Map.Entry<String, CubexTypeScheme>> iterable(){
 		return nameToTypeSchemeMap.entrySet();
-	}
-	
-	public FunctionContext clone(){
-		FunctionContext output = new FunctionContext();
-		output.merge(this);
-		return output;
 	}
 	
 	public FunctionContext replace(Map<String, CubexTypeGrammar> map) throws SemanticException{

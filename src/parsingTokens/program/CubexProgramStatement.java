@@ -29,9 +29,11 @@ public class CubexProgramStatement implements CubexProgramType {
 		c.kindContext = new KindContext();
 		c.mutableTypeContext = new TypeContext();	
 		TypeContextReturn ret = statement.typeCheckReturn(c);
-		// TODO:Check for ret.typeContext <: Iterable<String>
-		CubexList<CubexTypeGrammar> typeList = ret.retType.getTypeList();
-		if (!ret.guaranteedToReturn || ret.retType.getName() != "Iterable" || typeList.size() != 1 || !typeList.get(0).getName().equals("String")) {
+		CubexList<CubexTypeGrammar> iterableString = new CubexList<CubexTypeGrammar>();
+		iterableString.add(new CubexTypeClass("String", new CubexList<CubexTypeGrammar>()));
+		
+		//This must return and the return must be a subtype of iterable<String>
+		if(!ret.guaranteedToReturn || !(new CubexTypeClass("Iterable", iterableString)).isSuperTypeOf(c, ret.retType)){
 			throw new SemanticException("CubexProgramStatement");
 		}
 
