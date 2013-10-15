@@ -1,14 +1,14 @@
 # parser test program 5.3, 5.4 (stage 1)
-class Map<T,T>(key : T, value : T)
+class Map<T,S>(key : T, value : S)
 {
 	fun getKey() : T = key;
-	fun getVal() : T = value;
-	fun updateKey<T>(newKey : T) : T
+	fun getVal() : S = value;
+	fun updateKey(newKey : T) : T
 	{
 		return newKey;
 	}
 }
 
 a := Map<Integer<>, Boolean>(4, true);
-b := a.updateKey<Integer<>>(3);
+b := a.updateKey<>(3);
 return ["bloop"];
