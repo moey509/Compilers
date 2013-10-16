@@ -70,7 +70,7 @@ public class CubexCompleteContext {
 		return kindContext.contains(typeParameter);
 	}
 
-	public void appendFunctionContext(FunctionContext t) {
+	public void appendFunctionContext(FunctionContext t) throws SemanticException {
 		functionContext.merge(t);
 	}
 

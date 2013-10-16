@@ -23,10 +23,13 @@ public class FunctionContext {
 		return fc;
 	}
 	
-	public void merge(FunctionContext funcContext){
+	public void merge(FunctionContext funcContext) throws SemanticException{
 		for (Map.Entry<String, CubexTypeScheme> entry : funcContext.iterable()){
 			if(nameToTypeSchemeMap.containsKey(entry.getKey())){
 				//TODO: Check to see if the type scheme and type context are congruent
+				if(!entry.getValue().equals(nameToTypeSchemeMap.get(entry.getKey()))){
+					throw new SemanticException("Incorrect type scheme");
+				}
 			}
 			nameToTypeSchemeMap.put(entry.getKey(), entry.getValue());
 		}

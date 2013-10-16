@@ -1,5 +1,8 @@
 package typeChecker;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.BitSet;
 import java.util.HashMap;
@@ -40,7 +43,8 @@ public class TypeCheckerMain {
 
 	public static void main(String[] args) throws IOException {
 		//CharStream charStream = new ANTLRFileStream(args[0]);
-		CharStream charStream = new ANTLRFileStream("semantics_tests/tc_test12.in");
+		int i = 15;
+		CharStream charStream = new ANTLRFileStream("semantics_tests/tc_test" + i + ".in");
 		CubexLexer cubLexer = new CubexLexer(charStream);
 		cubLexer.removeErrorListeners();
 
@@ -74,14 +78,16 @@ public class TypeCheckerMain {
 			return;
 		}
 		// TODO GET RID OF THIS PRINT STATEMENT BEFORE WE SUBMIT
-		System.out.println(cubParser.programAST);
+		//System.out.println(cubParser.programAST);
 		try {
 			cubParser.programAST.typeCheck(c);
 			System.out.print("accept");
 		} catch (SemanticException e) {
 			// TODO GET RID OF e.toString() BEFORE WE SUBMIT
-			System.out.print("reject" + e.toString());
+			System.out.print("reject" + e);
 		}
+		BufferedReader br = new BufferedReader(new FileReader("semantics_tests/tc_test" + i + ".out"));
+		System.out.println(br.readLine());
 	}
 
 	static class ErrorListener implements ANTLRErrorListener {

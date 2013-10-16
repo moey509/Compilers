@@ -1,5 +1,6 @@
 package parsingTokens;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
@@ -100,14 +101,23 @@ public class CubexClassGrammar {
 		return build.toString();
 	}
 	//TODO: Need a way to get functions from supertype
+	//TODO: Need a way to get the constructable component
 	public CubexCompleteContext typeCheck(CubexCompleteContext originalContext)	throws SemanticException {
 		CubexCompleteContext context = originalContext.clone();
 		context.kindContext = new KindContext(kindcontext);
 		ClassContextElement superElement;
-
+		
+		if(context.classContext.containsKey(name)) throw new SemanticException("Class name collision");
+		
+		HashMap<String, CubexTypeScheme> superFunction = new HashMap<String, CubexTypeScheme>();
+		HashMap<String, CubexStatement> superFunctionStatements = new HashMap<String, CubexStatement>();
 		// Find constructable component
 		if (extendsType.getName().equals("Thing") || context.containsClassName(extendsType.getName())) {
 			superElement = context.getElementFromClassContext(extendsType.getName());
+			if(!extendsType.getName().equals("Thing")){
+				superFunction = superElement.functionMap;
+				superFunctionStatements = superElement.functionStatementMap;
+			}
 		} else {
 			throw new SemanticException("Supertype not found");
 		}		
@@ -127,9 +137,20 @@ public class CubexClassGrammar {
 		CubexTypeScheme typeScheme = new CubexTypeScheme(kindcontext, typecontext, thisType);
 		funContextPrime.put(name, typeScheme);
 		context.functionContext.merge(funContextPrime);
+
+		HashMap<String, CubexFunctionDef> superFuncs = new HashMap<String, CubexFunctionDef>();		
+		for(String name : superFunction.keySet()){
+			CubexTypeScheme scheme = superFunction.get(name);
+			scheme.validate(context);
+			superFuncs.put(name, new CubexFunctionDef(name,scheme, superFunctionStatements.get(name)));
+		}
+		for(CubexFunctionDef fun : functions.iterable()){
+			System.out.println(fun);
+			superFuncs.put(fun.name, fun);
+		}
 		
 		// Check that all function type schemes are valid
-		for (CubexFunctionDef fun : functions.iterable()) {
+		for (CubexFunctionDef fun : superFuncs.values()) {
 			fun.typescheme.validate(context);
 		}
 		
@@ -186,7 +207,8 @@ public class CubexClassGrammar {
 			context.kindContext.addAll(new KindContext(fun.typescheme.getKindContext()));
 			context.mutableTypeContext = new TypeContext(fun.typescheme.getTypeContext());
 			TypeContextReturn ret = fun.statement.typeCheckReturn(context);
-			if(ret.guaranteedToReturn == false || !ret.retType.isSuperTypeOf(context, fun.typescheme.getTypeGrammar())){
+			//Returned type should be a subtype of the expected return
+			if(ret.guaranteedToReturn == false || !fun.typescheme.getTypeGrammar().isSuperTypeOf(context, ret.retType)){
 				throw new SemanticException("CubexClassGrammar: Function does not return or returns wrong type");
 			}
 		}

@@ -42,12 +42,19 @@ public class CubexInterface {
 		build.append("}");
 		return build.toString();
 	}
-
-	public ClassContext typeCheck(CubexCompleteContext context)
+	//TODO: Need a way to get functions from supertype
+	//TODO: Need a way to get the constructable component
+	public ClassContext typeCheck(CubexCompleteContext originalContext)
 			throws SemanticException {
+		CubexCompleteContext context = originalContext.clone();
+		
+		
+		
+		
 		ClassContextElement element = new ClassContextElement(this);
 		context.appendClassContext(name, element);
 
+		
 		
 		for (String s : kindContext.iterable()){
 			//do something with kind context

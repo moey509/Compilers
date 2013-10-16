@@ -41,8 +41,14 @@ public final class CubexFunctionApp extends CubexExpression {
 		if(objectType.getName().equals("Nothing")){
 			return objectType;
 		}
+		if(objectType.getName().equals("Thing")) throw new SemanticException("Method does not exist");
 		CubexTypeScheme typeScheme = element.functionMap.get(v_v);
 
+		while(typeScheme == null){
+			element = c.classContext.get(element.type.getName());
+			typeScheme = element.functionMap.get(v_v);
+			if(element.name.equals("Thing")) throw new SemanticException("Method does not exist");
+		}
 		ArrayList<String> kContext = new ArrayList<String>(typeScheme.getKindContext().contextCollection);
 		ArrayList<CubexTypeGrammar> params = new ArrayList<CubexTypeGrammar>(typeParams.contextCollection);
 
