@@ -28,6 +28,7 @@ public final class CubexReturn extends CubexStatement {
 	public TypeContextReturn typeCheckReturn(CubexCompleteContext c) throws SemanticException {
 		CubexCompleteContext copy0 = c.clone();
 		copy0.typeContext.noConflictMerge(copy0.mutableTypeContext);
+		System.out.println(copy0.toString());
 		CubexTypeGrammar etype = e.typeCheck(copy0);
 		return new TypeContextReturn(c.mutableTypeContext.clone(), true, etype);
 	}
