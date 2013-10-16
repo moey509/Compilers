@@ -54,6 +54,9 @@ public final class CubexFunctionCall extends CubexExpression {
 		TypeContext cont = new TypeContext();
 		for (int i = 0; i < kContext.size(); i++) {
 			cont.put(kContext.get(i), params.get(i));
+			if (!c.containsClassName(params.get(i).getName())){
+				throw new SemanticException(params.get(i).getName() + " is not a valid type.");
+			}
 		}
 		
 		CubexList<CubexTypeTuple> typeContext = typeScheme.getTypeContext();
