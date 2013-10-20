@@ -1,0 +1,14 @@
+Programming Assignment 3: Semantic Analysis
+
+COLLABORATION:
+We did not consult with any other group on the implementation of the type checker.
+
+DISTRIBUTION:
+- Jimmy handled the high level architecture of the project and the implementation of the java files.
+- Ansha handled the interpretation of the cubex language specs and the implementation of the java files.
+- Matt handled the implementation of the java files.
+- Toshi handled test cases and test automation.
+
+ADDITIONAL COMMENTS:
+We expected this assignment to be the hardest one we've done before and it managed to be even harder than what we expected.
+

@@ -13,6 +13,7 @@ import parsingTokens.statements.CubexListStatement;
 import parsingTokens.statements.CubexStatement;
 import parsingTokens.typeGrammar.CubexTypeClass;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
+import parsingTokens.typeGrammar.CubexTypeIntersection;
 import parsingTokens.typeGrammar.CubexTypeName;
 import typeChecker.ClassContext;
 import typeChecker.ClassContextElement;
@@ -120,7 +121,7 @@ public class CubexClassGrammar {
 			}
 		} else {
 			throw new SemanticException("Supertype not found");
-		}		
+		}
 		FunctionContext funContextPrime = new FunctionContext();
 		
 		// Create class context prime
