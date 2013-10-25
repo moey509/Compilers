@@ -48,4 +48,8 @@ public class CubexExpression {
 			throw new SemanticException("Variable " + name + " does not exist");
 		}
 	}
+	
+	public ir.IrNode irConvert() {
+		return null;
+	}
 }

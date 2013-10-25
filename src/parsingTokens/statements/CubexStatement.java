@@ -27,4 +27,9 @@ public abstract class CubexStatement {
 		l.add(this);
 		return l;
 	}
+	
+	public ir.IrNode irConvert() {
+		// TODO: IMPLEMENT THIS
+		return null;
+	}
 }
