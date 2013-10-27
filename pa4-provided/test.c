@@ -4,6 +4,7 @@ typedef struct blah* blah_t;
 typedef struct git * git_t;
 typedef struct nit * nit_t;
 typedef struct iterator * iterator_t;
+typedef struct iterable * iterable_t;
 
 struct blah
 {
@@ -13,7 +14,6 @@ struct blah
 
 struct git 
 {
-  int is_int;
   void* val;
   git_t next;
 };
@@ -24,6 +24,13 @@ struct iterator
   int is_int;
   void * cur;
 };
+
+struct iterable
+{
+  git_t first;
+  git_t last;
+  int is_int;
+}
 
 // status: {-1 : regular number} {0 : through} {1 : onwards}
 // for the case of a single number, the value will be held in the field 'low'
@@ -96,23 +103,24 @@ void freeIterator(iterator_t it) {
     free(it);
 }
 
-// method that frees a git_t struct
-void free_git(git_t g) {
-  git_t temp;
-  git_t free_ptr;
-  nit_t n;
-  temp = g;
-  while (temp != NULL) {
-    // int case
-    if (temp->is_int == 1) {
-      n = temp->val;
-      free(n);
-    }
-    free_ptr = temp;
-    temp = temp->next;
-    free(free_ptr);
-  }
-}
+//TODO: need to redo so that it uses the iterable struct
+// // method that frees a git_t struct
+// void free_git(git_t g) {
+//   git_t temp;
+//   git_t free_ptr;
+//   nit_t n;
+//   temp = g;
+//   while (temp != NULL) {
+//     // int case
+//     if (temp->is_int == 1) {
+//       n = temp->val;
+//       free(n);
+//     }
+//     free_ptr = temp;
+//     temp = temp->next;
+//     free(free_ptr);
+//   }
+// }
 
 void git_append (git_t first, git_t second) {
   git_t temp;
@@ -130,10 +138,42 @@ void git_append (git_t first, git_t second) {
   return;
 }
 
-
+//TODO: need to tes
 void charTest() {
-  git_t t1 = (git_t) malloc(sizeof(struct git));
-  git_t t2 = (git_t) malloc(sizeof(struct git));
+  void * ans;
+  git_t g1 = (git_t) malloc(sizeof(struct git));
+  git_t g2 = (git_t) malloc(sizeof(struct git));
+  iterable_t iter = (iterable_t) malloc (sizeof(struct iterable));
+  iterator_t it = (iterator_t) malloc(sizeof(struct iterator));
+
+  // iterable
+  iter->is_int = 0;
+  iter->first = g1;
+  iter->last = g1;
+
+  // iterator
+  it->g = iter->first;
+  it->is_int = 0;
+
+  // null test:
+  ans = getNext(it);
+  if (ans == NULL) 
+    printf("[ASSERT] pass [null test]");
+  else
+    printf("[ASSERT] fail [null test]");
+
+  // one element:
+  g1->val = 'a';
+  ans = getNext(it);
+  if (ans == 'a') 
+    printf("[ASSERT] pass [one element]");    
+  else
+    printf("[ASSERT] fail [one element]");    
+  ans = getNext(it);
+  if (ans == NULL) 
+    printf("[ASSERT] pass [one element]");    
+  else
+    printf("[ASSERT] fail [one element]");    
 }
 
 int main()
@@ -202,3 +242,13 @@ int main()
   */
   return 0;
 }
+
+
+//TODO: list of things that still need to be tested:
+/*
+- update everything with new iterable struct
+- remaining TODOs
+- appending
+- getNext (everything else, ints)
+- memory leaks!
+*/
