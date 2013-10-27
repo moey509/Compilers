@@ -8,7 +8,7 @@ import ir.expressions.IrExpression;
 import ir.statements.IrStatement;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 
-public class IrClassGrammar implements IrProgramElem {
+public class IrClass implements IrProgramElem {
 	public String name;
 	public CubexList<String> kindcontext;
 	public CubexList<CubexTypeTuple> typecontext;
@@ -17,7 +17,7 @@ public class IrClassGrammar implements IrProgramElem {
 	public CubexList<IrExpression> expressions;
 	public CubexList<IrFunctionDef> functions;
 
-	public IrClassGrammar(String n, CubexList<String> k,
+	public IrClass(String n, CubexList<String> k,
 			CubexList<CubexTypeTuple> typecont, CubexTypeGrammar t,
 			CubexList<IrStatement> s, CubexList<IrExpression> e,
 			CubexList<IrFunctionDef> f) {
@@ -30,7 +30,7 @@ public class IrClassGrammar implements IrProgramElem {
 		functions = f;
 	}
 
-	public IrClassGrammar(String name, CubexList<String> kindContext,
+	public IrClass(String name, CubexList<String> kindContext,
 			CubexList<CubexTypeTuple> typeContext, CubexTypeGrammar extendsType) {
 		this.name = name;
 		this.kindcontext = kindContext;
