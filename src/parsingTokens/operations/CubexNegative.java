@@ -1,11 +1,11 @@
 package parsingTokens.operations;
 
+import ir.operations.IrNegative;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
 import parsingTokens.expressions.CubexExpression;
 import parsingTokens.expressions.CubexFunctionApp;
 import parsingTokens.expressions.CubexUnaryExpression;
-import parsingTokens.typeGrammar.CubexTypeClass;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import typeChecker.CubexCompleteContext;
 
@@ -14,6 +14,10 @@ public class CubexNegative extends CubexUnaryExpression {
 
 	public CubexNegative(CubexExpression arg) {
 		super(arg);
+	}
+	
+	public IrNegative toIr() {
+		return new IrNegative(getmArgument().toIr());
 	}
 
 	public String toString() {

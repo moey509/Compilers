@@ -1,5 +1,6 @@
 package parsingTokens.expressions;
 
+import ir.expressions.IrBoolean;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
 import parsingTokens.typeGrammar.CubexTypeClass;
@@ -10,6 +11,10 @@ import typeChecker.CubexCompleteContext;
 public final class CubexBoolean extends CubexExpression {
 	private boolean mValue;
 	public CubexBoolean(boolean value) { mValue = value; }
+	
+	public IrBoolean toIr() {
+		return new IrBoolean(mValue);
+	}
 	
 	public String toString(){
 		return mValue ? "true" : "false";

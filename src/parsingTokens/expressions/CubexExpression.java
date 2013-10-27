@@ -1,5 +1,6 @@
 package parsingTokens.expressions;
 
+import ir.expressions.IrExpression;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
 import parsingTokens.typeGrammar.CubexTypeClass;
@@ -47,6 +48,10 @@ public class CubexExpression {
 		} else {
 			throw new SemanticException("Variable " + name + " does not exist");
 		}
+	}
+	
+	public IrExpression toIr() {
+		return new IrExpression(name);
 	}
 	
 }

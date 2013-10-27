@@ -1,5 +1,7 @@
 package parsingTokens.statements;
 
+import ir.statements.IrListStatement;
+import ir.statements.IrStatement;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
 import parsingTokens.statements.CubexStatement;
@@ -14,6 +16,14 @@ public final class CubexListStatement extends CubexStatement {
 
 	public CubexListStatement(CubexList<CubexStatement> cList) {
 		this.cList = cList;
+	}
+	
+	public IrListStatement toIr() {
+		CubexList<IrStatement> irS = new CubexList<IrStatement>();
+		for (CubexStatement i : cList.contextCollection) {
+			irS.add(i.toIr());
+		}
+		return new IrListStatement(irS);
 	}
 	
 	public CubexList<CubexStatement> flatten(){

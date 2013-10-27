@@ -1,12 +1,11 @@
 package parsingTokens.operations;
 
+import ir.operations.IrAdd;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
 import parsingTokens.expressions.CubexBinaryExpression;
-import parsingTokens.expressions.CubexBoolean;
 import parsingTokens.expressions.CubexExpression;
 import parsingTokens.expressions.CubexFunctionApp;
-import parsingTokens.typeGrammar.CubexTypeClass;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import typeChecker.CubexCompleteContext;
 
@@ -15,6 +14,10 @@ public class CubexAdd extends CubexBinaryExpression {
 	
 	public CubexAdd(CubexExpression left, CubexExpression right) {
 		super(left, right);
+	}
+	
+	public IrAdd toIr() {
+		return new IrAdd(getmLeft().toIr(), getmRight().toIr());
 	}
 	
 	public String toString(){

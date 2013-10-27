@@ -1,5 +1,9 @@
 package parsingTokens.program;
 
+import java.util.ArrayList;
+
+import ir.IrFunctionDef;
+import ir.IrProgramElem;
 import Exception.SemanticException;
 import parsingTokens.CubexFunctionDef;
 import parsingTokens.CubexList;
@@ -17,6 +21,14 @@ public class CubexProgramFunctionList implements CubexProgramType {
 
 	public CubexProgramFunctionList(CubexList<CubexFunctionDef> functionList) {
 		this.functionList = functionList;
+	}
+	
+	public ArrayList<IrProgramElem> toIr() {
+		ArrayList<IrProgramElem> arr = new ArrayList<IrProgramElem>();
+		for (CubexFunctionDef i : functionList.contextCollection) {
+			arr.add(i.toIr());
+		}
+		return arr;
 	}
 
 	public String toString() {
@@ -53,4 +65,5 @@ public class CubexProgramFunctionList implements CubexProgramType {
 		c.mutableTypeContext = new TypeContext();
 		return c;
 	}
+
 }

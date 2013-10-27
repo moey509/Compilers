@@ -1,5 +1,8 @@
 package parsingTokens;
 
+import ir.IrFunctionDef;
+import ir.IrInterface;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -30,6 +33,14 @@ public class CubexInterface {
 		kindContext = k;
 		extendsType = t;
 		functionList = l;
+	}
+	
+	public IrInterface toIr() {
+		CubexList<IrFunctionDef> irF = new CubexList<IrFunctionDef>();
+		for (CubexFunctionDef i : functionList.contextCollection) {
+			irF.add(i.toIr());
+		}
+		return new IrInterface(name, kindContext, extendsType, irF);
 	}
 
 	public String toString() {

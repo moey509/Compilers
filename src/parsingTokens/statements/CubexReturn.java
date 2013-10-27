@@ -1,5 +1,6 @@
 package parsingTokens.statements;
 
+import ir.statements.IrReturn;
 import Exception.SemanticException;
 import parsingTokens.expressions.CubexExpression;
 import parsingTokens.typeGrammar.CubexTypeClass;
@@ -12,6 +13,10 @@ public final class CubexReturn extends CubexStatement {
 
 	public CubexReturn(CubexExpression e) {
 		this.e = e;
+	}
+	
+	public IrReturn toIr() {
+		return new IrReturn(e.toIr());
 	}
 
 	public String toString() {

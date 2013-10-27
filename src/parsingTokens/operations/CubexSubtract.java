@@ -1,5 +1,6 @@
 package parsingTokens.operations;
 
+import ir.operations.IrSubtract;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
 import parsingTokens.expressions.CubexBinaryExpression;
@@ -15,6 +16,11 @@ public class CubexSubtract extends CubexBinaryExpression {
 	public CubexSubtract(CubexExpression left, CubexExpression right) {
 		super(left, right);
 	}
+	
+	public IrSubtract toIr() {
+		return new IrSubtract(getmLeft().toIr(), getmRight().toIr());
+	}
+	
 	public String toString(){
 		return getmLeft().toString() + " . minus < > ( " + getmRight().toString() + " )";
 	}

@@ -1,12 +1,12 @@
 package ir.operations;
 
-import parsingTokens.expressions.CubexBinaryExpression;
-import parsingTokens.expressions.CubexExpression;
+import ir.expressions.IrBinaryExpression;
+import ir.expressions.IrExpression;
 
-public class IrSubtract extends CubexBinaryExpression {
-	CubexExpression function;
+public class IrSubtract extends IrBinaryExpression {
+	IrExpression function;
 	
-	public IrSubtract(CubexExpression left, CubexExpression right) {
+	public IrSubtract(IrExpression left, IrExpression right) {
 		super(left, right);
 	}
 	

@@ -1,5 +1,6 @@
 package parsingTokens.expressions;
 
+import ir.expressions.IrAppend;
 import parsingTokens.CubexList;
 import parsingTokens.typeGrammar.CubexTypeClass;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
@@ -12,6 +13,10 @@ public class CubexAppend extends CubexExpression {
 	public CubexAppend(CubexExpression expr1, CubexExpression expr2) {
 		e1 = expr1;
 		e2 = expr2;
+	}
+	
+	public IrAppend toIr() {
+		return new IrAppend(e1.toIr(), e2.toIr());
 	}
 
 	public String toString() {

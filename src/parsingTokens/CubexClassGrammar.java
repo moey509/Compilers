@@ -2,7 +2,6 @@ package parsingTokens;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.Map;
 
 import Exception.SemanticException;
@@ -13,16 +12,17 @@ import parsingTokens.statements.CubexListStatement;
 import parsingTokens.statements.CubexStatement;
 import parsingTokens.typeGrammar.CubexTypeClass;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
-import parsingTokens.typeGrammar.CubexTypeIntersection;
 import parsingTokens.typeGrammar.CubexTypeName;
 import typeChecker.ClassContext;
 import typeChecker.ClassContextElement;
 import typeChecker.CubexCompleteContext;
 import typeChecker.FunctionContext;
 import typeChecker.KindContext;
-import typeChecker.TypeCheckerMain;
 import typeChecker.TypeContext;
 import typeChecker.TypeContextReturn;
+import ir.*;
+import ir.expressions.IrExpression;
+import ir.statements.IrStatement;
 
 public class CubexClassGrammar {
 	public String name;
@@ -66,6 +66,22 @@ public class CubexClassGrammar {
 		this.statements = new CubexList<CubexStatement>();
 		this.expressions = new CubexList<CubexExpression>();
 		this.functions = new CubexList<CubexFunctionDef>();
+	}
+	
+	public IrClass toIr() {
+		CubexList<IrStatement> irS = new CubexList<IrStatement>();
+		for (CubexStatement i : statements.contextCollection) {
+			irS.add(i.toIr());
+		}
+		CubexList<IrExpression> irE = new CubexList<IrExpression>();
+		for (CubexExpression i : expressions.contextCollection) {
+			irE.add(i.toIr());
+		}
+		CubexList<IrFunctionDef> irF = new CubexList<IrFunctionDef>();
+		for (CubexFunctionDef i : functions.contextCollection) {
+			irF.add(i.toIr());
+		}
+		return new IrClass(name, kindcontext, typecontext, extendsType, irS, irE, irF);
 	}
 
 	public String toString() {

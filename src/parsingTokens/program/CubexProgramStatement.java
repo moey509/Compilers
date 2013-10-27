@@ -1,5 +1,9 @@
 package parsingTokens.program;
 
+import ir.IrProgramElem;
+
+import java.util.ArrayList;
+
 import Exception.SemanticException;
 import parsingTokens.CubexList;
 import parsingTokens.statements.CubexStatement;
@@ -17,6 +21,12 @@ public class CubexProgramStatement implements CubexProgramType {
 	public CubexProgramStatement(CubexStatement statement) {
 		statement.flatten();
 		this.statement = statement;
+	}
+	
+	public ArrayList<IrProgramElem> toIr() {
+		ArrayList<IrProgramElem> arr = new ArrayList<IrProgramElem>();
+		arr.add(statement.toIr());
+		return arr;
 	}
 
 	public String toString() {

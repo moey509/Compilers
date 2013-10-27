@@ -1,15 +1,22 @@
 package ir.statements;
 
+import java.util.ArrayList;
+
 import parsingTokens.CubexList;
-import parsingTokens.statements.CubexStatement;
+import ir.statements.IrStatement;
 
-
-public final class IrListStatement extends CubexStatement {
-	private CubexList<CubexStatement> cList;
+public class IrListStatement extends IrStatement {
+	private CubexList<IrStatement> cList;
 	public static boolean flatten = false;
 
-	public IrListStatement(CubexList<CubexStatement> cList) {
+	public IrListStatement(CubexList<IrStatement> cList) {
 		this.cList = cList;
+	}
+
+	@Override
+	public ArrayList<String> toC() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

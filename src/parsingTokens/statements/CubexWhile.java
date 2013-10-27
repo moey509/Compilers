@@ -1,5 +1,6 @@
 package parsingTokens.statements;
 
+import ir.statements.IrWhile;
 import Exception.SemanticException;
 import parsingTokens.expressions.CubexExpression;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
@@ -13,6 +14,10 @@ public final class CubexWhile extends CubexStatement {
 	public CubexWhile(CubexExpression e, CubexStatement s) {
 		this.e = e;
 		this.s = new CubexListStatement(s.flatten());
+	}
+	
+	public IrWhile toIr() {
+		return new IrWhile(e.toIr(), s.toIr());
 	}
 
 	public String toString() {

@@ -1,7 +1,7 @@
 package parsingTokens.expressions;
 
 
-public class CubexBinaryExpression extends CubexExpression {
+public abstract class CubexBinaryExpression extends CubexExpression {
 	private CubexExpression mLeft, mRight;
 	public CubexBinaryExpression(CubexExpression left, CubexExpression right) {
 		setmLeft(left);

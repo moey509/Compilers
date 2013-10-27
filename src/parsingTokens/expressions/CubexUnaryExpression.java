@@ -1,7 +1,7 @@
 package parsingTokens.expressions;
 
 
-public class CubexUnaryExpression extends CubexExpression {
+public abstract class CubexUnaryExpression extends CubexExpression {
 	private CubexExpression mArgument;
 	public CubexUnaryExpression(CubexExpression arg) {
 		setmArgument(arg);

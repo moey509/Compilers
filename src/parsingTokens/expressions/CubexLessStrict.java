@@ -1,5 +1,6 @@
 package parsingTokens.expressions;
 
+import ir.expressions.IrLessStrict;
 import parsingTokens.CubexList;
 import parsingTokens.typeGrammar.CubexTypeClass;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
@@ -12,6 +13,10 @@ public class CubexLessStrict extends CubexBinaryExpression {
 
 	public CubexLessStrict(CubexExpression left, CubexExpression right) {
 		super(left, right);
+	}
+	
+	public IrLessStrict toIr() {
+		return new IrLessStrict(getmLeft().toIr(), getmRight().toIr());
 	}
 
 	public String toString() {

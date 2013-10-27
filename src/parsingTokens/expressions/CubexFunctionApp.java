@@ -1,5 +1,8 @@
 package parsingTokens.expressions;
 
+import ir.expressions.IrExpression;
+import ir.expressions.IrFunctionApp;
+
 import java.util.ArrayList;
 
 import Exception.SemanticException;
@@ -23,6 +26,14 @@ public final class CubexFunctionApp extends CubexExpression {
 		this.v_v = v_v;
 		this.typeParams = typeParams;
 		this.functionParams = functionParams;
+	}
+	
+	public IrFunctionApp toIr() {
+		CubexList<IrExpression> irE = new CubexList<IrExpression>();
+		for (CubexExpression i : functionParams.contextCollection) {
+			irE.add(i.toIr());
+		}
+		return new IrFunctionApp(expr.toIr(), v_v, typeParams, irE);
 	}
 
 	public String toString() {

@@ -1,6 +1,7 @@
 package parsingTokens.statements;
 
 
+import ir.statements.IrStatement;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
 import parsingTokens.expressions.CubexExpression;
@@ -26,6 +27,10 @@ public abstract class CubexStatement {
 		CubexList<CubexStatement> l = new CubexList<CubexStatement>();
 		l.add(this);
 		return l;
+	}
+	
+	public IrStatement toIr() {
+		return null;
 	}
 	
 }

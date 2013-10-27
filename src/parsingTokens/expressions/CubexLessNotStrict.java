@@ -1,5 +1,8 @@
 package parsingTokens.expressions;
 
+import org.antlr.v4.parse.ANTLRParser.labeledAlt_return;
+
+import ir.expressions.IrLessNotStrict;
 import parsingTokens.CubexList;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import typeChecker.CubexCompleteContext;
@@ -11,8 +14,12 @@ public class CubexLessNotStrict extends CubexBinaryExpression {
 	
 	public CubexLessNotStrict(CubexExpression left, CubexExpression right) {
 		super(left, right);
-
 	}
+	
+	public IrLessNotStrict toIr() {
+		return new IrLessNotStrict(getmLeft().toIr(), getmRight().toIr());
+	}
+
 	public String toString(){
 		return getmLeft().toString() + " . lessThan < > ( " + getmRight().toString() + " , false )";
 	}

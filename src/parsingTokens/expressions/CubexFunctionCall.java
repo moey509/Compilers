@@ -1,14 +1,15 @@
 package parsingTokens.expressions;
 
+import ir.expressions.IrExpression;
+import ir.expressions.IrFunctionCall;
+
 import java.util.ArrayList;
 
 import Exception.SemanticException;
 import parsingTokens.CubexList;
 import parsingTokens.context.CubexTypeScheme;
 import parsingTokens.context.CubexTypeTuple;
-import parsingTokens.typeGrammar.CubexTypeClass;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
-import parsingTokens.typeGrammar.CubexTypeName;
 import typeChecker.CubexCompleteContext;
 import typeChecker.TypeContext;
 
@@ -23,6 +24,14 @@ public final class CubexFunctionCall extends CubexExpression {
 		this.v_vc = v_vc;
 		this.typeParams = typeParams;
 		this.functionParams = functionParams;
+	}
+	
+	public IrFunctionCall toIr() {
+		CubexList<IrExpression> irF = new CubexList<IrExpression>();
+		for (CubexExpression i : functionParams.contextCollection) {
+			irF.add(i.toIr());
+		}
+		return new IrFunctionCall(v_vc, typeParams, irF);
 	}
 
 	public String toString() {

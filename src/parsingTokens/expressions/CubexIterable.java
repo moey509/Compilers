@@ -1,5 +1,7 @@
 package parsingTokens.expressions;
 
+import ir.expressions.IrExpression;
+import ir.expressions.IrIterable;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
 import parsingTokens.typeGrammar.CubexTypeClass;
@@ -11,6 +13,14 @@ public class CubexIterable extends CubexExpression {
 
 	public CubexIterable(CubexList<CubexExpression> listIn) {
 		list = listIn;
+	}
+	
+	public IrIterable toIr() {
+		CubexList<IrExpression> irE = new CubexList<IrExpression>();
+		for (CubexExpression i : list.contextCollection) {
+			irE.add(i.toIr());
+		}
+		return new IrIterable(irE);
 	}
 
 	public String toString() {

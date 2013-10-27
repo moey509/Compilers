@@ -1,5 +1,6 @@
 package parsingTokens.expressions;
 
+import ir.expressions.IrString;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
 import parsingTokens.typeGrammar.CubexTypeClass;
@@ -11,6 +12,10 @@ public final class CubexString extends CubexExpression {
 
 	public CubexString(String value) {
 		mValue = value;
+	}
+	
+	public IrString toIr() {
+		return new IrString(mValue);
 	}
 
 	public String toString() {
