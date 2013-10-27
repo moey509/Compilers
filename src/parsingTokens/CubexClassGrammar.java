@@ -2,7 +2,6 @@ package parsingTokens;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.Map;
 
 import Exception.SemanticException;
@@ -20,7 +19,6 @@ import typeChecker.ClassContextElement;
 import typeChecker.CubexCompleteContext;
 import typeChecker.FunctionContext;
 import typeChecker.KindContext;
-import typeChecker.TypeCheckerMain;
 import typeChecker.TypeContext;
 import typeChecker.TypeContextReturn;
 
@@ -106,6 +104,7 @@ public class CubexClassGrammar {
 	// TODO: Need a way to get the constructable component
 	public CubexCompleteContext typeCheck(CubexCompleteContext originalContext)
 			throws SemanticException {
+
 		CubexCompleteContext context = originalContext.clone();
 		context.kindContext = new KindContext(kindcontext);
 		ClassContextElement superElement;
@@ -118,8 +117,10 @@ public class CubexClassGrammar {
 		// Find constructable component
 		if (extendsType instanceof CubexTypeIntersection) {
 			CubexTypeIntersection typeIntersection = (CubexTypeIntersection) extendsType;
-			ClassContextElement element1 = context.getElementFromClassContext(typeIntersection.typeGrammar1.name);
-			ClassContextElement element2 = context.getElementFromClassContext(typeIntersection.typeGrammar2.name);
+			ClassContextElement element1 = context
+					.getElementFromClassContext(typeIntersection.typeGrammar1.name);
+			ClassContextElement element2 = context
+					.getElementFromClassContext(typeIntersection.typeGrammar2.name);
 			superElement = element1.Intersection(element2);
 		}
 
@@ -133,6 +134,21 @@ public class CubexClassGrammar {
 			}
 		} else {
 			throw new SemanticException("Supertype not found");
+		}
+		
+		if (this.name != "String") {
+			if (superElement.name == "Iterable") {
+				throw new SemanticException("Cannot extend an Iterable");
+			}
+		}
+		if (superElement.name == "Integer") {
+			throw new SemanticException("Cannot extend an Integer");
+		}
+		if (superElement.name == "Character") {
+			throw new SemanticException("Cannot extend a Character");
+		}
+		if (superElement.name == "String") {
+			throw new SemanticException("Cannot extend a String");
 		}
 		FunctionContext funContextPrime = new FunctionContext();
 

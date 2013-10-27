@@ -124,7 +124,18 @@ public class CubexInterface {
 				}
 			}
 		}
-
+		if (superElement.name == "Iterable") {
+			throw new SemanticException("Cannot extend an Iterable");
+		}
+		if (superElement.name == "Integer") {
+			throw new SemanticException("Cannot extend an Integer");
+		}
+		if (superElement.name == "Character") {
+			throw new SemanticException("Cannot extend a Character");
+		}
+		if (superElement.name == "String") {
+			throw new SemanticException("Cannot extend a String");
+		}
 		HashSet<String> kindContextElements = new HashSet<String>();
 		for (String s : this.kindContext.iterable()) {
 			kindContextElements.add(s);
