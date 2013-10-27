@@ -39,10 +39,14 @@ public abstract class CubexTypeGrammar {
 			return true;
 		if (getName().equals("Thing"))
 			return true; // Thing is a super type of everything
-		if (t.getName().equals("Thing"))
-			return false; // Thing isn't a subtype of anything
-		if (t.getName().equals("Nothing"))
-			return true; // Nothing is a subtype of everything
+		if (!(t instanceof CubexTypeIntersection)) {
+			if (t.getName().equals("Thing"))
+				return false; // Thing isn't a subtype of anything
+		}
+		if (!(t instanceof CubexTypeIntersection)) {
+			if (t.getName().equals("Nothing"))
+				return true; // Nothing is a subtype of everything
+		}
 		if (getName().equals("Nothing"))
 			return false; // Nothing isn't a super type of anything
 		if (t instanceof CubexTypeIntersection) {

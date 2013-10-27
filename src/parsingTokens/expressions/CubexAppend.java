@@ -31,8 +31,7 @@ public class CubexAppend extends CubexExpression {
 		join = join.join(c, nothing);
 		
 		//Join must have type iterable
-		
-		if (!(join.isSuperTypeOf(c, c.getTypeGrammarFromTypeContext("Iterable")))){
+		if (!(join.isSuperTypeOf(c, new CubexTypeClass("Iterable", new CubexList<CubexTypeGrammar>())))){
 			throw new SemanticException("Must append arguments of type Iterable");
 		}
 //		CubexList<CubexTypeGrammar> list = e1Type.getTypeList();

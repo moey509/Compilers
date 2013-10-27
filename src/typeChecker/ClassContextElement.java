@@ -10,6 +10,7 @@ import parsingTokens.CubexInterface;
 import parsingTokens.context.CubexTypeScheme;
 import parsingTokens.statements.CubexStatement;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
+import parsingTokens.typeGrammar.CubexTypeIntersection;
 
 public class ClassContextElement {
 	private boolean isClass; // Class or interface
@@ -76,6 +77,11 @@ public class ClassContextElement {
 	
 	public String toString(){
 		try {
+			if (type instanceof CubexTypeIntersection){
+				CubexTypeIntersection intersection = (CubexTypeIntersection) type;
+				
+				return " extends " + intersection.typeGrammar1.name + " & " + intersection.typeGrammar2.name + ". " + kindContext.toString() + ". Functions:" + functionMap.toString();
+			}
 			return " extends " + type.getName() + ". " + kindContext.toString() + ". Functions:" + functionMap.toString();
 		} catch (SemanticException e) {
 			e.printStackTrace();
