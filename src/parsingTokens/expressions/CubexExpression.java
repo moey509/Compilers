@@ -49,7 +49,4 @@ public class CubexExpression {
 		}
 	}
 	
-	public ir.IrNode irConvert() {
-		return null;
-	}
 }

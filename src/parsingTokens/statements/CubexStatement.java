@@ -28,8 +28,4 @@ public abstract class CubexStatement {
 		return l;
 	}
 	
-	public ir.IrNode irConvert() {
-		// TODO: IMPLEMENT THIS
-		return null;
-	}
 }
