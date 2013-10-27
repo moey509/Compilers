@@ -26,18 +26,13 @@ struct iterator
 };
 
 // status: {-1 : regular number} {0 : through} {1 : onwards}
+// for the case of a single number, the value will be held in the field 'low'
 struct nit 
 {
-  void * low
+  void * low;
   void * high;
   int status;
 };
-
-void resetCurrent(git_t g) {
-   if (((nit_t)g->val)->status != -1) {
-     ((nit_t)g->val)->cur = ((nit_t)g->val)->low;
-
-}
 
 // returns a pointer to the next element
 void* getNext(iterator_t it) {
@@ -54,7 +49,7 @@ void* getNext(iterator_t it) {
     n = g->val;
     // regular case 
     if (n->status == -1) {
-      temp = n->val;
+      temp = n->low;
       it->g = g->next;
       it->cur = NULL;
       return temp;      
@@ -119,8 +114,31 @@ void free_git(git_t g) {
   }
 }
 
+void git_append (git_t first, git_t second) {
+  git_t temp;
+  temp = first;
+  if (second == NULL) 
+    return;
+  if (first == NULL) {
+    first = second;
+    return;
+  }
+  while (temp->next != NULL) {
+    temp = temp->next;
+  }
+  temp->next = second;
+  return;
+}
+
+
+void charTest() {
+  git_t t1 = (git_t) malloc(sizeof(struct git));
+  git_t t2 = (git_t) malloc(sizeof(struct git));
+}
+
 int main()
 {
+  /*
   blah_t one = (blah_t)malloc(sizeof(struct blah));
   blah_t two = (blah_t)malloc(sizeof(struct blah));
   one->val = 4;
@@ -155,6 +173,8 @@ int main()
   ntest->status = 0;
 
   printf ("test: %d\n", ((nit_t)test->val)->high);
+
+*/
 
   /*
   char string[6];
