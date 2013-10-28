@@ -60,21 +60,19 @@ public class TypeContext {
 		return t;
 	}
 	
-	//TODO: Is this comment correct, I'm looking for this :> t, so why am i seeing if the type in t are a supertype of the types in this?
+	// Is this comment correct, I'm looking for this :> t, so why am i seeing if the type in t are a supertype of the types in this?
+	// Answer: The following comment is used for context subtyping: correct if you look at definition of context subtyping
 	// returns whether this TypeContext contains all of t's entries with their values or a subtype of their values
 	// each of t's entries must be in this, and each of t's entry's values must be a supertype of that in this
-	public boolean containsAll(CubexCompleteContext c, TypeContext t) throws SemanticException {
+	public TypeContext containsAll(CubexCompleteContext c, TypeContext t) throws SemanticException {
+		TypeContext ret = new TypeContext();
 		for (String name: t.contextMap.keySet()) {
 			if (!contextMap.containsKey(name)) {
-				return false;
+				throw new SemanticException("TypeContext: One of t's entries not in this");
 			}
-			//TODO: this if statement is backwards?
-			//if (!t.get(name).isSuperTypeOf(c, get(name))){
-			if (!get(name).isSuperTypeOf(c, t.get(name))){
-				return false;
-			}
+			ret.contextMap.put(name, t.get(name).join(c, get(name)));
 		}
-		return true;
+		return ret;
 	}
 	
 	public void remove(String variableName){
@@ -95,6 +93,10 @@ public class TypeContext {
 	
 	public Set<Map.Entry<String, CubexTypeGrammar>> entrySet() {
 		return contextMap.entrySet();
+	}
+	
+	public Set<String> keySet() {
+		return contextMap.keySet();
 	}
 	
 	public String toString(){

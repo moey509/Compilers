@@ -13,5 +13,5 @@ else
 	c := 2;
 	g := "g";
 }
-b = := g;
+b := g;
 return ["hello"];

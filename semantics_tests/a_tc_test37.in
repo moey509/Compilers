@@ -1,10 +1,10 @@
 # parser test [name hiding from supertype, no args] 
-interface A<T>() 
+interface A<F>() 
 {
 	fun aFun() : Integer = 0;
 }
 
-class B<T>() extends A<T>
+class B<F>() extends A<F>
 {
 	fun aFun() : Boolean<> = True;
 }

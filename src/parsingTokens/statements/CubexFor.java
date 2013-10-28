@@ -41,8 +41,12 @@ public final class CubexFor extends CubexStatement {
 		CubexCompleteContext copy1 = c.clone();
 		copy1.mutableTypeContext.put(varfun, etype.getTypeList().get(0));
 		TypeContext gamma = s.typeCheck(copy1);
-		if (!gamma.containsAll(copy1, c.mutableTypeContext))
-			throw new SemanticException("CubexFor: Initial content is not a subset of context returned by s");
+		//if (!gamma.containsAll(copy1, c.mutableTypeContext))
+			//throw new SemanticException("CubexFor: Initial content is not a subset of context returned by s");
+
+		if (!gamma.keySet().containsAll(c.mutableTypeContext.keySet())) {
+			throw new SemanticException("CubexFor: TypeContexts are not subtypes");
+		}
 		return c.mutableTypeContext.clone();
 		
 		
@@ -63,10 +67,11 @@ public final class CubexFor extends CubexStatement {
 		copy1.mutableTypeContext.put(varfun, etype.getTypeList().get(0));
 
 		TypeContextReturn gamma = s.typeCheckReturn(copy1);
-		if (!gamma.typeContext.containsAll(copy1, c.mutableTypeContext)){
-			throw new SemanticException("CubexFor: Initial content is not a subset of context returned by s");
-		}
-		return new TypeContextReturn(c.mutableTypeContext.clone(), false, gamma.retType);
+		//if (!gamma.typeContext.containsAll(copy1, c.mutableTypeContext)){
+			//throw new SemanticException("CubexFor: Initial content is not a subset of context returned by s");
+		//}
+		TypeContext ret = gamma.typeContext.containsAll(copy1, c.mutableTypeContext);
+		return new TypeContextReturn(ret, false, gamma.retType);
 				
 		
 	}
