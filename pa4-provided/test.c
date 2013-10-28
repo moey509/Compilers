@@ -4,6 +4,7 @@ typedef struct blah* blah_t;
 typedef struct git * git_t;
 typedef struct nit * nit_t;
 typedef struct iterator * iterator_t;
+typedef struct iterable * iterable_t;
 
 struct blah
 {
@@ -13,7 +14,6 @@ struct blah
 
 struct git 
 {
-  int is_int;
   void* val;
   git_t next;
 };
@@ -25,23 +25,25 @@ struct iterator
   void * cur;
 };
 
+struct iterable
+{
+  git_t first;
+  git_t last;
+  int is_int;
+};
+
 // status: {-1 : regular number} {0 : through} {1 : onwards}
+// for the case of a single number, the value will be held in the field 'low'
 struct nit 
 {
-  void * low
+  void * low;
   void * high;
   int status;
 };
 
-void resetCurrent(git_t g) {
-   if (((nit_t)g->val)->status != -1) {
-     ((nit_t)g->val)->cur = ((nit_t)g->val)->low;
-
-}
-
 // returns a pointer to the next element
 void* getNext(iterator_t it) {
-  if (it == NULL || it->g) {
+  if (it == NULL || it->g == NULL) {
     return NULL;
   }
   void * temp;
@@ -54,19 +56,21 @@ void* getNext(iterator_t it) {
     n = g->val;
     // regular case 
     if (n->status == -1) {
-      temp = n->val;
+      temp = n->low;
       it->g = g->next;
       it->cur = NULL;
       return temp;      
     }
 
+    //set cur value if not set yet
+    if (it->cur == NULL) 
+      it->cur = n->low;
+
     // through case
     if (n->status == 0) {
-      // set cur value if not set yet
-      if (it->cur == NULL) 
-        it->cur = n->low;
       // case with no data
       if (it->cur > n->high) {
+        printf ("no more data, going to next\n");
         it->g = g->next;
         it->cur = NULL;
         return getNext(it);
@@ -74,7 +78,9 @@ void* getNext(iterator_t it) {
       temp = it->cur;
       // increment value
       it->cur += 1;
-      if (it->cur > n->high) {
+      //printf("%d ? %d\n", it->cur, n->high);
+      if ((int)(it->cur) > (int)(n->high)) {
+        //printf ("here!\n");
         it->g = g->next;
         it->cur = NULL;        
       }
@@ -92,6 +98,7 @@ void* getNext(iterator_t it) {
   else {
     temp = g->val;
     it->g = g->next;
+    return temp;
   }
 }
 
@@ -101,26 +108,260 @@ void freeIterator(iterator_t it) {
     free(it);
 }
 
-// method that frees a git_t struct
-void free_git(git_t g) {
+//TODO: need to redo so that it uses the iterable struct
+// // method that frees a git_t struct
+// void free_git(git_t g) {
+//   git_t temp;
+//   git_t free_ptr;
+//   nit_t n;
+//   temp = g;
+//   while (temp != NULL) {
+//     // int case
+//     if (temp->is_int == 1) {
+//       n = temp->val;
+//       free(n);
+//     }
+//     free_ptr = temp;
+//     temp = temp->next;
+//     free(free_ptr);
+//   }
+// }
+
+//TODO: need to reimplement
+void git_append (git_t first, git_t second) {
   git_t temp;
-  git_t free_ptr;
-  nit_t n;
-  temp = g;
-  while (temp != NULL) {
-    // int case
-    if (temp->is_int == 1) {
-      n = temp->val;
-      free(n);
-    }
-    free_ptr = temp;
-    temp = temp->next;
-    free(free_ptr);
+  temp = first;
+  if (second == NULL) 
+    return;
+  if (first == NULL) {
+    first = second;
+    return;
   }
+  while (temp->next != NULL) {
+    temp = temp->next;
+  }
+  temp->next = second;
+  return;
+}
+
+void intTest() {
+  void * ans;
+  git_t g1 = (git_t) malloc(sizeof(struct git));
+  git_t g2 = (git_t) malloc(sizeof(struct git));
+  nit_t n1 = (nit_t) malloc(sizeof(struct nit));
+  nit_t n2 = (nit_t) malloc(sizeof(struct nit));
+  iterable_t iter = (iterable_t) malloc (sizeof(struct iterable));
+  iterator_t it = (iterator_t) malloc(sizeof(struct iterator));
+
+  // iterable 
+  iter->is_int = 1;
+  iter->first = g1;
+  iter->last = g1;
+
+  // iterator
+  it->is_int = 1;
+
+  // null test:
+  ans = getNext(it);
+  if (ans == NULL) 
+    printf("[ASSERT] pass [null test]\n");
+  else
+    printf("[ASSERT] fail [null test]\n");
+
+  // one element: regular (-1)
+  // reset iterator 
+  it->g = iter->first;
+
+  n1->low = 1;
+  n1->status = -1;
+  g1->val = n1;
+
+  ans = getNext(it);
+  printf ("[INFO][one element][regular]\n");
+  if (ans == 1) 
+    printf("[ASSERT] pass [one element]\n");    
+  else
+    printf("[ASSERT] fail [one element]\n");    
+  ans = getNext(it);
+  if (ans == NULL) 
+    printf("[ASSERT] pass [one element]\n");    
+  else
+    printf("[ASSERT] fail [one element]\n");    
+
+  // one element: through (0)
+  // reset iterator 
+  it->g = iter->first;
+
+  n1->low = 2;
+  n1->high = 5;
+  n1->status = 0;
+  g1->val = n1;
+  
+  printf ("[INFO][one element][through]\n");
+  ans = getNext(it);
+  if (ans == 2) 
+    printf("[ASSERT] pass [one element] 2 \n");    
+  else
+    printf("[ASSERT] fail [one element]\n");    
+
+  ans = getNext(it);
+  if (ans == 3) 
+    printf("[ASSERT] pass [one element] 3\n");    
+  else
+    printf("[ASSERT] fail [one element]\n");    
+
+  ans = getNext(it);
+  if (ans == 4) 
+    printf("[ASSERT] pass [one element] 4\n");    
+  else
+    printf("[ASSERT] fail [one element]\n");    
+
+  ans = getNext(it);
+  if (ans == 5) 
+    printf("[ASSERT] pass [one element] 5\n");    
+  else
+    printf("[ASSERT] fail [one element]\n");    
+
+  ans = getNext(it);
+  if (ans == NULL) 
+    printf("[ASSERT] pass [one element]\n");    
+  else
+    printf("[ASSERT] fail [one element]\n");    
+
+  // one element: through (0) broken case
+  // reset iterator 
+  it->g = iter->first;
+
+  n1->low = 2;
+  n1->high = 0;
+  n1->status = 0;
+  g1->val = n1;
+  
+  printf ("[INFO][one element][through]\n");
+  ans = getNext(it);
+  if (ans == NULL) 
+    printf("[ASSERT] pass [one element]\n");    
+  else
+    printf("[ASSERT] fail [one element]\n");    
+
+  ans = getNext(it);
+  if (ans == NULL) 
+    printf("[ASSERT] pass [one element]\n");    
+  else
+    printf("[ASSERT] fail [one element]\n");    
+
+  ans = getNext(it);
+  if (ans == NULL) 
+    printf("[ASSERT] pass [one element]\n");    
+  else
+    printf("[ASSERT] fail [one element]\n");    
+
+  // one element: onwards (1)
+  // reset iterator 
+  it->g = iter->first;
+
+  n1->low = 2;
+  n1->high = 0;
+  n1->status = 1;
+  g1->val = n1;
+  
+
+  printf ("[INFO][one element][through]\n");
+  ans = getNext(it);
+  //printf ("---%d\n", ans);
+  if (ans == 2) 
+    printf("[ASSERT] pass [one element] 2 \n");    
+  else
+    printf("[ASSERT] fail [one element]\n");    
+
+  ans = getNext(it);
+  if (ans == 3) 
+    printf("[ASSERT] pass [one element] 3\n");    
+  else
+    printf("[ASSERT] fail [one element]\n");    
+
+  ans = getNext(it);
+  if (ans == 4) 
+    printf("[ASSERT] pass [one element] 4\n");    
+  else
+    printf("[ASSERT] fail [one element]\n");    
+
+  ans = getNext(it);
+  if (ans == 5) 
+    printf("[ASSERT] pass [one element] 5\n");    
+  else
+    printf("[ASSERT] fail [one element]\n");    
+}
+
+
+void charTest() {
+  void * ans;
+  git_t g1 = (git_t) malloc(sizeof(struct git));
+  git_t g2 = (git_t) malloc(sizeof(struct git));
+  iterable_t iter = (iterable_t) malloc (sizeof(struct iterable));
+  iterator_t it = (iterator_t) malloc(sizeof(struct iterator));
+
+  // iterable
+  iter->is_int = 0;
+  iter->first = g1;
+  iter->last = g1;
+
+  // iterator
+  it->g = iter->first;
+  it->is_int = 0;
+
+  // null test:
+  ans = getNext(it);
+  if (ans == NULL) 
+    printf("[ASSERT] pass [null test]\n");
+  else
+    printf("[ASSERT] fail [null test]\n");
+
+  // reset iterator
+  it->g = iter->first;
+
+  // one element:
+  g1->val = 'a';
+  ans = getNext(it);
+  if ((char)ans == 'a') 
+    printf("[ASSERT] pass [one element]\n");    
+  else
+    printf("[ASSERT] fail [one element]\n");    
+  ans = getNext(it);
+  if (ans == NULL) 
+    printf("[ASSERT] pass [one element]\n");    
+  else
+    printf("[ASSERT] fail [one element]\n");    
+
+  // reset iterator
+  it->g = iter->first;
+  // two elements:
+  g2->val = 'b';
+  g1->next = g2;
+
+  ans = getNext(it);
+  if ((char)ans == 'a') 
+    printf("[ASSERT] pass [two element]\n");    
+  else
+    printf("[ASSERT] fail [two element]\n");    
+  ans = getNext(it);
+  if (ans == 'b') 
+    printf("[ASSERT] pass [two element]\n");    
+  else
+    printf("[ASSERT] fail [two element]\n");    
+  ans = getNext(it);
+  if (ans == NULL) 
+    printf("[ASSERT] pass [two element]\n");    
+  else
+    printf("[ASSERT] fail [two element]\n");    
 }
 
 int main()
 {
+  //charTest();
+  intTest();
+
+  /*
   blah_t one = (blah_t)malloc(sizeof(struct blah));
   blah_t two = (blah_t)malloc(sizeof(struct blah));
   one->val = 4;
@@ -153,11 +394,14 @@ int main()
   ntest->cur = 3;
   ntest->high = 7;
   ntest->status = 0;
-
+no i'm 
   printf ("test: %d\n", ((nit_t)test->val)->high);
+
+*/
 
   /*
   char string[6];
+  sprintf("%s", string);
   string[0] = '\0';
   sprintf("%s", string[0]);
   sprintf("%s", string);
@@ -182,3 +426,14 @@ int main()
   */
   return 0;
 }
+
+
+//TODO: list of things that still need to be tested:
+// make sure we don't add emtpy iterators
+/*
+- update everything with new iterable struct
+- remaining TODOs
+- appending
+- getNext (everything else, ints)
+- memory leaks!
+*/
