@@ -291,6 +291,82 @@ void intTest() {
     printf("[ASSERT] pass [one element] 5\n");    
   else
     printf("[ASSERT] fail [one element]\n");    
+
+  // two element tests (-1), (0)
+  // reset iterator 
+  it->g = iter->first;
+
+  n1->low = 1;
+  n1->status = -1;
+  g1->val = n1;
+
+  n2->low = 2;
+  n2->high = 3;
+  n2->status = 0;
+
+  g2->val = n2;
+  g1->next = g2;
+
+  ans = getNext(it);
+  printf ("[INFO][one element][regular]\n");
+  if (ans == 1) 
+    printf("[ASSERT] pass [one element] 1\n");    
+  else
+    printf("[ASSERT] fail [one element]\n");    
+
+  ans = getNext(it);
+  if (ans == 2) 
+    printf("[ASSERT] pass [one element] 2\n");    
+  else
+    printf("[ASSERT] fail [one element]\n");    
+
+  ans = getNext(it);
+  if (ans == 3) 
+    printf("[ASSERT] pass [one element] 3\n");    
+  else
+    printf("[ASSERT] fail [one element]\n");    
+
+
+  // two element tests (0), (-1)
+  // reset iterator 
+  it->g = iter->first;
+
+  n1->low = 2;
+  n1->high = 3;
+  n1->status = 0;
+  
+
+  n2->low = 1;
+  n2->status = -1;
+
+  g1->val = n1;
+  g1->next = g2;
+  g2->val = n2;
+
+  ans = getNext(it);
+  printf ("[INFO][one element][regular]\n");
+  if (ans == 2) 
+    printf("[ASSERT] pass [one element] 2\n");    
+  else
+    printf("[ASSERT] fail [one element]\n");    
+
+  ans = getNext(it);
+  if (ans == 3) 
+    printf("[ASSERT] pass [one element] 3\n");    
+  else
+    printf("[ASSERT] fail [one element]\n");    
+
+  ans = getNext(it);
+  if (ans == 1) 
+    printf("[ASSERT] pass [one element] 1\n");    
+  else
+    printf("[ASSERT] fail [one element]\n");    
+
+  ans = getNext(it);
+  if (ans == NULL) 
+    printf("[ASSERT] pass [one element] NULL\n");    
+  else
+    printf("[ASSERT] fail [one element]\n");    
 }
 
 
@@ -354,6 +430,9 @@ void charTest() {
     printf("[ASSERT] pass [two element]\n");    
   else
     printf("[ASSERT] fail [two element]\n");    
+
+
+  
 }
 
 int main()
