@@ -46,7 +46,7 @@ public final class CubexFunctionCall extends CubexExpression {
 		if (c.containsFunctionName(v_vc)) {
 			typeScheme = c.getTypeSchemeFromFunctionContext(v_vc);
 		} else {
-			throw new SemanticException("");
+			throw new SemanticException(v_vc + " is not contained in function context");
 		}
 		
 		//Get the Function Kind Context

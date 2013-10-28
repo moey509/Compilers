@@ -188,16 +188,16 @@ public class CubexClassGrammar {
 		context.functionContext.merge(funContextPrime);
 
 		HashMap<String, CubexFunctionDef> superFuncs = new HashMap<String, CubexFunctionDef>();
-		for (String name : superFunction.keySet()) {
-			CubexTypeScheme scheme = superFunction.get(name);
-			scheme.validate(context);
-			superFuncs.put(name, new CubexFunctionDef(name, scheme,
-					superFunctionStatements.get(name)));
+		for (Map.Entry<String, CubexTypeScheme> entry : superFunction.entrySet()){
+			entry.getValue().validate(context);
+			superFuncs.put(name, new CubexFunctionDef(entry.getKey(), entry.getValue(),
+					superFunctionStatements.get(entry.getKey())));
 		}
 		for (CubexFunctionDef fun : functions.iterable()) {
 			System.out.println(fun);
 			superFuncs.put(fun.name, fun);
 		}
+		System.out.println(superFuncs);
 
 		// Check that all function type schemes are valid
 		for (CubexFunctionDef fun : superFuncs.values()) {
@@ -249,9 +249,18 @@ public class CubexClassGrammar {
 							"CubexClassGrammar: TypeScheme overlap");
 			}
 		}
+		for (CubexFunctionDef fun : superFuncs.values()){
+			funContextDoublePrime.put(fun.name, fun.typescheme);
+			for (String s : fun.typescheme.getKindContext().iterable()) {
+				if (kindContextElements.contains(s))
+					throw new SemanticException(
+							"CubexClassGrammar: TypeScheme overlap");
+			}
+		}
 
 		// Complete function context
 		context.functionContext.merge(funContextDoublePrime);
+
 
 		// Check to see that all statements are valid under a lot of contexts
 		KindContext originalKindContext = context.kindContext.clone();
@@ -274,6 +283,8 @@ public class CubexClassGrammar {
 						"CubexClassGrammar: Function does not return or returns wrong type");
 			}
 		}
+		
+		
 
 		// 10.2.E,F
 		// KindContext kindContext1 = new KindContext();
