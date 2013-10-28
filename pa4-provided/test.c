@@ -30,7 +30,7 @@ struct iterable
   git_t first;
   git_t last;
   int is_int;
-}
+};
 
 // status: {-1 : regular number} {0 : through} {1 : onwards}
 // for the case of a single number, the value will be held in the field 'low'
@@ -43,7 +43,7 @@ struct nit
 
 // returns a pointer to the next element
 void* getNext(iterator_t it) {
-  if (it == NULL || it->g) {
+  if (it == NULL || it->g == NULL) {
     return NULL;
   }
   void * temp;
@@ -94,6 +94,7 @@ void* getNext(iterator_t it) {
   else {
     temp = g->val;
     it->g = g->next;
+    return temp;
   }
 }
 
@@ -158,26 +159,52 @@ void charTest() {
   // null test:
   ans = getNext(it);
   if (ans == NULL) 
-    printf("[ASSERT] pass [null test]");
+    printf("[ASSERT] pass [null test]\n");
   else
-    printf("[ASSERT] fail [null test]");
+    printf("[ASSERT] fail [null test]\n");
+
+  // reset iterator
+  it->g = iter->first;
 
   // one element:
   g1->val = 'a';
   ans = getNext(it);
-  if (ans == 'a') 
-    printf("[ASSERT] pass [one element]");    
+  if ((char)ans == 'a') 
+    printf("[ASSERT] pass [one element]\n");    
   else
-    printf("[ASSERT] fail [one element]");    
+    printf("[ASSERT] fail [one element]\n");    
   ans = getNext(it);
   if (ans == NULL) 
-    printf("[ASSERT] pass [one element]");    
+    printf("[ASSERT] pass [one element]\n");    
   else
-    printf("[ASSERT] fail [one element]");    
+    printf("[ASSERT] fail [one element]\n");    
+
+  // reset iterator
+  it->g = iter->first;
+  // two elements:
+  g2->val = 'b';
+  g1->next = g2;
+
+  ans = getNext(it);
+  if ((char)ans == 'a') 
+    printf("[ASSERT] pass [two element]\n");    
+  else
+    printf("[ASSERT] fail [two element]\n");    
+  ans = getNext(it);
+  if (ans == 'b') 
+    printf("[ASSERT] pass [two element]\n");    
+  else
+    printf("[ASSERT] fail [two element]\n");    
+  ans = getNext(it);
+  if (ans == NULL) 
+    printf("[ASSERT] pass [two element]\n");    
+  else
+    printf("[ASSERT] fail [two element]\n");    
 }
 
 int main()
 {
+  charTest();
   /*
   blah_t one = (blah_t)malloc(sizeof(struct blah));
   blah_t two = (blah_t)malloc(sizeof(struct blah));
