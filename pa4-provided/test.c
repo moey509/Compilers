@@ -62,12 +62,12 @@ void* getNext(iterator_t it) {
       return temp;      
     }
 
+    //set cur value if not set yet
+    if (it->cur == NULL) 
+      it->cur = n->low;
+
     // through case
     if (n->status == 0) {
-      printf ("through case!\n");
-      // set cur value if not set yet
-      if (it->cur == NULL) 
-        it->cur = n->low;
       // case with no data
       if (it->cur > n->high) {
         printf ("no more data, going to next\n");
@@ -78,9 +78,9 @@ void* getNext(iterator_t it) {
       temp = it->cur;
       // increment value
       it->cur += 1;
-      printf("%d ? %d\n", it->cur, n->high);
+      //printf("%d ? %d\n", it->cur, n->high);
       if ((int)(it->cur) > (int)(n->high)) {
-        printf ("here!\n");
+        //printf ("here!\n");
         it->g = g->next;
         it->cur = NULL;        
       }
@@ -228,7 +228,69 @@ void intTest() {
   else
     printf("[ASSERT] fail [one element]\n");    
 
+  // one element: through (0) broken case
+  // reset iterator 
+  it->g = iter->first;
+
+  n1->low = 2;
+  n1->high = 0;
+  n1->status = 0;
+  g1->val = n1;
+  
+  printf ("[INFO][one element][through]\n");
+  ans = getNext(it);
+  if (ans == NULL) 
+    printf("[ASSERT] pass [one element]\n");    
+  else
+    printf("[ASSERT] fail [one element]\n");    
+
+  ans = getNext(it);
+  if (ans == NULL) 
+    printf("[ASSERT] pass [one element]\n");    
+  else
+    printf("[ASSERT] fail [one element]\n");    
+
+  ans = getNext(it);
+  if (ans == NULL) 
+    printf("[ASSERT] pass [one element]\n");    
+  else
+    printf("[ASSERT] fail [one element]\n");    
+
   // one element: onwards (1)
+  // reset iterator 
+  it->g = iter->first;
+
+  n1->low = 2;
+  n1->high = 0;
+  n1->status = 1;
+  g1->val = n1;
+  
+
+  printf ("[INFO][one element][through]\n");
+  ans = getNext(it);
+  //printf ("---%d\n", ans);
+  if (ans == 2) 
+    printf("[ASSERT] pass [one element] 2 \n");    
+  else
+    printf("[ASSERT] fail [one element]\n");    
+
+  ans = getNext(it);
+  if (ans == 3) 
+    printf("[ASSERT] pass [one element] 3\n");    
+  else
+    printf("[ASSERT] fail [one element]\n");    
+
+  ans = getNext(it);
+  if (ans == 4) 
+    printf("[ASSERT] pass [one element] 4\n");    
+  else
+    printf("[ASSERT] fail [one element]\n");    
+
+  ans = getNext(it);
+  if (ans == 5) 
+    printf("[ASSERT] pass [one element] 5\n");    
+  else
+    printf("[ASSERT] fail [one element]\n");    
 }
 
 
