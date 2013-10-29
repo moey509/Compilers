@@ -172,36 +172,17 @@ iterable_t new_iterable_int (int status, void* low, void* high) {
 
 void intTest() {
   void * ans;
-  git_t g1 = (git_t) malloc(sizeof(struct git));
-  git_t g2 = (git_t) malloc(sizeof(struct git));
-  nit_t n1 = (nit_t) malloc(sizeof(struct nit));
-  nit_t n2 = (nit_t) malloc(sizeof(struct nit));
-  iterable_t iter = (iterable_t) malloc (sizeof(struct iterable));
-  iterator_t it = (iterator_t) malloc(sizeof(struct iterator));
 
-  // iterable 
-  iter->is_int = 1;
-  iter->first = g1;
-  iter->last = g1;
+  iterable_t i1 = new_iterable_int(-1, 1, 0);
+  iterator_t it = (iterator_t) malloc(sizeof(struct iterator));
 
   // iterator
   it->is_int = 1;
 
-  // null test:
-  ans = getNext(it);
-  if (ans == NULL) 
-    printf("[ASSERT] pass [null test]\n");
-  else
-    printf("[ASSERT] fail [null test]\n");
-
-  // one element: regular (-1)
-  // reset iterator 
-  it->g = iter->first;
-
-  n1->low = 1;
-  n1->status = -1;
-  g1->val = n1;
-
+  // iterator
+  it->g = i1->first;
+  it->is_int = 1;
+  
   ans = getNext(it);
   printf ("[INFO][one element][regular]\n");
   if (ans == 1) 
@@ -215,14 +196,10 @@ void intTest() {
     printf("[ASSERT] fail [one element]\n");    
 
   // one element: through (0)
+  i1 = new_iterable_int (0, 2, 5);
   // reset iterator 
-  it->g = iter->first;
+  it->g = i1->first;
 
-  n1->low = 2;
-  n1->high = 5;
-  n1->status = 0;
-  g1->val = n1;
-  
   printf ("[INFO][one element][through]\n");
   ans = getNext(it);
   if (ans == 2) 
@@ -256,12 +233,9 @@ void intTest() {
 
   // one element: through (0) broken case
   // reset iterator 
-  it->g = iter->first;
-
-  n1->low = 2;
-  n1->high = 0;
-  n1->status = 0;
-  g1->val = n1;
+  i1 = new_iterable_int (0, 5, 2);
+  // reset iterator 
+  it->g = i1->first;
   
   printf ("[INFO][one element][through]\n");
   ans = getNext(it);
@@ -283,14 +257,9 @@ void intTest() {
     printf("[ASSERT] fail [one element]\n");    
 
   // one element: onwards (1)
+  i1 = new_iterable_int (1, 2, 0);
   // reset iterator 
-  it->g = iter->first;
-
-  n1->low = 2;
-  n1->high = 0;
-  n1->status = 1;
-  g1->val = n1;
-  
+  it->g = i1->first;
 
   printf ("[INFO][one element][through]\n");
   ans = getNext(it);
@@ -319,19 +288,11 @@ void intTest() {
     printf("[ASSERT] fail [one element]\n");    
 
   // two element tests (-1), (0)
+  i1 = new_iterable_int (-1, 1, 0);
+  iterable_t i2 = new_iterable_int (0, 2, 3);
+  iterable_append(i1, i2);
   // reset iterator 
-  it->g = iter->first;
-
-  n1->low = 1;
-  n1->status = -1;
-  g1->val = n1;
-
-  n2->low = 2;
-  n2->high = 3;
-  n2->status = 0;
-
-  g2->val = n2;
-  g1->next = g2;
+  it->g = i1->first;
 
   ans = getNext(it);
   printf ("[INFO][one element][regular]\n");
@@ -354,20 +315,11 @@ void intTest() {
 
 
   // two element tests (0), (-1)
+  i1 = new_iterable_int (0, 2, 3);
+  i2 = new_iterable_int (-1, 1, 0);
+  iterable_append(i1, i2);
   // reset iterator 
-  it->g = iter->first;
-
-  n1->low = 2;
-  n1->high = 3;
-  n1->status = 0;
-  
-
-  n2->low = 1;
-  n2->status = -1;
-
-  g1->val = n1;
-  g1->next = g2;
-  g2->val = n2;
+  it->g = i1->first;
 
   ans = getNext(it);
   printf ("[INFO][one element][regular]\n");
@@ -449,8 +401,8 @@ void charTest() {
 
 int main()
 {
-  charTest();
-  //intTest();
+  //charTest();
+  intTest();
 
   /*
   blah_t one = (blah_t)malloc(sizeof(struct blah));
