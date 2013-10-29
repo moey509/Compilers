@@ -127,8 +127,7 @@ void freeIterator(iterator_t it) {
 //   }
 // }
 
-//TODO: need to reimplement
-void git_append (git_t first, git_t second) {
+void iterable_append (iterable_t first, iterable_t second) {
   git_t temp;
   temp = first;
   if (second == NULL) 
@@ -137,11 +136,38 @@ void git_append (git_t first, git_t second) {
     first = second;
     return;
   }
-  while (temp->next != NULL) {
-    temp = temp->next;
-  }
-  temp->next = second;
+  first->last->next = second->first;
+  first->last = second->last;
+  // free the second iterable struct
+  free(second);
   return;
+}
+
+// constructs a new iterable for anything but ints
+iterable_t new_iterable_obj (void* obj) {
+  iterable_t iter = (iterable_t)malloc(sizeof(struct iterable));
+  git_t g = (git_t)malloc(sizeof(struct git));
+  g->val = obj;
+  iter->first = g;
+  iter->last = g;
+  iter->is_int = 0;
+  return iter;
+}
+
+// constructs a new iterable for ints. The status, low and high inputs
+// correspond to the values in a nit_T struct
+iterable_t new_iterable_int (int status, void* low, void* high) {
+  iterable_t iter = (iterable_t)malloc(sizeof(struct iterable));
+  git_t g = (git_t)malloc(sizeof(struct git));
+  nit_t n = (nit_t)malloc(sizeof(struct nit));
+  n->status = status;
+  n->low = low;
+  n->high = high;
+  g->val = n;
+  iter->first = g;
+  iter->last = g;
+  iter->is_int = 1;
+  return iter;
 }
 
 void intTest() {
@@ -515,4 +541,6 @@ no i'm
 - appending
 - getNext (everything else, ints)
 - memory leaks!
+- appending
+- creation of iterables
 */
