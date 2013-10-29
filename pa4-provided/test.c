@@ -128,8 +128,6 @@ void freeIterator(iterator_t it) {
 // }
 
 void iterable_append (iterable_t first, iterable_t second) {
-  git_t temp;
-  temp = first;
   if (second == NULL) 
     return;
   if (first == NULL) {
@@ -170,18 +168,20 @@ iterable_t new_iterable_int (int status, void* low, void* high) {
   return iter;
 }
 
+iterator_t new_iterator (iterable_t iterable) {
+  iterator_t it = (iterator_t) malloc(sizeof(struct iterator));
+  it->g = iterable->first;
+  it->is_int = iterable->is_int;
+  it->cur = NULL;
+  return it;
+}
+
 void intTest() {
   void * ans;
 
   iterable_t i1 = new_iterable_int(-1, 1, 0);
-  iterator_t it = (iterator_t) malloc(sizeof(struct iterator));
+  iterator_t it = new_iterator (i1);
 
-  // iterator
-  it->is_int = 1;
-
-  // iterator
-  it->g = i1->first;
-  it->is_int = 1;
   
   ans = getNext(it);
   printf ("[INFO][one element][regular]\n");
@@ -198,7 +198,7 @@ void intTest() {
   // one element: through (0)
   i1 = new_iterable_int (0, 2, 5);
   // reset iterator 
-  it->g = i1->first;
+  it = new_iterator (i1);
 
   printf ("[INFO][one element][through]\n");
   ans = getNext(it);
@@ -235,7 +235,7 @@ void intTest() {
   // reset iterator 
   i1 = new_iterable_int (0, 5, 2);
   // reset iterator 
-  it->g = i1->first;
+  it = new_iterator (i1);
   
   printf ("[INFO][one element][through]\n");
   ans = getNext(it);
@@ -259,7 +259,7 @@ void intTest() {
   // one element: onwards (1)
   i1 = new_iterable_int (1, 2, 0);
   // reset iterator 
-  it->g = i1->first;
+  it = new_iterator (i1);
 
   printf ("[INFO][one element][through]\n");
   ans = getNext(it);
@@ -288,59 +288,64 @@ void intTest() {
     printf("[ASSERT] fail [one element]\n");    
 
   // two element tests (-1), (0)
-  i1 = new_iterable_int (-1, 1, 0);
-  iterable_t i2 = new_iterable_int (0, 2, 3);
+  i1 = new_iterable_int (-1, 10, 0);
+  iterable_t i2 = new_iterable_int (0, 12, 13);
   iterable_append(i1, i2);
   // reset iterator 
-  it->g = i1->first;
+  it = new_iterator (i1);
 
   ans = getNext(it);
   printf ("[INFO][one element][regular]\n");
-  if (ans == 1) 
-    printf("[ASSERT] pass [one element] 1\n");    
+  if (ans == 10) 
+    printf("[ASSERT] pass [one element] 10\n");    
   else
     printf("[ASSERT] fail [one element]\n");    
 
   ans = getNext(it);
-  if (ans == 2) 
-    printf("[ASSERT] pass [one element] 2\n");    
+  if (ans == 12) 
+    printf("[ASSERT] pass [one element] 12\n");    
   else
     printf("[ASSERT] fail [one element]\n");    
 
   ans = getNext(it);
-  if (ans == 3) 
-    printf("[ASSERT] pass [one element] 3\n");    
+  if (ans == 13) 
+    printf("[ASSERT] pass [one element] 13\n");    
   else
     printf("[ASSERT] fail [one element]\n");    
 
 
   // two element tests (0), (-1)
-  i1 = new_iterable_int (0, 2, 3);
-  i2 = new_iterable_int (-1, 1, 0);
+  i1 = new_iterable_int (0, 12, 13);
+  i2 = new_iterable_int (-1, 5, 0);
   iterable_append(i1, i2);
   // reset iterator 
-  it->g = i1->first;
+  //it->g = i1->first;
+  it = new_iterator (i1);
 
   ans = getNext(it);
+  printf ("--- %d\n", ans);
   printf ("[INFO][one element][regular]\n");
-  if (ans == 2) 
-    printf("[ASSERT] pass [one element] 2\n");    
+  if (ans == 12) 
+    printf("[ASSERT] pass [one element] 12\n");    
   else
     printf("[ASSERT] fail [one element]\n");    
 
   ans = getNext(it);
-  if (ans == 3) 
-    printf("[ASSERT] pass [one element] 3\n");    
+  printf ("--- %d\n", ans);
+  if (ans == 13) 
+    printf("[ASSERT] pass [one element] 13\n");    
   else
     printf("[ASSERT] fail [one element]\n");    
 
   ans = getNext(it);
-  if (ans == 1) 
-    printf("[ASSERT] pass [one element] 1\n");    
+  printf ("--- %d\n", ans);
+  if (ans == 5) 
+    printf("[ASSERT] pass [one element] 5\n");    
   else
     printf("[ASSERT] fail [one element]\n");    
 
   ans = getNext(it);
+  printf ("--- %d\n", ans);
   if (ans == NULL) 
     printf("[ASSERT] pass [one element] NULL\n");    
   else
@@ -394,9 +399,6 @@ void charTest() {
     printf("[ASSERT] pass [two element]\n");    
   else
     printf("[ASSERT] fail [two element]\n");    
-
-
-  
 }
 
 int main()
