@@ -15,8 +15,10 @@ public class IrListStatement extends IrStatement {
 
 	@Override
 	public ArrayList<String> toC() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<String> arrList = new ArrayList<String>();
+		for (IrStatement statement : cList.iterable())
+			arrList.addAll(statement.toC());
+		return arrList;
 	}
 
 

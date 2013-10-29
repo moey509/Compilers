@@ -11,8 +11,9 @@ public final class IrReturn extends IrStatement {
 
 	@Override
 	public ArrayList<String> toC() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<String> arrList = new ArrayList<String>();
+		arrList.add("return " + e.toC());
+		return arrList;
 	}
 
 }

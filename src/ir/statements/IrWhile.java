@@ -13,8 +13,11 @@ public final class IrWhile extends IrStatement {
 
 	@Override
 	public ArrayList<String> toC() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<String> arrList = new ArrayList<String>();
+		arrList.add("while(" + e.toC() + ") {");
+		arrList.addAll(s.toC());
+		arrList.add("}");
+		return arrList;
 	}
 
 }

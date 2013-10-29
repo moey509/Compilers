@@ -17,8 +17,18 @@ public class IrIf extends IrStatement {
 
 	@Override
 	public ArrayList<String> toC() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<String> arrList = new ArrayList<String>();
+		arrList.add("if(" + e.toC() + ") {");
+		arrList.addAll(s1.toC());
+		if (s2 == null){
+			arrList.add("}");
+		}
+		else {
+			arrList.add("} else {");
+			arrList.addAll(s2.toC());
+			arrList.add("}");
+		}
+		return arrList;
 	}
 
 }
