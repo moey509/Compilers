@@ -8,6 +8,6 @@ public final class IrString extends IrExpression {
 	}
 	
 	public String toC() {
-		return null;
+		return "\"" + mValue + "\"";
 	}
 }

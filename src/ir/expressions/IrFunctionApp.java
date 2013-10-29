@@ -19,6 +19,6 @@ public final class IrFunctionApp extends IrExpression {
 	}
 
 	public String toC() {
-		return null;
+		return "";
 	}
 }

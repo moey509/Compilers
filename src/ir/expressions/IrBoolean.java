@@ -8,6 +8,6 @@ public final class IrBoolean extends IrExpression {
 	}
 
 	public String toC() {
-		return null;
+		return mValue ? "1" : "0";
 	}
 }
