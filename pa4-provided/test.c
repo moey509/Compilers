@@ -398,32 +398,17 @@ void intTest() {
 
 void charTest() {
   void * ans;
-  git_t g1 = (git_t) malloc(sizeof(struct git));
-  git_t g2 = (git_t) malloc(sizeof(struct git));
-  iterable_t iter = (iterable_t) malloc (sizeof(struct iterable));
+
+  iterable_t i1 = new_iterable_obj('a');
+  iterable_t i2 = new_iterable_obj('b');
+
   iterator_t it = (iterator_t) malloc(sizeof(struct iterator));
 
-  // iterable
-  iter->is_int = 0;
-  iter->first = g1;
-  iter->last = g1;
-
   // iterator
-  it->g = iter->first;
+  it->g = i1->first;
   it->is_int = 0;
 
-  // null test:
-  ans = getNext(it);
-  if (ans == NULL) 
-    printf("[ASSERT] pass [null test]\n");
-  else
-    printf("[ASSERT] fail [null test]\n");
-
-  // reset iterator
-  it->g = iter->first;
-
   // one element:
-  g1->val = 'a';
   ans = getNext(it);
   if ((char)ans == 'a') 
     printf("[ASSERT] pass [one element]\n");    
@@ -435,11 +420,12 @@ void charTest() {
   else
     printf("[ASSERT] fail [one element]\n");    
 
-  // reset iterator
-  it->g = iter->first;
+  
   // two elements:
-  g2->val = 'b';
-  g1->next = g2;
+  iterable_append(i1,i2);
+
+  // reset iterator
+  it->g = i1->first;
 
   ans = getNext(it);
   if ((char)ans == 'a') 
@@ -463,8 +449,8 @@ void charTest() {
 
 int main()
 {
-  //charTest();
-  intTest();
+  charTest();
+  //intTest();
 
   /*
   blah_t one = (blah_t)malloc(sizeof(struct blah));
@@ -541,6 +527,8 @@ no i'm
 - appending
 - getNext (everything else, ints)
 - memory leaks!
+- make it easy to link up iterables to iterators.
+test:
 - appending
 - creation of iterables
 */
