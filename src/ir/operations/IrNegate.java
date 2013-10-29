@@ -11,6 +11,6 @@ public class IrNegate extends IrUnaryExpression {
 	}
 	
 	public String toC() {
-		return null;
+		return "!" + getmArgument().toC();
 	}
 }

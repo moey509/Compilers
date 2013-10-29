@@ -11,6 +11,6 @@ public class IrDivide extends IrBinaryExpression {
 	}
 	
 	public String toC() {
-		return null;
+		return getmLeft().toC() + " / " + getmRight().toC();
 	}
 }

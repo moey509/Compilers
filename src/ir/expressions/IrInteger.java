@@ -8,6 +8,6 @@ public final class IrInteger extends IrExpression {
 	}
 	
 	public String toC() {
-		return null;
+		return Integer.toString(mValue);
 	}
 }
