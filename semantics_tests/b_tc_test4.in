@@ -1,0 +1,11 @@
+x := [1,"hello"];
+seenOne := false;
+ret := [];
+for (y in x) {
+  if (seenOne) {
+    ret := ret ++ [y];
+  } else {
+    seenOne := true;
+  }
+}
+return ret;

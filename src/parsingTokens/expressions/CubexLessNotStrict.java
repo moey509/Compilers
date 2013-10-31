@@ -24,8 +24,8 @@ public class CubexLessNotStrict extends CubexBinaryExpression {
 				+ getmRight().toString() + " , false )";
 	}
 
-	public CubexTypeGrammar typeCheck(CubexCompleteContext c,
-			CubexList<CubexTypeGrammar> t) throws SemanticException {
+	
+	public CubexTypeGrammar typeCheck(CubexCompleteContext c) throws SemanticException {
 		CubexList<CubexExpression> l = new CubexList<CubexExpression>();
 		l.add(super.getmRight());
 		l.add(new CubexBoolean(false));

@@ -1,14 +1,14 @@
 # parser test [non-generic super call & calling things from super] 
-interface Az<F>
+interface Az<T>
 {
 	fun first() : Integer = 1;
 	fun second() : String = "b";
 }
 
-class Bz<F>(a : Integer) extends Az<F>
+class Bz<T>(a : Integer) extends Az<T>
 {
 	fun cAdd() : Integer<> = first() + 6;
 }
-#b := Bz<T>(1);
-#a := b.cAdd();
+b := Bz<Thing>(1);
+a := b.cAdd();
 return ["blah"];

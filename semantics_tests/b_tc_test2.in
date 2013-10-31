@@ -1,0 +1,7 @@
+var := 5;
+for(i in 1..5)
+{
+	var := true;
+	var := var | var;
+}
+return [""];

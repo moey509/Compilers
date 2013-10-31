@@ -41,7 +41,7 @@ public class TypeCheckerMain {
 	public static void main(String[] args) throws IOException {
 		// CharStream charStream = new ANTLRFileStream(args[0]);
 		CharStream charStream = new ANTLRFileStream(
-				"semantics_tests/a_tc_test39.in");
+				"semantics_tests/b_tc_test10.in");
 		CubexLexer cubLexer = new CubexLexer(charStream);
 		cubLexer.removeErrorListeners();
 
@@ -332,7 +332,7 @@ public class TypeCheckerMain {
 		CubexList<CubexTypeTuple> onwardFunctionArguments = new CubexList<CubexTypeTuple>();
 		onwardFunctionArguments.add(new CubexTypeTuple("inclusive", typeMap
 				.get("Boolean")));
-		integerClassContextElement.functionMap.put("onward",
+		integerClassContextElement.functionMap.put("onwards",
 				new CubexTypeScheme(new CubexList<String>(),
 						onwardFunctionArguments, iterableIntegerType));
 

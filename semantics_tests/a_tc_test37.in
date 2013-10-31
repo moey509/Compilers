@@ -1,14 +1,14 @@
 # parser test [name hiding from supertype, no args] 
-interface A<F>() 
+interface Az<C>
 {
 	fun aFun() : Integer = 0;
 }
 
-class B<F>() extends A<F>
+class Bz<C>() extends Az<C>
 {
-	fun aFun() : Boolean<> = True;
+	fun aFun() : Boolean<> = true;
 }
 
-b := B<T>();
+b := Bz<Boolean<>>();
 a := b.aFun() + 6;
 return ["blah"];
