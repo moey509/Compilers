@@ -1,5 +1,6 @@
 package parsingTokens.operations;
 
+import context.IrContext;
 import ir.operations.IrMod;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
@@ -15,8 +16,8 @@ public class CubexMod extends CubexBinaryExpression {
 		super(left, right);
 	}
 	
-	public IrMod toIr() {
-		return new IrMod(getmLeft().toIr(), getmRight().toIr());
+	public IrMod toIr(IrContext context) {
+		return new IrMod(getmLeft().toIr(context), getmRight().toIr(context));
 	}
 
 	public String toString(){

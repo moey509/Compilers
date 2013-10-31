@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
+import context.IrContext;
 import Exception.SemanticException;
 import parsingTokens.context.CubexTypeScheme;
 import parsingTokens.context.CubexTypeTuple;
@@ -69,20 +70,20 @@ public class CubexClassGrammar {
 		this.functions = new CubexList<CubexFunctionDef>();
 	}
 	
-	public IrClass toIr() {
+	public IrClass toIr(IrContext context) {
 		CubexList<IrStatement> irS = new CubexList<IrStatement>();
 		for (CubexStatement i : statements.contextCollection) {
-			irS.add(i.toIr());
+			irS.add(i.toIr(context));
 		}
 		CubexList<IrExpression> irE = new CubexList<IrExpression>();
 		for (CubexExpression i : expressions.contextCollection) {
-			irE.add(i.toIr());
+			irE.add(i.toIr(context));
 		}
 		CubexList<IrFunctionDef> irF = new CubexList<IrFunctionDef>();
 		for (CubexFunctionDef i : functions.contextCollection) {
-			irF.add(i.toIr());
+			irF.add(i.toIr(context));
 		}
-		return new IrClass(name, kindcontext, typecontext, extendsType, irS, irE, irF);
+		return new IrClass(name, kindcontext, irS, irE, irF);
 	}
 
 	public String toString() {

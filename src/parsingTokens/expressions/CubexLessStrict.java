@@ -1,8 +1,8 @@
 package parsingTokens.expressions;
 
+import context.IrContext;
 import ir.expressions.IrLessStrict;
 import parsingTokens.CubexList;
-import parsingTokens.typeGrammar.CubexTypeClass;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import typeChecker.CubexCompleteContext;
 import Exception.SemanticException;
@@ -14,9 +14,10 @@ public class CubexLessStrict extends CubexBinaryExpression {
 	public CubexLessStrict(CubexExpression left, CubexExpression right) {
 		super(left, right);
 	}
-	
-	public IrLessStrict toIr() {
-		return new IrLessStrict(getmLeft().toIr(), getmRight().toIr());
+
+	public IrLessStrict toIr(IrContext context) {
+		return new IrLessStrict(getmLeft().toIr(context), getmRight().toIr(
+				context));
 	}
 
 	public String toString() {
@@ -24,7 +25,8 @@ public class CubexLessStrict extends CubexBinaryExpression {
 				+ getmRight().toString() + " , true )";
 	}
 
-	public CubexTypeGrammar typeCheck(CubexCompleteContext c) throws SemanticException {
+	public CubexTypeGrammar typeCheck(CubexCompleteContext c)
+			throws SemanticException {
 		CubexList<CubexExpression> l = new CubexList<CubexExpression>();
 		l.add(super.getmRight());
 		l.add(new CubexBoolean(true));
@@ -32,6 +34,7 @@ public class CubexLessStrict extends CubexBinaryExpression {
 				new CubexList<CubexTypeGrammar>(), l);
 		return function.typeCheck(c);
 
-		//return new CubexTypeClass("Boolean", new CubexList<CubexTypeGrammar>());
+		// return new CubexTypeClass("Boolean", new
+		// CubexList<CubexTypeGrammar>());
 	}
 }

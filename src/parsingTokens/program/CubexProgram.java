@@ -1,7 +1,6 @@
 package parsingTokens.program;
 
-import java.util.ArrayList;
-
+import context.IrContext;
 import ir.IrProgram;
 import ir.IrProgramElem;
 import Exception.SemanticException;
@@ -16,15 +15,17 @@ public class CubexProgram {
 		this.nextProgram = nextProgram;
 	}	
 	
-	public IrProgram toIr() {
-		ArrayList<IrProgramElem> arr;
-		if (nextProgram == null) {
-			arr = new ArrayList<IrProgramElem>();
-		} else {
-			arr = new ArrayList<IrProgramElem>(nextProgram.toIr().components);
-		}
-		arr.addAll(programType.toIr());
-		return new IrProgram(arr);
+	public IrProgram toIr(IrContext context) {
+		IrProgram program = new IrProgram();
+		IrContext ircontext = context;
+		CubexProgram programPointer = this;
+		while (programPointer != null) {
+			for (IrProgramElem elem : programPointer.programType.toIr(ircontext)){
+				program.addComponent(elem);
+			}
+			programPointer = programPointer.nextProgram;
+		} 
+		return program;
 	}
 	
 	public String toString() {

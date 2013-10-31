@@ -38,7 +38,7 @@ public class CubexInterface {
 	public IrInterface toIr() {
 		CubexList<IrFunctionDef> irF = new CubexList<IrFunctionDef>();
 		for (CubexFunctionDef i : functionList.contextCollection) {
-			irF.add(i.toIr());
+			irF.add(i.toIr(null));
 		}
 		return new IrInterface(name, kindContext, extendsType, irF);
 	}

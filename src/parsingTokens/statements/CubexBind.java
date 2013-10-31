@@ -1,5 +1,6 @@
 package parsingTokens.statements;
 
+import context.IrContext;
 import ir.statements.IrBind;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
@@ -19,8 +20,8 @@ public final class CubexBind extends CubexStatement {
 		this.e = e;
 	}
 	
-	public IrBind toIr() {
-		return new IrBind(classid, e.toIr());
+	public IrBind toIr(IrContext context) {
+		return new IrBind(classid, e.toIr(context));
 	}
 
 	public String toString() {

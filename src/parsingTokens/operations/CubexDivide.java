@@ -1,5 +1,6 @@
 package parsingTokens.operations;
 
+import context.IrContext;
 import ir.operations.IrDivide;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
@@ -15,8 +16,8 @@ public class CubexDivide extends CubexBinaryExpression {
 		super(left, right);
 	}
 	
-	public IrDivide toIr() {
-		return new IrDivide(getmLeft().toIr(), getmRight().toIr());
+	public IrDivide toIr(IrContext context) {
+		return new IrDivide(getmLeft().toIr(context), getmRight().toIr(context));
 	}
 	
 	public String toString(){

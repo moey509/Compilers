@@ -5,6 +5,7 @@ import ir.expressions.IrFunctionApp;
 
 import java.util.ArrayList;
 
+import context.IrContext;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
 import parsingTokens.context.CubexTypeScheme;
@@ -28,12 +29,12 @@ public final class CubexFunctionApp extends CubexExpression {
 		this.functionParams = functionParams;
 	}
 	
-	public IrFunctionApp toIr() {
+	public IrFunctionApp toIr(IrContext context) {
 		CubexList<IrExpression> irE = new CubexList<IrExpression>();
 		for (CubexExpression i : functionParams.contextCollection) {
-			irE.add(i.toIr());
+			irE.add(i.toIr(context));
 		}
-		return new IrFunctionApp(expr.toIr(), v_v, typeParams, irE);
+		return new IrFunctionApp(expr.toIr(context), v_v, typeParams, irE);
 	}
 
 	public String toString() {

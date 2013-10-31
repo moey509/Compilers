@@ -1,5 +1,6 @@
 package parsingTokens.expressions;
 
+import context.IrContext;
 import ir.expressions.IrBoolean;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
@@ -12,7 +13,7 @@ public final class CubexBoolean extends CubexExpression {
 	private boolean mValue;
 	public CubexBoolean(boolean value) { mValue = value; }
 	
-	public IrBoolean toIr() {
+	public IrBoolean toIr(IrContext context) {
 		return new IrBoolean(mValue);
 	}
 	

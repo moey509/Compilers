@@ -1,5 +1,8 @@
 package parsingTokens.expressions;
 
+import ir.expressions.IrUnaryExpression;
+import context.IrContext;
+
 
 public abstract class CubexUnaryExpression extends CubexExpression {
 	private CubexExpression mArgument;
@@ -12,4 +15,6 @@ public abstract class CubexUnaryExpression extends CubexExpression {
 	public void setmArgument(CubexExpression mArgument) {
 		this.mArgument = mArgument;
 	}
+	
+	public abstract IrUnaryExpression toIr(IrContext context);
 }

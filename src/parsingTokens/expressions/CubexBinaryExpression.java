@@ -1,5 +1,8 @@
 package parsingTokens.expressions;
 
+import context.IrContext;
+import ir.expressions.IrBinaryExpression;
+
 
 public abstract class CubexBinaryExpression extends CubexExpression {
 	private CubexExpression mLeft, mRight;
@@ -19,4 +22,6 @@ public abstract class CubexBinaryExpression extends CubexExpression {
 	public void setmRight(CubexExpression mRight) {
 		this.mRight = mRight;
 	}
+	
+	public abstract IrBinaryExpression toIr(IrContext context);
 }

@@ -1,5 +1,6 @@
 package parsingTokens.operations;
 
+import context.IrContext;
 import ir.operations.IrNegate;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
@@ -15,8 +16,8 @@ public class CubexNegate extends CubexUnaryExpression {
 		super(arg);
 	}
 	
-	public IrNegate toIr() {
-		return new IrNegate(getmArgument().toIr());
+	public IrNegate toIr(IrContext context) {
+		return new IrNegate(getmArgument().toIr(context));
 	}
 
 	public String toString(){
