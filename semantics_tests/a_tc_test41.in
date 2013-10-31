@@ -2,16 +2,15 @@
 
 c := true;
 
-interface A<T>(a : Integer, b : String) 
+interface Az<T>
 {
 	fun first() : Integer = a;
 	fun second() : String = b;
 
 }
 
-class B<T>(a : Integer) extends A<T>
+class Bz<T>(a : Integer) extends Az<T>
 {
-	super(a, "str");
 	fun cAdd() : Integer<> = first() + 6;
 	fun third() : Boolean<> 
 	{

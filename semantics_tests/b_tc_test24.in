@@ -1,0 +1,9 @@
+# Should accept
+x := "Hello";
+while (1 == 0) {
+    x := 1;
+}
+top := x;
+
+
+return ["ASDF"];

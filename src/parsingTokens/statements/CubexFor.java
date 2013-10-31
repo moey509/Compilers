@@ -2,8 +2,11 @@ package parsingTokens.statements;
 
 import ir.statements.IrFor;
 import Exception.SemanticException;
+import parsingTokens.CubexList;
 import parsingTokens.expressions.CubexExpression;
+import parsingTokens.typeGrammar.CubexTypeClass;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
+import parsingTokens.typeGrammar.CubexTypeName;
 import typeChecker.CubexCompleteContext;
 import typeChecker.TypeContext;
 import typeChecker.TypeContextReturn;
@@ -36,7 +39,11 @@ public final class CubexFor extends CubexStatement {
 		CubexCompleteContext copy0 = c.clone();
 		copy0.typeContext.noConflictMerge(copy0.mutableTypeContext);
 		CubexTypeGrammar etype = e.typeCheck(copy0);
-		if (!etype.getName().equals("Iterable")) throw new SemanticException("CubexFor: e is not an Iterable");
+//		if (!etype.getName().equals("Iterable")) throw new SemanticException("CubexFor: e is not an Iterable");
+		CubexList<CubexTypeGrammar> ilist = new CubexList<CubexTypeGrammar>();
+		ilist.add(new CubexTypeName("Thing"));
+		if (!(new CubexTypeClass("Iterable", ilist)).isSuperTypeOf(copy0, etype)) 
+			throw new SemanticException("CubexFor: e is not an Iterable");
 
 		CubexCompleteContext copy1 = c.clone();
 		copy1.mutableTypeContext.put(varfun, etype.getTypeList().get(0));
@@ -61,10 +68,17 @@ public final class CubexFor extends CubexStatement {
 		CubexCompleteContext copy0 = c.clone();
 		copy0.typeContext.noConflictMerge(copy0.mutableTypeContext);
 		CubexTypeGrammar etype = e.typeCheck(copy0);
-		if (!etype.getName().equals("Iterable")) throw new SemanticException("CubexFor: e is not an Iterable");
+//		if (!etype.getName().equals("Iterable")) throw new SemanticException("CubexFor: e is not an Iterable");
+		CubexList<CubexTypeGrammar> ilist = new CubexList<CubexTypeGrammar>();
+		ilist.add(new CubexTypeName("Thing"));
+		CubexTypeClass iclass = new CubexTypeClass("Iterable", ilist);
+		if (!iclass.isSuperTypeOf(copy0, etype)) 
+			throw new SemanticException("CubexFor: e is not an Iterable");
+
 
 		CubexCompleteContext copy1 = c.clone();
-		copy1.mutableTypeContext.put(varfun, etype.getTypeList().get(0));
+		CubexTypeGrammar vtype = iclass.join(copy1, etype);
+		copy1.mutableTypeContext.put(varfun, vtype.getTypeList().get(0));
 
 		TypeContextReturn gamma = s.typeCheckReturn(copy1);
 		//if (!gamma.typeContext.containsAll(copy1, c.mutableTypeContext)){

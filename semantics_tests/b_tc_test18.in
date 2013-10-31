@@ -1,0 +1,46 @@
+# typechecker test program NUMBER (stage 9)
+
+interface Interone<T>
+{
+	fun toIter(t : T) : Iterable<T>;
+}
+
+interface Intertwo<T>
+{
+	fun twoIter(t1 : T, t2 : T) : Iterable<T>;
+}
+
+class Emptier<T>() extends Interone<T> & Intertwo<T>
+{
+	fun toIter(t : T) : Iterable<T> = [];
+	fun twoIter(t1 : T, t2 : T) : Iterable<T> = [];
+}
+
+class Copier<T>() extends Interone<T> & Intertwo<T>
+{
+	fun toIter(t : T) : Iterable<T> = [t];
+	fun twoIter(t1 : T, t2 : T) : Iterable<T> = [t1, t2];
+}
+
+class Doubler<T>() extends Interone<T> & Intertwo<T>
+{
+	fun toIter(t : T) : Iterable<T> = [t, t];
+	fun twoIter(t1 : T, t2 : T) : Iterable<T> = [t1, t2];
+}
+
+class Dynamicasaurus<T>(i : Integer) extends Interone<T> & Intertwo<T>
+{
+	fun toIter(t : T) : Iterable<T>
+	{
+		ret := [];
+		for (x in 1..i)
+		{
+			ret := ret ++ [t];
+		}
+		return ret;
+	}
+	
+	fun twoIter(t1 : T, t2 : T) : Iterable<T> = toIter(t1) ++ toIter(t2);
+}
+
+return [""];

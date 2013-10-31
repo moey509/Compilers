@@ -1,0 +1,5 @@
+# typechecker test program NUMBER (stage 3)
+
+fun id<A, B, C, D> (a : A, b : B, c : C, d : D) : Iterable<Thing> = [a, b, c, d];
+
+return ["Holla", "Back"];

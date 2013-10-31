@@ -1,11 +1,11 @@
 # parser test [no super() call] 
-interface A<T>(a : Integer, b : String) 
+class Az<T>(a : Integer, b : String) 
 {
 	fun first() : Integer = a;
 	fun second() : String = b;
 }
 
-class B<T>() extends A<T>
+class Bz<T>() extends Az<T>
 {
 	fun bFun() : Boolean<> = True;
 }
