@@ -22,8 +22,6 @@ public class IrFunctionDef implements IrProgramElem {
 
 	@Override
 	public ArrayList<String> toC() {
-		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

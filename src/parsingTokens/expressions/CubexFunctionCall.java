@@ -5,6 +5,7 @@ import ir.expressions.IrFunctionCall;
 
 import java.util.ArrayList;
 
+import context.IrContext;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
 import parsingTokens.context.CubexTypeScheme;
@@ -25,11 +26,11 @@ public final class CubexFunctionCall extends CubexExpression {
 		this.typeParams = typeParams;
 		this.functionParams = functionParams;
 	}
-	
-	public IrFunctionCall toIr() {
+
+	public IrFunctionCall toIr(IrContext context) {
 		CubexList<IrExpression> irF = new CubexList<IrExpression>();
 		for (CubexExpression i : functionParams.contextCollection) {
-			irF.add(i.toIr());
+			irF.add(i.toIr(context));
 		}
 		return new IrFunctionCall(v_vc, typeParams, irF);
 	}
@@ -41,43 +42,54 @@ public final class CubexFunctionCall extends CubexExpression {
 				+ functionParams.toString(",") + rightSpace2 + ")";
 	}
 
-	public CubexTypeGrammar typeCheck(CubexCompleteContext c) throws SemanticException {
+	public CubexTypeGrammar typeCheck(CubexCompleteContext c)
+			throws SemanticException {
 		CubexTypeScheme typeScheme;
 		if (c.containsFunctionName(v_vc)) {
 			typeScheme = c.getTypeSchemeFromFunctionContext(v_vc);
 		} else {
-			throw new SemanticException(v_vc + " is not contained in function context");
+			throw new SemanticException(v_vc
+					+ " is not contained in function context");
 		}
-		
-		//Get the Function Kind Context
-		ArrayList<String> kContext = new ArrayList<String>(typeScheme.getKindContext().contextCollection);
-		
-		//Get the Function Types
-		ArrayList<CubexTypeGrammar> params = new ArrayList<CubexTypeGrammar>(typeParams.contextCollection);
 
-		//Check to see if number of Function type params matches the number of types given to the function
+		// Get the Function Kind Context
+		ArrayList<String> kContext = new ArrayList<String>(
+				typeScheme.getKindContext().contextCollection);
+
+		// Get the Function Types
+		ArrayList<CubexTypeGrammar> params = new ArrayList<CubexTypeGrammar>(
+				typeParams.contextCollection);
+
+		// Check to see if number of Function type params matches the number of
+		// types given to the function
 		if (kContext.size() != params.size()) {
 			throw new SemanticException("Incorrect number of parameters");
 		}
-		
+
 		TypeContext cont = new TypeContext();
 		for (int i = 0; i < kContext.size(); i++) {
 			cont.put(kContext.get(i), params.get(i));
-			if (!c.containsClassName(params.get(i).getName()) && !c.kindContextContainsTypeParam(params.get(i).getName())){
-				throw new SemanticException(params.get(i).getName() + " is not a valid type.");
+			if (!c.containsClassName(params.get(i).getName())
+					&& !c.kindContextContainsTypeParam(params.get(i).getName())) {
+				throw new SemanticException(params.get(i).getName()
+						+ " is not a valid type.");
 			}
 		}
-		
+
 		CubexList<CubexTypeTuple> typeContext = typeScheme.getTypeContext();
 
 		for (int i = 0; i < typeContext.size(); i++) {
 			CubexTypeGrammar paramExpr = functionParams.get(i).typeCheck(c);
-			//Replace generic types and check for supertype
-			if (!typeContext.get(i).getTypeGrammar().replaceParams(cont).isSuperTypeOf(c, paramExpr)){
-				throw new SemanticException("Expected argument of type " + typeContext.get(i).getTypeGrammar() + " but received " + paramExpr);
+			// Replace generic types and check for supertype
+			if (!typeContext.get(i).getTypeGrammar().replaceParams(cont)
+					.isSuperTypeOf(c, paramExpr)) {
+				throw new SemanticException("Expected argument of type "
+						+ typeContext.get(i).getTypeGrammar()
+						+ " but received " + paramExpr);
 			}
 		}
-		CubexTypeGrammar output = typeScheme.getTypeGrammar().replaceParams(cont);
+		CubexTypeGrammar output = typeScheme.getTypeGrammar().replaceParams(
+				cont);
 		return output;
 	}
 }

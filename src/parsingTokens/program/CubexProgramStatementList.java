@@ -4,6 +4,7 @@ import ir.IrProgramElem;
 
 import java.util.ArrayList;
 
+import context.IrContext;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
 import parsingTokens.statements.CubexStatement;
@@ -28,10 +29,10 @@ public class CubexProgramStatementList implements CubexProgramType {
 		this.statementList = returnList;
 	}
 	
-	public ArrayList<IrProgramElem> toIr() {
+	public ArrayList<IrProgramElem> toIr(IrContext context) {
 		ArrayList<IrProgramElem> arr = new ArrayList<IrProgramElem>();
 		for (CubexStatement i : statementList.contextCollection) {
-			arr.add(i.toIr());
+			arr.add(i.toIr(context));
 		}
 		return arr;
 	}
