@@ -12,25 +12,20 @@ struct blah
   blah_t next;
 };
 
+// empty iterables are going to be NULL
 struct git 
 {
   void* val;
   git_t next;
+  int is_int;
 };
 
 struct iterator
 {
-  git_t g;
-  int is_int;
+  git_t g;  
   void * cur;
 };
 
-struct iterable
-{
-  git_t first;
-  git_t last;
-  int is_int;
-};
 
 // status: {-1 : regular number} {0 : through} {1 : onwards}
 // for the case of a single number, the value will be held in the field 'low'
@@ -41,7 +36,7 @@ struct nit
   int status;
 };
 
-// returns a pointer to the next element
+// returns a pointer to the next elements
 void* getNext(iterator_t it) {
   if (it == NULL || it->g == NULL) {
     return NULL;
@@ -61,16 +56,13 @@ void* getNext(iterator_t it) {
       it->cur = NULL;
       return temp;      
     }
-
     //set cur value if not set yet
     if (it->cur == NULL) 
       it->cur = n->low;
-
     // through case
     if (n->status == 0) {
       // case with no data
       if (it->cur > n->high) {
-        printf ("no more data, going to next\n");
         it->g = g->next;
         it->cur = NULL;
         return getNext(it);
@@ -78,14 +70,11 @@ void* getNext(iterator_t it) {
       temp = it->cur;
       // increment value
       it->cur += 1;
-      //printf("%d ? %d\n", it->cur, n->high);
       if ((int)(it->cur) > (int)(n->high)) {
-        //printf ("here!\n");
         it->g = g->next;
         it->cur = NULL;        
       }
     }
-
     // infinite case
     else {
       temp = it->cur;
@@ -93,11 +82,11 @@ void* getNext(iterator_t it) {
     }
     return temp;
   }
-
   // regular case
   else {
     temp = g->val;
     it->g = g->next;
+    it->cur = NULL;
     return temp;
   }
 }
@@ -127,51 +116,67 @@ void freeIterator(iterator_t it) {
 //   }
 // }
 
-void iterable_append (iterable_t first, iterable_t second) {
-  if (second == NULL) 
-    return;
-  if (first == NULL) {
-    first = second;
-    return;
+// combines two iterables, 
+git_t iterable_append (git_t first, git_t second) {
+  git_t g;
+  git_t temp;
+  git_t itr;
+  git_t prev = NULL;
+  g = NULL;
+  // first 
+  itr = first;
+  while (itr != NULL) {
+    temp = (git_t)malloc(sizeof(struct git));
+    temp->val = itr->val;
+    temp->is_int = itr->is_int;
+    itr = itr->next;  
+    // update pointers
+    if (prev != NULL) 
+      prev->next = temp;
+    if (g == NULL)
+      g = temp;
   }
-  first->last->next = second->first;
-  first->last = second->last;
-  // free the second iterable struct
-  free(second);
-  return;
+  // second
+  itr = second;
+  while (itr != NULL) {
+    temp = (git_t)malloc(sizeof(struct git));
+    temp->val = itr->val;
+    temp->is_int = itr->is_int;
+    itr = itr->next;  
+    // update pointers
+    if (prev != NULL) 
+      prev->next = temp;
+    if (g == NULL)
+      g = temp;
+  }
+
+  return g;
 }
 
 // constructs a new iterable for anything but ints
-iterable_t new_iterable_obj (void* obj) {
-  iterable_t iter = (iterable_t)malloc(sizeof(struct iterable));
+git_t new_git_obj (void* obj) {
   git_t g = (git_t)malloc(sizeof(struct git));
   g->val = obj;
-  iter->first = g;
-  iter->last = g;
-  iter->is_int = 0;
-  return iter;
+  g->is_int = 0;
+  return g;
 }
 
 // constructs a new iterable for ints. The status, low and high inputs
 // correspond to the values in a nit_T struct
-iterable_t new_iterable_int (int status, void* low, void* high) {
-  iterable_t iter = (iterable_t)malloc(sizeof(struct iterable));
+iterable_t new_iterable_int (int status, void* low, void* high) {  
   git_t g = (git_t)malloc(sizeof(struct git));
   nit_t n = (nit_t)malloc(sizeof(struct nit));
   n->status = status;
   n->low = low;
   n->high = high;
   g->val = n;
-  iter->first = g;
-  iter->last = g;
-  iter->is_int = 1;
+  g->is_int = 1;
   return iter;
 }
 
-iterator_t new_iterator (iterable_t iterable) {
+iterator_t new_iterator (git_t g) {
   iterator_t it = (iterator_t) malloc(sizeof(struct iterator));
-  it->g = iterable->first;
-  it->is_int = iterable->is_int;
+  it->g = g;
   it->cur = NULL;
   return it;
 }
@@ -478,7 +483,7 @@ no i'm
 /*
 - update everything with new iterable struct
 - remaining TODOs
-- appending
+- WHEN MALLOCING, SET ALL FIELDS TO NULL
 - getNext (everything else, ints)
 - memory leaks!
 - make it easy to link up iterables to iterators.
