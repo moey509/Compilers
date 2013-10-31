@@ -206,7 +206,7 @@ public class CubexClassGrammar {
 
 		// Check that all type grammars in type context are valid
 		for (int i = 0; i < typecontext.size(); i++) {
-			typecontext.get(i).getTypeGrammar().validate(context);
+			typecontext.get(i).getTypeGrammar().validate(context, true);
 		}
 
 		// Set initial mutable type context to the classes type context

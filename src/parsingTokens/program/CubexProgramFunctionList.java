@@ -51,10 +51,10 @@ public class CubexProgramFunctionList implements CubexProgramType {
 			c.mutableTypeContext = new TypeContext(fun.typescheme.getTypeContext());
 			//Validate gamma
 			for(int j = 0; j < fun.typescheme.getTypeContext().size(); j++){
-				list.get(j).getTypeGrammar().validate(c);
+				list.get(j).getTypeGrammar().validate(c, true);
 			}
 			//Validate type
-			fun.typescheme.getTypeGrammar().validate(c);
+			fun.typescheme.getTypeGrammar().validate(c, true);
 			TypeContextReturn ret = fun.statement.typeCheckReturn(c);
 			//fun.typescheme.getTypeGrammar().isSuperTypeOf(c, ret.retType);
 			if(ret.guaranteedToReturn == false || !(fun.typescheme.getTypeGrammar().isSuperTypeOf(c, ret.retType))){

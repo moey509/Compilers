@@ -30,9 +30,14 @@ public class CubexTypeClass extends CubexTypeGrammar {
 				+ rightSpace + ">";
 	}
 
-	public void validate(CubexCompleteContext c) throws SemanticException {
+	public void validate(CubexCompleteContext c, boolean canBeClass) throws SemanticException {
+		if (name.equals("Thing") || name.equals("Nothing")) return;
 		if (!c.containsClassName(getName())) {
-			throw new SemanticException("");
+			if (!canBeClass && c.classContext.get(getName()).isClass())
+				throw new SemanticException("Class context does not contain class name");
+		}
+		for (CubexTypeGrammar i : typeList.contextCollection) {
+			i.validate(c, true);
 		}
 	}
 
@@ -76,8 +81,9 @@ public class CubexTypeClass extends CubexTypeGrammar {
 			CubexTypeGrammar t, ArrayList<CubexTypeClass> a)
 			throws SemanticException {
 		// check for subtyping
-		// TODO: Why was this !getName().equals("Thing")
-		if (isSuperTypeOf(c, t) && getName().equals("Thing")) {
+		// Why was this !getName().equals("Thing")
+		// Answer: "Thing" is too general because every class's superclass is this
+		if (isSuperTypeOf(c, t) && !getName().equals("Thing")) {
 			a.add(this);
 			return a;
 		}

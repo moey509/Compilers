@@ -21,7 +21,8 @@ public class CubexTypeName extends CubexTypeGrammar{
 		return getName();
 	}
 	
-	public void validate(CubexCompleteContext c) throws SemanticException{
+	public void validate(CubexCompleteContext c, boolean canBeClass) throws SemanticException{
+		if (name.equals("Thing") || name.equals("Nothing")) return;
 		if (!c.kindContext.contains(name)){
 			throw new SemanticException("");
 		}
@@ -47,7 +48,7 @@ public class CubexTypeName extends CubexTypeGrammar{
 	
 	public ArrayList<CubexTypeClass> joinHelper(CubexCompleteContext c, CubexTypeGrammar t,
 			ArrayList<CubexTypeClass> a) throws SemanticException {
-		throw new SemanticException("joinHelper not implemented in CubexTypeName");
+		return new ArrayList<CubexTypeClass>();
 	}
 	
 }

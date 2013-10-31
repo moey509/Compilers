@@ -27,10 +27,11 @@ public class CubexTypeIntersection extends CubexTypeGrammar {
 	}
 
 	@Override
-	public void validate(CubexCompleteContext c) throws SemanticException {
-		// TODO: Might need to change later
-		throw new SemanticException(
-				"CubexTypeIntersection does not implement validate");
+	public void validate(CubexCompleteContext c, boolean canBeClass) throws SemanticException {
+		if (!typeGrammar1.join(c, typeGrammar2).getName().equals("Thing") )
+				throw new SemanticException("Cannot extend two types that extend the same type");
+		typeGrammar1.validate(c, false);
+		typeGrammar2.validate(c, true);
 	}
 
 	public CubexTypeGrammar replaceParams(TypeContext cont) {
@@ -51,7 +52,7 @@ public class CubexTypeIntersection extends CubexTypeGrammar {
 	public ArrayList<CubexTypeClass> joinHelper(CubexCompleteContext c,
 			CubexTypeGrammar t, ArrayList<CubexTypeClass> a)
 			throws SemanticException {
-		ArrayList<CubexTypeClass> arr = joinHelper(c, t, a);
-		return joinHelper(c, t, arr);
+		ArrayList<CubexTypeClass> arr1 = typeGrammar1.joinHelper(c, t, a);
+		return typeGrammar2.joinHelper(c, t, arr1);
 	}
 }

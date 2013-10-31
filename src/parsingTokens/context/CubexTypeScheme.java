@@ -41,8 +41,11 @@ public class CubexTypeScheme {
 	}
 	
 	public void validate(CubexCompleteContext context) throws SemanticException{
+		CubexCompleteContext copy = context.clone();
+		copy.kindContext.addAll(kindContext.contextCollection);
 		for (CubexTypeTuple tuple : getTypeContext().iterable()) {
-			tuple.getTypeGrammar().validate(context);
+			tuple.getTypeGrammar().validate(copy, true);
 		}
+		typeGrammar.validate(copy, true);
 	}
 }

@@ -94,6 +94,9 @@ public abstract class CubexTypeGrammar {
 			CubexTypeGrammar retype = elem.type.replaceParams(replaceCont);
 			return isSuperTypeOf(c, retype);
 		}
+		if (t instanceof CubexTypeName) {
+			return false;
+		}
 		throw new SemanticException(
 				"Type check error: checking different type parameters");
 	}
@@ -108,6 +111,7 @@ public abstract class CubexTypeGrammar {
 
 	// should NOT be called with a that that has generics that haven't already
 	// been replaced with real types
+	// convention: go to supertype of this until t is a subtype of this
 	public CubexTypeGrammar join(CubexCompleteContext c, CubexTypeGrammar t)
 			throws SemanticException {
 		// If we join with nothing, then return ourself
@@ -123,15 +127,19 @@ public abstract class CubexTypeGrammar {
 		// else {
 		// return this;
 		// }
+
 		// if one is a subtype of the other, return the supertype
 		if (isSuperTypeOf(c, t))
 			return this;
 		if (t.isSuperTypeOf(c, this))
 			return t;
 
+		// make intersection type out of list of types
 		ArrayList<CubexTypeClass> a = joinHelper(c, t,
 				new ArrayList<CubexTypeClass>());
-		return buildIntersection(a.iterator());
+		if (a.size()!=0) return buildIntersection(a.iterator());
+		// if list is empty, thing is the only superclass of both
+		return new CubexTypeName("Thing");
 
 	}
 
@@ -149,7 +157,10 @@ public abstract class CubexTypeGrammar {
 	}
 
 	// type validation (figure 4)
-	public abstract void validate(CubexCompleteContext c)
+	// if !canBeClass, the type that is check for must be an interface
+	//   otherwise, it can be either an interface or a class
+	//   only relevant for CubexTypeClass
+	public abstract void validate(CubexCompleteContext c, boolean canBeClass)
 			throws SemanticException;
 
 	// replaces generics with non-generic types
