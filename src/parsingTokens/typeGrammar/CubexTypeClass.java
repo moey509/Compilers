@@ -1,5 +1,7 @@
 package parsingTokens.typeGrammar;
 
+import ir.IrType;
+
 import java.util.ArrayList;
 
 import Exception.SemanticException;
@@ -30,11 +32,14 @@ public class CubexTypeClass extends CubexTypeGrammar {
 				+ rightSpace + ">";
 	}
 
-	public void validate(CubexCompleteContext c, boolean canBeClass) throws SemanticException {
-		if (name.equals("Thing") || name.equals("Nothing")) return;
+	public void validate(CubexCompleteContext c, boolean canBeClass)
+			throws SemanticException {
+		if (name.equals("Thing") || name.equals("Nothing"))
+			return;
 		if (!c.containsClassName(getName())) {
 			if (!canBeClass && c.classContext.get(getName()).isClass())
-				throw new SemanticException("Class context does not contain class name");
+				throw new SemanticException(
+						"Class context does not contain class name");
 		}
 		for (CubexTypeGrammar i : typeList.contextCollection) {
 			i.validate(c, true);
@@ -82,7 +87,8 @@ public class CubexTypeClass extends CubexTypeGrammar {
 			throws SemanticException {
 		// check for subtyping
 		// Why was this !getName().equals("Thing")
-		// Answer: "Thing" is too general because every class's superclass is this
+		// Answer: "Thing" is too general because every class's superclass is
+		// this
 		if (isSuperTypeOf(c, t) && !getName().equals("Thing")) {
 			a.add(this);
 			return a;
@@ -93,5 +99,4 @@ public class CubexTypeClass extends CubexTypeGrammar {
 		ClassContextElement elem = c.classContext.get(nom);
 		return elem.type.joinHelper(c, t, a);
 	}
-
 }

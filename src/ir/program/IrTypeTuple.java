@@ -1,11 +1,13 @@
 package ir.program;
 
+import ir.IrType;
+
 public class IrTypeTuple {
-	public String cType;
+	public IrType type;
 	public String variableName;
 	
-	public IrTypeTuple(String cType, String variableName) {
-		this.cType = cType;
+	public IrTypeTuple(IrType type, String variableName) {
+		this.type = type;
 		this.variableName = variableName;
 	}	
 }
