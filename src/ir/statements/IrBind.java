@@ -12,12 +12,13 @@ public final class IrBind implements IrStatement {
 	public IrBind(IrTypeTuple tuple, IrExpression expression) {
 		this.tuple = tuple;
 		this.expression = expression;
+		System.out.println();
 	}
 
 	@Override
 	public ArrayList<String> toC() {
 		ArrayList<String> output = new ArrayList<String>();
-		output.add(tuple.type.toC() + " " + tuple.variableName + " = " + expression.toC());
+		output.add(tuple.type.toC() + " " + tuple.variableName + " = " + expression.toC() + ";");
 		return output;
 	}
 

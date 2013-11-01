@@ -13,7 +13,7 @@ public final class IrReturn implements IrStatement {
 	@Override
 	public ArrayList<String> toC() {
 		ArrayList<String> arrList = new ArrayList<String>();
-		arrList.add("return " + expression.toC());
+		arrList.add("return " + expression.toC() + ";");
 		return arrList;
 	}
 

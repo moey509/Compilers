@@ -50,6 +50,7 @@ public class CubexExpression {
 	}
 	
 	public IrExpression toIr(IrProgramContext context) {
+		System.out.println("here");
 		return new IrVariableExpression(name);
 	}
 }
