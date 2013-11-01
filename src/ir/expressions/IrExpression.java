@@ -1,17 +1,7 @@
 package ir.expressions;
 
+public interface IrExpression {
 
-public class IrExpression {
-	String name;
-	
-	public IrExpression() {}
+	public String toC();
 
-	public IrExpression(String vp) {
-		name = vp;
-	}
-	
-	public String toC() {
-		return null;
-	}
-	
 }

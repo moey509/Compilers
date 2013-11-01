@@ -1,17 +1,12 @@
 package parsingTokens.program;
 
-import java.util.ArrayList;
-
-import context.IrContext;
-import ir.IrFunctionDef;
-import ir.IrProgramElem;
+import ir.program.IrProgram;
+import ir.program.IrProgramContext;
 import Exception.SemanticException;
 import parsingTokens.CubexFunctionDef;
 import parsingTokens.CubexList;
 import parsingTokens.context.CubexTypeTuple;
-import parsingTokens.typeGrammar.CubexTypeGrammar;
 import typeChecker.CubexCompleteContext;
-import typeChecker.FunctionContext;
 import typeChecker.KindContext;
 import typeChecker.TypeContext;
 import typeChecker.TypeContextReturn;
@@ -24,13 +19,7 @@ public class CubexProgramFunctionList implements CubexProgramType {
 		this.functionList = functionList;
 	}
 	
-	public ArrayList<IrProgramElem> toIr(IrContext context) {
-		ArrayList<IrProgramElem> arr = new ArrayList<IrProgramElem>();
-		for (CubexFunctionDef i : functionList.contextCollection) {
-			arr.add(i.toIr(context));
-		}
-		return arr;
-	}
+
 
 	public String toString() {
 		return functionList.toString();
@@ -65,6 +54,12 @@ public class CubexProgramFunctionList implements CubexProgramType {
 		c.kindContext = new KindContext();
 		c.mutableTypeContext = new TypeContext();
 		return c;
+	}
+
+	@Override
+	public IrProgram toIr(IrProgramContext context, IrProgram program) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

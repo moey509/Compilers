@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
-import context.IrContext;
 import Exception.SemanticException;
 import parsingTokens.context.CubexTypeScheme;
 import parsingTokens.context.CubexTypeTuple;
@@ -22,9 +21,8 @@ import typeChecker.FunctionContext;
 import typeChecker.KindContext;
 import typeChecker.TypeContext;
 import typeChecker.TypeContextReturn;
-import ir.*;
-import ir.expressions.IrExpression;
-import ir.statements.IrStatement;
+import ir.program.IrProgram;
+import ir.program.IrProgramContext;
 
 public class CubexClassGrammar {
 	public String name;
@@ -70,20 +68,23 @@ public class CubexClassGrammar {
 		this.functions = new CubexList<CubexFunctionDef>();
 	}
 	
-	public IrClass toIr(IrContext context) {
-		CubexList<IrStatement> irS = new CubexList<IrStatement>();
-		for (CubexStatement i : statements.contextCollection) {
-			irS.add(i.toIr(context));
-		}
-		CubexList<IrExpression> irE = new CubexList<IrExpression>();
-		for (CubexExpression i : expressions.contextCollection) {
-			irE.add(i.toIr(context));
-		}
-		CubexList<IrFunctionDef> irF = new CubexList<IrFunctionDef>();
-		for (CubexFunctionDef i : functions.contextCollection) {
-			irF.add(i.toIr(context));
-		}
-		return new IrClass(name, kindcontext, irS, irE, irF);
+	public IrProgram toIr(IrProgramContext context, IrProgram program) {
+		addStruct(context, program);
+		addConstructor(context, program);
+		addFunctions(context, program);
+		return program;
+	}
+	
+	private void addStruct(IrProgramContext context, IrProgram program) {
+		//TODO 
+	}
+	
+	private void addConstructor(IrProgramContext context, IrProgram program) {
+		//TODO
+	}
+	
+	private void addFunctions(IrProgramContext context, IrProgram program) {
+		//TODO
 	}
 
 	public String toString() {

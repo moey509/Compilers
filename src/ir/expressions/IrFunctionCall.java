@@ -1,23 +1,35 @@
 package ir.expressions;
 
-import parsingTokens.CubexList;
-import parsingTokens.typeGrammar.CubexTypeGrammar;
+import java.util.ArrayList;
+import java.util.List;
 
 
-public final class IrFunctionCall extends IrExpression {
-	private String v_vc;
-	private CubexList<CubexTypeGrammar> typeParams;
-	private CubexList<IrExpression> functionParams;
-
-	public IrFunctionCall(String v_vc,
-			CubexList<CubexTypeGrammar> typeParams,
-			CubexList<IrExpression> functionParams) {
-		this.v_vc = v_vc;
-		this.typeParams = typeParams;
-		this.functionParams = functionParams;
-	}
+public final class IrFunctionCall implements IrExpression {
+	private String functionName;
+	private List<IrExpression> arguments;
 	
+	public IrFunctionCall(String functionName) {
+		this.functionName = functionName;
+		this.arguments = new ArrayList<IrExpression>();
+	}
+
+	public void addArgument(IrExpression argument){
+		this.arguments.add(argument);
+	}
+
+
 	public String toC() {
-		return null;
+		boolean firstTime = true;
+		StringBuilder sb = new StringBuilder();
+		for (IrExpression e : arguments){
+			if(firstTime){
+				firstTime = false;
+				sb.append(e.toC());
+			}
+			else{
+				sb.append(", " + e.toC());
+			}
+		}
+		return functionName + "(" + sb.toString() + ")" ;
 	}
 }

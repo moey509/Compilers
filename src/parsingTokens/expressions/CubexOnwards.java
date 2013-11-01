@@ -1,9 +1,8 @@
 package parsingTokens.expressions;
 
-import context.IrContext;
 import ir.expressions.IrOnwards;
+import ir.program.IrProgramContext;
 import parsingTokens.CubexList;
-import parsingTokens.typeGrammar.CubexTypeClass;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import typeChecker.CubexCompleteContext;
 import Exception.SemanticException;
@@ -17,7 +16,7 @@ public class CubexOnwards extends CubexUnaryExpression {
 		include = incl;
 	}
 	
-	public IrOnwards toIr(IrContext context) {
+	public IrOnwards toIr(IrProgramContext context) {
 		return new IrOnwards(getmArgument().toIr(context), include);
 	}
 

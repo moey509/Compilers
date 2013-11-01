@@ -2,7 +2,7 @@ package ir.expressions;
 
 import parsingTokens.CubexList;
 
-public class IrIterable extends IrExpression {
+public class IrIterable implements IrExpression {
 	CubexList<IrExpression> list;
 
 	public IrIterable(CubexList<IrExpression> listIn) {

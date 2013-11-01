@@ -1,6 +1,6 @@
 package parsingTokens.statements;
 
-import context.IrContext;
+import ir.program.IrProgramContext;
 import ir.statements.IrIf;
 import Exception.SemanticException;
 import parsingTokens.expressions.CubexExpression;
@@ -26,8 +26,8 @@ public class CubexIf extends CubexStatement {
 		}
 	}
 	
-	public IrIf toIr(IrContext context) {
-		return new IrIf(e.toIr(context), s1.toIr(context), s2.toIr(context));
+	public IrIf toIr(IrProgramContext context) {
+		return new IrIf(e.toIr(context));
 	}
 
 	public String toString() {

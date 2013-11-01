@@ -1,13 +1,11 @@
 package parsingTokens.statements;
 
-import context.IrContext;
+import ir.program.IrProgramContext;
 import ir.statements.IrReturn;
 import Exception.SemanticException;
 import parsingTokens.expressions.CubexExpression;
-import parsingTokens.typeGrammar.CubexTypeClass;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import typeChecker.CubexCompleteContext;
-import typeChecker.TypeContext;
 import typeChecker.TypeContextReturn;
 
 public final class CubexReturn extends CubexStatement {
@@ -16,7 +14,7 @@ public final class CubexReturn extends CubexStatement {
 		this.e = e;
 	}
 	
-	public IrReturn toIr(IrContext context) {
+	public IrReturn toIr(IrProgramContext context) {
 		return new IrReturn(e.toIr(context));
 	}
 

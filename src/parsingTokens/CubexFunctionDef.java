@@ -1,7 +1,7 @@
 package parsingTokens;
 
-import context.IrContext;
-import ir.IrFunctionDef;
+import ir.program.IrFunction;
+import ir.program.IrProgramContext;
 import parsingTokens.context.CubexTypeScheme;
 import parsingTokens.statements.CubexListStatement;
 import parsingTokens.statements.CubexStatement;
@@ -21,8 +21,8 @@ public class CubexFunctionDef {
 		}
 	}
 	
-	public IrFunctionDef toIr(IrContext context) {
-		return new IrFunctionDef(name, typescheme, statement.toIr(context));
+	public IrFunction toIr(IrProgramContext context) {
+		return new IrFunction(name);
 	}
 
 	public String toString() {

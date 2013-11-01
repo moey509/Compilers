@@ -2,10 +2,10 @@ package ir.expressions;
 
 public class IrOnwards extends IrUnaryExpression {
 	boolean include;
-	public IrFunctionApp function;
+	public IrExpression expression;
 
-	public IrOnwards(IrExpression l, boolean incl) {
-		super(l);
+	public IrOnwards(IrExpression expression, boolean incl) {
+		super(expression, "");
 		include = incl;
 	}
 	

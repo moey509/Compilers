@@ -1,7 +1,7 @@
 package parsingTokens.operations;
 
-import context.IrContext;
-import ir.operations.IrAdd;
+import ir.expressions.IrBinaryExpression;
+import ir.program.IrProgramContext;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
 import parsingTokens.expressions.CubexBinaryExpression;
@@ -17,8 +17,8 @@ public class CubexAdd extends CubexBinaryExpression {
 		super(left, right);
 	}
 	
-	public IrAdd toIr(IrContext context) {
-		return new IrAdd(getmLeft().toIr(context), getmRight().toIr(context));
+	public IrBinaryExpression toIr(IrProgramContext context) {
+		return new IrBinaryExpression(getmLeft().toIr(context), getmRight().toIr(context), "+");
 	}
 	
 	public String toString(){

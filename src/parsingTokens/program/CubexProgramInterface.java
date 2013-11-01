@@ -1,10 +1,8 @@
 package parsingTokens.program;
 
-import ir.IrProgramElem;
+import ir.program.IrProgram;
+import ir.program.IrProgramContext;
 
-import java.util.ArrayList;
-
-import context.IrContext;
 import Exception.SemanticException;
 import parsingTokens.CubexInterface;
 import typeChecker.ClassContext;
@@ -16,22 +14,23 @@ public class CubexProgramInterface implements CubexProgramType {
 	public CubexProgramInterface(CubexInterface cubexInterface) {
 		this.cubexInterface = cubexInterface;
 	}
-	
-	public ArrayList<IrProgramElem> toIr(IrContext context) {
-		ArrayList<IrProgramElem> arr = new ArrayList<IrProgramElem>();
-		arr.add(cubexInterface.toIr());
-		return arr;
-	}
 
 	public String toString() {
 		return cubexInterface.toString();
 	}
 
 	@Override
-	public CubexCompleteContext typeCheck(CubexCompleteContext c) throws SemanticException {
+	public CubexCompleteContext typeCheck(CubexCompleteContext c)
+			throws SemanticException {
 		// TODO Auto-generated method stub
 		ClassContext cont = cubexInterface.typeCheck(c);
 		c.appendClassContext(cont);
 		return c;
+	}
+
+	@Override
+	public IrProgram toIr(IrProgramContext context, IrProgram program) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

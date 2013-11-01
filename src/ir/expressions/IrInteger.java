@@ -1,6 +1,6 @@
 package ir.expressions;
 
-public final class IrInteger extends IrExpression {
+public final class IrInteger implements IrExpression {
 	private int mValue;
 
 	public IrInteger(int value) {

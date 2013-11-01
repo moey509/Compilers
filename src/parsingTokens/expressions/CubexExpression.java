@@ -1,7 +1,8 @@
 package parsingTokens.expressions;
 
-import context.IrContext;
 import ir.expressions.IrExpression;
+import ir.expressions.IrVariableExpression;
+import ir.program.IrProgramContext;
 import Exception.SemanticException;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import typeChecker.CubexCompleteContext;
@@ -48,8 +49,8 @@ public class CubexExpression {
 		}
 	}
 	
-	public IrExpression toIr(IrContext context) {
-		return new IrExpression(name);
+	public IrExpression toIr(IrProgramContext context) {
+		return new IrVariableExpression(name);
 	}
 	
 }

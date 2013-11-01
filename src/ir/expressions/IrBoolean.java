@@ -1,6 +1,6 @@
 package ir.expressions;
 
-public final class IrBoolean extends IrExpression {
+public final class IrBoolean implements IrExpression {
 	private boolean mValue;
 
 	public IrBoolean(boolean value) {

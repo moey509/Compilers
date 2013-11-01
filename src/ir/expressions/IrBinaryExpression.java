@@ -1,22 +1,19 @@
 package ir.expressions;
 
+public class IrBinaryExpression implements IrExpression {
+	private IrExpression leftExpression;
+	private IrExpression rightExpression;
+	private String operator;
 
-public abstract class IrBinaryExpression extends IrExpression {
-	private IrExpression mLeft, mRight;
-	public IrBinaryExpression(IrExpression left, IrExpression right) {
-		setmLeft(left);
-		setmRight(right);
+	public IrBinaryExpression(IrExpression leftExpression,
+			IrExpression rightExpression, String operator) {
+		this.leftExpression = leftExpression;
+		this.rightExpression = rightExpression;
+		this.operator = operator;
 	}
-	public IrExpression getmLeft() {
-		return mLeft;
-	}
-	public void setmLeft(IrExpression mLeft) {
-		this.mLeft = mLeft;
-	}
-	public IrExpression getmRight() {
-		return mRight;
-	}
-	public void setmRight(IrExpression mRight) {
-		this.mRight = mRight;
+
+	public String toC() {
+		return "(" + leftExpression.toC() + ") " + operator + " ("
+				+ rightExpression.toC() + ")";
 	}
 }

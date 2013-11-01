@@ -2,10 +2,10 @@ package parsingTokens.expressions;
 
 import ir.expressions.IrExpression;
 import ir.expressions.IrFunctionCall;
+import ir.program.IrProgramContext;
 
 import java.util.ArrayList;
 
-import context.IrContext;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
 import parsingTokens.context.CubexTypeScheme;
@@ -27,12 +27,12 @@ public final class CubexFunctionCall extends CubexExpression {
 		this.functionParams = functionParams;
 	}
 
-	public IrFunctionCall toIr(IrContext context) {
+	public IrFunctionCall toIr(IrProgramContext context) {
 		CubexList<IrExpression> irF = new CubexList<IrExpression>();
 		for (CubexExpression i : functionParams.contextCollection) {
 			irF.add(i.toIr(context));
 		}
-		return new IrFunctionCall(v_vc, typeParams, irF);
+		return new IrFunctionCall(v_vc);
 	}
 
 	public String toString() {

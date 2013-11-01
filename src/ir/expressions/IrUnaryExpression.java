@@ -1,15 +1,17 @@
 package ir.expressions;
 
+public class IrUnaryExpression implements IrExpression {
+	private IrExpression expression;
+	private String operator;
 
-public abstract class IrUnaryExpression extends IrExpression {
-	private IrExpression mArgument;
-	public IrUnaryExpression(IrExpression arg) {
-		setmArgument(arg);
+	public IrUnaryExpression(IrExpression expression, String operator) {
+		super();
+		this.expression = expression;
+		this.operator = operator;
 	}
-	public IrExpression getmArgument() {
-		return mArgument;
-	}
-	public void setmArgument(IrExpression mArgument) {
-		this.mArgument = mArgument;
+
+	@Override
+	public String toC() {
+		return operator + " (" + expression.toC() + ")";
 	}
 }

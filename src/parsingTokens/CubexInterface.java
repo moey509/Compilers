@@ -1,7 +1,8 @@
 package parsingTokens;
 
-import ir.IrFunctionDef;
-import ir.IrInterface;
+import ir.program.IrFunction;
+import ir.program.IrProgram;
+import ir.program.IrProgramContext;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -35,12 +36,23 @@ public class CubexInterface {
 		functionList = l;
 	}
 	
-	public IrInterface toIr() {
-		CubexList<IrFunctionDef> irF = new CubexList<IrFunctionDef>();
-		for (CubexFunctionDef i : functionList.contextCollection) {
-			irF.add(i.toIr(null));
-		}
-		return new IrInterface(name, kindContext, extendsType, irF);
+	public IrProgram toIr(IrProgramContext context, IrProgram program) {
+		addStruct(context, program);
+		addConstructor(context, program);
+		addFunctions(context, program);
+		return program;
+	}
+	
+	private void addStruct(IrProgramContext context, IrProgram program) {
+		//TODO 
+	}
+	
+	private void addConstructor(IrProgramContext context, IrProgram program) {
+		//TODO
+	}
+	
+	private void addFunctions(IrProgramContext context, IrProgram program) {
+		//TODO
 	}
 
 	public String toString() {

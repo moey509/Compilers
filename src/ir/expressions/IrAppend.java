@@ -1,6 +1,6 @@
 package ir.expressions;
 
-public class IrAppend extends IrExpression {
+public class IrAppend implements IrExpression {
 	IrExpression e1, e2;
 
 	public IrAppend(IrExpression expr1, IrExpression expr2) {
