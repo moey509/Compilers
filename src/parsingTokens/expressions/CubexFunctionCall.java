@@ -28,11 +28,12 @@ public final class CubexFunctionCall extends CubexExpression {
 	}
 
 	public IrFunctionCall toIr(IrProgramContext context) {
-		CubexList<IrExpression> irF = new CubexList<IrExpression>();
+		//TODO something with context to know which function to call in c
+		IrFunctionCall irFunCall = new IrFunctionCall(v_vc);
 		for (CubexExpression i : functionParams.contextCollection) {
-			irF.add(i.toIr(context));
+			irFunCall.addArgument(i.toIr(context));
 		}
-		return new IrFunctionCall(v_vc);
+		return irFunCall;
 	}
 
 	public String toString() {

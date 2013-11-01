@@ -27,7 +27,10 @@ public class CubexIf extends CubexStatement {
 	}
 	
 	public IrIf toIr(IrProgramContext context) {
-		return new IrIf(e.toIr(context));
+		IrIf ir = new IrIf(e.toIr(context));
+		ir.addStatement1(s1.toIr(context));
+		ir.addStatement2(s2.toIr(context));
+		return ir;
 	}
 
 	public String toString() {

@@ -18,7 +18,9 @@ public final class CubexWhile extends CubexStatement {
 	}
 	
 	public IrWhile toIr(IrProgramContext context) {
-		return new IrWhile(e.toIr(context));
+		IrWhile ir = new IrWhile(e.toIr(context));
+		ir.addStatement(s.toIr(context));
+		return ir;
 	}
 
 	public String toString() {

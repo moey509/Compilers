@@ -8,6 +8,7 @@ import Exception.SemanticException;
 import parsingTokens.context.CubexTypeScheme;
 import parsingTokens.context.CubexTypeTuple;
 import parsingTokens.expressions.CubexExpression;
+import parsingTokens.statements.CubexBind;
 import parsingTokens.statements.CubexListStatement;
 import parsingTokens.statements.CubexStatement;
 import parsingTokens.typeGrammar.CubexTypeClass;
@@ -25,6 +26,7 @@ import ir.IrType;
 import ir.program.IrFunction;
 import ir.program.IrProgram;
 import ir.program.IrProgramContext;
+import ir.program.IrStruct;
 import ir.program.IrTypeTuple;
 
 public class CubexClassGrammar {
@@ -79,16 +81,27 @@ public class CubexClassGrammar {
 	}
 
 	private void addStruct(IrProgramContext context, IrProgram program) {
-		// TODO
+		if ((name != "Integer") && (name != "String") && (name != "Character")) {
+			IrStruct irStruct = new IrStruct(name);
+			for (CubexStatement stmt : statements.iterable()) {
+				if (stmt instanceof CubexBind) {
+					CubexBind bind = (CubexBind) stmt;
+					irStruct.addStructVariable(new IrTypeTuple(
+							bind.getIrType(), bind.getId()));
+				}
+			}
+			program.addStruct(irStruct);
+		}
 	}
 
 	private void addConstructor(IrProgramContext context, IrProgram program) {
 		IrFunction irFunction = new IrFunction(new IrType(name), name);
 		for (CubexTypeTuple tuple : typecontext.iterable()) {
-			IrTypeTuple argument = new IrTypeTuple(tuple.getTypeGrammar().toIrType(), tuple.getName());
+			IrTypeTuple argument = new IrTypeTuple(tuple.getTypeGrammar()
+					.toIrType(), tuple.getName());
 			irFunction.addFunctionArgument(argument);
 		}
-		for (CubexStatement stmt : statements.iterable()){
+		for (CubexStatement stmt : statements.iterable()) {
 			irFunction.addStatement(stmt.toIr(context));
 		}
 		program.addGlobalFunction(irFunction);
@@ -96,14 +109,13 @@ public class CubexClassGrammar {
 
 	private void addFunctions(IrProgramContext context, IrProgram program) {
 		for (CubexFunctionDef funDef : functions.iterable()) {
-			IrFunction irFunction = new IrFunction(funDef.typescheme.getTypeGrammar().name, funDef.name);
+			IrFunction irFunction = new IrFunction(funDef.typescheme
+					.getTypeGrammar().toIrType(), name,  funDef.name);
 			for (CubexTypeTuple tuple : funDef.typescheme.getTypeContext()
 					.iterable()) {
-				String cType = (tuple.getTypeGrammar().name == "Integer") ? "int"
-						: (tuple.getTypeGrammar().name == "Character") ? "char"
-								: (tuple.getTypeGrammar().name == "String") ? "char*"
-										: "void*";
-				IrTypeTuple argument = new IrTypeTuple(cType, tuple.getName());
+
+				IrTypeTuple argument = new IrTypeTuple(tuple.getTypeGrammar()
+						.toIrType(), tuple.getName());
 				irFunction.addFunctionArgument(argument);
 			}
 			irFunction.addStatement(funDef.statement.toIr(context));

@@ -18,6 +18,22 @@ public class IrIf implements IrStatement {
 		this.statements2 = new ArrayList<IrStatement>();
 	}
 
+	public void addStatement1(List<IrStatement> statement) {
+		statements1.addAll(statement);
+	}
+
+	public void addStatement1(IrStatement statement) {
+		statements1.add(statement);
+	}
+
+	public void addStatement2(List<IrStatement> statement) {
+		statements2.addAll(statement);
+	}
+
+	public void addStatement2(IrStatement statement) {
+		statements2.add(statement);
+	}
+
 	@Override
 	public ArrayList<String> toC() {
 		ArrayList<String> arrList = new ArrayList<String>();

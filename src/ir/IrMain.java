@@ -67,8 +67,10 @@ public class IrMain {
 			IrProgram program = cubParser.programAST.toIr(context, new IrProgram());
 			ArrayList<String> programCode = program.toC();
 			System.out.println("----------");
-			for (int i = 1; i <= programCode.size(); i++){
-				System.out.println(i + ": " + programCode.get(i));
+			int counter = 1;
+			for (String s : programCode){
+				System.out.println(counter + ": " + s);
+				counter++;
 			}
 		} catch (SemanticException e) {
 			// TODO GET RID OF e.toString() BEFORE WE SUBMIT

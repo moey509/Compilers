@@ -1,6 +1,7 @@
 package parsingTokens.expressions;
 
 import ir.expressions.IrExpression;
+import ir.expressions.IrFunctionCall;
 import ir.program.IrProgramContext;
 
 import java.util.ArrayList;
@@ -34,6 +35,15 @@ public final class CubexFunctionApp extends CubexExpression {
 		return expr.toString() + " . " + v_v + " < " + typeParams.toString(",")
 				+ rightSpace1 + "> ( " + functionParams.toString(",")
 				+ rightSpace2 + ")";
+	}
+	
+	public IrFunctionCall toIr(IrProgramContext context) {
+		//TODO something with context to know which function to call in c
+		IrFunctionCall irFunCall = new IrFunctionCall(v_v);
+		for (CubexExpression i : functionParams.contextCollection) {
+			irFunCall.addArgument(i.toIr(context));
+		}
+		return irFunCall;
 	}
 
 	// Check if the expression is of some type

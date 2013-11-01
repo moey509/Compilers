@@ -2,9 +2,9 @@ package parsingTokens.program;
 
 import ir.program.IrProgram;
 import ir.program.IrProgramContext;
-
 import Exception.SemanticException;
 import parsingTokens.CubexList;
+import parsingTokens.statements.CubexBind;
 import parsingTokens.statements.CubexStatement;
 import parsingTokens.typeGrammar.CubexTypeClass;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
@@ -64,7 +64,14 @@ public class CubexProgramStatementList implements CubexProgramType {
 
 	@Override
 	public IrProgram toIr(IrProgramContext context, IrProgram program) {
-		// TODO Auto-generated method stub
-		return null;
+		for (CubexStatement statement : statementList.iterable()) {
+			if (statement instanceof CubexBind) {
+				CubexBind cubexBind = (CubexBind) statement;
+				program.addGlobalVariable(cubexBind.toIr(context));
+			} else {
+				program.addMainStatement(statement.toIr(context));
+			}
+		}
+		return program;
 	}
 }

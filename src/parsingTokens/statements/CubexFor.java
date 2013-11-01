@@ -23,7 +23,9 @@ public final class CubexFor extends CubexStatement {
 	}
 	
 	public IrFor toIr(IrProgramContext context) {
-		return new IrFor(e.toIr(context));
+		IrFor ir = new IrFor(e.toIr(context));
+		ir.addStatement(s.toIr(context));
+		return ir;
 	}
 
 	public String toString() {

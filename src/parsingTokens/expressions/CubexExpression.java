@@ -8,7 +8,7 @@ import parsingTokens.typeGrammar.CubexTypeGrammar;
 import typeChecker.CubexCompleteContext;
 
 public class CubexExpression {
-	String name;
+	String name;	
 
 	public CubexExpression() {
 	}
@@ -52,5 +52,4 @@ public class CubexExpression {
 	public IrExpression toIr(IrProgramContext context) {
 		return new IrVariableExpression(name);
 	}
-	
 }

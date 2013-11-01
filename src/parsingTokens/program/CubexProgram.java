@@ -15,6 +15,7 @@ public class CubexProgram {
 	}
 
 	public IrProgram toIr(IrProgramContext context, IrProgram program) {
+		program = programType.toIr(context, program);
 		if (nextProgram == null)
 			return program;
 		else
@@ -30,7 +31,6 @@ public class CubexProgram {
 	}
 
 	public void typeCheck(CubexCompleteContext c) throws SemanticException {
-
 		c = programType.typeCheck(c);
 		if (nextProgram != null) {
 			nextProgram.typeCheck(c);

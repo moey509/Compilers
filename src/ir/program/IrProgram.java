@@ -37,8 +37,21 @@ public class IrProgram {
 	
 	
 	public ArrayList<String> toC(){
-		ArrayList<String> newArrList = new ArrayList<String>();
-		// TODO: IR to C stuff.
-		return newArrList;
+		ArrayList<String> output = new ArrayList<String>();
+		for (IrStruct irStruct : structDeclarations){
+			output.addAll(irStruct.toC());
+		}
+		for (IrBind irBind : globalVariables){
+			output.addAll(irBind.toC());
+		}
+		for (IrFunction irFunction : globalFunctions){
+			output.addAll(irFunction.toC());
+		}
+		output.add("int main(){");
+		for (IrStatement irStatement : mainFunctionStatements){
+			output.addAll(irStatement.toC());
+		}
+		output.add("}");
+		return output;
 	}
 }
