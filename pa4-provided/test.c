@@ -36,6 +36,39 @@ struct nit
   int status;
 };
 
+// returns whether there is another element left
+int hasNext(iterator_t it) {
+  if (it == NULL || it->g == NULL)
+    return 0;
+  git_t g;
+  nit_t n;
+  // int case
+  g = it->g;
+  if (g->is_int == 1) {
+    n = g->val;
+    // regular case
+    if (n->status == -1) 
+      return 1;
+    // through case
+    if (n->status == 0) {
+      if (it->cur > n->high) {
+        it->g = g->next;
+        it->cur = NULL;
+        return hasNext(it);
+      }
+      return 1;
+    }
+    // infinite case
+    else {
+      return 1;
+    }
+  }
+  // regular case
+  else {
+    return 1;
+  }
+}
+
 // returns a pointer to the next elements
 void* getNext(iterator_t it) {
   if (it == NULL || it->g == NULL) {
@@ -420,6 +453,34 @@ void charTest() {
     printf("[ASSERT] fail [two element]\n");    
 }
 
+void for_test() {
+  git_t i1 = new_git_int(0, 0, 10);
+  iterator_t it;
+  iterator_t it1;
+  void * temp;
+
+
+  printf ("starting...\n");
+  /*
+  for (it = new_iterator(i1);  temp = getNext(it); temp != NULL; temp = getNext(it)) {
+    printf ("--> %d\n", temp);
+  }
+  */
+  it = new_iterator(i1);
+  while (hasNext(it)) {
+    temp = getNext(it);
+    
+    /*
+     *  insert code here
+     */
+    
+    printf ("==> %d\n", temp);
+  }
+}
+
+
+
+
 void misc_test() {
   void * ans;
 
@@ -468,7 +529,8 @@ int main()
 {
   //charTest();
   //intTest();
-  misc_test();
+  //misc_test();
+  for_test();
 
   /*
   blah_t one = (blah_t)malloc(sizeof(struct blah));
