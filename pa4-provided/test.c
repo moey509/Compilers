@@ -133,8 +133,10 @@ git_t iterable_append (git_t first, git_t second) {
     temp->next = NULL;
     itr = itr->next;  
     // update pointers
-    if (prev != NULL) 
+    if (prev != NULL){ 
       prev->next = temp;
+      prev = temp;
+    }
     if (prev == NULL)
       prev = temp;
     if (g == NULL)
@@ -143,15 +145,17 @@ git_t iterable_append (git_t first, git_t second) {
   // second
   itr = second;
   while (itr != NULL) {
-    printf ("second\n");
+    printf("second\n");
     temp = (git_t)malloc(sizeof(struct git));
     temp->val = itr->val;
     temp->is_int = itr->is_int;
     temp->next = NULL;
     itr = itr->next;  
     // update pointers
-    if (prev != NULL) 
+    if (prev != NULL) { 
       prev->next = temp;
+      prev = temp;
+    }
     if (prev == NULL) 
       prev = temp;
     if (g == NULL)
@@ -416,10 +420,55 @@ void charTest() {
     printf("[ASSERT] fail [two element]\n");    
 }
 
+void misc_test() {
+  void * ans;
+
+  git_t i1 = new_git_int(-1, 5, 0);
+  git_t i2 = new_git_obj('b');
+  git_t i3 = new_git_int(0, 3, 5);
+  git_t i4 = new_git_obj("sdfsdf");
+  git_t i5 = new_git_int(1, 9, 0);
+  git_t i6 = i1;
+  i6 = iterable_append(i6, i2);
+  i6 = iterable_append(i6, i3);
+  i6 = iterable_append(i6, i4);
+  i6 = iterable_append(i6, i5);
+
+  // iterator
+  iterator_t it = new_iterator(i6);
+   
+  printf ("%s\n", i4->val); // sdfsdf
+  printf ("%c\n", i2->val); // b
+  printf ("%c\n", i6->next->val); //b
+  printf ("%p\n", i6->next->next);
+  if (i6->next->next==NULL)
+    printf ("wut\n");
+  ans = getNext(it);
+  printf ("-> %d\n", (int)ans);
+  ans = getNext(it);
+  printf ("-> %c\n", (char)ans);
+  ans = getNext(it);
+  printf ("-> %d\n", (int)ans); 
+  ans = getNext(it);
+  printf ("-> %d\n", (int)ans);
+  ans = getNext(it);
+  printf ("-> %d\n", (int)ans);
+  ans = getNext(it);
+  printf ("-> %s\n", ans);
+  ans = getNext(it);
+  printf ("-> %d\n", ans);
+  ans = getNext(it);
+  printf ("-> %d\n", ans);
+  ans = getNext(it);
+  printf ("-> %d\n", ans);
+
+}
+
 int main()
 {
-  charTest();
-  intTest();
+  //charTest();
+  //intTest();
+  misc_test();
 
   /*
   blah_t one = (blah_t)malloc(sizeof(struct blah));
