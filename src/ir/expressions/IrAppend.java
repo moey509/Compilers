@@ -9,6 +9,6 @@ public class IrAppend implements IrExpression {
 	}
 	
 	public String toC() {
-		return null;
+		return "iterable_append(" + e1.toC() + ", " + e2.toC() +" )";
 	}
 }
