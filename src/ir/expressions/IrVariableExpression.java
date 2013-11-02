@@ -1,5 +1,6 @@
 package ir.expressions;
 
+import ir.CGenerationContext;
 import ir.expressions.IrExpression;
 
 public class IrVariableExpression implements IrExpression {
@@ -10,7 +11,7 @@ public class IrVariableExpression implements IrExpression {
 	}
 
 	@Override
-	public String toC() {
+	public String toC(CGenerationContext context) {
 		return variableName;
 	}
 

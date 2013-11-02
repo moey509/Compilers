@@ -1,7 +1,6 @@
 package ir;
 
 import ir.program.IrProgram;
-import ir.program.IrProgramContext;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -63,7 +62,7 @@ public class IrMain {
 		System.out.println(cubParser.programAST);
 		try {
 			cubParser.programAST.typeCheck(c);
-			IrProgramContext context = new IrProgramContext();
+			IrGenerationContext context = new IrGenerationContext();
 			IrProgram program = cubParser.programAST.toIr(context, new IrProgram());
 			ArrayList<String> programCode = program.toC();
 			System.out.println("----------");

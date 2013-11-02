@@ -1,5 +1,7 @@
 package ir.expressions;
 
+import ir.CGenerationContext;
+
 public class IrUnaryExpression implements IrExpression {
 	private IrExpression expression;
 	private String operator;
@@ -11,7 +13,7 @@ public class IrUnaryExpression implements IrExpression {
 	}
 
 	@Override
-	public String toC() {
-		return operator + " (" + expression.toC() + ")";
+	public String toC(CGenerationContext context) {
+		return operator + " (" + expression.toC(context) + ")";
 	}
 }

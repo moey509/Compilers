@@ -1,5 +1,7 @@
 package ir.expressions;
 
+import ir.CGenerationContext;
+
 public class IrBinaryExpression implements IrExpression {
 	private IrExpression leftExpression;
 	private IrExpression rightExpression;
@@ -12,8 +14,8 @@ public class IrBinaryExpression implements IrExpression {
 		this.operator = operator;
 	}
 
-	public String toC() {
-		return "(" + leftExpression.toC() + ") " + operator + " ("
-				+ rightExpression.toC() + ")";
+	public String toC(CGenerationContext context) {
+		return "(" + leftExpression.toC(context) + ") " + operator + " ("
+				+ rightExpression.toC(context) + ")";
 	}
 }

@@ -1,5 +1,6 @@
 package ir.expressions;
 
+import ir.CGenerationContext;
 import parsingTokens.CubexList;
 
 public class IrIterable implements IrExpression {
@@ -9,7 +10,7 @@ public class IrIterable implements IrExpression {
 		list = listIn;
 	}
 	
-	public String toC() {
+	public String toC(CGenerationContext context) {
 		return null;
 	}
 }

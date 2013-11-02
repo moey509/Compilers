@@ -1,5 +1,7 @@
 package ir.expressions;
 
+import ir.CGenerationContext;
+
 public final class IrBoolean implements IrExpression {
 	private boolean mValue;
 
@@ -7,7 +9,7 @@ public final class IrBoolean implements IrExpression {
 		mValue = value;
 	}
 
-	public String toC() {
+	public String toC(CGenerationContext context) {
 		return mValue ? "1" : "0";
 	}
 }

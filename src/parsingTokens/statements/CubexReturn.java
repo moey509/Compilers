@@ -1,6 +1,6 @@
 package parsingTokens.statements;
 
-import ir.program.IrProgramContext;
+import ir.IrGenerationContext;
 import ir.statements.IrReturn;
 import Exception.SemanticException;
 import parsingTokens.expressions.CubexExpression;
@@ -14,7 +14,7 @@ public final class CubexReturn extends CubexStatement {
 		this.e = e;
 	}
 	
-	public IrReturn toIr(IrProgramContext context) {
+	public IrReturn toIr(IrGenerationContext context) {
 		return new IrReturn(e.toIr(context));
 	}
 

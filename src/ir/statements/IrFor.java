@@ -3,6 +3,7 @@ package ir.statements;
 import java.util.ArrayList;
 import java.util.List;
 
+import ir.CGenerationContext;
 import ir.expressions.IrExpression;
 
 
@@ -23,7 +24,7 @@ public class IrFor implements IrStatement {
 		statements.addAll(statement);
 	}
 	@Override
-	public ArrayList<String> toC() {
+	public ArrayList<String> toC(CGenerationContext context) {
 		// TODO TOSHI DO SOMETHING HERE
 		return null;
 	}

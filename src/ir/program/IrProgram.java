@@ -1,5 +1,6 @@
 package ir.program;
 
+import ir.CGenerationContext;
 import ir.statements.IrBind;
 import ir.statements.IrStatement;
 
@@ -37,19 +38,20 @@ public class IrProgram {
 	
 	
 	public ArrayList<String> toC(){
+		CGenerationContext context = new CGenerationContext();
 		ArrayList<String> output = new ArrayList<String>();
 		for (IrStruct irStruct : structDeclarations){
-			output.addAll(irStruct.toC());
+			output.addAll(irStruct.toC(context));
 		}
 		for (IrBind irBind : globalVariables){
-			output.addAll(irBind.toC());
+			output.addAll(irBind.toC(context));
 		}
 		for (IrFunction irFunction : globalFunctions){
-			output.addAll(irFunction.toC());
+			output.addAll(irFunction.toC(context));
 		}
 		output.add("int main(){");
 		for (IrStatement irStatement : mainFunctionStatements){
-			output.addAll(irStatement.toC());
+			output.addAll(irStatement.toC(context));
 		}
 		output.add("}");
 		return output;

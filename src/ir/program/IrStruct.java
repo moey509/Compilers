@@ -1,5 +1,7 @@
 package ir.program;
 
+import ir.CGenerationContext;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +18,7 @@ public class IrStruct {
 		structVariables.add(variable);
 	}
 	
-	public List<String> toC(){
+	public List<String> toC(CGenerationContext context){
 		return null;
 	}
 }

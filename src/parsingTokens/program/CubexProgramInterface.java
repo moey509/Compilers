@@ -1,8 +1,7 @@
 package parsingTokens.program;
 
+import ir.IrGenerationContext;
 import ir.program.IrProgram;
-import ir.program.IrProgramContext;
-
 import Exception.SemanticException;
 import parsingTokens.CubexInterface;
 import typeChecker.ClassContext;
@@ -29,7 +28,7 @@ public class CubexProgramInterface implements CubexProgramType {
 	}
 
 	@Override
-	public IrProgram toIr(IrProgramContext context, IrProgram program) {
+	public IrProgram toIr(IrGenerationContext context, IrProgram program) {
 		// TODO Auto-generated method stub
 		return null;
 	}

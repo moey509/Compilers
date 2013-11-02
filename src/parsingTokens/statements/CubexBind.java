@@ -1,7 +1,7 @@
 package parsingTokens.statements;
 
+import ir.IrGenerationContext;
 import ir.IrType;
-import ir.program.IrProgramContext;
 import ir.program.IrTypeTuple;
 import ir.statements.IrBind;
 import Exception.SemanticException;
@@ -31,7 +31,7 @@ public final class CubexBind extends CubexStatement {
 		return type;
 	}
 	
-	public IrBind toIr(IrProgramContext context) {
+	public IrBind toIr(IrGenerationContext context) {
 		return new IrBind(new IrTypeTuple(type, classid), e.toIr(context));
 	}
 

@@ -1,7 +1,7 @@
 package parsingTokens.program;
 
+import ir.IrGenerationContext;
 import ir.program.IrProgram;
-import ir.program.IrProgramContext;
 import ir.program.IrTypeTuple;
 import ir.statements.IrBind;
 import ir.statements.IrStatement;
@@ -50,7 +50,7 @@ public class CubexProgramStatement implements CubexProgramType {
 	}
 
 	@Override
-	public IrProgram toIr(IrProgramContext context, IrProgram program) {
+	public IrProgram toIr(IrGenerationContext context, IrProgram program) {
 		if (statement instanceof CubexBind) {
 			CubexBind cubexBind = (CubexBind) statement;
 			program.addGlobalVariable(cubexBind.toIr(context));

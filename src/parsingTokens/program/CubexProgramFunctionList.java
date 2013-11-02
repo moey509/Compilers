@@ -1,8 +1,8 @@
 package parsingTokens.program;
 
+import ir.IrGenerationContext;
 import ir.program.IrFunction;
 import ir.program.IrProgram;
-import ir.program.IrProgramContext;
 import ir.program.IrTypeTuple;
 import Exception.SemanticException;
 import parsingTokens.CubexFunctionDef;
@@ -60,7 +60,7 @@ public class CubexProgramFunctionList implements CubexProgramType {
 	}
 
 	@Override
-	public IrProgram toIr(IrProgramContext context, IrProgram program) {
+	public IrProgram toIr(IrGenerationContext context, IrProgram program) {
 		for (CubexFunctionDef funDef : functionList.iterable()) {
 			IrFunction irFunction = new IrFunction(funDef.typescheme
 					.getTypeGrammar().toIrType(), funDef.name);

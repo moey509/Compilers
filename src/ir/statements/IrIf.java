@@ -3,6 +3,7 @@ package ir.statements;
 import java.util.ArrayList;
 import java.util.List;
 
+import ir.CGenerationContext;
 import ir.expressions.IrExpression;
 
 public class IrIf implements IrStatement {
@@ -35,18 +36,18 @@ public class IrIf implements IrStatement {
 	}
 
 	@Override
-	public ArrayList<String> toC() {
+	public ArrayList<String> toC(CGenerationContext context) {
 		ArrayList<String> arrList = new ArrayList<String>();
-		arrList.add("if(" + condition.toC() + ") {");
+		arrList.add("if(" + condition.toC(context) + ") {");
 		for (IrStatement s1 : statements1) {
-			arrList.addAll(s1.toC());
+			arrList.addAll(s1.toC(context));
 		}
 		if (statements2.isEmpty()) {
 			arrList.add("}");
 		} else {
 			arrList.add("} else {");
 			for (IrStatement s2 : statements2) {
-				arrList.addAll(s2.toC());
+				arrList.addAll(s2.toC(context));
 			}
 			arrList.add("}");
 		}

@@ -22,10 +22,10 @@ import typeChecker.FunctionContext;
 import typeChecker.KindContext;
 import typeChecker.TypeContext;
 import typeChecker.TypeContextReturn;
+import ir.IrGenerationContext;
 import ir.IrType;
 import ir.program.IrFunction;
 import ir.program.IrProgram;
-import ir.program.IrProgramContext;
 import ir.program.IrStruct;
 import ir.program.IrTypeTuple;
 
@@ -73,14 +73,14 @@ public class CubexClassGrammar {
 		this.functions = new CubexList<CubexFunctionDef>();
 	}
 
-	public IrProgram toIr(IrProgramContext context, IrProgram program) {
+	public IrProgram toIr(IrGenerationContext context, IrProgram program) {
 		addStruct(context, program);
 		addConstructor(context, program);
 		addFunctions(context, program);
 		return program;
 	}
 
-	private void addStruct(IrProgramContext context, IrProgram program) {
+	private void addStruct(IrGenerationContext context, IrProgram program) {
 		if ((name != "Integer") && (name != "String") && (name != "Character")) {
 			IrStruct irStruct = new IrStruct(name);
 			for (CubexStatement stmt : statements.iterable()) {
@@ -94,7 +94,7 @@ public class CubexClassGrammar {
 		}
 	}
 
-	private void addConstructor(IrProgramContext context, IrProgram program) {
+	private void addConstructor(IrGenerationContext context, IrProgram program) {
 		IrFunction irFunction = new IrFunction(new IrType(name), name);
 		for (CubexTypeTuple tuple : typecontext.iterable()) {
 			IrTypeTuple argument = new IrTypeTuple(tuple.getTypeGrammar()
@@ -107,7 +107,7 @@ public class CubexClassGrammar {
 		program.addGlobalFunction(irFunction);
 	}
 
-	private void addFunctions(IrProgramContext context, IrProgram program) {
+	private void addFunctions(IrGenerationContext context, IrProgram program) {
 		for (CubexFunctionDef funDef : functions.iterable()) {
 			IrFunction irFunction = new IrFunction(funDef.typescheme
 					.getTypeGrammar().toIrType(), name,  funDef.name);

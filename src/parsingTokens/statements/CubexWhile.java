@@ -1,6 +1,6 @@
 package parsingTokens.statements;
 
-import ir.program.IrProgramContext;
+import ir.IrGenerationContext;
 import ir.statements.IrWhile;
 import Exception.SemanticException;
 import parsingTokens.expressions.CubexExpression;
@@ -17,7 +17,7 @@ public final class CubexWhile extends CubexStatement {
 		this.s = new CubexListStatement(s.flatten());
 	}
 	
-	public IrWhile toIr(IrProgramContext context) {
+	public IrWhile toIr(IrGenerationContext context) {
 		IrWhile ir = new IrWhile(e.toIr(context));
 		ir.addStatement(s.toIr(context));
 		return ir;

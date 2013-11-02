@@ -1,17 +1,17 @@
-package ir.program;
+package ir;
 
 import ir.statements.IrStatement;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class IrProgramContext {
+public class IrGenerationContext {
 	private String superClass;
 	private List<String> globalFunctions;
 	private List<String> globalVariables;
 	private List<IrStatement> mainFunctionStatements;
 
-	public IrProgramContext() {
+	public IrGenerationContext() {
 		globalFunctions = new ArrayList<String>();
 		globalVariables = new ArrayList<String>();
 		mainFunctionStatements = new ArrayList<IrStatement>();

@@ -1,7 +1,7 @@
 package parsingTokens.operations;
 
+import ir.IrGenerationContext;
 import ir.expressions.IrUnaryExpression;
-import ir.program.IrProgramContext;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
 import parsingTokens.expressions.CubexExpression;
@@ -17,7 +17,7 @@ public class CubexNegative extends CubexUnaryExpression {
 		super(arg);
 	}
 	
-	public IrUnaryExpression toIr(IrProgramContext context) {
+	public IrUnaryExpression toIr(IrGenerationContext context) {
 		return new IrUnaryExpression(getmArgument().toIr(context), "-");
 	}
 

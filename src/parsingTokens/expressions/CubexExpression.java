@@ -1,8 +1,8 @@
 package parsingTokens.expressions;
 
+import ir.IrGenerationContext;
 import ir.expressions.IrExpression;
 import ir.expressions.IrVariableExpression;
-import ir.program.IrProgramContext;
 import Exception.SemanticException;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import typeChecker.CubexCompleteContext;
@@ -49,7 +49,7 @@ public class CubexExpression {
 		}
 	}
 	
-	public IrExpression toIr(IrProgramContext context) {
+	public IrExpression toIr(IrGenerationContext context) {
 		System.out.println("here");
 		return new IrVariableExpression(name);
 	}

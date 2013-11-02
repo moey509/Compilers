@@ -3,6 +3,7 @@ package ir.program;
 import java.util.ArrayList;
 import java.util.List;
 
+import ir.CGenerationContext;
 import ir.IrType;
 import ir.statements.IrStatement;
 
@@ -37,7 +38,7 @@ public class IrFunction {
 		statements.add(statement);
 	}
 
-	public ArrayList<String> toC() {
+	public ArrayList<String> toC(CGenerationContext context) {
 		return null;
 	}
 }

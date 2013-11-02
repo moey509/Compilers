@@ -1,6 +1,8 @@
 package ir.statements;
 
 import java.util.ArrayList;
+
+import ir.CGenerationContext;
 import ir.expressions.IrExpression;
 
 public final class IrReturn implements IrStatement {
@@ -11,9 +13,9 @@ public final class IrReturn implements IrStatement {
 	}
 
 	@Override
-	public ArrayList<String> toC() {
+	public ArrayList<String> toC(CGenerationContext context) {
 		ArrayList<String> arrList = new ArrayList<String>();
-		arrList.add("return " + expression.toC() + ";");
+		arrList.add("return " + expression.toC(context) + ";");
 		return arrList;
 	}
 

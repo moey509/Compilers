@@ -1,6 +1,6 @@
 package parsingTokens.statements;
 
-import ir.program.IrProgramContext;
+import ir.IrGenerationContext;
 import ir.statements.IrFor;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
@@ -22,7 +22,7 @@ public final class CubexFor extends CubexStatement {
 		this.s = new CubexListStatement(s.flatten());
 	}
 	
-	public IrFor toIr(IrProgramContext context) {
+	public IrFor toIr(IrGenerationContext context) {
 		IrFor ir = new IrFor(e.toIr(context));
 		ir.addStatement(s.toIr(context));
 		return ir;

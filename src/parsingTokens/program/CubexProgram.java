@@ -1,7 +1,7 @@
 package parsingTokens.program;
 
+import ir.IrGenerationContext;
 import ir.program.IrProgram;
-import ir.program.IrProgramContext;
 import Exception.SemanticException;
 import typeChecker.CubexCompleteContext;
 
@@ -14,7 +14,7 @@ public class CubexProgram {
 		this.nextProgram = nextProgram;
 	}
 
-	public IrProgram toIr(IrProgramContext context, IrProgram program) {
+	public IrProgram toIr(IrGenerationContext context, IrProgram program) {
 		program = programType.toIr(context, program);
 		if (nextProgram == null)
 			return program;

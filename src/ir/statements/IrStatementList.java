@@ -1,5 +1,7 @@
 package ir.statements;
 
+import ir.CGenerationContext;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,10 +21,10 @@ public class IrStatementList implements IrStatement{
 	}
 
 	@Override
-	public ArrayList<String> toC() {
+	public ArrayList<String> toC(CGenerationContext context) {
 		ArrayList<String> output = new ArrayList<String>();
 		for (IrStatement stmt : statementList){
-			output.addAll(stmt.toC());
+			output.addAll(stmt.toC(context));
 		}
 		return output;
 	}

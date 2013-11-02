@@ -1,8 +1,8 @@
 package parsingTokens.expressions;
 
+import ir.IrGenerationContext;
 import ir.expressions.IrExpression;
 import ir.expressions.IrFunctionCall;
-import ir.program.IrProgramContext;
 
 import java.util.ArrayList;
 
@@ -37,7 +37,7 @@ public final class CubexFunctionApp extends CubexExpression {
 				+ rightSpace2 + ")";
 	}
 	
-	public IrFunctionCall toIr(IrProgramContext context) {
+	public IrFunctionCall toIr(IrGenerationContext context) {
 		//TODO something with context to know which function to call in c
 		IrFunctionCall irFunCall = new IrFunctionCall(v_v);
 		for (CubexExpression i : functionParams.contextCollection) {

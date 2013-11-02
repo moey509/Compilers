@@ -1,7 +1,7 @@
 package parsingTokens.expressions;
 
+import ir.IrGenerationContext;
 import ir.expressions.IrBinaryExpression;
-import ir.program.IrProgramContext;
 import parsingTokens.CubexList;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import typeChecker.CubexCompleteContext;
@@ -14,7 +14,7 @@ public class CubexLessNotStrict extends CubexBinaryExpression {
 		super(left, right);
 	}
 
-	public IrBinaryExpression toIr(IrProgramContext context) {
+	public IrBinaryExpression toIr(IrGenerationContext context) {
 		return new IrBinaryExpression(getmLeft().toIr(context), getmRight().toIr(context), "<=");
 	}
 

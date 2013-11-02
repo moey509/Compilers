@@ -1,7 +1,7 @@
 package parsingTokens.program;
 
+import ir.IrGenerationContext;
 import ir.program.IrProgram;
-import ir.program.IrProgramContext;
 import Exception.SemanticException;
 import parsingTokens.CubexClassGrammar;
 import typeChecker.CubexCompleteContext;
@@ -25,7 +25,7 @@ public class CubexProgramClass implements CubexProgramType {
 	}
 
 	@Override
-	public IrProgram toIr(IrProgramContext context, IrProgram program) {
+	public IrProgram toIr(IrGenerationContext context, IrProgram program) {
 		return cubexClass.toIr(context, program);
 	}
 

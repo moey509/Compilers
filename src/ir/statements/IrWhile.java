@@ -3,6 +3,7 @@ package ir.statements;
 import java.util.ArrayList;
 import java.util.List;
 
+import ir.CGenerationContext;
 import ir.expressions.IrExpression;
 
 public final class IrWhile implements IrStatement {
@@ -23,11 +24,11 @@ public final class IrWhile implements IrStatement {
 	}
 
 	@Override
-	public ArrayList<String> toC() {
+	public ArrayList<String> toC(CGenerationContext context) {
 		ArrayList<String> arrList = new ArrayList<String>();
-		arrList.add("while(" + condition.toC() + ") {");
+		arrList.add("while(" + condition.toC(context) + ") {");
 		for (IrStatement statement : statements){
-			arrList.addAll(statement.toC());
+			arrList.addAll(statement.toC(context));
 		}
 		arrList.add("}");
 		return arrList;

@@ -1,7 +1,7 @@
 package parsingTokens.expressions;
 
+import ir.IrGenerationContext;
 import ir.expressions.IrUnaryExpression;
-import ir.program.IrProgramContext;
 
 
 public abstract class CubexUnaryExpression extends CubexExpression {
@@ -16,5 +16,5 @@ public abstract class CubexUnaryExpression extends CubexExpression {
 		this.mArgument = mArgument;
 	}
 	
-	public abstract IrUnaryExpression toIr(IrProgramContext context);
+	public abstract IrUnaryExpression toIr(IrGenerationContext context);
 }
