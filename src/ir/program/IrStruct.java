@@ -19,6 +19,16 @@ public class IrStruct {
 	}
 	
 	public List<String> toC(CGenerationContext context){
-		return null;
+		ArrayList<String> arr = new ArrayList<String>();
+		arr.add("typedef struct " + structName);
+		arr.add("{");
+		
+		for(IrTypeTuple t : structVariables){
+			arr.add(t.type.declarationInStruct() + t.variableName + ";");
+		}
+		
+		arr.add("};");
+		
+		return arr;
 	}
 }
