@@ -26,6 +26,6 @@ public class IrType {
 			return "char";
 		if (type == "String")
 			return "char*";
-		else
-		
+		return "struct *" + type;
+	}
 }
