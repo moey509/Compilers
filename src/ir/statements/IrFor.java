@@ -28,6 +28,7 @@ public class IrFor implements IrStatement {
 	@Override
 	public ArrayList<String> toC(CGenerationContext context) {
 		// TODO TOSHI DO SOMETHING HERE
+		//Need a variable name for the for loop and some kind of memory management
 		ArrayList<String> arr = new ArrayList<String>();
 		arr.add("for(" + condition.toC(context) + "; " + "){");
 		for(IrStatement s : statements){
