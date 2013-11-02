@@ -19,7 +19,8 @@ public final class IrBind implements IrStatement {
 	@Override
 	public ArrayList<String> toC(CGenerationContext context) {
 		ArrayList<String> output = new ArrayList<String>();
-		output.add(tuple.type.toC() + " " + tuple.variableName + " = " + expression.toC(context) + ";");
+		//output.add(tuple.type.toC() + " " + tuple.variableName + " = " + expression.toC(context) + ";");
+		output.add(tuple.variableName + " = " + expression.toC(context) + ";");
 		return output;
 	}
 

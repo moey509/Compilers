@@ -234,10 +234,8 @@ public class CubexClassGrammar {
 							superFunctionStatements.get(entry.getKey())));
 		}
 		for (CubexFunctionDef fun : functions.iterable()) {
-			System.out.println(fun);
 			superFuncs.put(fun.name, fun);
 		}
-		System.out.println(superFuncs);
 
 		// Check that all function type schemes are valid
 		for (CubexFunctionDef fun : superFuncs.values()) {
