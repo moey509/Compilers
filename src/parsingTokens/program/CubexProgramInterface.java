@@ -1,11 +1,11 @@
 package parsingTokens.program;
 
-import ir.IrGenerationContext;
 import ir.program.IrProgram;
 import Exception.SemanticException;
 import parsingTokens.CubexInterface;
 import typeChecker.ClassContext;
 import typeChecker.CubexCompleteContext;
+import typeChecker.IrGenerationContext;
 
 public class CubexProgramInterface implements CubexProgramType {
 	private CubexInterface cubexInterface;

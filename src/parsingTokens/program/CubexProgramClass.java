@@ -1,10 +1,10 @@
 package parsingTokens.program;
 
-import ir.IrGenerationContext;
 import ir.program.IrProgram;
 import Exception.SemanticException;
 import parsingTokens.CubexClassGrammar;
 import typeChecker.CubexCompleteContext;
+import typeChecker.IrGenerationContext;
 
 public class CubexProgramClass implements CubexProgramType {
 	private CubexClassGrammar cubexClass;

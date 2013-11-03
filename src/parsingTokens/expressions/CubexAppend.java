@@ -1,11 +1,11 @@
 package parsingTokens.expressions;
 
-import ir.IrGenerationContext;
 import ir.expressions.IrAppend;
 import parsingTokens.CubexList;
 import parsingTokens.typeGrammar.CubexTypeClass;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import typeChecker.CubexCompleteContext;
+import typeChecker.IrGenerationContext;
 import Exception.SemanticException;
 
 public class CubexAppend extends CubexExpression {
@@ -14,6 +14,7 @@ public class CubexAppend extends CubexExpression {
 	public CubexAppend(CubexExpression expr1, CubexExpression expr2) {
 		e1 = expr1;
 		e2 = expr2;
+		type = "Iterable";
 	}
 	
 	public IrAppend toIr(IrGenerationContext context) {

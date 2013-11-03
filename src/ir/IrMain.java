@@ -24,6 +24,7 @@ import org.antlr.v4.runtime.misc.Nullable;
 
 import parser.CubexParser;
 import typeChecker.CubexCompleteContext;
+import typeChecker.IrGenerationContext;
 import typeChecker.TypeCheckerMain;
 import Exception.SemanticException;
 
