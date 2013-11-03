@@ -24,18 +24,18 @@ public class IrOnwards extends IrUnaryExpression {
 		if (expression.getType().equals("integer")) {
 			String in;
 			if (include)
-				in = "+ 1";
+				in = " + 1";
 			else
-				in = "+ 0";
+				in = " + 0";
 			return "new_git_int(1, (" + expression.toC(context) + in + "), 0);";
 		}
 		// boolean case
 		else {
 			String in;
 			if (include)
-				in = "+ 1";
+				in = " + 1";
 			else
-				in = "+ 0";
+				in = " + 0";
 			return "new_git_int(0, (" + expression.toC(context) + in + "), 1);";
 		}
 	}
