@@ -35,6 +35,10 @@ public class IrUnaryExpression implements IrExpression {
 
 	@Override
 	public String toC(CGenerationContext context) {
+		if (operator == null || operator.equals("")) {
+			System.out.println("WARNING: operator for unary expression was null or could not be found");
+			return null;
+		}
 		return operator + " (" + expression.toC(context) + ")";
 	}
 }

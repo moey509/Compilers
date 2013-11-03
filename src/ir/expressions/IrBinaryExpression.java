@@ -72,6 +72,10 @@ public class IrBinaryExpression implements IrExpression {
 	}
 
 	public String toC(CGenerationContext context) {
-		return null;
+		if (operator == null || operator.equals("")) {
+			System.out.println("WARNING: there is no operator in this Binary Expression");
+			return null;
+		}
+		return "(" + leftExpression.toC(context) + ") " + operator + " (" + rightExpression.toC(context) + ")";
 	}
 }

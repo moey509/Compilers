@@ -27,7 +27,7 @@ public class IrOnwards extends IrUnaryExpression {
 				in = " + 1";
 			else
 				in = " + 0";
-			return "new_git_int(1, (" + expression.toC(context) + in + "), 0);";
+			return "new_git_int(1, (" + expression.toC(context) + in + "), 0)";
 		}
 		// boolean case
 		else {
@@ -36,7 +36,7 @@ public class IrOnwards extends IrUnaryExpression {
 				in = " + 1";
 			else
 				in = " + 0";
-			return "new_git_int(0, (" + expression.toC(context) + in + "), 1);";
+			return "new_git_int(0, (" + expression.toC(context) + in + "), 1)";
 		}
 	}
 }
