@@ -10,11 +10,13 @@ import ir.expressions.IrExpression;
 
 
 public class IrFor implements IrStatement {
-	private IrExpression condition;
+	private IrExpression list;
+	private String var;
 	private List<IrStatement> statements;
 
-	public IrFor(IrExpression condition) {
-		this.condition = condition;
+	public IrFor(IrExpression list, String var) {
+		this.list = list;
+		this.var = var;
 		this.statements = new ArrayList<IrStatement>();
 	}
 
@@ -27,7 +29,7 @@ public class IrFor implements IrStatement {
 	}
 	
 	
-//	it = new_iterator(i1);
+//	  it = new_iterator(i1);
 //	  while (hasNext(it)) {
 //	    temp = getNext(it);
 //	    
@@ -39,15 +41,25 @@ public class IrFor implements IrStatement {
 //	}
 	public ArrayList<String> toC(CGenerationContext context) {
 		ArrayList<String> arr = new ArrayList<String>();
-		//arr.add()
+		int cur_iterator = context.getCurIterator();
+		context.incrementCurIterator();
+		String iterator = "_it" + cur_iterator;
+		String itDeclaration = iterator + " = new_iterator((" + list.toC(context) + "));";
+		String itCondition = "while(hasNext(" + iterator + ")) {";
+		String tempVar = var + " = getNext(" + iterator + ");";
 		
-		// ADD SHIT HERE.
+		arr.add(itDeclaration);
+		arr.add(itCondition);
+		arr.add(tempVar);
 		
-		arr.add("for(" + condition.toC(context) + "; " + "){");
-		for(IrStatement s : statements){
+		for (IrStatement s : statements) {
 			arr.addAll(s.toC(context));
 		}
-		arr.add("}");
+		
+		String endLoop = "}";
+		
+		arr.add(endLoop);
+
 		return arr;
 	}
 }
