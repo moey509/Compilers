@@ -32,10 +32,13 @@ public class CubexTypeClass extends CubexTypeGrammar {
 
 	public void validate(CubexCompleteContext c, boolean canBeClass) throws SemanticException {
 		if (name.equals("Thing") || name.equals("Nothing")) return;
-		if (!c.containsClassName(getName())) {
-			if (!canBeClass && c.classContext.get(getName()).isClass())
-				throw new SemanticException("Class context does not contain class name");
-		}
+		if (!c.containsClassName(getName()))
+			throw new SemanticException("Class context does not contain class name");
+		ClassContextElement elem = c.classContext.get(getName());
+		if (!canBeClass && elem.isClass() )
+			throw new SemanticException("Class found where Interface needed");
+		if (elem.kindContext.size()!=typeList.size())
+			throw new SemanticException("Class/Interface number of generics not consistent");
 		for (CubexTypeGrammar i : typeList.contextCollection) {
 			i.validate(c, true);
 		}
