@@ -13,9 +13,21 @@ public class IrBinaryExpression implements IrExpression {
 		this.rightExpression = rightExpression;
 		this.operator = operator;
 	}
+	
+	public String getOperator() {
+		return this.operator;
+	}
+	
+	public IrExpression getLeftExpression() {
+		return this.leftExpression;
+	}
+	
+	public IrExpression getRightExpression() {
+		return this.rightExpression;
+	}
+
 
 	public String toC(CGenerationContext context) {
-		return "(" + leftExpression.toC(context) + ") " + operator + " ("
-				+ rightExpression.toC(context) + ")";
+		return null;
 	}
 }
