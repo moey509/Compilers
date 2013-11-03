@@ -14,18 +14,13 @@ public class IrUnaryExpression implements IrExpression {
 		this.operator = operator;
 		
 		// logic to determine type:
-		switch (operator) {
-		case "!":
+		if (operator.equals("!"))
 			this.type = IrMiscFunctions.BOOLEAN;
-			break;
-		case "-":
+		else if (operator.equals("-"))
 			this.type = IrMiscFunctions.INTEGER;
-			break;
-		default:
+		else {
 			this.type = null;
 			System.out.println("unary operator: " + operator + " could not be found....");
-			break;
-
 		}
 	}
 	

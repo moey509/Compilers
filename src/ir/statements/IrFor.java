@@ -25,11 +25,24 @@ public class IrFor implements IrStatement {
 	public void addStatement(List<IrStatement> statement){
 		statements.addAll(statement);
 	}
-	@Override
+	
+	
+//	it = new_iterator(i1);
+//	  while (hasNext(it)) {
+//	    temp = getNext(it);
+//	    
+//	    /*
+//	     *  insert code here
+//	     */
+//	    
+//	    printf ("==> %d\n", temp);
+//	}
 	public ArrayList<String> toC(CGenerationContext context) {
-		// TODO TOSHI DO SOMETHING HERE
-		//Need a variable name for the for loop and some kind of memory management
 		ArrayList<String> arr = new ArrayList<String>();
+		//arr.add()
+		
+		// ADD SHIT HERE.
+		
 		arr.add("for(" + condition.toC(context) + "; " + "){");
 		for(IrStatement s : statements){
 			arr.addAll(s.toC(context));

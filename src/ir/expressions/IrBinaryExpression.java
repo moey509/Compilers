@@ -16,42 +16,14 @@ public class IrBinaryExpression implements IrExpression {
 		this.operator = operator;
 
 		// logic to determine type:
-		switch (operator) {
-			case "+":
-				type = IrMiscFunctions.INTEGER;
-				break;
-			case "&&":
-				type = IrMiscFunctions.INTEGER;
-				break;
-			case "/":
-				type = IrMiscFunctions.INTEGER;
-				break;
-			case "-":
-				type = IrMiscFunctions.INTEGER;
-				break;			
-			case "%":
-				type = IrMiscFunctions.INTEGER;
-				break;
-			case "*": 
-				type = IrMiscFunctions.INTEGER;
-				break;
-			case "||":
-				type = IrMiscFunctions.BOOLEAN;
-				break;
-			case "==":
-				type = IrMiscFunctions.BOOLEAN;
-				break;
-			case "<=":
-				type = IrMiscFunctions.BOOLEAN;
-				break;
-			case "<":
-				type = IrMiscFunctions.BOOLEAN;
-				break;
-			default: 
-				type = null;
-				System.out.println("WARNING! built it type was not found...");
-				break;
-			
+		if (operator.equals("+") || operator.equals("&&") || operator.equals("/") || operator.equals("-")
+				|| operator.equals("%") || operator.equals("*"))
+			type = IrMiscFunctions.INTEGER;
+		else if (operator.equals("||") || operator.equals("==") || operator.equals("<=") || operator.equals("<"))
+			type = IrMiscFunctions.BOOLEAN;
+		else {
+			type = null;
+			System.out.println("WARNING! built it type was not found...");
 		}
 	}
 
