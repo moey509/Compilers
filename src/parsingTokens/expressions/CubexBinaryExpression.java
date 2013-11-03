@@ -1,6 +1,6 @@
 package parsingTokens.expressions;
 
-import ir.IrGenerationContext;
+import typeChecker.IrGenerationContext;
 import ir.expressions.IrBinaryExpression;
 
 

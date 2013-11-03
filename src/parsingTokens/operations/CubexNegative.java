@@ -1,6 +1,5 @@
 package parsingTokens.operations;
 
-import ir.IrGenerationContext;
 import ir.expressions.IrUnaryExpression;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
@@ -9,6 +8,7 @@ import parsingTokens.expressions.CubexFunctionApp;
 import parsingTokens.expressions.CubexUnaryExpression;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import typeChecker.CubexCompleteContext;
+import typeChecker.IrGenerationContext;
 
 public class CubexNegative extends CubexUnaryExpression {
 	CubexExpression function;

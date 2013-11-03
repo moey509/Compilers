@@ -1,6 +1,5 @@
 package parsingTokens.program;
 
-import ir.IrGenerationContext;
 import ir.program.IrProgram;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
@@ -9,6 +8,7 @@ import parsingTokens.statements.CubexStatement;
 import parsingTokens.typeGrammar.CubexTypeClass;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import typeChecker.CubexCompleteContext;
+import typeChecker.IrGenerationContext;
 import typeChecker.KindContext;
 import typeChecker.TypeContext;
 import typeChecker.TypeContextReturn;

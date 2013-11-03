@@ -1,12 +1,12 @@
 package parsingTokens.statements;
 
 
-import ir.IrGenerationContext;
 import ir.statements.IrStatement;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
 import parsingTokens.expressions.CubexExpression;
 import typeChecker.CubexCompleteContext;
+import typeChecker.IrGenerationContext;
 import typeChecker.TypeContextReturn;
 import typeChecker.TypeContext;
 

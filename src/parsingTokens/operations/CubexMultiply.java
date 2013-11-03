@@ -1,6 +1,5 @@
 package parsingTokens.operations;
 
-import ir.IrGenerationContext;
 import ir.expressions.IrBinaryExpression;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
@@ -9,6 +8,7 @@ import parsingTokens.expressions.CubexExpression;
 import parsingTokens.expressions.CubexFunctionApp;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import typeChecker.CubexCompleteContext;
+import typeChecker.IrGenerationContext;
 
 public class CubexMultiply extends CubexBinaryExpression {
 	CubexExpression function;
