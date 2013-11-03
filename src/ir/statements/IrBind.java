@@ -1,23 +1,27 @@
 package ir.statements;
 
 import java.util.ArrayList;
+
+import ir.CGenerationContext;
 import ir.expressions.IrExpression;
+import ir.program.IrTypeTuple;
 
+public final class IrBind implements IrStatement {
+	private IrTypeTuple tuple;
+	private IrExpression expression;
 
-public final class IrBind extends IrStatement {
-	private String classid;
-//	CubexExpression e;
-
-	public IrBind(String classid, IrExpression e) {
-		this.classid = classid;
-		this.e = e;
+	public IrBind(IrTypeTuple tuple, IrExpression expression) {
+		this.tuple = tuple;
+		this.expression = expression;
+		System.out.println();
 	}
 
 	@Override
-	public ArrayList<String> toC() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<String> toC(CGenerationContext context) {
+		ArrayList<String> output = new ArrayList<String>();
+		//output.add(tuple.type.toC() + " " + tuple.variableName + " = " + expression.toC(context) + ";");
+		output.add(tuple.variableName + " = " + expression.toC(context) + ";");
+		return output;
 	}
 
-	
 }

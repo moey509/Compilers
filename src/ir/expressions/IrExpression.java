@@ -1,17 +1,11 @@
 package ir.expressions;
 
+import ir.CGenerationContext;
 
-public class IrExpression {
-	String name;
+public interface IrExpression {
 	
-	public IrExpression() {}
+	public String getType();
+	
+	public String toC(CGenerationContext context);
 
-	public IrExpression(String vp) {
-		name = vp;
-	}
-	
-	public String toC() {
-		return null;
-	}
-	
 }

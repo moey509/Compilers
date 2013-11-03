@@ -1,5 +1,6 @@
 package parsingTokens.expressions;
 
+import ir.IrGenerationContext;
 import ir.expressions.IrInteger;
 import parsingTokens.CubexList;
 import parsingTokens.typeGrammar.CubexTypeClass;
@@ -14,7 +15,7 @@ public final class CubexInteger extends CubexExpression {
 		mValue = value;
 	}
 	
-	public IrInteger toIr() {
+	public IrInteger toIr(IrGenerationContext context) {
 		return new IrInteger(mValue);
 	}
 

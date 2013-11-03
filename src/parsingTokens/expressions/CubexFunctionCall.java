@@ -1,11 +1,11 @@
 package parsingTokens.expressions;
 
+import ir.IrGenerationContext;
 import ir.expressions.IrExpression;
 import ir.expressions.IrFunctionCall;
 
 import java.util.ArrayList;
 
-import context.IrContext;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
 import parsingTokens.context.CubexTypeScheme;
@@ -13,7 +13,7 @@ import parsingTokens.context.CubexTypeTuple;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import typeChecker.CubexCompleteContext;
 import typeChecker.TypeContext;
-
+//TODO: WE SHOULD WRITE DOCUMENTATION SO WE KNOW WHAT IS WHAT
 public final class CubexFunctionCall extends CubexExpression {
 	private String v_vc;
 	private CubexList<CubexTypeGrammar> typeParams;
@@ -27,12 +27,14 @@ public final class CubexFunctionCall extends CubexExpression {
 		this.functionParams = functionParams;
 	}
 
-	public IrFunctionCall toIr(IrContext context) {
-		CubexList<IrExpression> irF = new CubexList<IrExpression>();
+	public IrFunctionCall toIr(IrGenerationContext context) {
+		//TODO something with context to know which function to call in c
+		System.out.println("THE TYPE FOR THIS VARIABLE IS UNKNOWN ATM");
+		IrFunctionCall irFunCall = new IrFunctionCall(v_vc, "");
 		for (CubexExpression i : functionParams.contextCollection) {
-			irF.add(i.toIr(context));
+			irFunCall.addArgument(i.toIr(context));
 		}
-		return new IrFunctionCall(v_vc, typeParams, irF);
+		return irFunCall;
 	}
 
 	public String toString() {

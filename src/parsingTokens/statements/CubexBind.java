@@ -1,6 +1,8 @@
 package parsingTokens.statements;
 
-import context.IrContext;
+import ir.IrGenerationContext;
+import ir.IrType;
+import ir.program.IrTypeTuple;
 import ir.statements.IrBind;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
@@ -13,6 +15,7 @@ import typeChecker.TypeContextReturn;
 
 public final class CubexBind extends CubexStatement {
 	private String classid;
+	private IrType type = null;
 //	CubexExpression e;
 
 	public CubexBind(String classid, CubexExpression e) {
@@ -20,8 +23,16 @@ public final class CubexBind extends CubexStatement {
 		this.e = e;
 	}
 	
-	public IrBind toIr(IrContext context) {
-		return new IrBind(classid, e.toIr(context));
+	public String getId(){
+		return classid;
+	}
+	
+	public IrType getIrType(){
+		return type;
+	}
+	
+	public IrBind toIr(IrGenerationContext context) {
+		return new IrBind(new IrTypeTuple(type, classid), e.toIr(context));
 	}
 
 	public String toString() {
@@ -33,6 +44,7 @@ public final class CubexBind extends CubexStatement {
 		CubexCompleteContext copy = c.clone();
 		copy.typeContext.noConflictMerge(copy.mutableTypeContext);
 		CubexTypeGrammar t = e.typeCheck(copy);
+		type = t.toIrType();
 		TypeContext typecontext = c.mutableTypeContext.clone();
 		if (typecontext.containsKey(classid)) {
 			typecontext.remove(classid);

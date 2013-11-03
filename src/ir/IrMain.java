@@ -1,5 +1,7 @@
 package ir;
 
+import ir.program.IrProgram;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.BitSet;
@@ -20,7 +22,6 @@ import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.misc.Nullable;
 
-import context.IrContext;
 import parser.CubexParser;
 import typeChecker.CubexCompleteContext;
 import typeChecker.TypeCheckerMain;
@@ -61,12 +62,14 @@ public class IrMain {
 		System.out.println(cubParser.programAST);
 		try {
 			cubParser.programAST.typeCheck(c);
-			IrContext context = new IrContext();
-			IrProgram program = cubParser.programAST.toIr(context);
+			IrGenerationContext context = new IrGenerationContext();
+			IrProgram program = cubParser.programAST.toIr(context, new IrProgram());
 			ArrayList<String> programCode = program.toC();
 			System.out.println("----------");
-			for (int i = 1; i <= programCode.size(); i++){
-				System.out.println(i + ": " + programCode.get(i));
+			int counter = 1;
+			for (String s : programCode){
+				System.out.println(counter + ": " + s);
+				counter++;
 			}
 		} catch (SemanticException e) {
 			// TODO GET RID OF e.toString() BEFORE WE SUBMIT

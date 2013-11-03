@@ -1,25 +1,42 @@
 package ir.statements;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
+
+import ir.CGenerationContext;
 import ir.expressions.IrExpression;
 
 
-public class IrFor extends IrStatement {
-	private String varfun;
-	private IrStatement s;
+public class IrFor implements IrStatement {
+	private IrExpression condition;
+	private List<IrStatement> statements;
 
-	public IrFor(String varfun, IrExpression e, IrStatement s) {
-		this.varfun = varfun;
-		this.e = e;
-		this.s = s;
+	public IrFor(IrExpression condition) {
+		this.condition = condition;
+		this.statements = new ArrayList<IrStatement>();
 	}
 
+	public void addStatement(IrStatement statement){
+		statements.add(statement);
+	}
+	
+	public void addStatement(List<IrStatement> statement){
+		statements.addAll(statement);
+	}
 	@Override
-	public ArrayList<String> toC() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<String> toC(CGenerationContext context) {
+		// TODO TOSHI DO SOMETHING HERE
+		//Need a variable name for the for loop and some kind of memory management
+		ArrayList<String> arr = new ArrayList<String>();
+		arr.add("for(" + condition.toC(context) + "; " + "){");
+		for(IrStatement s : statements){
+			arr.addAll(s.toC(context));
+		}
+		arr.add("}");
+		return arr;
 	}
-
 }
 
 

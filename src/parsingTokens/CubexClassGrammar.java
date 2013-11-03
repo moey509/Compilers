@@ -4,11 +4,11 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
-import context.IrContext;
 import Exception.SemanticException;
 import parsingTokens.context.CubexTypeScheme;
 import parsingTokens.context.CubexTypeTuple;
 import parsingTokens.expressions.CubexExpression;
+import parsingTokens.statements.CubexBind;
 import parsingTokens.statements.CubexListStatement;
 import parsingTokens.statements.CubexStatement;
 import parsingTokens.typeGrammar.CubexTypeClass;
@@ -22,9 +22,12 @@ import typeChecker.FunctionContext;
 import typeChecker.KindContext;
 import typeChecker.TypeContext;
 import typeChecker.TypeContextReturn;
-import ir.*;
-import ir.expressions.IrExpression;
-import ir.statements.IrStatement;
+import ir.IrGenerationContext;
+import ir.IrType;
+import ir.program.IrFunction;
+import ir.program.IrProgram;
+import ir.program.IrStruct;
+import ir.program.IrTypeTuple;
 
 public class CubexClassGrammar {
 	public String name;
@@ -69,21 +72,55 @@ public class CubexClassGrammar {
 		this.expressions = new CubexList<CubexExpression>();
 		this.functions = new CubexList<CubexFunctionDef>();
 	}
-	
-	public IrClass toIr(IrContext context) {
-		CubexList<IrStatement> irS = new CubexList<IrStatement>();
-		for (CubexStatement i : statements.contextCollection) {
-			irS.add(i.toIr(context));
+
+	public IrProgram toIr(IrGenerationContext context, IrProgram program) {
+		addStruct(context, program);
+		addConstructor(context, program);
+		addFunctions(context, program);
+		return program;
+	}
+
+	private void addStruct(IrGenerationContext context, IrProgram program) {
+		if ((name != "Integer") && (name != "String") && (name != "Character")) {
+			IrStruct irStruct = new IrStruct(name);
+			for (CubexStatement stmt : statements.iterable()) {
+				if (stmt instanceof CubexBind) {
+					CubexBind bind = (CubexBind) stmt;
+					irStruct.addStructVariable(new IrTypeTuple(
+							bind.getIrType(), bind.getId()));
+				}
+			}
+			program.addStruct(irStruct);
 		}
-		CubexList<IrExpression> irE = new CubexList<IrExpression>();
-		for (CubexExpression i : expressions.contextCollection) {
-			irE.add(i.toIr(context));
+	}
+
+	private void addConstructor(IrGenerationContext context, IrProgram program) {
+		IrFunction irFunction = new IrFunction(new IrType(name), name);
+		for (CubexTypeTuple tuple : typecontext.iterable()) {
+			IrTypeTuple argument = new IrTypeTuple(tuple.getTypeGrammar()
+					.toIrType(), tuple.getName());
+			irFunction.addFunctionArgument(argument);
 		}
-		CubexList<IrFunctionDef> irF = new CubexList<IrFunctionDef>();
-		for (CubexFunctionDef i : functions.contextCollection) {
-			irF.add(i.toIr(context));
+		for (CubexStatement stmt : statements.iterable()) {
+			irFunction.addStatement(stmt.toIr(context));
 		}
-		return new IrClass(name, kindcontext, irS, irE, irF);
+		program.addGlobalFunction(irFunction);
+	}
+
+	private void addFunctions(IrGenerationContext context, IrProgram program) {
+		for (CubexFunctionDef funDef : functions.iterable()) {
+			IrFunction irFunction = new IrFunction(funDef.typescheme
+					.getTypeGrammar().toIrType(), name,  funDef.name);
+			for (CubexTypeTuple tuple : funDef.typescheme.getTypeContext()
+					.iterable()) {
+
+				IrTypeTuple argument = new IrTypeTuple(tuple.getTypeGrammar()
+						.toIrType(), tuple.getName());
+				irFunction.addFunctionArgument(argument);
+			}
+			irFunction.addStatement(funDef.statement.toIr(context));
+			program.addGlobalFunction(irFunction);
+		}
 	}
 
 	public String toString() {
@@ -155,7 +192,7 @@ public class CubexClassGrammar {
 		} else {
 			throw new SemanticException("Supertype not found");
 		}
-		
+
 		if (this.name != "String") {
 			if (superElement.name == "Iterable") {
 				throw new SemanticException("Cannot extend an Iterable");
@@ -189,16 +226,16 @@ public class CubexClassGrammar {
 		context.functionContext.merge(funContextPrime);
 
 		HashMap<String, CubexFunctionDef> superFuncs = new HashMap<String, CubexFunctionDef>();
-		for (Map.Entry<String, CubexTypeScheme> entry : superFunction.entrySet()){
+		for (Map.Entry<String, CubexTypeScheme> entry : superFunction
+				.entrySet()) {
 			entry.getValue().validate(context);
-			superFuncs.put(name, new CubexFunctionDef(entry.getKey(), entry.getValue(),
-					superFunctionStatements.get(entry.getKey())));
+			superFuncs.put(name,
+					new CubexFunctionDef(entry.getKey(), entry.getValue(),
+							superFunctionStatements.get(entry.getKey())));
 		}
 		for (CubexFunctionDef fun : functions.iterable()) {
-			System.out.println(fun);
 			superFuncs.put(fun.name, fun);
 		}
-		System.out.println(superFuncs);
 
 		// Check that all function type schemes are valid
 		for (CubexFunctionDef fun : superFuncs.values()) {
@@ -250,7 +287,7 @@ public class CubexClassGrammar {
 							"CubexClassGrammar: TypeScheme overlap");
 			}
 		}
-		for (CubexFunctionDef fun : superFuncs.values()){
+		for (CubexFunctionDef fun : superFuncs.values()) {
 			funContextDoublePrime.put(fun.name, fun.typescheme);
 			for (String s : fun.typescheme.getKindContext().iterable()) {
 				if (kindContextElements.contains(s))
@@ -261,7 +298,6 @@ public class CubexClassGrammar {
 
 		// Complete function context
 		context.functionContext.merge(funContextDoublePrime);
-
 
 		// Check to see that all statements are valid under a lot of contexts
 		KindContext originalKindContext = context.kindContext.clone();
@@ -284,8 +320,6 @@ public class CubexClassGrammar {
 						"CubexClassGrammar: Function does not return or returns wrong type");
 			}
 		}
-		
-		
 
 		// 10.2.E,F
 		// KindContext kindContext1 = new KindContext();

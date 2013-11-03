@@ -1,6 +1,6 @@
 package parsingTokens.expressions;
 
-import context.IrContext;
+import ir.IrGenerationContext;
 import ir.expressions.IrExpression;
 import ir.expressions.IrIterable;
 import Exception.SemanticException;
@@ -16,7 +16,7 @@ public class CubexIterable extends CubexExpression {
 		list = listIn;
 	}
 	
-	public IrIterable toIr(IrContext context) {
+	public IrIterable toIr(IrGenerationContext context) {
 		CubexList<IrExpression> irE = new CubexList<IrExpression>();
 		for (CubexExpression i : list.contextCollection) {
 			irE.add(i.toIr(context));

@@ -1,5 +1,7 @@
 package parsingTokens.typeGrammar;
 
+import ir.IrType;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -154,6 +156,10 @@ public abstract class CubexTypeGrammar {
 			}
 		}
 		return null;
+	}
+	
+	public IrType toIrType(){
+		return new IrType(name);
 	}
 
 	// type validation (figure 4)

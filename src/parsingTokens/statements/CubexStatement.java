@@ -1,7 +1,7 @@
 package parsingTokens.statements;
 
 
-import context.IrContext;
+import ir.IrGenerationContext;
 import ir.statements.IrStatement;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
@@ -30,6 +30,6 @@ public abstract class CubexStatement {
 		return l;
 	}
 	
-	public abstract IrStatement toIr(IrContext context);
+	public abstract IrStatement toIr(IrGenerationContext context);
 	
 }

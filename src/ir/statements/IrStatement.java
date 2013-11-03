@@ -1,13 +1,10 @@
 package ir.statements;
 
+import ir.CGenerationContext;
+
 import java.util.ArrayList;
 
-import ir.IrProgramElem;
-import ir.expressions.IrExpression;
-
-public abstract class IrStatement implements IrProgramElem{
-	protected IrExpression e;
-
-	public abstract ArrayList<String> toC();
+public interface IrStatement{
+	public ArrayList<String> toC(CGenerationContext context);
 	
 }

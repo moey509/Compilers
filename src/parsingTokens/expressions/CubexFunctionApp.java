@@ -1,11 +1,11 @@
 package parsingTokens.expressions;
 
+import ir.IrGenerationContext;
 import ir.expressions.IrExpression;
-import ir.expressions.IrFunctionApp;
+import ir.expressions.IrFunctionCall;
 
 import java.util.ArrayList;
 
-import context.IrContext;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
 import parsingTokens.context.CubexTypeScheme;
@@ -15,7 +15,7 @@ import typeChecker.ClassContextElement;
 import typeChecker.CubexCompleteContext;
 import typeChecker.KindContext;
 import typeChecker.TypeContext;
-
+//TODO: WE SHOULD WRITE DOCUMENTATION SO WE KNOW WHAT IS WHAT
 public final class CubexFunctionApp extends CubexExpression {
 	private CubexExpression expr;
 	private String v_v;
@@ -28,14 +28,6 @@ public final class CubexFunctionApp extends CubexExpression {
 		this.typeParams = typeParams;
 		this.functionParams = functionParams;
 	}
-	
-	public IrFunctionApp toIr(IrContext context) {
-		CubexList<IrExpression> irE = new CubexList<IrExpression>();
-		for (CubexExpression i : functionParams.contextCollection) {
-			irE.add(i.toIr(context));
-		}
-		return new IrFunctionApp(expr.toIr(context), v_v, typeParams, irE);
-	}
 
 	public String toString() {
 		String rightSpace1 = typeParams.size() == 0 ? "" : " ";
@@ -43,6 +35,16 @@ public final class CubexFunctionApp extends CubexExpression {
 		return expr.toString() + " . " + v_v + " < " + typeParams.toString(",")
 				+ rightSpace1 + "> ( " + functionParams.toString(",")
 				+ rightSpace2 + ")";
+	}
+	
+	public IrFunctionCall toIr(IrGenerationContext context) {
+		//TODO something with context to know which function to call in c
+		System.out.println("THE TYPE FOR THIS VARIABLE IS UNKNOWN ATM");
+		IrFunctionCall irFunCall = new IrFunctionCall(v_v, "");
+		for (CubexExpression i : functionParams.contextCollection) {
+			irFunCall.addArgument(i.toIr(context));
+		}
+		return irFunCall;
 	}
 
 	// Check if the expression is of some type

@@ -1,13 +1,14 @@
 package parsingTokens.expressions;
 
-import context.IrContext;
+import ir.IrGenerationContext;
 import ir.expressions.IrExpression;
+import ir.expressions.IrVariableExpression;
 import Exception.SemanticException;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import typeChecker.CubexCompleteContext;
 
 public class CubexExpression {
-	String name;
+	String name;	
 
 	public CubexExpression() {
 	}
@@ -48,8 +49,10 @@ public class CubexExpression {
 		}
 	}
 	
-	public IrExpression toIr(IrContext context) {
-		return new IrExpression(name);
+	public IrExpression toIr(IrGenerationContext context) {
+		//TODO: HOW DO WE FIND THE TYPE OF THIS EXPRESSION???
+		System.out.println("PROBLEM WITH CREATING IRVARIABLEEXPRESSION!");
+		System.out.println("--> not sure how to find the type of variable");
+		return new IrVariableExpression(name, "");
 	}
-	
 }

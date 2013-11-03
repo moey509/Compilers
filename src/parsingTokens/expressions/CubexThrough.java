@@ -1,9 +1,8 @@
 package parsingTokens.expressions;
 
-import context.IrContext;
+import ir.IrGenerationContext;
 import ir.expressions.IrThrough;
 import parsingTokens.CubexList;
-import parsingTokens.typeGrammar.CubexTypeClass;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import typeChecker.CubexCompleteContext;
 import Exception.SemanticException;
@@ -22,7 +21,7 @@ public class CubexThrough extends CubexBinaryExpression {
 		includeRight = inclR;
 	}
 	
-	public IrThrough toIr(IrContext context) {
+	public IrThrough toIr(IrGenerationContext context) {
 		return new IrThrough(getmLeft().toIr(context), getmRight().toIr(context), includeLeft, includeRight);
 	}
 
