@@ -18,6 +18,15 @@ public class IrOnwards extends IrUnaryExpression {
 	}
 	
 	public String toC() {
+		// int case
+		if (expression.getType().equals("integer")) {
+			
+		}
+		// boolean case
+		else {
+			
+		}
+		
 		return null;
 	}
 }
