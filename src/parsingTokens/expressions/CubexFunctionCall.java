@@ -1,7 +1,5 @@
 package parsingTokens.expressions;
 
-import ir.IrGenerationContext;
-import ir.expressions.IrExpression;
 import ir.expressions.IrFunctionCall;
 
 import java.util.ArrayList;
@@ -12,8 +10,9 @@ import parsingTokens.context.CubexTypeScheme;
 import parsingTokens.context.CubexTypeTuple;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import typeChecker.CubexCompleteContext;
+import typeChecker.IrGenerationContext;
 import typeChecker.TypeContext;
-
+//TODO: WE SHOULD WRITE DOCUMENTATION SO WE KNOW WHAT IS WHAT
 public final class CubexFunctionCall extends CubexExpression {
 	private String v_vc;
 	private CubexList<CubexTypeGrammar> typeParams;
@@ -29,7 +28,15 @@ public final class CubexFunctionCall extends CubexExpression {
 
 	public IrFunctionCall toIr(IrGenerationContext context) {
 		//TODO something with context to know which function to call in c
-		IrFunctionCall irFunCall = new IrFunctionCall(v_vc);
+		IrFunctionCall irFunCall;
+		if (context.containsGlobalFunction("_" + v_vc)){
+			irFunCall = new IrFunctionCall("_" + v_vc, "");
+		}
+		else{
+			irFunCall = new IrFunctionCall(v_vc, "");
+		}
+		System.out.println("THE TYPE FOR THIS VARIABLE IS UNKNOWN ATM");
+
 		for (CubexExpression i : functionParams.contextCollection) {
 			irFunCall.addArgument(i.toIr(context));
 		}

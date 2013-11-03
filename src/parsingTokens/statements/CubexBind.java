@@ -1,6 +1,5 @@
 package parsingTokens.statements;
 
-import ir.IrGenerationContext;
 import ir.IrType;
 import ir.program.IrTypeTuple;
 import ir.statements.IrBind;
@@ -10,6 +9,7 @@ import parsingTokens.expressions.CubexExpression;
 import parsingTokens.typeGrammar.CubexTypeClass;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import typeChecker.CubexCompleteContext;
+import typeChecker.IrGenerationContext;
 import typeChecker.TypeContext;
 import typeChecker.TypeContextReturn;
 

@@ -1,6 +1,5 @@
 package parsingTokens.expressions;
 
-import ir.IrGenerationContext;
 import ir.expressions.IrExpression;
 import ir.expressions.IrIterable;
 import Exception.SemanticException;
@@ -8,6 +7,7 @@ import parsingTokens.CubexList;
 import parsingTokens.typeGrammar.CubexTypeClass;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import typeChecker.CubexCompleteContext;
+import typeChecker.IrGenerationContext;
 
 public class CubexIterable extends CubexExpression {
 	CubexList<CubexExpression> list;

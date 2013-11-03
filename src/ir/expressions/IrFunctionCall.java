@@ -9,16 +9,21 @@ import java.util.List;
 public final class IrFunctionCall implements IrExpression {
 	private String functionName;
 	private List<IrExpression> arguments;
+	private String type;
 	
-	public IrFunctionCall(String functionName) {
+	public IrFunctionCall(String functionName, String type) {
 		this.functionName = functionName;
 		this.arguments = new ArrayList<IrExpression>();
+		this.type = type;
 	}
 
 	public void addArgument(IrExpression argument){
 		this.arguments.add(argument);
 	}
 
+	public String getType () {
+		return type;
+	}
 
 	public String toC(CGenerationContext context) {
 		boolean firstTime = true;

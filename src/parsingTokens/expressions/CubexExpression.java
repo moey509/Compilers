@@ -1,14 +1,15 @@
 package parsingTokens.expressions;
 
-import ir.IrGenerationContext;
 import ir.expressions.IrExpression;
 import ir.expressions.IrVariableExpression;
 import Exception.SemanticException;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import typeChecker.CubexCompleteContext;
+import typeChecker.IrGenerationContext;
 
 public class CubexExpression {
-	String name;	
+	String name;
+	String type;
 
 	public CubexExpression() {
 	}
@@ -41,15 +42,20 @@ public class CubexExpression {
 	public CubexTypeGrammar typeCheck(CubexCompleteContext c)
 			throws SemanticException {
 		if (c.containsTypeVariableInMutableTypeContext(name)) {
+			type = c.getTypeGrammarFromMutableTypeContext(name).name;
 			return c.getTypeGrammarFromMutableTypeContext(name);
 		} else if (c.containsTypeVariableInTypeContext(name)) {
+			type = c.getTypeGrammarFromMutableTypeContext(name).name;
 			return c.getTypeGrammarFromTypeContext(name);
 		} else {
 			throw new SemanticException("Variable " + name + " does not exist");
 		}
 	}
-	
+
 	public IrExpression toIr(IrGenerationContext context) {
-		return new IrVariableExpression(name);
+		//TODO: HOW DO WE FIND THE TYPE OF THIS EXPRESSION???
+		System.out.println("PROBLEM WITH CREATING IRVARIABLEEXPRESSION!");
+		System.out.println("--> not sure how to find the type of variable");
+		return new IrVariableExpression(name, "");
 	}
 }
