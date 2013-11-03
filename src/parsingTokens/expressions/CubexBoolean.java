@@ -1,26 +1,29 @@
 package parsingTokens.expressions;
 
-import ir.IrGenerationContext;
 import ir.expressions.IrBoolean;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
 import parsingTokens.typeGrammar.CubexTypeClass;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import typeChecker.CubexCompleteContext;
-
+import typeChecker.IrGenerationContext;
 
 public final class CubexBoolean extends CubexExpression {
 	private boolean mValue;
-	public CubexBoolean(boolean value) { mValue = value; }
-	
+
+	public CubexBoolean(boolean value) {
+		mValue = value;
+		type = "Boolean";
+	}
+
 	public IrBoolean toIr(IrGenerationContext context) {
 		return new IrBoolean(mValue);
 	}
-	
-	public String toString(){
+
+	public String toString() {
 		return mValue ? "true" : "false";
 	}
-	
+
 	// Check if the expression is of some type
 	public CubexTypeGrammar typeCheck(CubexCompleteContext c)
 			throws SemanticException {

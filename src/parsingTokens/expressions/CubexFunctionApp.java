@@ -1,6 +1,5 @@
 package parsingTokens.expressions;
 
-import ir.IrGenerationContext;
 import ir.expressions.IrExpression;
 import ir.expressions.IrFunctionCall;
 
@@ -13,6 +12,7 @@ import parsingTokens.context.CubexTypeTuple;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import typeChecker.ClassContextElement;
 import typeChecker.CubexCompleteContext;
+import typeChecker.IrGenerationContext;
 import typeChecker.KindContext;
 import typeChecker.TypeContext;
 //TODO: WE SHOULD WRITE DOCUMENTATION SO WE KNOW WHAT IS WHAT
@@ -40,7 +40,8 @@ public final class CubexFunctionApp extends CubexExpression {
 	public IrFunctionCall toIr(IrGenerationContext context) {
 		//TODO something with context to know which function to call in c
 		System.out.println("THE TYPE FOR THIS VARIABLE IS UNKNOWN ATM");
-		IrFunctionCall irFunCall = new IrFunctionCall(v_v, "");
+		IrFunctionCall irFunCall = new IrFunctionCall(expr.type + "_" + v_v, "");
+
 		for (CubexExpression i : functionParams.contextCollection) {
 			irFunCall.addArgument(i.toIr(context));
 		}
@@ -93,6 +94,7 @@ public final class CubexFunctionApp extends CubexExpression {
 			}
 		}
 		CubexTypeGrammar output = typeScheme.getTypeGrammar().replaceParams(cont);
+		type = output.name;
 		return output;
 	}
 }

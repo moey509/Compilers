@@ -1,10 +1,10 @@
 package parsingTokens.expressions;
 
-import ir.IrGenerationContext;
 import ir.expressions.IrBinaryExpression;
 import parsingTokens.CubexList;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import typeChecker.CubexCompleteContext;
+import typeChecker.IrGenerationContext;
 import Exception.SemanticException;
 
 public class CubexLessNotStrict extends CubexBinaryExpression {
