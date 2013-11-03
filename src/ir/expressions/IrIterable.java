@@ -1,13 +1,16 @@
 package ir.expressions;
 
 import ir.CGenerationContext;
+import ir.IrMiscFunctions;
 import parsingTokens.CubexList;
 
 public class IrIterable implements IrExpression {
 	CubexList<IrExpression> list;
+	private String type;
 
 	public IrIterable(CubexList<IrExpression> listIn) {
 		list = listIn;
+		this.type = IrMiscFunctions.ITERABLE;
 	}
 
 	//git_t i6 = iterable_append(i1, iterable_append(i2, iterable_append(i3, iterable_append(i4, iterable_append(i5, iterable_append(i6, NULL)))));
@@ -17,6 +20,9 @@ public class IrIterable implements IrExpression {
 		return ("iterable_append(" + list.get(index).toC(context) + ", " + helper(index+1, context) + ")");
 	}
 
+	public String getType() {
+		return type;
+	}
 	
 	public String toC(CGenerationContext context) {
 		String temp;

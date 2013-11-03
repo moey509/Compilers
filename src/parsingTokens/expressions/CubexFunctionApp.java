@@ -15,7 +15,7 @@ import typeChecker.ClassContextElement;
 import typeChecker.CubexCompleteContext;
 import typeChecker.KindContext;
 import typeChecker.TypeContext;
-
+//TODO: WE SHOULD WRITE DOCUMENTATION SO WE KNOW WHAT IS WHAT
 public final class CubexFunctionApp extends CubexExpression {
 	private CubexExpression expr;
 	private String v_v;
@@ -39,7 +39,8 @@ public final class CubexFunctionApp extends CubexExpression {
 	
 	public IrFunctionCall toIr(IrGenerationContext context) {
 		//TODO something with context to know which function to call in c
-		IrFunctionCall irFunCall = new IrFunctionCall(v_v);
+		System.out.println("THE TYPE FOR THIS VARIABLE IS UNKNOWN ATM");
+		IrFunctionCall irFunCall = new IrFunctionCall(v_v, "");
 		for (CubexExpression i : functionParams.contextCollection) {
 			irFunCall.addArgument(i.toIr(context));
 		}
