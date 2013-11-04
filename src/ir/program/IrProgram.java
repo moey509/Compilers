@@ -49,7 +49,7 @@ public class IrProgram {
 		for (IrFunction irFunction : globalFunctions){
 			output.addAll(irFunction.toC(context));
 		}
-		output.add("int main(){");
+		output.add("void cubex_main(){");
 		for (IrStatement irStatement : mainFunctionStatements){
 			output.addAll(irStatement.toC(context));
 		}

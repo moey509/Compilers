@@ -3,8 +3,6 @@ package ir.statements;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
-
 import ir.CGenerationContext;
 import ir.expressions.IrExpression;
 
@@ -54,6 +52,31 @@ public class IrFor implements IrStatement {
 		
 		for (IrStatement s : statements) {
 			arr.addAll(s.toC(context));
+		}
+		
+		String endLoop = "}";
+		
+		arr.add(endLoop);
+
+		return arr;
+	}
+
+	@Override
+	public ArrayList<String> toMainC(CGenerationContext context) {
+		ArrayList<String> arr = new ArrayList<String>();
+		int cur_iterator = context.getCurIterator();
+		context.incrementCurIterator();
+		String iterator = "_it" + cur_iterator;
+		String itDeclaration = iterator + " = new_iterator((" + list.toC(context) + "));";
+		String itCondition = "while(hasNext(" + iterator + ")) {";
+		String tempVar = var + " = getNext(" + iterator + ");";
+		
+		arr.add(itDeclaration);
+		arr.add(itCondition);
+		arr.add(tempVar);
+		
+		for (IrStatement s : statements) {
+			arr.addAll(s.toMainC(context));
 		}
 		
 		String endLoop = "}";

@@ -24,4 +24,9 @@ public final class IrBind implements IrStatement {
 		return output;
 	}
 
+	@Override
+	public ArrayList<String> toMainC(CGenerationContext context) {
+		return toC(context);
+	}
+
 }

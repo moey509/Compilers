@@ -29,7 +29,6 @@ public class CubexProgramInterface implements CubexProgramType {
 
 	@Override
 	public IrProgram toIr(IrGenerationContext context, IrProgram program) {
-		// TODO Auto-generated method stub
-		return null;
+		return cubexInterface.toIr(context, program);
 	}
 }

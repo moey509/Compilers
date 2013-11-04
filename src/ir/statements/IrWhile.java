@@ -33,4 +33,15 @@ public final class IrWhile implements IrStatement {
 		arrList.add("}");
 		return arrList;
 	}
+
+	@Override
+	public ArrayList<String> toMainC(CGenerationContext context) {
+		ArrayList<String> arrList = new ArrayList<String>();
+		arrList.add("while(" + condition.toC(context) + ") {");
+		for (IrStatement statement : statements){
+			arrList.addAll(statement.toMainC(context));
+		}
+		arrList.add("}");
+		return arrList;
+	}
 }

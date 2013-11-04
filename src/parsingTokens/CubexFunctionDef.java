@@ -39,7 +39,7 @@ public class CubexFunctionDef {
 
 	public IrFunction toIr(IrGenerationContext context) {
 		IrFunction irFunction = new IrFunction(typescheme.getTypeGrammar()
-				.toIrType(), context.getCurrentClassDeclaration().replaceAll("_", "__"), name.replaceAll("_", "__"));
+				.toIrType(), context.getCurrentClassDeclaration(), name);
 		for (CubexTypeTuple tuple : typescheme.getTypeContext().iterable()) {
 
 			IrTypeTuple argument = new IrTypeTuple(tuple.getTypeGrammar()

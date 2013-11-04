@@ -28,4 +28,13 @@ public class IrStatementList implements IrStatement{
 		}
 		return output;
 	}
+
+	@Override
+	public ArrayList<String> toMainC(CGenerationContext context) {
+		ArrayList<String> output = new ArrayList<String>();
+		for (IrStatement stmt : statementList){
+			output.addAll(stmt.toMainC(context));
+		}
+		return output;
+	}
 }

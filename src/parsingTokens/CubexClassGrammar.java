@@ -106,7 +106,7 @@ public class CubexClassGrammar {
 	// TODO: Needs call to super constructor unless constructable component is
 	// thing
 	private void addConstructor(IrGenerationContext context, IrProgram program) {
-		IrFunction irFunction = new IrFunction(new IrType(name), "_" + name.replaceAll("_", "__"));
+		IrFunction irFunction = new IrFunction(new IrType(name), "_" + name);
 		context.addGlobalFunction("_" + name);
 		for (CubexTypeTuple tuple : typecontext.iterable()) {
 			IrTypeTuple argument = new IrTypeTuple(tuple.getTypeGrammar()

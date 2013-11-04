@@ -34,7 +34,7 @@ public final class CubexFunctionCall extends CubexExpression {
 			irFunCall = new IrFunctionCall("_" + v_vc, type);
 		}
 		else{
-			irFunCall = new IrFunctionCall("_" + context.getCurrentClassDeclaration().replaceAll("_", "__") + "_" + v_vc.replaceAll("_", "__"), type);
+			irFunCall = new IrFunctionCall("_" + context.getCurrentClassDeclaration() + "_" + v_vc, type);
 		}
 
 		for (CubexExpression i : functionParams.contextCollection) {

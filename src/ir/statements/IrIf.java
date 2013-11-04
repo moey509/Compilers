@@ -54,4 +54,23 @@ public class IrIf implements IrStatement {
 		return arrList;
 	}
 
+	@Override
+	public ArrayList<String> toMainC(CGenerationContext context) {
+		ArrayList<String> arrList = new ArrayList<String>();
+		arrList.add("if(" + condition.toC(context) + ") {");
+		for (IrStatement s1 : statements1) {
+			arrList.addAll(s1.toMainC(context));
+		}
+		if (statements2.isEmpty()) {
+			arrList.add("}");
+		} else {
+			arrList.add("} else {");
+			for (IrStatement s2 : statements2) {
+				arrList.addAll(s2.toMainC(context));
+			}
+			arrList.add("}");
+		}
+		return arrList;
+	}
+
 }
