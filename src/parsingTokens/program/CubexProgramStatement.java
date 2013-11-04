@@ -53,6 +53,7 @@ public class CubexProgramStatement implements CubexProgramType {
 	public IrProgram toIr(IrGenerationContext context, IrProgram program) {
 		if (statement instanceof CubexBind) {
 			CubexBind cubexBind = (CubexBind) statement;
+			context.addGlobalVariable(cubexBind.getId());
 			program.addGlobalVariable(cubexBind.toIr(context));
 			return program;
 		} else {			
