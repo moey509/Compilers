@@ -95,6 +95,13 @@ public class CubexTypeClass extends CubexTypeGrammar {
 		if (isSuperTypeOf(c, t) && !getName().equals("Thing")) {
 			a.add(this);
 			return a;
+		} else if (getName().equals("Thing")){
+			return a;
+		} else if (getName().equals(t.getName()) && t.getName().equals("Iterable")) {
+			CubexList<CubexTypeGrammar> clist = new CubexList<CubexTypeGrammar>();
+			clist.add(getTypeList().get(0).join(c, t.getTypeList().get(0)));
+			a.add(new CubexTypeClass("Iterable", clist));
+			return a;
 		}
 
 		// recursive call

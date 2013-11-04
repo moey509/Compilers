@@ -33,13 +33,15 @@ public class CubexAppend extends CubexExpression {
 		CubexList<CubexTypeGrammar> nothingList = new CubexList<CubexTypeGrammar>();
 		nothingList.add(new CubexTypeClass("Nothing", new CubexList<CubexTypeGrammar>()));
 		CubexTypeClass nothing = new CubexTypeClass("Iterable", nothingList);
+		CubexList<CubexTypeGrammar> thingList = new CubexList<CubexTypeGrammar>();
+		thingList.add(new CubexTypeClass("Thing", new CubexList<CubexTypeGrammar>()));
 		
 		//To get an iterable of something or if thats not possible, Thing which does not type check
 		join = join.join(c, nothing);
 		
 		//Join must have type iterable
-		CubexTypeClass tempClass = new CubexTypeClass("Iterable", new CubexList<CubexTypeGrammar>());
-		if (!(join.name.equals("Iterable")) && !(join.isSuperTypeOf(c, tempClass))){
+		CubexTypeClass thingClass = new CubexTypeClass("Iterable", thingList);
+		if (!thingClass.isSuperTypeOf(c, join)){
 			throw new SemanticException("Must append arguments of type Iterable");
 		}
 //		CubexList<CubexTypeGrammar> list = e1Type.getTypeList();

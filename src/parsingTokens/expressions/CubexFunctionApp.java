@@ -10,6 +10,7 @@ import parsingTokens.CubexList;
 import parsingTokens.context.CubexTypeScheme;
 import parsingTokens.context.CubexTypeTuple;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
+import parsingTokens.typeGrammar.CubexTypeName;
 import typeChecker.ClassContextElement;
 import typeChecker.CubexCompleteContext;
 import typeChecker.IrGenerationContext;
@@ -61,18 +62,27 @@ public final class CubexFunctionApp extends CubexExpression {
 
 		// build the replaceParams context
 		TypeContext cont = new TypeContext();
-		TypeContext typeSchemeCont = new TypeContext();
+		TypeContext cont2 = new TypeContext();
+		TypeContext cont3 = new TypeContext();
 		KindContext kcont = c.classContext.get(objectType.getName()).kindContext;
 		CubexList<CubexTypeGrammar> types = objectType.getTypeList();
 		for (int i = 0; i < kcont.size(); i++){
 			cont.put(kcont.contextSet.get(i), types.get(i));
-			typeSchemeCont.put(kcont.contextSet.get(i), types.get(i));
-
+			cont2.put(kcont.contextSet.get(i), types.get(i));
 		}
 
 		while(typeScheme == null){
+			for (int i=0 ; i<element.type.getTypeList().size(); i++) {
+				CubexTypeGrammar exttype = element.type.getTypeList().get(i);
+				if (exttype instanceof CubexTypeName) {
+					cont3.put(c.classContext.get(element.type.getName()).kindContext.contextSet.get(i), cont2.get(exttype.getName()));
+				}
+			}
+			cont2 = cont3;
+			cont3 = new TypeContext();
+
 			element = c.classContext.get(element.type.getName());
-			typeScheme = element.functionMap.get(v_v);
+			typeScheme = element.functionMap.get(v_v).replaceParams(cont2);
 			if(element.name.equals("Thing")) throw new SemanticException("Method does not exist");
 		}
 		ArrayList<String> kContext = new ArrayList<String>(typeScheme.getKindContext().contextCollection);
