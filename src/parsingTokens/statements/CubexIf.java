@@ -29,7 +29,8 @@ public class CubexIf extends CubexStatement {
 	public IrIf toIr(IrGenerationContext context) {
 		IrIf ir = new IrIf(e.toIr(context));
 		ir.addStatement1(s1.toIr(context));
-		ir.addStatement2(s2.toIr(context));
+		if (s2 != null)
+			ir.addStatement2(s2.toIr(context));
 		return ir;
 	}
 

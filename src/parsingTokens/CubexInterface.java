@@ -1,7 +1,13 @@
 package parsingTokens;
 
+import ir.IrType;
+import ir.expressions.IrExpression;
+import ir.expressions.IrFunctionCall;
 import ir.program.IrFunction;
 import ir.program.IrProgram;
+import ir.program.IrStruct;
+import ir.program.IrTypeTuple;
+import ir.statements.IrReturn;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,6 +16,8 @@ import java.util.Map;
 
 import Exception.SemanticException;
 import parsingTokens.context.CubexTypeScheme;
+import parsingTokens.context.CubexTypeTuple;
+import parsingTokens.statements.CubexBind;
 import parsingTokens.statements.CubexStatement;
 import parsingTokens.typeGrammar.CubexTypeClass;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
@@ -38,22 +46,35 @@ public class CubexInterface {
 	}
 	
 	public IrProgram toIr(IrGenerationContext context, IrProgram program) {
-		addStruct(context, program);
-		addConstructor(context, program);
 		addFunctions(context, program);
 		return program;
 	}
-	
-	private void addStruct(IrGenerationContext context, IrProgram program) {
-		//TODO 
-	}
-	
-	private void addConstructor(IrGenerationContext context, IrProgram program) {
-		//TODO
-	}
-	
+
 	private void addFunctions(IrGenerationContext context, IrProgram program) {
-		//TODO
+		HashSet<String> addedFunctions = new HashSet<String>();
+		context.setCurrentClassDeclaration(name);
+		for (CubexFunctionDef funDef : functionList.iterable()) {
+			addedFunctions.add(funDef.name);
+			context.objectAddFunction(name, funDef);
+			program.addGlobalFunction(funDef.toIr(context));
+		}
+		String parentClass = context.getSuperType(name);
+		String superClass = parentClass;
+		while (!superClass.equals("Thing")) {
+			for (CubexFunctionDef function : context.functionSet(superClass)) {
+				if (!addedFunctions.contains(function)) {
+					addedFunctions.add(function.name);
+					IrFunction fun = function.toIr(context);
+					fun.addStatement(new IrReturn(new IrFunctionCall("_"
+							+ parentClass + "_" + function.name,
+							function.typescheme.getTypeGrammar().name)));
+					fun.addFunctionArgument(new IrTypeTuple(new IrType("void**"), "ConstructableComponent"));
+					program.addGlobalFunction(fun);
+				}
+			}
+			superClass = context.getSuperType(superClass);
+		}
+
 	}
 
 	public String toString() {
