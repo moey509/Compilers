@@ -40,8 +40,7 @@ public final class CubexFunctionApp extends CubexExpression {
 	
 	public IrFunctionCall toIr(IrGenerationContext context) {
 		//TODO something with context to know which function to call in c
-		System.out.println("THE TYPE FOR THIS VARIABLE IS UNKNOWN ATM");
-		IrFunctionCall irFunCall = new IrFunctionCall(expr.type + "_" + v_v, "");
+		IrFunctionCall irFunCall = new IrFunctionCall(expr.type + "_" + v_v, type);
 
 		for (CubexExpression i : functionParams.contextCollection) {
 			irFunCall.addArgument(i.toIr(context));

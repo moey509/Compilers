@@ -1,7 +1,9 @@
 package parsingTokens.program;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import ir.program.IrProgram;
-import ir.statements.IrBind;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
 import parsingTokens.statements.CubexBind;
@@ -16,6 +18,7 @@ import typeChecker.TypeContextReturn;
 
 public class CubexProgramStatementList implements CubexProgramType {
 	private CubexList<CubexStatement> statementList;
+	private Set<String> globalVariableSet = null;
 
 	public CubexProgramStatementList(CubexList<CubexStatement> statementList) {
 		CubexList<CubexStatement> returnList = new CubexList<CubexStatement>();
@@ -60,15 +63,22 @@ public class CubexProgramStatementList implements CubexProgramType {
 		}
 
 		tempContext.appendTypeContext(nextContext);
+
+		globalVariableSet = new HashSet<String>(tempContext.typeContext.keySet());
+
 		return tempContext;
 	}
 
 	@Override
 	public IrProgram toIr(IrGenerationContext context, IrProgram program) {
 		for (CubexStatement statement : statementList.iterable()) {
-			context.addGlobalVariable(((CubexBind)statement).getId());
-			program.addGlobalVariable(((CubexBind)statement).toIr(context));
+			if (statement instanceof CubexBind) {
+				program.addGlobalVariable(((CubexBind) statement).toIr(context));
+			}
 			program.addMainStatement(statement.toIr(context));
+		}
+		for (String s : globalVariableSet){
+			context.addGlobalVariable(s);
 		}
 		return program;
 	}

@@ -17,8 +17,8 @@ public class CubexFunctionDef {
 		name = n;
 		typescheme = tscheme;
 		statement = s;
-		//TODO: What happens if statement is null?
-		if(s != null){
+		// TODO: What happens if statement is null?
+		if (s != null) {
 			statement = new CubexListStatement(s.flatten());
 		}
 	}
@@ -36,12 +36,11 @@ public class CubexFunctionDef {
 
 		return build.toString();
 	}
-	
-	public IrFunction toIr(IrGenerationContext context){
-		IrFunction irFunction = new IrFunction(typescheme
-				.getTypeGrammar().toIrType(), name,  name);
-		for (CubexTypeTuple tuple : typescheme.getTypeContext()
-				.iterable()) {
+
+	public IrFunction toIr(IrGenerationContext context) {
+		IrFunction irFunction = new IrFunction(typescheme.getTypeGrammar()
+				.toIrType(), context.getCurrentClassDeclaration(), name);
+		for (CubexTypeTuple tuple : typescheme.getTypeContext().iterable()) {
 
 			IrTypeTuple argument = new IrTypeTuple(tuple.getTypeGrammar()
 					.toIrType(), tuple.getName());

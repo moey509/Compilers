@@ -61,6 +61,7 @@ public class CubexProgramFunctionList implements CubexProgramType {
 
 	@Override
 	public IrProgram toIr(IrGenerationContext context, IrProgram program) {
+		context.setCurrentClassDeclaration(null);
 		for (CubexFunctionDef funDef : functionList.iterable()) {
 			program.addGlobalFunction(funDef.toIr(context));
 		}
