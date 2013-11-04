@@ -9,13 +9,13 @@ import java.util.List;
 
 public class IrProgram {
 	public List<IrStruct> structDeclarations;
-	public List<IrBind> globalVariables;
+	public List<String> globalVariables;
 	public List<IrFunction> globalFunctions;
 	public List<IrStatement> mainFunctionStatements;
 	
 	public IrProgram(){
 		structDeclarations = new ArrayList<IrStruct>();
-		globalVariables = new ArrayList<IrBind>();
+		globalVariables = new ArrayList<String>();
 		globalFunctions = new ArrayList<IrFunction>();
 		mainFunctionStatements = new ArrayList<IrStatement>();
 	}
@@ -25,7 +25,7 @@ public class IrProgram {
 	}
 	
 	public void addGlobalVariable(IrBind bind){
-		globalVariables.add(bind);
+		globalVariables.add("void* _" + bind.tuple.variableName + ";");
 	}
 	
 	public void addGlobalFunction(IrFunction function){
@@ -43,8 +43,8 @@ public class IrProgram {
 		for (IrStruct irStruct : structDeclarations){
 			output.addAll(irStruct.toC(context));
 		}
-		for (IrBind irBind : globalVariables){
-			output.addAll(irBind.toC(context));
+		for (String irBind : globalVariables){
+			output.add(irBind);
 		}
 		for (IrFunction irFunction : globalFunctions){
 			output.addAll(irFunction.toC(context));

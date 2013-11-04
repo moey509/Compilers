@@ -47,19 +47,15 @@ public class IrFunction {
 	public ArrayList<String> toC(CGenerationContext context) {
 		//Declaration
 		ArrayList<String> arr = new ArrayList<String>();
-		String s = type.toC() + " " + functionName + "(";
-		boolean firstTime = true;
-		for(IrTypeTuple t : arguments){
-			if(!firstTime){
-				s += ", ";
-			}
-			firstTime = false;
-			s += t.type.toC() + " " + t.variableName;
-		}
-		s += "){";
+		String s = type.toC() + " " + functionName + "(" + "void** _args" + "){";
 		arr.add(s);
 		
 		//Definition
+		for(IrTypeTuple t : arguments){
+			s = t.type.toC() + " " + t.variableName + ";";
+			arr.add(s);
+		}
+		//TODO: uhhhh have to know when to reference the struct/
 		for(IrStatement st : statements){
 			arr.addAll(st.toC(context));
 		}

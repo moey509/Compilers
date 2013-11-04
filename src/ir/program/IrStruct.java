@@ -22,14 +22,14 @@ public class IrStruct {
 	
 	public List<String> toC(CGenerationContext context){
 		ArrayList<String> arr = new ArrayList<String>();
-		arr.add("typedef struct ");
+		arr.add("typedef struct");
 		arr.add("{");
 		arr.add("int refcount;");
 		arr.add("char** funcName;");
 		arr.add("functionPointer p;");
 		arr.add(this.constructableComponent + "* constructableComponent;");
 		for(IrTypeTuple t : structVariables){
-			arr.add(t.type.declarationInStruct() + t.variableName + ";");
+			arr.add(t.type.declarationInStruct() + " " + t.variableName + ";");
 		}
 		
 		arr.add("}" + structName + ";");

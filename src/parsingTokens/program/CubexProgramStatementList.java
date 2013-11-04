@@ -1,6 +1,7 @@
 package parsingTokens.program;
 
 import ir.program.IrProgram;
+import ir.statements.IrBind;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
 import parsingTokens.statements.CubexBind;
@@ -65,12 +66,8 @@ public class CubexProgramStatementList implements CubexProgramType {
 	@Override
 	public IrProgram toIr(IrGenerationContext context, IrProgram program) {
 		for (CubexStatement statement : statementList.iterable()) {
-			if (statement instanceof CubexBind) {
-				CubexBind cubexBind = (CubexBind) statement;
-				program.addGlobalVariable(cubexBind.toIr(context));
-			} else {
-				program.addMainStatement(statement.toIr(context));
-			}
+			program.addGlobalVariable(((CubexBind)statement).toIr(context));
+			program.addMainStatement(statement.toIr(context));
 		}
 		return program;
 	}

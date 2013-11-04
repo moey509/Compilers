@@ -88,7 +88,8 @@ public class CubexClassGrammar {
 
 	private void addStruct(IrGenerationContext context, IrProgram program) {
 		if ((name != "Integer") && (name != "String") && (name != "Character")) {
-			IrStruct irStruct = new IrStruct(name, extendsType.name);
+
+			IrStruct irStruct = new IrStruct(name, constructableComponent);
 			for (CubexStatement stmt : statements.iterable()) {
 				if (stmt instanceof CubexBind) {
 					CubexBind bind = (CubexBind) stmt;
@@ -101,7 +102,7 @@ public class CubexClassGrammar {
 	}
 	//TODO: Needs call to super constructor unless constructable component is thing
 	private void addConstructor(IrGenerationContext context, IrProgram program) {
-		IrFunction irFunction = new IrFunction(new IrType(name), name);
+		IrFunction irFunction = new IrFunction(new IrType(name), "_" + name);
 		for (CubexTypeTuple tuple : typecontext.iterable()) {
 			IrTypeTuple argument = new IrTypeTuple(tuple.getTypeGrammar()
 					.toIrType(), tuple.getName());

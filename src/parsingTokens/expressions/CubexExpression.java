@@ -54,11 +54,12 @@ public class CubexExpression {
 
 	public IrExpression toIr(IrGenerationContext context) {
 		//TODO: HOW DO WE FIND THE TYPE OF THIS EXPRESSION???
-		System.out.println("PROBLEM WITH CREATING IRVARIABLEEXPRESSION!");
-		System.out.println("--> not sure how to find the type of variable");
+		//System.out.println("PROBLEM WITH CREATING IRVARIABLEEXPRESSION!");
+		//System.out.println("--> not sure how to find the type of variable");
 		if (context.containsGlobalVariable(name)){
 			return new IrVariableExpression("_" + name, type);
 		}
 		else return new IrVariableExpression(name, type);
+
 	}
 }

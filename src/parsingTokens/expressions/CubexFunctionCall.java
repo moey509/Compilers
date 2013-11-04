@@ -35,7 +35,6 @@ public final class CubexFunctionCall extends CubexExpression {
 		else{
 			irFunCall = new IrFunctionCall(v_vc, "");
 		}
-		System.out.println("THE TYPE FOR THIS VARIABLE IS UNKNOWN ATM");
 
 		for (CubexExpression i : functionParams.contextCollection) {
 			irFunCall.addArgument(i.toIr(context));
