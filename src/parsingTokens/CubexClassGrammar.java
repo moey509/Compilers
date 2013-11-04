@@ -78,6 +78,8 @@ public class CubexClassGrammar {
 	}
 
 	public IrProgram toIr(IrGenerationContext context, IrProgram program) {
+		context.setCurrentClassDeclaration(name);
+		context.setSuperType(name, extendsType.name);
 		addStruct(context, program);
 		addConstructor(context, program);
 		addFunctions(context, program);
@@ -86,7 +88,7 @@ public class CubexClassGrammar {
 
 	private void addStruct(IrGenerationContext context, IrProgram program) {
 		if ((name != "Integer") && (name != "String") && (name != "Character")) {
-			IrStruct irStruct = new IrStruct(name);
+			IrStruct irStruct = new IrStruct(name, extendsType.name);
 			for (CubexStatement stmt : statements.iterable()) {
 				if (stmt instanceof CubexBind) {
 					CubexBind bind = (CubexBind) stmt;
@@ -115,19 +117,24 @@ public class CubexClassGrammar {
 	}
 
 	private void addFunctions(IrGenerationContext context, IrProgram program) {
+		HashSet<String> addedFunctions = new HashSet<String>();
 		for (CubexFunctionDef funDef : functions.iterable()) {
-			IrFunction irFunction = new IrFunction(funDef.typescheme
-					.getTypeGrammar().toIrType(), name,  funDef.name);
-			for (CubexTypeTuple tuple : funDef.typescheme.getTypeContext()
-					.iterable()) {
-
-				IrTypeTuple argument = new IrTypeTuple(tuple.getTypeGrammar()
-						.toIrType(), tuple.getName());
-				irFunction.addFunctionArgument(argument);
-			}
-			irFunction.addStatement(funDef.statement.toIr(context));
-			program.addGlobalFunction(irFunction);
+			addedFunctions.add(funDef.name);
+			context.objectAddFunction(name, funDef);
+			program.addGlobalFunction(funDef.toIr(context));
 		}
+		String superClass = context.getSuperType(name);
+		while (!superClass.equals("Thing")){
+			for (CubexFunctionDef function : context.functionSet(superClass)){
+				if (!addedFunctions.contains(function)){
+					addedFunctions.add(function.name);
+					program.addGlobalFunction(function.toIr(context));
+				}
+			}
+			superClass = context.getSuperType(superClass);
+		}
+		
+		
 	}
 
 	public String toString() {

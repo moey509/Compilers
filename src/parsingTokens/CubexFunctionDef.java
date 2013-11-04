@@ -1,8 +1,12 @@
 package parsingTokens;
 
+import ir.program.IrFunction;
+import ir.program.IrTypeTuple;
 import parsingTokens.context.CubexTypeScheme;
+import parsingTokens.context.CubexTypeTuple;
 import parsingTokens.statements.CubexListStatement;
 import parsingTokens.statements.CubexStatement;
+import typeChecker.IrGenerationContext;
 
 public class CubexFunctionDef {
 	public String name;
@@ -31,6 +35,20 @@ public class CubexFunctionDef {
 		}
 
 		return build.toString();
+	}
+	
+	public IrFunction toIr(IrGenerationContext context){
+		IrFunction irFunction = new IrFunction(typescheme
+				.getTypeGrammar().toIrType(), name,  name);
+		for (CubexTypeTuple tuple : typescheme.getTypeContext()
+				.iterable()) {
+
+			IrTypeTuple argument = new IrTypeTuple(tuple.getTypeGrammar()
+					.toIrType(), tuple.getName());
+			irFunction.addFunctionArgument(argument);
+		}
+		irFunction.addStatement(statement.toIr(context));
+		return irFunction;
 	}
 
 }
