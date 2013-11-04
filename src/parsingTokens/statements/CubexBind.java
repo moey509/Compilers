@@ -32,7 +32,11 @@ public final class CubexBind extends CubexStatement {
 	}
 	
 	public IrBind toIr(IrGenerationContext context) {
-		return new IrBind(new IrTypeTuple(type, classid), e.toIr(context));
+		String s = "";
+		if(context.containsGlobalVariable(classid)){
+			s+="_";
+		}
+		return new IrBind(new IrTypeTuple(type, s+classid), e.toIr(context));
 	}
 
 	public String toString() {

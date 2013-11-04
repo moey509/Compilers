@@ -30,11 +30,11 @@ public class IrGenerationContext {
 	}
 
 	public void addGlobalVariable(String variable){
-		globalFunctions.add(variable);
+		globalVariables.add(variable);
 	}
 	
 	public boolean containsGlobalVariable(String variable){
-		return globalFunctions.contains(variable);
+		return globalVariables.contains(variable);
 	}
 	
 	public void addGlobalFunction(String function){
