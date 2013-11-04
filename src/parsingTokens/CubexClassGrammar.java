@@ -38,6 +38,7 @@ public class CubexClassGrammar {
 	public CubexList<CubexStatement> statements;
 	public CubexList<CubexExpression> expressions;
 	public CubexList<CubexFunctionDef> functions;
+	public String constructableComponent;
 
 	public CubexClassGrammar(String n, CubexList<String> k,
 			CubexList<CubexTypeTuple> typecont, CubexTypeGrammar t,
@@ -202,6 +203,7 @@ public class CubexClassGrammar {
 		} else {
 			throw new SemanticException("Supertype not found");
 		}
+		constructableComponent = superElement.name;
 
 		if (this.name != "String") {
 			if (superElement.name == "Iterable") {
