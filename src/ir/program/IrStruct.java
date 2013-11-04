@@ -22,7 +22,7 @@ public class IrStruct {
 	
 	public List<String> toC(CGenerationContext context){
 		ArrayList<String> arr = new ArrayList<String>();
-		arr.add("typedef struct ");
+		arr.add("typedef struct");
 		arr.add("{");
 		arr.add("int refcount;");
 		arr.add("char** funcName;");

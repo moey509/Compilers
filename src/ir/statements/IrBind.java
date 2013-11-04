@@ -7,8 +7,8 @@ import ir.expressions.IrExpression;
 import ir.program.IrTypeTuple;
 
 public final class IrBind implements IrStatement {
-	private IrTypeTuple tuple;
-	private IrExpression expression;
+	public IrTypeTuple tuple;
+	public IrExpression expression;
 
 	public IrBind(IrTypeTuple tuple, IrExpression expression) {
 		this.tuple = tuple;
