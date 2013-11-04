@@ -14,4 +14,11 @@ public class CGenerationContext {
 		cur_iterator = 1; 
 	}
 	
+	public int getCurIterator() {
+		return this.cur_iterator;
+	}
+	
+	public void incrementCurIterator() {
+		this.cur_iterator += 1;
+	}
 }
