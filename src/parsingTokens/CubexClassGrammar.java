@@ -90,6 +90,7 @@ public class CubexClassGrammar {
 		if ((name != "Integer") && (name != "String") && (name != "Character")) {
 
 			IrStruct irStruct = new IrStruct(name, constructableComponent);
+
 			for (CubexStatement stmt : statements.iterable()) {
 				if (stmt instanceof CubexBind) {
 					CubexBind bind = (CubexBind) stmt;
