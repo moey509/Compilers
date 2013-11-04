@@ -27,8 +27,25 @@ public final class IrReturn implements IrStatement {
 
 	@Override
 	public ArrayList<String> toMainC(CGenerationContext context) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<String> output = new ArrayList<String>();
+		int cur_iterator = context.getCurIterator();
+		context.incrementCurIterator();
+		String iterator = "_it" + cur_iterator;
+		String itDeclaration = iterator + " = new_iterator((" + expression.toC(context) + "));";
+		String itCondition = "while(hasNext(" + iterator + ")) {";
+		String tempVar = "_return = getNext(" + iterator + ");";
+		
+		output.add(itDeclaration);
+		output.add(itCondition);
+		output.add(tempVar);
+		
+		output.add("print_line(char* _return, int len)");
+		
+		output.add("}");
+		
+		//GARBAGE COLLECT EVERYTHING
+		output.add("return;");
+		return output;
 	}
 
 }
