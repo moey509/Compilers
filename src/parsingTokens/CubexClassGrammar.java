@@ -25,6 +25,8 @@ import typeChecker.KindContext;
 import typeChecker.TypeContext;
 import typeChecker.TypeContextReturn;
 import ir.IrType;
+import ir.expressions.IrExpression;
+import ir.expressions.IrFunctionCall;
 import ir.program.IrFunction;
 import ir.program.IrProgram;
 import ir.program.IrStruct;
@@ -95,7 +97,7 @@ public class CubexClassGrammar {
 			program.addStruct(irStruct);
 		}
 	}
-
+	//TODO: Needs call to super constructor unless constructable component is thing
 	private void addConstructor(IrGenerationContext context, IrProgram program) {
 		IrFunction irFunction = new IrFunction(new IrType(name), name);
 		for (CubexTypeTuple tuple : typecontext.iterable()) {
@@ -104,8 +106,11 @@ public class CubexClassGrammar {
 			irFunction.addFunctionArgument(argument);
 		}
 		for (CubexStatement stmt : statements.iterable()) {
+			System.out.println("Statement" + stmt.toIr(context).toString());
 			irFunction.addStatement(stmt.toIr(context));
 		}
+		IrExpression e = new IrFunctionCall(this.constructableComponent, this.constructableComponent + "*");
+		irFunction.addSuperCall(e);
 		program.addGlobalFunction(irFunction);
 	}
 

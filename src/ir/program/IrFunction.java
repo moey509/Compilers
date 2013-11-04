@@ -5,6 +5,7 @@ import java.util.List;
 
 import ir.CGenerationContext;
 import ir.IrType;
+import ir.expressions.IrExpression;
 import ir.statements.IrStatement;
 
 public class IrFunction {
@@ -13,6 +14,7 @@ public class IrFunction {
 	public String functionName;
 	public List<IrTypeTuple> arguments;
 	public List<IrStatement> statements;
+	public IrExpression superCall;
 
 	public IrFunction(IrType type, String object, String functionName) {
 		this.type = type;
@@ -36,6 +38,10 @@ public class IrFunction {
 
 	public void addStatement(IrStatement statement) {
 		statements.add(statement);
+	}
+	
+	public void addSuperCall(IrExpression expression){
+		superCall = expression;
 	}
 
 	public ArrayList<String> toC(CGenerationContext context) {
