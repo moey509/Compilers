@@ -72,16 +72,21 @@ public final class CubexFor extends CubexStatement {
 		copy0.typeContext.noConflictMerge(copy0.mutableTypeContext);
 		CubexTypeGrammar etype = e.typeCheck(copy0);
 //		if (!etype.getName().equals("Iterable")) throw new SemanticException("CubexFor: e is not an Iterable");
-		CubexList<CubexTypeGrammar> ilist = new CubexList<CubexTypeGrammar>();
-		ilist.add(new CubexTypeName("Thing"));
-		CubexTypeClass iclass = new CubexTypeClass("Iterable", ilist);
-		if (!iclass.isSuperTypeOf(copy0, etype)) 
+		CubexList<CubexTypeGrammar> nlist = new CubexList<CubexTypeGrammar>();
+		nlist.add(new CubexTypeName("Nothing"));
+		CubexTypeClass nclass = new CubexTypeClass("Iterable", nlist);
+
+		CubexList<CubexTypeGrammar> tlist = new CubexList<CubexTypeGrammar>();
+		tlist.add(new CubexTypeName("Thing"));
+		CubexTypeClass tclass = new CubexTypeClass("Iterable", tlist);
+		if (!tclass.isSuperTypeOf(copy0, etype)) 
 			throw new SemanticException("CubexFor: e is not an Iterable");
 
 
 		CubexCompleteContext copy1 = c.clone();
-//		CubexTypeGrammar vtype = iclass.join(copy1, etype);
-		copy1.mutableTypeContext.put(varfun, etype.getTypeList().get(0));
+		CubexTypeGrammar vtype = nclass.join(copy1, etype);
+		if (etype.getName().equals("String")) vtype = tclass.join(copy1, etype);
+		copy1.mutableTypeContext.put(varfun, vtype.getTypeList().get(0));
 
 		TypeContextReturn gamma = s.typeCheckReturn(copy1);
 		//if (!gamma.typeContext.containsAll(copy1, c.mutableTypeContext)){
