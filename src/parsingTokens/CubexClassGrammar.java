@@ -168,6 +168,15 @@ public class CubexClassGrammar {
 
 		if (context.classContext.containsKey(name))
 			throw new SemanticException("Class name collision");
+		
+		// Check that the super type is valid
+		boolean extendsTypeCanBeClass = true;
+		try {
+			String extendsTypeName = extendsType.getName();
+			if (!originalContext.classContext.get(extendsTypeName).isClass()) extendsTypeCanBeClass = false;
+		} catch (Exception e) {
+		}
+		extendsType.validate(originalContext, extendsTypeCanBeClass);
 
 		HashMap<String, CubexTypeScheme> superFunction = new HashMap<String, CubexTypeScheme>();
 		HashMap<String, CubexStatement> superFunctionStatements = new HashMap<String, CubexStatement>();

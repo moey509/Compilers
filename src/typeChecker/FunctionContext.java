@@ -17,6 +17,10 @@ public class FunctionContext {
 		nameToTypeSchemeMap = new HashMap<String, CubexTypeScheme>();
 	}
 	
+	public FunctionContext(Map<String, CubexTypeScheme> map){
+		nameToTypeSchemeMap = map;
+	}
+	
 	public FunctionContext clone(){
 		FunctionContext fc = new FunctionContext();
 		fc.nameToTypeSchemeMap = new HashMap<String, CubexTypeScheme>( this.nameToTypeSchemeMap);

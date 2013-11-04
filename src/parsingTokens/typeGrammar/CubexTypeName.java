@@ -24,7 +24,7 @@ public class CubexTypeName extends CubexTypeGrammar{
 	public void validate(CubexCompleteContext c, boolean canBeClass) throws SemanticException{
 		if (name.equals("Thing") || name.equals("Nothing")) return;
 		if (!c.kindContext.contains(name)){
-			throw new SemanticException("");
+			throw new SemanticException("Kind context does not contain generic");
 		}
 	}
 	

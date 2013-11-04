@@ -83,6 +83,8 @@ public class CubexInterface {
 
 		if (context.classContext.containsKey(name))
 			throw new SemanticException("Class name collision");
+		
+		extendsType.validate(originalContext, false);
 
 		HashMap<String, CubexTypeScheme> superFunction = new HashMap<String, CubexTypeScheme>();
 		HashMap<String, CubexStatement> superFunctionStatements = new HashMap<String, CubexStatement>();
@@ -118,17 +120,18 @@ public class CubexInterface {
 		HashMap<String, CubexFunctionDef> superFuncs = new HashMap<String, CubexFunctionDef>();
 		for (String name : superFunction.keySet()) {
 			CubexTypeScheme scheme = superFunction.get(name);
-			scheme.validate(context);
+			//scheme.validate(context);
 			superFuncs.put(name, new CubexFunctionDef(name, scheme,
 					superFunctionStatements.get(name)));
 		}
 		for (CubexFunctionDef fun : functionList.iterable()) {
 			superFuncs.put(fun.name, fun);
+			fun.typescheme.validate(context);
 		}
 
 		// Check that all function type schemes are valid
 		for (CubexFunctionDef fun : superFuncs.values()) {
-			fun.typescheme.validate(context);
+			//fun.typescheme.validate(context);
 		}
 
 		context.typeContext.noConflictMerge(context.mutableTypeContext);
@@ -174,6 +177,10 @@ public class CubexInterface {
 					throw new SemanticException(
 							"CubexClassGrammar: TypeScheme overlap");
 			}
+		}
+		
+		for (CubexFunctionDef fun : superFuncs.values()) {
+			funContextDoublePrime.put(fun.name, fun.typescheme);
 		}
 
 		// Complete function context
