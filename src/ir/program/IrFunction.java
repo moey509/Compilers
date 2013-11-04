@@ -43,8 +43,30 @@ public class IrFunction {
 	public void addSuperCall(IrExpression expression){
 		superCall = expression;
 	}
-
+	//TODO: Can structs and functions have the same name
 	public ArrayList<String> toC(CGenerationContext context) {
-		return null;
+		//Declaration
+		ArrayList<String> arr = new ArrayList<String>();
+		String s = type.toC() + " " + functionName + "(";
+		boolean firstTime = true;
+		for(IrTypeTuple t : arguments){
+			if(!firstTime){
+				s += ", ";
+			}
+			firstTime = false;
+			s += t.type.toC() + " " + t.variableName;
+		}
+		s += "){";
+		arr.add(s);
+		
+		//Definition
+		for(IrStatement st : statements){
+			arr.addAll(st.toC(context));
+		}
+		if(superCall != null){
+			arr.add(superCall.toC(context) + ";");
+		}
+		arr.add("}");
+		return arr;
 	}
 }
