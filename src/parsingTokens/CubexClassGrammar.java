@@ -141,7 +141,9 @@ public class CubexClassGrammar {
 					fun.addStatement(new IrReturn(new IrFunctionCall("_"
 							+ parentClass + "_" + function.name,
 							function.typescheme.getTypeGrammar().name)));
-					//ADD CONSTRUCTABLE COMPONENT AS ARGUMENT
+					
+					//TODO: check this with Jimmy
+					fun.addFunctionArgument(new IrTypeTuple(new IrType("void**"), "ConstructableComponent"));
 					program.addGlobalFunction(fun);
 				}
 			}
