@@ -55,14 +55,14 @@ public class CubexProgramStatement implements CubexProgramType {
 
 	@Override
 	public IrProgram toIr(IrGenerationContext context, IrProgram program) {
+		for (String s : globalVariableSet) {
+			context.addGlobalVariable(s);
+		}
 		if (statement instanceof CubexBind) {
 			CubexBind cubexBind = (CubexBind) statement;
 			program.addGlobalVariable(cubexBind.toIr(context));
 		}
 		program.addMainStatement(statement.toIr(context));
-		for (String s : globalVariableSet) {
-			context.addGlobalVariable(s);
-		}
 		return program;
 
 	}

@@ -25,7 +25,7 @@ public class IrProgram {
 	}
 	
 	public void addGlobalVariable(IrBind bind){
-		globalVariables.add("void* _" + bind.tuple.variableName + ";");
+		globalVariables.add("void* " + bind.tuple.variableName + ";");
 	}
 	
 	public void addGlobalFunction(IrFunction function){
