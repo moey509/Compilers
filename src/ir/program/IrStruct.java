@@ -29,7 +29,7 @@ public class IrStruct {
 		arr.add("functionPointer p;");
 		arr.add(this.constructableComponent + "* constructableComponent;");
 		for(IrTypeTuple t : structVariables){
-			arr.add(t.type.declarationInStruct() + t.variableName + ";");
+			arr.add(t.type.declarationInStruct() + " " + t.variableName + ";");
 		}
 		
 		arr.add("}" + structName + ";");
