@@ -4,6 +4,7 @@ import Exception.SemanticException;
 import parsingTokens.CubexList;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import typeChecker.CubexCompleteContext;
+import typeChecker.TypeContext;
 
 public class CubexTypeScheme {
 	private CubexList<String> kindContext;
@@ -47,5 +48,15 @@ public class CubexTypeScheme {
 			tuple.getTypeGrammar().validate(copy, true);
 		}
 		typeGrammar.validate(copy, true);
+	}
+	
+	// replace generics for type scheme
+	public CubexTypeScheme replaceParams(TypeContext cont) {
+		CubexTypeGrammar gram = typeGrammar.replaceParams(cont);
+		CubexList<CubexTypeTuple> list = new CubexList<CubexTypeTuple>();
+		for (CubexTypeTuple i : typeContext.contextCollection) {
+			list.add(new CubexTypeTuple(i.getName(), i.getTypeGrammar().replaceParams(cont)));
+		}
+		return new CubexTypeScheme(kindContext, list, gram);
 	}
 }

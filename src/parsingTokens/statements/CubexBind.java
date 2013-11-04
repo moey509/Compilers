@@ -53,11 +53,26 @@ public final class CubexBind extends CubexStatement {
 		return typecontext;
 	}
 	
-	public TypeContextReturn typeCheckReturn(CubexCompleteContext c) throws SemanticException{
-		TypeContext t = typeCheck(c);
-		//TODO fix bug with returning null
-	
-		return new TypeContextReturn(t, false, new CubexTypeClass("Nothing", new CubexList<CubexTypeGrammar>()));
+	public TypeContextReturn typeCheckReturn(CubexCompleteContext c) throws SemanticException {
+		if (c.typeContext.containsKey(classid)) throw new SemanticException("Tried to bind immutable variable (CubexBind)");
+		CubexCompleteContext copy = c.clone();
+		copy.typeContext.noConflictMerge(copy.mutableTypeContext);
+		CubexTypeGrammar t = e.typeCheck(copy);
+		type = t.toIrType();
+		TypeContext typecontext = c.mutableTypeContext.clone();
+		if (typecontext.containsKey(classid)) {
+			typecontext.remove(classid);
+		}
+		typecontext.put(classid, t);
+		CubexTypeClass nothing = new CubexTypeClass("Nothing", new CubexList<CubexTypeGrammar>());
+		return new TypeContextReturn(typecontext, false, nothing);
 	}
+	
+//	public TypeContextReturn typeCheckReturn(CubexCompleteContext c) throws SemanticException{
+//		TypeContext t = typeCheck(c);
+//		//TODO fix bug with returning null
+//	
+//		return new TypeContextReturn(t, false, new CubexTypeClass("Nothing", new CubexList<CubexTypeGrammar>()));
+//	}
 	
 }

@@ -80,8 +80,8 @@ public final class CubexFor extends CubexStatement {
 
 
 		CubexCompleteContext copy1 = c.clone();
-		CubexTypeGrammar vtype = iclass.join(copy1, etype);
-		copy1.mutableTypeContext.put(varfun, vtype.getTypeList().get(0));
+//		CubexTypeGrammar vtype = iclass.join(copy1, etype);
+		copy1.mutableTypeContext.put(varfun, etype.getTypeList().get(0));
 
 		TypeContextReturn gamma = s.typeCheckReturn(copy1);
 		//if (!gamma.typeContext.containsAll(copy1, c.mutableTypeContext)){

@@ -45,7 +45,7 @@ public class CubexExpression {
 			type = c.getTypeGrammarFromMutableTypeContext(name).name;
 			return c.getTypeGrammarFromMutableTypeContext(name);
 		} else if (c.containsTypeVariableInTypeContext(name)) {
-			type = c.getTypeGrammarFromMutableTypeContext(name).name;
+			type = c.getTypeGrammarFromTypeContext(name).name;
 			return c.getTypeGrammarFromTypeContext(name);
 		} else {
 			throw new SemanticException("Variable " + name + " does not exist");

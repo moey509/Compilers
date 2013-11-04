@@ -3,6 +3,7 @@ package parsingTokens;
 import ir.program.IrFunction;
 import ir.program.IrProgram;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -89,6 +90,7 @@ public class CubexInterface {
 		HashMap<String, CubexTypeScheme> superFunction = new HashMap<String, CubexTypeScheme>();
 		HashMap<String, CubexStatement> superFunctionStatements = new HashMap<String, CubexStatement>();
 		// Find constructable component
+//		try {
 		if (extendsType.getName().equals("Thing")
 				|| context.containsClassName(extendsType.getName())) {
 			superElement = context.getElementFromClassContext(extendsType
@@ -104,6 +106,18 @@ public class CubexInterface {
 			}
 		} else {
 			throw new SemanticException("Supertype not found");
+		}
+//		} catch (Exception e) {
+//			// TODO : handle type intersections (multiple inheritance) here
+//		}
+		
+		TypeContext generics = new TypeContext();
+		if (extendsType instanceof CubexTypeClass) {
+			CubexTypeClass extendsInterface = (CubexTypeClass) extendsType;
+			ArrayList<String> k = originalContext.classContext.get(extendsInterface.getName()).kindContext.contextSet;
+			for (int i=0 ; i<k.size(); i++) {
+				generics.put(k.get(i), extendsInterface.typeList.get(i));
+			}
 		}
 
 		// Create class context prime
@@ -121,7 +135,7 @@ public class CubexInterface {
 		for (String name : superFunction.keySet()) {
 			CubexTypeScheme scheme = superFunction.get(name);
 			//scheme.validate(context);
-			superFuncs.put(name, new CubexFunctionDef(name, scheme,
+			superFuncs.put(name, new CubexFunctionDef(name, scheme.replaceParams(generics),
 					superFunctionStatements.get(name)));
 		}
 		for (CubexFunctionDef fun : functionList.iterable()) {

@@ -59,6 +59,17 @@ public final class CubexFunctionApp extends CubexExpression {
 		if(objectType.getName().equals("Thing")) throw new SemanticException("Method does not exist");
 		CubexTypeScheme typeScheme = element.functionMap.get(v_v);
 
+		// build the replaceParams context
+		TypeContext cont = new TypeContext();
+		TypeContext typeSchemeCont = new TypeContext();
+		KindContext kcont = c.classContext.get(objectType.getName()).kindContext;
+		CubexList<CubexTypeGrammar> types = objectType.getTypeList();
+		for (int i = 0; i < kcont.size(); i++){
+			cont.put(kcont.contextSet.get(i), types.get(i));
+			typeSchemeCont.put(kcont.contextSet.get(i), types.get(i));
+
+		}
+
 		while(typeScheme == null){
 			element = c.classContext.get(element.type.getName());
 			typeScheme = element.functionMap.get(v_v);
@@ -72,19 +83,12 @@ public final class CubexFunctionApp extends CubexExpression {
 		}
 		
 		//TODO: What's the difference between these two?
-		TypeContext cont = new TypeContext();
 		for (int i = 0; i < kContext.size(); i++) {
 			cont.put(kContext.get(i), params.get(i));
 			if (!c.containsClassName(params.get(i).getName()) && !c.kindContextContainsTypeParam(params.get(i).getName())){
 				throw new SemanticException(params.get(i).getName() + " is not a valid type.");
 			}
 		}
-		KindContext kcont = c.classContext.get(objectType.getName()).kindContext;
-		CubexList<CubexTypeGrammar> types = objectType.getTypeList();
-		for (int i = 0; i < kcont.size(); i++){
-			cont.put(kcont.contextSet.get(i), types.get(i));
-		}
-
 		CubexList<CubexTypeTuple> typeContext = typeScheme.getTypeContext();
 
 		for (int i = 0; i < typeContext.size(); i++) {

@@ -1,5 +1,6 @@
 package parsingTokens;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -176,7 +177,7 @@ public class CubexClassGrammar {
 			if (!originalContext.classContext.get(extendsTypeName).isClass()) extendsTypeCanBeClass = false;
 		} catch (Exception e) {
 		}
-		extendsType.validate(originalContext, extendsTypeCanBeClass);
+		extendsType.validate(context, extendsTypeCanBeClass);
 
 		HashMap<String, CubexTypeScheme> superFunction = new HashMap<String, CubexTypeScheme>();
 		HashMap<String, CubexStatement> superFunctionStatements = new HashMap<String, CubexStatement>();
@@ -234,21 +235,32 @@ public class CubexClassGrammar {
 		funContextPrime.put(name, typeScheme);
 		context.functionContext.merge(funContextPrime);
 
+		// used for replaceParams
+		TypeContext generics = new TypeContext();
+		if (extendsType instanceof CubexTypeClass) {
+			CubexTypeClass extendsInterface = (CubexTypeClass) extendsType;
+			ArrayList<String> k = originalContext.classContext.get(extendsInterface.getName()).kindContext.contextSet;
+			for (int i=0 ; i<k.size(); i++) {
+				generics.put(k.get(i), extendsInterface.typeList.get(i));
+			}
+		}
+
 		HashMap<String, CubexFunctionDef> superFuncs = new HashMap<String, CubexFunctionDef>();
 		for (Map.Entry<String, CubexTypeScheme> entry : superFunction
 				.entrySet()) {
-			entry.getValue().validate(context);
+//			entry.getValue().validate(context);
 			superFuncs.put(name,
-					new CubexFunctionDef(entry.getKey(), entry.getValue(),
+					new CubexFunctionDef(entry.getKey(), entry.getValue().replaceParams(generics),
 							superFunctionStatements.get(entry.getKey())));
 		}
 		for (CubexFunctionDef fun : functions.iterable()) {
 			superFuncs.put(fun.name, fun);
+			fun.typescheme.validate(context);
 		}
 
 		// Check that all function type schemes are valid
 		for (CubexFunctionDef fun : superFuncs.values()) {
-			fun.typescheme.validate(context);
+//			fun.typescheme.validate(context);
 		}
 
 		// Check that all type grammars in type context are valid
