@@ -39,7 +39,7 @@ public final class CubexFunctionApp extends CubexExpression {
 	
 	public IrFunctionCall toIr(IrGenerationContext context) {
 		//TODO something with context to know which function to call in c
-		IrFunctionCall irFunCall = new IrFunctionCall(expr.type.replaceAll("_", "__") + "_" + v_v.replaceAll("_", "__"), type);
+		IrFunctionCall irFunCall = new IrFunctionCall(expr.type + "_" + v_v, type);
 		irFunCall.addArgument(expr.toIr(context));
 
 		for (CubexExpression i : functionParams.contextCollection) {
