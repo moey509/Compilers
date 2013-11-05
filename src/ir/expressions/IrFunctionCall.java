@@ -32,11 +32,6 @@ public final class IrFunctionCall implements IrExpression {
 		for(IrExpression e : arguments){
 			arr.addAll(e.getExpressions(context));
 		}
-//		for(int i = 0; i < arr.size(); i++){
-//			if(arr.get(i) != null){
-//				System.out.println(arr.get(i).toC(context));
-//			}
-//		}
 		return arr;
 	}
 	

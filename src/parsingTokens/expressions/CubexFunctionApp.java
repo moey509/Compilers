@@ -46,7 +46,6 @@ public final class CubexFunctionApp extends CubexExpression {
 		//TODO something with context to know which function to call in c
 		String obj = "";
 		String fun = "";
-				
 		if (expr.type != null){
 			obj = expr.type.replaceAll("_", "__");
 		}
@@ -62,27 +61,35 @@ public final class CubexFunctionApp extends CubexExpression {
 		return irFunCall;
 	}
 	public ArrayList<IrBind> getExpressions(IrGenerationContext context){
+		System.out.println("THIS: " + this);
+		String obj = "";
+		String fun = "";
+		if (expr.type != null){
+			obj = expr.type.replaceAll("_", "__");
+		}
+		System.out.println("OBJ: " + obj);
+		if (v_v != null){
+			fun = v_v.replaceAll("_", "__");
+			System.out.println("FUN: " + fun);
+		}
 		ArrayList<IrBind> arr = new ArrayList<IrBind>();
 		ArrayList<IrBind> tempParams = new ArrayList<IrBind>();
 		for(CubexExpression e : functionParams.contextCollection){
 			arr.addAll(e.getExpressions(context));
-			System.out.println(e);
 			tempParams.add(arr.get(arr.size()-1));
 		}
-		System.out.println("size: " + tempParams.size());
 		arr.addAll(expr.getExpressions(context));
-		System.out.println("this: " + this);
-		System.out.println("2 " + arr);
 		IrType t = new IrType("void*");
 		IrTypeTuple tuple = new IrTypeTuple(t, context.nextTemp());
 		IrBind b;
 		if(arr.size() - tempParams.size() == 0){
 			IrFunctionCall call = this.toIr(context);
 			if(tempParams.size() == 0){
+				System.out.println("GRRRR " + fun);
 				b = new IrBind(tuple, call);
 			}
 			else{
-				call = new IrFunctionCall(v_v, "void*");
+				call = new IrFunctionCall(obj + "_" + fun, "void*");
 				for(IrBind bind : tempParams){
 					call.addArgument(new IrVariableExpression(bind.tuple.variableName, bind.tuple.type.type));
 				}
@@ -90,7 +97,7 @@ public final class CubexFunctionApp extends CubexExpression {
 			} 
 		}
 		else{
-			IrFunctionCall call = new IrFunctionCall(v_v, "void*");
+			IrFunctionCall call = new IrFunctionCall(obj + "_" + fun, "void*");
 			//Have to add in all arguments. Must figure out how much each has
 			call.addArgument(new IrVariableExpression(arr.get(arr.size()-1).tuple.variableName, arr.get(arr.size()-1).tuple.type.type));
 			for(IrBind bind : tempParams){

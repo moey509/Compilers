@@ -27,6 +27,7 @@ public final class CubexFunctionCall extends CubexExpression {
 			CubexList<CubexTypeGrammar> typeParams,
 			CubexList<CubexExpression> functionParams) {
 		this.v_vc = v_vc;
+		this.type = v_vc;
 		this.typeParams = typeParams;
 		this.functionParams = functionParams;
 	}
@@ -138,6 +139,10 @@ public final class CubexFunctionCall extends CubexExpression {
 		IrType t = new IrType("void*");
 		IrTypeTuple tuple = new IrTypeTuple(t, context.nextTemp());
 		IrFunctionCall call;
+		String obj = "";
+		if (v_vc != null){
+			obj = v_vc.replaceAll("_", "__");
+		}
 		
 		IrBind b;
 		//No function parameters, then the call is just the original call
@@ -147,7 +152,7 @@ public final class CubexFunctionCall extends CubexExpression {
 		}
 		//Function parameters. Then the call is a new IrFunction with parameters added
 		else{
-			call = new IrFunctionCall(v_vc, "void*");
+			call = new IrFunctionCall("_" + obj, "void*");
 			for(IrBind bind : tempParams){
 				call.addArgument(new IrVariableExpression(bind.tuple.variableName, bind.tuple.type.type));
 			}
