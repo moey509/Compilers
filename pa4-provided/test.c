@@ -5,6 +5,40 @@ typedef struct git * git_t;
 typedef struct nit * nit_t;
 typedef struct iterator * iterator_t;
 typedef struct iterable * iterable_t;
+typedef struct general * general_t;
+typedef struct integer * integer_t;
+typedef struct character * character_t;
+
+
+struct general {
+  int ref_count;
+  char** fun_name;
+  char** fun_ptr;
+  void* con_comp;
+  int is_iter;
+  int is_thru_ward;
+};
+
+struct character {
+  int ref_count;
+  char** fun_name;
+  char** fun_ptr;
+  void* con_comp;
+  int is_iter;
+  int is_thru_ward;
+  char value;
+};
+
+struct integer {
+  int ref_count;
+  char** fun_name;
+  char** fun_ptr;
+  void* con_comp;
+  int is_iter;
+  int is_thru_ward;
+  int value;
+};
+
 
 struct blah
 {
@@ -12,7 +46,7 @@ struct blah
   blah_t next;
 };
 
-// empty iterables are going to be NULL
+/* empty iterables are going to be NULL */
 struct git 
 {
   void* val;
@@ -27,8 +61,8 @@ struct iterator
 };
 
 
-// status: {-1 : regular number} {0 : through} {1 : onwards}
-// for the case of a single number, the value will be held in the field 'low'
+/* status: {-1 : regular number} {0 : through} {1 : onwards}
+ for the case of a single number, the value will be held in the field 'low' */
 struct nit 
 {
   void * low;
@@ -36,20 +70,20 @@ struct nit
   int status;
 };
 
-// returns whether there is another element left
+/*returns whether there is another element left */
 int hasNext(iterator_t it) {
   if (it == NULL || it->g == NULL)
     return 0;
   git_t g;
   nit_t n;
-  // int case
+  /* int case */
   g = it->g;
   if (g->is_int == 1) {
     n = g->val;
-    // regular case
+    /* regular case */
     if (n->status == -1) 
       return 1;
-    // through case
+    /*  through case */
     if (n->status == 0) {
       if (it->cur > n->high) {
         it->g = g->next;
@@ -58,18 +92,18 @@ int hasNext(iterator_t it) {
       }
       return 1;
     }
-    // infinite case
+    /* infinite case */
     else {
       return 1;
     }
   }
-  // regular case
+  /* regular case */
   else {
     return 1;
   }
 }
 
-// returns a pointer to the next elements
+/* returns a pointer to the next elements */
 void* getNext(iterator_t it) {
   if (it == NULL || it->g == NULL) {
     return NULL;
@@ -79,43 +113,43 @@ void* getNext(iterator_t it) {
   nit_t n;
 
   g = it->g;
-  // int case
+  /* int case */
   if (g->is_int == 1) {
     n = g->val;
-    // regular case 
+    /* regular case  */
     if (n->status == -1) {
       temp = n->low;
       it->g = g->next;
       it->cur = NULL;
       return temp;      
     }
-    //set cur value if not set yet
+    /* set cur value if not set yet */
     if (it->cur == NULL) 
       it->cur = n->low;
-    // through case
+    /* through case */
     if (n->status == 0) {
-      // case with no data
+      /* case with no data */
       if (it->cur > n->high) {
         it->g = g->next;
         it->cur = NULL;
         return getNext(it);
       }
       temp = it->cur;
-      // increment value
+      /* increment value */
       it->cur += 1;
       if ((int)(it->cur) > (int)(n->high)) {
         it->g = g->next;
         it->cur = NULL;        
       }
     }
-    // infinite case
+    /* infinite case */
     else {
       temp = it->cur;
       it->cur += 1;
     }
     return temp;
   }
-  // regular case
+  /* regular case */
   else {
     temp = g->val;
     it->g = g->next;
@@ -124,39 +158,20 @@ void* getNext(iterator_t it) {
   }
 }
 
-// method that frees an iterator
+/* method that frees an iterator */
 void freeIterator(iterator_t it) {
   if (it != NULL)
     free(it);
 }
 
-//TODO: need to redo so that it uses the iterable struct
-// // method that frees a git_t struct
-// void free_git(git_t g) {
-//   git_t temp;
-//   git_t free_ptr;
-//   nit_t n;
-//   temp = g;
-//   while (temp != NULL) {
-//     // int case
-//     if (temp->is_int == 1) {
-//       n = temp->val;
-//       free(n);
-//     }
-//     free_ptr = temp;
-//     temp = temp->next;
-//     free(free_ptr);
-//   }
-// }
-
-// combines two iterables, 
+/* combines two iterables, */
 git_t iterable_append (git_t first, git_t second) {
   git_t g;
   git_t temp;
   git_t itr;
   git_t prev = NULL;
   g = NULL;
-  // first 
+  /* first */
   itr = first;
   while (itr != NULL) {
     printf ("first\n");
@@ -165,7 +180,7 @@ git_t iterable_append (git_t first, git_t second) {
     temp->is_int = itr->is_int;
     temp->next = NULL;
     itr = itr->next;  
-    // update pointers
+    /* update pointers */
     if (prev != NULL){ 
       prev->next = temp;
       prev = temp;
@@ -175,7 +190,7 @@ git_t iterable_append (git_t first, git_t second) {
     if (g == NULL)
       g = temp;
   }
-  // second
+  /* second */
   itr = second;
   while (itr != NULL) {
     printf("second\n");
@@ -184,7 +199,7 @@ git_t iterable_append (git_t first, git_t second) {
     temp->is_int = itr->is_int;
     temp->next = NULL;
     itr = itr->next;  
-    // update pointers
+    /* update pointers */
     if (prev != NULL) { 
       prev->next = temp;
       prev = temp;
@@ -198,7 +213,7 @@ git_t iterable_append (git_t first, git_t second) {
   return g;
 }
 
-// constructs a new iterable for anything but ints
+/* constructs a new iterable for anything but ints */
 git_t new_git_obj (void* obj) {
   git_t g = (git_t)malloc(sizeof(struct git));
   g->val = obj;
@@ -207,8 +222,8 @@ git_t new_git_obj (void* obj) {
   return g;
 }
 
-// constructs a new iterable for ints. The status, low and high inputs
-// correspond to the values in a nit_T struct
+/* constructs a new iterable for ints. The status, low and high inputs
+// correspond to the values in a nit_T struct */
 git_t new_git_int (int status, void* low, void* high) {  
   git_t g = (git_t)malloc(sizeof(struct git));
   nit_t n = (nit_t)malloc(sizeof(struct nit));
@@ -248,9 +263,9 @@ void intTest() {
   else
     printf("[ASSERT] fail [one element]\n");    
 
-  // one element: through (0)
+  /*  one element: through (0) */
   i1 = new_git_int (0, 2, 5);
-  // reset iterator 
+  /* reset iterator  */
   it = new_iterator (i1);
 
   printf ("[INFO][one element][through]\n");
@@ -284,10 +299,10 @@ void intTest() {
   else
     printf("[ASSERT] fail [one element]\n");    
 
-  // one element: through (0) broken case
-  // reset iterator 
+  /* one element: through (0) broken case */
+  /* reset iterator */
   i1 = new_git_int (0, 5, 2);
-  // reset iterator 
+  /* reset iterator  */
   it = new_iterator (i1);
   
   printf ("[INFO][one element][through]\n");
@@ -309,14 +324,14 @@ void intTest() {
   else
     printf("[ASSERT] fail [one element]\n");    
 
-  // one element: onwards (1)
+  /* one element: onwards (1) */
   i1 = new_git_int (1, 2, 0);
-  // reset iterator 
+  /* reset iterator  */
   it = new_iterator (i1);
 
   printf ("[INFO][one element][through]\n");
   ans = getNext(it);
-  //printf ("---%d\n", ans);
+  /*printf ("---%d\n", ans); */
   if (ans == 2) 
     printf("[ASSERT] pass [one element] 2 \n");    
   else
@@ -340,11 +355,11 @@ void intTest() {
   else
     printf("[ASSERT] fail [one element]\n");    
 
-  // two element tests (-1), (0)
+  /* two element tests (-1), (0) */
   i1 = new_git_int (-1, 10, 0);
   iterable_t i2 = new_git_int (0, 12, 13);
   git_t i3 = iterable_append(i1, i2);
-  // reset iterator 
+  /* reset iterator  */
   it = new_iterator (i3);
 
   ans = getNext(it);
@@ -367,12 +382,12 @@ void intTest() {
     printf("[ASSERT] fail [one element]\n");    
 
 
-  // two element tests (0), (-1)
+  /* two element tests (0), (-1) */
   i1 = new_git_int (0, 12, 13);
   i2 = new_git_int (-1, 5, 0);
   i3 = iterable_append(i1, i2);
-  // reset iterator 
-  //it->g = i1->first;
+  /* reset iterator  */
+  
   it = new_iterator (i3);
 
   ans = getNext(it);
@@ -412,12 +427,12 @@ void charTest() {
   git_t i1 = new_git_obj('a');
   git_t i2 = new_git_obj('b');
 
-  // iterator
+  /* iterator */
   iterator_t it = new_iterator(i1);
  
   printf ("--- char test begin\n");
 
-  // one element:
+  /* one element: */
   ans = getNext(it);
   if ((char)ans == 'a') 
     printf("[ASSERT] pass [one element]\n");    
@@ -430,10 +445,10 @@ void charTest() {
     printf("[ASSERT] fail [one element]\n");    
 
   
-  // two elements:
+  /*  two elements: */
   git_t i3 = iterable_append(i1,i2);
 
-  // reset iterator
+  /* reset iterator */
   it = new_iterator(i3);
 
   ans = getNext(it);
@@ -479,8 +494,6 @@ void for_test() {
 }
 
 
-
-
 void misc_test() {
   void * ans;
 
@@ -495,12 +508,12 @@ void misc_test() {
   i6 = iterable_append(i6, i4);
   i6 = iterable_append(i6, i5);
 
-  // iterator
+  /* iterator */
   iterator_t it = new_iterator(i6);
    
-  printf ("%s\n", i4->val); // sdfsdf
-  printf ("%c\n", i2->val); // b
-  printf ("%c\n", i6->next->val); //b
+  printf ("%s\n", i4->val); /* sdfsdf */
+  printf ("%c\n", i2->val); /* b */
+  printf ("%c\n", i6->next->val); /*b */
   printf ("%p\n", i6->next->next);
   if (i6->next->next==NULL)
     printf ("wut\n");
@@ -525,13 +538,74 @@ void misc_test() {
 
 }
 
+/* convert a char iterable into a String */
+char* charToString(git_t g) {
+  if (g == NULL) 
+    return NULL;
+  git_t itr = g;
+  int counter = 0;
+  while (itr != NULL) {
+    counter += 1;
+    itr = itr->next;
+  }
+  char* buf = (char*) malloc (sizeof(char*) * (counter + 1));
+  itr = g;
+  counter = 0;
+  printf ("before\n");
+  if (g->val == NULL)
+    printf ("what.\n");
+  printf ("%c\n", ((character_t)(g->val))->value);
+  printf ("after\n");
+  while (itr != NULL) {
+    printf ("counter: %d\n", counter);
+    printf ("%p\n", buf);
+    buf[counter] = ((character_t)(itr->val))->value;
+    counter += 1;
+    itr=itr->next;
+  }
+  buf[counter] = '\0';
+  return buf;
+}
+
+character_t new_character(int input) {
+  character_t c = (character_t)malloc(sizeof(struct character));
+  c->ref_count = 0;
+  c->fun_name = NULL;
+  c->fun_ptr = NULL;
+  c->con_comp = NULL; 
+  c->is_iter = 0;
+  c->is_thru_ward = 0;
+  c->value = (char) input; /* will get replaced by included function */
+  return c;
+}
+
+void charToStringTest() {
+  character_t c1 = new_character(65);
+  git_t g1 = new_git_obj(c1);
+  character_t c2 = new_character(66);
+  git_t g2 = new_git_obj(c2);
+  character_t c3 = new_character(67);
+  git_t g3 = new_git_obj(c3);
+  character_t c4 = new_character(68);
+  git_t g4 = new_git_obj(c4);
+  character_t c5 = new_character(69);
+  git_t g5 = new_git_obj(c5);
+  character_t c6 = new_character(70);
+  git_t g6 = new_git_obj(c6);
+
+  git_t g = iterable_append(g1, iterable_append(g2, iterable_append (g3, iterable_append (g4, iterable_append(g5, g6)))));
+  char* c = charToString(g);
+  printf ("%s\n", c);
+}
+
 int main()
 {
-  //charTest();
+  
+  /*charTest();
   //intTest();
   //misc_test();
   for_test();
-
+*/
   /*
   blah_t one = (blah_t)malloc(sizeof(struct blah));
   blah_t two = (blah_t)malloc(sizeof(struct blah));
@@ -598,16 +672,8 @@ no i'm
   return 0;
 }
 
-
-//TODO: list of things that still need to be tested:
-// make sure we don't add emtpy iterators
 /*
-- update everything with new iterable struct
-- remaining TODOs
-- WHEN MALLOCING, SET ALL FIELDS TO NULL
-- getNext (everything else, ints)
-- memory leaks!
-- make it easy to link up iterables to iterators.
+
 test:
 - appending
 - creation of iterables
