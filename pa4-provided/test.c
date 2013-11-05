@@ -8,12 +8,15 @@ typedef struct iterable * iterable_t;
 typedef struct general * general_t;
 typedef struct integer * integer_t;
 typedef struct character * character_t;
+typedef struct boolean * boolean_t;
 
 
 struct general {
   int ref_count;
-  char** fun_name;
-  char** fun_ptr;
+  char** fun_names;
+  int fun_length;
+  char** fun_ptrs;
+  int ptr_length;
   void* con_comp;
   int is_iter;
   int is_thru_ward;
@@ -21,8 +24,10 @@ struct general {
 
 struct character {
   int ref_count;
-  char** fun_name;
-  char** fun_ptr;
+  char** fun_names;
+  int fun_length;
+  char** fun_ptrs;
+  int ptr_length;
   void* con_comp;
   int is_iter;
   int is_thru_ward;
@@ -31,8 +36,22 @@ struct character {
 
 struct integer {
   int ref_count;
-  char** fun_name;
-  char** fun_ptr;
+  char** fun_names;
+  int fun_length;
+  char** fun_ptrs;
+  int ptr_length;
+  void* con_comp;
+  int is_iter;
+  int is_thru_ward;
+  int value;
+};
+
+struct boolean {
+  int ref_count;
+  char** fun_names;
+  int fun_length;
+  char** fun_ptrs;
+  int ptr_length;
   void* con_comp;
   int is_iter;
   int is_thru_ward;
@@ -73,8 +92,10 @@ struct nit
 character_t new_character(int input) {
   character_t c = (character_t)malloc(sizeof(struct character));
   c->ref_count = 0;
-  c->fun_name = NULL;
-  c->fun_ptr = NULL;
+  c->fun_names = NULL;
+  c->fun_length = 0;
+  c->fun_ptrs = NULL;
+  c->ptr_length = 0;
   c->con_comp = NULL; 
   c->is_iter = 0;
   c->is_thru_ward = 0;
@@ -85,13 +106,29 @@ character_t new_character(int input) {
 integer_t new_integer(int input) {
   integer_t i = (integer_t)malloc(sizeof(struct integer));
   i->ref_count = 0;
-  i->fun_name = NULL;
-  i->fun_ptr = NULL;
+  i->fun_names = NULL;
+  i->fun_length = 0;
+  i->fun_ptrs = NULL;
+  i->ptr_length = 0;
   i->con_comp = NULL; 
   i->is_iter = 0;
   i->is_thru_ward = 0;
   i->value = input;
   return i;
+}
+
+boolean_t new_boolean(int input) {
+  boolean_t b = (boolean_t)malloc(sizeof(struct boolean));
+  b->ref_count = 0;
+  b->fun_names = NULL;
+  b->fun_length = 0;
+  b->fun_ptrs = NULL;
+  b->ptr_length = 0;
+  b->con_comp = NULL;
+  b->is_iter = 0;
+  b->is_thru_ward = 0;
+  b->value = input;
+  return b;
 }
 
 /*returns whether there is another element left */
@@ -625,6 +662,16 @@ void charToStringTest() {
 
 
 /* FUNCTIONS */
+
+/* the following two are given to us */
+char unichar(int uni) {
+  return (char) uni;
+}
+
+int charuni(char c) {
+  return (int) c;
+}
+
 integer_t integer_add (integer_t i1, integer_t i2) {
   return new_integer(i1->value + i2->value);
 }
@@ -644,6 +691,152 @@ integer_t integer_divide (integer_t i1, integer_t i2) {
 integer_t integer_mod (integer_t i1, integer_t i2) {
   return new_integer(i1->value % i2->value);
 }
+
+integer_t integer_negate (integer_t i1) {
+  return new_integer (0 - (i1->value));
+}
+
+git_t integer_through (integer_t i1, integer_t i2, int include1, int include2) {
+  int int1;
+  int int2;
+  int1 = i1->value;
+  int2 = i2->value; 
+  if (include1 == 0) 
+    int1 = int1 + 1;
+  if (include2 == 0) 
+    int2 = int2 - 1;
+  new_git_int(0, int1, int2);
+}
+
+git_t integer_onwards (integer_t i1, int include1) {
+  int int1 = i1->value;
+  if (include1 == 0)
+    int1 = int1 + 1;
+  new_git_int(1, int1, 0);
+}
+
+boolean_t integer_lessThan(integer_t i1, integer_t i2, int strict) {
+  int int1;
+  int int2;
+  int ans;
+  int1 = i1->value;
+  int2 = i2->value;
+  if (strict == 1) {
+    if (int1 <= int2)
+      ans = 1;
+    else 
+      ans = 0;
+  }
+  else {
+    if (int1 < int2)
+      ans = 1;
+    else
+      ans = 0;
+  }
+  return new_boolean(ans);
+}
+
+boolean_t character_equals (character_t c1, character_t c2) {
+  int ans;
+  if (c1->value == c2->value) 
+    ans = 1;
+  else
+    ans = 0;
+  return new_boolean (ans);
+}
+
+boolean_t string_equals (git_t g1, git_t g2) {
+  git_t t1;
+  git_t t2;
+  character_t c1;
+  character_t c2;
+  int flag;
+  int ans;
+  t1 = g1;
+  t2 = g2;
+  flag = 0;
+  while (t1 != NULL && t2 != NULL && flag == 0) {
+    c1 = t1->val;
+    c2 = t2->val;
+    if (c1->value != c2->value)
+      flag = 1;
+    t1 = t1->next;
+    t2 = t2->next;
+  }
+  /* only way that the two were equal: */
+  if (t1 == NULL && t2 == NULL && flag == 0)
+    ans = 1;
+  else
+    ans = 0;
+  return new_boolean(ans);
+}
+
+boolean_t boolean_negate(boolean_t b) {
+  int ans;
+  if (b->value == 1)
+    ans = 0;
+  else 
+    ans = 1;
+  return new_boolean(ans);
+}
+
+boolean_t boolean_and (boolean_t b1, boolean_t b2) {
+  int ans;
+  ans = (b1->value) && (v2->value);
+  return new_boolean(ans);
+}
+
+boolean_t boolean_or (boolean_t b1, boolean_t b2) {
+  int ans;
+  ans = (b1->value) || (b2->value);
+  return new_boolean(ans);
+}
+
+boolean_t boolean_equals (boolean_t b1, boolean_t b2) {
+  int ans;
+  ans = (b1->value) == (b2->value);
+  return new_boolean(ans);
+}
+
+git_t boolean_through (boolean_t b1, boolean_t b2, int include1, int include2) {
+  int int1;
+  int int2;
+  int1 = b1->value;
+  int2 = b2->value; 
+  if (include1 == 0) 
+    int1 = int1 + 1;
+  if (include2 == 0) 
+    int2 = int2 - 1;
+  new_git_int(0, int1, int2);
+}
+
+git_t boolean_onwards (boolean_t b1, int include) {
+  int int1 = b1->value;
+  if (include1 == 0)
+    int1 = int1 + 1;
+  new_git_int(1, int1, 0);
+}
+
+boolean_t boolean_lessThan(boolean_t b1, boolean_t b2, int strict) {
+  int int1;
+  int int2;
+  int ans;
+  int1 = b1->value;
+  int2 = b2->value;
+  if (strict == 1) {
+    if (int1 <= int2)
+      ans = 1;
+    else 
+      ans = 0;
+  }
+  else {
+    if (int1 < int2)
+      ans = 1;
+    else
+      ans = 0;
+  }
+  return new_boolean(ans);
+} 
 
 
 int main()
@@ -723,8 +916,5 @@ no i'm
 }
 
 /*
-
-test:
-- appending
-- creation of iterables
+convert git and nit and all that to support the general schema
 */
