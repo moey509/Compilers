@@ -1,7 +1,10 @@
 package ir.expressions;
 
+import java.util.ArrayList;
+
 import ir.CGenerationContext;
 import ir.IrMiscFunctions;
+import ir.statements.IrBind;
 
 public final class IrInteger implements IrExpression {
 	private int mValue;
@@ -19,5 +22,11 @@ public final class IrInteger implements IrExpression {
 	
 	public String toC(CGenerationContext context) {
 		return Integer.toString(mValue);
+	}
+	
+	@Override
+	public ArrayList<IrBind> getExpressions(CGenerationContext context) {
+		// TODO Auto-generated method stub
+		return new ArrayList<IrBind>();
 	}
 }

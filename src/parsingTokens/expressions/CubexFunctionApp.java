@@ -52,7 +52,6 @@ public final class CubexFunctionApp extends CubexExpression {
 		
 		IrFunctionCall irFunCall = new IrFunctionCall(obj + "_" + fun, type);
 		irFunCall.addArgument(expr.toIr(context));
-
 		for (CubexExpression i : functionParams.contextCollection) {
 			irFunCall.addArgument(i.toIr(context));
 		}

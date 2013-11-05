@@ -1,7 +1,10 @@
 package ir.expressions;
 
+import java.util.ArrayList;
+
 import ir.CGenerationContext;
 import ir.IrMiscFunctions;
+import ir.statements.IrBind;
 import parsingTokens.CubexList;
 
 public class IrIterable implements IrExpression {
@@ -31,5 +34,11 @@ public class IrIterable implements IrExpression {
 		else 
 			temp = "NULL";
 		return temp;
+	}
+	
+	@Override
+	public ArrayList<IrBind> getExpressions(CGenerationContext context) {
+		// TODO Auto-generated method stub
+		return new ArrayList<IrBind>();
 	}
 }

@@ -1,7 +1,10 @@
 package ir.expressions;
 
+import java.util.ArrayList;
+
 import ir.CGenerationContext;
 import ir.IrMiscFunctions;
+import ir.statements.IrBind;
 
 public class IrBinaryExpression implements IrExpression {
 	private IrExpression leftExpression;
@@ -49,5 +52,11 @@ public class IrBinaryExpression implements IrExpression {
 			return null;
 		}
 		return "(" + leftExpression.toC(context) + ") " + operator + " (" + rightExpression.toC(context) + ")";
+	}
+	
+	@Override
+	public ArrayList<IrBind> getExpressions(CGenerationContext context) {
+		// TODO Auto-generated method stub
+		return new ArrayList<IrBind>();
 	}
 }

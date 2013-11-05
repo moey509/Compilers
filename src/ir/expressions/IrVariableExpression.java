@@ -1,7 +1,10 @@
 package ir.expressions;
 
+import java.util.ArrayList;
+
 import ir.CGenerationContext;
 import ir.expressions.IrExpression;
+import ir.statements.IrBind;
 
 
 //TODO: currently the type of variables are not clear....
@@ -23,6 +26,14 @@ public class IrVariableExpression implements IrExpression {
 	@Override
 	public String toC(CGenerationContext context) {
 		return variableName;
+	}
+
+	@Override
+	public ArrayList<IrBind> getExpressions(CGenerationContext context) {
+		// TODO Auto-generated method stub
+		ArrayList<IrBind> arr = new ArrayList<IrBind>();
+		//arr.add(null);
+		return arr;
 	}
 
 }

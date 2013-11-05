@@ -8,6 +8,7 @@ import parsingTokens.CubexList;
 import parsingTokens.typeGrammar.CubexTypeClass;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import typeChecker.CubexCompleteContext;
+import typeChecker.IrGenerationContext;
 
 public final class CubexString extends CubexExpression {
 	private String mValue;
@@ -16,7 +17,7 @@ public final class CubexString extends CubexExpression {
 		mValue = value;
 	}
 	
-	public IrString toIr() {
+	public IrString toIr(IrGenerationContext context) {
 		return new IrString(mValue);
 	}
 
