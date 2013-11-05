@@ -22,6 +22,7 @@ import typeChecker.TypeContextReturn;
 public class CubexProgramStatement implements CubexProgramType {
 	private CubexStatement statement;
 	private Set<String> globalVariableSet;
+	private TypeContext freeContext;
 
 	public CubexProgramStatement(CubexStatement statement) {
 		statement.flatten();
@@ -50,6 +51,7 @@ public class CubexProgramStatement implements CubexProgramType {
 			throw new SemanticException("CubexProgramStatement");
 		}
 		globalVariableSet = new HashSet<String>(c.typeContext.keySet());
+		freeContext = c.typeContext;
 		return c;
 	}
 

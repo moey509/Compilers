@@ -11,7 +11,7 @@ public final class IrReturn implements IrStatement {
 	private TypeContext freeContext;
 	private IrExpression expression;
 	
-	public IrReturn(IrExpression expression, TypeContext fc) {
+	public IrReturn(IrExpression expression) {
 		this.expression = expression;
 		this.freeContext = fc;
 	}

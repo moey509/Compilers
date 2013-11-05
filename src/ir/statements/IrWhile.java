@@ -12,10 +12,9 @@ public final class IrWhile implements IrStatement {
 	private IrExpression condition;
 	private List<IrStatement> statements;
 
-	public IrWhile(IrExpression condition, TypeContext fc) {
+	public IrWhile(IrExpression condition) {
 		this.condition = condition;
 		this.statements = new ArrayList<IrStatement>();
-		this.freeContext = fc;
 	}
 	
 	public void addStatement(IrStatement statement){

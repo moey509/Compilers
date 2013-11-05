@@ -17,7 +17,7 @@ public final class CubexReturn extends CubexStatement {
 	}
 	
 	public IrReturn toIr(IrGenerationContext context) {
-		return new IrReturn(e.toIr(context), freeContext);
+		return new IrReturn(e.toIr(context));
 	}
 
 	public String toString() {

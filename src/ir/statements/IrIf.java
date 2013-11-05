@@ -15,11 +15,10 @@ public class IrIf implements IrStatement {
 	private List<IrStatement> statements2; // else {s2}
 
 	// if there is no else statement, let s2 be null
-	public IrIf(IrExpression condition, TypeContext fc) {
+	public IrIf(IrExpression condition) {
 		this.condition = condition;
 		this.statements1 = new ArrayList<IrStatement>();
 		this.statements2 = new ArrayList<IrStatement>();
-		this.freeContext = fc;
 	}
 
 	public void addStatement1(List<IrStatement> statement) {

@@ -7,11 +7,14 @@ import ir.statements.IrStatement;
 import java.util.ArrayList;
 import java.util.List;
 
+import typeChecker.TypeContext;
+
 public class IrProgram {
 	public List<IrStruct> structDeclarations;
 	public List<String> globalVariables;
 	public List<IrFunction> globalFunctions;
 	public List<IrStatement> mainFunctionStatements;
+	public TypeContext freeContext; // the immutable variables to be freed at the very end of the program
 	
 	public IrProgram(){
 		structDeclarations = new ArrayList<IrStruct>();

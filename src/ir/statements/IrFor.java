@@ -14,11 +14,10 @@ public class IrFor implements IrStatement {
 	private String var;
 	private List<IrStatement> statements;
 
-	public IrFor(IrExpression list, String var, TypeContext fc) {
+	public IrFor(IrExpression list, String var) {
 		this.list = list;
 		this.var = var;
 		this.statements = new ArrayList<IrStatement>();
-		this.freeContext = fc;
 	}
 
 	public void addStatement(IrStatement statement){
