@@ -8,12 +8,15 @@ import ir.expressions.IrExpression;
 
 public final class IrReturn implements IrStatement {
 	// the Cubex variables to be freed before returning
-	private TypeContext freeContext;
+	private ArrayList<String> freeContext;
 	private IrExpression expression;
 	
 	public IrReturn(IrExpression expression) {
 		this.expression = expression;
-		//this.freeContext = fc;
+	}
+	
+	public void setFreeContext(ArrayList<String> fc) {
+		freeContext = fc;
 	}
 	
 	public ArrayList<String> toProgramOutput(CGenerationContext context) {
