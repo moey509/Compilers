@@ -19,6 +19,10 @@ public class IrFor implements IrStatement {
 		this.var = var;
 		this.statements = new ArrayList<IrStatement>();
 	}
+	
+	public void setFreeContext(TypeContext fc) {
+		freeContext = fc;
+	}
 
 	public void addStatement(IrStatement statement){
 		statements.add(statement);

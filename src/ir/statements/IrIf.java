@@ -20,6 +20,10 @@ public class IrIf implements IrStatement {
 		this.statements1 = new ArrayList<IrStatement>();
 		this.statements2 = new ArrayList<IrStatement>();
 	}
+	
+	public void setFreeContext(TypeContext fc) {
+		freeContext = fc;
+	}
 
 	public void addStatement1(List<IrStatement> statement) {
 		statements1.addAll(statement);

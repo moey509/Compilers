@@ -13,7 +13,10 @@ public final class IrReturn implements IrStatement {
 	
 	public IrReturn(IrExpression expression) {
 		this.expression = expression;
-		this.freeContext = fc;
+	}
+	
+	public void setFreeContext(TypeContext fc) {
+		freeContext = fc;
 	}
 	
 	public ArrayList<String> toProgramOutput(CGenerationContext context) {
