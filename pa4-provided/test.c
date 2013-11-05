@@ -569,14 +569,7 @@ char* charToString(git_t g) {
   char* buf = (char*) malloc (sizeof(char*) * (counter + 1));
   itr = g;
   counter = 0;
-  printf ("before\n");
-  if (g->val == NULL)
-    printf ("what.\n");
-  printf ("%c\n", ((character_t)(g->val))->value);
-  printf ("after\n");
   while (itr != NULL) {
-    printf ("counter: %d\n", counter);
-    printf ("%p\n", buf);
     buf[counter] = ((character_t)(itr->val))->value;
     counter += 1;
     itr=itr->next;
@@ -585,7 +578,31 @@ char* charToString(git_t g) {
   return buf;
 }
 
+git_t stringToIterableHelper(char* buf, int offset) {
+  if (buf[offset] == '\0') {
+    return NULL;
+  }
+  character_t c = new_character((int)(buf[offset]));
+  git_t g = new_git_obj(c);
+  return iterable_append(g, stringToIterableHelper(buf, offset+1));
+}
 
+git_t stringToIterable(char* buf) {
+  if (buf == NULL)
+    return NULL;
+  return stringToIterableHelper(buf, 0);
+}
+
+void stringTest() {
+  char* string = "hello world!\0";
+  printf ("%s\n", string);
+  git_t g = stringToIterable (string);
+  if (g == NULL) {
+    printf ("nulllllled\n");
+  }
+  char * output = charToString(g);
+  printf("--> %s\n", output);
+}
 
 void charToStringTest() {
   character_t c1 = new_character(65);
@@ -605,6 +622,7 @@ void charToStringTest() {
   char* c = charToString(g);
   printf ("%s\n", c);
 }
+
 
 /* FUNCTIONS */
 integer_t integer_add (integer_t i1, integer_t i2) {
@@ -630,12 +648,14 @@ integer_t integer_mod (integer_t i1, integer_t i2) {
 
 int main()
 {
-  
+  /*
   charTest(); 
   intTest();
   misc_test();
   for_test();
-
+*/
+  /* charToStringTest();*/
+  stringTest(); 
   /*
   blah_t one = (blah_t)malloc(sizeof(struct blah));
   blah_t two = (blah_t)malloc(sizeof(struct blah));
