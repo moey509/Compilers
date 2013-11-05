@@ -606,6 +606,28 @@ void charToStringTest() {
   printf ("%s\n", c);
 }
 
+/* FUNCTIONS */
+integer_t integer_add (integer_t i1, integer_t i2) {
+  return new_integer(i1->value + i2->value);
+}
+
+integer_t integer_subtract (integer_t i1, integer_t i2) {
+  return new_integer(i1->value - i2->value);
+}
+
+integer_t integer_multiply (integer_t i1, integer_t i2) {
+  return new_integer(i1->value * i2->value);
+}
+
+integer_t integer_divide (integer_t i1, integer_t i2) {
+  return new_integer(i1->value / i2->value);
+}
+
+integer_t integer_mod (integer_t i1, integer_t i2) {
+  return new_integer(i1->value % i2->value);
+}
+
+
 int main()
 {
   
