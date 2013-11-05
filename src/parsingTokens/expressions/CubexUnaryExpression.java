@@ -1,5 +1,7 @@
 package parsingTokens.expressions;
 
+import java.util.Set;
+
 import typeChecker.IrGenerationContext;
 import ir.expressions.IrUnaryExpression;
 
@@ -17,4 +19,9 @@ public abstract class CubexUnaryExpression extends CubexExpression {
 	}
 	
 	public abstract IrUnaryExpression toIr(IrGenerationContext context);
+	
+	@Override
+	public void getVars(Set<String> set) {
+		mArgument.getVars(set);
+	}
 }

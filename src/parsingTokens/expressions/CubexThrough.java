@@ -1,5 +1,7 @@
 package parsingTokens.expressions;
 
+import java.util.Set;
+
 import ir.expressions.IrThrough;
 import parsingTokens.CubexList;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
@@ -42,4 +44,5 @@ public class CubexThrough extends CubexBinaryExpression {
 				new CubexList<CubexTypeGrammar>(), l);
 		return function.typeCheck(c);
 	}
+	
 }

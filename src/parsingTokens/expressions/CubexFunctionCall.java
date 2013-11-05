@@ -3,6 +3,7 @@ package parsingTokens.expressions;
 import ir.expressions.IrFunctionCall;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 import Exception.SemanticException;
 import parsingTokens.CubexList;
@@ -114,5 +115,10 @@ public final class CubexFunctionCall extends CubexExpression {
 		CubexTypeGrammar output = typeScheme.getTypeGrammar().replaceParams(
 				cont);
 		return output;
+	}
+	
+	@Override
+	public void getVars(Set<String> set){
+		return;
 	}
 }

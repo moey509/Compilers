@@ -1,5 +1,9 @@
 package parsingTokens.statements;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
 import ir.statements.IrIf;
 import Exception.SemanticException;
 import parsingTokens.expressions.CubexExpression;
@@ -12,7 +16,8 @@ import typeChecker.TypeContextReturn;
 public class CubexIf extends CubexStatement {
 	private CubexStatement s1;	//{	s1 }
 	private CubexStatement s2;	// else {s2}
-	private TypeContext freeContext;
+	private Set<String> freeContext;
+	private Set<String> freeContext2;
 
 	// if there is no else statement, let s2 be null
 	public CubexIf(CubexExpression e, CubexStatement s1, CubexStatement s2) {
@@ -32,6 +37,7 @@ public class CubexIf extends CubexStatement {
 		ir.addStatement1(s1.toIr(context));
 		if (s2 != null)
 			ir.addStatement2(s2.toIr(context));
+		ir.setFreeContext(new ArrayList<String>(freeContext), new ArrayList<String>(freeContext2));
 		return ir;
 	}
 
@@ -48,24 +54,35 @@ public class CubexIf extends CubexStatement {
 	}
 	
 	public TypeContext typeCheck(CubexCompleteContext c) throws SemanticException {
-		freeContext = c.mutableTypeContext;
 		CubexCompleteContext copy0 = c.clone();
 		copy0.typeContext.noConflictMerge(copy0.mutableTypeContext);
 		CubexTypeGrammar etype = e.typeCheck(copy0);
 		if (!etype.getName().equals("Boolean")) throw new SemanticException("CubexIf: e is not a boolean");
 		TypeContext t1 = s1.typeCheck(c);
 		if(s2 == null){
+			freeContext = new HashSet<String>();
+			freeContext2 = new HashSet<String>();
 			return t1;
 		}
 		else{
 			TypeContext t2 = s2.typeCheck(c);
-			return t1.intersection(c, t2);
+			TypeContext t = t1.intersection(c, t2);
+
+			//freeContext generation:
+			Set<String> set1 = t1.keySet();
+			Set<String> set2 = t2.keySet();
+			Set<String> set = t.keySet();
+			set1.removeAll(set);
+			set2.removeAll(set);
+			freeContext = set1;
+			freeContext2 = set2;
+		
+			return t;
 		}
 		
 	}
 	
 	public TypeContextReturn typeCheckReturn(CubexCompleteContext c) throws SemanticException {
-		freeContext = c.mutableTypeContext;
 		CubexCompleteContext copy0 = c.clone();
 		copy0.typeContext.noConflictMerge(copy0.mutableTypeContext);
 		CubexTypeGrammar etype = e.typeCheck(copy0);
@@ -78,6 +95,17 @@ public class CubexIf extends CubexStatement {
 		}
 		TypeContextReturn t2 = s2.typeCheckReturn(c);
 		TypeContext t = t1.typeContext.intersection(c, t2.typeContext);
+		
+		//freeContext generation:
+		Set<String> set1 = t1.typeContext.keySet();
+		Set<String> set2 = t2.typeContext.keySet();
+		Set<String> set = t.keySet();
+		set1.removeAll(set);
+		set2.removeAll(set);
+		freeContext = set1;
+		freeContext2 = set2;
+		
+		
 		boolean g = t1.guaranteedToReturn && t2.guaranteedToReturn;
 		return new TypeContextReturn(t, g, t1.retType.join(c, t2.retType));
 	}

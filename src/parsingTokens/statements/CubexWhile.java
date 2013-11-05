@@ -1,5 +1,8 @@
 package parsingTokens.statements;
 
+import java.util.ArrayList;
+import java.util.Set;
+
 import ir.statements.IrWhile;
 import Exception.SemanticException;
 import parsingTokens.expressions.CubexExpression;
@@ -11,7 +14,7 @@ import typeChecker.TypeContextReturn;
 
 public final class CubexWhile extends CubexStatement {
 	private CubexStatement s;
-	private TypeContext freeContext;
+	private Set<String> freeContext;
 
 	public CubexWhile(CubexExpression e, CubexStatement s) {
 		this.e = e;
@@ -21,6 +24,7 @@ public final class CubexWhile extends CubexStatement {
 	public IrWhile toIr(IrGenerationContext context) {
 		IrWhile ir = new IrWhile(e.toIr(context));
 		ir.addStatement(s.toIr(context));
+		ir.setFreeContext(new ArrayList<String>(freeContext));
 		return ir;
 	}
 
@@ -30,7 +34,6 @@ public final class CubexWhile extends CubexStatement {
 	}
 	
 	public TypeContext typeCheck(CubexCompleteContext c) throws SemanticException {
-		freeContext = c.mutableTypeContext;
 		CubexCompleteContext copy0 = c.clone();
 		copy0.typeContext.noConflictMerge(copy0.mutableTypeContext);
 		CubexTypeGrammar etype = e.typeCheck(copy0);
@@ -40,13 +43,14 @@ public final class CubexWhile extends CubexStatement {
 		if (!t.entrySet().containsAll(c.mutableTypeContext.entrySet())) {
 			throw new SemanticException("CubexWhile: Resultant context does not contain initial context");
 		}
+		freeContext = t.keySet();
+		freeContext.removeAll(c.mutableTypeContext.keySet());
 		return c.mutableTypeContext.clone();
 		
 		
 	}
 	
 	public TypeContextReturn typeCheckReturn(CubexCompleteContext c) throws SemanticException {
-		freeContext = c.mutableTypeContext;
 		CubexCompleteContext copy0 = c.clone();
 		copy0.typeContext.noConflictMerge(copy0.mutableTypeContext);
 		CubexTypeGrammar etype = e.typeCheck(copy0);
@@ -57,6 +61,8 @@ public final class CubexWhile extends CubexStatement {
 //			throw new SemanticException("CubexWhile: Resultant context does not contain initial context");
 //		}
 		TypeContext ret = t.typeContext.containsAll(c, c.mutableTypeContext);
+		freeContext = t.typeContext.keySet();
+		freeContext.removeAll(ret.keySet());
 		return new TypeContextReturn(ret, false, t.retType);
 		
 	}

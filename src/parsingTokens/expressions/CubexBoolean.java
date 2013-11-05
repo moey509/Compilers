@@ -1,5 +1,7 @@
 package parsingTokens.expressions;
 
+import java.util.Set;
+
 import ir.expressions.IrBoolean;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
@@ -28,5 +30,10 @@ public final class CubexBoolean extends CubexExpression {
 	public CubexTypeGrammar typeCheck(CubexCompleteContext c)
 			throws SemanticException {
 		return new CubexTypeClass("Boolean", new CubexList<CubexTypeGrammar>());
+	}
+	
+	@Override
+	public void getVars(Set<String> set){
+		return;
 	}
 }

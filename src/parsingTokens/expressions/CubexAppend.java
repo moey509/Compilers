@@ -1,5 +1,7 @@
 package parsingTokens.expressions;
 
+import java.util.Set;
+
 import ir.expressions.IrAppend;
 import parsingTokens.CubexList;
 import parsingTokens.typeGrammar.CubexTypeClass;
@@ -52,5 +54,11 @@ public class CubexAppend extends CubexExpression {
 //		return new CubexTypeClass("Iterable", output);
 
 		return e1Type.join(c,e2Type);
+	}
+	
+	@Override
+	public void getVars(Set<String> set){
+		e1.getVars(set);
+		e2.getVars(set);
 	}
 }

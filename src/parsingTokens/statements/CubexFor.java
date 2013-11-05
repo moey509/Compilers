@@ -1,5 +1,8 @@
 package parsingTokens.statements;
 
+import java.util.ArrayList;
+import java.util.Set;
+
 import ir.statements.IrFor;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
@@ -15,7 +18,7 @@ import typeChecker.TypeContextReturn;
 public final class CubexFor extends CubexStatement {
 	private String varfun;
 	private CubexStatement s;
-	private TypeContext freeContext;
+	private Set<String> freeContext;
 
 	public CubexFor(String varfun, CubexExpression e, CubexStatement s) {
 		this.varfun = varfun;
@@ -26,6 +29,7 @@ public final class CubexFor extends CubexStatement {
 	public IrFor toIr(IrGenerationContext context) {
 		IrFor ir = new IrFor(e.toIr(context), varfun);
 		ir.addStatement(s.toIr(context));
+		ir.setFreeContext(new ArrayList<String>(freeContext));
 		return ir;
 	}
 
@@ -35,7 +39,6 @@ public final class CubexFor extends CubexStatement {
 	}
 	
 	public TypeContext typeCheck(CubexCompleteContext c) throws SemanticException {
-		freeContext = c.mutableTypeContext;
 		// check that varfun is not in scope
 		if (c.mutableTypeContext.containsKey(varfun) || c.typeContext.containsKey(varfun))
 			throw new SemanticException("CubexFor: varfun exists in scope");
@@ -59,13 +62,15 @@ public final class CubexFor extends CubexStatement {
 		if (!gamma.keySet().containsAll(c.mutableTypeContext.keySet())) {
 			throw new SemanticException("CubexFor: TypeContexts are not subtypes");
 		}
+		freeContext = gamma.keySet();
+		freeContext.remove(varfun);
+		freeContext.removeAll(c.mutableTypeContext.keySet());
 		return c.mutableTypeContext.clone();
 		
 		
 	}
 	
 	public TypeContextReturn typeCheckReturn(CubexCompleteContext c) throws SemanticException {
-		freeContext = c.mutableTypeContext;
 		// check that varfun is not in scope
 		if (c.mutableTypeContext.containsKey(varfun) || c.typeContext.containsKey(varfun))
 			throw new SemanticException("CubexFor: varfun exists in scope");
@@ -96,6 +101,9 @@ public final class CubexFor extends CubexStatement {
 			//throw new SemanticException("CubexFor: Initial content is not a subset of context returned by s");
 		//}
 		TypeContext ret = gamma.typeContext.containsAll(copy1, c.mutableTypeContext);
+		freeContext = gamma.typeContext.keySet();
+		freeContext.remove(varfun);
+		freeContext.removeAll(c.mutableTypeContext.keySet());
 		return new TypeContextReturn(ret, false, gamma.retType);
 				
 		

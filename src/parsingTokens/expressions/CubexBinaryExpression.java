@@ -1,5 +1,7 @@
 package parsingTokens.expressions;
 
+import java.util.Set;
+
 import typeChecker.IrGenerationContext;
 import ir.expressions.IrBinaryExpression;
 
@@ -24,4 +26,9 @@ public abstract class CubexBinaryExpression extends CubexExpression {
 	}
 	
 	public abstract IrBinaryExpression toIr(IrGenerationContext context);
+	
+	public void getVars(Set<String> s) {
+		mLeft.getVars(s);
+		mRight.getVars(s);
+	}
 }

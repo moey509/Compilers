@@ -9,7 +9,8 @@ import ir.expressions.IrExpression;
 
 public class IrIf implements IrStatement {
 
-	private ArrayList<String> freeContext;
+	private ArrayList<String> freeContext; //if block
+	private ArrayList<String> freeContext2; // else block
 	private IrExpression condition;
 	private List<IrStatement> statements1; // { s1 }
 	private List<IrStatement> statements2; // else {s2}
@@ -21,8 +22,9 @@ public class IrIf implements IrStatement {
 		this.statements2 = new ArrayList<IrStatement>();
 	}
 	
-	public void setFreeContext(ArrayList<String> fc) {
+	public void setFreeContext(ArrayList<String> fc, ArrayList<String> fc2) {
 		freeContext = fc;
+		freeContext2 = fc2;
 	}
 
 	public void addStatement1(List<IrStatement> statement) {

@@ -3,7 +3,6 @@ package ir.statements;
 import java.util.ArrayList;
 import java.util.List;
 
-import typeChecker.TypeContext;
 import ir.CGenerationContext;
 import ir.expressions.IrExpression;
 
@@ -20,6 +19,7 @@ public class IrFor implements IrStatement {
 		this.statements = new ArrayList<IrStatement>();
 	}
 	
+	// initialize the freeContext - used by the typeChecker
 	public void setFreeContext(ArrayList<String> fc) {
 		freeContext = fc;
 	}

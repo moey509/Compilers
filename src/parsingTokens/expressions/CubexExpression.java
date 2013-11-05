@@ -1,5 +1,7 @@
 package parsingTokens.expressions;
 
+import java.util.Set;
+
 import ir.expressions.IrExpression;
 import ir.expressions.IrVariableExpression;
 import Exception.SemanticException;
@@ -20,6 +22,10 @@ public class CubexExpression {
 
 	public String toString() {
 		return name;
+	}
+	
+	public void getVars(Set<String> set) {
+		set.add(name);
 	}
 
 	// // Check if the expression is of some type
