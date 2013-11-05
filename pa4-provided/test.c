@@ -57,16 +57,16 @@ struct git
 struct iterator
 {
   git_t g;  
-  void * cur;
+  int cur;
 };
 
 
-/* status: {-1 : regular number} {0 : through} {1 : onwards}
+/* status:{0 : through} {1 : onwards}
  for the case of a single number, the value will be held in the field 'low' */
 struct nit 
 {
-  void * low;
-  void * high;
+  int low;
+  int high;
   int status;
 };
 
@@ -174,7 +174,6 @@ git_t iterable_append (git_t first, git_t second) {
   /* first */
   itr = first;
   while (itr != NULL) {
-    printf ("first\n");
     temp = (git_t)malloc(sizeof(struct git));
     temp->val = itr->val;
     temp->is_int = itr->is_int;
@@ -193,7 +192,6 @@ git_t iterable_append (git_t first, git_t second) {
   /* second */
   itr = second;
   while (itr != NULL) {
-    printf("second\n");
     temp = (git_t)malloc(sizeof(struct git));
     temp->val = itr->val;
     temp->is_int = itr->is_int;
@@ -579,6 +577,18 @@ character_t new_character(int input) {
   return c;
 }
 
+integer_t new_integer(int input) {
+  integer_t i = (integer_t)malloc(sizeof(struct integer));
+  i->ref_count = 0;
+  i->fun_name = NULL;
+  i->fun_ptr = NULL;
+  i->con_comp = NULL; 
+  i->is_iter = 0;
+  i->is_thru_ward = 0;
+  i->value = input;
+  return i;
+}
+
 void charToStringTest() {
   character_t c1 = new_character(65);
   git_t g1 = new_git_obj(c1);
@@ -601,11 +611,11 @@ void charToStringTest() {
 int main()
 {
   
-  /*charTest();
-  //intTest();
-  //misc_test();
+  /*charTest(); */
+  intTest();
+  misc_test();
   for_test();
-*/
+
   /*
   blah_t one = (blah_t)malloc(sizeof(struct blah));
   blah_t two = (blah_t)malloc(sizeof(struct blah));
