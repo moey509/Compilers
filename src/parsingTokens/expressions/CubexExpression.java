@@ -1,9 +1,12 @@
 package parsingTokens.expressions;
 
+import java.util.ArrayList;
 import java.util.Set;
 
+import ir.CGenerationContext;
 import ir.expressions.IrExpression;
 import ir.expressions.IrVariableExpression;
+import ir.statements.IrBind;
 import Exception.SemanticException;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import typeChecker.CubexCompleteContext;
@@ -14,6 +17,10 @@ public class CubexExpression {
 	String type;
 
 	public CubexExpression() {
+	}
+	
+	public ArrayList<IrBind> getExpressions(IrGenerationContext context){
+		return new ArrayList<IrBind>();
 	}
 
 	public CubexExpression(String vp) {

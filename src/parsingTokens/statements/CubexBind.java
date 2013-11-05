@@ -1,5 +1,7 @@
 package parsingTokens.statements;
 
+import java.util.ArrayList;
+
 import ir.IrType;
 import ir.program.IrTypeTuple;
 import ir.statements.IrBind;
@@ -36,7 +38,16 @@ public final class CubexBind extends CubexStatement {
 		if(context.containsGlobalVariable(classid)){
 			s+="_";
 		}
-		return new IrBind(new IrTypeTuple(type, s+classid), e.toIr(context));
+		ArrayList<IrBind> arr = e.getExpressions(context);
+		if(arr.size() == 0){
+			IrBind b = new IrBind(new IrTypeTuple(type, s+classid), e.toIr(context));
+			return b;
+		}
+		else{
+			IrBind b = new IrBind(new IrTypeTuple(type, s+classid), arr.get(arr.size()-1).expression);
+			b.temporaryBinds.addAll(arr);
+			return b;
+		}
 	}
 
 	public String toString() {

@@ -1,6 +1,10 @@
 package parsingTokens.expressions;
 
+import ir.IrType;
 import ir.expressions.IrFunctionCall;
+import ir.expressions.IrVariableExpression;
+import ir.program.IrTypeTuple;
+import ir.statements.IrBind;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -54,8 +58,48 @@ public final class CubexFunctionApp extends CubexExpression {
 		irFunCall.addArgument(expr.toIr(context));
 		for (CubexExpression i : functionParams.contextCollection) {
 			irFunCall.addArgument(i.toIr(context));
-		}
+		} 
 		return irFunCall;
+	}
+	public ArrayList<IrBind> getExpressions(IrGenerationContext context){
+		ArrayList<IrBind> arr = new ArrayList<IrBind>();
+		ArrayList<IrBind> tempParams = new ArrayList<IrBind>();
+		for(CubexExpression e : functionParams.contextCollection){
+			arr.addAll(e.getExpressions(context));
+			System.out.println(e);
+			tempParams.add(arr.get(arr.size()-1));
+		}
+		System.out.println("size: " + tempParams.size());
+		arr.addAll(expr.getExpressions(context));
+		System.out.println("this: " + this);
+		System.out.println("2 " + arr);
+		IrType t = new IrType("void*");
+		IrTypeTuple tuple = new IrTypeTuple(t, context.nextTemp());
+		IrBind b;
+		if(arr.size() - tempParams.size() == 0){
+			IrFunctionCall call = this.toIr(context);
+			if(tempParams.size() == 0){
+				b = new IrBind(tuple, call);
+			}
+			else{
+				call = new IrFunctionCall(v_v, "void*");
+				for(IrBind bind : tempParams){
+					call.addArgument(new IrVariableExpression(bind.tuple.variableName, bind.tuple.type.type));
+				}
+				b = new IrBind(tuple, call);
+			} 
+		}
+		else{
+			IrFunctionCall call = new IrFunctionCall(v_v, "void*");
+			//Have to add in all arguments. Must figure out how much each has
+			call.addArgument(new IrVariableExpression(arr.get(arr.size()-1).tuple.variableName, arr.get(arr.size()-1).tuple.type.type));
+			for(IrBind bind : tempParams){
+				call.addArgument(new IrVariableExpression(bind.tuple.variableName, bind.tuple.type.type));
+			}
+			b = new IrBind(tuple, call);
+		}
+		arr.add(b);
+		return arr;
 	}
 
 	// Check if the expression is of some type

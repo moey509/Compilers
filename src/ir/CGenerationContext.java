@@ -10,9 +10,14 @@ public class CGenerationContext {
 	public final String iterator = "_it";
 	public final String iterable = "_iter";
 	
+	int count = 0;
 	// counters to maintain references
 	int cur_iterator;		// the appropriate form of an iterator will be = "_it" + cur_iterator
 	int cur_iterable;		// the appropriate form of an iterable will be = "_iter" + cur_iterable
+	
+	public int nextCount(){
+		return count++;
+	}
 	
 	public CGenerationContext(){
 		cVariableToTypeMap = new HashMap<String, CGenerationType>();

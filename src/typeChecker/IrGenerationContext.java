@@ -13,7 +13,16 @@ public class IrGenerationContext {
 	private Set<String> globalFunctions;
 	private Map<String, String> typeToSuperTypeMap;
 	private Map<String, Set<CubexFunctionDef>> objectToFunctionMap;
-
+	int count = 0;
+	
+	public int nextCount(){
+		return count++;
+	}
+	
+	public String nextTemp(){
+		return "__temp" + nextCount();
+	}
+	
 	public IrGenerationContext() {
 		globalVariables = new HashSet<String>();
 		globalFunctions = new HashSet<String>();
