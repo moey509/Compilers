@@ -2,14 +2,18 @@ package ir.statements;
 
 import java.util.ArrayList;
 
+import typeChecker.TypeContext;
 import ir.CGenerationContext;
 import ir.expressions.IrExpression;
 
 public final class IrReturn implements IrStatement {
+	// the Cubex variables to be freed before returning
+	private TypeContext freeContext;
 	private IrExpression expression;
 	
-	public IrReturn(IrExpression expression) {
+	public IrReturn(IrExpression expression, TypeContext fc) {
 		this.expression = expression;
+		this.freeContext = fc;
 	}
 	
 	public ArrayList<String> toProgramOutput(CGenerationContext context) {

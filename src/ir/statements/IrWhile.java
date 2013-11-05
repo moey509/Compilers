@@ -3,16 +3,19 @@ package ir.statements;
 import java.util.ArrayList;
 import java.util.List;
 
+import typeChecker.TypeContext;
 import ir.CGenerationContext;
 import ir.expressions.IrExpression;
 
 public final class IrWhile implements IrStatement {
+	private TypeContext freeContext;
 	private IrExpression condition;
 	private List<IrStatement> statements;
 
-	public IrWhile(IrExpression condition) {
+	public IrWhile(IrExpression condition, TypeContext fc) {
 		this.condition = condition;
 		this.statements = new ArrayList<IrStatement>();
+		this.freeContext = fc;
 	}
 	
 	public void addStatement(IrStatement statement){

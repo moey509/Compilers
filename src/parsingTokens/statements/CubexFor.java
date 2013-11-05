@@ -15,6 +15,7 @@ import typeChecker.TypeContextReturn;
 public final class CubexFor extends CubexStatement {
 	private String varfun;
 	private CubexStatement s;
+	private TypeContext freeContext;
 
 	public CubexFor(String varfun, CubexExpression e, CubexStatement s) {
 		this.varfun = varfun;
@@ -23,7 +24,7 @@ public final class CubexFor extends CubexStatement {
 	}
 	
 	public IrFor toIr(IrGenerationContext context) {
-		IrFor ir = new IrFor(e.toIr(context), varfun);
+		IrFor ir = new IrFor(e.toIr(context), varfun, freeContext);
 		ir.addStatement(s.toIr(context));
 		return ir;
 	}
@@ -34,6 +35,7 @@ public final class CubexFor extends CubexStatement {
 	}
 	
 	public TypeContext typeCheck(CubexCompleteContext c) throws SemanticException {
+		freeContext = c.mutableTypeContext;
 		// check that varfun is not in scope
 		if (c.mutableTypeContext.containsKey(varfun) || c.typeContext.containsKey(varfun))
 			throw new SemanticException("CubexFor: varfun exists in scope");
@@ -63,6 +65,7 @@ public final class CubexFor extends CubexStatement {
 	}
 	
 	public TypeContextReturn typeCheckReturn(CubexCompleteContext c) throws SemanticException {
+		freeContext = c.mutableTypeContext;
 		// check that varfun is not in scope
 		if (c.mutableTypeContext.containsKey(varfun) || c.typeContext.containsKey(varfun))
 			throw new SemanticException("CubexFor: varfun exists in scope");

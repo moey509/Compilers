@@ -3,19 +3,22 @@ package ir.statements;
 import java.util.ArrayList;
 import java.util.List;
 
+import typeChecker.TypeContext;
 import ir.CGenerationContext;
 import ir.expressions.IrExpression;
 
 
 public class IrFor implements IrStatement {
+	private TypeContext freeContext;
 	private IrExpression list;
 	private String var;
 	private List<IrStatement> statements;
 
-	public IrFor(IrExpression list, String var) {
+	public IrFor(IrExpression list, String var, TypeContext fc) {
 		this.list = list;
 		this.var = var;
 		this.statements = new ArrayList<IrStatement>();
+		this.freeContext = fc;
 	}
 
 	public void addStatement(IrStatement statement){
