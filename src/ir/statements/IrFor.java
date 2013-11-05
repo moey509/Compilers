@@ -65,12 +65,20 @@ public class IrFor implements IrStatement {
 	public ArrayList<String> toMainC(CGenerationContext context) {
 		ArrayList<String> arr = new ArrayList<String>();
 		int cur_iterator = context.getCurIterator();
+		int cur_iterable = context.getCurIterable();
 		context.incrementCurIterator();
-		String iterator = "_it" + cur_iterator;
-		String itDeclaration = iterator + " = new_iterator((" + list.toC(context) + "));";
+		context.incrementCurIterable();
+		String iterable = context.iterable + cur_iterable;
+		String iterator = context.iterator + cur_iterator;
+		
+		//TODO: ANSHA - need to add iterable and iterator into mutable context.
+		
+		String iterDeclaration = iterable + " = iterable_append((" + list.toC(context) + "), NULL);";
+		String itDeclaration = iterator + " = new_iterator((" + iterable + "));";
 		String itCondition = "while(hasNext(" + iterator + ")) {";
 		String tempVar = var + " = getNext(" + iterator + ");";
 		
+		arr.add(iterDeclaration);
 		arr.add(itDeclaration);
 		arr.add(itCondition);
 		arr.add(tempVar);
