@@ -17,7 +17,7 @@ public final class IrString implements IrExpression {
 	}
 	
 	public String helper(int index, CGenerationContext context) {
-		if (index == type.length() - 1) 
+		if (index == type.length() - 1)
 			return ("iterable_append(" + mValue.charAt(index) + ", NULL)");
 		return ("iterable_append(" + mValue.charAt(index) + ", " + helper(index+1, context) + ")");
 	}
