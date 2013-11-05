@@ -38,7 +38,6 @@ public class CubexFunctionDef {
 	}
 
 	public IrFunction toIr(IrGenerationContext context) {
-		System.out.println(this);
 		String obj = "";
 		String fun = "";
 				

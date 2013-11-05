@@ -2,7 +2,7 @@ package ir;
 
 public class IrType {
 
-	private String type;
+	public String type;
 
 	public IrType(String type) {
 		this.type = type;

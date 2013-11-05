@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import ir.program.IrProgram;
+import ir.statements.IrBind;
+import ir.statements.IrStatement;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
 import parsingTokens.statements.CubexBind;
@@ -75,10 +77,16 @@ public class CubexProgramStatementList implements CubexProgramType {
 			context.addGlobalVariable(s);
 		}
 		for (CubexStatement statement : statementList.iterable()) {
+			IrStatement s;
 			if (statement instanceof CubexBind) {
-				program.addGlobalVariable(((CubexBind) statement).toIr(context));
+				IrBind b = ((CubexBind) statement).toIr(context);
+				s = b;
+				program.addGlobalVariable(b);
 			}
-			program.addMainStatement(statement.toIr(context));
+			else{
+				s = statement.toIr(context);
+			}
+			program.addMainStatement(s);
 		}
 		return program;
 	}

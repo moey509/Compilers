@@ -38,8 +38,7 @@ public class CubexProgramFunctionList implements CubexProgramType {
 			CubexFunctionDef fun = functionList.get(i);
 			CubexList<CubexTypeTuple> list = fun.typescheme.getTypeContext();
 			c.kindContext = new KindContext(fun.typescheme.getKindContext());
-			c.mutableTypeContext = new TypeContext(
-					fun.typescheme.getTypeContext());
+			c.mutableTypeContext = new TypeContext(fun.typescheme.getTypeContext());
 			// Validate gamma
 			for (int j = 0; j < fun.typescheme.getTypeContext().size(); j++) {
 				list.get(j).getTypeGrammar().validate(c, true);

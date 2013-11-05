@@ -1,6 +1,10 @@
 package parsingTokens.expressions;
 
+import ir.IrType;
 import ir.expressions.IrFunctionCall;
+import ir.expressions.IrVariableExpression;
+import ir.program.IrTypeTuple;
+import ir.statements.IrBind;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -119,5 +123,37 @@ public final class CubexFunctionCall extends CubexExpression {
 	@Override
 	public void getVars(Set<String> set){
 		return;
+	}
+	
+	public ArrayList<IrBind> getExpressions(IrGenerationContext context){
+		System.out.println("this: " + this);
+		ArrayList<IrBind> arr = new ArrayList<IrBind>();
+		ArrayList<IrBind> tempParams = new ArrayList<IrBind>();
+		for(CubexExpression e : functionParams.contextCollection){
+			arr.addAll(e.getExpressions(context));
+			System.out.println(e);
+			tempParams.add(arr.get(arr.size()-1));
+		}
+		System.out.println("size: " + tempParams.size());
+		IrType t = new IrType("void*");
+		IrTypeTuple tuple = new IrTypeTuple(t, context.nextTemp());
+		IrFunctionCall call;
+		
+		IrBind b;
+		//No function parameters, then the call is just the original call
+		if(tempParams.size() == 0){
+			call = this.toIr(context);
+			b = new IrBind(tuple, call);
+		}
+		//Function parameters. Then the call is a new IrFunction with parameters added
+		else{
+			call = new IrFunctionCall(v_vc, "void*");
+			for(IrBind bind : tempParams){
+				call.addArgument(new IrVariableExpression(bind.tuple.variableName, bind.tuple.type.type));
+			}
+			b = new IrBind(tuple, call);
+		} 
+		arr.add(b);
+		return arr;
 	}
 }

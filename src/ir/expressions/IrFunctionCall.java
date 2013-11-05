@@ -27,12 +27,10 @@ public final class IrFunctionCall implements IrExpression {
 		return type;
 	}
 	
-	//If null, then that means 
 	public ArrayList<IrBind> getExpressions(CGenerationContext context){
 		ArrayList<IrBind> arr = new ArrayList<IrBind>();
 		for(IrExpression e : arguments){
 			arr.addAll(e.getExpressions(context));
-			System.out.println("---------------------\n--------------------");
 		}
 //		for(int i = 0; i < arr.size(); i++){
 //			if(arr.get(i) != null){
@@ -48,15 +46,13 @@ public final class IrFunctionCall implements IrExpression {
 		ArrayList<IrBind> arr = getExpressions(context);
 		for(int i = 0; i < arr.size(); i++){
 			if(arr.get(i) != null){
-				System.out.println(arr.get(i).toC(context));
+				//System.out.println(arr.get(i).toC(context));
 			}
 		}
 		for(IrExpression e :functions){
 			System.out.println("FUNCTIONS THAT I JUST ADDED" + e.toC(context));
 		}
 		for (IrExpression e : arguments){
-//			System.out.println(e);
-//			System.out.println(e.toC(context));
 			if(firstTime){
 				firstTime = false;
 				sb.append(e.toC(context));
