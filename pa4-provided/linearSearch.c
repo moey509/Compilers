@@ -1,5 +1,7 @@
 #include <stdio.h>
 
+// Returns the index in the array where the string appears. 
+// Returns -1 if the string does not appear in the array
 int __indexof(char** functionNameArray, char* functionName, int arrayLength){
 	for (int i = 0; i<arrayLength; i++){
 		int eof = 1;
@@ -38,6 +40,10 @@ int main(){
 	array[4] = "Mellon\0";
 	char** array_t = array;
 	int output = __indexof(array_t, "Jello\0", 5);
+	printf("%d\n", output);
+	output = __indexof(array_t, "Hello\0",5);
+	printf("%d\n", output);
+	output = __indexof(array_t, "Hi\0",5);
 	printf("%d\n", output);
 	return 0;
 }
