@@ -2,6 +2,8 @@ package ir;
 
 import ir.program.IrProgram;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.BitSet;
@@ -35,7 +37,7 @@ public class IrMain {
 	public static void main(String[] args) throws IOException {
 		// CharStream charStream = new ANTLRFileStream(args[0]);
 		CharStream charStream = new ANTLRFileStream(
-				"semantics_tests/tc_test10.in");
+				"cg_tests/x3_test1.x3");
 		CubexLexer cubLexer = new CubexLexer(charStream);
 		cubLexer.removeErrorListeners();
 
@@ -66,12 +68,16 @@ public class IrMain {
 			IrGenerationContext context = new IrGenerationContext();
 			IrProgram program = cubParser.programAST.toIr(context, new IrProgram());
 			ArrayList<String> programCode = program.toC();
+			FileWriter writer = new FileWriter(new File("out.c"));
 			System.out.println("----------");
 			int counter = 1;
 			for (String s : programCode){
 				System.out.println(counter + ": " + s);
 				counter++;
+				writer.write(s + "\n");
 			}
+			writer.close();
+			
 		} catch (SemanticException e) {
 			// TODO GET RID OF e.toString() BEFORE WE SUBMIT
 			e.printStackTrace();
