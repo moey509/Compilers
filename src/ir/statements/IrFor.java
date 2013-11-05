@@ -9,7 +9,7 @@ import ir.expressions.IrExpression;
 
 
 public class IrFor implements IrStatement {
-	private TypeContext freeContext;
+	private ArrayList<String> freeContext;
 	private IrExpression list;
 	private String var;
 	private List<IrStatement> statements;
@@ -20,7 +20,7 @@ public class IrFor implements IrStatement {
 		this.statements = new ArrayList<IrStatement>();
 	}
 	
-	public void setFreeContext(TypeContext fc) {
+	public void setFreeContext(ArrayList<String> fc) {
 		freeContext = fc;
 	}
 

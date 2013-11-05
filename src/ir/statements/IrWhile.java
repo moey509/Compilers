@@ -8,7 +8,7 @@ import ir.CGenerationContext;
 import ir.expressions.IrExpression;
 
 public final class IrWhile implements IrStatement {
-	private TypeContext freeContext;
+	private ArrayList<String> freeContext;
 	private IrExpression condition;
 	private List<IrStatement> statements;
 
@@ -17,7 +17,7 @@ public final class IrWhile implements IrStatement {
 		this.statements = new ArrayList<IrStatement>();
 	}
 	
-	public void setFreeContext(TypeContext fc) {
+	public void setFreeContext(ArrayList<String> fc) {
 		freeContext = fc;
 	}
 	
