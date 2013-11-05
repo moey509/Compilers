@@ -11,6 +11,7 @@ import typeChecker.TypeContextReturn;
 
 public final class CubexWhile extends CubexStatement {
 	private CubexStatement s;
+	private TypeContext freeContext;
 
 	public CubexWhile(CubexExpression e, CubexStatement s) {
 		this.e = e;
@@ -18,7 +19,7 @@ public final class CubexWhile extends CubexStatement {
 	}
 	
 	public IrWhile toIr(IrGenerationContext context) {
-		IrWhile ir = new IrWhile(e.toIr(context));
+		IrWhile ir = new IrWhile(e.toIr(context), freeContext);
 		ir.addStatement(s.toIr(context));
 		return ir;
 	}
@@ -29,6 +30,7 @@ public final class CubexWhile extends CubexStatement {
 	}
 	
 	public TypeContext typeCheck(CubexCompleteContext c) throws SemanticException {
+		freeContext = c.mutableTypeContext;
 		CubexCompleteContext copy0 = c.clone();
 		copy0.typeContext.noConflictMerge(copy0.mutableTypeContext);
 		CubexTypeGrammar etype = e.typeCheck(copy0);
@@ -44,6 +46,7 @@ public final class CubexWhile extends CubexStatement {
 	}
 	
 	public TypeContextReturn typeCheckReturn(CubexCompleteContext c) throws SemanticException {
+		freeContext = c.mutableTypeContext;
 		CubexCompleteContext copy0 = c.clone();
 		copy0.typeContext.noConflictMerge(copy0.mutableTypeContext);
 		CubexTypeGrammar etype = e.typeCheck(copy0);

@@ -12,6 +12,7 @@ import typeChecker.TypeContextReturn;
 public class CubexIf extends CubexStatement {
 	private CubexStatement s1;	//{	s1 }
 	private CubexStatement s2;	// else {s2}
+	private TypeContext freeContext;
 
 	// if there is no else statement, let s2 be null
 	public CubexIf(CubexExpression e, CubexStatement s1, CubexStatement s2) {
@@ -27,7 +28,7 @@ public class CubexIf extends CubexStatement {
 	}
 	
 	public IrIf toIr(IrGenerationContext context) {
-		IrIf ir = new IrIf(e.toIr(context));
+		IrIf ir = new IrIf(e.toIr(context), freeContext);
 		ir.addStatement1(s1.toIr(context));
 		if (s2 != null)
 			ir.addStatement2(s2.toIr(context));
@@ -47,6 +48,7 @@ public class CubexIf extends CubexStatement {
 	}
 	
 	public TypeContext typeCheck(CubexCompleteContext c) throws SemanticException {
+		freeContext = c.mutableTypeContext;
 		CubexCompleteContext copy0 = c.clone();
 		copy0.typeContext.noConflictMerge(copy0.mutableTypeContext);
 		CubexTypeGrammar etype = e.typeCheck(copy0);
@@ -63,6 +65,7 @@ public class CubexIf extends CubexStatement {
 	}
 	
 	public TypeContextReturn typeCheckReturn(CubexCompleteContext c) throws SemanticException {
+		freeContext = c.mutableTypeContext;
 		CubexCompleteContext copy0 = c.clone();
 		copy0.typeContext.noConflictMerge(copy0.mutableTypeContext);
 		CubexTypeGrammar etype = e.typeCheck(copy0);

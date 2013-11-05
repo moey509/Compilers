@@ -6,16 +6,18 @@ import parsingTokens.expressions.CubexExpression;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import typeChecker.CubexCompleteContext;
 import typeChecker.IrGenerationContext;
+import typeChecker.TypeContext;
 import typeChecker.TypeContextReturn;
 
 public final class CubexReturn extends CubexStatement {
+	TypeContext freeContext;
 
 	public CubexReturn(CubexExpression e) {
 		this.e = e;
 	}
 	
 	public IrReturn toIr(IrGenerationContext context) {
-		return new IrReturn(e.toIr(context));
+		return new IrReturn(e.toIr(context), freeContext);
 	}
 
 	public String toString() {
@@ -30,6 +32,7 @@ public final class CubexReturn extends CubexStatement {
 //	}
 	
 	public TypeContextReturn typeCheckReturn(CubexCompleteContext c) throws SemanticException {
+		freeContext = c.mutableTypeContext;
 		CubexCompleteContext copy0 = c.clone();
 		copy0.typeContext.noConflictMerge(copy0.mutableTypeContext);
 		CubexTypeGrammar etype = e.typeCheck(copy0);

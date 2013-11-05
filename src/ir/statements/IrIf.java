@@ -3,20 +3,23 @@ package ir.statements;
 import java.util.ArrayList;
 import java.util.List;
 
+import typeChecker.TypeContext;
 import ir.CGenerationContext;
 import ir.expressions.IrExpression;
 
 public class IrIf implements IrStatement {
 
+	private TypeContext freeContext;
 	private IrExpression condition;
 	private List<IrStatement> statements1; // { s1 }
 	private List<IrStatement> statements2; // else {s2}
 
 	// if there is no else statement, let s2 be null
-	public IrIf(IrExpression condition) {
+	public IrIf(IrExpression condition, TypeContext fc) {
 		this.condition = condition;
 		this.statements1 = new ArrayList<IrStatement>();
 		this.statements2 = new ArrayList<IrStatement>();
+		this.freeContext = fc;
 	}
 
 	public void addStatement1(List<IrStatement> statement) {

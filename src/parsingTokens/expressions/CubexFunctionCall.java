@@ -30,11 +30,26 @@ public final class CubexFunctionCall extends CubexExpression {
 		//TODO something with context to know which function to call in c
 		IrFunctionCall irFunCall;
 		if (context.containsGlobalFunction("_" + v_vc)){
+			String obj = "";
 
-			irFunCall = new IrFunctionCall("_" + v_vc, type);
+			if (v_vc != null){
+				obj = v_vc.replaceAll("_", "__");
+			}
+
+			irFunCall = new IrFunctionCall("_" + obj, type);
 		}
 		else{
-			irFunCall = new IrFunctionCall("_" + context.getCurrentClassDeclaration() + "_" + v_vc, type);
+			String obj = "";
+			String fun = "";
+					
+			if (context.getCurrentClassDeclaration() != null){
+				obj = "_" + context.getCurrentClassDeclaration().replaceAll("_", "__");
+			}
+			if (v_vc != null){
+				fun = v_vc.replaceAll("_", "__");
+			}
+			
+			irFunCall = new IrFunctionCall(obj + "_" + fun, type);
 		}
 
 		for (CubexExpression i : functionParams.contextCollection) {
