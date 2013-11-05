@@ -38,8 +38,17 @@ public class CubexFunctionDef {
 	}
 
 	public IrFunction toIr(IrGenerationContext context) {
+		String obj = "";
+		String fun = "";
+				
+		if (context.getCurrentClassDeclaration() != null){
+			obj = context.getCurrentClassDeclaration().replaceAll("_", "__");
+		}
+		if (name != null){
+			fun = name.replaceAll("_", "__");
+		}
 		IrFunction irFunction = new IrFunction(typescheme.getTypeGrammar()
-				.toIrType(), context.getCurrentClassDeclaration(), name);
+				.toIrType(), obj, fun);
 		for (CubexTypeTuple tuple : typescheme.getTypeContext().iterable()) {
 
 			IrTypeTuple argument = new IrTypeTuple(tuple.getTypeGrammar()
