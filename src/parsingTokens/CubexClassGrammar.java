@@ -94,7 +94,8 @@ public class CubexClassGrammar {
 
 			IrStruct irStruct = new IrStruct(name, constructableComponent);
 			for (CubexTypeTuple tuple : typecontext.iterable()) {
-				irStruct.addStructVariable(new IrTypeTuple(tuple.getTypeGrammar().toIrType(), tuple.getName()));
+				irStruct.addStructVariable(new IrTypeTuple(tuple
+						.getTypeGrammar().toIrType(), tuple.getName()));
 			}
 			for (CubexStatement stmt : statements.iterable()) {
 				if (stmt instanceof CubexBind) {
@@ -116,8 +117,10 @@ public class CubexClassGrammar {
 			IrTypeTuple argument = new IrTypeTuple(tuple.getTypeGrammar()
 					.toIrType(), tuple.getName());
 			irFunction.addFunctionArgument(argument);
-			irFunction.addStatement(new IrBind(new IrTypeTuple(tuple.getTypeGrammar().toIrType(), tuple.getName()), 
-					new IrVariableExpression(tuple.getName(), tuple.getTypeGrammar().toIrType().type)));
+			irFunction.addStatement(new IrBind(new IrTypeTuple(tuple
+					.getTypeGrammar().toIrType(), tuple.getName()),
+					new IrVariableExpression(tuple.getName(), tuple
+							.getTypeGrammar().toIrType().type)));
 		}
 		for (CubexStatement stmt : statements.iterable()) {
 			System.out.println("Statement" + stmt.toIr(context).toString());
@@ -139,21 +142,32 @@ public class CubexClassGrammar {
 		}
 		String parentClass = context.getSuperType(name);
 		String superClass = parentClass;
-		
-		while (!superClass.equals("Thing")) {
-			for (CubexFunctionDef function : context.functionSet(superClass)) {
-				if (!addedFunctions.contains(function)) {
-					addedFunctions.add(function.name);
-					IrFunction fun = function.toIr(context);
-					fun.addStatement(new IrReturn(new IrFunctionCall("_" + parentClass + "_" + function.name, 
-							function.typescheme.getTypeGrammar().name)));
-					
-					//TODO: check this with Jimmy
-					fun.addFunctionArgument(new IrTypeTuple(new IrType("void*"), "ConstructableComponent"));
-					program.addGlobalFunction(fun);
+
+		if (superClass != null) {
+			System.out.println(superClass);
+			while ((superClass != null) && (superClass.equals("Thing"))) {
+				if (context.functionSet(superClass) != null) {
+					for (CubexFunctionDef function : context
+							.functionSet(superClass)) {
+						if (!addedFunctions.contains(function)) {
+							addedFunctions.add(function.name);
+							IrFunction fun = function.toIr(context);
+							fun.addStatement(new IrReturn(new IrFunctionCall(
+									"_" + parentClass + "_" + function.name,
+									function.typescheme.getTypeGrammar().name)));
+
+							// TODO: check this with Jimmy
+							fun.addFunctionArgument(new IrTypeTuple(new IrType(
+									"void*"), "ConstructableComponent"));
+							program.addGlobalFunction(fun);
+						}
+					}
+					superClass = context.getSuperType(superClass);
+				}
+				else{
+					superClass = null;
 				}
 			}
-			superClass = context.getSuperType(superClass);
 		}
 
 	}

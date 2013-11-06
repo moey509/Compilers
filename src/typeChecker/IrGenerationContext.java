@@ -3,6 +3,7 @@ package typeChecker;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import parsingTokens.CubexFunctionDef;
@@ -72,6 +73,58 @@ public class IrGenerationContext {
 			objectToFunctionMap.put(object, new HashSet<CubexFunctionDef>());
 		}
 		objectToFunctionMap.get(object).add(function);
+	}
+	
+	public String toString(){
+		StringBuilder sb = new StringBuilder();
+		sb.append("Current Class Declaration: " + currentClassDeclaration + "\n");
+		
+		sb.append("Global Variables: ");
+		for (String s : globalVariables){
+			sb.append(s + ", ");
+		}
+		if (!globalVariables.isEmpty()){
+			sb.delete(sb.length()-2, sb.length());
+		}
+		sb.append("\n");
+		
+		sb.append("Global Functions: ");
+		for (String s : globalFunctions){
+			sb.append(s+ ", ");
+		}
+		if (!globalFunctions.isEmpty()){
+			sb.delete(sb.length()-2, sb.length());
+		}
+		sb.append("\n");
+		
+		sb.append("Type to Super: ");
+		for (Map.Entry<String, String> entry : typeToSuperTypeMap.entrySet()){
+			sb.append(entry.getKey() + ":" + entry.getValue()+ ", ");
+		}
+		if (!typeToSuperTypeMap.isEmpty()){
+			sb.delete(sb.length()-2, sb.length());
+		}
+		sb.append("\n");
+		
+		sb.append("Object to Functions: ");
+		for (Entry<String, Set<CubexFunctionDef>> entry : objectToFunctionMap.entrySet()){
+			sb.append(entry.getKey() + ": [");
+			
+			for (CubexFunctionDef funDef : entry.getValue()){
+				sb.append(funDef.name + ", ");
+			}
+			if (!entry.getValue().isEmpty()){
+				sb.delete(sb.length()-2, sb.length());
+			}
+			sb.append("], ");
+		}
+		if (!objectToFunctionMap.isEmpty()){
+			sb.delete(sb.length()-2, sb.length());
+		}
+		sb.append("\n");
+		
+		
+		return sb.toString();
 	}
 	
 }

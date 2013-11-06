@@ -1,4 +1,4 @@
-class Aa(String s)
+class Aa(s : String)
 {
 	super();
 	fun getString() : String = s;
