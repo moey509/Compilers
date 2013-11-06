@@ -18,7 +18,10 @@ public final class IrBind implements IrStatement {
 	}
 	
 	public void addDeclaration(ArrayList<String> arr, CGenerationContext context){
-		arr.add("void* " + tuple.variableName + ";");
+		if(!context.variablesDeclaredInScope.contains(tuple.variableName)){
+			arr.add("void* " + tuple.variableName + ";");
+			context.variablesDeclaredInScope.add(tuple.variableName);
+		}
 	}
 
 	@Override

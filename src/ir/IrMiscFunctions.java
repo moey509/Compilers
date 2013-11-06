@@ -1,11 +1,11 @@
 package ir;
 
 public class IrMiscFunctions {
-	public static final String INTEGER = "integer";
-	public static final String BOOLEAN = "boolean";
-	public static final String ITERABLE = "iterable";
-	public static final String CHARACTER = "character";
-	public static final String STRING = "string";
+	public static final String INTEGER = "Integer";
+	public static final String BOOLEAN = "Boolean";
+	public static final String ITERABLE = "Iterable";
+	public static final String CHARACTER = "Character";
+	public static final String STRING = "String";
 	
 	/*public static String getInteger() {
 		return "integer";

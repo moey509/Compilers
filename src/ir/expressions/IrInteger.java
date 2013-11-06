@@ -21,7 +21,7 @@ public final class IrInteger implements IrExpression {
 	}
 	
 	public String toC(CGenerationContext context) {
-		return Integer.toString(mValue);
+		return "new_integer(" + Integer.toString(mValue) + ")";
 	}
 	
 	@Override

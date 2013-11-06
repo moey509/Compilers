@@ -11,14 +11,14 @@ import typeChecker.TypeContext;
 
 public class IrProgram {
 	public List<IrStruct> structDeclarations;
-	public List<String> globalVariables;
+	public List<IrTypeTuple> globalVariables;
 	public List<IrFunction> globalFunctions;
 	public List<IrStatement> mainFunctionStatements;
 	public TypeContext freeContext; // the immutable variables to be freed at the very end of the program
 	
 	public IrProgram(){
 		structDeclarations = new ArrayList<IrStruct>();
-		globalVariables = new ArrayList<String>();
+		globalVariables = new ArrayList<IrTypeTuple>();
 		globalFunctions = new ArrayList<IrFunction>();
 		mainFunctionStatements = new ArrayList<IrStatement>();
 	}
@@ -28,7 +28,7 @@ public class IrProgram {
 	}
 	
 	public void addGlobalVariable(IrBind bind){
-		globalVariables.add("void* " + bind.tuple.variableName + ";");
+		globalVariables.add(bind.tuple);
 	}
 	
 	public void addGlobalFunction(IrFunction function){
@@ -46,8 +46,11 @@ public class IrProgram {
 		for (IrStruct irStruct : structDeclarations){
 			output.addAll(irStruct.toC(context));
 		}
-		for (String irBind : globalVariables){
-			output.add(irBind);
+		for (IrTypeTuple tuple : globalVariables){
+			if(!context.variablesDeclaredInScope.contains(tuple.variableName)){
+				output.add("void* " + tuple.variableName);
+				context.variablesDeclaredInScope.add(tuple.variableName);
+			}
 		}
 		for (IrFunction irFunction : globalFunctions){
 			output.addAll(irFunction.toC(context));

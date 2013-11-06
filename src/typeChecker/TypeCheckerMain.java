@@ -365,11 +365,7 @@ public class TypeCheckerMain {
 		classContext.put("Character", characterClassContextElement);
 
 		// Define unicode
-		characterClassContextElement.functionMap
-				.put("unicode",
-						new CubexTypeScheme(new CubexList<String>(),
-								new CubexList<CubexTypeTuple>(), typeMap
-										.get("Integer")));
+		characterClassContextElement.functionMap.put("unicode", new CubexTypeScheme(new CubexList<String>(), new CubexList<CubexTypeTuple>(), typeMap.get("Integer")));
 
 		// Define equals
 		CubexList<CubexTypeTuple> equalsFunctionArguments = new CubexList<CubexTypeTuple>();

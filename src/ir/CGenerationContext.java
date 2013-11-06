@@ -1,10 +1,12 @@
 package ir;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 public class CGenerationContext {
 	public Map<String, CGenerationType> cVariableToTypeMap;
+	public HashSet<String> variablesDeclaredInScope;
 	
 	// final constants:
 	public final String iterator = "_it";
@@ -21,6 +23,7 @@ public class CGenerationContext {
 	
 	public CGenerationContext(){
 		cVariableToTypeMap = new HashMap<String, CGenerationType>();
+		variablesDeclaredInScope = new HashSet<String>();
 		cur_iterator = 1; 
 	}
 	

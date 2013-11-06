@@ -49,7 +49,9 @@ public class IrBinaryExpression implements IrExpression {
 	}
 
 	public String toC(CGenerationContext context) {
-		if (leftExpression.getType() == "Integer") {
+		System.out.println(leftExpression.toC(context) + " " + leftExpression.getType());
+		System.out.println(operator);
+		if (leftExpression.getType() == IrMiscFunctions.INTEGER) {
 			if (operator == "+")
 				return "integer_add(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + ")";
@@ -86,7 +88,7 @@ public class IrBinaryExpression implements IrExpression {
 			else if (operator == "==")
 				return "integer_equals(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + ")";
-		} else if (leftExpression.getType() == "Boolean") {
+		} else if (leftExpression.getType() == IrMiscFunctions.BOOLEAN) {
 			if (operator == "&&")
 				return "boolean_and(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + ")";
@@ -117,7 +119,7 @@ public class IrBinaryExpression implements IrExpression {
 			else if (operator == "==")
 				return "boolean_equal(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + ")";
-		} else if (leftExpression.getType() == "Character") {
+		} else if (leftExpression.getType() == IrMiscFunctions.CHARACTER) {
 			if (operator == "==")
 				return "character_equals(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + ")";
