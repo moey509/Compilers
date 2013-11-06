@@ -93,6 +93,8 @@ public class CubexIf extends CubexStatement {
 		TypeContextReturn t1 = s1.typeCheckReturn(c);
 		if(s2 == null){
 			TypeContext t = t1.typeContext;
+			freeContext = new HashSet<String>();
+			freeContext2 = new HashSet<String>();
 			boolean g = false;
 			return new TypeContextReturn(c.mutableTypeContext, g, t1.retType);
 		}

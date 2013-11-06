@@ -1,7 +1,7 @@
 fun foo() : String = "Foo";
 
 fun bar() : String {
-	return "Bar"
+	return "Bar";
 }
 
 return [foo()]++[bar()];

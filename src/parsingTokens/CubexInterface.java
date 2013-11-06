@@ -44,7 +44,7 @@ public class CubexInterface {
 		extendsType = t;
 		functionList = l;
 	}
-	
+
 	public IrProgram toIr(IrGenerationContext context, IrProgram program) {
 		context.setSuperType(name, extendsType.name);
 		addFunctions(context, program);
@@ -60,20 +60,25 @@ public class CubexInterface {
 			program.addGlobalFunction(funDef.toIr(context));
 		}
 		String parentClass = context.getSuperType(name);
+		System.out.println(context.toString());
 		String superClass = parentClass;
-		while (!superClass.equals("Thing")) {
-			for (CubexFunctionDef function : context.functionSet(superClass)) {
-				if (!addedFunctions.contains(function)) {
-					addedFunctions.add(function.name);
-					IrFunction fun = function.toIr(context);
-					fun.addStatement(new IrReturn(new IrFunctionCall("_"
-							+ parentClass + "_" + function.name,
-							function.typescheme.getTypeGrammar().name)));
-					fun.addFunctionArgument(new IrTypeTuple(new IrType("void**"), "ConstructableComponent"));
-					program.addGlobalFunction(fun);
+		if (superClass != null) {
+			while (!superClass.equals("Thing")) {
+				for (CubexFunctionDef function : context
+						.functionSet(superClass)) {
+					if (!addedFunctions.contains(function)) {
+						addedFunctions.add(function.name);
+						IrFunction fun = function.toIr(context);
+						fun.addStatement(new IrReturn(new IrFunctionCall("_"
+								+ parentClass + "_" + function.name,
+								function.typescheme.getTypeGrammar().name)));
+						fun.addFunctionArgument(new IrTypeTuple(new IrType(
+								"void**"), "ConstructableComponent"));
+						program.addGlobalFunction(fun);
+					}
 				}
+				superClass = context.getSuperType(superClass);
 			}
-			superClass = context.getSuperType(superClass);
 		}
 
 	}
@@ -106,13 +111,13 @@ public class CubexInterface {
 
 		if (context.classContext.containsKey(name))
 			throw new SemanticException("Class name collision");
-		
+
 		extendsType.validate(originalContext, false);
 
 		HashMap<String, CubexTypeScheme> superFunction = new HashMap<String, CubexTypeScheme>();
 		HashMap<String, CubexStatement> superFunctionStatements = new HashMap<String, CubexStatement>();
 		// Find constructable component
-//		try {
+		// try {
 		if (extendsType.getName().equals("Thing")
 				|| context.containsClassName(extendsType.getName())) {
 			superElement = context.getElementFromClassContext(extendsType
@@ -129,15 +134,16 @@ public class CubexInterface {
 		} else {
 			throw new SemanticException("Supertype not found");
 		}
-//		} catch (Exception e) {
-//			// TODO : handle type intersections (multiple inheritance) here
-//		}
-		
+		// } catch (Exception e) {
+		// // TODO : handle type intersections (multiple inheritance) here
+		// }
+
 		TypeContext generics = new TypeContext();
 		if (extendsType instanceof CubexTypeClass) {
 			CubexTypeClass extendsInterface = (CubexTypeClass) extendsType;
-			ArrayList<String> k = originalContext.classContext.get(extendsInterface.getName()).kindContext.contextSet;
-			for (int i=0 ; i<k.size(); i++) {
+			ArrayList<String> k = originalContext.classContext
+					.get(extendsInterface.getName()).kindContext.contextSet;
+			for (int i = 0; i < k.size(); i++) {
 				generics.put(k.get(i), extendsInterface.typeList.get(i));
 			}
 		}
@@ -156,9 +162,10 @@ public class CubexInterface {
 		HashMap<String, CubexFunctionDef> superFuncs = new HashMap<String, CubexFunctionDef>();
 		for (String name : superFunction.keySet()) {
 			CubexTypeScheme scheme = superFunction.get(name);
-			//scheme.validate(context);
-			superFuncs.put(name, new CubexFunctionDef(name, scheme.replaceParams(generics),
-					superFunctionStatements.get(name)));
+			// scheme.validate(context);
+			superFuncs.put(name,
+					new CubexFunctionDef(name, scheme.replaceParams(generics),
+							superFunctionStatements.get(name)));
 		}
 		for (CubexFunctionDef fun : functionList.iterable()) {
 			superFuncs.put(fun.name, fun);
@@ -167,7 +174,7 @@ public class CubexInterface {
 
 		// Check that all function type schemes are valid
 		for (CubexFunctionDef fun : superFuncs.values()) {
-			//fun.typescheme.validate(context);
+			// fun.typescheme.validate(context);
 		}
 
 		context.typeContext.noConflictMerge(context.mutableTypeContext);
@@ -214,7 +221,7 @@ public class CubexInterface {
 							"CubexClassGrammar: TypeScheme overlap");
 			}
 		}
-		
+
 		for (CubexFunctionDef fun : superFuncs.values()) {
 			funContextDoublePrime.put(fun.name, fun.typescheme);
 		}

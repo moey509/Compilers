@@ -1,4 +1,4 @@
-a := "Hello"
-b := "World"
+a := "Hello";
+b := "World";
 
 return [a]++[b];
