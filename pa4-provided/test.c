@@ -320,6 +320,19 @@ iterator_t new_iterator (git_t g) {
   return it;
 }
 
+void ref_decrement(general_t gen) {
+  if (gen == NULL) 
+    return;
+  gen->ref_count -= 1;
+  if (gen->ref_count == 0) {
+    free(gen);
+  }
+}
+
+void ref_increment(general_t gen) {
+  gen->ref_count += 1;
+}
+
 void intTest() {
   integer_t ans;
 
@@ -1162,10 +1175,20 @@ boolean_t boolean_lessThan(boolean_t b1, boolean_t b2, int strict) {
 }
 
 
+
+void ref_count_test() {
+  integer_t i = new_integer(3);
+  ref_increment ((general_t)i);
+  printf ("--> %d\n", i->ref_count);
+  ref_decrement ((general_t)i);
+  free(i);
+}
+
+
 int main()
 {
-  
-  charTest(); 
+  ref_count_test();
+  /*charTest(); 
   intTest();
   misc_test();
   for_test();
@@ -1173,7 +1196,7 @@ int main()
   /* charToStringTest();*/
   /*stringTest();  */
 
-  fun_test();
+  /*fun_test(); */
 
   /*
   blah_t one = (blah_t)malloc(sizeof(struct blah));
