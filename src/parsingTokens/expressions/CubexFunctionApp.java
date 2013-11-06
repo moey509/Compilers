@@ -61,7 +61,6 @@ public final class CubexFunctionApp extends CubexExpression {
 		return irFunCall;
 	}
 	public ArrayList<IrBind> getExpressions(IrGenerationContext context){
-		System.out.println("THIS: " + this);
 		String obj = "";
 		String fun = "";
 		if (expr.type != null){

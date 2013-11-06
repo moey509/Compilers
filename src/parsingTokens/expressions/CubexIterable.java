@@ -1,9 +1,13 @@
 package parsingTokens.expressions;
 
+import java.util.ArrayList;
 import java.util.Set;
 
+import ir.IrType;
 import ir.expressions.IrExpression;
 import ir.expressions.IrIterable;
+import ir.program.IrTypeTuple;
+import ir.statements.IrBind;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
 import parsingTokens.typeGrammar.CubexTypeClass;
@@ -16,6 +20,26 @@ public class CubexIterable extends CubexExpression {
 
 	public CubexIterable(CubexList<CubexExpression> listIn) {
 		list = listIn;
+	}
+	
+	public ArrayList<IrBind> getExpressions(IrGenerationContext context){
+		System.out.println("ITERABLE getExpression");
+		ArrayList<IrBind> arr = new ArrayList<IrBind>();
+		for(CubexExpression e : list.contextCollection){
+			System.out.println("Expressions string: " + e.toString());
+			arr.addAll(e.getExpressions(context));
+			System.out.println("Size of array: " + arr.size());
+		}
+		if(arr.size() == 0){
+			IrType t = new IrType("void*");
+			IrTypeTuple tuple = new IrTypeTuple(t, context.nextTemp());
+			IrBind b = new IrBind(tuple, this.toIr(context));
+			arr.add(b);
+			return arr;
+		}
+		else{
+			return arr;
+		}
 	}
 	
 	public IrIterable toIr(IrGenerationContext context) {

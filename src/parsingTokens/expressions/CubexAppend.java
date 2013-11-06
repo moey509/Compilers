@@ -1,8 +1,12 @@
 package parsingTokens.expressions;
 
+import java.util.ArrayList;
 import java.util.Set;
 
+import ir.IrType;
 import ir.expressions.IrAppend;
+import ir.program.IrTypeTuple;
+import ir.statements.IrBind;
 import parsingTokens.CubexList;
 import parsingTokens.typeGrammar.CubexTypeClass;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
@@ -19,7 +23,17 @@ public class CubexAppend extends CubexExpression {
 		type = "Iterable";
 	}
 	
+	public ArrayList<IrBind> getExpressions(IrGenerationContext context){
+		IrType t = new IrType("void* ");
+		IrTypeTuple tt = new IrTypeTuple(t, context.nextTemp());
+		IrBind b = new IrBind(tt, this.toIr(context));
+		ArrayList<IrBind> arr = new ArrayList<IrBind>();
+		arr.add(b);
+		return arr;
+	}
+	
 	public IrAppend toIr(IrGenerationContext context) {
+		IrAppend ir = new IrAppend(e1.toIr(context), e2.toIr(context));
 		return new IrAppend(e1.toIr(context), e2.toIr(context));
 	}
 

@@ -3,6 +3,9 @@ package parsingTokens.statements;
 import java.util.ArrayList;
 import java.util.Set;
 
+import ir.expressions.IrVariableExpression;
+import ir.program.IrTypeTuple;
+import ir.statements.IrBind;
 import ir.statements.IrFor;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
@@ -27,10 +30,21 @@ public final class CubexFor extends CubexStatement {
 	}
 	
 	public IrFor toIr(IrGenerationContext context) {
-		IrFor ir = new IrFor(e.toIr(context), varfun);
-		ir.addStatement(s.toIr(context));
-		ir.setFreeContext(new ArrayList<String>(freeContext));
-		return ir;
+		ArrayList<IrBind> arr = e.getExpressions(context);
+		if(arr.size() == 0){
+			IrFor ir = new IrFor(varfun, e.toIr(context));
+			ir.addStatement(s.toIr(context));
+			ir.setFreeContext(new ArrayList<String>(freeContext));
+			return ir;
+		}
+		else{
+			IrBind b = arr.get(arr.size()-1);
+			IrFor ir = new IrFor(varfun, new IrVariableExpression(b.tuple.variableName, b.tuple.type.type));
+			ir.temporaryBinds.addAll(arr);
+			ir.addStatement(s.toIr(context));
+			ir.setFreeContext(new ArrayList<String>(freeContext));
+			return ir;
+		}
 	}
 
 	public String toString() {

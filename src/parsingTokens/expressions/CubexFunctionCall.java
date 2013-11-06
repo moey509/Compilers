@@ -23,9 +23,7 @@ public final class CubexFunctionCall extends CubexExpression {
 	private CubexList<CubexTypeGrammar> typeParams;
 	private CubexList<CubexExpression> functionParams;
 
-	public CubexFunctionCall(String v_vc,
-			CubexList<CubexTypeGrammar> typeParams,
-			CubexList<CubexExpression> functionParams) {
+	public CubexFunctionCall(String v_vc, CubexList<CubexTypeGrammar> typeParams, CubexList<CubexExpression> functionParams) {
 		this.v_vc = v_vc;
 		this.type = v_vc;
 		this.typeParams = typeParams;
@@ -67,8 +65,7 @@ public final class CubexFunctionCall extends CubexExpression {
 	public String toString() {
 		String rightSpace1 = typeParams.size() == 0 ? "" : " ";
 		String rightSpace2 = functionParams.size() == 0 ? "" : " ";
-		return v_vc + " < " + typeParams.toString(",") + rightSpace1 + "> ( "
-				+ functionParams.toString(",") + rightSpace2 + ")";
+		return v_vc + " < " + typeParams.toString(",") + rightSpace1 + "> ( " + functionParams.toString(",") + rightSpace2 + ")";
 	}
 
 	public CubexTypeGrammar typeCheck(CubexCompleteContext c)
@@ -76,17 +73,16 @@ public final class CubexFunctionCall extends CubexExpression {
 		CubexTypeScheme typeScheme;
 		if (c.containsFunctionName(v_vc)) {
 			typeScheme = c.getTypeSchemeFromFunctionContext(v_vc);
-		} else {
+		} 
+		else {
 			throw new SemanticException(v_vc + " is not contained in function context");
 		}
 
 		// Get the Function Kind Context
-		ArrayList<String> kContext = new ArrayList<String>(
-				typeScheme.getKindContext().contextCollection);
+		ArrayList<String> kContext = new ArrayList<String>(typeScheme.getKindContext().contextCollection);
 
 		// Get the Function Types
-		ArrayList<CubexTypeGrammar> params = new ArrayList<CubexTypeGrammar>(
-				typeParams.contextCollection);
+		ArrayList<CubexTypeGrammar> params = new ArrayList<CubexTypeGrammar>(typeParams.contextCollection);
 
 		// Check to see if number of Function type params matches the number of
 		// types given to the function
@@ -97,10 +93,8 @@ public final class CubexFunctionCall extends CubexExpression {
 		TypeContext cont = new TypeContext();
 		for (int i = 0; i < kContext.size(); i++) {
 			cont.put(kContext.get(i), params.get(i));
-			if (!c.containsClassName(params.get(i).getName())
-					&& !c.kindContextContainsTypeParam(params.get(i).getName())) {
-				throw new SemanticException(params.get(i).getName()
-						+ " is not a valid type.");
+			if (!c.containsClassName(params.get(i).getName()) && !c.kindContextContainsTypeParam(params.get(i).getName())) {
+				throw new SemanticException(params.get(i).getName()	+ " is not a valid type.");
 			}
 		}
 
@@ -109,15 +103,11 @@ public final class CubexFunctionCall extends CubexExpression {
 		for (int i = 0; i < typeContext.size(); i++) {
 			CubexTypeGrammar paramExpr = functionParams.get(i).typeCheck(c);
 			// Replace generic types and check for supertype
-			if (!typeContext.get(i).getTypeGrammar().replaceParams(cont)
-					.isSuperTypeOf(c, paramExpr)) {
-				throw new SemanticException("Expected argument of type "
-						+ typeContext.get(i).getTypeGrammar()
-						+ " but received " + paramExpr);
+			if (!typeContext.get(i).getTypeGrammar().replaceParams(cont).isSuperTypeOf(c, paramExpr)) {
+				throw new SemanticException("Expected argument of type " + typeContext.get(i).getTypeGrammar() + " but received " + paramExpr);
 			}
 		}
-		CubexTypeGrammar output = typeScheme.getTypeGrammar().replaceParams(
-				cont);
+		CubexTypeGrammar output = typeScheme.getTypeGrammar().replaceParams(cont);
 		return output;
 	}
 	
@@ -127,15 +117,22 @@ public final class CubexFunctionCall extends CubexExpression {
 	}
 	
 	public ArrayList<IrBind> getExpressions(IrGenerationContext context){
-		System.out.println("this: " + this);
 		ArrayList<IrBind> arr = new ArrayList<IrBind>();
 		ArrayList<IrBind> tempParams = new ArrayList<IrBind>();
 		for(CubexExpression e : functionParams.contextCollection){
-			arr.addAll(e.getExpressions(context));
-			System.out.println(e);
-			tempParams.add(arr.get(arr.size()-1));
+			ArrayList<IrBind> functionParamBinds = new ArrayList<IrBind>();
+			functionParamBinds = e.getExpressions(context);
+			arr.addAll(functionParamBinds);
+			if(functionParamBinds.size() == 0){
+				IrType t = new IrType("void*");
+				IrTypeTuple tuple = new IrTypeTuple(t, e.toString());
+				tempParams.add(new IrBind(tuple, new IrVariableExpression(tuple.variableName, tuple.type.type)));
+			}
+			//Throw in a temporary variable
+			else{
+				tempParams.add(arr.get(arr.size()-1));
+			}
 		}
-		System.out.println("size: " + tempParams.size());
 		IrType t = new IrType("void*");
 		IrTypeTuple tuple = new IrTypeTuple(t, context.nextTemp());
 		IrFunctionCall call;

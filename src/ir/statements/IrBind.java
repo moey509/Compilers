@@ -38,5 +38,9 @@ public final class IrBind implements IrStatement {
 	public ArrayList<String> toMainC(CGenerationContext context) {
 		return toC(context);
 	}
+	
+	public ArrayList<IrBind> getTemporaryVariables(){
+		return this.temporaryBinds;
+	}
 
 }

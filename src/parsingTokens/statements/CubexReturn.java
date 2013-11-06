@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import ir.expressions.IrVariableExpression;
+import ir.program.IrTypeTuple;
+import ir.statements.IrBind;
 import ir.statements.IrReturn;
 import Exception.SemanticException;
 import parsingTokens.expressions.CubexExpression;
@@ -21,9 +24,19 @@ public final class CubexReturn extends CubexStatement {
 	}
 	
 	public IrReturn toIr(IrGenerationContext context) {
-		IrReturn ir = new IrReturn(e.toIr(context));
-		ir.setFreeContext(new ArrayList<String>(freeContext));
-		return ir;
+		System.out.println("CubexReturn: " + e);
+		ArrayList<IrBind> arr = e.getExpressions(context);
+		if(arr.size() == 0){
+			IrReturn ir = new IrReturn(e.toIr(context));
+			ir.setFreeContext(new ArrayList<String>(freeContext));
+			return ir;
+		}
+		else{
+			IrReturn ir = new IrReturn(new IrVariableExpression(arr.get(arr.size()-1).tuple.variableName, arr.get(arr.size()-1).tuple.type.type));
+			ir.setFreeContext(new ArrayList<String>(freeContext));
+			ir.temporaryBinds = arr;
+			return ir;
+		}
 	}
 
 	public String toString() {

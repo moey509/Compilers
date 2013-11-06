@@ -7,6 +7,7 @@ import java.util.List;
 
 public class IrStatementList implements IrStatement{
 	private List<IrStatement> statementList;
+	private ArrayList<IrBind> temporaryBinds = new ArrayList<IrBind>();
 	
 	public IrStatementList(){
 		this.statementList = new ArrayList<IrStatement>();
@@ -36,5 +37,12 @@ public class IrStatementList implements IrStatement{
 			output.addAll(stmt.toMainC(context));
 		}
 		return output;
+	}
+	
+	public ArrayList<IrBind> getTemporaryVariables(){
+		for(IrStatement s : statementList){
+			this.temporaryBinds.addAll(s.getTemporaryVariables());
+		}
+		return this.temporaryBinds;
 	}
 }

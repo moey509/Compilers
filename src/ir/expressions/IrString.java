@@ -22,8 +22,9 @@ public final class IrString implements IrExpression {
 	}
 	
 	public String helper(int index, CGenerationContext context) {
-		if (index == mValue.length() - 2)
+		if (index == mValue.length() - 2){
 			return ("iterable_append(" + mValue.charAt(index) + ", NULL)");
+		}
 		return ("iterable_append(" + mValue.charAt(index) + ", " + helper(index+1, context) + ")");
 	}
 	
@@ -31,10 +32,12 @@ public final class IrString implements IrExpression {
 	public String toC(CGenerationContext context) {
 		//return "\"" + mValue + "\"";
 		String temp;
-		if (mValue.length() > 0)
+		if (mValue.length()-2 > 0){
 			temp = helper(1, context);
-		else
+		}
+		else{
 			temp = "NULL";
+		}
 		return temp;
 	}
 

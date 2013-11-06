@@ -11,10 +11,12 @@ public final class IrWhile implements IrStatement {
 	private ArrayList<String> freeContext;
 	private IrExpression condition;
 	private List<IrStatement> statements;
+	private ArrayList<IrBind> temporaryBinds;
 
 	public IrWhile(IrExpression condition) {
 		this.condition = condition;
 		this.statements = new ArrayList<IrStatement>();
+		temporaryBinds = new ArrayList<IrBind>();
 	}
 	
 	public void setFreeContext(ArrayList<String> fc) {
@@ -49,5 +51,9 @@ public final class IrWhile implements IrStatement {
 		}
 		arrList.add("}");
 		return arrList;
+	}
+	
+	public ArrayList<IrBind> getTemporaryVariables(){
+		return this.temporaryBinds;
 	}
 }

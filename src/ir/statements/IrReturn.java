@@ -10,6 +10,7 @@ public final class IrReturn implements IrStatement {
 	// the Cubex variables to be freed before returning
 	private ArrayList<String> freeContext;
 	private IrExpression expression;
+	public ArrayList<IrBind> temporaryBinds = new ArrayList<IrBind>();
 	
 	public IrReturn(IrExpression expression) {
 		this.expression = expression;
@@ -28,6 +29,9 @@ public final class IrReturn implements IrStatement {
 	@Override
 	public ArrayList<String> toC(CGenerationContext context) {
 		ArrayList<String> arrList = new ArrayList<String>();
+		for(IrBind b : temporaryBinds){
+			arrList.addAll(b.toC(context));
+		}
 		arrList.add("return " + expression.toC(context) + ";");
 		return arrList;
 	}
@@ -54,6 +58,8 @@ public final class IrReturn implements IrStatement {
 		output.add("return;");
 		return output;
 	}
-
+	public ArrayList<IrBind> getTemporaryVariables(){
+		return this.temporaryBinds;
+	}
 }
 

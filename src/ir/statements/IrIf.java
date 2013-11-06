@@ -14,7 +14,8 @@ public class IrIf implements IrStatement {
 	private IrExpression condition;
 	private List<IrStatement> statements1; // { s1 }
 	private List<IrStatement> statements2; // else {s2}
-
+	private ArrayList<IrBind> temporaryBinds = new ArrayList<IrBind>();
+	
 	// if there is no else statement, let s2 be null
 	public IrIf(IrExpression condition) {
 		this.condition = condition;
@@ -80,5 +81,7 @@ public class IrIf implements IrStatement {
 		}
 		return arrList;
 	}
-
+	public ArrayList<IrBind> getTemporaryVariables(){
+		return this.temporaryBinds;
+	}
 }

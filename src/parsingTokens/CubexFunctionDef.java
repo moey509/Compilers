@@ -47,12 +47,9 @@ public class CubexFunctionDef {
 		if (name != null){
 			fun = name.replaceAll("_", "__");
 		}
-		IrFunction irFunction = new IrFunction(typescheme.getTypeGrammar()
-				.toIrType(), obj, fun);
+		IrFunction irFunction = new IrFunction(typescheme.getTypeGrammar().toIrType(), obj, fun);
 		for (CubexTypeTuple tuple : typescheme.getTypeContext().iterable()) {
-
-			IrTypeTuple argument = new IrTypeTuple(tuple.getTypeGrammar()
-					.toIrType(), tuple.getName());
+			IrTypeTuple argument = new IrTypeTuple(tuple.getTypeGrammar().toIrType(), tuple.getName());
 			irFunction.addFunctionArgument(argument);
 		}
 		irFunction.addStatement(statement.toIr(context));

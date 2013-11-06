@@ -6,6 +6,7 @@ import java.util.List;
 import ir.CGenerationContext;
 import ir.IrType;
 import ir.expressions.IrExpression;
+import ir.statements.IrBind;
 import ir.statements.IrStatement;
 
 public class IrFunction {
@@ -15,6 +16,7 @@ public class IrFunction {
 	public List<IrTypeTuple> arguments;
 	public List<IrStatement> statements;
 	public IrExpression superCall;
+	ArrayList<IrBind> tempVariables = new ArrayList<IrBind>();
 
 	public IrFunction(IrType type, String object, String functionName) {
 		this.type = type;
@@ -37,6 +39,8 @@ public class IrFunction {
 	}
 
 	public void addStatement(IrStatement statement) {
+		ArrayList<IrBind> binds = statement.getTemporaryVariables();
+		tempVariables.addAll(binds);
 		statements.add(statement);
 	}
 	
@@ -56,6 +60,9 @@ public class IrFunction {
 			arr.add(s);
 		}
 		//TODO: uhhhh have to know when to reference the struct/
+		for(IrBind b : tempVariables){
+			arr.add(b.tuple.type.type + " " + b.tuple.variableName + ";");
+		}
 		for(IrStatement st : statements){
 			arr.addAll(st.toC(context));
 		}

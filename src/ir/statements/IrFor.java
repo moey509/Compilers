@@ -12,11 +12,13 @@ public class IrFor implements IrStatement {
 	private IrExpression list;
 	private String var;
 	private List<IrStatement> statements;
+	public ArrayList<IrBind> temporaryBinds;
 
-	public IrFor(IrExpression list, String var) {
+	public IrFor(String var, IrExpression list) {
 		this.list = list;
 		this.var = var;
 		this.statements = new ArrayList<IrStatement>();
+		temporaryBinds = new ArrayList<IrBind>();
 	}
 	
 	// initialize the freeContext - used by the typeChecker
@@ -44,27 +46,29 @@ public class IrFor implements IrStatement {
 //	    printf ("==> %d\n", temp);
 //	}
 	public ArrayList<String> toC(CGenerationContext context) {
-		ArrayList<String> arr = new ArrayList<String>();
+		ArrayList<String> output = new ArrayList<String>();
 		int cur_iterator = context.getCurIterator();
 		context.incrementCurIterator();
 		String iterator = "_it" + cur_iterator;
 		String itDeclaration = iterator + " = new_iterator((" + list.toC(context) + "));";
 		String itCondition = "while(hasNext(" + iterator + ")) {";
 		String tempVar = var + " = getNext(" + iterator + ");";
-		
-		arr.add(itDeclaration);
-		arr.add(itCondition);
-		arr.add(tempVar);
+		for(IrBind b : temporaryBinds){
+			output.addAll(b.toC(context));
+		}
+		output.add(itDeclaration);
+		output.add(itCondition);
+		output.add(tempVar);
 		
 		for (IrStatement s : statements) {
-			arr.addAll(s.toC(context));
+			output.addAll(s.toC(context));
 		}
 		
 		String endLoop = "}";
 		
-		arr.add(endLoop);
+		output.add(endLoop);
 
-		return arr;
+		return output;
 	}
 
 	@Override
@@ -98,6 +102,9 @@ public class IrFor implements IrStatement {
 		arr.add(endLoop);
 
 		return arr;
+	}
+	public ArrayList<IrBind> getTemporaryVariables(){
+		return this.temporaryBinds;
 	}
 }
 
