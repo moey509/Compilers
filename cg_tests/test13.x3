@@ -1,7 +1,7 @@
-fun returnAppend(){
+fun returnAppend() : Iterable<String>{
 	a := [];
 	for (i in input){
-		a++["Hello, "++i];
+		a := a++["Hello, "++i];
 	}
 	return a;
 }

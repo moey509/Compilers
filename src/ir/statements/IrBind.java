@@ -23,6 +23,13 @@ public final class IrBind implements IrStatement {
 			context.variablesDeclaredInScope.add(tuple.variableName);
 		}
 	}
+	
+	public void addInitialization(ArrayList<String> arr, CGenerationContext context){
+		if(!context.variablesInitializedInScope.contains(tuple.variableName)){
+			arr.add(tuple.variableName + " = NULL;");
+			context.variablesInitializedInScope.add(tuple.variableName);
+		}
+	}
 
 	@Override
 	public ArrayList<String> toC(CGenerationContext context) {
@@ -34,9 +41,16 @@ public final class IrBind implements IrStatement {
 		if(temporaryBinds.size() > 0){
 			String s = temporaryBinds.get(temporaryBinds.size()-1).tuple.variableName;
 			output.add(tuple.variableName + " = " + s + ";");
+			output.add("ref_increment(" + tuple.variableName + ");");
 		}
 		else{
+			//TODO: We need to make sure that y was initialized somehow or initialize everything to NULL and set to NULL when freed
+			output.add("ref_decrement(" + tuple.variableName + ");");
 			output.add(tuple.variableName + " = " + expression.toC(context) + ";");
+			output.add("ref_increment(" + tuple.variableName + ");");
+		}
+		for(IrBind b : temporaryBinds){
+			output.add("ref_decrement(" + b.tuple.variableName + ");");
 		}
 		return output;
 	}

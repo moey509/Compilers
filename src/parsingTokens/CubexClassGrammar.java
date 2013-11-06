@@ -112,22 +112,18 @@ public class CubexClassGrammar {
 	// thing
 	private void addConstructor(IrGenerationContext context, IrProgram program) {
 		IrFunction irFunction = new IrFunction(new IrType(name), "_" + name);
+		irFunction.isConstructor = true;
 		context.addGlobalFunction("_" + name);
 		for (CubexTypeTuple tuple : typecontext.iterable()) {
-			IrTypeTuple argument = new IrTypeTuple(tuple.getTypeGrammar()
-					.toIrType(), tuple.getName());
+			IrTypeTuple argument = new IrTypeTuple(tuple.getTypeGrammar().toIrType(), tuple.getName());
 			irFunction.addFunctionArgument(argument);
-			irFunction.addStatement(new IrBind(new IrTypeTuple(tuple
-					.getTypeGrammar().toIrType(), tuple.getName()),
-					new IrVariableExpression(tuple.getName(), tuple
-							.getTypeGrammar().toIrType().type)));
+			irFunction.addStatement(new IrBind(new IrTypeTuple(tuple.getTypeGrammar().toIrType(), "__struct->" +tuple.getName()),
+					new IrVariableExpression(tuple.getName(), tuple.getTypeGrammar().toIrType().type)));
 		}
 		for (CubexStatement stmt : statements.iterable()) {
-			System.out.println("Statement" + stmt.toIr(context).toString());
 			irFunction.addStatement(stmt.toIr(context));
 		}
-		IrExpression e = new IrFunctionCall(this.constructableComponent,
-				this.constructableComponent + "*");
+		IrExpression e = new IrFunctionCall(this.constructableComponent,this.constructableComponent + "*");
 		irFunction.addSuperCall(e);
 		program.addGlobalFunction(irFunction);
 	}
@@ -143,31 +139,23 @@ public class CubexClassGrammar {
 		String parentClass = context.getSuperType(name);
 		String superClass = parentClass;
 
-		if (superClass != null) {
-			System.out.println(superClass);
-			while ((superClass != null) && (superClass.equals("Thing"))) {
-				if (context.functionSet(superClass) != null) {
-					for (CubexFunctionDef function : context
-							.functionSet(superClass)) {
-						if (!addedFunctions.contains(function)) {
-							addedFunctions.add(function.name);
-							IrFunction fun = function.toIr(context);
-							fun.addStatement(new IrReturn(new IrFunctionCall(
-									"_" + parentClass + "_" + function.name,
-									function.typescheme.getTypeGrammar().name)));
+		while (!superClass.equals("Thing")) {
+			for (CubexFunctionDef function : context.functionSet(superClass)) {
+				if (!addedFunctions.contains(function)) {
+					addedFunctions.add(function.name);
+					IrFunction fun = function.toIr(context);
+					fun.addStatement(new IrReturn(new IrFunctionCall("_"
+							+ parentClass + "_" + function.name,
+							function.typescheme.getTypeGrammar().name)));
 
-							// TODO: check this with Jimmy
-							fun.addFunctionArgument(new IrTypeTuple(new IrType(
-									"void*"), "ConstructableComponent"));
-							program.addGlobalFunction(fun);
-						}
-					}
-					superClass = context.getSuperType(superClass);
-				}
-				else{
-					superClass = null;
+					// TODO: check this with Jimmy
+					fun.addFunctionArgument(new IrTypeTuple(
+							new IrType("void*"), "ConstructableComponent"));
+					program.addGlobalFunction(fun);
 				}
 			}
+			superClass = context.getSuperType(superClass);
+
 		}
 
 	}
@@ -251,7 +239,11 @@ public class CubexClassGrammar {
 		} else {
 			throw new SemanticException("Supertype not found");
 		}
-		constructableComponent = superElement.name;
+		if (superElement.isClass) {
+			constructableComponent = superElement.name;
+		} else {
+			constructableComponent = "Thing";
+		}
 
 		if (this.name != "String") {
 			if (superElement.name == "Iterable") {

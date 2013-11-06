@@ -1,0 +1,12 @@
+fun stringer(s1 : Iterable<Character>, s2 : Iterable<Character>) : String {
+  return string(s1 ++ s2);
+}
+fun length(s : String) : Integer {
+  ret := 0;
+  for (c in s) {
+    ret := ret + 1;
+  }
+  return ret;
+}
+x := length(stringer("hellohellohellohellohellohello", "world"));
+return [string([character(x)])];

@@ -1,6 +1,9 @@
 package parsingTokens.operations;
 
+import java.util.ArrayList;
+
 import ir.expressions.IrBinaryExpression;
+import ir.statements.IrBind;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
 import parsingTokens.expressions.CubexBinaryExpression;
@@ -31,5 +34,10 @@ public class CubexOr extends CubexBinaryExpression {
 		function = new CubexFunctionApp(super.getmLeft(), "or",
 				new CubexList<CubexTypeGrammar>(), l);
 		return function.typeCheck(c);
+	}
+	
+	public ArrayList<IrBind> getExpressions(IrGenerationContext context){
+		ArrayList<IrBind> arr = function.getExpressions(context);
+		return arr;
 	}
 }

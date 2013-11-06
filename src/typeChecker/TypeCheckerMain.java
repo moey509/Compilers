@@ -41,7 +41,7 @@ public class TypeCheckerMain {
 	public static void main(String[] args) throws IOException {
 		// CharStream charStream = new ANTLRFileStream(args[0]);
 		CharStream charStream = new ANTLRFileStream(
-				"cg_tests/test7.x3");
+				"cg_tests/test16.x3");
 		CubexLexer cubLexer = new CubexLexer(charStream);
 		cubLexer.removeErrorListeners();
 

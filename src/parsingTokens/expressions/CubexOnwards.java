@@ -1,8 +1,10 @@
 package parsingTokens.expressions;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 import ir.expressions.IrOnwards;
+import ir.statements.IrBind;
 import parsingTokens.CubexList;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import typeChecker.CubexCompleteContext;
@@ -36,5 +38,8 @@ public class CubexOnwards extends CubexUnaryExpression {
 				new CubexList<CubexTypeGrammar>(), l);
 		return function.typeCheck(c);
 	}
-	
+	public ArrayList<IrBind> getExpressions(IrGenerationContext context){
+		ArrayList<IrBind> arr = function.getExpressions(context);
+		return arr;
+	}
 }

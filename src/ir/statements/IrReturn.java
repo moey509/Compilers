@@ -22,6 +22,8 @@ public final class IrReturn implements IrStatement {
 	
 	public void addDeclaration(ArrayList<String> arr, CGenerationContext context){
 	}
+	public void addInitialization(ArrayList<String> arr, CGenerationContext context){
+	}
 	
 	public ArrayList<String> toProgramOutput(CGenerationContext context) {
 		ArrayList<String> output = new ArrayList<String>();
@@ -34,6 +36,10 @@ public final class IrReturn implements IrStatement {
 		ArrayList<String> arrList = new ArrayList<String>();
 		for(IrBind b : temporaryBinds){
 			arrList.addAll(b.toC(context));
+		}
+		for(int i = 0; i < temporaryBinds.size()-1; i++){
+			IrBind b = temporaryBinds.get(i);
+			arrList.add("ref_decrement(" + b.tuple.variableName + ");");
 		}
 		arrList.add("return " + expression.toC(context) + ";");
 		return arrList;

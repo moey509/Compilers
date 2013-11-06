@@ -6,8 +6,10 @@ import java.util.Set;
 import ir.IrType;
 import ir.expressions.IrExpression;
 import ir.expressions.IrIterable;
+import ir.expressions.IrVariableExpression;
 import ir.program.IrTypeTuple;
 import ir.statements.IrBind;
+import ir.statements.IrStatement;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
 import parsingTokens.typeGrammar.CubexTypeClass;
@@ -24,8 +26,20 @@ public class CubexIterable extends CubexExpression {
 	
 	public ArrayList<IrBind> getExpressions(IrGenerationContext context){
 		ArrayList<IrBind> arr = new ArrayList<IrBind>();
+		ArrayList<IrBind> tempBinds = new ArrayList<IrBind>();
+		ArrayList<IrBind> params = new ArrayList<IrBind>();
 		for(CubexExpression e : list.contextCollection){
-			arr.addAll(e.getExpressions(context));
+			params = e.getExpressions(context);
+			if(params.size() == 0){
+				IrType t = new IrType("void*");
+				IrTypeTuple tuple = new IrTypeTuple(t, e.toString());
+				tempBinds.add(new IrBind(tuple, new IrVariableExpression(tuple.variableName, tuple.type.type)));
+			}
+			//Throw in a temporary variable
+			else{
+				tempBinds.add(params.get(params.size()-1));
+			}
+			arr.addAll(params);
 		}
 		if(arr.size() == 0){
 			IrType t = new IrType("void*");
@@ -35,6 +49,15 @@ public class CubexIterable extends CubexExpression {
 			return arr;
 		}
 		else{
+			CubexList<IrExpression> irE = new CubexList<IrExpression>();
+			for (IrBind s : tempBinds) {
+				irE.add(new IrVariableExpression(s.tuple.variableName, s.tuple.type.type));
+			}
+			IrIterable iterable = new IrIterable(irE);
+			IrType t = new IrType("void*");
+			IrTypeTuple tuple = new IrTypeTuple(t, context.nextTemp());
+			IrBind b = new IrBind(tuple, iterable);
+			arr.add(b);
 			return arr;
 		}
 	}

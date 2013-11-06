@@ -1,6 +1,9 @@
 package parsingTokens.operations;
 
+import java.util.ArrayList;
+
 import ir.expressions.IrUnaryExpression;
+import ir.statements.IrBind;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
 import parsingTokens.expressions.CubexExpression;
@@ -17,6 +20,7 @@ public class CubexNegate extends CubexUnaryExpression {
 	}
 	
 	public IrUnaryExpression toIr(IrGenerationContext context) {
+		ArrayList<IrBind> arr = function.getExpressions(context);
 		return new IrUnaryExpression(getmArgument().toIr(context), "!");
 	}
 
@@ -28,5 +32,9 @@ public class CubexNegate extends CubexUnaryExpression {
 		function = new CubexFunctionApp(super.getmArgument(), "negate",
 				new CubexList<CubexTypeGrammar>(), l);
 		return function.typeCheck(c);
+	}
+	public ArrayList<IrBind> getExpressions(IrGenerationContext context){
+		ArrayList<IrBind> arr = function.getExpressions(context);
+		return arr;
 	}
 }

@@ -47,6 +47,8 @@ public class IrFor implements IrStatement {
 //	}
 	public void addDeclaration(ArrayList<String> arr, CGenerationContext context){
 	}
+	public void addInitialization(ArrayList<String> arr, CGenerationContext context){
+	}
 	
 	public ArrayList<String> toC(CGenerationContext context) {
 		ArrayList<String> output = new ArrayList<String>();
@@ -56,15 +58,19 @@ public class IrFor implements IrStatement {
 		String itDeclaration = iterator + " = new_iterator((" + list.toC(context) + "));";
 		String itCondition = "while(hasNext(" + iterator + ")) {";
 		String tempVar = "void* " + var + " = getNext(" + iterator + ");";
-		System.out.println("ENTERS JDFKLSJFLKDSJFLK");
 		output.add(itDeclaration);
 		output.add(itCondition);
 		for(IrStatement s : statements){
-			System.out.println("ENTERS herE");
 			for(IrBind b : s.getTemporaryVariables()){
 				b.addDeclaration(output, context);
 			}
 			s.addDeclaration(output, context);
+		}
+		for(IrStatement s : statements){
+			for(IrBind b : s.getTemporaryVariables()){
+				b.addInitialization(output, context);
+			}
+			s.addInitialization(output, context);
 		}
 		output.add(tempVar);
 		

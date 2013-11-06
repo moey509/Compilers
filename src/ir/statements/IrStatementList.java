@@ -26,6 +26,11 @@ public class IrStatementList implements IrStatement{
 			s.addDeclaration(arr, context);
 		}
 	}
+	public void addInitialization(ArrayList<String> arr, CGenerationContext context){
+		for(IrStatement s : statementList){
+			s.addInitialization(arr, context);
+		}
+	}
 	
 	@Override
 	public ArrayList<String> toC(CGenerationContext context) {

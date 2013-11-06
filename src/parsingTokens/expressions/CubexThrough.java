@@ -1,8 +1,10 @@
 package parsingTokens.expressions;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 import ir.expressions.IrThrough;
+import ir.statements.IrBind;
 import parsingTokens.CubexList;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import typeChecker.CubexCompleteContext;
@@ -44,5 +46,8 @@ public class CubexThrough extends CubexBinaryExpression {
 				new CubexList<CubexTypeGrammar>(), l);
 		return function.typeCheck(c);
 	}
-	
+	public ArrayList<IrBind> getExpressions(IrGenerationContext context){
+		ArrayList<IrBind> arr = function.getExpressions(context);
+		return arr;
+	}
 }
