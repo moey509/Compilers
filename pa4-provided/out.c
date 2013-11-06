@@ -7,7 +7,7 @@ typedef struct blah* blah_t;
 typedef struct git * git_t;
 typedef struct nit * nit_t;
 typedef struct iterator * iterator_t;
-typedef struct iterable * iterable_t;
+typedef struct Iterable * Iterable_t;
 typedef struct General * General_t;
 typedef struct Integer * Integer_t;
 typedef struct Character * Character_t;
