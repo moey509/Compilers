@@ -1,0 +1,5 @@
+# should not terminate
+x := "hello";
+while(true)
+  x := x ++ "!";
+return [string(x)];
