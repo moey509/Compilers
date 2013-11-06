@@ -66,10 +66,8 @@ public final class CubexFunctionApp extends CubexExpression {
 		if (expr.type != null){
 			obj = expr.type.replaceAll("_", "__");
 		}
-		System.out.println("OBJ: " + obj);
 		if (v_v != null){
 			fun = v_v.replaceAll("_", "__");
-			System.out.println("FUN: " + fun);
 		}
 		ArrayList<IrBind> arr = new ArrayList<IrBind>();
 		ArrayList<IrBind> tempParams = new ArrayList<IrBind>();
@@ -84,7 +82,6 @@ public final class CubexFunctionApp extends CubexExpression {
 		if(arr.size() - tempParams.size() == 0){
 			IrFunctionCall call = this.toIr(context);
 			if(tempParams.size() == 0){
-				System.out.println("GRRRR " + fun);
 				b = new IrBind(tuple, call);
 			}
 			else{
