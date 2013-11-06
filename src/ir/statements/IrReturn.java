@@ -20,6 +20,9 @@ public final class IrReturn implements IrStatement {
 		freeContext = fc;
 	}
 	
+	public void addDeclaration(ArrayList<String> arr, CGenerationContext context){
+	}
+	
 	public ArrayList<String> toProgramOutput(CGenerationContext context) {
 		ArrayList<String> output = new ArrayList<String>();
 		

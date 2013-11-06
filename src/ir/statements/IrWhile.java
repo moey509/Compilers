@@ -19,6 +19,9 @@ public final class IrWhile implements IrStatement {
 		temporaryBinds = new ArrayList<IrBind>();
 	}
 	
+	public void addDeclaration(ArrayList<String> arr, CGenerationContext context){
+	}
+	
 	public void setFreeContext(ArrayList<String> fc) {
 		freeContext = fc;
 	}

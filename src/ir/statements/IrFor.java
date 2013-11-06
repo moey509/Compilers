@@ -45,19 +45,27 @@ public class IrFor implements IrStatement {
 //	    
 //	    printf ("==> %d\n", temp);
 //	}
+	public void addDeclaration(ArrayList<String> arr, CGenerationContext context){
+	}
+	
 	public ArrayList<String> toC(CGenerationContext context) {
 		ArrayList<String> output = new ArrayList<String>();
 		int cur_iterator = context.getCurIterator();
 		context.incrementCurIterator();
-		String iterator = "_it" + cur_iterator;
+		String iterator = "__it" + cur_iterator;
 		String itDeclaration = iterator + " = new_iterator((" + list.toC(context) + "));";
 		String itCondition = "while(hasNext(" + iterator + ")) {";
-		String tempVar = var + " = getNext(" + iterator + ");";
-		for(IrBind b : temporaryBinds){
-			output.addAll(b.toC(context));
-		}
+		String tempVar = "void* " + var + " = getNext(" + iterator + ");";
+		System.out.println("ENTERS JDFKLSJFLKDSJFLK");
 		output.add(itDeclaration);
 		output.add(itCondition);
+		for(IrStatement s : statements){
+			System.out.println("ENTERS herE");
+			for(IrBind b : s.getTemporaryVariables()){
+				b.addDeclaration(output, context);
+			}
+			s.addDeclaration(output, context);
+		}
 		output.add(tempVar);
 		
 		for (IrStatement s : statements) {

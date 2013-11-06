@@ -16,6 +16,10 @@ public final class IrBind implements IrStatement {
 		this.expression = expression;
 		this.temporaryBinds = new ArrayList<IrBind>();
 	}
+	
+	public void addDeclaration(ArrayList<String> arr, CGenerationContext context){
+		arr.add("void* " + tuple.variableName + ";");
+	}
 
 	@Override
 	public ArrayList<String> toC(CGenerationContext context) {

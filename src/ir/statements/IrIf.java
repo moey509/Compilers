@@ -23,6 +23,9 @@ public class IrIf implements IrStatement {
 		this.statements2 = new ArrayList<IrStatement>();
 	}
 	
+	public void addDeclaration(ArrayList<String> arr, CGenerationContext context){
+	}
+	
 	public void setFreeContext(ArrayList<String> fc, ArrayList<String> fc2) {
 		freeContext = fc;
 		freeContext2 = fc2;
