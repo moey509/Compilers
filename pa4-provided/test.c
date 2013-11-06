@@ -333,6 +333,625 @@ void ref_increment(general_t gen) {
   gen->ref_count += 1;
 }
 
+
+void it_char_toString(git_t g, int count) {
+  if (g == NULL) {
+    printf ("[null]\n");
+    return;
+  }
+  iterator_t it;
+  it = new_iterator(g);
+  character_t c;
+  int temp = count;
+  while (count > 0) {
+    c = getNext(it);
+    printf ("--> %c\n", c->value);
+    count -= 1;
+    if (!hasNext(it)) {
+      printf ("[null]\n");
+      return;
+    }
+  }
+}
+
+void it_int_toString(git_t g, int count) {
+  if (g == NULL) {
+    printf ("[null]\n");
+    return;
+  }
+  iterator_t it;
+  it = new_iterator(g);
+  integer_t c;
+  int temp = count;
+  while (count > 0) {
+    c = getNext(it);
+    printf ("--> %d\n", c->value);
+    count -= 1;
+    if (!hasNext(it)) {
+      printf ("[null]\n");
+      return;
+    }
+  }
+}
+
+void it_boolean_toString(git_t g, int count) {
+  if (g == NULL) {
+    printf ("[null]\n");
+    return;
+  }
+  iterator_t it;
+  it = new_iterator(g);
+  boolean_t c;
+  int temp = count;
+  while (count > 0) {
+    c = getNext(it);
+    printf ("--> %d\n", c->value);
+    count -= 1;
+    if (!hasNext(it)) {
+      printf ("[null]\n");
+      return;
+    }
+  }
+}
+
+
+
+/* convert a char iterable into a String */
+char* charToString(git_t g) {
+  if (g == NULL) 
+    return NULL;
+  git_t itr = g;
+  int counter = 0;
+  while (itr != NULL) {
+    counter += 1;
+    itr = itr->next;
+  }
+  char* buf = (char*) malloc (sizeof(char*) * (counter + 1));
+  itr = g;
+  counter = 0;
+  while (itr != NULL) {
+    buf[counter] = ((character_t)(itr->val))->value;
+    counter += 1;
+    itr=itr->next;
+  }
+  buf[counter] = '\0';
+  return buf;
+}
+
+git_t stringToIterableHelper(char* buf, int offset) {
+  if (buf[offset] == '\0') {
+    return NULL;
+  }
+  character_t c = new_character((int)(buf[offset]));
+  git_t g = new_git_obj(c);
+  return iterable_append(g, stringToIterableHelper(buf, offset+1));
+}
+
+git_t stringToIterable(char* buf) {
+  if (buf == NULL)
+    return NULL;
+  return stringToIterableHelper(buf, 0);
+}
+
+
+
+
+/* FUNCTIONS */
+
+/* the following two are given to us */
+
+integer_t integer_add (integer_t i1, integer_t i2) {
+  return new_integer(i1->value + i2->value);
+}
+
+integer_t integer_subtract (integer_t i1, integer_t i2) {
+  return new_integer(i1->value - i2->value);
+}
+
+integer_t integer_multiply (integer_t i1, integer_t i2) {
+  return new_integer(i1->value * i2->value);
+}
+
+integer_t integer_divide (integer_t i1, integer_t i2) {
+  return new_integer(i1->value / i2->value);
+}
+
+integer_t integer_mod (integer_t i1, integer_t i2) {
+  return new_integer(i1->value % i2->value);
+}
+
+integer_t integer_negate (integer_t i1) {
+  return new_integer (0 - (i1->value));
+}
+
+git_t integer_through (integer_t i1, integer_t i2, int include1, int include2) {
+  int int1;
+  int int2;
+  int1 = i1->value;
+  int2 = i2->value; 
+  if (include1 == 0) 
+    int1 = int1 + 1;
+  if (include2 == 0) 
+    int2 = int2 - 1;
+  new_git_int(0, int1, int2);
+}
+
+git_t integer_onwards (integer_t i1, int include1) {
+  int int1 = i1->value;
+  if (include1 == 0)
+    int1 = int1 + 1;
+  new_git_int(1, int1, 0);
+}
+
+boolean_t integer_equals (integer_t i1, integer_t i2) {
+  int ans;
+  if (i1->value != i2->value)
+    ans = 0;
+  else 
+    ans = 1;
+  return new_boolean(ans);
+}
+
+boolean_t integer_lessThan(integer_t i1, integer_t i2, int strict) {
+  int int1;
+  int int2;
+  int ans;
+  int1 = i1->value;
+  int2 = i2->value;
+  if (strict == 0) {
+    if (int1 <= int2)
+      ans = 1;
+    else 
+      ans = 0;
+  }
+  else {
+    if (int1 < int2)
+      ans = 1;
+    else
+      ans = 0;
+  }
+  return new_boolean(ans);
+}
+
+boolean_t character_equals (character_t c1, character_t c2) {
+  int ans;
+  if (c1->value == c2->value) 
+    ans = 1;
+  else
+    ans = 0;
+  return new_boolean (ans);
+}
+
+boolean_t string_equals (git_t g1, git_t g2) {
+  git_t t1;
+  git_t t2;
+  character_t c1;
+  character_t c2;
+  int flag;
+  int ans;
+  t1 = g1;
+  t2 = g2;
+  flag = 0;
+  while (t1 != NULL && t2 != NULL && flag == 0) {
+    c1 = t1->val;
+    c2 = t2->val;
+    if (c1->value != c2->value)
+      flag = 1;
+    t1 = t1->next;
+    t2 = t2->next;
+  }
+  /* only way that the two were equal: */
+  if (t1 == NULL && t2 == NULL && flag == 0)
+    ans = 1;
+  else
+    ans = 0;
+  return new_boolean(ans);
+}
+
+boolean_t boolean_negate(boolean_t b) {
+  int ans;
+  if (b->value == 1)
+    ans = 0;
+  else 
+    ans = 1;
+  return new_boolean(ans);
+}
+
+boolean_t boolean_and (boolean_t b1, boolean_t b2) {
+  int ans;
+  ans = (b1->value) && (b2->value);
+  return new_boolean(ans);
+}
+
+boolean_t boolean_or (boolean_t b1, boolean_t b2) {
+  int ans;
+  ans = (b1->value) || (b2->value);
+  return new_boolean(ans);
+}
+
+boolean_t boolean_equals (boolean_t b1, boolean_t b2) {
+  int ans;
+  ans = (b1->value) == (b2->value);
+  return new_boolean(ans);
+}
+
+git_t boolean_through (boolean_t b1, boolean_t b2, int include1, int include2) {
+  int int1;
+  int int2;
+  git_t g1;
+  boolean_t bool1;
+  int1 = b1->value;
+  int2 = b2->value; 
+  if (include1 == 0) 
+    int1 = int1 + 1;
+  if (include2 == 0) 
+    int2 = int2 - 1;
+  if (int1 <= int2) {
+    bool1 = new_boolean(int1);
+    g1 = new_git_obj(bool1);
+    int1 += 1;
+    if (int1 <= int2) {
+      boolean_t bool2 = new_boolean(int1);
+      git_t g2 = new_git_obj(bool2);
+      g1->next = g2;
+    }
+  }
+  else
+    g1 = NULL;
+  return g1;
+}
+
+git_t boolean_onwards (boolean_t b1, int include) {
+  boolean_t bool1;
+  git_t g1;
+  int int1 = b1->value;
+  if (include == 0)
+    int1 = int1 + 1;
+  if (int1 <= 1) {
+    bool1 = new_boolean(int1);
+    g1 = new_git_obj(bool1);
+    int1 += 1;
+    if (int1 <= 1) {
+      boolean_t bool2 = new_boolean(int1);
+      git_t g2 = new_git_obj(bool2);
+      g1->next = g2;
+    }
+  }
+  else
+    g1 = NULL;
+  return g1;
+}
+
+boolean_t boolean_lessThan(boolean_t b1, boolean_t b2, int strict) {
+  int int1;
+  int int2;
+  int ans;
+  int1 = b1->value;
+  int2 = b2->value;
+  if (strict == 0) {
+    if (int1 <= int2)
+      ans = 1;
+    else 
+      ans = 0;
+  }
+  else {
+    if (int1 < int2)
+      ans = 1;
+    else
+      ans = 0;
+  }
+  return new_boolean(ans);
+} 
+
+void for_test() {
+  git_t i1 = new_git_int(0, 0, 10);
+  iterator_t it;
+  iterator_t it1;
+  integer_t temp;
+
+
+  printf ("starting...\n");
+  /*
+  for (it = new_iterator(i1);  temp = getNext(it); temp != NULL; temp = getNext(it)) {
+    printf ("--> %d\n", temp);
+  }
+  */
+  it = new_iterator(i1);
+  while (hasNext(it)) {
+    temp = getNext(it);
+    
+    /*
+     *  insert code here
+     */
+    
+    printf ("==> %d\n", temp->value);
+  }
+}
+
+
+void misc_test() {
+  void * ans;
+  integer_t int1 = new_integer(5);
+  git_t i1 = new_git_obj(int1);
+  character_t char1 = new_character('b');
+  git_t i2 = new_git_obj(char1);
+  git_t i3 = new_git_int(0, 3, 5);
+  git_t i4 = new_git_obj("sdfsdf");
+  git_t i5 = new_git_int(1, 9, 0);
+  git_t i6 = i1;
+  i6 = iterable_append(i6, i2);
+  i6 = iterable_append(i6, i3);
+  i6 = iterable_append(i6, i4);
+  i6 = iterable_append(i6, i5);
+
+  /* iterator */
+  iterator_t it = new_iterator(i6);
+   
+  printf ("%s\n", i4->val); /* sdfsdf */
+  printf ("%c\n", i2->val); /* b */
+  printf ("%c\n", i6->next->val); /*b */
+  printf ("%p\n", i6->next->next);
+  if (i6->next->next==NULL)
+    printf ("wut\n");
+  ans = getNext(it);
+  printf ("-> %d\n", ((integer_t)ans)->value);
+  ans = getNext(it);
+  printf ("-> %c\n", ((character_t)ans)->value);
+  ans = getNext(it);
+  printf ("-> %d\n", ((integer_t)ans)->value); 
+  ans = getNext(it);
+  printf ("-> %d\n", ((integer_t)ans)->value);
+  ans = getNext(it);
+  printf ("-> %d\n", ((integer_t)ans)->value);
+  ans = getNext(it);
+  printf ("-> %s\n", ans);
+  ans = getNext(it);
+  printf ("-> %d\n", ((integer_t)ans)->value);
+  ans = getNext(it);
+  printf ("-> %d\n", ((integer_t)ans)->value);
+  ans = getNext(it);
+  printf ("-> %d\n", ((integer_t)ans)->value);
+
+}
+
+
+void fun_test() {
+  integer_t i3;
+  integer_t i1 = new_integer (4);
+  integer_t i2 = new_integer (6);
+
+  integer_t i13 = new_integer(5);
+  integer_t i14 = new_integer(5);
+
+  boolean_t bb = integer_equals (i13, i14);
+  printf ("1 ---> %d\n", bb->value);
+
+  i13->value = 6;
+  bb = integer_equals (i13, i14);
+  printf ("0 ---> %d\n", bb->value);
+
+  i3 = integer_add (i1, i2);
+  printf ("10 ---> %d \n", i3->value);
+
+  i3 = integer_subtract (i1, i2);
+  printf ("-2 ---> %d \n", i3->value);
+
+  i3 = integer_multiply (i1, i2);
+  printf (" 24---> %d\n", i3->value);
+
+  i1->value = 10;
+  i2->value = 3;
+
+  i3 = integer_divide (i1, i2);
+  printf ("3 ---> %d\n", i3->value);
+  
+  i3 = integer_mod (i1, i2);
+  printf ("1 ---> %d add\n", i3->value);
+
+  i3 = integer_negate (i1);
+  printf ("-10 ---> %d add\n", i3->value);
+
+  i1->value = 2;
+  i2->value = 4;
+
+  git_t g = integer_through (i1, i2, 0, 0);
+  it_int_toString(g, 5);
+  g = integer_through (i1, i2, 1, 0);
+  it_int_toString(g, 5);
+  g = integer_through (i1, i2, 0, 1);
+  it_int_toString(g, 5);
+  g = integer_through (i1, i2, 1, 1);
+  it_int_toString(g, 5);
+
+  g = integer_onwards (i1, 1);
+  it_int_toString(g, 5);
+  printf ("[null]\n");
+  g = integer_onwards (i1, 0);
+  it_int_toString(g, 5);
+
+  i1->value = 2;
+  i2->value = 2;
+  printf (">>>> booleans\n");
+  boolean_t b = integer_lessThan(i1, i2, 0);
+  printf ("1 ---> %d\n", b->value);
+  b = integer_lessThan(i1, i2, 1);
+  printf ("0 ---> %d\n", b->value);
+
+  printf ("\n\n----booleans---\n");
+  character_t c1 = new_character(67);
+  character_t c2 = new_character(68);
+
+  b = character_equals(c1,c2);
+  printf("0 --> %d\n", b->value);
+
+  c2 = new_character(67);
+  b = character_equals(c1, c2);
+  printf("1 --> %d\n", b->value);  
+
+  char * char1 = "hello\0";
+  char * char2 = "hello\0";
+
+  git_t g1 = stringToIterable(char1);
+  git_t g2 = stringToIterable(char2);
+
+  b = string_equals (g1, g2);
+  printf("1 --> %d\n", b->value);    
+
+  char1 = "hellooo\0";
+  char2 = "hello\0";
+
+  g1 = stringToIterable(char1);
+  g2 = stringToIterable(char2);
+
+  b = string_equals (g1, g2);
+  printf("0 --> %d\n", b->value);  
+
+  char1 = "hellooo\0";
+  char2 = "helloooooo\0";
+
+  g1 = stringToIterable(char1);
+  g2 = stringToIterable(char2);
+
+  b = string_equals (g1, g2);
+  printf("0 --> %d\n", b->value);  
+
+  char1 = "heelooo\0";
+  char2 = "hello\0";
+
+  g1 = stringToIterable(char1);
+  g2 = stringToIterable(char2);
+
+  b = string_equals (g1, g2);
+  printf("0 --> %d\n", b->value);  
+
+
+  boolean_t b1 = new_boolean (1);
+  boolean_t b2 = new_boolean (0);
+
+  printf ("negate\n");
+  b = boolean_negate(b1);
+  printf("0 --> %d\n", b->value);    
+  b = boolean_negate(b2);
+  printf("1 --> %d\n", b->value);    
+
+  b = boolean_and(b1, b2);
+  printf("0 --> %d\n", b->value);      
+
+  b = boolean_or(b1, b2);
+  printf("1 --> %d\n", b->value);      
+
+  b = boolean_equals(b1, b2);
+  printf ("0 --> %d\n", b->value);
+
+  g = boolean_through(b2, b1, 1, 1);
+  it_boolean_toString(g, 5);
+  printf ("^ 0, 1\n");
+  g = boolean_through(b2, b1, 0, 0);
+  it_boolean_toString(g, 5);
+  printf ("^ \n");
+  g = boolean_through(b2, b1, 1, 0);
+  it_boolean_toString(g, 5);
+  printf ("^ 0 \n");
+  g = boolean_through(b2, b1, 0, 1);
+  it_boolean_toString(g, 5);
+  printf ("^ 1 \n");
+
+
+  printf ("\nonwards\n");
+  g = boolean_onwards(b2, 0);
+  it_boolean_toString(g, 5);
+  printf ("^ 1 \n");
+  g = boolean_onwards(b2, 1);
+  it_boolean_toString(g, 5);
+  printf ("^ 0, 1 \n");
+  g = boolean_onwards(b1, 0);
+  it_boolean_toString(g, 5);
+  printf ("^ 1\n");
+  g = boolean_onwards(b1, 1);
+  it_boolean_toString(g, 5);
+  printf (" ^ NULL\n");
+
+  printf ("\n lessthan\n\n");
+  b1 = new_boolean(0);
+  b2 = new_boolean(1);
+  
+  b = boolean_lessThan(b1, b2, 0);
+  printf ("1 --> %d\n", b->value);
+  b = boolean_lessThan(b1, b2, 1);
+  printf ("1 --> %d\n", b->value);
+  b = boolean_lessThan(b2, b1, 0);
+  printf ("0 --> %d\n", b->value);
+  b = boolean_lessThan(b2, b1, 1);
+  printf ("0 --> %d\n", b->value);
+
+  b2 = new_boolean(0);
+  b = boolean_lessThan(b1, b2, 0);
+  printf ("1 --> %d\n", b->value);
+  b = boolean_lessThan(b1, b2, 1);
+  printf ("0---> %d\n", b->value);
+/*
+boolean_t boolean_lessThan(boolean_t b1, boolean_t b2, int strict) {
+  int int1;
+  int int2;
+  int ans;
+  int1 = b1->value;
+  int2 = b2->value;
+  if (strict == 1) {
+    if (int1 <= int2)
+      ans = 1;
+    else 
+      ans = 0;
+  }
+  else {
+    if (int1 < int2)
+      ans = 1;
+    else
+      ans = 0;
+  }
+  return new_boolean(ans);
+  */
+
+}
+
+void stringTest() {
+  char* string = "hello world!\0";
+  printf ("%s\n", string);
+  git_t g = stringToIterable (string);
+  if (g == NULL) {
+    printf ("nulllllled\n");
+  }
+  char * output = charToString(g);
+  printf("--> %s\n", output);
+}
+
+void charToStringTest() {
+  character_t c1 = new_character(65);
+  git_t g1 = new_git_obj(c1);
+  character_t c2 = new_character(66);
+  git_t g2 = new_git_obj(c2);
+  character_t c3 = new_character(67);
+  git_t g3 = new_git_obj(c3);
+  character_t c4 = new_character(68);
+  git_t g4 = new_git_obj(c4);
+  character_t c5 = new_character(69);
+  git_t g5 = new_git_obj(c5);
+  character_t c6 = new_character(70);
+  git_t g6 = new_git_obj(c6);
+
+  git_t g = iterable_append(g1, iterable_append(g2, iterable_append (g3, iterable_append (g4, iterable_append(g5, g6)))));
+  char* c = charToString(g);
+  printf ("%s\n", c);
+}
+
+
+void ref_count_test() {
+  integer_t i = new_integer(3);
+  ref_increment ((general_t)i);
+  printf ("--> %d\n", i->ref_count);
+  ref_decrement ((general_t)i);
+  free(i);
+}
+
 void intTest() {
   integer_t ans;
 
@@ -563,626 +1182,6 @@ void charTest() {
     printf("[ASSERT] fail [two element]\n");    
 }
 
-void it_char_toString(git_t g, int count) {
-  if (g == NULL) {
-    printf ("[null]\n");
-    return;
-  }
-  iterator_t it;
-  it = new_iterator(g);
-  character_t c;
-  int temp = count;
-  while (count > 0) {
-    c = getNext(it);
-    printf ("--> %c\n", c->value);
-    count -= 1;
-    if (!hasNext(it)) {
-      printf ("[null]\n");
-      return;
-    }
-  }
-}
-
-void it_int_toString(git_t g, int count) {
-  if (g == NULL) {
-    printf ("[null]\n");
-    return;
-  }
-  iterator_t it;
-  it = new_iterator(g);
-  integer_t c;
-  int temp = count;
-  while (count > 0) {
-    c = getNext(it);
-    printf ("--> %d\n", c->value);
-    count -= 1;
-    if (!hasNext(it)) {
-      printf ("[null]\n");
-      return;
-    }
-  }
-}
-
-void it_boolean_toString(git_t g, int count) {
-  if (g == NULL) {
-    printf ("[null]\n");
-    return;
-  }
-  iterator_t it;
-  it = new_iterator(g);
-  boolean_t c;
-  int temp = count;
-  while (count > 0) {
-    c = getNext(it);
-    printf ("--> %d\n", c->value);
-    count -= 1;
-    if (!hasNext(it)) {
-      printf ("[null]\n");
-      return;
-    }
-  }
-}
-
-void for_test() {
-  git_t i1 = new_git_int(0, 0, 10);
-  iterator_t it;
-  iterator_t it1;
-  integer_t temp;
-
-
-  printf ("starting...\n");
-  /*
-  for (it = new_iterator(i1);  temp = getNext(it); temp != NULL; temp = getNext(it)) {
-    printf ("--> %d\n", temp);
-  }
-  */
-  it = new_iterator(i1);
-  while (hasNext(it)) {
-    temp = getNext(it);
-    
-    /*
-     *  insert code here
-     */
-    
-    printf ("==> %d\n", temp->value);
-  }
-}
-
-
-void misc_test() {
-  void * ans;
-  integer_t int1 = new_integer(5);
-  git_t i1 = new_git_obj(int1);
-  character_t char1 = new_character('b');
-  git_t i2 = new_git_obj(char1);
-  git_t i3 = new_git_int(0, 3, 5);
-  git_t i4 = new_git_obj("sdfsdf");
-  git_t i5 = new_git_int(1, 9, 0);
-  git_t i6 = i1;
-  i6 = iterable_append(i6, i2);
-  i6 = iterable_append(i6, i3);
-  i6 = iterable_append(i6, i4);
-  i6 = iterable_append(i6, i5);
-
-  /* iterator */
-  iterator_t it = new_iterator(i6);
-   
-  printf ("%s\n", i4->val); /* sdfsdf */
-  printf ("%c\n", i2->val); /* b */
-  printf ("%c\n", i6->next->val); /*b */
-  printf ("%p\n", i6->next->next);
-  if (i6->next->next==NULL)
-    printf ("wut\n");
-  ans = getNext(it);
-  printf ("-> %d\n", ((integer_t)ans)->value);
-  ans = getNext(it);
-  printf ("-> %c\n", ((character_t)ans)->value);
-  ans = getNext(it);
-  printf ("-> %d\n", ((integer_t)ans)->value); 
-  ans = getNext(it);
-  printf ("-> %d\n", ((integer_t)ans)->value);
-  ans = getNext(it);
-  printf ("-> %d\n", ((integer_t)ans)->value);
-  ans = getNext(it);
-  printf ("-> %s\n", ans);
-  ans = getNext(it);
-  printf ("-> %d\n", ((integer_t)ans)->value);
-  ans = getNext(it);
-  printf ("-> %d\n", ((integer_t)ans)->value);
-  ans = getNext(it);
-  printf ("-> %d\n", ((integer_t)ans)->value);
-
-}
-
-/* convert a char iterable into a String */
-char* charToString(git_t g) {
-  if (g == NULL) 
-    return NULL;
-  git_t itr = g;
-  int counter = 0;
-  while (itr != NULL) {
-    counter += 1;
-    itr = itr->next;
-  }
-  char* buf = (char*) malloc (sizeof(char*) * (counter + 1));
-  itr = g;
-  counter = 0;
-  while (itr != NULL) {
-    buf[counter] = ((character_t)(itr->val))->value;
-    counter += 1;
-    itr=itr->next;
-  }
-  buf[counter] = '\0';
-  return buf;
-}
-
-git_t stringToIterableHelper(char* buf, int offset) {
-  if (buf[offset] == '\0') {
-    return NULL;
-  }
-  character_t c = new_character((int)(buf[offset]));
-  git_t g = new_git_obj(c);
-  return iterable_append(g, stringToIterableHelper(buf, offset+1));
-}
-
-git_t stringToIterable(char* buf) {
-  if (buf == NULL)
-    return NULL;
-  return stringToIterableHelper(buf, 0);
-}
-
-void stringTest() {
-  char* string = "hello world!\0";
-  printf ("%s\n", string);
-  git_t g = stringToIterable (string);
-  if (g == NULL) {
-    printf ("nulllllled\n");
-  }
-  char * output = charToString(g);
-  printf("--> %s\n", output);
-}
-
-void charToStringTest() {
-  character_t c1 = new_character(65);
-  git_t g1 = new_git_obj(c1);
-  character_t c2 = new_character(66);
-  git_t g2 = new_git_obj(c2);
-  character_t c3 = new_character(67);
-  git_t g3 = new_git_obj(c3);
-  character_t c4 = new_character(68);
-  git_t g4 = new_git_obj(c4);
-  character_t c5 = new_character(69);
-  git_t g5 = new_git_obj(c5);
-  character_t c6 = new_character(70);
-  git_t g6 = new_git_obj(c6);
-
-  git_t g = iterable_append(g1, iterable_append(g2, iterable_append (g3, iterable_append (g4, iterable_append(g5, g6)))));
-  char* c = charToString(g);
-  printf ("%s\n", c);
-}
-
-
-/* FUNCTIONS */
-
-/* the following two are given to us */
-char unichar(int uni) {
-  return (char) uni;
-}
-
-int charuni(char c) {
-  return (int) c;
-}
-
-integer_t integer_add (integer_t i1, integer_t i2) {
-  return new_integer(i1->value + i2->value);
-}
-
-integer_t integer_subtract (integer_t i1, integer_t i2) {
-  return new_integer(i1->value - i2->value);
-}
-
-integer_t integer_multiply (integer_t i1, integer_t i2) {
-  return new_integer(i1->value * i2->value);
-}
-
-integer_t integer_divide (integer_t i1, integer_t i2) {
-  return new_integer(i1->value / i2->value);
-}
-
-integer_t integer_mod (integer_t i1, integer_t i2) {
-  return new_integer(i1->value % i2->value);
-}
-
-integer_t integer_negate (integer_t i1) {
-  return new_integer (0 - (i1->value));
-}
-
-git_t integer_through (integer_t i1, integer_t i2, int include1, int include2) {
-  int int1;
-  int int2;
-  int1 = i1->value;
-  int2 = i2->value; 
-  if (include1 == 0) 
-    int1 = int1 + 1;
-  if (include2 == 0) 
-    int2 = int2 - 1;
-  new_git_int(0, int1, int2);
-}
-
-git_t integer_onwards (integer_t i1, int include1) {
-  int int1 = i1->value;
-  if (include1 == 0)
-    int1 = int1 + 1;
-  new_git_int(1, int1, 0);
-}
-
-boolean_t integer_equals (integer_t i1, integer_t i2) {
-  int ans;
-  if (i1->value != i2->value)
-    ans = 0;
-  else 
-    ans = 1;
-  return new_boolean(ans);
-}
-
-boolean_t integer_lessThan(integer_t i1, integer_t i2, int strict) {
-  int int1;
-  int int2;
-  int ans;
-  int1 = i1->value;
-  int2 = i2->value;
-  if (strict == 0) {
-    if (int1 <= int2)
-      ans = 1;
-    else 
-      ans = 0;
-  }
-  else {
-    if (int1 < int2)
-      ans = 1;
-    else
-      ans = 0;
-  }
-  return new_boolean(ans);
-}
-
-boolean_t character_equals (character_t c1, character_t c2) {
-  int ans;
-  if (c1->value == c2->value) 
-    ans = 1;
-  else
-    ans = 0;
-  return new_boolean (ans);
-}
-
-boolean_t string_equals (git_t g1, git_t g2) {
-  git_t t1;
-  git_t t2;
-  character_t c1;
-  character_t c2;
-  int flag;
-  int ans;
-  t1 = g1;
-  t2 = g2;
-  flag = 0;
-  while (t1 != NULL && t2 != NULL && flag == 0) {
-    c1 = t1->val;
-    c2 = t2->val;
-    if (c1->value != c2->value)
-      flag = 1;
-    t1 = t1->next;
-    t2 = t2->next;
-  }
-  /* only way that the two were equal: */
-  if (t1 == NULL && t2 == NULL && flag == 0)
-    ans = 1;
-  else
-    ans = 0;
-  return new_boolean(ans);
-}
-
-boolean_t boolean_negate(boolean_t b) {
-  int ans;
-  if (b->value == 1)
-    ans = 0;
-  else 
-    ans = 1;
-  return new_boolean(ans);
-}
-
-boolean_t boolean_and (boolean_t b1, boolean_t b2) {
-  int ans;
-  ans = (b1->value) && (b2->value);
-  return new_boolean(ans);
-}
-
-boolean_t boolean_or (boolean_t b1, boolean_t b2) {
-  int ans;
-  ans = (b1->value) || (b2->value);
-  return new_boolean(ans);
-}
-
-boolean_t boolean_equals (boolean_t b1, boolean_t b2) {
-  int ans;
-  ans = (b1->value) == (b2->value);
-  return new_boolean(ans);
-}
-
-git_t boolean_through (boolean_t b1, boolean_t b2, int include1, int include2) {
-  int int1;
-  int int2;
-  git_t g1;
-  boolean_t bool1;
-  int1 = b1->value;
-  int2 = b2->value; 
-  if (include1 == 0) 
-    int1 = int1 + 1;
-  if (include2 == 0) 
-    int2 = int2 - 1;
-  if (int1 <= int2) {
-    bool1 = new_boolean(int1);
-    g1 = new_git_obj(bool1);
-    int1 += 1;
-    if (int1 <= int2) {
-      boolean_t bool2 = new_boolean(int1);
-      git_t g2 = new_git_obj(bool2);
-      g1->next = g2;
-    }
-  }
-  else
-    g1 = NULL;
-  return g1;
-}
-
-git_t boolean_onwards (boolean_t b1, int include) {
-  boolean_t bool1;
-  git_t g1;
-  int int1 = b1->value;
-  if (include == 0)
-    int1 = int1 + 1;
-  if (int1 <= 1) {
-    bool1 = new_boolean(int1);
-    g1 = new_git_obj(bool1);
-    int1 += 1;
-    if (int1 <= 1) {
-      boolean_t bool2 = new_boolean(int1);
-      git_t g2 = new_git_obj(bool2);
-      g1->next = g2;
-    }
-  }
-  else
-    g1 = NULL;
-  return g1;
-}
-
-boolean_t boolean_lessThan(boolean_t b1, boolean_t b2, int strict) {
-  int int1;
-  int int2;
-  int ans;
-  int1 = b1->value;
-  int2 = b2->value;
-  if (strict == 0) {
-    if (int1 <= int2)
-      ans = 1;
-    else 
-      ans = 0;
-  }
-  else {
-    if (int1 < int2)
-      ans = 1;
-    else
-      ans = 0;
-  }
-  return new_boolean(ans);
-} 
-
-void fun_test() {
-  integer_t i3;
-  integer_t i1 = new_integer (4);
-  integer_t i2 = new_integer (6);
-
-  integer_t i13 = new_integer(5);
-  integer_t i14 = new_integer(5);
-
-  boolean_t bb = integer_equals (i13, i14);
-  printf ("1 ---> %d\n", bb->value);
-
-  i13->value = 6;
-  bb = integer_equals (i13, i14);
-  printf ("0 ---> %d\n", bb->value);
-
-  i3 = integer_add (i1, i2);
-  printf ("10 ---> %d \n", i3->value);
-
-  i3 = integer_subtract (i1, i2);
-  printf ("-2 ---> %d \n", i3->value);
-
-  i3 = integer_multiply (i1, i2);
-  printf (" 24---> %d\n", i3->value);
-
-  i1->value = 10;
-  i2->value = 3;
-
-  i3 = integer_divide (i1, i2);
-  printf ("3 ---> %d\n", i3->value);
-  
-  i3 = integer_mod (i1, i2);
-  printf ("1 ---> %d add\n", i3->value);
-
-  i3 = integer_negate (i1);
-  printf ("-10 ---> %d add\n", i3->value);
-
-  i1->value = 2;
-  i2->value = 4;
-
-  git_t g = integer_through (i1, i2, 0, 0);
-  it_int_toString(g, 5);
-  g = integer_through (i1, i2, 1, 0);
-  it_int_toString(g, 5);
-  g = integer_through (i1, i2, 0, 1);
-  it_int_toString(g, 5);
-  g = integer_through (i1, i2, 1, 1);
-  it_int_toString(g, 5);
-
-  g = integer_onwards (i1, 1);
-  it_int_toString(g, 5);
-  printf ("[null]\n");
-  g = integer_onwards (i1, 0);
-  it_int_toString(g, 5);
-
-  i1->value = 2;
-  i2->value = 2;
-  printf (">>>> booleans\n");
-  boolean_t b = integer_lessThan(i1, i2, 0);
-  printf ("1 ---> %d\n", b->value);
-  b = integer_lessThan(i1, i2, 1);
-  printf ("0 ---> %d\n", b->value);
-
-  printf ("\n\n----booleans---\n");
-  character_t c1 = new_character(67);
-  character_t c2 = new_character(68);
-
-  b = character_equals(c1,c2);
-  printf("0 --> %d\n", b->value);
-
-  c2 = new_character(67);
-  b = character_equals(c1, c2);
-  printf("1 --> %d\n", b->value);  
-
-  char * char1 = "hello\0";
-  char * char2 = "hello\0";
-
-  git_t g1 = stringToIterable(char1);
-  git_t g2 = stringToIterable(char2);
-
-  b = string_equals (g1, g2);
-  printf("1 --> %d\n", b->value);    
-
-  char1 = "hellooo\0";
-  char2 = "hello\0";
-
-  g1 = stringToIterable(char1);
-  g2 = stringToIterable(char2);
-
-  b = string_equals (g1, g2);
-  printf("0 --> %d\n", b->value);  
-
-  char1 = "hellooo\0";
-  char2 = "helloooooo\0";
-
-  g1 = stringToIterable(char1);
-  g2 = stringToIterable(char2);
-
-  b = string_equals (g1, g2);
-  printf("0 --> %d\n", b->value);  
-
-  char1 = "heelooo\0";
-  char2 = "hello\0";
-
-  g1 = stringToIterable(char1);
-  g2 = stringToIterable(char2);
-
-  b = string_equals (g1, g2);
-  printf("0 --> %d\n", b->value);  
-
-
-  boolean_t b1 = new_boolean (1);
-  boolean_t b2 = new_boolean (0);
-
-  printf ("negate\n");
-  b = boolean_negate(b1);
-  printf("0 --> %d\n", b->value);    
-  b = boolean_negate(b2);
-  printf("1 --> %d\n", b->value);    
-
-  b = boolean_and(b1, b2);
-  printf("0 --> %d\n", b->value);      
-
-  b = boolean_or(b1, b2);
-  printf("1 --> %d\n", b->value);      
-
-  b = boolean_equals(b1, b2);
-  printf ("0 --> %d\n", b->value);
-
-  g = boolean_through(b2, b1, 1, 1);
-  it_boolean_toString(g, 5);
-  printf ("^ 0, 1\n");
-  g = boolean_through(b2, b1, 0, 0);
-  it_boolean_toString(g, 5);
-  printf ("^ \n");
-  g = boolean_through(b2, b1, 1, 0);
-  it_boolean_toString(g, 5);
-  printf ("^ 0 \n");
-  g = boolean_through(b2, b1, 0, 1);
-  it_boolean_toString(g, 5);
-  printf ("^ 1 \n");
-
-
-  printf ("\nonwards\n");
-  g = boolean_onwards(b2, 0);
-  it_boolean_toString(g, 5);
-  printf ("^ 1 \n");
-  g = boolean_onwards(b2, 1);
-  it_boolean_toString(g, 5);
-  printf ("^ 0, 1 \n");
-  g = boolean_onwards(b1, 0);
-  it_boolean_toString(g, 5);
-  printf ("^ 1\n");
-  g = boolean_onwards(b1, 1);
-  it_boolean_toString(g, 5);
-  printf (" ^ NULL\n");
-
-  printf ("\n lessthan\n\n");
-  b1 = new_boolean(0);
-  b2 = new_boolean(1);
-  
-  b = boolean_lessThan(b1, b2, 0);
-  printf ("1 --> %d\n", b->value);
-  b = boolean_lessThan(b1, b2, 1);
-  printf ("1 --> %d\n", b->value);
-  b = boolean_lessThan(b2, b1, 0);
-  printf ("0 --> %d\n", b->value);
-  b = boolean_lessThan(b2, b1, 1);
-  printf ("0 --> %d\n", b->value);
-
-  b2 = new_boolean(0);
-  b = boolean_lessThan(b1, b2, 0);
-  printf ("1 --> %d\n", b->value);
-  b = boolean_lessThan(b1, b2, 1);
-  printf ("0---> %d\n", b->value);
-/*
-boolean_t boolean_lessThan(boolean_t b1, boolean_t b2, int strict) {
-  int int1;
-  int int2;
-  int ans;
-  int1 = b1->value;
-  int2 = b2->value;
-  if (strict == 1) {
-    if (int1 <= int2)
-      ans = 1;
-    else 
-      ans = 0;
-  }
-  else {
-    if (int1 < int2)
-      ans = 1;
-    else
-      ans = 0;
-  }
-  return new_boolean(ans);
-  */
-
-}
-
-
-
-void ref_count_test() {
-  integer_t i = new_integer(3);
-  ref_increment ((general_t)i);
-  printf ("--> %d\n", i->ref_count);
-  ref_decrement ((general_t)i);
-  free(i);
-}
 
 
 int main()
