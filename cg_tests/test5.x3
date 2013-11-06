@@ -1,24 +1,4 @@
-# Test for memory leaks
-
-fun foo(int : Integer) : Iterable<String> {
-	if (int <= 0) {
-		ret := [];
-		for ( i in input) {
-			ret := [i];
-		}
-	}
-	else
-		return foo(int-1)++foo(int-1);
-}
-
-x = foo(20);
-x = foo(18);
-x = foo(16);
-x = foo(14);
-x = foo(12);
-x = foo(10);
-x = foo(8);
-x = foo(6);
-x = foo(4);
-
-return foo(2);
+if (true)
+	return ["Success"];
+else
+	return ["Failure"];
