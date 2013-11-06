@@ -522,6 +522,66 @@ void charTest() {
     printf("[ASSERT] fail [two element]\n");    
 }
 
+void it_char_toString(git_t g, int count) {
+  if (g == NULL) {
+    printf ("[null]\n");
+    return;
+  }
+  iterator_t it;
+  it = new_iterator(g);
+  character_t c;
+  int temp = count;
+  while (count > 0) {
+    c = getNext(it);
+    printf ("--> %c\n", c->value);
+    count -= 1;
+    if (!hasNext(it)) {
+      printf ("[null]\n");
+      return;
+    }
+  }
+}
+
+void it_int_toString(git_t g, int count) {
+  if (g == NULL) {
+    printf ("[null]\n");
+    return;
+  }
+  iterator_t it;
+  it = new_iterator(g);
+  integer_t c;
+  int temp = count;
+  while (count > 0) {
+    c = getNext(it);
+    printf ("--> %d\n", c->value);
+    count -= 1;
+    if (!hasNext(it)) {
+      printf ("[null]\n");
+      return;
+    }
+  }
+}
+
+void it_boolean_toString(git_t g, int count) {
+  if (g == NULL) {
+    printf ("[null]\n");
+    return;
+  }
+  iterator_t it;
+  it = new_iterator(g);
+  boolean_t c;
+  int temp = count;
+  while (count > 0) {
+    c = getNext(it);
+    printf ("--> %d\n", c->value);
+    count -= 1;
+    if (!hasNext(it)) {
+      printf ("[null]\n");
+      return;
+    }
+  }
+}
+
 void for_test() {
   git_t i1 = new_git_int(0, 0, 10);
   iterator_t it;
@@ -715,13 +775,22 @@ git_t integer_onwards (integer_t i1, int include1) {
   new_git_int(1, int1, 0);
 }
 
+boolean_t integer_equals (integer_t i1, integer_t i2) {
+  int ans;
+  if (i1->value != i2->value)
+    ans = 0;
+  else 
+    ans = 1;
+  return new_boolean(ans);
+}
+
 boolean_t integer_lessThan(integer_t i1, integer_t i2, int strict) {
   int int1;
   int int2;
   int ans;
   int1 = i1->value;
   int2 = i2->value;
-  if (strict == 1) {
+  if (strict == 0) {
     if (int1 <= int2)
       ans = 1;
     else 
@@ -782,7 +851,7 @@ boolean_t boolean_negate(boolean_t b) {
 
 boolean_t boolean_and (boolean_t b1, boolean_t b2) {
   int ans;
-  ans = (b1->value) && (v2->value);
+  ans = (b1->value) && (b2->value);
   return new_boolean(ans);
 }
 
@@ -801,20 +870,48 @@ boolean_t boolean_equals (boolean_t b1, boolean_t b2) {
 git_t boolean_through (boolean_t b1, boolean_t b2, int include1, int include2) {
   int int1;
   int int2;
+  git_t g1;
+  boolean_t bool1;
   int1 = b1->value;
   int2 = b2->value; 
   if (include1 == 0) 
     int1 = int1 + 1;
   if (include2 == 0) 
     int2 = int2 - 1;
-  new_git_int(0, int1, int2);
+  if (int1 <= int2) {
+    bool1 = new_boolean(int1);
+    g1 = new_git_obj(bool1);
+    int1 += 1;
+    if (int1 <= int2) {
+      boolean_t bool2 = new_boolean(int1);
+      git_t g2 = new_git_obj(bool2);
+      g1->next = g2;
+    }
+  }
+  else
+    g1 = NULL;
+  return g1;
 }
 
 git_t boolean_onwards (boolean_t b1, int include) {
+  boolean_t bool1;
+  git_t g1;
   int int1 = b1->value;
-  if (include1 == 0)
+  if (include == 0)
     int1 = int1 + 1;
-  new_git_int(1, int1, 0);
+  if (int1 <= 1) {
+    bool1 = new_boolean(int1);
+    g1 = new_git_obj(bool1);
+    int1 += 1;
+    if (int1 <= 1) {
+      boolean_t bool2 = new_boolean(int1);
+      git_t g2 = new_git_obj(bool2);
+      g1->next = g2;
+    }
+  }
+  else
+    g1 = NULL;
+  return g1;
 }
 
 boolean_t boolean_lessThan(boolean_t b1, boolean_t b2, int strict) {
@@ -838,6 +935,205 @@ boolean_t boolean_lessThan(boolean_t b1, boolean_t b2, int strict) {
   return new_boolean(ans);
 } 
 
+void fun_test() {
+  integer_t i3;
+  integer_t i1 = new_integer (4);
+  integer_t i2 = new_integer (6);
+
+  integer_t i13 = new_integer(5);
+  integer_t i14 = new_integer(5);
+
+  boolean_t bb = integer_equals (i13, i14);
+  printf ("1 ---> %d\n", bb->value);
+
+  i13->value = 6;
+  bb = integer_equals (i13, i14);
+  printf ("0 ---> %d\n", bb->value);
+
+  i3 = integer_add (i1, i2);
+  printf ("10 ---> %d \n", i3->value);
+
+  i3 = integer_subtract (i1, i2);
+  printf ("-2 ---> %d \n", i3->value);
+
+  i3 = integer_multiply (i1, i2);
+  printf (" 24---> %d\n", i3->value);
+
+  i1->value = 10;
+  i2->value = 3;
+
+  i3 = integer_divide (i1, i2);
+  printf ("3 ---> %d\n", i3->value);
+  
+  i3 = integer_mod (i1, i2);
+  printf ("1 ---> %d add\n", i3->value);
+
+  i3 = integer_negate (i1);
+  printf ("-10 ---> %d add\n", i3->value);
+
+  i1->value = 2;
+  i2->value = 4;
+
+  git_t g = integer_through (i1, i2, 0, 0);
+  it_int_toString(g, 5);
+  g = integer_through (i1, i2, 1, 0);
+  it_int_toString(g, 5);
+  g = integer_through (i1, i2, 0, 1);
+  it_int_toString(g, 5);
+  g = integer_through (i1, i2, 1, 1);
+  it_int_toString(g, 5);
+
+  g = integer_onwards (i1, 1);
+  it_int_toString(g, 5);
+  printf ("[null]\n");
+  g = integer_onwards (i1, 0);
+  it_int_toString(g, 5);
+
+  i1->value = 2;
+  i2->value = 2;
+  printf (">>>> booleans\n");
+  boolean_t b = integer_lessThan(i1, i2, 0);
+  printf ("1 ---> %d\n", b->value);
+  b = integer_lessThan(i1, i2, 1);
+  printf ("0 ---> %d\n", b->value);
+
+  printf ("\n\n----booleans---\n");
+  character_t c1 = new_character(67);
+  character_t c2 = new_character(68);
+
+  b = character_equals(c1,c2);
+  printf("0 --> %d\n", b->value);
+
+  c2 = new_character(67);
+  b = character_equals(c1, c2);
+  printf("1 --> %d\n", b->value);  
+
+  char * char1 = "hello\0";
+  char * char2 = "hello\0";
+
+  git_t g1 = stringToIterable(char1);
+  git_t g2 = stringToIterable(char2);
+
+  b = string_equals (g1, g2);
+  printf("1 --> %d\n", b->value);    
+
+  char1 = "hellooo\0";
+  char2 = "hello\0";
+
+  g1 = stringToIterable(char1);
+  g2 = stringToIterable(char2);
+
+  b = string_equals (g1, g2);
+  printf("0 --> %d\n", b->value);  
+
+  char1 = "hellooo\0";
+  char2 = "helloooooo\0";
+
+  g1 = stringToIterable(char1);
+  g2 = stringToIterable(char2);
+
+  b = string_equals (g1, g2);
+  printf("0 --> %d\n", b->value);  
+
+  char1 = "heelooo\0";
+  char2 = "hello\0";
+
+  g1 = stringToIterable(char1);
+  g2 = stringToIterable(char2);
+
+  b = string_equals (g1, g2);
+  printf("0 --> %d\n", b->value);  
+
+
+  boolean_t b1 = new_boolean (1);
+  boolean_t b2 = new_boolean (0);
+
+  printf ("negate\n");
+  b = boolean_negate(b1);
+  printf("0 --> %d\n", b->value);    
+  b = boolean_negate(b2);
+  printf("1 --> %d\n", b->value);    
+
+  b = boolean_and(b1, b2);
+  printf("0 --> %d\n", b->value);      
+
+  b = boolean_or(b1, b2);
+  printf("1 --> %d\n", b->value);      
+
+  b = boolean_equals(b1, b2);
+  printf ("0 --> %d\n", b->value);
+
+  g = boolean_through(b2, b1, 1, 1);
+  it_boolean_toString(g, 5);
+  printf ("^ 0, 1\n");
+  g = boolean_through(b2, b1, 0, 0);
+  it_boolean_toString(g, 5);
+  printf ("^ \n");
+  g = boolean_through(b2, b1, 1, 0);
+  it_boolean_toString(g, 5);
+  printf ("^ 0 \n");
+  g = boolean_through(b2, b1, 0, 1);
+  it_boolean_toString(g, 5);
+  printf ("^ 1 \n");
+
+
+  printf ("\nonwards\n");
+  g = boolean_onwards(b2, 0);
+  it_boolean_toString(g, 5);
+  printf ("^ 1 \n");
+  g = boolean_onwards(b2, 1);
+  it_boolean_toString(g, 5);
+  printf ("^ 0, 1 \n");
+  g = boolean_onwards(b1, 0);
+  it_boolean_toString(g, 5);
+  printf ("^ 1\n");
+  g = boolean_onwards(b1, 1);
+  it_boolean_toString(g, 5);
+  printf (" ^ NULL\n");
+/*
+
+git_t boolean_through (boolean_t b1, boolean_t b2, int include1, int include2) {
+  int int1;
+  int int2;
+  int1 = b1->value;
+  int2 = b2->value; 
+  if (include1 == 0) 
+    int1 = int1 + 1;
+  if (include2 == 0) 
+    int2 = int2 - 1;
+  new_git_int(0, int1, int2);
+}
+
+git_t boolean_onwards (boolean_t b1, int include) {
+  int int1 = b1->value;
+  if (include == 0)
+    int1 = int1 + 1;
+  new_git_int(1, int1, 0);
+}
+
+boolean_t boolean_lessThan(boolean_t b1, boolean_t b2, int strict) {
+  int int1;
+  int int2;
+  int ans;
+  int1 = b1->value;
+  int2 = b2->value;
+  if (strict == 1) {
+    if (int1 <= int2)
+      ans = 1;
+    else 
+      ans = 0;
+  }
+  else {
+    if (int1 < int2)
+      ans = 1;
+    else
+      ans = 0;
+  }
+  return new_boolean(ans);
+  */
+
+}
+
 
 int main()
 {
@@ -848,7 +1144,10 @@ int main()
   for_test();
 */
   /* charToStringTest();*/
-  stringTest(); 
+  /*stringTest();  */
+
+  fun_test();
+
   /*
   blah_t one = (blah_t)malloc(sizeof(struct blah));
   blah_t two = (blah_t)malloc(sizeof(struct blah));
