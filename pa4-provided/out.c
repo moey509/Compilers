@@ -82,6 +82,8 @@ struct git
   void* val;
   git_t next;
   int is_int;
+  git_t storage;
+  int is_input;
 };
 
 struct iterator
@@ -127,7 +129,7 @@ character_t new_character(int input) {
   c->con_comp = NULL; 
   c->is_iter = 0;
   c->is_thru_ward = 0;
-  c->value = (char) input; /* will get replaced by included function */
+  c->value = unichar(intput); /* will get replaced by included function */
   return c;
 }
 
@@ -253,6 +255,44 @@ git_t iterable_append (git_t first, git_t second) {
   git_t itr;
   git_t prev = NULL;
   g = NULL;
+
+  /* input cases */
+  if (first->is_input == 1 || second->is_input == 1) {
+  	/* input appended with input */
+  	if (first->is_input == 1 && second->is_input == 1) {
+  		itr = first->
+  		first->storage = second;
+
+  	}
+
+  	/*** NEED TO CLONE OTHER NODES TOO!!!! ***/
+
+  	/* first */
+  	if (first->is_input == 1) {  		
+  		temp = iterable_append(input->storage, second);
+  		itr = first->storage;
+  		if (itr == NULL) {
+  			itr = temp;
+  			return first;
+  		}
+  		while (itr->next != NULL) 
+  			itr = itr->next;
+  		itr->next = temp;
+  		return;
+  	}
+  	/* second */
+  	else {
+  		temp = iterable_append(first, NULL);
+  		if (temp == NULL)
+  			return second;
+  		itr = temp;
+  		while(itr->next != NULL) 
+  			itr = itr->next;
+  		itr->next = second;
+  	}
+  }
+
+  /* regular cases */
   /* first */
   itr = first;
   while (itr != NULL) {
@@ -296,9 +336,22 @@ git_t iterable_append (git_t first, git_t second) {
 /* constructs a new iterable for anything but ints */
 git_t new_git_obj (void* obj) {
   git_t g = (git_t)x3malloc(sizeof(struct git));
+
+  g->ref_count = 0;
+  g->fun_names = NULL;
+  g->fun_length = 0;
+  g->fun_ptrs = NULL;
+  g->ptr_length = 0;
+  g->con_comp = NULL;
+  g->is_iter = 0;
+  g->is_thru_ward = 0;
+
   g->val = obj;
   g->is_int = 0;
   g->next = NULL;
+
+  g->storage = NULL;
+  g->is_input = 0;
   return g;
 }
 
@@ -307,12 +360,25 @@ git_t new_git_obj (void* obj) {
 git_t new_git_int (int status, int low, int high) {  
   git_t g = (git_t)x3malloc(sizeof(struct git));
   nit_t n = (nit_t)x3malloc(sizeof(struct nit));
+
+	g->ref_count = 0;
+  g->fun_names = NULL;
+  g->fun_length = 0;
+  g->fun_ptrs = NULL;
+  g->ptr_length = 0;
+  g->con_comp = NULL;
+  g->is_iter = 0;
+  g->is_thru_ward = 0;
+
   n->status = status;
   n->low = low;
   n->high = high;
   g->val = n;
   g->is_int = 1;
   g->next = NULL;
+
+  g->storage = NULL;
+  g->is_input = 0;
   return g;
 }
 
@@ -585,4 +651,14 @@ boolean_t boolean_lessThan(boolean_t b1, boolean_t b2, int strict) {
 } 
 
 void cubex_main(){
+	/*TODO: the following lines need to be inserted into the actual C*/ 
+
+	git_t input = new_git_obj(NULL);
+	input->is_input = 1;
+	/* *E*N*D* * * * * * * */
+
+	printf ("%d\n", next_line_len());
+	char * b = (char*)malloc(sizeof(char*)*next_line_len());
+	read_line(b);
+	printf ("%s\n", b);
 }
