@@ -24,7 +24,6 @@ public final class CubexReturn extends CubexStatement {
 	}
 	
 	public IrReturn toIr(IrGenerationContext context) {
-		System.out.println("CubexReturn: " + e);
 		ArrayList<IrBind> arr = e.getExpressions(context);
 		if(arr.size() == 0){
 			IrReturn ir = new IrReturn(e.toIr(context));
