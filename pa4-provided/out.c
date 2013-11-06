@@ -331,6 +331,7 @@ void ref_decrement(general_t gen) {
   if (gen->ref_count == 0) {
     x3free(gen);
   }
+  gen = NULL;
 }
 
 void ref_increment(general_t gen) {
