@@ -1,5 +1,6 @@
 package parsingTokens.program;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,7 +23,7 @@ import typeChecker.TypeContextReturn;
 public class CubexProgramStatement implements CubexProgramType {
 	private CubexStatement statement;
 	private Set<String> globalVariableSet;
-	private TypeContext freeContext;
+	private Set<String> freeContext;
 
 	public CubexProgramStatement(CubexStatement statement) {
 		statement.flatten();
@@ -51,7 +52,7 @@ public class CubexProgramStatement implements CubexProgramType {
 			throw new SemanticException("CubexProgramStatement");
 		}
 		globalVariableSet = new HashSet<String>(c.typeContext.keySet());
-		freeContext = c.typeContext;
+		freeContext = c.typeContext.keySet();
 		return c;
 	}
 
@@ -69,6 +70,9 @@ public class CubexProgramStatement implements CubexProgramType {
 		for(IrBind bind : s.getTemporaryVariables()){
 			program.addGlobalVariable(bind);
 		}
+		//freeContext setting
+		program.setFreeContext(new ArrayList<String>(freeContext));
+		
 		return program;
 	}
 }

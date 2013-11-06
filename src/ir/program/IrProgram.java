@@ -14,13 +14,17 @@ public class IrProgram {
 	public List<IrTypeTuple> globalVariables;
 	public List<IrFunction> globalFunctions;
 	public List<IrStatement> mainFunctionStatements;
-	public TypeContext freeContext; // the immutable variables to be freed at the very end of the program
+	public ArrayList<String> freeContext; // the immutable variables to be freed at the very end of the program
 	
 	public IrProgram(){
 		structDeclarations = new ArrayList<IrStruct>();
 		globalVariables = new ArrayList<IrTypeTuple>();
 		globalFunctions = new ArrayList<IrFunction>();
 		mainFunctionStatements = new ArrayList<IrStatement>();
+	}
+	
+	public void setFreeContext(ArrayList<String> fc) {
+		freeContext = fc;
 	}
 	
 	public void addStruct(IrStruct struct){
