@@ -46,6 +46,7 @@ public class CubexInterface {
 	}
 	
 	public IrProgram toIr(IrGenerationContext context, IrProgram program) {
+		context.setSuperType(name, extendsType.name);
 		addFunctions(context, program);
 		return program;
 	}

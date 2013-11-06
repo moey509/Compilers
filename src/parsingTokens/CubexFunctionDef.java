@@ -52,7 +52,10 @@ public class CubexFunctionDef {
 			IrTypeTuple argument = new IrTypeTuple(tuple.getTypeGrammar().toIrType(), tuple.getName());
 			irFunction.addFunctionArgument(argument);
 		}
-		irFunction.addStatement(statement.toIr(context));
+		System.out.println(this);
+		if(statement != null){
+			irFunction.addStatement(statement.toIr(context));
+		}
 		return irFunction;
 	}
 
