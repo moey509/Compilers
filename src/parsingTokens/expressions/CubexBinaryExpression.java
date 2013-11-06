@@ -8,6 +8,8 @@ import ir.expressions.IrBinaryExpression;
 
 public abstract class CubexBinaryExpression extends CubexExpression {
 	private CubexExpression mLeft, mRight;
+	
+	public 
 	public CubexBinaryExpression(CubexExpression left, CubexExpression right) {
 		setmLeft(left);
 		setmRight(right);

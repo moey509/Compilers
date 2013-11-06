@@ -27,10 +27,12 @@ import typeChecker.TypeContextReturn;
 import ir.IrType;
 import ir.expressions.IrExpression;
 import ir.expressions.IrFunctionCall;
+import ir.expressions.IrVariableExpression;
 import ir.program.IrFunction;
 import ir.program.IrProgram;
 import ir.program.IrStruct;
 import ir.program.IrTypeTuple;
+import ir.statements.IrBind;
 import ir.statements.IrReturn;
 
 public class CubexClassGrammar {
@@ -91,7 +93,9 @@ public class CubexClassGrammar {
 		if ((name != "Integer") && (name != "String") && (name != "Character")) {
 
 			IrStruct irStruct = new IrStruct(name, constructableComponent);
-
+			for (CubexTypeTuple tuple : typecontext.iterable()) {
+				irStruct.addStructVariable(new IrTypeTuple(tuple.getTypeGrammar().toIrType(), tuple.getName()));
+			}
 			for (CubexStatement stmt : statements.iterable()) {
 				if (stmt instanceof CubexBind) {
 					CubexBind bind = (CubexBind) stmt;
@@ -112,6 +116,8 @@ public class CubexClassGrammar {
 			IrTypeTuple argument = new IrTypeTuple(tuple.getTypeGrammar()
 					.toIrType(), tuple.getName());
 			irFunction.addFunctionArgument(argument);
+			irFunction.addStatement(new IrBind(new IrTypeTuple(tuple.getTypeGrammar().toIrType(), tuple.getName()), 
+					new IrVariableExpression(tuple.getName(), tuple.getTypeGrammar().toIrType().type)));
 		}
 		for (CubexStatement stmt : statements.iterable()) {
 			System.out.println("Statement" + stmt.toIr(context).toString());
@@ -139,7 +145,8 @@ public class CubexClassGrammar {
 				if (!addedFunctions.contains(function)) {
 					addedFunctions.add(function.name);
 					IrFunction fun = function.toIr(context);
-					fun.addStatement(new IrReturn(new IrFunctionCall("_" + parentClass + "_" + function.name, function.typescheme.getTypeGrammar().name)));
+					fun.addStatement(new IrReturn(new IrFunctionCall("_" + parentClass + "_" + function.name, 
+							function.typescheme.getTypeGrammar().name)));
 					
 					//TODO: check this with Jimmy
 					fun.addFunctionArgument(new IrTypeTuple(new IrType("void*"), "ConstructableComponent"));
