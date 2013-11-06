@@ -38,6 +38,9 @@ public final class IrBind implements IrStatement {
 		else{
 			output.add(tuple.variableName + " = " + expression.toC(context) + ";");
 		}
+		for(IrBind b : temporaryBinds){
+			output.add("ref_decrement(" + b.tuple.variableName + ");");
+		}
 		return output;
 	}
 

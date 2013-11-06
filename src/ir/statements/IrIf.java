@@ -55,6 +55,9 @@ public class IrIf implements IrStatement {
 			arrList.addAll(b.toC(context));
 		}
 		arrList.add("if(" + condition.toC(context) + ") {");
+		for(IrBind b : temporaryBinds){
+			arrList.add("ref_decrement(" + b.tuple.variableName + ");");
+		}
 		for (IrStatement s1 : statements1) {
 			arrList.addAll(s1.toC(context));
 		}
