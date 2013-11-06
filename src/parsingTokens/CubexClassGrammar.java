@@ -139,30 +139,23 @@ public class CubexClassGrammar {
 		String parentClass = context.getSuperType(name);
 		String superClass = parentClass;
 
-		if (superClass != null) {
-			while ((superClass != null) && (superClass.equals("Thing"))) {
-				if (context.functionSet(superClass) != null) {
-					for (CubexFunctionDef function : context
-							.functionSet(superClass)) {
-						if (!addedFunctions.contains(function)) {
-							addedFunctions.add(function.name);
-							IrFunction fun = function.toIr(context);
-							fun.addStatement(new IrReturn(new IrFunctionCall(
-									"_" + parentClass + "_" + function.name,
-									function.typescheme.getTypeGrammar().name)));
+		while (!superClass.equals("Thing")) {
+			for (CubexFunctionDef function : context.functionSet(superClass)) {
+				if (!addedFunctions.contains(function)) {
+					addedFunctions.add(function.name);
+					IrFunction fun = function.toIr(context);
+					fun.addStatement(new IrReturn(new IrFunctionCall("_"
+							+ parentClass + "_" + function.name,
+							function.typescheme.getTypeGrammar().name)));
 
-							// TODO: check this with Jimmy
-							fun.addFunctionArgument(new IrTypeTuple(new IrType(
-									"void*"), "ConstructableComponent"));
-							program.addGlobalFunction(fun);
-						}
-					}
-					superClass = context.getSuperType(superClass);
-				}
-				else{
-					superClass = null;
+					// TODO: check this with Jimmy
+					fun.addFunctionArgument(new IrTypeTuple(
+							new IrType("void*"), "ConstructableComponent"));
+					program.addGlobalFunction(fun);
 				}
 			}
+			superClass = context.getSuperType(superClass);
+
 		}
 
 	}
@@ -228,13 +221,17 @@ public class CubexClassGrammar {
 		// Find constructable component
 		if (extendsType instanceof CubexTypeIntersection) {
 			CubexTypeIntersection typeIntersection = (CubexTypeIntersection) extendsType;
-			ClassContextElement element1 = context.getElementFromClassContext(typeIntersection.typeGrammar1.name);
-			ClassContextElement element2 = context.getElementFromClassContext(typeIntersection.typeGrammar2.name);
+			ClassContextElement element1 = context
+					.getElementFromClassContext(typeIntersection.typeGrammar1.name);
+			ClassContextElement element2 = context
+					.getElementFromClassContext(typeIntersection.typeGrammar2.name);
 			superElement = element1.Intersection(element2);
 		}
 
-		else if (extendsType.getName().equals("Thing") || context.containsClassName(extendsType.getName())) {
-			superElement = context.getElementFromClassContext(extendsType.getName());
+		else if (extendsType.getName().equals("Thing")
+				|| context.containsClassName(extendsType.getName())) {
+			superElement = context.getElementFromClassContext(extendsType
+					.getName());
 			if (!extendsType.getName().equals("Thing")) {
 				superFunction = superElement.functionMap;
 				superFunctionStatements = superElement.functionStatementMap;
@@ -242,10 +239,9 @@ public class CubexClassGrammar {
 		} else {
 			throw new SemanticException("Supertype not found");
 		}
-		if(superElement.isClass){
+		if (superElement.isClass) {
 			constructableComponent = superElement.name;
-		}
-		else{
+		} else {
 			constructableComponent = "Thing";
 		}
 

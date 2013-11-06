@@ -149,7 +149,8 @@ public final class CubexFunctionApp extends CubexExpression {
 			}
 			cont2 = cont3;
 			cont3 = new TypeContext();
-
+			System.out.println(c);
+			System.out.println(element);
 			element = c.classContext.get(element.type.getName());
 			typeScheme = element.functionMap.get(v_v).replaceParams(cont2);
 			if(element.name.equals("Thing")) throw new SemanticException("Method does not exist");

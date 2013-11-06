@@ -61,23 +61,20 @@ public class CubexInterface {
 		}
 		String parentClass = context.getSuperType(name);
 		String superClass = parentClass;
-		if (superClass != null) {
-			while (!superClass.equals("Thing")) {
-				for (CubexFunctionDef function : context
-						.functionSet(superClass)) {
-					if (!addedFunctions.contains(function)) {
-						addedFunctions.add(function.name);
-						IrFunction fun = function.toIr(context);
-						fun.addStatement(new IrReturn(new IrFunctionCall("_"
-								+ parentClass + "_" + function.name,
-								function.typescheme.getTypeGrammar().name)));
-						fun.addFunctionArgument(new IrTypeTuple(new IrType(
-								"void**"), "ConstructableComponent"));
-						program.addGlobalFunction(fun);
-					}
+		while (!superClass.equals("Thing")) {
+			for (CubexFunctionDef function : context.functionSet(superClass)) {
+				if (!addedFunctions.contains(function)) {
+					addedFunctions.add(function.name);
+					IrFunction fun = function.toIr(context);
+					fun.addStatement(new IrReturn(new IrFunctionCall("_"
+							+ parentClass + "_" + function.name,
+							function.typescheme.getTypeGrammar().name)));
+					fun.addFunctionArgument(new IrTypeTuple(
+							new IrType("void**"), "ConstructableComponent"));
+					program.addGlobalFunction(fun);
 				}
-				superClass = context.getSuperType(superClass);
 			}
+			superClass = context.getSuperType(superClass);
 		}
 
 	}

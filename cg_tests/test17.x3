@@ -1,0 +1,15 @@
+interface Aa{
+	fun foo() : Integer = 1;
+}
+
+interface Bb extends Aa{
+	fun bar() : Integer = 2;
+}
+
+class Cc() extends Bb{
+	super();
+}
+
+a := Cc().foo();
+
+return [];

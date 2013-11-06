@@ -1,39 +1,48 @@
 # Test for memory leaks
 
-interface Color(String color){
+class Color(color : String){
+	super();
 	fun getColor() : String = color;
 }
 
-class Black(){
-	super("Black");
+class Red() extends Color{
 	r := 256;
-	g := 256;
+	g := 0;
+	b := 0;
+	super("Red");
+}
+
+class Blue() extends Color{
+	r := 0;
+	g := 0;
 	b := 256;
-	s := getColor();
-	
-	fun getColor() : String = s++"!";
+	super("Blue");
 }
 
 
-fun foo(int : Integer) : Iterable<String> {
-	if (int <= 0) {
-		return (Black().getColor());
-	}
+fun foo(i : Integer) : Iterable<Color> {
+	if (i <= 0) 
+		return [Red(), Blue()];
 	else
-		return foo(int-1)++foo(int-1);
+		return foo(i-1)++foo(i-1);
 }
 
 
 
-x = foo(20);
-x = foo(18);
-x = foo(16);
-x = foo(14);
-x = foo(12);
-x = foo(10);
-x = foo(8);
-x = foo(6);
-x = foo(4);
-x = foo(2);
+x := foo(20);
+x := foo(18);
+x := foo(16);
+x := foo(14);
+x := foo(12);
+x := foo(10);
+x := foo(8);
+x := foo(6);
+x := foo(4);
+x := foo(2);
 
-return x;
+y := [];
+for (i in x){
+	y := y++[i.getColor()];
+}
+
+return [];

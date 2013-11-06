@@ -1,8 +1,11 @@
-fun foo(int : Integer) : Iterable<String> {
+fun foo(int : Integer) : Iterable<String> 
+{
 	counter := 0;
 	output := [];
-	while (counter < int){
-		output++["foo"];
+	while (counter < int)
+	{
+		output := output++["foo"];
+		counter := counter +1;
 	}
 	return output;
 }
