@@ -1,6 +1,5 @@
-interface Aa()
+interface Aa
 {
-	super();
 	fun getString() : String = "Hello World!";
 }
 
