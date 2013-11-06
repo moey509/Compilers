@@ -300,6 +300,10 @@ git_t iterable_append (git_t first, git_t second) {
     temp->val = itr->val;
     temp->is_int = itr->is_int;
     temp->next = NULL;
+
+    temp->is_input = itr->is_input;
+    temp->storage = itr->storage;
+
     itr = itr->next;  
     /* update pointers */
     if (prev != NULL){ 
@@ -318,6 +322,10 @@ git_t iterable_append (git_t first, git_t second) {
     temp->val = itr->val;
     temp->is_int = itr->is_int;
     temp->next = NULL;
+
+		temp->is_input = itr->is_input;
+    temp->storage = itr->storage;
+
     itr = itr->next;  
     /* update pointers */
     if (prev != NULL) { 
