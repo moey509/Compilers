@@ -64,8 +64,11 @@ public class CubexProgramStatement implements CubexProgramType {
 			CubexBind cubexBind = (CubexBind) statement;
 			program.addGlobalVariable(cubexBind.toIr(context));
 		}
-		program.addMainStatement(statement.toIr(context));
+		IrStatement s = statement.toIr(context);
+		program.addMainStatement(s);
+		for(IrBind bind : s.getTemporaryVariables()){
+			program.addGlobalVariable(bind);
+		}
 		return program;
-
 	}
 }
