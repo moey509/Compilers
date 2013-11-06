@@ -23,12 +23,9 @@ public class CubexIterable extends CubexExpression {
 	}
 	
 	public ArrayList<IrBind> getExpressions(IrGenerationContext context){
-		System.out.println("ITERABLE getExpression");
 		ArrayList<IrBind> arr = new ArrayList<IrBind>();
 		for(CubexExpression e : list.contextCollection){
-			System.out.println("Expressions string: " + e.toString());
 			arr.addAll(e.getExpressions(context));
-			System.out.println("Size of array: " + arr.size());
 		}
 		if(arr.size() == 0){
 			IrType t = new IrType("void*");
