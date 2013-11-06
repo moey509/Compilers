@@ -20,5 +20,6 @@ x = foo(10);
 x = foo(8);
 x = foo(6);
 x = foo(4);
+x = foo(2);
 
-return foo(2);
+return x;

@@ -1,0 +1,9 @@
+fun returnAppend(){
+	a := [];
+	for (i in input){
+		a++["Hello, "++i];
+	}
+	return a;
+}
+
+return returnAppend();
