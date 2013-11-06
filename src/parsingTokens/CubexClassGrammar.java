@@ -112,21 +112,18 @@ public class CubexClassGrammar {
 	// thing
 	private void addConstructor(IrGenerationContext context, IrProgram program) {
 		IrFunction irFunction = new IrFunction(new IrType(name), "_" + name);
+		irFunction.isConstructor = true;
 		context.addGlobalFunction("_" + name);
 		for (CubexTypeTuple tuple : typecontext.iterable()) {
-			IrTypeTuple argument = new IrTypeTuple(tuple.getTypeGrammar()
-					.toIrType(), tuple.getName());
+			IrTypeTuple argument = new IrTypeTuple(tuple.getTypeGrammar().toIrType(), tuple.getName());
 			irFunction.addFunctionArgument(argument);
-			irFunction.addStatement(new IrBind(new IrTypeTuple(tuple
-					.getTypeGrammar().toIrType(), tuple.getName()),
-					new IrVariableExpression(tuple.getName(), tuple
-							.getTypeGrammar().toIrType().type)));
+			irFunction.addStatement(new IrBind(new IrTypeTuple(tuple.getTypeGrammar().toIrType(), "__struct->" +tuple.getName()),
+					new IrVariableExpression(tuple.getName(), tuple.getTypeGrammar().toIrType().type)));
 		}
 		for (CubexStatement stmt : statements.iterable()) {
 			irFunction.addStatement(stmt.toIr(context));
 		}
-		IrExpression e = new IrFunctionCall(this.constructableComponent,
-				this.constructableComponent + "*");
+		IrExpression e = new IrFunctionCall(this.constructableComponent,this.constructableComponent + "*");
 		irFunction.addSuperCall(e);
 		program.addGlobalFunction(irFunction);
 	}

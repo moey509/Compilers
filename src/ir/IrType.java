@@ -9,24 +9,10 @@ public class IrType {
 	}
 
 	public String toC() {
-		if (type == "Integer")
-			return "int";
-		if (type == "Character")
-			return "char";
-		if (type == "String")
-			return "char*";
-		else
-			return type;
+		return type + "_t";
 	}
 
 	public String declarationInStruct(){
-		if (type == "Integer")
-			return "int";
-		if (type == "Character")
-			return "char";
-		if (type == "String")
-			return "char*";
-		
-		return "struct *" + type;
+		return type + "_t";
 	}
 }
