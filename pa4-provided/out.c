@@ -8,13 +8,13 @@ typedef struct git * git_t;
 typedef struct nit * nit_t;
 typedef struct iterator * iterator_t;
 typedef struct iterable * iterable_t;
-typedef struct general * general_t;
-typedef struct integer * integer_t;
-typedef struct character * character_t;
-typedef struct boolean * boolean_t;
+typedef struct General * General_t;
+typedef struct Integer * Integer_t;
+typedef struct Character * Character_t;
+typedef struct Boolean * Boolean_t;
 
 
-struct general {
+struct General {
   int ref_count;
   char** fun_names;
   int fun_length;
@@ -25,7 +25,7 @@ struct general {
   int is_thru_ward;
 };
 
-struct character {
+struct Character {
   int ref_count;
   char** fun_names;
   int fun_length;
@@ -37,7 +37,7 @@ struct character {
   char value;
 };
 
-struct integer {
+struct Integer {
   int ref_count;
   char** fun_names;
   int fun_length;
@@ -49,7 +49,7 @@ struct integer {
   int value;
 };
 
-struct boolean {
+struct Boolean {
   int ref_count;
   char** fun_names;
   int fun_length;
@@ -117,8 +117,8 @@ struct nit
   int status;
 };
 
-character_t new_character(int input) {
-  character_t c = (character_t)x3malloc(sizeof(struct character));
+Character_t new_character(int input) {
+  Character_t c = (Character_t)x3malloc(sizeof(struct Character));
   c->ref_count = 0;
   c->fun_names = NULL;
   c->fun_length = 0;
@@ -131,8 +131,8 @@ character_t new_character(int input) {
   return c;
 }
 
-integer_t new_integer(int input) {
-  integer_t i = (integer_t)x3malloc(sizeof(struct integer));
+Integer_t new_integer(int input) {
+  Integer_t i = (Integer_t)x3malloc(sizeof(struct Integer));
   i->ref_count = 0;
   i->fun_names = NULL;
   i->fun_length = 0;
@@ -145,8 +145,8 @@ integer_t new_integer(int input) {
   return i;
 }
 
-boolean_t new_boolean(int input) {
-  boolean_t b = (boolean_t)x3malloc(sizeof(struct boolean));
+Boolean_t new_boolean(int input) {
+  Boolean_t b = (Boolean_t)x3malloc(sizeof(struct Boolean));
   b->ref_count = 0;
   b->fun_names = NULL;
   b->fun_length = 0;
@@ -324,7 +324,7 @@ iterator_t new_iterator (git_t g) {
   return it;
 }
 
-void ref_decrement(general_t gen) {
+void ref_decrement(General_t gen) {
   if (gen == NULL) 
     return;
   gen->ref_count -= 1;
@@ -334,7 +334,7 @@ void ref_decrement(general_t gen) {
   gen = NULL;
 }
 
-void ref_increment(general_t gen) {
+void ref_increment(General_t gen) {
   gen->ref_count += 1;
 }
 
@@ -352,7 +352,7 @@ char* charToString(git_t g) {
   itr = g;
   counter = 0;
   while (itr != NULL) {
-    buf[counter] = ((character_t)(itr->val))->value;
+    buf[counter] = ((Character_t)(itr->val))->value;
     counter += 1;
     itr=itr->next;
   }
@@ -364,7 +364,7 @@ git_t stringToIterableHelper(char* buf, int offset) {
   if (buf[offset] == '\0') {
     return NULL;
   }
-  character_t c = new_character((int)(buf[offset]));
+  Character_t c = new_character((int)(buf[offset]));
   git_t g = new_git_obj(c);
   return iterable_append(g, stringToIterableHelper(buf, offset+1));
 }
@@ -382,31 +382,31 @@ git_t stringToIterable(char* buf) {
 
 /* the following two are given to us */
 
-integer_t integer_add (integer_t i1, integer_t i2) {
+Integer_t integer_add (Integer_t i1, Integer_t i2) {
   return new_integer(i1->value + i2->value);
 }
 
-integer_t integer_subtract (integer_t i1, integer_t i2) {
+Integer_t integer_subtract (Integer_t i1, Integer_t i2) {
   return new_integer(i1->value - i2->value);
 }
 
-integer_t integer_multiply (integer_t i1, integer_t i2) {
+Integer_t integer_multiply (Integer_t i1, Integer_t i2) {
   return new_integer(i1->value * i2->value);
 }
 
-integer_t integer_divide (integer_t i1, integer_t i2) {
+Integer_t integer_divide (Integer_t i1, Integer_t i2) {
   return new_integer(i1->value / i2->value);
 }
 
-integer_t integer_mod (integer_t i1, integer_t i2) {
+Integer_t integer_mod (Integer_t i1, Integer_t i2) {
   return new_integer(i1->value % i2->value);
 }
 
-integer_t integer_negate (integer_t i1) {
+Integer_t integer_negate (Integer_t i1) {
   return new_integer (0 - (i1->value));
 }
 
-git_t integer_through (integer_t i1, integer_t i2, int include1, int include2) {
+git_t integer_through (Integer_t i1, Integer_t i2, int include1, int include2) {
   int int1;
   int int2;
   int1 = i1->value;
@@ -418,14 +418,14 @@ git_t integer_through (integer_t i1, integer_t i2, int include1, int include2) {
   return new_git_int(0, int1, int2);
 }
 
-git_t integer_onwards (integer_t i1, int include1) {
+git_t integer_onwards (Integer_t i1, int include1) {
   int int1 = i1->value;
   if (include1 == 0)
     int1 = int1 + 1;
   return new_git_int(1, int1, 0);
 }
 
-boolean_t integer_equals (integer_t i1, integer_t i2) {
+Boolean_t integer_equals (Integer_t i1, Integer_t i2) {
   int ans;
   if (i1->value != i2->value)
     ans = 0;
@@ -434,7 +434,7 @@ boolean_t integer_equals (integer_t i1, integer_t i2) {
   return new_boolean(ans);
 }
 
-boolean_t integer_lessThan(integer_t i1, integer_t i2, int strict) {
+Boolean_t integer_lessThan(Integer_t i1, Integer_t i2, int strict) {
   int int1;
   int int2;
   int ans;
@@ -455,7 +455,7 @@ boolean_t integer_lessThan(integer_t i1, integer_t i2, int strict) {
   return new_boolean(ans);
 }
 
-boolean_t character_equals (character_t c1, character_t c2) {
+Boolean_t character_equals (Character_t c1, Character_t c2) {
   int ans;
   if (c1->value == c2->value) 
     ans = 1;
@@ -464,11 +464,11 @@ boolean_t character_equals (character_t c1, character_t c2) {
   return new_boolean (ans);
 }
 
-boolean_t string_equals (git_t g1, git_t g2) {
+Boolean_t string_equals (git_t g1, git_t g2) {
   git_t t1;
   git_t t2;
-  character_t c1;
-  character_t c2;
+  Character_t c1;
+  Character_t c2;
   int flag;
   int ans;
   t1 = g1;
@@ -490,7 +490,7 @@ boolean_t string_equals (git_t g1, git_t g2) {
   return new_boolean(ans);
 }
 
-boolean_t boolean_negate(boolean_t b) {
+Boolean_t boolean_negate(Boolean_t b) {
   int ans;
   if (b->value == 1)
     ans = 0;
@@ -499,29 +499,29 @@ boolean_t boolean_negate(boolean_t b) {
   return new_boolean(ans);
 }
 
-boolean_t boolean_and (boolean_t b1, boolean_t b2) {
+Boolean_t boolean_and (Boolean_t b1, Boolean_t b2) {
   int ans;
   ans = (b1->value) && (b2->value);
   return new_boolean(ans);
 }
 
-boolean_t boolean_or (boolean_t b1, boolean_t b2) {
+Boolean_t boolean_or (Boolean_t b1, Boolean_t b2) {
   int ans;
   ans = (b1->value) || (b2->value);
   return new_boolean(ans);
 }
 
-boolean_t boolean_equals (boolean_t b1, boolean_t b2) {
+Boolean_t boolean_equals (Boolean_t b1, Boolean_t b2) {
   int ans;
   ans = (b1->value) == (b2->value);
   return new_boolean(ans);
 }
 
-git_t boolean_through (boolean_t b1, boolean_t b2, int include1, int include2) {
+git_t boolean_through (Boolean_t b1, Boolean_t b2, int include1, int include2) {
   int int1;
   int int2;
   git_t g1;
-  boolean_t bool1;
+  Boolean_t bool1;
   int1 = b1->value;
   int2 = b2->value; 
   if (include1 == 0) 
@@ -533,7 +533,7 @@ git_t boolean_through (boolean_t b1, boolean_t b2, int include1, int include2) {
     g1 = new_git_obj(bool1);
     int1 += 1;
     if (int1 <= int2) {
-      boolean_t bool2 = new_boolean(int1);
+      Boolean_t bool2 = new_boolean(int1);
       git_t g2 = new_git_obj(bool2);
       g1->next = g2;
     }
@@ -543,8 +543,8 @@ git_t boolean_through (boolean_t b1, boolean_t b2, int include1, int include2) {
   return g1;
 }
 
-git_t boolean_onwards (boolean_t b1, int include) {
-  boolean_t bool1;
+git_t boolean_onwards (Boolean_t b1, int include) {
+  Boolean_t bool1;
   git_t g1;
   int int1 = b1->value;
   if (include == 0)
@@ -554,7 +554,7 @@ git_t boolean_onwards (boolean_t b1, int include) {
     g1 = new_git_obj(bool1);
     int1 += 1;
     if (int1 <= 1) {
-      boolean_t bool2 = new_boolean(int1);
+      Boolean_t bool2 = new_boolean(int1);
       git_t g2 = new_git_obj(bool2);
       g1->next = g2;
     }
@@ -564,7 +564,7 @@ git_t boolean_onwards (boolean_t b1, int include) {
   return g1;
 }
 
-boolean_t boolean_lessThan(boolean_t b1, boolean_t b2, int strict) {
+Boolean_t boolean_lessThan(Boolean_t b1, Boolean_t b2, int strict) {
   int int1;
   int int2;
   int ans;
@@ -585,8 +585,8 @@ boolean_t boolean_lessThan(boolean_t b1, boolean_t b2, int strict) {
   return new_boolean(ans);
 } 
 
-general_t Thing(){
-  general_t __struct = (general_t)malloc(sizeof(general));
+General_t Thing(){
+  General_t __struct = (General_t)malloc(sizeof(General));
   __struct->ref_count = 0;
   __struct->fun_names = NULL;
   __struct->fun_length = 0;
