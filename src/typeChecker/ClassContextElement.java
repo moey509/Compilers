@@ -13,7 +13,7 @@ import parsingTokens.typeGrammar.CubexTypeGrammar;
 import parsingTokens.typeGrammar.CubexTypeIntersection;
 
 public class ClassContextElement {
-	private boolean isClass; // Class or interface
+	public boolean isClass; // Class or interface
 	private boolean isIntersection;
 	public String name;
 	public CubexTypeGrammar type;

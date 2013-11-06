@@ -233,17 +233,13 @@ public class CubexClassGrammar {
 		// Find constructable component
 		if (extendsType instanceof CubexTypeIntersection) {
 			CubexTypeIntersection typeIntersection = (CubexTypeIntersection) extendsType;
-			ClassContextElement element1 = context
-					.getElementFromClassContext(typeIntersection.typeGrammar1.name);
-			ClassContextElement element2 = context
-					.getElementFromClassContext(typeIntersection.typeGrammar2.name);
+			ClassContextElement element1 = context.getElementFromClassContext(typeIntersection.typeGrammar1.name);
+			ClassContextElement element2 = context.getElementFromClassContext(typeIntersection.typeGrammar2.name);
 			superElement = element1.Intersection(element2);
 		}
 
-		else if (extendsType.getName().equals("Thing")
-				|| context.containsClassName(extendsType.getName())) {
-			superElement = context.getElementFromClassContext(extendsType
-					.getName());
+		else if (extendsType.getName().equals("Thing") || context.containsClassName(extendsType.getName())) {
+			superElement = context.getElementFromClassContext(extendsType.getName());
 			if (!extendsType.getName().equals("Thing")) {
 				superFunction = superElement.functionMap;
 				superFunctionStatements = superElement.functionStatementMap;
@@ -251,7 +247,12 @@ public class CubexClassGrammar {
 		} else {
 			throw new SemanticException("Supertype not found");
 		}
-		constructableComponent = superElement.name;
+		if(superElement.isClass){
+			constructableComponent = superElement.name;
+		}
+		else{
+			constructableComponent = "Thing";
+		}
 
 		if (this.name != "String") {
 			if (superElement.name == "Iterable") {
