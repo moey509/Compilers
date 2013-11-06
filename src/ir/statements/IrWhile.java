@@ -21,6 +21,8 @@ public final class IrWhile implements IrStatement {
 	
 	public void addDeclaration(ArrayList<String> arr, CGenerationContext context){
 	}
+	public void addInitialization(ArrayList<String> arr, CGenerationContext context){
+	}
 	
 	public void setFreeContext(ArrayList<String> fc) {
 		freeContext = fc;

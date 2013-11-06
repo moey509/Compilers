@@ -26,6 +26,8 @@ public class IrIf implements IrStatement {
 	
 	public void addDeclaration(ArrayList<String> arr, CGenerationContext context){
 	}
+	public void addInitialization(ArrayList<String> arr, CGenerationContext context){
+	}
 	
 	public void setFreeContext(ArrayList<String> fc, ArrayList<String> fc2) {
 		freeContext = fc;

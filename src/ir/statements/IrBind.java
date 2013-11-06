@@ -23,6 +23,13 @@ public final class IrBind implements IrStatement {
 			context.variablesDeclaredInScope.add(tuple.variableName);
 		}
 	}
+	
+	public void addInitialization(ArrayList<String> arr, CGenerationContext context){
+		if(!context.variablesInitializedInScope.contains(tuple.variableName)){
+			arr.add(tuple.variableName + " = NULL;");
+			context.variablesInitializedInScope.add(tuple.variableName);
+		}
+	}
 
 	@Override
 	public ArrayList<String> toC(CGenerationContext context) {

@@ -47,6 +47,8 @@ public class IrFor implements IrStatement {
 //	}
 	public void addDeclaration(ArrayList<String> arr, CGenerationContext context){
 	}
+	public void addInitialization(ArrayList<String> arr, CGenerationContext context){
+	}
 	
 	public ArrayList<String> toC(CGenerationContext context) {
 		ArrayList<String> output = new ArrayList<String>();
@@ -63,6 +65,12 @@ public class IrFor implements IrStatement {
 				b.addDeclaration(output, context);
 			}
 			s.addDeclaration(output, context);
+		}
+		for(IrStatement s : statements){
+			for(IrBind b : s.getTemporaryVariables()){
+				b.addInitialization(output, context);
+			}
+			s.addInitialization(output, context);
 		}
 		output.add(tempVar);
 		

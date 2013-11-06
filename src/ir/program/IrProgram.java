@@ -56,6 +56,12 @@ public class IrProgram {
 				context.variablesDeclaredInScope.add(tuple.variableName);
 			}
 		}
+		for (IrTypeTuple tuple : globalVariables){
+			if(!context.variablesInitializedInScope.contains(tuple.variableName)){
+				output.add(tuple.variableName + " = NULL;");
+				context.variablesInitializedInScope.add(tuple.variableName);
+			}
+		}
 		for (IrFunction irFunction : globalFunctions){
 			output.addAll(irFunction.toC(context));
 		}
