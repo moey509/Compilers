@@ -920,7 +920,7 @@ boolean_t boolean_lessThan(boolean_t b1, boolean_t b2, int strict) {
   int ans;
   int1 = b1->value;
   int2 = b2->value;
-  if (strict == 1) {
+  if (strict == 0) {
     if (int1 <= int2)
       ans = 1;
     else 
@@ -1090,27 +1090,26 @@ void fun_test() {
   g = boolean_onwards(b1, 1);
   it_boolean_toString(g, 5);
   printf (" ^ NULL\n");
+
+  printf ("\n lessthan\n\n");
+  b1 = new_boolean(0);
+  b2 = new_boolean(1);
+  
+  b = boolean_lessThan(b1, b2, 0);
+  printf ("1 --> %d\n", b->value);
+  b = boolean_lessThan(b1, b2, 1);
+  printf ("1 --> %d\n", b->value);
+  b = boolean_lessThan(b2, b1, 0);
+  printf ("0 --> %d\n", b->value);
+  b = boolean_lessThan(b2, b1, 1);
+  printf ("0 --> %d\n", b->value);
+
+  b2 = new_boolean(0);
+  b = boolean_lessThan(b1, b2, 0);
+  printf ("1 --> %d\n", b->value);
+  b = boolean_lessThan(b1, b2, 1);
+  printf ("0---> %d\n", b->value);
 /*
-
-git_t boolean_through (boolean_t b1, boolean_t b2, int include1, int include2) {
-  int int1;
-  int int2;
-  int1 = b1->value;
-  int2 = b2->value; 
-  if (include1 == 0) 
-    int1 = int1 + 1;
-  if (include2 == 0) 
-    int2 = int2 - 1;
-  new_git_int(0, int1, int2);
-}
-
-git_t boolean_onwards (boolean_t b1, int include) {
-  int int1 = b1->value;
-  if (include == 0)
-    int1 = int1 + 1;
-  new_git_int(1, int1, 0);
-}
-
 boolean_t boolean_lessThan(boolean_t b1, boolean_t b2, int strict) {
   int int1;
   int int2;
