@@ -585,5 +585,18 @@ boolean_t boolean_lessThan(boolean_t b1, boolean_t b2, int strict) {
   return new_boolean(ans);
 } 
 
+general_t Thing(){
+  general_t __struct = (general_t)malloc(sizeof(general));
+  __struct->ref_count = 0;
+  __struct->fun_names = NULL;
+  __struct->fun_length = 0;
+  __struct->fun_ptrs = NULL;
+  __struct->ptr_length = 0;
+  __struct->con_comp = NULL;
+  __struct->is_iter = 0;
+  __struct->is_thru_ward = 0;
+  return __struct;
+}
+
 void cubex_main(){
 }
