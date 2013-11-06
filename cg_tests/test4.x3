@@ -1,0 +1,10 @@
+fun foo(int : Integer) : Iterable<String> {
+	counter := 0;
+	output := [];
+	while (counter < int){
+		output++["foo"];
+	}
+	return output;
+}
+
+return foo(5);
