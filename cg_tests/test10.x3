@@ -1,0 +1,12 @@
+interface Aa()
+{
+	super();
+	fun getString() : String = "Hello World!";
+}
+
+class Bb() extends Aa
+{
+	super();
+}
+
+return [Bb().getString()];

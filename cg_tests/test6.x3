@@ -1,0 +1,7 @@
+class Aa()
+{
+	super();
+	fun getString() : String = "Hello World!";
+}
+
+return [Aa().getString()];

@@ -1,0 +1,15 @@
+class Aa()
+{
+	super();
+	fun getStringHelper() : String = "Hello World!";
+}
+
+class Bb() extends Aa
+{
+	super();
+	fun getString() : String {
+		return getStringHelper();
+	}
+}
+
+return [Bb().getString()];

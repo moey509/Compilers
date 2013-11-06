@@ -1,0 +1,13 @@
+class Aa()
+{
+	super();
+	fun getString() : String = "Wrong";
+}
+
+class Bb() extends Aa
+{
+	super();
+	fun getString() : String = "Hello World!";
+}
+
+return [Bb().getString()];
