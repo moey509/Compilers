@@ -68,6 +68,14 @@ struct blah
 /* empty iterables are going to be NULL */
 struct git 
 {
+  int ref_count;
+  char** fun_names;
+  int fun_length;
+  char** fun_ptrs;
+  int ptr_length;
+  void* con_comp;
+  int is_iter;
+  int is_thru_ward;
   void* val;
   git_t next;
   int is_int;
@@ -75,8 +83,17 @@ struct git
 
 struct iterator
 {
+  int ref_count;
+  char** fun_names;
+  int fun_length;
+  char** fun_ptrs;
+  int ptr_length;
+  void* con_comp;
+  int is_iter;
+  int is_thru_ward;
   git_t g;  
   int cur;
+  int set;
 };
 
 
@@ -84,6 +101,14 @@ struct iterator
  for the case of a single number, the value will be held in the field 'low' */
 struct nit 
 {
+  int ref_count;
+  char** fun_names;
+  int fun_length;
+  char** fun_ptrs;
+  int ptr_length;
+  void* con_comp;
+  int is_iter;
+  int is_thru_ward;
   int low;
   int high;
   int status;
@@ -133,10 +158,10 @@ boolean_t new_boolean(int input) {
 
 /*returns whether there is another element left */
 int hasNext(iterator_t it) {
-  if (it == NULL || it->g == NULL)
-    return 0;
   git_t g;
   nit_t n;
+  if (it == NULL || it->g == NULL)
+    return 0;  
   /* through and onward cases */
   g = it->g;
   if (g->is_int == 1) {
@@ -145,7 +170,7 @@ int hasNext(iterator_t it) {
     if (n->status == 0) {
       if (it->cur > n->high) {
         it->g = g->next;
-        it->cur = NULL;
+        it->set = 0;
         return hasNext(it);
       }
       return 1;
@@ -163,48 +188,50 @@ int hasNext(iterator_t it) {
 
 /* returns a pointer to the next elements */
 void* getNext(iterator_t it) {
+  void * temp;
+  int int_temp;
+  git_t g;
+  nit_t n;
   if (it == NULL || it->g == NULL) {
     return NULL;
   }
-  void * temp;
-  git_t g;
-  nit_t n;
-
   g = it->g;
   /* onward and through cases */
   if (g->is_int == 1) {
     n = g->val;
     /* set cur value if not set yet */
-    if (it->cur == NULL) 
+    if (it->set == 0) {
       it->cur = n->low;
+      it->set = 1;
+    }
     /* through case */
     if (n->status == 0) {
       /* case with no data */
       if (it->cur > n->high) {
         it->g = g->next;
-        it->cur = NULL;
+        it->set = 0;
         return getNext(it);
       }
-      temp = it->cur;
+      int_temp = it->cur;
       /* increment value */
       it->cur += 1;
       if ((int)(it->cur) > (int)(n->high)) {
         it->g = g->next;
-        it->cur = NULL;        
+        it->set = 0;        
       }
     }
     /* infinite case */
     else {
-      temp = it->cur;
+      int_temp = it->cur;
       it->cur += 1;
     }
-    return new_integer(temp);
+    return new_integer(int_temp);
   }
   /* regular case */
   else {
     temp = g->val;
     it->g = g->next;
-    it->cur = NULL;
+    it->set = 0;
     return temp;
   }
 }
@@ -288,7 +315,8 @@ git_t new_git_int (int status, int low, int high) {
 iterator_t new_iterator (git_t g) {
   iterator_t it = (iterator_t) malloc(sizeof(struct iterator));
   it->g = g;
-  it->cur = NULL;
+  it->cur = 0;
+  it->set = 0;
   return it;
 }
 
@@ -1136,12 +1164,12 @@ boolean_t boolean_lessThan(boolean_t b1, boolean_t b2, int strict) {
 
 int main()
 {
-  /*
+  
   charTest(); 
   intTest();
   misc_test();
   for_test();
-*/
+
   /* charToStringTest();*/
   /*stringTest();  */
 
