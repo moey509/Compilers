@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import ir.expressions.IrVariableExpression;
+import ir.statements.IrBind;
+import ir.statements.IrFor;
 import ir.statements.IrIf;
 import Exception.SemanticException;
 import parsingTokens.expressions.CubexExpression;
@@ -33,13 +36,23 @@ public class CubexIf extends CubexStatement {
 	}
 	
 	public IrIf toIr(IrGenerationContext context) {
-		IrIf ir = new IrIf(e.toIr(context));
+		IrIf ir;
+		
+		ArrayList<IrBind> arr = e.getExpressions(context);
+		if(arr.size() == 0){
+			ir = new IrIf(e.toIr(context));
+		}
+		else{
+			IrBind b = arr.get(arr.size()-1);
+			ir = new IrIf(new IrVariableExpression(b.tuple.variableName, b.tuple.type.type));
+			ir.temporaryBinds.addAll(arr);
+		}
+		
+		
 		ir.addStatement1(s1.toIr(context));
 		if (s2 != null){
 			ir.addStatement2(s2.toIr(context));
 		}
-		System.out.println(this);
-		System.out.println(freeContext);
 		ir.setFreeContext(new ArrayList<String>(freeContext), new ArrayList<String>(freeContext2));
 		return ir;
 	}

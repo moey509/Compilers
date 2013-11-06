@@ -40,7 +40,6 @@ public final class CubexBind extends CubexStatement {
 		}
 		ArrayList<IrBind> arr = e.getExpressions(context);
 		if(arr.size() == 0){
-			System.out.println("In IrBind: " + type.type);
 			IrBind b = new IrBind(new IrTypeTuple(type, s+classid), e.toIr(context));
 			return b;
 		}

@@ -123,7 +123,6 @@ public class CubexClassGrammar {
 							.getTypeGrammar().toIrType().type)));
 		}
 		for (CubexStatement stmt : statements.iterable()) {
-			System.out.println("Statement" + stmt.toIr(context).toString());
 			irFunction.addStatement(stmt.toIr(context));
 		}
 		IrExpression e = new IrFunctionCall(this.constructableComponent,
@@ -144,7 +143,6 @@ public class CubexClassGrammar {
 		String superClass = parentClass;
 
 		if (superClass != null) {
-			System.out.println(superClass);
 			while ((superClass != null) && (superClass.equals("Thing"))) {
 				if (context.functionSet(superClass) != null) {
 					for (CubexFunctionDef function : context

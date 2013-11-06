@@ -60,7 +60,6 @@ public class CubexInterface {
 			program.addGlobalFunction(funDef.toIr(context));
 		}
 		String parentClass = context.getSuperType(name);
-		System.out.println(context.toString());
 		String superClass = parentClass;
 		if (superClass != null) {
 			while (!superClass.equals("Thing")) {

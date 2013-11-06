@@ -12,7 +12,6 @@ public final class IrInteger implements IrExpression {
 
 	public IrInteger(int value) {
 		mValue = value;
-		System.out.println(mValue);
 		type = IrMiscFunctions.INTEGER;
 	}
 	

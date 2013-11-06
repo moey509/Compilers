@@ -49,8 +49,6 @@ public class IrBinaryExpression implements IrExpression {
 	}
 
 	public String toC(CGenerationContext context) {
-		System.out.println(leftExpression.toC(context) + " " + leftExpression.getType());
-		System.out.println(operator);
 		if (leftExpression.getType().equals(IrMiscFunctions.INTEGER)) {
 			if (operator.equals("+"))
 				return "integer_add(" + leftExpression.toC(context) + ", "

@@ -56,11 +56,9 @@ public class IrFor implements IrStatement {
 		String itDeclaration = iterator + " = new_iterator((" + list.toC(context) + "));";
 		String itCondition = "while(hasNext(" + iterator + ")) {";
 		String tempVar = "void* " + var + " = getNext(" + iterator + ");";
-		System.out.println("ENTERS JDFKLSJFLKDSJFLK");
 		output.add(itDeclaration);
 		output.add(itCondition);
 		for(IrStatement s : statements){
-			System.out.println("ENTERS herE");
 			for(IrBind b : s.getTemporaryVariables()){
 				b.addDeclaration(output, context);
 			}

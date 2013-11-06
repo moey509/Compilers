@@ -72,30 +72,43 @@ public final class CubexFunctionApp extends CubexExpression {
 		ArrayList<IrBind> arr = new ArrayList<IrBind>();
 		ArrayList<IrBind> tempParams = new ArrayList<IrBind>();
 		for(CubexExpression e : functionParams.contextCollection){
-			arr.addAll(e.getExpressions(context));
-			tempParams.add(arr.get(arr.size()-1));
+			ArrayList<IrBind> functionParamBinds = new ArrayList<IrBind>();
+			functionParamBinds = e.getExpressions(context);
+			arr.addAll(functionParamBinds);
+			if(functionParamBinds.size() == 0){
+				IrType t = new IrType("void*");
+				IrTypeTuple tuple = new IrTypeTuple(t, e.toString());
+				tempParams.add(new IrBind(tuple, new IrVariableExpression(tuple.variableName, tuple.type.type)));
+			}
+			//Throw in a temporary variable
+			else{
+				tempParams.add(arr.get(arr.size()-1));
+			}
 		}
-		arr.addAll(expr.getExpressions(context));
+		ArrayList<IrBind> thisPointer = expr.getExpressions(context);
+		arr.addAll(thisPointer);
 		IrType t = new IrType("void*");
 		IrTypeTuple tuple = new IrTypeTuple(t, context.nextTemp());
 		IrBind b;
-		if(arr.size() - tempParams.size() == 0){
-			IrFunctionCall call = this.toIr(context);
-			if(tempParams.size() == 0){
-				b = new IrBind(tuple, call);
+		if(tempParams.size() == 0){
+			IrFunctionCall call = new IrFunctionCall(obj + "_" + fun, "void*");
+			if(thisPointer.size() != 0){
+				call.addArgument(new IrVariableExpression(thisPointer.get(thisPointer.size()-1).tuple.variableName, thisPointer.get(thisPointer.size()-1).tuple.type.type));
 			}
 			else{
-				call = new IrFunctionCall(obj + "_" + fun, "void*");
-				for(IrBind bind : tempParams){
-					call.addArgument(new IrVariableExpression(bind.tuple.variableName, bind.tuple.type.type));
-				}
-				b = new IrBind(tuple, call);
-			} 
+				call.addArgument(expr.toIr(context));
+			}
+			b = new IrBind(tuple, call);
 		}
 		else{
 			IrFunctionCall call = new IrFunctionCall(obj + "_" + fun, "void*");
 			//Have to add in all arguments. Must figure out how much each has
-			call.addArgument(new IrVariableExpression(arr.get(arr.size()-1).tuple.variableName, arr.get(arr.size()-1).tuple.type.type));
+			if(thisPointer.size() != 0){
+				call.addArgument(new IrVariableExpression(thisPointer.get(thisPointer.size()-1).tuple.variableName, thisPointer.get(thisPointer.size()-1).tuple.type.type));
+			}
+			else{
+				call.addArgument(expr.toIr(context));
+			}
 			for(IrBind bind : tempParams){
 				call.addArgument(new IrVariableExpression(bind.tuple.variableName, bind.tuple.type.type));
 			}

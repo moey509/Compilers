@@ -44,9 +44,6 @@ public final class IrFunctionCall implements IrExpression {
 				//System.out.println(arr.get(i).toC(context));
 			}
 		}
-		for(IrExpression e :functions){
-			System.out.println("FUNCTIONS THAT I JUST ADDED" + e.toC(context));
-		}
 		for (IrExpression e : arguments){
 			if(firstTime){
 				firstTime = false;

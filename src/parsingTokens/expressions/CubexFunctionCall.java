@@ -68,8 +68,7 @@ public final class CubexFunctionCall extends CubexExpression {
 		return v_vc + " < " + typeParams.toString(",") + rightSpace1 + "> ( " + functionParams.toString(",") + rightSpace2 + ")";
 	}
 
-	public CubexTypeGrammar typeCheck(CubexCompleteContext c)
-			throws SemanticException {
+	public CubexTypeGrammar typeCheck(CubexCompleteContext c) throws SemanticException {
 		CubexTypeScheme typeScheme;
 		if (c.containsFunctionName(v_vc)) {
 			typeScheme = c.getTypeSchemeFromFunctionContext(v_vc);
