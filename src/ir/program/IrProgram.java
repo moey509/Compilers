@@ -56,7 +56,7 @@ public class IrProgram {
 				context.variablesDeclaredInScope.add(tuple.variableName);
 			}
 		}
-		output.add("git_t _it1;");
+		output.add("iterator_t _it1;");
 		output.add("git_t _return;");
 		
 		for (IrFunction irFunction : globalFunctions){
