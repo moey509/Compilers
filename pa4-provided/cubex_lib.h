@@ -669,12 +669,12 @@ void toString(git_t g) {
   }
   iterator_t it;
   it = new_iterator(g);
-  git_t c;
+  Character_t c;
   int temp = count;
   while (count > 0) {
     c = getNext(it);
-    buffer = charToString(c);
-    printf ("--> %s\n", buffer);
+    /*buffer = charToString(c); */
+    printf ("--> %c\n", c->value);
      
     if (!hasNext(it)) {
       printf ("[null]\n");
