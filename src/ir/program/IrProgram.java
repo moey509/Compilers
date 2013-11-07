@@ -63,6 +63,8 @@ public class IrProgram {
 			output.addAll(irFunction.toC(context));
 		}
 		output.add("void cubex_main(){");
+		output.add("git_t _input = NULL;");
+		output.add("_input = get_input(_input);");
 		for (IrTypeTuple tuple : globalVariables){
 			if(!context.variablesInitializedInScope.contains(tuple.variableName)){
 				output.add(tuple.variableName + " = NULL;");
