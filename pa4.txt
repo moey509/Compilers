@@ -1,0 +1,14 @@
+Programming Assignment 4: Code Generation
+
+COLLABORATION:
+We did not consult with any other group on the implementation of the code generator.
+
+DISTRIBUTION:
+- Jimmy handled the architecture and creation of our C code from our IR.
+- Ansha handled fixing bugs in our type checker and garbage collection
+- Matt handled the functions to generate the IR tree from our AST.
+- Toshi handled writing C code functions that were used by our program, including functions to handle Iterables.
+
+ADDITIONAL COMMENTS:
+None
+
