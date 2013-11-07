@@ -61,13 +61,6 @@ struct Boolean {
   int value;
 };
 
-
-struct blah
-{
-  int val;
-  blah_t next;
-};
-
 /* empty iterables are going to be NULL */
 struct git 
 {
@@ -84,6 +77,8 @@ struct git
   int is_int;
   git_t storage;
   int is_input;
+  int is_input_head;
+  int dummy;
 };
 
 struct iterator
@@ -129,7 +124,7 @@ Character_t new_character(int input) {
   c->con_comp = NULL; 
   c->is_iter = 0;
   c->is_thru_ward = 0;
-  c->value = unichar(intput); /* will get replaced by included function */
+  c->value = unichar(input); /* will get replaced by included function */
   return c;
 }
 
@@ -168,6 +163,7 @@ int hasNext(iterator_t it) {
   if (it == NULL || it->g == NULL) {
     return 0;  
   }
+
   /* through and onward cases */
   g = it->g;
   if (g->is_int == 1) {
@@ -202,6 +198,7 @@ void* getNext(iterator_t it) {
     return NULL;
   }
   g = it->g;
+
   /* onward and through cases */
   if (g->is_int == 1) {
     n = g->val;
@@ -256,42 +253,6 @@ git_t iterable_append (git_t first, git_t second) {
   git_t prev = NULL;
   g = NULL;
 
-  /* input cases */
-  if (first->is_input == 1 || second->is_input == 1) {
-  	/* input appended with input */
-  	if (first->is_input == 1 && second->is_input == 1) {
-  		itr = first->
-  		first->storage = second;
-
-  	}
-
-  	/*** NEED TO CLONE OTHER NODES TOO!!!! ***/
-
-  	/* first */
-  	if (first->is_input == 1) {  		
-  		temp = iterable_append(input->storage, second);
-  		itr = first->storage;
-  		if (itr == NULL) {
-  			itr = temp;
-  			return first;
-  		}
-  		while (itr->next != NULL) 
-  			itr = itr->next;
-  		itr->next = temp;
-  		return;
-  	}
-  	/* second */
-  	else {
-  		temp = iterable_append(first, NULL);
-  		if (temp == NULL)
-  			return second;
-  		itr = temp;
-  		while(itr->next != NULL) 
-  			itr = itr->next;
-  		itr->next = second;
-  	}
-  }
-
   /* regular cases */
   /* first */
   itr = first;
@@ -302,6 +263,7 @@ git_t iterable_append (git_t first, git_t second) {
     temp->next = NULL;
 
     temp->is_input = itr->is_input;
+    temp->is_input_head = itr->is_input_head;
     temp->storage = itr->storage;
 
     itr = itr->next;  
@@ -324,6 +286,7 @@ git_t iterable_append (git_t first, git_t second) {
     temp->next = NULL;
 
 		temp->is_input = itr->is_input;
+		temp->is_input_head = itr->is_input_head;
     temp->storage = itr->storage;
 
     itr = itr->next;  
@@ -356,6 +319,7 @@ git_t new_git_obj (void* obj) {
 
   g->val = obj;
   g->is_int = 0;
+  g->dummy = 0;
   g->next = NULL;
 
   g->storage = NULL;
@@ -384,6 +348,7 @@ git_t new_git_int (int status, int low, int high) {
   g->val = n;
   g->is_int = 1;
   g->next = NULL;
+  g->dummy = 0;
 
   g->storage = NULL;
   g->is_input = 0;
@@ -660,7 +625,7 @@ Boolean_t boolean_lessThan(Boolean_t b1, Boolean_t b2, int strict) {
 } 
 
 General_t Thing(){
-  General_t __struct = (General_t)malloc(sizeof(General));
+  General_t __struct = (General_t)x3malloc(sizeof(struct General));
   __struct->ref_count = 0;
   __struct->fun_names = NULL;
   __struct->fun_length = 0;
@@ -672,15 +637,105 @@ General_t Thing(){
   return __struct;
 }
 
+git_t get_input () {
+	char * buf;
+	git_t temp;
+	git_t string;
+	git_t head = NULL;
+	while (next_line_len() > 0) {
+		buf = (char*)x3malloc(sizeof(char*) * next_line_len());
+		read_line(buf);
+		string = stringToIterable(buf);
+		x3free(buf);  
+		temp = new_git_obj(string);
+		head = iterable_append (head, temp);
+	}
+	return head;
+}
+/*
+void request_data(git_t g) {
+	git_t itr;
+	git_t dummy;
+	git_t string;
+
+	itr = g;
+	if (itr == NULL)
+		return;
+	while (itr->dummy == 0) {
+		itr = itr->next;
+	}
+	if (next_line_len() > 0) {
+  	buf = (char*)x3malloc(sizeof(char*) * next_line_len());
+		read_line(buf);
+		string = stringToIterable(buf);
+		x3free(buf);  		
+		itr->dummy = 0;
+		itr->val = string;
+		dummy = new_git_obj(NULL);
+		dummy->dummy = 1;
+		itr->next = dummy;
+  }
+  else {
+  	dummy = itr;
+  	x3free(itr);
+  	dummy = NULL;
+  }
+}
+*/
+
+/*TODO: delete before submitting */
+void toString(git_t g) {
+	int count = 5;
+	char * buffer;
+  if (g == NULL) {
+    printf ("[null]\n");
+    return;
+  }
+  iterator_t it;
+  it = new_iterator(g);
+  git_t c;
+  int temp = count;
+  while (count > 0) {
+    c = getNext(it);
+    buffer = charToString(c);
+    printf ("--> %s\n", buffer);
+    /* count -= 1;*/
+    if (!hasNext(it)) {
+      printf ("[null]\n");
+      return;
+    }
+  }
+}
+
 void cubex_main(){
 	/*TODO: the following lines need to be inserted into the actual C*/ 
-
+	/*git_t dummy;
+	git_t input;
+	dummy = new_git_obj(NULL);
+	dummy->is_input = 1;
 	git_t input = new_git_obj(NULL);
-	input->is_input = 1;
+	input->is_input_head = 1;
+	input->val = (void*)dummy;
+	input->dummy = 1;
 	/* *E*N*D* * * * * * * */
 
+	git_t input = NULL;
+	input = get_input(input);
+	toString(input); 
+
+/*
 	printf ("%d\n", next_line_len());
 	char * b = (char*)malloc(sizeof(char*)*next_line_len());
 	read_line(b);
 	printf ("%s\n", b);
+
+	int counter = 0;
+	while (counter < 10) {
+		printf ("len: %d\n", next_line_len());
+		char * b = (char*)malloc(sizeof(char*)*next_line_len());
+  	read_line(b);
+  	printf ("%s\n", b);
+		counter++;		
+	}
+	*/
 }
