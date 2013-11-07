@@ -1,6 +1,7 @@
 package ir.expressions;
 
 import ir.CGenerationContext;
+import ir.IrType;
 import ir.statements.IrBind;
 
 import java.util.ArrayList;
@@ -8,19 +9,24 @@ import java.util.List;
 
 
 public final class IrFunctionCall implements IrExpression {
-	private String functionName;
-	private List<IrExpression> arguments;
-	private String type;
+	private String functionName;	
+	private List<IrExpressionTuple> arguments;
+	private String type;	
+	
 	public ArrayList<IrExpression> functions = new ArrayList<IrExpression>();
 	
 	public IrFunctionCall(String functionName, String type) {
 		this.functionName = functionName;
-		this.arguments = new ArrayList<IrExpression>();
+		this.arguments = new ArrayList<IrExpressionTuple>();
 		this.type = type;
 	}
 
-	public void addArgument(IrExpression argument){
-		this.arguments.add(argument);
+	public void addArgument(IrType argType, IrExpression argument){
+		this.arguments.add(new IrExpressionTuple(argType, argument));
+	}
+	
+	public void addArgument(String argType, IrExpression argument){
+		this.arguments.add(new IrExpressionTuple(new IrType(argType), argument));
 	}
 
 	public String getType () {
@@ -29,8 +35,8 @@ public final class IrFunctionCall implements IrExpression {
 	
 	public ArrayList<IrBind> getExpressions(CGenerationContext context){
 		ArrayList<IrBind> arr = new ArrayList<IrBind>();
-		for(IrExpression e : arguments){
-			arr.addAll(e.getExpressions(context));
+		for(IrExpressionTuple tuple : arguments){
+			arr.addAll(tuple.expression.getExpressions(context));
 		}
 		return arr;
 	}
@@ -44,16 +50,25 @@ public final class IrFunctionCall implements IrExpression {
 				//System.out.println(arr.get(i).toC(context));
 			}
 		}
-		for (IrExpression e : arguments){
+		for (IrExpressionTuple tuple : arguments){
 			if(firstTime){
 				firstTime = false;
-				sb.append(e.toC(context));
+				sb.append(tuple.expression.toC(context));
 			}
 			else{
-				sb.append(", " + e.toC(context));
+				sb.append(", " + tuple.expression.toC(context));
 			}
 		}
 		
 		return functionName + "(" + sb.toString() + ")" ;
 	}
+}
+
+class IrExpressionTuple{
+	IrType argType;
+	IrExpression expression;
+	public IrExpressionTuple(IrType argType, IrExpression expression) {
+		this.argType = argType;
+		this.expression = expression;
+	}	
 }
