@@ -36,6 +36,7 @@ public final class IrBind implements IrStatement {
 		ArrayList<String> output = new ArrayList<String>();
 		//output.add(tuple.type.toC() + " " + tuple.variableName + " = " + expression.toC(context) + ";");
 		for(IrBind b : temporaryBinds){
+			context.mainVarDecl.put(b.tuple.variableName, "void*");
 			output.addAll(b.toC(context));
 		}
 		if(temporaryBinds.size() > 0){

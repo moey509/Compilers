@@ -55,6 +55,7 @@ public final class IrReturn implements IrStatement {
 		int cur_iterator = context.getCurIterator();
 		context.incrementCurIterator();
 		String iterator = "_it" + cur_iterator;
+		context.mainVarDecl.put(iterator, "iterator_t");
 		String itDeclaration = iterator + " = new_iterator((" + expression.toC(context) + "));";
 		String itCondition = "while(hasNext(" + iterator + ")) {";
 		String tempVar = "_return = getNext(" + iterator + ");";
