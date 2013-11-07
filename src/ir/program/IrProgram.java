@@ -52,20 +52,23 @@ public class IrProgram {
 		}
 		for (IrTypeTuple tuple : globalVariables){
 			if(!context.variablesDeclaredInScope.contains(tuple.variableName)){
-				output.add("void* " + tuple.variableName);
+				output.add("void* " + tuple.variableName + ";");
 				context.variablesDeclaredInScope.add(tuple.variableName);
 			}
 		}
+		output.add("iterator_t _it1;");
+		output.add("iterator_t _return;");
+		
+		for (IrFunction irFunction : globalFunctions){
+			output.addAll(irFunction.toC(context));
+		}
+		output.add("void cubex_main(){");
 		for (IrTypeTuple tuple : globalVariables){
 			if(!context.variablesInitializedInScope.contains(tuple.variableName)){
 				output.add(tuple.variableName + " = NULL;");
 				context.variablesInitializedInScope.add(tuple.variableName);
 			}
 		}
-		for (IrFunction irFunction : globalFunctions){
-			output.addAll(irFunction.toC(context));
-		}
-		output.add("void cubex_main(){");
 		for (IrStatement irStatement : mainFunctionStatements){
 			output.addAll(irStatement.toMainC(context));
 		}

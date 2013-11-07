@@ -63,7 +63,7 @@ public final class IrReturn implements IrStatement {
 		output.add(tempVar);
 		
 		for (String s : freeContext) {
-			if (!s.equals("input"))
+			if (!s.equals("_input"))
 			output.add("ref_decrement(" + s + ");");
 		}
 		
