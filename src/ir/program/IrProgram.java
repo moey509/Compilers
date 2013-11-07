@@ -66,12 +66,10 @@ public class IrProgram {
 		}
 		//CUBEX_MAIN
 		output.add("void cubex_main(){");
-		output.add("git_t _input = NULL;");
-		output.add("_input = get_input();");
 		ArrayList<String> postout = new ArrayList<String>();
 		for (IrTypeTuple tuple : globalVariables){
 			if(!context.variablesInitializedInScope.contains(tuple.variableName)){
-				output.add(tuple.variableName + " = NULL;");
+				postout.add(tuple.variableName + " = NULL;");
 				context.variablesInitializedInScope.add(tuple.variableName);
 			}
 		}
@@ -81,6 +79,8 @@ public class IrProgram {
 		for (String s : context.mainVarDecl.keySet()) {
 			output.add(context.mainVarDecl.get(s) + " " + s + ";");
 		}
+		output.add("git_t _input = NULL;");
+		output.add("_input = get_input();");
 		output.addAll(postout);
 		output.add("}");
 		return output;
