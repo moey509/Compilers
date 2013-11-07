@@ -8,7 +8,7 @@ import ir.CGenerationContext;
 import ir.expressions.IrExpression;
 
 public final class IrWhile implements IrStatement {
-	private ArrayList<String> freeContext;
+	private ArrayList<String> freeContext = new ArrayList<String>();
 	private IrExpression condition;
 	private List<IrStatement> statements;
 	private ArrayList<IrBind> temporaryBinds;
@@ -57,7 +57,6 @@ public final class IrWhile implements IrStatement {
 		for (IrStatement statement : statements){
 			arrList.addAll(statement.toMainC(context));
 		}
-		// TODO: handle garbage collecting the (e)
 		for (String s : freeContext) {
 			arrList.add("ref_decrement(" + s + ");");
 		}

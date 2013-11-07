@@ -8,7 +8,7 @@ import ir.expressions.IrExpression;
 
 public final class IrReturn implements IrStatement {
 	// the Cubex variables to be freed before returning
-	private ArrayList<String> freeContext;
+	private ArrayList<String> freeContext = new ArrayList<String>();
 	private IrExpression expression;
 	public ArrayList<IrBind> temporaryBinds = new ArrayList<IrBind>();
 	

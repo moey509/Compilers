@@ -8,7 +8,7 @@ import ir.expressions.IrExpression;
 
 
 public class IrFor implements IrStatement {
-	private ArrayList<String> freeContext;
+	private ArrayList<String> freeContext = new ArrayList<String>();
 	private IrExpression list;
 	private String var;
 	private List<IrStatement> statements;

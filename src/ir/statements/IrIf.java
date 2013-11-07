@@ -64,7 +64,6 @@ public class IrIf implements IrStatement {
 			arrList.addAll(s1.toC(context));
 		}
 		//ref_decrement the discarded variables
-		//TODO: handle e
 		for (String s : freeContext) {
 			arrList.add("ref_decrement(" + s + ");");
 		}
@@ -92,7 +91,6 @@ public class IrIf implements IrStatement {
 			arrList.addAll(s1.toMainC(context));
 		}
 		//ref_decrement the else discarded variables
-		//TODO: handle e
 		for (String s : freeContext) {
 			arrList.add("ref_decrement(" + s + ");");
 		}
