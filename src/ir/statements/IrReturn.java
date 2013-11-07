@@ -67,8 +67,7 @@ public final class IrReturn implements IrStatement {
 			output.add("ref_decrement(" + s + ");");
 		}
 		
-		
-		output.add("print_line(char* _return, int len)");
+		output.add("print_line(charToString(_return), stringLength(_return))");
 		
 		output.add("}");
 		
