@@ -41,6 +41,7 @@ public final class IrBind implements IrStatement {
 		}
 		if(temporaryBinds.size() > 0){
 			String s = temporaryBinds.get(temporaryBinds.size()-1).tuple.variableName;
+			output.add("ref_decrement((General_t)" + tuple.variableName + ");");
 			output.add(tuple.variableName + " = " + s + ";");
 			output.add("ref_increment((General_t)" + tuple.variableName + ");");
 		}
@@ -52,6 +53,7 @@ public final class IrBind implements IrStatement {
 		}
 		for(IrBind b : temporaryBinds){
 			output.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
+			output.add(b.tuple.variableName + " = NULL;");
 		}
 		return output;
 	}
