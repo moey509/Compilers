@@ -9,6 +9,9 @@ public class IrType {
 	}
 
 	public String toC() {
+		if(type == null){
+			return "git_t";
+		}
 		if (type.equals("String"))
 			return "git_t";
 		else
