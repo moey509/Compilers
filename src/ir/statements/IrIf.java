@@ -3,7 +3,6 @@ package ir.statements;
 import java.util.ArrayList;
 import java.util.List;
 
-import typeChecker.TypeContext;
 import ir.CGenerationContext;
 import ir.expressions.IrExpression;
 
@@ -86,7 +85,13 @@ public class IrIf implements IrStatement {
 	@Override
 	public ArrayList<String> toMainC(CGenerationContext context) {
 		ArrayList<String> arrList = new ArrayList<String>();
+		for (IrBind b : temporaryBinds){
+			arrList.addAll(b.toC(context));
+		}
 		arrList.add("if(" + condition.toC(context) + ") {");
+		for(IrBind b : temporaryBinds){
+			arrList.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
+		}
 		for (IrStatement s1 : statements1) {
 			arrList.addAll(s1.toMainC(context));
 		}

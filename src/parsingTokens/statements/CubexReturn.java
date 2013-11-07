@@ -28,7 +28,9 @@ public final class CubexReturn extends CubexStatement {
 	}
 	
 	public IrReturn toIr(IrGenerationContext context) {
+		System.out.println("before");
 		ArrayList<IrBind> arr = e.getExpressions(context);
+		System.out.println("after");
 		if(arr.size() == 0){
 			IrReturn ir = new IrReturn(e.toIr(context));
 			ir.setFreeContext(new ArrayList<String>(freeContext));
@@ -38,6 +40,7 @@ public final class CubexReturn extends CubexStatement {
 			IrReturn ir = new IrReturn(new IrVariableExpression(arr.get(arr.size()-1).tuple.variableName, arr.get(arr.size()-1).tuple.type.type));
 			ir.setFreeContext(new ArrayList<String>(freeContext));
 			ir.temporaryBinds = arr;
+			System.out.println("In cubexreturn: " + ir.temporaryBinds);
 			return ir;
 		}
 	}

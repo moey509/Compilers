@@ -31,18 +31,19 @@ public class CubexIterable extends CubexExpression {
 		for(CubexExpression e : list.contextCollection){
 			params = e.getExpressions(context);
 			if(params.size() == 0){
-				IrType t = new IrType("void*");
+				IrType t = new IrType("git_t");
 				IrTypeTuple tuple = new IrTypeTuple(t, e.toString());
 				tempBinds.add(new IrBind(tuple, new IrVariableExpression(tuple.variableName, tuple.type.type)));
 			}
 			//Throw in a temporary variable
 			else{
+				System.out.println("In the else: " + this);
 				tempBinds.add(params.get(params.size()-1));
 			}
 			arr.addAll(params);
 		}
 		if(arr.size() == 0){
-			IrType t = new IrType("void*");
+			IrType t = new IrType("git_t");
 			IrTypeTuple tuple = new IrTypeTuple(t, context.nextTemp());
 			IrBind b = new IrBind(tuple, this.toIr(context));
 			arr.add(b);
@@ -54,7 +55,7 @@ public class CubexIterable extends CubexExpression {
 				irE.add(new IrVariableExpression(s.tuple.variableName, s.tuple.type.type));
 			}
 			IrIterable iterable = new IrIterable(irE);
-			IrType t = new IrType("void*");
+			IrType t = new IrType("git_t");
 			IrTypeTuple tuple = new IrTypeTuple(t, context.nextTemp());
 			IrBind b = new IrBind(tuple, iterable);
 			arr.add(b);

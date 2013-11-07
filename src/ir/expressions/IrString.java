@@ -23,9 +23,9 @@ public final class IrString implements IrExpression {
 	
 	public String helper(int index, CGenerationContext context) {
 		if (index == mValue.length() - 2){
-			return ("iterable_append(" + mValue.charAt(index) + ", NULL)");
+			return ("iterable_append(new_git_obj(new_character(charuni('" + mValue.charAt(index) + "'))), NULL)");
 		}
-		return ("iterable_append(" + mValue.charAt(index) + ", " + helper(index+1, context) + ")");
+		return ("iterable_append(new_git_obj(new_character(charuni('" + mValue.charAt(index) + "'))), " + helper(index+1, context) + ")");
 	}
 	
 	// NOTE: STRINGS SHOULD BE CONVERTED INTO ITERABLES OF CHARS

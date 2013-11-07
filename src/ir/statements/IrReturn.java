@@ -34,6 +34,7 @@ public final class IrReturn implements IrStatement {
 	@Override
 	public ArrayList<String> toC(CGenerationContext context) {
 		ArrayList<String> arrList = new ArrayList<String>();
+		System.out.println("In IrReturn: " + temporaryBinds);
 		for(IrBind b : temporaryBinds){
 			arrList.addAll(b.toC(context));
 		}
@@ -58,6 +59,14 @@ public final class IrReturn implements IrStatement {
 		String itCondition = "while(hasNext(" + iterator + ")) {";
 		String tempVar = "_return = getNext(" + iterator + ");";
 		
+		
+		for(IrBind b : temporaryBinds){
+			output.addAll(b.toC(context));
+		}
+		for(int i = 0; i < temporaryBinds.size()-1; i++){
+			IrBind b = temporaryBinds.get(i);
+			output.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
+		}
 		output.add(itDeclaration);
 		output.add(itCondition);
 		output.add(tempVar);
@@ -70,7 +79,9 @@ public final class IrReturn implements IrStatement {
 		output.add("print_line(charToString(_return), stringLength(_return));");
 		
 		output.add("}");
-		
+		for (String s : freeContext) {
+			output.add("ref_decrement((General_t)" + s + ");");
+		}
 		//GARBAGE COLLECT EVERYTHING
 		output.add("return;");
 		return output;

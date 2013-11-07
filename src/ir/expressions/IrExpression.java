@@ -12,5 +12,6 @@ public interface IrExpression {
 	public String toC(CGenerationContext context);
 
 	public ArrayList<IrBind> getExpressions(CGenerationContext context);
-
+	
+	public String toString();
 }
