@@ -65,6 +65,11 @@ public class IrFunction {
 		}
 		s += "){";
 		arr.add(s);
+		
+		for(IrBind b : tempVariables){
+			arr.add(b.tuple.type.type + " " + b.tuple.variableName + ";");
+		}
+		
 		if(isConstructor){
 			s = type.toC() + " __struct = (" + type.toC() + ")(x3malloc(sizeof(struct" + type.toC().substring(0, type.toC().length()-2) + ")));";
 			arr.add(s);
@@ -80,15 +85,14 @@ public class IrFunction {
 			}
 		}
 		
-		for(IrTypeTuple t : arguments){
-			arr.add("__struct->" + t.variableName + " = NULL;");
+		if(isConstructor){
+			for(IrTypeTuple t : arguments){
+				arr.add("__struct->" + t.variableName + " = NULL;");
+			}
 		}
 		
-		//TODO: uhhhh have to know when to reference the struct/
-		for(IrBind b : tempVariables){
-			arr.add(b.tuple.type.type + " " + b.tuple.variableName + ";");
-		}
 		for(IrStatement st : statements){
+			System.out.println(st.toC(context));
 			arr.addAll(st.toC(context));
 		}
 		if(superCall != null){

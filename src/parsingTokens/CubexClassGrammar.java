@@ -132,16 +132,19 @@ public class CubexClassGrammar {
 		HashSet<String> addedFunctions = new HashSet<String>();
 		context.setCurrentClassDeclaration(name);
 		for (CubexFunctionDef funDef : functions.iterable()) {
+			IrFunction fun = funDef.toIr(context);
+			fun.functionName = name + "_" + funDef.name;
+			fun.addFunctionArgument(new IrTypeTuple(new IrType(name), "__struct"));
 			addedFunctions.add(funDef.name);
 			context.objectAddFunction(name, funDef);
-			program.addGlobalFunction(funDef.toIr(context));
+			program.addGlobalFunction(fun);
 		}
 		String parentClass = context.getSuperType(name);
 		String superClass = parentClass;
 
 		while (!superClass.equals("Thing")) {
 			for (CubexFunctionDef function : context.functionSet(superClass)) {
-				if (!addedFunctions.contains(function)) {
+				if (!addedFunctions.contains(function.name)) {
 					addedFunctions.add(function.name);
 					IrFunction fun = function.toIr(context);
 					fun.addStatement(new IrReturn(new IrFunctionCall("_"
@@ -149,13 +152,11 @@ public class CubexClassGrammar {
 							function.typescheme.getTypeGrammar().name)));
 
 					// TODO: check this with Jimmy
-					fun.addFunctionArgument(new IrTypeTuple(
-							new IrType("void*"), "ConstructableComponent"));
+					fun.addFunctionArgument(new IrTypeTuple(new IrType("void*"), "ConstructableComponent"));
 					program.addGlobalFunction(fun);
 				}
 			}
 			superClass = context.getSuperType(superClass);
-
 		}
 
 	}
