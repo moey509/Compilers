@@ -23,6 +23,10 @@ public final class CubexReturn extends CubexStatement {
 		this.e = e;
 	}
 	
+	public CubexExpression gete() {
+		return e;
+	}
+	
 	public IrReturn toIr(IrGenerationContext context) {
 		ArrayList<IrBind> arr = e.getExpressions(context);
 		if(arr.size() == 0){

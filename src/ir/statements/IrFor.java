@@ -78,6 +78,12 @@ public class IrFor implements IrStatement {
 			output.addAll(s.toC(context));
 		}
 		
+		//decrementing variables in the free context
+		//TODO: need to handle v and e in "for(v in e)"
+		for (String s : freeContext) {
+			output.add("ref_decrement(" + s + ");");
+		}
+		
 		String endLoop = "}";
 		
 		output.add(endLoop);
@@ -109,6 +115,12 @@ public class IrFor implements IrStatement {
 		
 		for (IrStatement s : statements) {
 			arr.addAll(s.toMainC(context));
+		}
+		
+		//decrementing variables in the free context
+		//TODO: need to handle v and e in "for(v in e)"
+		for (String s : freeContext) {
+			arr.add("ref_decrement(" + s + ");");
 		}
 		
 		String endLoop = "}";

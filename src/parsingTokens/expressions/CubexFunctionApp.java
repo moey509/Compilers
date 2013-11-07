@@ -121,9 +121,7 @@ public final class CubexFunctionApp extends CubexExpression {
 	// Check if the expression is of some type
 	public CubexTypeGrammar typeCheck(CubexCompleteContext c) throws SemanticException {
 		CubexTypeGrammar objectType = expr.typeCheck(c);
-		System.out.println("Object Type: " + objectType.name);
 		ClassContextElement element = c.classContext.get(objectType.getName());
-		System.out.println(element.toString());
 		//TODO: Is this right, if type is nothing it always works?
 		if(objectType.getName().equals("Nothing")){
 			return objectType;
@@ -152,8 +150,6 @@ public final class CubexFunctionApp extends CubexExpression {
 			cont2 = cont3;
 			cont3 = new TypeContext();
 			element = c.classContext.get(element.type.getName());
-			System.out.println(element);
-			System.out.println(c.toString());
 			if (element.functionMap.get(v_v) != null)
 				typeScheme = element.functionMap.get(v_v).replaceParams(cont2);
 			else

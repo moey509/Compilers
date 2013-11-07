@@ -41,6 +41,9 @@ public final class IrReturn implements IrStatement {
 			IrBind b = temporaryBinds.get(i);
 			arrList.add("ref_decrement(" + b.tuple.variableName + ");");
 		}
+		for (String s : freeContext) {
+			arrList.add("ref_decrement(" + s + ");");
+		}
 		arrList.add("return " + expression.toC(context) + ";");
 		return arrList;
 	}
@@ -59,6 +62,10 @@ public final class IrReturn implements IrStatement {
 		output.add(itCondition);
 		output.add(tempVar);
 		
+		for (String s : freeContext) {
+			if (!s.equals("input"))
+			output.add("ref_decrement(" + s + ");");
+		}
 		output.add("print_line(char* _return, int len)");
 		
 		output.add("}");
