@@ -377,6 +377,21 @@ void ref_increment(General_t gen) {
   gen->ref_count += 1;
 }
 
+int stringLength(git_t g) {
+  git_t itr;
+  int counter;
+  char* buf;
+  if (g == NULL) 
+    return 0;
+  itr = g;
+  counter = 0;
+  while (itr != NULL) {
+    counter += 1;
+    itr = itr->next;
+  }
+  return counter;
+}
+
 /* convert a char iterable into a String */
 char* charToString(git_t g) {
   git_t itr;
