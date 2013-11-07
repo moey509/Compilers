@@ -53,7 +53,7 @@ public class IrFunction {
 		//Declaration
 		ArrayList<String> arr = new ArrayList<String>();
 		
-		String s = type.toC() + " ";
+		String s = "void* ";
 		if (object != ""){
 			s = s + "_" + object;
 		}
