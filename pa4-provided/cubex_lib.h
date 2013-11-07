@@ -444,31 +444,31 @@ git_t stringToIterable(char* buf) {
 
 /* the following two are given to us */
 
-Integer_t integer_add (Integer_t i1, Integer_t i2) {
+Integer_t Integer_add (Integer_t i1, Integer_t i2) {
   return new_integer(i1->value + i2->value);
 }
 
-Integer_t integer_subtract (Integer_t i1, Integer_t i2) {
+Integer_t Integer_subtract (Integer_t i1, Integer_t i2) {
   return new_integer(i1->value - i2->value);
 }
 
-Integer_t integer_multiply (Integer_t i1, Integer_t i2) {
+Integer_t Integer_multiply (Integer_t i1, Integer_t i2) {
   return new_integer(i1->value * i2->value);
 }
 
-Integer_t integer_divide (Integer_t i1, Integer_t i2) {
+Integer_t Integer_divide (Integer_t i1, Integer_t i2) {
   return new_integer(i1->value / i2->value);
 }
 
-Integer_t integer_mod (Integer_t i1, Integer_t i2) {
+Integer_t Integer_mod (Integer_t i1, Integer_t i2) {
   return new_integer(i1->value % i2->value);
 }
 
-Integer_t integer_negate (Integer_t i1) {
+Integer_t Integer_negate (Integer_t i1) {
   return new_integer (0 - (i1->value));
 }
 
-git_t integer_through (Integer_t i1, Integer_t i2, int include1, int include2) {
+git_t Integer_through (Integer_t i1, Integer_t i2, int include1, int include2) {
   int int1;
   int int2;
   int1 = i1->value;
@@ -480,14 +480,14 @@ git_t integer_through (Integer_t i1, Integer_t i2, int include1, int include2) {
   return new_git_int(0, int1, int2);
 }
 
-git_t integer_onwards (Integer_t i1, int include1) {
+git_t Integer_onwards (Integer_t i1, int include1) {
   int int1 = i1->value;
   if (include1 == 0)
     int1 = int1 + 1;
   return new_git_int(1, int1, 0);
 }
 
-Boolean_t integer_equals (Integer_t i1, Integer_t i2) {
+Boolean_t Integer_equals (Integer_t i1, Integer_t i2) {
   int ans;
   if (i1->value != i2->value)
     ans = 0;
@@ -496,7 +496,7 @@ Boolean_t integer_equals (Integer_t i1, Integer_t i2) {
   return new_boolean(ans);
 }
 
-Boolean_t integer_lessThan(Integer_t i1, Integer_t i2, int strict) {
+Boolean_t Integer_lessThan(Integer_t i1, Integer_t i2, int strict) {
   int int1;
   int int2;
   int ans;
@@ -517,7 +517,7 @@ Boolean_t integer_lessThan(Integer_t i1, Integer_t i2, int strict) {
   return new_boolean(ans);
 }
 
-Boolean_t character_equals (Character_t c1, Character_t c2) {
+Boolean_t Character_equals (Character_t c1, Character_t c2) {
   int ans;
   if (c1->value == c2->value) 
     ans = 1;
@@ -526,7 +526,7 @@ Boolean_t character_equals (Character_t c1, Character_t c2) {
   return new_boolean (ans);
 }
 
-Boolean_t string_equals (git_t g1, git_t g2) {
+Boolean_t String_equals (git_t g1, git_t g2) {
   git_t t1;
   git_t t2;
   Character_t c1;
@@ -552,7 +552,7 @@ Boolean_t string_equals (git_t g1, git_t g2) {
   return new_boolean(ans);
 }
 
-Boolean_t boolean_negate(Boolean_t b) {
+Boolean_t Boolean_negate(Boolean_t b) {
   int ans;
   if (b->value == 1)
     ans = 0;
@@ -561,25 +561,25 @@ Boolean_t boolean_negate(Boolean_t b) {
   return new_boolean(ans);
 }
 
-Boolean_t boolean_and (Boolean_t b1, Boolean_t b2) {
+Boolean_t Boolean_and (Boolean_t b1, Boolean_t b2) {
   int ans;
   ans = (b1->value) && (b2->value);
   return new_boolean(ans);
 }
 
-Boolean_t boolean_or (Boolean_t b1, Boolean_t b2) {
+Boolean_t Boolean_or (Boolean_t b1, Boolean_t b2) {
   int ans;
   ans = (b1->value) || (b2->value);
   return new_boolean(ans);
 }
 
-Boolean_t boolean_equals (Boolean_t b1, Boolean_t b2) {
+Boolean_t Boolean_equals (Boolean_t b1, Boolean_t b2) {
   int ans;
   ans = (b1->value) == (b2->value);
   return new_boolean(ans);
 }
 
-git_t boolean_through (Boolean_t b1, Boolean_t b2, int include1, int include2) {
+git_t Boolean_through (Boolean_t b1, Boolean_t b2, int include1, int include2) {
   int int1;
   int int2;
   git_t g1;
@@ -605,7 +605,7 @@ git_t boolean_through (Boolean_t b1, Boolean_t b2, int include1, int include2) {
   return g1;
 }
 
-git_t boolean_onwards (Boolean_t b1, int include) {
+git_t Boolean_onwards (Boolean_t b1, int include) {
   Boolean_t bool1;
   git_t g1;
   int int1 = b1->value;
@@ -626,7 +626,7 @@ git_t boolean_onwards (Boolean_t b1, int include) {
   return g1;
 }
 
-Boolean_t boolean_lessThan(Boolean_t b1, Boolean_t b2, int strict) {
+Boolean_t Boolean_lessThan(Boolean_t b1, Boolean_t b2, int strict) {
   int int1;
   int int2;
   int ans;
