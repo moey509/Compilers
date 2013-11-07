@@ -92,7 +92,7 @@ public class IrFunction {
 		}
 		
 		for(IrStatement st : statements){
-			System.out.println(st.toC(context));
+//			System.out.println(st.toC(context));
 			arr.addAll(st.toC(context));
 		}
 		if(superCall != null){

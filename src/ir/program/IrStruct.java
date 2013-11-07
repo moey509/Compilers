@@ -37,9 +37,13 @@ public class IrStruct {
 		arr.add("{");
 		arr.add("int ref_count;");
 		arr.add("char** fun_names;");
-		arr.add("int fun_length");
+		arr.add("int fun_length;");
 		arr.add("functionPointer p;");
-		arr.add(this.constructableComponent + "_t con_comp;");
+		if(this.constructableComponent.equals("Thing")){
+			arr.add("General_t con_comp;");
+		}else{
+			arr.add(this.constructableComponent + "_t con_comp;");
+		}
 		for(IrTypeTuple t : structVariables){
 			arr.add(t.type.declarationInStruct() + " " + t.variableName + ";");
 		}
