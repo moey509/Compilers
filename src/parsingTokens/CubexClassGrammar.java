@@ -123,8 +123,10 @@ public class CubexClassGrammar {
 		for (CubexStatement stmt : statements.iterable()) {
 			irFunction.addStatement(stmt.toIr(context));
 		}
-		IrExpression e = new IrFunctionCall(this.constructableComponent,this.constructableComponent + "*");
-		irFunction.addSuperCall(e);
+		if (constructableComponent != "Thing"){
+			IrExpression e = new IrFunctionCall(this.constructableComponent,this.constructableComponent + "*");
+			irFunction.addSuperCall(e);
+		}
 		program.addGlobalFunction(irFunction);
 	}
 

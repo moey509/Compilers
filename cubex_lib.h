@@ -371,10 +371,13 @@ void ref_decrement(General_t gen) {
   if (gen->ref_count == 0) {
     x3free(gen);
   }
+  return;
   gen = NULL;
 }
 
 void ref_increment(General_t gen) {
+  if (gen == NULL)
+    return;
   gen->ref_count += 1;
 }
 
@@ -657,13 +660,60 @@ General_t Thing(){
   return __struct;
 }
 
+/*TODO: delete before submitting */
+void toString(git_t g) {
+  int count = 5;
+  char * buffer;
+  if (g == NULL) {
+    printf ("[null]\n");
+    return;
+  }
+  iterator_t it;
+  it = new_iterator(g);
+  Character_t c;
+  int temp = count;
+  while (count > 0) {
+    c = getNext(it);
+    /*buffer = charToString(c); */
+    printf ("--> %c\n", c->value);
+     
+    if (!hasNext(it)) {
+      printf ("[null]\n");
+      return;
+    }
+  }
+}
+
+void totoString(git_t g) {
+  int count = 5;
+  char * buffer;
+  if (g == NULL) {
+    printf ("[null]\n");
+    return;
+  }
+  iterator_t it;
+  it = new_iterator(g);
+  git_t c;
+  int temp = count;
+  while (count > 0) {
+    c = getNext(it);
+    buffer = charToString(c);
+    printf ("--> %s\n", buffer);
+     count -= 1;
+    if (!hasNext(it)) {
+      printf ("[null]\n");
+      return;
+    }
+  }
+}
+
 git_t get_input () {
 	char * buf;
 	git_t temp;
 	git_t string;
 	git_t head = NULL;
 	while (next_line_len() > 0) {
-		buf = (char*)x3malloc(sizeof(char*) * next_line_len());
+		buf = (char*)x3malloc(sizeof(char) * next_line_len());
 		read_line(buf);
 		string = stringToIterable(buf);
 		x3free(buf);  
