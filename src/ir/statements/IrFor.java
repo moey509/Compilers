@@ -85,7 +85,6 @@ public class IrFor implements IrStatement {
 			}
 			s.addInitialization(output, context);
 		}
-		output.add(tempVar);
 		
 		for (IrStatement s : statements) {
 			output.addAll(s.toC(context));
