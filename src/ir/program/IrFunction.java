@@ -52,7 +52,12 @@ public class IrFunction {
 	public ArrayList<String> toC(CGenerationContext context) {
 		//Declaration
 		ArrayList<String> arr = new ArrayList<String>();
-		String s = type.toC() + " " + functionName + "(";
+		
+		String s = type.toC() + " ";
+		if (object != ""){
+			s = s + "_" + object;
+		}
+		s = s + "_" + functionName + "(";
 		boolean firstElement = true;
 		for(IrTypeTuple t : arguments){
 			if(firstElement){
