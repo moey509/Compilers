@@ -379,15 +379,18 @@ void ref_increment(General_t gen) {
 
 /* convert a char iterable into a String */
 char* charToString(git_t g) {
+  git_t itr;
+  int counter;
+  char* buf;
   if (g == NULL) 
     return NULL;
-  git_t itr = g;
-  int counter = 0;
+  itr = g;
+  counter = 0;
   while (itr != NULL) {
     counter += 1;
     itr = itr->next;
   }
-  char* buf = (char*) x3malloc (sizeof(char*) * (counter + 1));
+  buf = (char*) x3malloc (sizeof(char*) * (counter + 1));
   itr = g;
   counter = 0;
   while (itr != NULL) {
@@ -400,11 +403,13 @@ char* charToString(git_t g) {
 }
 
 git_t stringToIterableHelper(char* buf, int offset) {
+  Character_t c;
+  git_t g;
   if (buf[offset] == '\0') {
     return NULL;
   }
-  Character_t c = new_character((int)(buf[offset]));
-  git_t g = new_git_obj(c);
+  c = new_character((int)(buf[offset]));
+  g = new_git_obj(c);
   return iterable_append(g, stringToIterableHelper(buf, offset+1));
 }
 
