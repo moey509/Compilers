@@ -52,6 +52,7 @@ public final class IrBind implements IrStatement {
 		}
 		for(IrBind b : temporaryBinds){
 			output.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
+			output.add(b.tuple.variableName + " = NULL;");
 		}
 		return output;
 	}
