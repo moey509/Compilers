@@ -371,6 +371,7 @@ void ref_decrement(General_t gen) {
   if (gen->ref_count == 0) {
     x3free(gen);
   }
+  return;
   gen = NULL;
 }
 
@@ -676,6 +677,29 @@ void toString(git_t g) {
     /*buffer = charToString(c); */
     printf ("--> %c\n", c->value);
      
+    if (!hasNext(it)) {
+      printf ("[null]\n");
+      return;
+    }
+  }
+}
+
+void totoString(git_t g) {
+  int count = 5;
+  char * buffer;
+  if (g == NULL) {
+    printf ("[null]\n");
+    return;
+  }
+  iterator_t it;
+  it = new_iterator(g);
+  git_t c;
+  int temp = count;
+  while (count > 0) {
+    c = getNext(it);
+    buffer = charToString(c);
+    printf ("--> %s\n", buffer);
+     count -= 1;
     if (!hasNext(it)) {
       printf ("[null]\n");
       return;

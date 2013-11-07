@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-ansi -Wall
+CFLAGS=-ansi -pedantic
 DEPS = cubex_external_functions.h cubex_private.h cubex_main.h cubex_lib.h
 
 %.o: %.c $(DEPS)
