@@ -43,6 +43,9 @@ public final class IrWhile implements IrStatement {
 		for (IrStatement statement : statements){
 			arrList.addAll(statement.toC(context));
 		}
+		for (String s : freeContext) {
+			arrList.add("ref_decrement(" + s + ");");
+		}
 		arrList.add("}");
 		return arrList;
 	}
@@ -53,6 +56,10 @@ public final class IrWhile implements IrStatement {
 		arrList.add("while(" + condition.toC(context) + ") {");
 		for (IrStatement statement : statements){
 			arrList.addAll(statement.toMainC(context));
+		}
+		// TODO: handle garbage collecting the (e)
+		for (String s : freeContext) {
+			arrList.add("ref_decrement(" + s + ");");
 		}
 		arrList.add("}");
 		return arrList;

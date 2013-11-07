@@ -7,10 +7,12 @@ import java.util.Set;
 import ir.program.IrProgram;
 import ir.program.IrTypeTuple;
 import ir.statements.IrBind;
+import ir.statements.IrReturn;
 import ir.statements.IrStatement;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
 import parsingTokens.statements.CubexBind;
+import parsingTokens.statements.CubexReturn;
 import parsingTokens.statements.CubexStatement;
 import parsingTokens.typeGrammar.CubexTypeClass;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
@@ -66,6 +68,23 @@ public class CubexProgramStatement implements CubexProgramType {
 			program.addGlobalVariable(cubexBind.toIr(context));
 		}
 		IrStatement s = statement.toIr(context);
+		// overwrite the free context if this is a return
+		if (statement instanceof CubexReturn) {
+			// find all variables associated with the return statement
+			CubexReturn cr = (CubexReturn) statement;
+			Set<String> donotfree = new HashSet<String>();
+			cr.gete().getVars(donotfree);
+			freeContext.removeAll(donotfree);
+			Set<String> modfc = new HashSet<String>();
+			
+			//toplevel variables: prepend _
+			for (String str : freeContext) {
+				modfc.add("_" + str);
+			}
+
+			IrReturn ret = (IrReturn) s;
+			ret.setFreeContext(new ArrayList<String>(modfc));
+		}
 		program.addMainStatement(s);
 		for(IrBind bind : s.getTemporaryVariables()){
 			program.addGlobalVariable(bind);

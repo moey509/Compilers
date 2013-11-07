@@ -63,12 +63,21 @@ public class IrIf implements IrStatement {
 		for (IrStatement s1 : statements1) {
 			arrList.addAll(s1.toC(context));
 		}
+		//ref_decrement the discarded variables
+		//TODO: handle e
+		for (String s : freeContext) {
+			arrList.add("ref_decrement(" + s + ");");
+		}
 		if (statements2.isEmpty()) {
 			arrList.add("}");
 		} else {
 			arrList.add("} else {");
 			for (IrStatement s2 : statements2) {
 				arrList.addAll(s2.toC(context));
+			}
+			//ref_decrement the else discarded variables
+			for (String s : freeContext2) {
+				arrList.add("ref_decrement(" + s + ");");
 			}
 			arrList.add("}");
 		}
@@ -82,12 +91,21 @@ public class IrIf implements IrStatement {
 		for (IrStatement s1 : statements1) {
 			arrList.addAll(s1.toMainC(context));
 		}
+		//ref_decrement the else discarded variables
+		//TODO: handle e
+		for (String s : freeContext) {
+			arrList.add("ref_decrement(" + s + ");");
+		}
 		if (statements2.isEmpty()) {
 			arrList.add("}");
 		} else {
 			arrList.add("} else {");
 			for (IrStatement s2 : statements2) {
 				arrList.addAll(s2.toMainC(context));
+			}
+			//ref_decrement the else discarded variables
+			for (String s : freeContext2) {
+				arrList.add("ref_decrement(" + s + ");");
 			}
 			arrList.add("}");
 		}

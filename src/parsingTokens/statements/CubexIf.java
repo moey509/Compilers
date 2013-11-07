@@ -76,8 +76,10 @@ public class CubexIf extends CubexStatement {
 		if (!etype.getName().equals("Boolean")) throw new SemanticException("CubexIf: e is not a boolean");
 		TypeContext t1 = s1.typeCheck(c);
 		if(s2 == null){
-			freeContext = new HashSet<String>();
+			freeContext = t1.keySet();
+			freeContext.removeAll(c.mutableTypeContext.keySet());
 			freeContext2 = new HashSet<String>();
+			// should actually return containsAll of t1 and c.mutableTypeContext?
 			return t1;
 		}
 		else{
@@ -106,9 +108,11 @@ public class CubexIf extends CubexStatement {
 		TypeContextReturn t1 = s1.typeCheckReturn(c);
 		if(s2 == null){
 			TypeContext t = t1.typeContext;
-			freeContext = new HashSet<String>();
+			freeContext = t.keySet();
+			freeContext.removeAll(c.mutableTypeContext.keySet());
 			freeContext2 = new HashSet<String>();
 			boolean g = false;
+			//c.mutableTypeContext should actually be t.containsAll(c.mutableTypeContext)?
 			return new TypeContextReturn(c.mutableTypeContext, g, t1.retType);
 		}
 		TypeContextReturn t2 = s2.typeCheckReturn(c);

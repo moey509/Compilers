@@ -67,7 +67,7 @@ public class IrProgram {
 		}
 		output.add("void cubex_main(){");
 		for (IrStatement irStatement : mainFunctionStatements){
-			output.addAll(irStatement.toC(context));
+			output.addAll(irStatement.toMainC(context));
 		}
 		output.add("}");
 		return output;
