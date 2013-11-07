@@ -5,7 +5,9 @@ import ir.statements.IrBind;
 import ir.statements.IrStatement;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import typeChecker.TypeContext;
 
@@ -57,14 +59,16 @@ public class IrProgram {
 			}
 		}
 		output.add("iterator_t _it1;");
-		output.add("iterator_t _return;");
+		output.add("git_t _return;");
 		
 		for (IrFunction irFunction : globalFunctions){
 			output.addAll(irFunction.toC(context));
 		}
+		//CUBEX_MAIN
 		output.add("void cubex_main(){");
 		output.add("git_t _input = NULL;");
 		output.add("_input = get_input();");
+		ArrayList<String> postout = new ArrayList<String>();
 		for (IrTypeTuple tuple : globalVariables){
 			if(!context.variablesInitializedInScope.contains(tuple.variableName)){
 				output.add(tuple.variableName + " = NULL;");
@@ -72,8 +76,12 @@ public class IrProgram {
 			}
 		}
 		for (IrStatement irStatement : mainFunctionStatements){
-			output.addAll(irStatement.toMainC(context));
+			postout.addAll(irStatement.toMainC(context));
 		}
+		for (String s : context.mainVarDecl.keySet()) {
+			output.add(context.mainVarDecl.get(s) + " " + s + ";");
+		}
+		output.addAll(postout);
 		output.add("}");
 		return output;
 	}

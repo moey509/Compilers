@@ -46,20 +46,33 @@ public class IrFor implements IrStatement {
 //	    printf ("==> %d\n", temp);
 //	}
 	public void addDeclaration(ArrayList<String> arr, CGenerationContext context){
+		return;
 	}
 	public void addInitialization(ArrayList<String> arr, CGenerationContext context){
+		return;
 	}
 	
 	public ArrayList<String> toC(CGenerationContext context) {
 		ArrayList<String> output = new ArrayList<String>();
 		int cur_iterator = context.getCurIterator();
+		int cur_iterable = context.getCurIterable();
 		context.incrementCurIterator();
+		context.incrementCurIterable();
+		String iterable = context.iterable + cur_iterable;
 		String iterator = "__it" + cur_iterator;
-		String itDeclaration = iterator + " = new_iterator((" + list.toC(context) + "));";
+
+		String iterDeclaration = iterable + " = iterable_append((" + list.toC(context) + "), NULL);";
+		//add iterable to list of stuff declared at the top of the function
+
+		String itDeclaration = iterator + " = new_iterator((" + iterable + "));";
 		String itCondition = "while(hasNext(" + iterator + ")) {";
 		String tempVar = "void* " + var + " = getNext(" + iterator + ");";
+
+		output.add(iterDeclaration);
 		output.add(itDeclaration);
 		output.add(itCondition);
+		output.add(tempVar);
+
 		for(IrStatement s : statements){
 			for(IrBind b : s.getTemporaryVariables()){
 				b.addDeclaration(output, context);
@@ -104,9 +117,11 @@ public class IrFor implements IrStatement {
 		//TODO: ANSHA - need to add iterable and iterator into mutable context.
 		
 		String iterDeclaration = iterable + " = iterable_append((" + list.toC(context) + "), NULL);";
+		// TODO: add iterable (variable) to list of things to be declared at the top of the main function
+		context.mainVarDecl.put(iterable, "git_t");
 		String itDeclaration = iterator + " = new_iterator((" + iterable + "));";
 		String itCondition = "while(hasNext(" + iterator + ")) {";
-		String tempVar = var + " = getNext(" + iterator + ");";
+		String tempVar = "void* " + var + " = getNext(" + iterator + ");";
 		
 		arr.add(iterDeclaration);
 		arr.add(itDeclaration);
