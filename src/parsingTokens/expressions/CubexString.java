@@ -30,16 +30,18 @@ public final class CubexString extends CubexExpression {
 	}
 	
 	public ArrayList<IrBind> getExpressions(IrGenerationContext context){
+		System.out.println("In CubexString: " + this);
 		ArrayList<IrBind> arr = new ArrayList<IrBind>();
 		IrType t = new IrType("void*");
 		IrTypeTuple tuple = new IrTypeTuple(t, context.nextTemp());
+		System.out.println(tuple.variableName);
+		System.out.println(this.toIr(context).toC(null));
 		arr.add(new IrBind(tuple, this.toIr(context)));
 		return arr;
 	}
 
 	// Check if the expression is of some type
-	public CubexTypeGrammar typeCheck(CubexCompleteContext c)
-			throws SemanticException {
+	public CubexTypeGrammar typeCheck(CubexCompleteContext c) throws SemanticException {
 		return new CubexTypeClass("String", new CubexList<CubexTypeGrammar>());
 	}
 	
