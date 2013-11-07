@@ -53,10 +53,10 @@ public final class IrFunctionCall implements IrExpression {
 		for (IrExpressionTuple tuple : arguments){
 			if(firstTime){
 				firstTime = false;
-				sb.append(tuple.expression.toC(context));
+				sb.append("(" + tuple.argType.toC() + ") " + tuple.expression.toC(context));
 			}
 			else{
-				sb.append(", " + tuple.expression.toC(context));
+				sb.append(", (" + tuple.argType.toC() + ") " + tuple.expression.toC(context));
 			}
 		}
 		
