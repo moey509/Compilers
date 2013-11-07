@@ -684,6 +684,7 @@ void request_data(git_t g) {
 */
 
 /*TODO: delete before submitting */
+/*
 void toString(git_t g) {
 	int count = 5;
 	char * buffer;
@@ -699,14 +700,14 @@ void toString(git_t g) {
     c = getNext(it);
     buffer = charToString(c);
     printf ("--> %s\n", buffer);
-    /* count -= 1;*/
+     count -= 1;
     if (!hasNext(it)) {
       printf ("[null]\n");
       return;
     }
   }
 }
-
+*/
 void cubex_main(){
 	/*TODO: the following lines need to be inserted into the actual C*/ 
 	/*git_t dummy;
@@ -717,11 +718,11 @@ void cubex_main(){
 	input->is_input_head = 1;
 	input->val = (void*)dummy;
 	input->dummy = 1;
-	/* *E*N*D* * * * * * * */
+	* *E*N*D* * * * * * * */
 
 	git_t input = NULL;
 	input = get_input(input);
-	toString(input); 
+	/* toString(input); */
 
 /*
 	printf ("%d\n", next_line_len());
