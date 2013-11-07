@@ -58,14 +58,14 @@ public class IrIf implements IrStatement {
 		}
 		arrList.add("if(" + condition.toC(context) + ") {");
 		for(IrBind b : temporaryBinds){
-			arrList.add("ref_decrement(" + b.tuple.variableName + ");");
+			arrList.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
 		}
 		for (IrStatement s1 : statements1) {
 			arrList.addAll(s1.toC(context));
 		}
 		//ref_decrement the discarded variables
 		for (String s : freeContext) {
-			arrList.add("ref_decrement(" + s + ");");
+			arrList.add("ref_decrement((General_t)" + s + ");");
 		}
 		if (statements2.isEmpty()) {
 			arrList.add("}");
@@ -76,7 +76,7 @@ public class IrIf implements IrStatement {
 			}
 			//ref_decrement the else discarded variables
 			for (String s : freeContext2) {
-				arrList.add("ref_decrement(" + s + ");");
+				arrList.add("ref_decrement((General_t)" + s + ");");
 			}
 			arrList.add("}");
 		}
@@ -92,7 +92,7 @@ public class IrIf implements IrStatement {
 		}
 		//ref_decrement the else discarded variables
 		for (String s : freeContext) {
-			arrList.add("ref_decrement(" + s + ");");
+			arrList.add("ref_decrement((General_t)" + s + ");");
 		}
 		if (statements2.isEmpty()) {
 			arrList.add("}");
@@ -103,7 +103,7 @@ public class IrIf implements IrStatement {
 			}
 			//ref_decrement the else discarded variables
 			for (String s : freeContext2) {
-				arrList.add("ref_decrement(" + s + ");");
+				arrList.add("ref_decrement((General_t)" + s + ");");
 			}
 			arrList.add("}");
 		}

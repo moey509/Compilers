@@ -41,16 +41,16 @@ public final class IrBind implements IrStatement {
 		if(temporaryBinds.size() > 0){
 			String s = temporaryBinds.get(temporaryBinds.size()-1).tuple.variableName;
 			output.add(tuple.variableName + " = " + s + ";");
-			output.add("ref_increment(" + tuple.variableName + ");");
+			output.add("ref_increment((General_t)" + tuple.variableName + ");");
 		}
 		else{
 			//TODO: We need to make sure that y was initialized somehow or initialize everything to NULL and set to NULL when freed
-			output.add("ref_decrement(" + tuple.variableName + ");");
+			output.add("ref_decrement((General_t)" + tuple.variableName + ");");
 			output.add(tuple.variableName + " = " + expression.toC(context) + ";");
-			output.add("ref_increment(" + tuple.variableName + ");");
+			output.add("ref_increment((General_t)" + tuple.variableName + ");");
 		}
 		for(IrBind b : temporaryBinds){
-			output.add("ref_decrement(" + b.tuple.variableName + ");");
+			output.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
 		}
 		return output;
 	}

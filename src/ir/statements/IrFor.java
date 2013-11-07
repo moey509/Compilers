@@ -81,7 +81,7 @@ public class IrFor implements IrStatement {
 		//decrementing variables in the free context
 		//TODO: need to handle v and e in "for(v in e)"
 		for (String s : freeContext) {
-			output.add("ref_decrement(" + s + ");");
+			output.add("ref_decrement((General_t)" + s + ");");
 		}
 		
 		String endLoop = "}";
@@ -120,7 +120,7 @@ public class IrFor implements IrStatement {
 		//decrementing variables in the free context
 		//TODO: need to handle v and e in "for(v in e)"
 		for (String s : freeContext) {
-			arr.add("ref_decrement(" + s + ");");
+			arr.add("ref_decrement((General_t)" + s + ");");
 		}
 		
 		String endLoop = "}";
