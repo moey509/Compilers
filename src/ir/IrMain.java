@@ -73,7 +73,7 @@ public class IrMain {
 			int counter = 1;
 			writer.write("#include \"cubex_lib.h\"\n");
 			for (String s : programCode){
-//				System.out.println(counter + ": " + s);
+				System.out.println(counter + ": " + s);
 //				counter++;
 				writer.write(s + "\n");
 			}

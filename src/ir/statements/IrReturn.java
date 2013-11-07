@@ -70,7 +70,7 @@ public final class IrReturn implements IrStatement {
 		output.add("print_line(charToString(_return), stringLength(_return));");
 		
 		output.add("}");
-		
+		output.add("ref_decrement(_input);");
 		//GARBAGE COLLECT EVERYTHING
 		output.add("return;");
 		return output;
