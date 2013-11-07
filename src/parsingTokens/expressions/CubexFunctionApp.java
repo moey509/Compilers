@@ -54,9 +54,9 @@ public final class CubexFunctionApp extends CubexExpression {
 		}
 		
 		IrFunctionCall irFunCall = new IrFunctionCall(obj + "_" + fun, type);
-		irFunCall.addArgument(expr.toIr(context));
+		irFunCall.addArgument(expr.type, expr.toIr(context));
 		for (CubexExpression i : functionParams.contextCollection) {
-			irFunCall.addArgument(i.toIr(context));
+			irFunCall.addArgument(i.type, i.toIr(context));
 		} 
 		return irFunCall;
 	}
@@ -93,10 +93,10 @@ public final class CubexFunctionApp extends CubexExpression {
 		if(tempParams.size() == 0){
 			IrFunctionCall call = new IrFunctionCall(obj + "_" + fun, "void*");
 			if(thisPointer.size() != 0){
-				call.addArgument(new IrVariableExpression(thisPointer.get(thisPointer.size()-1).tuple.variableName, thisPointer.get(thisPointer.size()-1).tuple.type.type));
+				call.addArgument(obj, new IrVariableExpression(thisPointer.get(thisPointer.size()-1).tuple.variableName, thisPointer.get(thisPointer.size()-1).tuple.type.type));
 			}
 			else{
-				call.addArgument(expr.toIr(context));
+				call.addArgument(obj,expr.toIr(context));
 			}
 			b = new IrBind(tuple, call);
 		}
@@ -104,13 +104,13 @@ public final class CubexFunctionApp extends CubexExpression {
 			IrFunctionCall call = new IrFunctionCall(obj + "_" + fun, "void*");
 			//Have to add in all arguments. Must figure out how much each has
 			if(thisPointer.size() != 0){
-				call.addArgument(new IrVariableExpression(thisPointer.get(thisPointer.size()-1).tuple.variableName, thisPointer.get(thisPointer.size()-1).tuple.type.type));
+				call.addArgument(obj, new IrVariableExpression(thisPointer.get(thisPointer.size()-1).tuple.variableName, thisPointer.get(thisPointer.size()-1).tuple.type.type));
 			}
 			else{
-				call.addArgument(expr.toIr(context));
+				call.addArgument(obj, expr.toIr(context));
 			}
 			for(IrBind bind : tempParams){
-				call.addArgument(new IrVariableExpression(bind.tuple.variableName, bind.tuple.type.type));
+				call.addArgument(bind.tuple.type, new IrVariableExpression(bind.tuple.variableName, bind.tuple.type.type));
 			}
 			b = new IrBind(tuple, call);
 		}

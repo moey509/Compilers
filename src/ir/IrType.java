@@ -9,7 +9,10 @@ public class IrType {
 	}
 
 	public String toC() {
-		return type + "_t";
+		if (type.equals("String"))
+			return "git_t";
+		else
+			return type + "_t";
 	}
 
 	public String declarationInStruct(){

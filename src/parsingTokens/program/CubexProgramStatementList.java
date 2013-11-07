@@ -82,9 +82,10 @@ public class CubexProgramStatementList implements CubexProgramType {
 				IrBind b = ((CubexBind) statement).toIr(context);
 				s = b;
 				program.addGlobalVariable(b);
-				for(IrBind bind : b.getTemporaryVariables()){
-					program.addGlobalVariable(bind);
-				}
+				// TODO: Uncomment if problematic: temporary variable declarations now added in IrBind
+//				for(IrBind bind : b.getTemporaryVariables()){
+//					program.addGlobalVariable(bind);
+//				}
 			}
 			else{
 				s = statement.toIr(context);
