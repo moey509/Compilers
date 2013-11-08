@@ -24,7 +24,7 @@ public class CubexAppend extends CubexExpression {
 	}
 	
 	public ArrayList<IrBind> getExpressions(IrGenerationContext context){
-		IrType t = new IrType("void* ");
+		IrType t = new IrType("void*");
 		IrTypeTuple tt = new IrTypeTuple(t, context.nextTemp());
 		IrBind b = new IrBind(tt, this.toIr(context));
 		ArrayList<IrBind> arr = new ArrayList<IrBind>();
