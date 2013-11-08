@@ -40,6 +40,20 @@ public final class IrWhile implements IrStatement {
 	public ArrayList<String> toC(CGenerationContext context) {
 		ArrayList<String> arrList = new ArrayList<String>();
 		arrList.add("while(" + condition.toC(context) + ") {");
+		
+//		for(IrStatement s : statements){
+//			for(IrBind b : s.getTemporaryVariables()){
+//				b.addDeclaration(arrList, context);
+//			}
+//			s.addDeclaration(arrList, context);
+//		}
+//		for(IrStatement s : statements){
+//			for(IrBind b : s.getTemporaryVariables()){
+//				b.addInitialization(arrList, context);
+//			}
+//			s.addInitialization(arrList, context);
+//		}
+		
 		for (IrStatement statement : statements){
 			arrList.addAll(statement.toC(context));
 		}
@@ -54,6 +68,20 @@ public final class IrWhile implements IrStatement {
 	public ArrayList<String> toMainC(CGenerationContext context) {
 		ArrayList<String> arrList = new ArrayList<String>();
 		arrList.add("while(" + condition.toC(context) + ") {");
+		
+		for(IrStatement s : statements){
+			for(IrBind b : s.getTemporaryVariables()){
+				b.addDeclaration(arrList, context);
+			}
+			s.addDeclaration(arrList, context);
+		}
+		for(IrStatement s : statements){
+			for(IrBind b : s.getTemporaryVariables()){
+				b.addInitialization(arrList, context);
+			}
+			s.addInitialization(arrList, context);
+		}
+
 		for (IrStatement statement : statements){
 			arrList.addAll(statement.toMainC(context));
 		}

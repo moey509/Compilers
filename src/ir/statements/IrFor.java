@@ -66,6 +66,7 @@ public class IrFor implements IrStatement {
 		context.fcnVarDecl.put(iterable, "git_t");
 
 		String itDeclaration = iterator + " = new_iterator((" + iterable + "));";
+		//add iterator to list of stuff declared at the top of the function
 		context.fcnVarDecl.put(iterator, "iterator_t");
 		String itCondition = "while(hasNext(" + iterator + ")) {";
 		String tempVar = "void* " + var + " = getNext(" + iterator + ");";
@@ -116,9 +117,11 @@ public class IrFor implements IrStatement {
 		String iterator = context.iterator + cur_iterator;
 		
 		String iterDeclaration = iterable + " = iterable_append((" + list.toC(context) + "), NULL);";
+//		context.mainVarDecl.put(list.toC(context), "void*");
 		// TODO: add iterable (variable) to list of things to be declared at the top of the main function
 		context.mainVarDecl.put(iterable, "git_t");
 		String itDeclaration = iterator + " = new_iterator((" + iterable + "));";
+		context.mainVarDecl.put(iterator, "iterator_t");
 		String itCondition = "while(hasNext(" + iterator + ")) {";
 		String tempVar = "void* " + var + " = getNext(" + iterator + ");";
 		
@@ -128,6 +131,19 @@ public class IrFor implements IrStatement {
 		arr.add(itDeclaration);
 		arr.add(itCondition);
 		arr.add(tempVar);
+		
+		for(IrStatement s : statements){
+			for(IrBind b : s.getTemporaryVariables()){
+				b.addDeclaration(arr, context);
+			}
+			s.addDeclaration(arr, context);
+		}
+		for(IrStatement s : statements){
+			for(IrBind b : s.getTemporaryVariables()){
+				b.addInitialization(arr, context);
+			}
+			s.addInitialization(arr, context);
+		}
 		
 		for (IrStatement s : statements) {
 			arr.addAll(s.toMainC(context));
