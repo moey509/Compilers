@@ -444,7 +444,7 @@ git_t stringToIterable(char* buf) {
 
 /* the following two are given to us */
 
-Integer_t Integer_add (Integer_t i1, Integer_t i2) {
+Integer_t Integer_plus (Integer_t i1, Integer_t i2) {
   return new_integer(i1->value + i2->value);
 }
 
@@ -452,7 +452,7 @@ Integer_t Integer_subtract (Integer_t i1, Integer_t i2) {
   return new_integer(i1->value - i2->value);
 }
 
-Integer_t Integer_multiply (Integer_t i1, Integer_t i2) {
+Integer_t Integer_times (Integer_t i1, Integer_t i2) {
   return new_integer(i1->value * i2->value);
 }
 
@@ -460,11 +460,11 @@ Integer_t Integer_divide (Integer_t i1, Integer_t i2) {
   return new_integer(i1->value / i2->value);
 }
 
-Integer_t Integer_mod (Integer_t i1, Integer_t i2) {
+Integer_t Integer_modulo (Integer_t i1, Integer_t i2) {
   return new_integer(i1->value % i2->value);
 }
 
-Integer_t Integer_negate (Integer_t i1) {
+Integer_t Integer_negative (Integer_t i1) {
   return new_integer (0 - (i1->value));
 }
 
