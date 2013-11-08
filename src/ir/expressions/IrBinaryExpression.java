@@ -51,79 +51,79 @@ public class IrBinaryExpression implements IrExpression {
 	public String toC(CGenerationContext context) {
 		if (leftExpression.getType().equals(IrMiscFunctions.INTEGER)) {
 			if (operator.equals("+"))
-				return "integer_add(" + leftExpression.toC(context) + ", "
+				return "Integer_add(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + ")";
 			else if (operator.equals("-"))
-				return "integer_subtract(" + leftExpression.toC(context) + ", "
+				return "Integer_subtract(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + ")";
 			else if (operator.equals("*"))
-				return "integer_multiply(" + leftExpression.toC(context) + ", "
+				return "Integer_multiply(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + ")";
 			else if (operator.equals("/"))
-				return "integer_divide(" + leftExpression.toC(context) + ", "
+				return "Integer_divide(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + ")";
 			else if (operator.equals("%"))
-				return "integer_mod(" + leftExpression.toC(context) + ", "
+				return "Integer_mod(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + ")";
 			else if (operator.equals(".."))
-				return "integer_through(" + leftExpression.toC(context) + ", "
+				return "Integer_through(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + ", 1, 1)";
 			else if (operator.equals("<."))
-				return "integer_through(" + leftExpression.toC(context) + ", "
+				return "Integer_through(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + ", 0, 1)";
 			else if (operator.equals(".<"))
-				return "integer_through(" + leftExpression.toC(context) + ", "
+				return "Integer_through(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + ", 1, 0)";
 			else if (operator.equals("<<"))
-				return "integer_through(" + leftExpression.toC(context) + ", "
+				return "Integer_through(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + ", 0, 0)";
 			else if (operator.equals("<"))
-				return "integer_lessThan(" + leftExpression.toC(context) + ", "
+				return "Integer_lessThan(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + ", 1)";
 			else if (operator.equals("<="))
-				return "integer_lessThan(" + leftExpression.toC(context) + ", "
+				return "Integer_lessThan(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + ", 0)";
 			else if (operator.equals("=="))
-				return "integer_equals(" + leftExpression.toC(context) + ", "
+				return "Integer_equals(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + ")";
 		} else if (leftExpression.getType().equals(IrMiscFunctions.BOOLEAN)) {
 			if (operator.equals("&&"))
-				return "boolean_and(" + leftExpression.toC(context) + ", "
+				return "Boolean_and(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + ")";
 			else if (operator.equals("||"))
-				return "boolean_or(" + leftExpression.toC(context) + ", "
+				return "Boolean_or(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + ")";
 			else if (operator.equals("||"))
-				return "boolean_or(" + leftExpression.toC(context) + ", "
+				return "Boolean_or(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + ")";
 			else if (operator.equals(".."))
-				return "boolean_through(" + leftExpression.toC(context) + ", "
+				return "Boolean_through(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + "1, 1)";
 			else if (operator.equals("<."))
-				return "boolean_through(" + leftExpression.toC(context) + ", "
+				return "Boolean_through(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + "0, 1)";
 			else if (operator.equals(".<"))
-				return "boolean_through(" + leftExpression.toC(context) + ", "
+				return "Boolean_through(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + "1, 0)";
 			else if (operator.equals("<<"))
-				return "boolean_through(" + leftExpression.toC(context) + ", "
+				return "Boolean_through(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + "0, 0)";
 			else if (operator.equals("<"))
-				return "boolean_lessThan(" + leftExpression.toC(context) + ", "
+				return "Boolean_lessThan(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + ", 1)";
 			else if (operator.equals("<="))
-				return "boolean_lessThan(" + leftExpression.toC(context) + ", "
+				return "Boolean_lessThan(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + ", 0)";
 			else if (operator.equals("=="))
-				return "boolean_equal(" + leftExpression.toC(context) + ", "
+				return "Boolean_equal(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + ")";
 		} else if (leftExpression.getType().equals(IrMiscFunctions.CHARACTER)) {
 			if (operator.equals("=="))
-				return "character_equals(" + leftExpression.toC(context) + ", "
+				return "Character_equals(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + ")";
 		} else if (leftExpression.getType().equals("String")) {
 			if (operator.equals("=="))
-				return "string_equals(" + leftExpression.toC(context) + ", "
+				return "String_equals(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + ")";
 		}
 		System.out.println("WARNING: there is no operator in this Binary Expression");
