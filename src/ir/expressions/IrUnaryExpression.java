@@ -35,18 +35,18 @@ public class IrUnaryExpression implements IrExpression {
 	public String toC(CGenerationContext context) {
 		if (expression.getType() == "Boolean") {
 			if (operator == "!")
-				return "boolean_negate(" + expression.toC(context) + ")";
+				return "Boolean_negate(" + expression.toC(context) + ")";
 			else if (operator == "...")
-				return "boolean_onward(" + expression.toC(context) + ", 1)";
+				return "Boolean_onward(" + expression.toC(context) + ", 1)";
 			else if (operator == "<..")
-				return "boolean_onward(" + expression.toC(context) + ", 0)";
+				return "Boolean_onward(" + expression.toC(context) + ", 0)";
 		} else if (expression.getType() == "Integer") {
 			if (operator == "-")
-				return "integer_negate(" + expression.toC(context) + ")";
+				return "Integer_negate(" + expression.toC(context) + ")";
 			else if (operator == "...")
-				return "integer_onward(" + expression.toC(context) + ", 1)";
+				return "Integer_onward(" + expression.toC(context) + ", 1)";
 			else if (operator == "<..")
-				return "integer_onward(" + expression.toC(context) + ", 0)";
+				return "Integer_onward(" + expression.toC(context) + ", 0)";
 		}
 			System.out.println("WARNING: operator for unary expression was null or could not be found");
 			return null;
