@@ -38,12 +38,15 @@ public class IrStruct {
 		arr.add("int ref_count;");
 		arr.add("char** fun_names;");
 		arr.add("int fun_length;");
-		arr.add("functionPointer p;");
+		arr.add("functionPointer** fun_ptrs;");
+		arr.add("int ptr_length;");
 		if(this.constructableComponent.equals("Thing")){
 			arr.add("General_t con_comp;");
 		}else{
 			arr.add(this.constructableComponent + "_t con_comp;");
 		}
+		arr.add("int is_iter;");
+		arr.add("int is_thru_ward;");
 		for(IrTypeTuple t : structVariables){
 			arr.add(t.type.declarationInStruct() + " " + t.variableName + ";");
 		}
