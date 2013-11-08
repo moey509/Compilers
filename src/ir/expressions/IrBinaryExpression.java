@@ -67,22 +67,22 @@ public class IrBinaryExpression implements IrExpression {
 						+ rightExpression.toC(context) + ")";
 			else if (operator.equals(".."))
 				return "Integer_through(" + leftExpression.toC(context) + ", "
-						+ rightExpression.toC(context) + ", 1, 1)";
+						+ rightExpression.toC(context) + ", new_integer(1), new_integer(1))";
 			else if (operator.equals("<."))
 				return "Integer_through(" + leftExpression.toC(context) + ", "
-						+ rightExpression.toC(context) + ", 0, 1)";
+						+ rightExpression.toC(context) + ", new_integer(0), new_integer(1))";
 			else if (operator.equals(".<"))
 				return "Integer_through(" + leftExpression.toC(context) + ", "
-						+ rightExpression.toC(context) + ", 1, 0)";
+						+ rightExpression.toC(context) + ", new_integer(1), new_integer(0))";
 			else if (operator.equals("<<"))
 				return "Integer_through(" + leftExpression.toC(context) + ", "
-						+ rightExpression.toC(context) + ", 0, 0)";
+						+ rightExpression.toC(context) + ", new_integer(0), new_integer(0))";
 			else if (operator.equals("<"))
 				return "Integer_lessThan(" + leftExpression.toC(context) + ", "
-						+ rightExpression.toC(context) + ", 1)";
+						+ rightExpression.toC(context) + ", new_integer(1))";
 			else if (operator.equals("<="))
 				return "Integer_lessThan(" + leftExpression.toC(context) + ", "
-						+ rightExpression.toC(context) + ", 0)";
+						+ rightExpression.toC(context) + ", new_integer(0))";
 			else if (operator.equals("=="))
 				return "Integer_equals(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + ")";
@@ -98,22 +98,22 @@ public class IrBinaryExpression implements IrExpression {
 						+ rightExpression.toC(context) + ")";
 			else if (operator.equals(".."))
 				return "Boolean_through(" + leftExpression.toC(context) + ", "
-						+ rightExpression.toC(context) + "1, 1)";
+						+ rightExpression.toC(context) + "new_integer(1), new_integer(1))";
 			else if (operator.equals("<."))
 				return "Boolean_through(" + leftExpression.toC(context) + ", "
-						+ rightExpression.toC(context) + "0, 1)";
+						+ rightExpression.toC(context) + "new_integer(0), new_integer(1))";
 			else if (operator.equals(".<"))
 				return "Boolean_through(" + leftExpression.toC(context) + ", "
-						+ rightExpression.toC(context) + "1, 0)";
+						+ rightExpression.toC(context) + "new_integer(1), new_integer(0))";
 			else if (operator.equals("<<"))
 				return "Boolean_through(" + leftExpression.toC(context) + ", "
-						+ rightExpression.toC(context) + "0, 0)";
+						+ rightExpression.toC(context) + "new_integer(0), new_integer(0))";
 			else if (operator.equals("<"))
 				return "Boolean_lessThan(" + leftExpression.toC(context) + ", "
-						+ rightExpression.toC(context) + ", 1)";
+						+ rightExpression.toC(context) + ", new_integer(1))";
 			else if (operator.equals("<="))
 				return "Boolean_lessThan(" + leftExpression.toC(context) + ", "
-						+ rightExpression.toC(context) + ", 0)";
+						+ rightExpression.toC(context) + ", new_integer(0))";
 			else if (operator.equals("=="))
 				return "Boolean_equal(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + ")";

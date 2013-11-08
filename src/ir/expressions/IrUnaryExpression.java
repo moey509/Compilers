@@ -37,16 +37,16 @@ public class IrUnaryExpression implements IrExpression {
 			if (operator == "!")
 				return "Boolean_negate(" + expression.toC(context) + ")";
 			else if (operator == "...")
-				return "Boolean_onward(" + expression.toC(context) + ", 1)";
+				return "Boolean_onward(" + expression.toC(context) + ", new_integer(1))";
 			else if (operator == "<..")
-				return "Boolean_onward(" + expression.toC(context) + ", 0)";
+				return "Boolean_onward(" + expression.toC(context) + ", new_integer(0))";
 		} else if (expression.getType() == "Integer") {
 			if (operator == "-")
 				return "Integer_negate(" + expression.toC(context) + ")";
 			else if (operator == "...")
-				return "Integer_onward(" + expression.toC(context) + ", 1)";
+				return "Integer_onward(" + expression.toC(context) + ", new_integer(1))";
 			else if (operator == "<..")
-				return "Integer_onward(" + expression.toC(context) + ", 0)";
+				return "Integer_onward(" + expression.toC(context) + ", new_integer(0))";
 		}
 			System.out.println("WARNING: operator for unary expression was null or could not be found");
 			return null;

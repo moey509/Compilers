@@ -84,7 +84,7 @@ public class IrFunction {
 		
 		// if constructor, make first malloc struct for super
 		if(isConstructor){
-			s = type.toC() + " __struct = (" + type.toC() + ")(x3malloc(sizeof(struct" + type.toC().substring(0, type.toC().length()-2) + ")));";
+			s = type.toC() + " __struct = (" + type.toC() + ")(x3malloc(sizeof(struct " + type.toC().substring(0, type.toC().length()-2) + ")));";
 			postarr.add(s);
 			postarr.add("__struct->ref_count = 0;");
 			for(IrTypeTuple t : arguments){
