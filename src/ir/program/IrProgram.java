@@ -73,9 +73,13 @@ public class IrProgram {
 				context.variablesInitializedInScope.add(tuple.variableName);
 			}
 		}
+
+		// use a new mainVarDecl so that population by function statements are not included
+		context.mainVarDecl = new HashMap<String, String>();
 		for (IrStatement irStatement : mainFunctionStatements){
 			postout.addAll(irStatement.toMainC(context));
 		}
+		// declare variables here
 		for (String s : context.mainVarDecl.keySet()) {
 			output.add(context.mainVarDecl.get(s) + " " + s + ";");
 		}

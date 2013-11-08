@@ -1,6 +1,8 @@
 package ir.program;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 import ir.CGenerationContext;
@@ -50,6 +52,7 @@ public class IrFunction {
 	}
 	//TODO: Can structs and functions have the same name
 	public ArrayList<String> toC(CGenerationContext context) {
+		context.fcnVarDecl = new HashMap<String, String>();
 		//Declaration
 		ArrayList<String> arr = new ArrayList<String>();
 		
@@ -71,14 +74,19 @@ public class IrFunction {
 		s += "){";
 		arr.add(s);
 		
+		HashSet<String> tempVarSet = new HashSet<String>();
 		for(IrBind b : tempVariables){
 			arr.add(b.tuple.type.type + " " + b.tuple.variableName + ";");
+			tempVarSet.add(b.tuple.variableName);
 		}
 		
+		ArrayList<String> postarr = new ArrayList<String>();
+		
+		// if constructor, make first malloc struct for super
 		if(isConstructor){
 			s = type.toC() + " __struct = (" + type.toC() + ")(x3malloc(sizeof(struct" + type.toC().substring(0, type.toC().length()-2) + ")));";
-			arr.add(s);
-			arr.add("__struct->ref_count = 0;");
+			postarr.add(s);
+			postarr.add("__struct->ref_count = 0;");
 			for(IrTypeTuple t : arguments){
 				if(firstElement){
 					s += t.type.toC() + " " + t.variableName;
@@ -92,14 +100,24 @@ public class IrFunction {
 		
 		if(isConstructor){
 			for(IrTypeTuple t : arguments){
-				arr.add("__struct->" + t.variableName + " = NULL;");
+				postarr.add("__struct->" + t.variableName + " = NULL;");
 			}
 		}
 		
 		for(IrStatement st : statements){
 //			System.out.println(st.toC(context));
-			arr.addAll(st.toC(context));
+			postarr.addAll(st.toC(context));
 		}
+		
+		// add binding vars to the output, add everything above (postarr) to the output
+		for (String str : context.fcnVarDecl.keySet()) {
+			if (!tempVarSet.contains(str)) {
+				arr.add(context.fcnVarDecl.get(str) + " " + str + ";");
+//				arr.add("void* " + str + ";");
+			}
+		}
+		arr.addAll(postarr);
+		
 		if(superCall != null){
 			arr.add("__struct->con_comp = " + superCall.toC(context) + ";");
 			arr.add("__struct->con_comp->ref_count = 1;");

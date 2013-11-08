@@ -10,6 +10,8 @@ public class CGenerationContext {
 	public HashSet<String> variablesInitializedInScope;
 	//map of variable name to variable type that needs to be declared at the top of the main function
 	public Map<String, String> mainVarDecl = new HashMap<String, String>();
+	//map of variable name to variable type that needs to be declared at the top of each funciton
+	public Map<String, String> fcnVarDecl = new HashMap<String, String>();
 	
 	// final constants:
 	public final String iterator = "_it";
