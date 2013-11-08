@@ -23,6 +23,7 @@ public class CubexThrough extends CubexBinaryExpression {
 		//expr = l;
 		includeLeft = inclL;
 		includeRight = inclR;
+		type = l.type;
 	}
 	
 	public IrThrough toIr(IrGenerationContext context) {

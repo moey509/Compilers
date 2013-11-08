@@ -19,6 +19,7 @@ public final class CubexInteger extends CubexExpression {
 
 	public CubexInteger(int value) {
 		mValue = value;
+		type = "Integer";
 	}
 	
 	public IrInteger toIr(IrGenerationContext context) {

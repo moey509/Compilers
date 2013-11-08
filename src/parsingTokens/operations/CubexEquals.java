@@ -17,6 +17,7 @@ public class CubexEquals extends CubexBinaryExpression {
 	CubexExpression function;
 	public CubexEquals(CubexExpression left, CubexExpression right) {
 		super(left, right);
+		type = left.type;
 	}
 	
 	public IrBinaryExpression toIr(IrGenerationContext context) {

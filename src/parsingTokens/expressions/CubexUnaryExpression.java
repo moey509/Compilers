@@ -10,6 +10,7 @@ public abstract class CubexUnaryExpression extends CubexExpression {
 	private CubexExpression mArgument;
 	public CubexUnaryExpression(CubexExpression arg) {
 		setmArgument(arg);
+		type = mArgument.type;
 	}
 	public CubexExpression getmArgument() {
 		return mArgument;

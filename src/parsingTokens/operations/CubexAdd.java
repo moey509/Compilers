@@ -18,6 +18,7 @@ public class CubexAdd extends CubexBinaryExpression {
 	
 	public CubexAdd(CubexExpression left, CubexExpression right) {
 		super(left, right);
+		type = "Integer";
 	}
 	
 	public IrBinaryExpression toIr(IrGenerationContext context) {

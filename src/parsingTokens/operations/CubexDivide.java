@@ -17,6 +17,7 @@ public class CubexDivide extends CubexBinaryExpression {
 	CubexExpression function;
 	public CubexDivide(CubexExpression left, CubexExpression right) {
 		super(left, right);
+		type = "Integer";
 	}
 	
 	public IrBinaryExpression toIr(IrGenerationContext context) {

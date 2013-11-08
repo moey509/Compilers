@@ -18,6 +18,7 @@ public class CubexAnd extends CubexBinaryExpression {
 	
 	public CubexAnd(CubexExpression left, CubexExpression right) {
 		super(left, right);
+		type = "Boolean";
 	}
 	
 	public IrBinaryExpression toIr(IrGenerationContext context) {

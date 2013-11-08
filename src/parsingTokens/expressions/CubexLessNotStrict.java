@@ -16,6 +16,7 @@ public class CubexLessNotStrict extends CubexBinaryExpression {
 
 	public CubexLessNotStrict(CubexExpression left, CubexExpression right) {
 		super(left, right);
+		type = "Integer";
 	}
 
 	public IrBinaryExpression toIr(IrGenerationContext context) {
