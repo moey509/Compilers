@@ -58,6 +58,7 @@ public final class CubexFunctionCall extends CubexExpression {
 
 		for (CubexExpression i : functionParams.contextCollection) {
 			irFunCall.addArgument(i.type, i.toIr(context));
+			System.out.println(i.type + " " + i.toString());
 		}
 		return irFunCall;
 	}
@@ -107,6 +108,7 @@ public final class CubexFunctionCall extends CubexExpression {
 			}
 		}
 		CubexTypeGrammar output = typeScheme.getTypeGrammar().replaceParams(cont);
+		type = output.name;
 		return output;
 	}
 	

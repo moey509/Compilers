@@ -18,6 +18,7 @@ public class CubexMultiply extends CubexBinaryExpression {
 
 	public CubexMultiply(CubexExpression left, CubexExpression right) {
 		super(left, right);
+		type = "Integer";
 	}
 	
 	public IrBinaryExpression toIr(IrGenerationContext context) {

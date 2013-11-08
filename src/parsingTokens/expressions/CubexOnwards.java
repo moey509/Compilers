@@ -18,6 +18,7 @@ public class CubexOnwards extends CubexUnaryExpression {
 	public CubexOnwards(CubexExpression l, boolean incl) {
 		super(l);
 		include = incl;
+		type = l.type;
 	}
 	
 	public IrOnwards toIr(IrGenerationContext context) {

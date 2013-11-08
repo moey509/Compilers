@@ -19,6 +19,7 @@ public final class CubexString extends CubexExpression {
 
 	public CubexString(String value) {
 		mValue = value;
+		type = "String";
 	}
 	
 	public IrString toIr(IrGenerationContext context) {

@@ -18,6 +18,7 @@ public class CubexNegative extends CubexUnaryExpression {
 
 	public CubexNegative(CubexExpression arg) {
 		super(arg);
+		type = "Integer";
 	}
 	
 	public IrUnaryExpression toIr(IrGenerationContext context) {

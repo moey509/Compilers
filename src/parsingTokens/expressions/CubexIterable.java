@@ -22,6 +22,7 @@ public class CubexIterable extends CubexExpression {
 
 	public CubexIterable(CubexList<CubexExpression> listIn) {
 		list = listIn;
+		type = "Iterable";
 	}
 	
 	public ArrayList<IrBind> getExpressions(IrGenerationContext context){

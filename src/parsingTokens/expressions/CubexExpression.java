@@ -13,8 +13,8 @@ import typeChecker.CubexCompleteContext;
 import typeChecker.IrGenerationContext;
 
 public class CubexExpression {
-	String name;
-	String type;
+	public String name;
+	public String type;
 
 	public CubexExpression() {
 	}

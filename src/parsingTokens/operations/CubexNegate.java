@@ -17,6 +17,7 @@ public class CubexNegate extends CubexUnaryExpression {
 	CubexExpression function;
 	public CubexNegate(CubexExpression arg) {
 		super(arg);
+		type = "Boolean";
 	}
 	
 	public IrUnaryExpression toIr(IrGenerationContext context) {
