@@ -22,6 +22,15 @@ public class IrType {
 	}
 
 	public String declarationInStruct(){
-		return type + "_t";
+		if(type == null){
+			return "git_t";
+		}
+		if(type.equals("void*")){
+			return type;
+		}
+		if (type.equals("String"))
+			return "git_t";
+		else
+			return type + "_t";
 	}
 }
