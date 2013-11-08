@@ -61,8 +61,11 @@ public class IrFunction {
 			s = s + "_" + object;
 		}
 		s = s + "_" + functionName + "(";
+		
+		HashSet<String> tempVarSet = new HashSet<String>();
 		boolean firstElement = true;
 		for(IrTypeTuple t : arguments){
+			tempVarSet.add(t.variableName);
 			if(firstElement){
 				s += t.type.toC() + " " + t.variableName;
 				firstElement = false;
@@ -74,7 +77,6 @@ public class IrFunction {
 		s += "){";
 		arr.add(s);
 		
-		HashSet<String> tempVarSet = new HashSet<String>();
 		for(IrBind b : tempVariables){
 			arr.add(b.tuple.type.type + " " + b.tuple.variableName + ";");
 			tempVarSet.add(b.tuple.variableName);
