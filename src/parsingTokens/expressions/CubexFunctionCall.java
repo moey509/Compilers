@@ -58,7 +58,7 @@ public final class CubexFunctionCall extends CubexExpression {
 
 		for (CubexExpression i : functionParams.contextCollection) {
 			irFunCall.addArgument(i.type, i.toIr(context));
-			System.out.println(i.type + " " + i.toString());
+			System.out.println("CUBEX: " + i.type + " " + i.toString());
 		}
 		return irFunCall;
 	}
@@ -152,7 +152,7 @@ public final class CubexFunctionCall extends CubexExpression {
 		else{
 			call = new IrFunctionCall("_" + obj, "void*");
 			for(IrBind bind : tempParams){
-				call.addArgument(obj, new IrVariableExpression(bind.tuple.variableName, bind.tuple.type.type));
+				call.addArgument("void*", new IrVariableExpression(bind.tuple.variableName, bind.tuple.type.type));
 			}
 			b = new IrBind(tuple, call);
 		} 

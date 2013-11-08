@@ -93,10 +93,10 @@ public final class CubexFunctionApp extends CubexExpression {
 		if(tempParams.size() == 0){
 			IrFunctionCall call = new IrFunctionCall(obj + "_" + fun, "void*");
 			if(thisPointer.size() != 0){
-				call.addArgument(obj, new IrVariableExpression(thisPointer.get(thisPointer.size()-1).tuple.variableName, thisPointer.get(thisPointer.size()-1).tuple.type.type));
+				call.addArgument("void*", new IrVariableExpression(thisPointer.get(thisPointer.size()-1).tuple.variableName, thisPointer.get(thisPointer.size()-1).tuple.type.type));
 			}
 			else{
-				call.addArgument(obj,expr.toIr(context));
+				call.addArgument(expr.type,expr.toIr(context));
 			}
 			b = new IrBind(tuple, call);
 		}
@@ -104,10 +104,10 @@ public final class CubexFunctionApp extends CubexExpression {
 			IrFunctionCall call = new IrFunctionCall(obj + "_" + fun, "void*");
 			//Have to add in all arguments. Must figure out how much each has
 			if(thisPointer.size() != 0){
-				call.addArgument(obj, new IrVariableExpression(thisPointer.get(thisPointer.size()-1).tuple.variableName, thisPointer.get(thisPointer.size()-1).tuple.type.type));
+				call.addArgument("void*", new IrVariableExpression(thisPointer.get(thisPointer.size()-1).tuple.variableName, thisPointer.get(thisPointer.size()-1).tuple.type.type));
 			}
 			else{
-				call.addArgument(obj, expr.toIr(context));
+				call.addArgument(expr.type, expr.toIr(context));
 			}
 			for(IrBind bind : tempParams){
 				call.addArgument(bind.tuple.type, new IrVariableExpression(bind.tuple.variableName, bind.tuple.type.type));
