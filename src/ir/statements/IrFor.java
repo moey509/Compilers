@@ -63,8 +63,10 @@ public class IrFor implements IrStatement {
 
 		String iterDeclaration = iterable + " = iterable_append((" + list.toC(context) + "), NULL);";
 		//add iterable to list of stuff declared at the top of the function
+		context.fcnVarDecl.put(iterable, "git_t");
 
 		String itDeclaration = iterator + " = new_iterator((" + iterable + "));";
+		context.fcnVarDecl.put(iterator, "iterator_t");
 		String itCondition = "while(hasNext(" + iterator + ")) {";
 		String tempVar = "void* " + var + " = getNext(" + iterator + ");";
 
@@ -112,8 +114,6 @@ public class IrFor implements IrStatement {
 		context.incrementCurIterable();
 		String iterable = context.iterable + cur_iterable;
 		String iterator = context.iterator + cur_iterator;
-		
-		//TODO: ANSHA - need to add iterable and iterator into mutable context.
 		
 		String iterDeclaration = iterable + " = iterable_append((" + list.toC(context) + "), NULL);";
 		// TODO: add iterable (variable) to list of things to be declared at the top of the main function
