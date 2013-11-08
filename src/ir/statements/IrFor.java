@@ -125,7 +125,7 @@ public class IrFor implements IrStatement {
 		String itCondition = "while(hasNext(" + iterator + ")) {";
 		String tempVar = "void* " + var + " = getNext(" + iterator + ");";
 		
-		System.out.println("sdfadfasdfasdff"  + iterDeclaration);
+//		System.out.println("sdfadfasdfasdff"  + iterDeclaration);
 		
 		arr.add(iterDeclaration);
 		arr.add(itDeclaration);

@@ -34,7 +34,7 @@ public final class IrReturn implements IrStatement {
 	@Override
 	public ArrayList<String> toC(CGenerationContext context) {
 		ArrayList<String> arrList = new ArrayList<String>();
-		System.out.println("In IrReturn: " + temporaryBinds);
+//		System.out.println("In IrReturn: " + temporaryBinds);
 		for(IrBind b : temporaryBinds){
 			arrList.addAll(b.toC(context));
 		}
