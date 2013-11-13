@@ -33,14 +33,14 @@ public class IrStatementList implements IrStatement{
 	}
 	
 	@Override
-	public ArrayList<String> toC(CGenerationContext context) {
+	public ArrayList<String> toC(CGenerationContext context, boolean isMain) {
 		ArrayList<String> output = new ArrayList<String>();
 		for (IrStatement stmt : statementList){
-			output.addAll(stmt.toC(context));
+			output.addAll(stmt.toC(context, isMain));
 		}
 		return output;
 	}
-
+/*
 	@Override
 	public ArrayList<String> toMainC(CGenerationContext context) {
 		ArrayList<String> output = new ArrayList<String>();
@@ -49,7 +49,7 @@ public class IrStatementList implements IrStatement{
 		}
 		return output;
 	}
-	
+	*/
 	public ArrayList<IrBind> getTemporaryVariables(){
 		for(IrStatement s : statementList){
 			this.temporaryBinds.addAll(s.getTemporaryVariables());

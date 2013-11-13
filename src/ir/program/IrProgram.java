@@ -77,7 +77,7 @@ public class IrProgram {
 		// use a new mainVarDecl so that population by function statements are not included
 		context.mainVarDecl = new HashMap<String, String>();
 		for (IrStatement irStatement : mainFunctionStatements){
-			postout.addAll(irStatement.toMainC(context));
+			postout.addAll(irStatement.toC(context, true));
 		}
 		// declare variables here
 		for (String s : context.mainVarDecl.keySet()) {

@@ -108,7 +108,7 @@ public class IrFunction {
 		
 		for(IrStatement st : statements){
 //			System.out.println(st.toC(context));
-			postarr.addAll(st.toC(context));
+			postarr.addAll(st.toC(context, false));
 		}
 		
 		// add binding vars to the output, add everything above (postarr) to the output

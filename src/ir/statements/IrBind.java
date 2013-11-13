@@ -32,14 +32,14 @@ public final class IrBind implements IrStatement {
 	}
 
 	@Override
-	public ArrayList<String> toC(CGenerationContext context) {
+	public ArrayList<String> toC(CGenerationContext context, boolean isMain) {
 		ArrayList<String> output = new ArrayList<String>();
 		//output.add(tuple.type.toC() + " " + tuple.variableName + " = " + expression.toC(context) + ";");
 		for(IrBind b : temporaryBinds){
 			// put variables at the top of main() here:
 			context.mainVarDecl.put(b.tuple.variableName, "void*");
 			output.add(b.tuple.variableName + " = NULL;");
-			output.addAll(b.toC(context));
+			output.addAll(b.toC(context, isMain));
 		}
 		
 		// put everything in fcnVarDecl ->
@@ -63,11 +63,6 @@ public final class IrBind implements IrStatement {
 			output.add(b.tuple.variableName + " = NULL;");
 		}
 		return output;
-	}
-
-	@Override
-	public ArrayList<String> toMainC(CGenerationContext context) {
-		return toC(context);
 	}
 	
 	public ArrayList<IrBind> getTemporaryVariables(){
