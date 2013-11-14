@@ -20,7 +20,7 @@ public class IrStruct implements IrProgramElem{
 		structVariables.add(variable);
 	}
 	
-	public ArrayList<String> toC(CGenerationContext context){
+	public ArrayList<String> toC(CGenerationContext context, boolean isMain){
 		/*
 		 * int ref_count;
   char** fun_names;

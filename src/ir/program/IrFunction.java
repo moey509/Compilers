@@ -51,7 +51,7 @@ public class IrFunction implements IrProgramElem{
 		superCall = expression;
 	}
 	//TODO: Can structs and functions have the same name
-	public ArrayList<String> toC(CGenerationContext context) {
+	public ArrayList<String> toC(CGenerationContext context, boolean isMain) {
 		context.fcnVarDecl = new HashMap<String, String>();
 		//Declaration
 		ArrayList<String> arr = new ArrayList<String>();
@@ -108,7 +108,7 @@ public class IrFunction implements IrProgramElem{
 		
 		for(IrStatement st : statements){
 //			System.out.println(st.toC(context));
-			postarr.addAll(st.toC(context));
+			postarr.addAll(st.toC(context, false));
 		}
 		
 		// add binding vars to the output, add everything above (postarr) to the output

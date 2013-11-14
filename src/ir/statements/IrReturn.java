@@ -35,61 +35,101 @@ public final class IrReturn implements IrStatement {
 	}
 
 	@Override
-	public ArrayList<String> toC(CGenerationContext context) {
+	public ArrayList<String> toC(CGenerationContext context, boolean isMain) {
 		ArrayList<String> arrList = new ArrayList<String>();
-//		System.out.println("In IrReturn: " + temporaryBinds);
+
+		String itDeclaration = "";
+		String itCondition = "";
+		String tempVar = "";
+		if (isMain) {
+			int cur_iterator = context.getCurIterator();
+			context.incrementCurIterator();
+			String iterator = "_it" + cur_iterator;
+			context.mainVarDecl.put(iterator, "iterator_t");
+			itDeclaration = iterator + " = new_iterator((" + expression.toC(context) + "));";
+			itCondition = "while(hasNext(" + iterator + ")) {";
+			tempVar = "_return = getNext(" + iterator + ");";
+		}
+		
 		for(IrBind b : temporaryBinds){
-			arrList.addAll(b.toC(context));
+			arrList.addAll(b.toC(context, isMain));
 		}
 		for(int i = 0; i < temporaryBinds.size()-1; i++){
 			IrBind b = temporaryBinds.get(i);
 			arrList.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
 		}
-		for (String s : freeContext) {
-			arrList.add("ref_decrement((General_t)" + s + ");");
+		
+		if (isMain) {
+			arrList.add(itDeclaration);
+			arrList.add(itCondition);
+			arrList.add(tempVar);
 		}
-		arrList.add("return " + expression.toC(context) + ";");
+		
+		for (String s : freeContext) {
+			if (isMain) {
+				if (!s.equals("_input"))
+					arrList.add("ref_decrement((General_t)" + s + ");");
+			}
+			else {
+				arrList.add("ref_decrement((General_t)" + s + ");");
+			}
+		}
+		
+		if (isMain) {
+			arrList.add("print_line(charToString(_return), stringLength(_return));");
+			
+			arrList.add("}");
+			for (String s : freeContext) {
+				arrList.add("ref_decrement((General_t)" + s + ");");
+			}
+			//GARBAGE COLLECT EVERYTHING
+			arrList.add("return;");
+		}
+		else {
+			arrList.add("return " + expression.toC(context) + ";");
+		}
 		return arrList;
 	}
-
+/*
 	@Override
 	public ArrayList<String> toMainC(CGenerationContext context) {
 		ArrayList<String> output = new ArrayList<String>();
-		int cur_iterator = context.getCurIterator();
-		context.incrementCurIterator();
-		String iterator = "_it" + cur_iterator;
-		context.mainVarDecl.put(iterator, "iterator_t");
-		String itDeclaration = iterator + " = new_iterator((" + expression.toC(context) + "));";
-		String itCondition = "while(hasNext(" + iterator + ")) {";
-		String tempVar = "_return = getNext(" + iterator + ");";
+//		int cur_iterator = context.getCurIterator();
+//		context.incrementCurIterator();
+//		String iterator = "_it" + cur_iterator;
+//		context.mainVarDecl.put(iterator, "iterator_t");
+//		String itDeclaration = iterator + " = new_iterator((" + expression.toC(context) + "));";
+//		String itCondition = "while(hasNext(" + iterator + ")) {";
+//		String tempVar = "_return = getNext(" + iterator + ");";
+//		
 		
+//		for(IrBind b : temporaryBinds){
+//			output.addAll(b.toC(context));
+//		}
+//		for(int i = 0; i < temporaryBinds.size()-1; i++){
+//			IrBind b = temporaryBinds.get(i);
+//			output.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
+//		}
+//		output.add(itDeclaration);
+//		output.add(itCondition);
+//		output.add(tempVar);
 		
-		for(IrBind b : temporaryBinds){
-			output.addAll(b.toC(context));
-		}
-		for(int i = 0; i < temporaryBinds.size()-1; i++){
-			IrBind b = temporaryBinds.get(i);
-			output.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
-		}
-		output.add(itDeclaration);
-		output.add(itCondition);
-		output.add(tempVar);
-		
-		for (String s : freeContext) {
-			if (!s.equals("_input"))
-			output.add("ref_decrement((General_t)" + s + ");");
-		}
-		
-		output.add("print_line(charToString(_return), stringLength(_return));");
-		
-		output.add("}");
-		for (String s : freeContext) {
-			output.add("ref_decrement((General_t)" + s + ");");
-		}
-		//GARBAGE COLLECT EVERYTHING
-		output.add("return;");
-		return output;
+//		for (String s : freeContext) {
+//			if (!s.equals("_input"))
+//			output.add("ref_decrement((General_t)" + s + ");");
+//		}
+////		
+//		output.add("print_line(charToString(_return), stringLength(_return));");
+//		
+//		output.add("}");
+//		for (String s : freeContext) {
+//			output.add("ref_decrement((General_t)" + s + ");");
+//		}
+//		//GARBAGE COLLECT EVERYTHING
+//		output.add("return;");
+//		return output;
 	}
+	*/
 	public ArrayList<IrBind> getTemporaryVariables(){
 		return this.temporaryBinds;
 	}
