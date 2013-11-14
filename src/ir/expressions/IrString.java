@@ -2,6 +2,9 @@ package ir.expressions;
 
 import java.util.ArrayList;
 
+import parsingTokens.CubexList;
+import parsingTokens.typeGrammar.CubexTypeClass;
+import parsingTokens.typeGrammar.CubexTypeGrammar;
 import ir.CGenerationContext;
 import ir.IrMiscFunctions;
 import ir.IrType;
@@ -10,15 +13,15 @@ import ir.statements.IrBind;
 
 public final class IrString implements IrExpression {
 	private String mValue;
-	private String type;
+	private String cType;
 
 	public IrString(String value) {
 		mValue = value;
-		this.type = IrMiscFunctions.STRING;
+		this.cType = IrMiscFunctions.STRING;
 	}
 	
-	public String getType() {
-		return this.type;
+	public String getCType() {
+		return this.cType;
 	}
 	
 	public String helper(int index, CGenerationContext context) {
@@ -43,9 +46,14 @@ public final class IrString implements IrExpression {
 
 	@Override
 	public ArrayList<IrBind> getExpressions(CGenerationContext context) {
-		// TODO Auto-generated method stub
 		ArrayList<IrBind> arr = new ArrayList<IrBind>();
-		arr.add(new IrBind(new IrTypeTuple(new IrType("void*"), "_tmp" + context.nextCount()), this));
+		// TODO Fix this to take in a context
+		//arr.add(new IrBind(new IrTypeTuple(new IrType("void*"), "_tmp" + context.nextCount()), this));
 		return arr;
+	}
+	
+	@Override
+	public CubexTypeGrammar getCubexType() {
+		return new CubexTypeClass("String", new CubexList<CubexTypeGrammar>());
 	}
 }

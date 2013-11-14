@@ -2,7 +2,7 @@ package ir.program;
 
 import ir.IrType;
 
-public class IrTypeTuple {
+public class IrTypeTuple{
 	public IrType type;
 	public String variableName;
 	

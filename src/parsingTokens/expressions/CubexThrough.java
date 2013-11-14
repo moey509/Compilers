@@ -16,6 +16,9 @@ public class CubexThrough extends CubexBinaryExpression {
 	private boolean includeRight;
 	//private CubexExpression expr;
 	public CubexFunctionApp function;
+	
+	CubexTypeGrammar cubexType;
+	CubexCompleteContext cubexContext;
 
 	public CubexThrough(CubexExpression l, CubexExpression r, boolean inclL,
 			boolean inclR) {
@@ -27,7 +30,7 @@ public class CubexThrough extends CubexBinaryExpression {
 	}
 	
 	public IrThrough toIr(IrGenerationContext context) {
-		return new IrThrough(getmLeft().toIr(context), getmRight().toIr(context), includeLeft, includeRight);
+		return new IrThrough(getmLeft().toIr(context), getmRight().toIr(context), includeLeft, includeRight, cubexType);
 	}
 
 	public String toString() {
@@ -45,7 +48,9 @@ public class CubexThrough extends CubexBinaryExpression {
 		l.add(new CubexBoolean(false));
 		function = new CubexFunctionApp(super.getmLeft(), "through",
 				new CubexList<CubexTypeGrammar>(), l);
-		return function.typeCheck(c);
+		cubexType = function.typeCheck(c);
+		cubexContext = c.clone();
+		return cubexType;
 	}
 	public ArrayList<IrBind> getExpressions(IrGenerationContext context){
 		ArrayList<IrBind> arr = function.getExpressions(context);

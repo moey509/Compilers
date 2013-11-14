@@ -19,6 +19,9 @@ import typeChecker.IrGenerationContext;
 
 public class CubexIterable extends CubexExpression {
 	CubexList<CubexExpression> list;
+	
+	CubexTypeGrammar cubexType;
+	CubexCompleteContext cubexContext;
 
 	public CubexIterable(CubexList<CubexExpression> listIn) {
 		list = listIn;
@@ -34,7 +37,8 @@ public class CubexIterable extends CubexExpression {
 			if(params.size() == 0){
 				IrType t = new IrType("git_t");
 				IrTypeTuple tuple = new IrTypeTuple(t, e.toString());
-				tempBinds.add(new IrBind(tuple, new IrVariableExpression(tuple.variableName, tuple.type.type)));
+				//TODO something
+				tempBinds.add(new IrBind(tuple, new IrVariableExpression(tuple.variableName, tuple.type.type), cubexContext));
 			}
 			//Throw in a temporary variable
 			else{
@@ -46,19 +50,20 @@ public class CubexIterable extends CubexExpression {
 		if(arr.size() == 0){
 			IrType t = new IrType("git_t");
 			IrTypeTuple tuple = new IrTypeTuple(t, context.nextTemp());
-			IrBind b = new IrBind(tuple, this.toIr(context));
+			IrBind b = new IrBind(tuple, this.toIr(context), cubexContext);
 			arr.add(b);
 			return arr;
 		}
 		else{
 			CubexList<IrExpression> irE = new CubexList<IrExpression>();
 			for (IrBind s : tempBinds) {
+				//TODO something
 				irE.add(new IrVariableExpression(s.tuple.variableName, s.tuple.type.type));
 			}
-			IrIterable iterable = new IrIterable(irE);
+			IrIterable iterable = new IrIterable(irE, cubexType);
 			IrType t = new IrType("git_t");
 			IrTypeTuple tuple = new IrTypeTuple(t, context.nextTemp());
-			IrBind b = new IrBind(tuple, iterable);
+			IrBind b = new IrBind(tuple, iterable, cubexContext);
 			arr.add(b);
 			return arr;
 		}
@@ -69,7 +74,7 @@ public class CubexIterable extends CubexExpression {
 		for (CubexExpression i : list.contextCollection) {
 			irE.add(i.toIr(context));
 		}
-		return new IrIterable(irE);
+		return new IrIterable(irE, cubexType);
 	}
 
 	public String toString() {
@@ -88,7 +93,9 @@ public class CubexIterable extends CubexExpression {
 		}
 		CubexList<CubexTypeGrammar> iterableType = new CubexList<CubexTypeGrammar>();
 		iterableType.add(joinedType);
-		return new CubexTypeClass("Iterable", iterableType);
+		cubexContext = c.clone();
+		cubexType = new CubexTypeClass("Iterable", iterableType);
+		return cubexType;
 	}
 	
 	@Override

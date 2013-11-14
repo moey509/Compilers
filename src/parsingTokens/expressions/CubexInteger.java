@@ -16,6 +16,8 @@ import Exception.SemanticException;
 
 public final class CubexInteger extends CubexExpression {
 	private int mValue;
+	
+	CubexCompleteContext cubexContext;
 
 	public CubexInteger(int value) {
 		mValue = value;
@@ -29,7 +31,7 @@ public final class CubexInteger extends CubexExpression {
 		ArrayList<IrBind> arr = new ArrayList<IrBind>();
 		IrType t = new IrType("void*");
 		IrTypeTuple tuple = new IrTypeTuple(t, context.nextTemp());
-		arr.add(new IrBind(tuple, this.toIr(context)));
+		arr.add(new IrBind(tuple, this.toIr(context), cubexContext));
 		return arr;
 	}
 
@@ -40,6 +42,7 @@ public final class CubexInteger extends CubexExpression {
 	// Check if the expression is of some type
 	public CubexTypeGrammar typeCheck(CubexCompleteContext c)
 			throws SemanticException {
+		cubexContext = c.clone();
 		return new CubexTypeClass("Integer", new CubexList<CubexTypeGrammar>());
 	}
 	

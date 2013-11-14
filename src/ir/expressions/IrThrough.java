@@ -1,23 +1,24 @@
 package ir.expressions;
 
+import parsingTokens.typeGrammar.CubexTypeGrammar;
 import ir.CGenerationContext;
 import ir.IrMiscFunctions;
 
 public class IrThrough extends IrBinaryExpression {
 	private boolean includeLeft;
 	private boolean includeRight;
-	private String type;
+	private String cType;
 
 	public IrThrough(IrExpression l, IrExpression r, boolean inclL,
-			boolean inclR) {
-		super(l, r, "");
+			boolean inclR, CubexTypeGrammar cubexType) {
+		super(l, r, "", cubexType);
 		includeLeft = inclL;
 		includeRight = inclR;
-		this.type = IrMiscFunctions.ITERABLE;
+		this.cType = IrMiscFunctions.ITERABLE;
 	}
 	
-	public String getType() {
-		return this.type;
+	public String getCType() {
+		return this.cType;
 	}
 	
 	// new_git_int(0, 3, 5);
@@ -32,8 +33,6 @@ public class IrThrough extends IrBinaryExpression {
 			inR = " + 1";
 		else
 			inR = " + 0";
-		return "new_git_int(0, (" + getLeftExpression().toC(context) + inL + "), (" + getRightExpression().toC(context) + inR + "));";
-		 
-			
+		return "new_git_int(0, (" + getLeftExpression().toC(context) + inL + "), (" + getRightExpression().toC(context) + inR + "));";			
 	}
 }

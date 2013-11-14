@@ -15,6 +15,8 @@ import typeChecker.IrGenerationContext;
 public class CubexExpression {
 	public String name;
 	public String type;
+	CubexTypeGrammar cubexType;
+	CubexCompleteContext cubexContext;
 
 	public CubexExpression() {
 	}
@@ -55,11 +57,13 @@ public class CubexExpression {
 	public CubexTypeGrammar typeCheck(CubexCompleteContext c)
 			throws SemanticException {
 		if (c.containsTypeVariableInMutableTypeContext(name)) {
-			type = c.getTypeGrammarFromMutableTypeContext(name).name;
-			return c.getTypeGrammarFromMutableTypeContext(name);
+			cubexType = c.getTypeGrammarFromMutableTypeContext(name);
+			type = cubexType.name;
+			return cubexType;
 		} else if (c.containsTypeVariableInTypeContext(name)) {
-			type = c.getTypeGrammarFromTypeContext(name).name;
-			return c.getTypeGrammarFromTypeContext(name);
+			cubexType = c.getTypeGrammarFromTypeContext(name);
+			type = cubexType.name;
+			return cubexType;
 		} else {
 			throw new SemanticException("Variable " + name + " does not exist");
 		}
@@ -71,9 +75,9 @@ public class CubexExpression {
 		//System.out.println("--> not sure how to find the type of variable");
 
 		if (context.containsGlobalVariable(name)){
-			return new IrVariableExpression("_" + name, type);
+			return new IrVariableExpression("_" + name, cubexType.name, cubexType);
 		}
-		else return new IrVariableExpression(name, type);
+		else return new IrVariableExpression(name, cubexType.name, cubexType);
 
 	}
 }

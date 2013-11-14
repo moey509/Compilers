@@ -2,6 +2,7 @@ package ir.statements;
 
 import java.util.ArrayList;
 
+import typeChecker.CubexCompleteContext;
 import ir.CGenerationContext;
 import ir.expressions.IrExpression;
 import ir.program.IrTypeTuple;
@@ -10,11 +11,13 @@ public final class IrBind implements IrStatement {
 	public IrTypeTuple tuple;
 	public IrExpression expression;
 	public ArrayList<IrBind> temporaryBinds;
+	public CubexCompleteContext context;
 
-	public IrBind(IrTypeTuple tuple, IrExpression expression) {
+	public IrBind(IrTypeTuple tuple, IrExpression expression, CubexCompleteContext context) {
 		this.tuple = tuple;
 		this.expression = expression;
 		this.temporaryBinds = new ArrayList<IrBind>();
+		this.context = context;
 	}
 	
 	public void addDeclaration(ArrayList<String> arr, CGenerationContext context){

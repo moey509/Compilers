@@ -2,6 +2,7 @@ package ir.expressions;
 
 import java.util.ArrayList;
 
+import parsingTokens.typeGrammar.CubexTypeGrammar;
 import ir.CGenerationContext;
 import ir.expressions.IrExpression;
 import ir.statements.IrBind;
@@ -12,15 +13,23 @@ import ir.statements.IrBind;
 
 public class IrVariableExpression implements IrExpression {
 	private String variableName;
-	private String type;
-
-	public IrVariableExpression(String variableName, String type) {
+	private String cType;
+	private CubexTypeGrammar cubexType;
+	
+	public IrVariableExpression(String variableName, String cType) {
 		this.variableName = variableName;
-		this.type = type;
+		this.cType = cType;
+		this.cubexType = null;
+	}
+
+	public IrVariableExpression(String variableName, String cType, CubexTypeGrammar cubexType) {
+		this.variableName = variableName;
+		this.cType = cType;
+		this.cubexType = cubexType;
 	}
 	
-	public String getType() {
-		return type;
+	public String getCType() {
+		return cType;
 	}
 
 	@Override
@@ -34,6 +43,11 @@ public class IrVariableExpression implements IrExpression {
 		ArrayList<IrBind> arr = new ArrayList<IrBind>();
 		//arr.add(null);
 		return arr;
+	}
+
+	@Override
+	public CubexTypeGrammar getCubexType() {
+		return cubexType;
 	}
 
 }

@@ -1,22 +1,25 @@
 package ir.statements;
 
+import ir.CGenerationContext;
+import ir.expressions.IrExpression;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import typeChecker.TypeContext;
-import ir.CGenerationContext;
-import ir.expressions.IrExpression;
+import typeChecker.CubexCompleteContext;
 
 public final class IrWhile implements IrStatement {
 	private ArrayList<String> freeContext = new ArrayList<String>();
 	private IrExpression condition;
 	private List<IrStatement> statements;
 	private ArrayList<IrBind> temporaryBinds;
+	public CubexCompleteContext context;
 
-	public IrWhile(IrExpression condition) {
+	public IrWhile(IrExpression condition, CubexCompleteContext context) {
 		this.condition = condition;
 		this.statements = new ArrayList<IrStatement>();
-		temporaryBinds = new ArrayList<IrBind>();
+		this.temporaryBinds = new ArrayList<IrBind>();
+		this.context = context;
 	}
 	
 	public void addDeclaration(ArrayList<String> arr, CGenerationContext context){

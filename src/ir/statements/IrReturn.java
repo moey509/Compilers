@@ -1,19 +1,22 @@
 package ir.statements;
 
-import java.util.ArrayList;
-
-import typeChecker.TypeContext;
 import ir.CGenerationContext;
 import ir.expressions.IrExpression;
+
+import java.util.ArrayList;
+
+import typeChecker.CubexCompleteContext;
 
 public final class IrReturn implements IrStatement {
 	// the Cubex variables to be freed before returning
 	private ArrayList<String> freeContext = new ArrayList<String>();
 	private IrExpression expression;
 	public ArrayList<IrBind> temporaryBinds = new ArrayList<IrBind>();
+	public CubexCompleteContext context;
 	
-	public IrReturn(IrExpression expression) {
+	public IrReturn(IrExpression expression, CubexCompleteContext context) {
 		this.expression = expression;
+		this.context = context;
 	}
 	
 	public void setFreeContext(ArrayList<String> fc) {

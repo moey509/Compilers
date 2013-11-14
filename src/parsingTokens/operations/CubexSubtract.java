@@ -16,13 +16,16 @@ import typeChecker.IrGenerationContext;
 public class CubexSubtract extends CubexBinaryExpression {
 	CubexExpression function;
 	
+	CubexTypeGrammar cubexType;
+	CubexCompleteContext cubexContext;
+	
 	public CubexSubtract(CubexExpression left, CubexExpression right) {
 		super(left, right);
 		type = "Integer";
 	}
 	
 	public IrBinaryExpression toIr(IrGenerationContext context) {
-		return new IrBinaryExpression(getmLeft().toIr(context), getmRight().toIr(context), "-");
+		return new IrBinaryExpression(getmLeft().toIr(context), getmRight().toIr(context), "-", cubexType);
 	}
 	
 	public String toString(){
@@ -34,7 +37,8 @@ public class CubexSubtract extends CubexBinaryExpression {
 		l.add(super.getmRight());
 		function = new CubexFunctionApp(super.getmLeft(), "minus",
 				new CubexList<CubexTypeGrammar>(), l);
-		return function.typeCheck(c);
+		cubexType = function.typeCheck(c);
+		return cubexType;
 	}
 	
 	public ArrayList<IrBind> getExpressions(IrGenerationContext context){

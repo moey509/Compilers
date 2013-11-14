@@ -16,13 +16,16 @@ import typeChecker.IrGenerationContext;
 public class CubexAnd extends CubexBinaryExpression {
 	CubexExpression function;
 	
+	CubexTypeGrammar cubexType;
+	CubexCompleteContext cubexContext;
+	
 	public CubexAnd(CubexExpression left, CubexExpression right) {
 		super(left, right);
 		type = "Boolean";
 	}
 	
 	public IrBinaryExpression toIr(IrGenerationContext context) {
-		return new IrBinaryExpression(getmLeft().toIr(context), getmRight().toIr(context), "&&");
+		return new IrBinaryExpression(getmLeft().toIr(context), getmRight().toIr(context), "&&", cubexType);
 	}
 	
 	public String toString(){
@@ -34,7 +37,8 @@ public class CubexAnd extends CubexBinaryExpression {
 		l.add(super.getmRight());
 		function = new CubexFunctionApp(super.getmLeft(), "and",
 				new CubexList<CubexTypeGrammar>(), l);
-		return function.typeCheck(c);
+		cubexType = function.typeCheck(c);
+		return cubexType;
 	}
 	public ArrayList<IrBind> getExpressions(IrGenerationContext context){
 		ArrayList<IrBind> arr = function.getExpressions(context);

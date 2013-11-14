@@ -15,6 +15,9 @@ import typeChecker.IrGenerationContext;
 
 public class CubexMod extends CubexBinaryExpression {
 	CubexExpression function;
+	
+	CubexTypeGrammar cubexType;
+	CubexCompleteContext cubexContext;
 
 	public CubexMod(CubexExpression left, CubexExpression right) {
 		super(left, right);
@@ -22,7 +25,7 @@ public class CubexMod extends CubexBinaryExpression {
 	}
 
 	public IrBinaryExpression toIr(IrGenerationContext context) {
-		return new IrBinaryExpression(getmLeft().toIr(context), getmRight().toIr(context), "%");
+		return new IrBinaryExpression(getmLeft().toIr(context), getmRight().toIr(context), "%", cubexType);
 	}
 
 	public String toString() {
@@ -36,7 +39,8 @@ public class CubexMod extends CubexBinaryExpression {
 		l.add(super.getmRight());
 		function = new CubexFunctionApp(super.getmLeft(), "modulo",
 				new CubexList<CubexTypeGrammar>(), l);
-		return function.typeCheck(c);
+		cubexType = function.typeCheck(c);
+		return cubexType;
 	}
 	
 	public ArrayList<IrBind> getExpressions(IrGenerationContext context){

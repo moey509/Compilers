@@ -26,6 +26,9 @@ public final class CubexFunctionApp extends CubexExpression {
 	private String v_v;
 	private CubexList<CubexTypeGrammar> typeParams;
 	private CubexList<CubexExpression> functionParams;
+	
+	CubexTypeGrammar cubexType;
+	CubexCompleteContext cubexContext;
 
 	public CubexFunctionApp(CubexExpression expr, String v_v, CubexList<CubexTypeGrammar> typeParams, CubexList<CubexExpression> functionParams) {
 		this.expr = expr;
@@ -53,7 +56,7 @@ public final class CubexFunctionApp extends CubexExpression {
 			fun = v_v.replaceAll("_", "__");
 		}
 		
-		IrFunctionCall irFunCall = new IrFunctionCall(obj + "_" + fun, type);
+		IrFunctionCall irFunCall = new IrFunctionCall(obj + "_" + fun, type, cubexType);
 		irFunCall.addArgument(expr.type, expr.toIr(context));
 		for (CubexExpression i : functionParams.contextCollection) {
 			irFunCall.addArgument(i.type, i.toIr(context));
@@ -78,7 +81,7 @@ public final class CubexFunctionApp extends CubexExpression {
 			if(functionParamBinds.size() == 0){
 				IrType t = new IrType("void*");
 				IrTypeTuple tuple = new IrTypeTuple(t, e.toString());
-				tempParams.add(new IrBind(tuple, new IrVariableExpression(tuple.variableName, tuple.type.type)));
+				tempParams.add(new IrBind(tuple, new IrVariableExpression(tuple.variableName, tuple.type.type), cubexContext));
 			}
 			//Throw in a temporary variable
 			else{
@@ -91,17 +94,17 @@ public final class CubexFunctionApp extends CubexExpression {
 		IrTypeTuple tuple = new IrTypeTuple(t, context.nextTemp());
 		IrBind b;
 		if(tempParams.size() == 0){
-			IrFunctionCall call = new IrFunctionCall(obj + "_" + fun, "void*");
+			IrFunctionCall call = new IrFunctionCall(obj + "_" + fun, "void*", cubexType);
 			if(thisPointer.size() != 0){
 				call.addArgument("void*", new IrVariableExpression(thisPointer.get(thisPointer.size()-1).tuple.variableName, thisPointer.get(thisPointer.size()-1).tuple.type.type));
 			}
 			else{
 				call.addArgument(expr.type,expr.toIr(context));
 			}
-			b = new IrBind(tuple, call);
+			b = new IrBind(tuple, call, cubexContext);
 		}
 		else{
-			IrFunctionCall call = new IrFunctionCall(obj + "_" + fun, "void*");
+			IrFunctionCall call = new IrFunctionCall(obj + "_" + fun, "void*", cubexType);
 			//Have to add in all arguments. Must figure out how much each has
 			if(thisPointer.size() != 0){
 				call.addArgument("void*", new IrVariableExpression(thisPointer.get(thisPointer.size()-1).tuple.variableName, thisPointer.get(thisPointer.size()-1).tuple.type.type));
@@ -110,9 +113,9 @@ public final class CubexFunctionApp extends CubexExpression {
 				call.addArgument(expr.type, expr.toIr(context));
 			}
 			for(IrBind bind : tempParams){
-				call.addArgument(bind.tuple.type, new IrVariableExpression(bind.tuple.variableName, bind.tuple.type.type));
+				call.addArgument(bind.tuple.type, new IrVariableExpression(bind.tuple.variableName, bind.tuple.type.type, null));
 			}
-			b = new IrBind(tuple, call);
+			b = new IrBind(tuple, call, cubexContext);
 		}
 		arr.add(b);
 		return arr;
@@ -180,6 +183,8 @@ public final class CubexFunctionApp extends CubexExpression {
 		}
 		CubexTypeGrammar output = typeScheme.getTypeGrammar().replaceParams(cont);
 		type = output.name;
+		cubexType = output;
+		cubexContext = c.clone();
 		return output;
 	}
 	

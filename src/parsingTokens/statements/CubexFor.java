@@ -22,6 +22,8 @@ public final class CubexFor extends CubexStatement {
 	private String varfun;
 	private CubexStatement s;
 	private Set<String> freeContext;
+	
+	CubexCompleteContext cubexContext;
 
 	public CubexFor(String varfun, CubexExpression e, CubexStatement s) {
 		this.varfun = varfun;
@@ -32,14 +34,14 @@ public final class CubexFor extends CubexStatement {
 	public IrFor toIr(IrGenerationContext context) {
 		ArrayList<IrBind> arr = e.getExpressions(context);
 		if(arr.size() == 0){
-			IrFor ir = new IrFor(varfun, e.toIr(context));
+			IrFor ir = new IrFor(varfun, e.toIr(context), cubexContext);
 			ir.addStatement(s.toIr(context));
 			ir.setFreeContext(new ArrayList<String>(freeContext));
 			return ir;
 		}
 		else{
 			IrBind b = arr.get(arr.size()-1);
-			IrFor ir = new IrFor(varfun, new IrVariableExpression(b.tuple.variableName, b.tuple.type.type));
+			IrFor ir = new IrFor(varfun, new IrVariableExpression(b.tuple.variableName, b.tuple.type.type), cubexContext);
 			ir.temporaryBinds.addAll(arr);
 			ir.addStatement(s.toIr(context));
 			ir.setFreeContext(new ArrayList<String>(freeContext));
@@ -118,7 +120,10 @@ public final class CubexFor extends CubexStatement {
 		freeContext = gamma.typeContext.keySet();
 		freeContext.remove(varfun);
 		freeContext.removeAll(c.mutableTypeContext.keySet());
-		return new TypeContextReturn(ret, false, gamma.retType);
+		
+		TypeContextReturn temp = new TypeContextReturn(ret, false, gamma.retType);
+		cubexContext = c.clone();
+		return temp;
 				
 		
 	}

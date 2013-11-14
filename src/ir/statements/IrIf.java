@@ -3,6 +3,7 @@ package ir.statements;
 import java.util.ArrayList;
 import java.util.List;
 
+import typeChecker.CubexCompleteContext;
 import ir.CGenerationContext;
 import ir.expressions.IrExpression;
 
@@ -14,13 +15,15 @@ public class IrIf implements IrStatement {
 	private List<IrStatement> statements1; // { s1 }
 	private List<IrStatement> statements2; // else {s2}
 	public ArrayList<IrBind> temporaryBinds = new ArrayList<IrBind>();
+	public CubexCompleteContext context;
 	
 	// if there is no else statement, let s2 be null
-	public IrIf(IrExpression condition) {
+	public IrIf(IrExpression condition, CubexCompleteContext context) {
 		this.condition = condition;
 		this.statements1 = new ArrayList<IrStatement>();
 		this.statements2 = new ArrayList<IrStatement>();
-		temporaryBinds = new ArrayList<IrBind>();
+		this.temporaryBinds = new ArrayList<IrBind>();
+		this.context = context;
 	}
 	
 	public void addDeclaration(ArrayList<String> arr, CGenerationContext context){

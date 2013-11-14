@@ -15,6 +15,10 @@ import typeChecker.IrGenerationContext;
 
 public class CubexNegate extends CubexUnaryExpression {
 	CubexExpression function;
+	
+	CubexTypeGrammar cubexType;
+	CubexCompleteContext cubexContext;
+	
 	public CubexNegate(CubexExpression arg) {
 		super(arg);
 		type = "Boolean";
@@ -22,7 +26,7 @@ public class CubexNegate extends CubexUnaryExpression {
 	
 	public IrUnaryExpression toIr(IrGenerationContext context) {
 		ArrayList<IrBind> arr = function.getExpressions(context);
-		return new IrUnaryExpression(getmArgument().toIr(context), "!");
+		return new IrUnaryExpression(getmArgument().toIr(context), "!", cubexType);
 	}
 
 	public String toString(){
@@ -32,7 +36,8 @@ public class CubexNegate extends CubexUnaryExpression {
 		CubexList<CubexExpression> l = new CubexList<CubexExpression>();
 		function = new CubexFunctionApp(super.getmArgument(), "negate",
 				new CubexList<CubexTypeGrammar>(), l);
-		return function.typeCheck(c);
+		cubexType = function.typeCheck(c);
+		return cubexType;
 	}
 	public ArrayList<IrBind> getExpressions(IrGenerationContext context){
 		ArrayList<IrBind> arr = function.getExpressions(context);

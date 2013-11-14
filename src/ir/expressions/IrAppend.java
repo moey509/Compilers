@@ -2,22 +2,25 @@ package ir.expressions;
 
 import java.util.ArrayList;
 
+import parsingTokens.typeGrammar.CubexTypeGrammar;
 import ir.CGenerationContext;
 import ir.IrMiscFunctions;
 import ir.statements.IrBind;
 
 public class IrAppend implements IrExpression {
-	IrExpression e1, e2;
-	String type;
+	private IrExpression e1, e2;
+	private String cType;
+	private CubexTypeGrammar cubexType;
 
-	public IrAppend(IrExpression expr1, IrExpression expr2) {
+	public IrAppend(IrExpression expr1, IrExpression expr2, CubexTypeGrammar cubexType) {
 		e1 = expr1;
 		e2 = expr2;
-		this.type = IrMiscFunctions.ITERABLE;
+		this.cType = IrMiscFunctions.ITERABLE;
+		this.cubexType = cubexType;
 	}
 	
-	public String getType() {
-		return type;
+	public String getCType() {
+		return cType;
 	}
 	
 	public String toC(CGenerationContext context) {
@@ -28,5 +31,10 @@ public class IrAppend implements IrExpression {
 	public ArrayList<IrBind> getExpressions(CGenerationContext context) {
 		// TODO Auto-generated method stub
 		return new ArrayList<IrBind>();
+	}
+
+	@Override
+	public CubexTypeGrammar getCubexType() {
+		return cubexType;
 	}
 }

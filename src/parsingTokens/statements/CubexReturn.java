@@ -18,6 +18,8 @@ import typeChecker.TypeContextReturn;
 
 public final class CubexReturn extends CubexStatement {
 	private Set<String> freeContext;
+	
+	CubexCompleteContext cubexContext;
 
 	public CubexReturn(CubexExpression e) {
 		this.e = e;
@@ -32,12 +34,12 @@ public final class CubexReturn extends CubexStatement {
 		ArrayList<IrBind> arr = e.getExpressions(context);
 //		System.out.println("after");
 		if(arr.size() == 0){
-			IrReturn ir = new IrReturn(e.toIr(context));
+			IrReturn ir = new IrReturn(e.toIr(context), cubexContext);
 			ir.setFreeContext(new ArrayList<String>(freeContext));
 			return ir;
 		}
 		else{
-			IrReturn ir = new IrReturn(new IrVariableExpression(arr.get(arr.size()-1).tuple.variableName, arr.get(arr.size()-1).tuple.type.type));
+			IrReturn ir = new IrReturn(new IrVariableExpression(arr.get(arr.size()-1).tuple.variableName, arr.get(arr.size()-1).tuple.type.type), cubexContext);
 			ir.setFreeContext(new ArrayList<String>(freeContext));
 			ir.temporaryBinds = arr;
 //			System.out.println("In cubexreturn: " + ir.temporaryBinds);
@@ -65,8 +67,9 @@ public final class CubexReturn extends CubexStatement {
 		Set<String> set = new HashSet<String>();
 		e.getVars(set);
 		freeContext.removeAll(set);
-
-		return new TypeContextReturn(c.mutableTypeContext.clone(), true, etype);
+		TypeContextReturn temp = new TypeContextReturn(c.mutableTypeContext.clone(), true, etype);
+		cubexContext = c.clone();
+		return temp;
 	}
 }
 

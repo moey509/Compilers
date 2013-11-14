@@ -7,18 +7,22 @@ import ir.statements.IrBind;
 import java.util.ArrayList;
 import java.util.List;
 
+import parsingTokens.typeGrammar.CubexTypeGrammar;
+
 
 public final class IrFunctionCall implements IrExpression {
 	private String functionName;	
 	private List<IrExpressionTuple> arguments;
-	private String type;	
+	private String cType;	
+	private CubexTypeGrammar cubexType;
 	
 	public ArrayList<IrExpression> functions = new ArrayList<IrExpression>();
 	
-	public IrFunctionCall(String functionName, String type) {
+	public IrFunctionCall(String functionName, String type, CubexTypeGrammar cubexType) {
 		this.functionName = functionName;
 		this.arguments = new ArrayList<IrExpressionTuple>();
-		this.type = type;
+		this.cType = type;
+		this.cubexType = cubexType;
 	}
 
 	public void addArgument(IrType argType, IrExpression argument){
@@ -29,8 +33,8 @@ public final class IrFunctionCall implements IrExpression {
 		this.arguments.add(new IrExpressionTuple(new IrType(argType), argument));
 	}
 
-	public String getType () {
-		return type;
+	public String getCType () {
+		return cType;
 	}
 	
 	public ArrayList<IrBind> getExpressions(CGenerationContext context){
@@ -61,6 +65,11 @@ public final class IrFunctionCall implements IrExpression {
 		}
 		
 		return functionName + "(" + sb.toString() + ")" ;
+	}
+
+	@Override
+	public CubexTypeGrammar getCubexType() {
+		return cubexType;
 	}
 }
 

@@ -3,6 +3,7 @@ package ir.statements;
 import java.util.ArrayList;
 import java.util.List;
 
+import typeChecker.CubexCompleteContext;
 import ir.CGenerationContext;
 import ir.expressions.IrExpression;
 
@@ -13,12 +14,14 @@ public class IrFor implements IrStatement {
 	private String var;
 	private List<IrStatement> statements;
 	public ArrayList<IrBind> temporaryBinds;
+	public CubexCompleteContext context;
 
-	public IrFor(String var, IrExpression list) {
+	public IrFor(String var, IrExpression list, CubexCompleteContext context) {
 		this.list = list;
 		this.var = var;
 		this.statements = new ArrayList<IrStatement>();
-		temporaryBinds = new ArrayList<IrBind>();
+		this.temporaryBinds = new ArrayList<IrBind>();
+		this.context = context;
 	}
 	
 	// initialize the freeContext - used by the typeChecker

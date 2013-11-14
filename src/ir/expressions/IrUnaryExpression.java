@@ -2,6 +2,7 @@ package ir.expressions;
 
 import java.util.ArrayList;
 
+import parsingTokens.typeGrammar.CubexTypeGrammar;
 import ir.CGenerationContext;
 import ir.IrMiscFunctions;
 import ir.statements.IrBind;
@@ -9,38 +10,40 @@ import ir.statements.IrBind;
 public class IrUnaryExpression implements IrExpression {
 	private IrExpression expression;
 	private String operator;
-	private String type;
+	private String cType;
+	private CubexTypeGrammar cubexType;
 
-	public IrUnaryExpression(IrExpression expression, String operator) {
+	public IrUnaryExpression(IrExpression expression, String operator, CubexTypeGrammar cubexType) {
 		super();
 		this.expression = expression;
 		this.operator = operator;
+		this.cubexType = cubexType;
 		
 		// logic to determine type:
 		if (operator.equals("!"))
-			this.type = IrMiscFunctions.BOOLEAN;
+			this.cType = IrMiscFunctions.BOOLEAN;
 		else if (operator.equals("-"))
-			this.type = IrMiscFunctions.INTEGER;
+			this.cType = IrMiscFunctions.INTEGER;
 		else {
-			this.type = null;
+			this.cType = null;
 			System.out.println("unary operator: " + operator + " could not be found....");
 		}
 	}
 	
-	public String getType() {
-		return type;
+	public String getCType() {
+		return cType;
 	}
 
 	@Override
 	public String toC(CGenerationContext context) {
-		if (expression.getType() == "Boolean") {
+		if (expression.getCType() == "Boolean") {
 			if (operator == "!")
 				return "Boolean_negate(" + expression.toC(context) + ")";
 			else if (operator == "...")
 				return "Boolean_onward(" + expression.toC(context) + ", new_integer(1))";
 			else if (operator == "<..")
 				return "Boolean_onward(" + expression.toC(context) + ", new_integer(0))";
-		} else if (expression.getType() == "Integer") {
+		} else if (expression.getCType() == "Integer") {
 			if (operator == "-")
 				return "Integer_negate(" + expression.toC(context) + ")";
 			else if (operator == "...")
@@ -56,5 +59,10 @@ public class IrUnaryExpression implements IrExpression {
 	public ArrayList<IrBind> getExpressions(CGenerationContext context) {
 		// TODO Auto-generated method stub
 		return new ArrayList<IrBind>();
+	}
+
+	@Override
+	public CubexTypeGrammar getCubexType() {
+		return cubexType;
 	}
 }

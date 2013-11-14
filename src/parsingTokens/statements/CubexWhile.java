@@ -15,6 +15,8 @@ import typeChecker.TypeContextReturn;
 public final class CubexWhile extends CubexStatement {
 	private CubexStatement s;
 	private Set<String> freeContext;
+	
+	CubexCompleteContext cubexContext;
 
 	public CubexWhile(CubexExpression e, CubexStatement s) {
 		this.e = e;
@@ -22,7 +24,7 @@ public final class CubexWhile extends CubexStatement {
 	}
 	
 	public IrWhile toIr(IrGenerationContext context) {
-		IrWhile ir = new IrWhile(e.toIr(context));
+		IrWhile ir = new IrWhile(e.toIr(context), cubexContext);
 		ir.addStatement(s.toIr(context));
 		ir.setFreeContext(new ArrayList<String>(freeContext));
 		return ir;
@@ -45,9 +47,10 @@ public final class CubexWhile extends CubexStatement {
 		}
 		freeContext = t.keySet();
 		freeContext.removeAll(c.mutableTypeContext.keySet());
-		return c.mutableTypeContext.clone();
-		
-		
+		TypeContext temp = c.mutableTypeContext.clone();
+		cubexContext = c.clone();
+		cubexContext.appendTypeContext(temp);
+		return temp;
 	}
 	
 	public TypeContextReturn typeCheckReturn(CubexCompleteContext c) throws SemanticException {
@@ -63,7 +66,9 @@ public final class CubexWhile extends CubexStatement {
 		TypeContext ret = t.typeContext.containsAll(c, c.mutableTypeContext);
 		freeContext = t.typeContext.keySet();
 		freeContext.removeAll(ret.keySet());
-		return new TypeContextReturn(ret, false, t.retType);
+		TypeContextReturn temp = new TypeContextReturn(ret, false, t.retType);
+		cubexContext = c.clone();
+		return temp;
 		
 	}
 }

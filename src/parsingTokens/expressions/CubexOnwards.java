@@ -14,6 +14,8 @@ import Exception.SemanticException;
 public class CubexOnwards extends CubexUnaryExpression {
 	boolean include;
 	public CubexFunctionApp function;
+	
+	CubexTypeGrammar cubexType;
 
 	public CubexOnwards(CubexExpression l, boolean incl) {
 		super(l);
@@ -22,7 +24,7 @@ public class CubexOnwards extends CubexUnaryExpression {
 	}
 	
 	public IrOnwards toIr(IrGenerationContext context) {
-		return new IrOnwards(getmArgument().toIr(context), include);
+		return new IrOnwards(getmArgument().toIr(context), include, cubexType);
 	}
 
 	public String toString() {
@@ -37,7 +39,8 @@ public class CubexOnwards extends CubexUnaryExpression {
 		l.add(new CubexBoolean(false));
 		function = new CubexFunctionApp(super.getmArgument(), "onwards",
 				new CubexList<CubexTypeGrammar>(), l);
-		return function.typeCheck(c);
+		cubexType = function.typeCheck(c);
+		return cubexType;
 	}
 	public ArrayList<IrBind> getExpressions(IrGenerationContext context){
 		ArrayList<IrBind> arr = function.getExpressions(context);

@@ -2,21 +2,24 @@ package ir.expressions;
 
 import java.util.ArrayList;
 
+import parsingTokens.CubexList;
+import parsingTokens.typeGrammar.CubexTypeClass;
+import parsingTokens.typeGrammar.CubexTypeGrammar;
 import ir.CGenerationContext;
 import ir.IrMiscFunctions;
 import ir.statements.IrBind;
 
 public final class IrBoolean implements IrExpression {
 	private boolean mValue;
-	private String type;
+	private String cType;
 
 	public IrBoolean(boolean value) {
 		mValue = value;
-		type = IrMiscFunctions.BOOLEAN;
+		cType = IrMiscFunctions.BOOLEAN;
 	}
 	
-	public String getType() {
-		return type;
+	public String getCType() {
+		return cType;
 	}
 
 	public String toC(CGenerationContext context) {
@@ -27,5 +30,10 @@ public final class IrBoolean implements IrExpression {
 	public ArrayList<IrBind> getExpressions(CGenerationContext context) {
 		// TODO Auto-generated method stub
 		return new ArrayList<IrBind>();
+	}
+
+	@Override
+	public CubexTypeGrammar getCubexType() {
+		return new CubexTypeClass("Boolean", new CubexList<CubexTypeGrammar>());
 	}
 }

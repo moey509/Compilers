@@ -16,6 +16,7 @@ import typeChecker.IrGenerationContext;
 
 public final class CubexBoolean extends CubexExpression {
 	private boolean mValue;
+	CubexCompleteContext cubexContext;
 
 	public CubexBoolean(boolean value) {
 		mValue = value;
@@ -30,7 +31,7 @@ public final class CubexBoolean extends CubexExpression {
 		ArrayList<IrBind> arr = new ArrayList<IrBind>();
 		IrType t = new IrType("void*");
 		IrTypeTuple tuple = new IrTypeTuple(t, context.nextTemp());
-		arr.add(new IrBind(tuple, this.toIr(context)));
+		arr.add(new IrBind(tuple, this.toIr(context), cubexContext));
 		return arr;
 	}
 
@@ -41,6 +42,7 @@ public final class CubexBoolean extends CubexExpression {
 	// Check if the expression is of some type
 	public CubexTypeGrammar typeCheck(CubexCompleteContext c)
 			throws SemanticException {
+		cubexContext = c.clone();
 		return new CubexTypeClass("Boolean", new CubexList<CubexTypeGrammar>());
 	}
 	

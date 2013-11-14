@@ -1,27 +1,28 @@
 package ir.expressions;
 
+import parsingTokens.typeGrammar.CubexTypeGrammar;
 import ir.CGenerationContext;
 import ir.IrMiscFunctions;
 
 public class IrOnwards extends IrUnaryExpression {
 	boolean include;
 	public IrExpression expression;
-	private String type;
+	private String cType;
 
-	public IrOnwards(IrExpression expression, boolean incl) {
-		super(expression, "");
+	public IrOnwards(IrExpression expression, boolean incl, CubexTypeGrammar cubexType) {
+		super(expression, "", cubexType);
 		include = incl;
-		this.type = IrMiscFunctions.ITERABLE;
+		this.cType = IrMiscFunctions.ITERABLE;
 	}
 	
-	public String getType() {
-		return type;
+	public String getCType() {
+		return cType;
 	}
 	
 	public String toC(CGenerationContext context) {
 		// int case
 		// new_git_int(-1, 5, 0);
-		if (expression.getType().equals("integer")) {
+		if (expression.getCType().equals("integer")) {
 			String in;
 			if (include)
 				in = " + 1";

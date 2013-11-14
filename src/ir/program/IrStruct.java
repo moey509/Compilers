@@ -5,7 +5,7 @@ import ir.CGenerationContext;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IrStruct {
+public class IrStruct implements IrProgramElem{
 	public String structName;
 	public String constructableComponent;
 	public List<IrTypeTuple> structVariables;
@@ -20,7 +20,7 @@ public class IrStruct {
 		structVariables.add(variable);
 	}
 	
-	public List<String> toC(CGenerationContext context){
+	public ArrayList<String> toC(CGenerationContext context){
 		/*
 		 * int ref_count;
   char** fun_names;

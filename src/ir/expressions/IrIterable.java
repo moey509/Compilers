@@ -6,14 +6,17 @@ import ir.CGenerationContext;
 import ir.IrMiscFunctions;
 import ir.statements.IrBind;
 import parsingTokens.CubexList;
+import parsingTokens.typeGrammar.CubexTypeGrammar;
 
 public class IrIterable implements IrExpression {
 	CubexList<IrExpression> list;
-	private String type;
+	private String cType;
+	private CubexTypeGrammar cubexType;
 
-	public IrIterable(CubexList<IrExpression> listIn) {
+	public IrIterable(CubexList<IrExpression> listIn, CubexTypeGrammar cubexType) {
 		list = listIn;
-		this.type = IrMiscFunctions.ITERABLE;
+		this.cType = IrMiscFunctions.ITERABLE;
+		this.cubexType = cubexType;
 	}
 
 	//git_t i6 = iterable_append(i1, iterable_append(i2, iterable_append(i3, iterable_append(i4, iterable_append(i5, iterable_append(i6, NULL)))));
@@ -23,8 +26,8 @@ public class IrIterable implements IrExpression {
 		return ("iterable_append(new_git_obj(" + list.get(index).toC(context) + "), " + helper(index+1, context) + ")");
 	}
 
-	public String getType() {
-		return type;
+	public String getCType() {
+		return cType;
 	}
 	
 	public String toC(CGenerationContext context) {
@@ -38,7 +41,11 @@ public class IrIterable implements IrExpression {
 	
 	@Override
 	public ArrayList<IrBind> getExpressions(CGenerationContext context) {
-		// TODO Auto-generated method stub
 		return new ArrayList<IrBind>();
+	}
+
+	@Override
+	public CubexTypeGrammar getCubexType() {
+		return cubexType;
 	}
 }

@@ -5,16 +5,21 @@ import ir.CGenerationContext;
 import java.util.ArrayList;
 import java.util.List;
 
+import typeChecker.CubexCompleteContext;
+
 public class IrStatementList implements IrStatement{
 	private List<IrStatement> statementList;
 	private ArrayList<IrBind> temporaryBinds = new ArrayList<IrBind>();
+	public CubexCompleteContext context;
 	
-	public IrStatementList(){
+	public IrStatementList(CubexCompleteContext context){
 		this.statementList = new ArrayList<IrStatement>();
+		this.context = context;
 	}
 	
-	public IrStatementList(List<IrStatement> statementList) {
+	public IrStatementList(List<IrStatement> statementList, CubexCompleteContext context) {
 		this.statementList = statementList;
+		this.context = context;
 	}
 
 	public void addStatement(IrStatement stmt){

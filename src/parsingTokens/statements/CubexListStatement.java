@@ -14,13 +14,14 @@ import typeChecker.TypeContextReturn;
 public final class CubexListStatement extends CubexStatement {
 	private CubexList<CubexStatement> cList;
 	public static boolean flatten = false;
+	CubexCompleteContext cubexContext;
 
 	public CubexListStatement(CubexList<CubexStatement> cList) {
 		this.cList = cList;
 	}
 	
 	public IrStatement toIr(IrGenerationContext context) {
-		IrStatementList stmtList = new IrStatementList();
+		IrStatementList stmtList = new IrStatementList(cubexContext);
 		for (CubexStatement stmt : cList.iterable()){
 			stmtList.addStatement(stmt.toIr(context));
 		}
@@ -84,6 +85,8 @@ public final class CubexListStatement extends CubexStatement {
 				}
 			}
 		}
-		return new TypeContextReturn(prev, guaranteed, rettype);
+		TypeContextReturn temp = new TypeContextReturn(prev, guaranteed, rettype);
+		cubexContext = c.clone();
+		return temp;
 	}
 }

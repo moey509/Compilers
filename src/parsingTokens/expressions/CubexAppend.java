@@ -16,6 +16,8 @@ import Exception.SemanticException;
 
 public class CubexAppend extends CubexExpression {
 	CubexExpression e1, e2;
+	CubexTypeGrammar cubexType;
+	CubexCompleteContext cubexContext;
 
 	public CubexAppend(CubexExpression expr1, CubexExpression expr2) {
 		e1 = expr1;
@@ -26,15 +28,14 @@ public class CubexAppend extends CubexExpression {
 	public ArrayList<IrBind> getExpressions(IrGenerationContext context){
 		IrType t = new IrType("void*");
 		IrTypeTuple tt = new IrTypeTuple(t, context.nextTemp());
-		IrBind b = new IrBind(tt, this.toIr(context));
+		IrBind b = new IrBind(tt, this.toIr(context), cubexContext);
 		ArrayList<IrBind> arr = new ArrayList<IrBind>();
 		arr.add(b);
 		return arr;
 	}
 	
 	public IrAppend toIr(IrGenerationContext context) {
-		IrAppend ir = new IrAppend(e1.toIr(context), e2.toIr(context));
-		return new IrAppend(e1.toIr(context), e2.toIr(context));
+		return new IrAppend(e1.toIr(context), e2.toIr(context), cubexType);
 	}
 
 	public String toString() {
@@ -66,8 +67,11 @@ public class CubexAppend extends CubexExpression {
 //		CubexList<CubexTypeGrammar> output = new CubexList<CubexTypeGrammar>();
 //		output.add(list.get(0).join(c, list2.get(0)));
 //		return new CubexTypeClass("Iterable", output);
-
-		return e1Type.join(c,e2Type);
+		
+		
+		cubexType = e1Type.join(c,e2Type);
+		cubexContext = c.clone();
+		return cubexType;
 	}
 	
 	@Override

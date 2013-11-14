@@ -15,6 +15,9 @@ import typeChecker.IrGenerationContext;
 
 public class CubexNegative extends CubexUnaryExpression {
 	CubexExpression function;
+	
+	CubexTypeGrammar cubexType;
+	CubexCompleteContext cubexContext;
 
 	public CubexNegative(CubexExpression arg) {
 		super(arg);
@@ -22,7 +25,7 @@ public class CubexNegative extends CubexUnaryExpression {
 	}
 	
 	public IrUnaryExpression toIr(IrGenerationContext context) {
-		return new IrUnaryExpression(getmArgument().toIr(context), "-");
+		return new IrUnaryExpression(getmArgument().toIr(context), "-", cubexType);
 	}
 
 	public String toString() {
@@ -34,8 +37,10 @@ public class CubexNegative extends CubexUnaryExpression {
 		CubexList<CubexExpression> l = new CubexList<CubexExpression>();
 		function = new CubexFunctionApp(super.getmArgument(), "negative",
 				new CubexList<CubexTypeGrammar>(), l);
-		return function.typeCheck(c);
+		cubexType = function.typeCheck(c);
+		return cubexType;
 	}
+	
 	public ArrayList<IrBind> getExpressions(IrGenerationContext context){
 		ArrayList<IrBind> arr = function.getExpressions(context);
 		return arr;

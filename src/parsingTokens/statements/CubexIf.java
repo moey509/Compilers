@@ -21,6 +21,8 @@ public class CubexIf extends CubexStatement {
 	private CubexStatement s2;	// else {s2}
 	private Set<String> freeContext;
 	private Set<String> freeContext2;
+	
+	CubexCompleteContext cubexContext;
 
 	// if there is no else statement, let s2 be null
 	public CubexIf(CubexExpression e, CubexStatement s1, CubexStatement s2) {
@@ -40,11 +42,11 @@ public class CubexIf extends CubexStatement {
 		
 		ArrayList<IrBind> arr = e.getExpressions(context);
 		if(arr.size() == 0){
-			ir = new IrIf(e.toIr(context));
+			ir = new IrIf(e.toIr(context), cubexContext);
 		}
 		else{
 			IrBind b = arr.get(arr.size()-1);
-			ir = new IrIf(new IrVariableExpression(b.tuple.variableName, b.tuple.type.type));
+			ir = new IrIf(new IrVariableExpression(b.tuple.variableName, b.tuple.type.type), cubexContext);
 			ir.temporaryBinds.addAll(arr);
 		}
 		
@@ -80,6 +82,7 @@ public class CubexIf extends CubexStatement {
 			freeContext.removeAll(c.mutableTypeContext.keySet());
 			freeContext2 = new HashSet<String>();
 			// should actually return containsAll of t1 and c.mutableTypeContext?
+			cubexContext = c.clone();
 			return t1;
 		}
 		else{
@@ -95,6 +98,7 @@ public class CubexIf extends CubexStatement {
 			freeContext = set1;
 			freeContext2 = set2;
 		
+			cubexContext = c.clone();
 			return t;
 		}
 		
@@ -129,6 +133,8 @@ public class CubexIf extends CubexStatement {
 		
 		
 		boolean g = t1.guaranteedToReturn && t2.guaranteedToReturn;
-		return new TypeContextReturn(t, g, t1.retType.join(c, t2.retType));
+		TypeContextReturn temp = new TypeContextReturn(t, g, t1.retType.join(c, t2.retType));
+		cubexContext = c.clone();
+		return temp;
 	}
 }

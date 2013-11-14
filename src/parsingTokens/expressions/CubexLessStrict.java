@@ -1,8 +1,6 @@
 package parsingTokens.expressions;
 
 import java.util.ArrayList;
-import java.util.Set;
-
 import ir.expressions.IrBinaryExpression;
 import ir.statements.IrBind;
 import parsingTokens.CubexList;
@@ -14,6 +12,9 @@ import Exception.SemanticException;
 public class CubexLessStrict extends CubexBinaryExpression {
 
 	public CubexFunctionApp function;
+	
+	CubexTypeGrammar cubexType;
+	CubexCompleteContext cubexContext;
 
 	public CubexLessStrict(CubexExpression left, CubexExpression right) {
 		super(left, right);
@@ -21,7 +22,7 @@ public class CubexLessStrict extends CubexBinaryExpression {
 	}
 
 	public IrBinaryExpression toIr(IrGenerationContext context) {
-		return new IrBinaryExpression(getmLeft().toIr(context), getmRight().toIr(context), "<");
+		return new IrBinaryExpression(getmLeft().toIr(context), getmRight().toIr(context), "<", cubexType);
 	}
 
 	public String toString() {
@@ -36,7 +37,8 @@ public class CubexLessStrict extends CubexBinaryExpression {
 		l.add(new CubexBoolean(true));
 		function = new CubexFunctionApp(super.getmLeft(), "lessThan",
 				new CubexList<CubexTypeGrammar>(), l);
-		return function.typeCheck(c);
+		cubexType = function.typeCheck(c);
+		return cubexType;
 
 		// return new CubexTypeClass("Boolean", new
 		// CubexList<CubexTypeGrammar>());

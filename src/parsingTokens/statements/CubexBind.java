@@ -19,6 +19,8 @@ public final class CubexBind extends CubexStatement {
 	private String classid;
 	private IrType type = null;
 //	CubexExpression e;
+	
+	CubexCompleteContext cubexContext;
 
 	public CubexBind(String classid, CubexExpression e) {
 		this.classid = classid;
@@ -40,11 +42,11 @@ public final class CubexBind extends CubexStatement {
 		}
 		ArrayList<IrBind> arr = e.getExpressions(context);
 		if(arr.size() == 0){
-			IrBind b = new IrBind(new IrTypeTuple(type, s+classid), e.toIr(context));
+			IrBind b = new IrBind(new IrTypeTuple(type, s+classid), e.toIr(context), cubexContext);
 			return b;
 		}
 		else{
-			IrBind b = new IrBind(new IrTypeTuple(type, s+classid), arr.get(arr.size()-1).expression);
+			IrBind b = new IrBind(new IrTypeTuple(type, s+classid), arr.get(arr.size()-1).expression, cubexContext);
 			b.temporaryBinds.addAll(arr);
 			return b;
 		}
@@ -65,6 +67,8 @@ public final class CubexBind extends CubexStatement {
 			typecontext.remove(classid);
 		}
 		typecontext.put(classid, t);
+		cubexContext = c.clone();
+		cubexContext.appendTypeContext(typecontext);
 		return typecontext;
 	}
 	
@@ -80,6 +84,8 @@ public final class CubexBind extends CubexStatement {
 		}
 		typecontext.put(classid, t);
 		CubexTypeClass nothing = new CubexTypeClass("Nothing", new CubexList<CubexTypeGrammar>());
+		cubexContext = c.clone();
+		cubexContext.appendTypeContext(typecontext);
 		return new TypeContextReturn(typecontext, false, nothing);
 	}
 	

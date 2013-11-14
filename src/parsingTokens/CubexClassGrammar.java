@@ -44,6 +44,8 @@ public class CubexClassGrammar {
 	public CubexList<CubexExpression> expressions;
 	public CubexList<CubexFunctionDef> functions;
 	public String constructableComponent;
+	
+	public CubexCompleteContext completeContext;
 
 	public CubexClassGrammar(String n, CubexList<String> k,
 			CubexList<CubexTypeTuple> typecont, CubexTypeGrammar t,
@@ -118,13 +120,13 @@ public class CubexClassGrammar {
 			IrTypeTuple argument = new IrTypeTuple(tuple.getTypeGrammar().toIrType(), tuple.getName());
 			irFunction.addFunctionArgument(argument);
 			irFunction.addStatement(new IrBind(new IrTypeTuple(tuple.getTypeGrammar().toIrType(), "__struct->" +tuple.getName()),
-					new IrVariableExpression(tuple.getName(), tuple.getTypeGrammar().toIrType().type)));
+					new IrVariableExpression(tuple.getName(), tuple.getTypeGrammar().toIrType().type, tuple.getTypeGrammar()), completeContext));
 		}
 		for (CubexStatement stmt : statements.iterable()) {
 			irFunction.addStatement(stmt.toIr(context));
 		}
 		if (constructableComponent != "Thing"){
-			IrExpression e = new IrFunctionCall(this.constructableComponent,this.constructableComponent + "*");
+			IrExpression e = new IrFunctionCall(this.constructableComponent,this.constructableComponent + "*", extendsType);
 			irFunction.addSuperCall(e);
 		}
 		program.addGlobalFunction(irFunction);
@@ -151,7 +153,7 @@ public class CubexClassGrammar {
 					IrFunction fun = function.toIr(context);
 					fun.addStatement(new IrReturn(new IrFunctionCall("_"
 							+ parentClass + "_" + function.name,
-							function.typescheme.getTypeGrammar().name)));
+							function.typescheme.getTypeGrammar().name, function.typescheme.getTypeGrammar()), completeContext));
 
 					// TODO: check this with Jimmy
 					fun.addFunctionArgument(new IrTypeTuple(new IrType("void*"), "ConstructableComponent"));
@@ -449,6 +451,7 @@ public class CubexClassGrammar {
 		// }
 		originalContext.classContext.merge(classContextPrime);
 		originalContext.functionContext.merge(funContextPrime);
+		completeContext = originalContext.clone();
 		return originalContext;
 	}
 }

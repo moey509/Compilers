@@ -2,6 +2,7 @@ package ir.expressions;
 
 import java.util.ArrayList;
 
+import parsingTokens.typeGrammar.CubexTypeGrammar;
 import ir.CGenerationContext;
 import ir.IrMiscFunctions;
 import ir.statements.IrBind;
@@ -11,12 +12,14 @@ public class IrBinaryExpression implements IrExpression {
 	private IrExpression rightExpression;
 	private String operator;
 	private String type;
+	private CubexTypeGrammar cubexType;
 
 	public IrBinaryExpression(IrExpression leftExpression,
-			IrExpression rightExpression, String operator) {
+			IrExpression rightExpression, String operator, CubexTypeGrammar cubexType) {
 		this.leftExpression = leftExpression;
 		this.rightExpression = rightExpression;
 		this.operator = operator;
+		this.cubexType = cubexType;
 
 		// logic to determine type:
 		if (operator.equals("+") || operator.equals("&&")
@@ -44,12 +47,12 @@ public class IrBinaryExpression implements IrExpression {
 		return this.rightExpression;
 	}
 
-	public String getType() {
+	public String getCType() {
 		return type;
 	}
 
 	public String toC(CGenerationContext context) {
-		if (leftExpression.getType().equals(IrMiscFunctions.INTEGER)) {
+		if (leftExpression.getCType().equals(IrMiscFunctions.INTEGER)) {
 			if (operator.equals("+"))
 				return "Integer_plus(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + ")";
@@ -86,7 +89,7 @@ public class IrBinaryExpression implements IrExpression {
 			else if (operator.equals("=="))
 				return "Integer_equals(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + ")";
-		} else if (leftExpression.getType().equals(IrMiscFunctions.BOOLEAN)) {
+		} else if (leftExpression.getCType().equals(IrMiscFunctions.BOOLEAN)) {
 			if (operator.equals("&&"))
 				return "Boolean_and(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + ")";
@@ -117,11 +120,11 @@ public class IrBinaryExpression implements IrExpression {
 			else if (operator.equals("=="))
 				return "Boolean_equal(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + ")";
-		} else if (leftExpression.getType().equals(IrMiscFunctions.CHARACTER)) {
+		} else if (leftExpression.getCType().equals(IrMiscFunctions.CHARACTER)) {
 			if (operator.equals("=="))
 				return "Character_equals(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + ")";
-		} else if (leftExpression.getType().equals("String")) {
+		} else if (leftExpression.getCType().equals("String")) {
 			if (operator.equals("=="))
 				return "String_equals(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + ")";
@@ -134,5 +137,10 @@ public class IrBinaryExpression implements IrExpression {
 	public ArrayList<IrBind> getExpressions(CGenerationContext context) {
 		// TODO Auto-generated method stub
 		return new ArrayList<IrBind>();
+	}
+
+	@Override
+	public CubexTypeGrammar getCubexType() {
+		return cubexType;
 	}
 }

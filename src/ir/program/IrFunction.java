@@ -11,7 +11,7 @@ import ir.expressions.IrExpression;
 import ir.statements.IrBind;
 import ir.statements.IrStatement;
 
-public class IrFunction {
+public class IrFunction implements IrProgramElem{
 	public IrType type;
 	public String object;
 	public String functionName;

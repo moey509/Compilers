@@ -17,6 +17,9 @@ import typeChecker.IrGenerationContext;
 public final class CubexString extends CubexExpression {
 	private String mValue;
 
+	CubexTypeGrammar cubexType;
+	CubexCompleteContext cubexContext;
+	
 	public CubexString(String value) {
 		mValue = value;
 		type = "String";
@@ -37,13 +40,15 @@ public final class CubexString extends CubexExpression {
 		IrTypeTuple tuple = new IrTypeTuple(t, context.nextTemp());
 		//System.out.println(tuple.variableName);
 		//System.out.println(this.toIr(context).toC(null));
-		arr.add(new IrBind(tuple, this.toIr(context)));
+		arr.add(new IrBind(tuple, this.toIr(context), cubexContext));
 		return arr;
 	}
 
 	// Check if the expression is of some type
 	public CubexTypeGrammar typeCheck(CubexCompleteContext c) throws SemanticException {
-		return new CubexTypeClass("String", new CubexList<CubexTypeGrammar>());
+		cubexType = new CubexTypeClass("String", new CubexList<CubexTypeGrammar>());
+		cubexContext = c.clone();
+		return cubexType;
 	}
 	
 	@Override
