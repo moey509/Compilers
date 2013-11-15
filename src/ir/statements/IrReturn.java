@@ -45,7 +45,7 @@ public final class IrReturn implements IrStatement {
 			int cur_iterator = context.getCurIterator();
 			context.incrementCurIterator();
 			String iterator = "_it" + cur_iterator;
-			context.mainVarDecl.put(iterator, "iterator_t");
+			context.varDecl.put(iterator, "iterator_t");
 			itDeclaration = iterator + " = new_iterator((" + expression.toC(context) + "));";
 			itCondition = "while(hasNext(" + iterator + ")) {";
 			tempVar = "_return = getNext(" + iterator + ");";
@@ -67,6 +67,7 @@ public final class IrReturn implements IrStatement {
 		
 		for (String s : freeContext) {
 			if (isMain) {
+				// don't auto-decrement the input
 				if (!s.equals("_input"))
 					arrList.add("ref_decrement((General_t)" + s + ");");
 			}

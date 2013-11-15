@@ -64,21 +64,19 @@ public class IrFor implements IrStatement {
 		String iterable = context.iterable + cur_iterable;
 		String iterator = context.iterator + cur_iterator;
 
+		// there's a reason why these aren't IrBinds! The rhs is not really an IrFunctionCall ...
+		// there is no CubexTypeGrammar for the expression, and the arguments don't have IrTypes
+		// can discuss later?
 		String iterDeclaration = iterable + " = iterable_append((" + list.toC(context) + "), NULL);";
 		String itDeclaration = iterator + " = new_iterator((" + iterable + "));";
-		if (isMain) {
-			context.mainVarDecl.put(iterable, "git_t");
-			context.mainVarDecl.put(iterator, "iterator_t");
-		}
-		else {
-			//add iterable to list of stuff declared at the top of the function
-			context.fcnVarDecl.put(iterable, "git_t");
-			context.fcnVarDecl.put(iterator, "iterator_t");
-		}
+
+		//add iterable to list of stuff declared at the top of the function
+		context.varDecl.put(iterable, "git_t");
+		context.varDecl.put(iterator, "iterator_t");
 
 		//String itDeclaration = iterator + " = new_iterator((" + iterable + "));";
 		//add iterator to list of stuff declared at the top of the function
-		context.fcnVarDecl.put(iterator, "iterator_t");
+//		context.fcnVarDecl.put(iterator, "iterator_t");
 		String itCondition = "while(hasNext(" + iterator + ")) {";
 		String tempVar = "void* " + var + " = getNext(" + iterator + ");";
 

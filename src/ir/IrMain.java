@@ -35,8 +35,8 @@ public class IrMain {
 	static boolean parsedWithError = false;
 
 	public static void main(String[] args) throws IOException {
-		 CharStream charStream = new ANTLRFileStream(args[0]);
-//		CharStream charStream = new ANTLRFileStream("cg_tests/x3_test4.x3");
+//		 CharStream charStream = new ANTLRFileStream(args[0]);
+		CharStream charStream = new ANTLRFileStream("cg_tests/x3_test1.x3");
 		CubexLexer cubLexer = new CubexLexer(charStream);
 		cubLexer.removeErrorListeners();
 
@@ -72,8 +72,8 @@ public class IrMain {
 			int counter = 2;
 			writer.write("#include \"cubex_lib.h\"\n");
 			for (String s : programCode){
-//				System.out.println(counter + "\t" + s);
-//				counter++;
+				System.out.println(counter + "\t" + s);
+				counter++;
 				writer.write(s + "\n");
 			}
 			writer.close();

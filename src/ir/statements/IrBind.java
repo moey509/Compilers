@@ -40,14 +40,18 @@ public final class IrBind implements IrStatement {
 		//output.add(tuple.type.toC() + " " + tuple.variableName + " = " + expression.toC(context) + ";");
 		for(IrBind b : temporaryBinds){
 			// put variables at the top of main() here:
-			context.mainVarDecl.put(b.tuple.variableName, "void*");
+			if (isMain) {
+				context.varDecl.put(b.tuple.variableName, "void*");
+			}
 			output.add(b.tuple.variableName + " = NULL;");
 			output.addAll(b.toC(context, isMain));
 		}
 		
 		// put everything in fcnVarDecl ->
 		// the check for whether things already exist in temporaryBinds happens in IrFunction
-		context.fcnVarDecl.put(tuple.variableName, tuple.type.toC());
+		if (!isMain) {
+			context.varDecl.put(tuple.variableName, tuple.type.toC());
+		}
 
 		if(temporaryBinds.size() > 0){
 			String s = temporaryBinds.get(temporaryBinds.size()-1).tuple.variableName;

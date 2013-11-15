@@ -52,7 +52,7 @@ public class IrFunction implements IrProgramElem{
 	}
 	//TODO: Can structs and functions have the same name
 	public ArrayList<String> toC(CGenerationContext context, boolean isMain) {
-		context.fcnVarDecl = new HashMap<String, String>();
+		context.varDecl = new HashMap<String, String>();
 		//Declaration
 		ArrayList<String> arr = new ArrayList<String>();
 		
@@ -112,9 +112,9 @@ public class IrFunction implements IrProgramElem{
 		}
 		
 		// add binding vars to the output, add everything above (postarr) to the output
-		for (String str : context.fcnVarDecl.keySet()) {
+		for (String str : context.varDecl.keySet()) {
 			if (!tempVarSet.contains(str)) {
-				arr.add(context.fcnVarDecl.get(str) + " " + str + ";");
+				arr.add(context.varDecl.get(str) + " " + str + ";");
 //				arr.add("void* " + str + ";");
 			}
 		}
