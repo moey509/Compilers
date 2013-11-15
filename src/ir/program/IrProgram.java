@@ -44,44 +44,64 @@ public class IrProgram {
 		CGenerationContext context = new CGenerationContext();
 		ArrayList<String> output = new ArrayList<String>();
 
-//		for (IrStruct irStruct : structDeclarations){
-//			output.addAll(irStruct.toC(context));
-//		}
-//		for (IrTypeTuple tuple : globalVariables){
-//			if(!context.variablesDeclaredInScope.contains(tuple.variableName)){
-//				output.add("void* " + tuple.variableName + ";");
-//				context.variablesDeclaredInScope.add(tuple.variableName);
-//			}
-//		}
-//		output.add("iterator_t __it1;");
-//		output.add("git_t _return;");
-//		
-//		for (IrFunction irFunction : globalFunctions){
-//			output.addAll(irFunction.toC(context));
-//		}
-//		//CUBEX_MAIN
-//		output.add("void cubex_main(){");
-//		ArrayList<String> postout = new ArrayList<String>();
-//		for (IrTypeTuple tuple : globalVariables){
-//			if(!context.variablesInitializedInScope.contains(tuple.variableName)){
-//				postout.add(tuple.variableName + " = NULL;");
-//				context.variablesInitializedInScope.add(tuple.variableName);
-//			}
-//		}
-//
-//		// use a new mainVarDecl so that population by function statements are not included
-//		context.mainVarDecl = new HashMap<String, String>();
-//		for (IrStatement irStatement : mainFunctionStatements){
-//			postout.addAll(irStatement.toC(context, true));
-//		}
-//		// declare variables here
-//		for (String s : context.mainVarDecl.keySet()) {
-//			output.add(context.mainVarDecl.get(s) + " " + s + ";");
-//		}
-//		output.add("git_t _input = NULL;");
-//		output.add("_input = get_input();");
-//		output.addAll(postout);
-//		output.add("}");
+		ArrayList<IrTypeTuple> variables = new ArrayList<IrTypeTuple>();
+		ArrayList<IrFunction> functions = new ArrayList<IrFunction>();
+		ArrayList<IrStatement> statements = new ArrayList<IrStatement>();
+		ArrayList<IrStruct> structs = new ArrayList<IrStruct>();
+		
+		for (IrProgramElem i : programElementList) {
+			if (i instanceof IrStruct) {
+				IrStruct struct = (IrStruct) i;
+				structs.add(struct);
+			} else if (i instanceof IrFunction) {
+				IrFunction func = (IrFunction) i;
+				functions.add(func);
+			} else if (i instanceof IrStatement) {
+				IrStatement st = (IrStatement) i;
+				statements.add(st);
+			}
+			//TODO: else IrTypeTuples?!?!?!?!?! hmmm ....
+		}
+		
+
+		for (IrStruct irStruct : structs){
+			output.addAll(irStruct.toC(context, false));
+		}
+		for (IrTypeTuple tuple : variables){
+			if(!context.variablesDeclaredInScope.contains(tuple.variableName)){
+				output.add("void* " + tuple.variableName + ";");
+				context.variablesDeclaredInScope.add(tuple.variableName);
+			}
+		}
+		output.add("iterator_t __it1;");
+		output.add("git_t _return;");
+		
+		for (IrFunction irFunction : functions){
+			output.addAll(irFunction.toC(context, false));
+		}
+		//CUBEX_MAIN
+		output.add("void cubex_main(){");
+		ArrayList<String> postout = new ArrayList<String>();
+		for (IrTypeTuple tuple : variables){
+			if(!context.variablesInitializedInScope.contains(tuple.variableName)){
+				postout.add(tuple.variableName + " = NULL;");
+				context.variablesInitializedInScope.add(tuple.variableName);
+			}
+		}
+
+		// use a new varDecl so that population by function statements are not included
+		context.varDecl = new HashMap<String, String>();
+		for (IrStatement irStatement : statements){
+			postout.addAll(irStatement.toC(context, true));
+		}
+		// declare variables here
+		for (String s : context.varDecl.keySet()) {
+			output.add(context.varDecl.get(s) + " " + s + ";");
+		}
+		output.add("git_t _input = NULL;");
+		output.add("_input = get_input();");
+		output.addAll(postout);
+		output.add("}");
 		return output;
 	}
 }
