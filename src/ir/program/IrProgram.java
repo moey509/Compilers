@@ -44,7 +44,6 @@ public class IrProgram {
 		CGenerationContext context = new CGenerationContext();
 		ArrayList<String> output = new ArrayList<String>();
 
-		ArrayList<IrTypeTuple> variables = new ArrayList<IrTypeTuple>();
 		ArrayList<IrFunction> functions = new ArrayList<IrFunction>();
 		ArrayList<IrStatement> statements = new ArrayList<IrStatement>();
 		ArrayList<IrStruct> structs = new ArrayList<IrStruct>();
@@ -59,20 +58,21 @@ public class IrProgram {
 			} else if (i instanceof IrStatement) {
 				IrStatement st = (IrStatement) i;
 				statements.add(st);
+			} else {
+				System.out.println("IrProgram dun goofd");
 			}
-			//TODO: else IrTypeTuples?!?!?!?!?! hmmm ....
 		}
 		
 
 		for (IrStruct irStruct : structs){
 			output.addAll(irStruct.toC(context, false));
 		}
-		for (IrTypeTuple tuple : variables){
-			if(!context.variablesDeclaredInScope.contains(tuple.variableName)){
-				output.add("void* " + tuple.variableName + ";");
-				context.variablesDeclaredInScope.add(tuple.variableName);
-			}
-		}
+//		for (IrTypeTuple tuple : variables){
+//			if(!context.variablesDeclaredInScope.contains(tuple.variableName)){
+//				output.add("void* " + tuple.variableName + ";");
+//				context.variablesDeclaredInScope.add(tuple.variableName);
+//			}
+//		}
 		output.add("iterator_t __it1;");
 		output.add("git_t _return;");
 		
@@ -81,27 +81,27 @@ public class IrProgram {
 		}
 		//CUBEX_MAIN
 		output.add("void cubex_main(){");
-		ArrayList<String> postout = new ArrayList<String>();
-		for (IrTypeTuple tuple : variables){
-			if(!context.variablesInitializedInScope.contains(tuple.variableName)){
-				postout.add(tuple.variableName + " = NULL;");
-				context.variablesInitializedInScope.add(tuple.variableName);
-			}
-		}
+		ArrayList<String> preOut = new ArrayList<String>();
+//		for (IrTypeTuple tuple : variables){
+//			if(!context.variablesInitializedInScope.contains(tuple.variableName)){
+//				postout.add(tuple.variableName + " = NULL;");
+//				context.variablesInitializedInScope.add(tuple.variableName);
+//			}
+//		}
 
 		// use a new varDecl so that population by function statements are not included
 		context.varDecl = new HashMap<String, String>();
 		for (IrStatement irStatement : statements){
-			postout.addAll(irStatement.toC(context, true));
+			output.addAll(irStatement.toC(context, true));
 		}
 		// declare variables here
 		for (String s : context.varDecl.keySet()) {
-			output.add(context.varDecl.get(s) + " " + s + ";");
+			preOut.add(context.varDecl.get(s) + " " + s + ";");
 		}
 		output.add("git_t _input = NULL;");
 		output.add("_input = get_input();");
-		output.addAll(postout);
 		output.add("}");
-		return output;
+		preOut.addAll(output);
+		return preOut;
 	}
 }
