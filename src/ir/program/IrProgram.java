@@ -96,6 +96,7 @@ public class IrProgram {
 
 		// use a new varDecl so that population by function statements are not included
 		context.varDecl = new HashMap<String, String>();
+		context.varInit = new HashMap<String, String>();
 		for (IrStatement irStatement : statements){
 			postOut.addAll(irStatement.toC(context, true));
 		}
