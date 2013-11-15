@@ -21,17 +21,19 @@ public final class IrBind implements IrStatement {
 	}
 	
 	public void addDeclaration(ArrayList<String> arr, CGenerationContext context){
-		if(!context.variablesDeclaredInScope.contains(tuple.variableName)){
-			arr.add("void* " + tuple.variableName + ";");
-			context.variablesDeclaredInScope.add(tuple.variableName);
-		}
+		context.varDecl.put(tuple.variableName, "void*");
+//		if(!context.variablesDeclaredInScope.contains(tuple.variableName)){
+//			arr.add("void* " + tuple.variableName + ";");
+//			context.variablesDeclaredInScope.add(tuple.variableName);
+//		}
 	}
 	
 	public void addInitialization(ArrayList<String> arr, CGenerationContext context){
-		if(!context.variablesInitializedInScope.contains(tuple.variableName)){
-			arr.add(tuple.variableName + " = NULL;");
-			context.variablesInitializedInScope.add(tuple.variableName);
-		}
+		context.varInit.put(tuple.variableName, "NULL");
+//		if(!context.variablesInitializedInScope.contains(tuple.variableName)){
+//			arr.add(tuple.variableName + " = NULL;");
+//			context.variablesInitializedInScope.add(tuple.variableName);
+//		}
 	}
 
 	@Override
@@ -46,6 +48,8 @@ public final class IrBind implements IrStatement {
 			output.add(b.tuple.variableName + " = NULL;");
 			output.addAll(b.toC(context, isMain));
 		}
+		context.varDecl.put(tuple.variableName, "void*");
+		context.varInit.put(tuple.variableName, "NULL");
 		
 		// put everything in fcnVarDecl ->
 		// the check for whether things already exist in temporaryBinds happens in IrFunction

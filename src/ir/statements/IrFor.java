@@ -49,10 +49,8 @@ public class IrFor implements IrStatement {
 	//	    printf ("==> %d\n", temp);
 	//	}
 	public void addDeclaration(ArrayList<String> arr, CGenerationContext context){
-		return;
 	}
 	public void addInitialization(ArrayList<String> arr, CGenerationContext context){
-		return;
 	}
 
 	public ArrayList<String> toC(CGenerationContext context, boolean isMain) {

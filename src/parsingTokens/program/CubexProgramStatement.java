@@ -86,9 +86,9 @@ public class CubexProgramStatement implements CubexProgramType {
 			ret.setFreeContext(new ArrayList<String>(modfc));
 		}
 		program.addMainStatement(s);
-		for(IrBind bind : s.getTemporaryVariables()){
-			program.addGlobalVariable(bind);
-		}
+//		for(IrBind bind : s.getTemporaryVariables()){
+//			program.addGlobalVariable(bind);
+//		}
 		//freeContext setting
 		program.setFreeContext(new ArrayList<String>(freeContext));
 		

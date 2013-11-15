@@ -81,7 +81,12 @@ public class IrProgram {
 		}
 		//CUBEX_MAIN
 		output.add("void cubex_main(){");
+
+		output.add("git_t _input = NULL;");
+		output.add("_input = get_input();");
+
 		ArrayList<String> preOut = new ArrayList<String>();
+		ArrayList<String> postOut = new ArrayList<String>();
 //		for (IrTypeTuple tuple : variables){
 //			if(!context.variablesInitializedInScope.contains(tuple.variableName)){
 //				postout.add(tuple.variableName + " = NULL;");
@@ -92,14 +97,18 @@ public class IrProgram {
 		// use a new varDecl so that population by function statements are not included
 		context.varDecl = new HashMap<String, String>();
 		for (IrStatement irStatement : statements){
-			output.addAll(irStatement.toC(context, true));
+			postOut.addAll(irStatement.toC(context, true));
 		}
-		// declare variables here
+		// declare variables at the top
 		for (String s : context.varDecl.keySet()) {
 			preOut.add(context.varDecl.get(s) + " " + s + ";");
 		}
-		output.add("git_t _input = NULL;");
-		output.add("_input = get_input();");
+		// initialize variables at the beginning of cubexMain
+		for (String s : context.varInit.keySet()) {
+			output.add(s + " = " + context.varInit.get(s) + ";");
+		}
+		//add all statements after the initializations
+		output.addAll(postOut);
 		output.add("}");
 		preOut.addAll(output);
 		return preOut;

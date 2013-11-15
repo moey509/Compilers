@@ -11,6 +11,7 @@ public class CGenerationContext {
 	//map of variable name to variable type that needs to be declared at the top of scope
 	// declare new map whenever we enter a new scope (i.e. function implementation or main function
 	public Map<String, String> varDecl = new HashMap<String, String>();
+	public Map<String, String> varInit = new HashMap<String, String>();
 	
 	// final constants:
 	public final String iterator = "_it";
