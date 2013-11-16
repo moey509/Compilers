@@ -17,6 +17,7 @@ public class IrFunction implements IrProgramElem{
 	public String functionName;
 	public List<IrTypeTuple> arguments;
 	public List<IrStatement> statements;
+	public List<String> vTableFunctionNames;
 	public IrExpression superCall;
 	public boolean isConstructor = false;
 	ArrayList<IrBind> tempVariables = new ArrayList<IrBind>();
@@ -27,6 +28,7 @@ public class IrFunction implements IrProgramElem{
 		this.functionName = functionName;
 		this.arguments = new ArrayList<IrTypeTuple>();
 		this.statements = new ArrayList<IrStatement>();
+		this.vTableFunctionNames = new ArrayList<String>();
 	}
 
 	public IrFunction(IrType type, String functionName) {
@@ -35,6 +37,7 @@ public class IrFunction implements IrProgramElem{
 		this.functionName = functionName;
 		this.arguments = new ArrayList<IrTypeTuple>();
 		this.statements = new ArrayList<IrStatement>();
+		this.vTableFunctionNames = new ArrayList<String>();
 	}
 
 	public void addFunctionArgument(IrTypeTuple argument) {
@@ -45,6 +48,10 @@ public class IrFunction implements IrProgramElem{
 		ArrayList<IrBind> binds = statement.getTemporaryVariables();
 		tempVariables.addAll(binds);
 		statements.add(statement);
+	}
+	
+	public void addVTableFunctionName(String functionName){
+		vTableFunctionNames.add(functionName);
 	}
 	
 	public void addSuperCall(IrExpression expression){
@@ -89,6 +96,11 @@ public class IrFunction implements IrProgramElem{
 			s = type.toC() + " __struct = (" + type.toC() + ")(x3malloc(sizeof(struct " + type.toC().substring(0, type.toC().length()-2) + ")));";
 			postarr.add(s);
 			postarr.add("__struct->ref_count = 0;");
+
+			
+			// TODO: vtable functions
+			
+			
 			for(IrTypeTuple t : arguments){
 				if(firstElement){
 					s += t.type.toC() + " " + t.variableName;
