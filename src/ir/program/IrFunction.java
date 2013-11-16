@@ -98,11 +98,13 @@ public class IrFunction implements IrProgramElem{
 			postarr.add("__struct->ref_count = 0;");
 
 			int counter = 0;
-			postarr.add("functionPtr* v = (functionPtr**) x3malloc(sizeof(functionPtr*) * " + vTableFunctionNames.size() + ");");
-			postarr.add("char** c = (char**) x3malloc(sizeof(char**) * " + vTableFunctionNames.size() + ");");
+			postarr.add("__struct->fun_ptrs = (functionPtr**) x3malloc(sizeof(functionPtr*) * " + vTableFunctionNames.size() + ");");
+			postarr.add("__struct->fun_names = (char**) x3malloc(sizeof(char**) * " + vTableFunctionNames.size() + ");");
+			postarr.add("__struct->fun_length = " + vTableFunctionNames.size() + ";");
 			for (String str : vTableFunctionNames){
-				postarr.add("v[" + counter + "] = &" + str + ";");
-				postarr.add("c[" + counter + "] = \"" + str + "\\0\";");
+				postarr.add("__struct->fun_ptrs[" + counter + "] = &" + str + ";");
+				postarr.add("__struct->fun_names[" + counter + "] = \"" + str + "\\0\";");
+				counter++;
 			}
 					
 			for(IrTypeTuple t : arguments){
