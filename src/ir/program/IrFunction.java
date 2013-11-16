@@ -57,7 +57,7 @@ public class IrFunction implements IrProgramElem{
 		ArrayList<String> arr = new ArrayList<String>();
 		
 		String s = "void* ";
-		if (object != ""){
+		if (object != "" && object != null){
 			s = s + "_" + object;
 		}
 		s = s + "_" + functionName + "(";

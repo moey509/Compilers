@@ -113,7 +113,7 @@ public class CubexClassGrammar {
 	// TODO: Needs call to super constructor unless constructable component is
 	// thing
 	private void addConstructor(IrGenerationContext context, IrProgram program) {
-		IrFunction irFunction = new IrFunction(new IrType(name), "_" + name);
+		IrFunction irFunction = new IrFunction(new IrType(name), name);
 		irFunction.isConstructor = true;
 		context.addGlobalFunction("_" + name);
 		for (CubexTypeTuple tuple : typecontext.iterable()) {
@@ -137,7 +137,7 @@ public class CubexClassGrammar {
 		context.setCurrentClassDeclaration(name);
 		for (CubexFunctionDef funDef : functions.iterable()) {
 			IrFunction fun = funDef.toIr(context);
-			fun.functionName = name + "_" + funDef.name;
+			fun.functionName = funDef.name;
 			fun.addFunctionArgument(new IrTypeTuple(new IrType(name), "__struct"));
 			addedFunctions.add(funDef.name);
 			context.objectAddFunction(name, funDef);

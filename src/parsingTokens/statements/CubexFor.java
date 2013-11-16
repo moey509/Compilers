@@ -37,6 +37,7 @@ public final class CubexFor extends CubexStatement {
 			IrFor ir = new IrFor(varfun, e.toIr(context), cubexContext);
 			ir.addStatement(s.toIr(context));
 			ir.setFreeContext(new ArrayList<String>(freeContext));
+			ir.temporaryBinds.addAll(arr);
 			return ir;
 		}
 		else{
