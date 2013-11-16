@@ -35,8 +35,7 @@ public class CubexAdd extends CubexBinaryExpression {
 	public CubexTypeGrammar typeCheck(CubexCompleteContext c) throws SemanticException {
 		CubexList<CubexExpression> l = new CubexList<CubexExpression>();
 		l.add(super.getmRight());
-		function = new CubexFunctionApp(super.getmLeft(), "plus",
-				new CubexList<CubexTypeGrammar>(), l);
+		function = new CubexFunctionApp(super.getmLeft(), "plus", new CubexList<CubexTypeGrammar>(), l);
 		cubexType = function.typeCheck(c);
 		return cubexType;
 
