@@ -20,7 +20,6 @@ struct General {
   char** fun_names;
   int fun_length;
   functionPointer** fun_ptrs;
-  int ptr_length;
   General_t con_comp;
   int is_iter;
   int is_thru_ward;
@@ -31,7 +30,6 @@ struct Character {
   char** fun_names;
   int fun_length;
   functionPointer** fun_ptrs;
-  int ptr_length;
   General_t con_comp;
   int is_iter;
   int is_thru_ward;
@@ -43,7 +41,6 @@ struct Integer {
   char** fun_names;
   int fun_length;
   functionPointer** fun_ptrs;
-  int ptr_length;
   General_t con_comp;
   int is_iter;
   int is_thru_ward;
@@ -55,7 +52,6 @@ struct Boolean {
   char** fun_names;
   int fun_length;
   functionPointer** fun_ptrs;
-  int ptr_length;
   General_t con_comp;
   int is_iter;
   int is_thru_ward;
@@ -69,7 +65,6 @@ struct git
   char** fun_names;
   int fun_length;
   functionPointer** fun_ptrs;
-  int ptr_length;
   General_t con_comp;
   int is_iter;
   int is_thru_ward;
@@ -88,7 +83,6 @@ struct iterator
   char** fun_names;
   int fun_length;
   functionPointer** fun_ptrs;
-  int ptr_length;
   General_t con_comp;
   int is_iter;
   int is_thru_ward;
@@ -106,7 +100,6 @@ struct nit
   char** fun_names;
   int fun_length;
   functionPointer** fun_ptrs;
-  int ptr_length;
   void* con_comp;
   int is_iter;
   int is_thru_ward;
@@ -121,7 +114,6 @@ Character_t new_character(int input) {
   c->fun_names = NULL;
   c->fun_length = 0;
   c->fun_ptrs = NULL;
-  c->ptr_length = 0;
   c->con_comp = NULL; 
   c->is_iter = 0;
   c->is_thru_ward = 0;
@@ -135,7 +127,6 @@ Integer_t new_integer(int input) {
   i->fun_names = NULL;
   i->fun_length = 0;
   i->fun_ptrs = NULL;
-  i->ptr_length = 0;
   i->con_comp = NULL; 
   i->is_iter = 0;
   i->is_thru_ward = 0;
@@ -149,7 +140,6 @@ Boolean_t new_boolean(int input) {
   b->fun_names = NULL;
   b->fun_length = 0;
   b->fun_ptrs = NULL;
-  b->ptr_length = 0;
   b->con_comp = NULL;
   b->is_iter = 0;
   b->is_thru_ward = 0;
@@ -313,7 +303,6 @@ git_t new_git_obj (void* obj) {
   g->fun_names = NULL;
   g->fun_length = 0;
   g->fun_ptrs = NULL;
-  g->ptr_length = 0;
   g->con_comp = NULL;
   g->is_iter = 0;
   g->is_thru_ward = 0;
@@ -338,7 +327,6 @@ git_t new_git_int (int status, int low, int high) {
   g->fun_names = NULL;
   g->fun_length = 0;
   g->fun_ptrs = NULL;
-  g->ptr_length = 0;
   g->con_comp = NULL;
   g->is_iter = 0;
   g->is_thru_ward = 0;
@@ -653,7 +641,6 @@ General_t Thing(){
   __struct->fun_names = NULL;
   __struct->fun_length = 0;
   __struct->fun_ptrs = NULL;
-  __struct->ptr_length = 0;
   __struct->con_comp = NULL;
   __struct->is_iter = 0;
   __struct->is_thru_ward = 0;
