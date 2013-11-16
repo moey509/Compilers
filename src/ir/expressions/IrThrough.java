@@ -33,6 +33,6 @@ public class IrThrough extends IrBinaryExpression {
 			inR = " + 1";
 		else
 			inR = " + 0";
-		return "new_git_int(0, (" + getLeftExpression().toC(context) + inL + "), (" + getRightExpression().toC(context) + inR + "));";			
+		return "new_git_int(0, (" + getLeftExpression().toC(context) + inL + "), (" + getRightExpression().toC(context) + inR + "))";			
 	}
 }

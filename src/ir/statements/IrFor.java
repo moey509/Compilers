@@ -61,6 +61,13 @@ public class IrFor implements IrStatement {
 		context.incrementCurIterable();
 		String iterable = context.iterable + cur_iterable;
 		String iterator = context.iterator + cur_iterator;
+		
+		for(IrBind b : temporaryBinds){
+			// put variables at the top of main() here:
+			context.varDecl.put(b.tuple.variableName, "void*");
+			output.add(b.tuple.variableName + " = NULL;");
+			output.addAll(b.toC(context, isMain));
+		}
 
 		// there's a reason why these aren't IrBinds! The rhs is not really an IrFunctionCall ...
 		// there is no CubexTypeGrammar for the expression, and the arguments don't have IrTypes
