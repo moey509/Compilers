@@ -80,6 +80,7 @@ public class IrProgram {
 			output.addAll(irFunction.toC(context, false));
 		}
 		//CUBEX_MAIN
+		output.add("");
 		output.add("void cubex_main(){");
 
 		output.add("git_t _input = NULL;");
