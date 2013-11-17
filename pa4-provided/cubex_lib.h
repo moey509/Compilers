@@ -740,7 +740,9 @@ functionPointer function_lookup (General_t gen, char * function_name    ) {
   
   length = gen->fun_length;
   arr = gen->fun_names;
+  printf ("length: %d\n", length);
   for (i = 0; i < length; i++) {
+    printf ("name: %s\n", arr[i]);
     eof = 1;
     counter = 0;
     name = arr[i];
@@ -759,7 +761,7 @@ functionPointer function_lookup (General_t gen, char * function_name    ) {
         counter += 1;
       }
     }
-    /* not found in this level */
-    return function_lookup (gen->con_comp, function_name);
   }
-
+  /* not found in this level */
+  return function_lookup (gen->con_comp, function_name);
+}
