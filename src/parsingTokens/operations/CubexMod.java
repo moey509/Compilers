@@ -15,13 +15,13 @@ import typeChecker.IrGenerationContext;
 
 public class CubexMod extends CubexBinaryExpression {
 	CubexExpression function;
-	
-	CubexTypeGrammar cubexType;
+
 	CubexCompleteContext cubexContext;
 
 	public CubexMod(CubexExpression left, CubexExpression right) {
 		super(left, right);
 		type = "Integer";
+		operator = "%";
 	}
 
 	public IrBinaryExpression toIr(IrGenerationContext context) {
@@ -43,8 +43,4 @@ public class CubexMod extends CubexBinaryExpression {
 		return cubexType;
 	}
 	
-	public ArrayList<IrBind> getExpressions(IrGenerationContext context){
-		ArrayList<IrBind> arr = function.getExpressions(context);
-		return arr;
-	}
 }

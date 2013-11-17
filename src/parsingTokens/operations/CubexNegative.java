@@ -16,12 +16,12 @@ import typeChecker.IrGenerationContext;
 public class CubexNegative extends CubexUnaryExpression {
 	CubexExpression function;
 	
-	CubexTypeGrammar cubexType;
 	CubexCompleteContext cubexContext;
 
 	public CubexNegative(CubexExpression arg) {
 		super(arg);
 		type = "Integer";
+		operator = "-";
 	}
 	
 	public IrUnaryExpression toIr(IrGenerationContext context) {
@@ -41,8 +41,4 @@ public class CubexNegative extends CubexUnaryExpression {
 		return cubexType;
 	}
 	
-	public ArrayList<IrBind> getExpressions(IrGenerationContext context){
-		ArrayList<IrBind> arr = function.getExpressions(context);
-		return arr;
-	}
 }
