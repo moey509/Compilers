@@ -1,6 +1,7 @@
 package parsingTokens.expressions;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Set;
 
 import ir.IrType;
@@ -110,5 +111,11 @@ public class CubexAppend extends CubexExpression {
 	public void getVars(Set<String> set){
 		e1.getVars(set);
 		e2.getVars(set);
+	}
+			
+	@Override
+	public void replaceVars(HashMap<String, String> map){
+		e1.replaceVars(map);
+		e2.replaceVars(map);
 	}
 }

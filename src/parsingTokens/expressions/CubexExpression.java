@@ -1,6 +1,7 @@
 package parsingTokens.expressions;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Set;
 
 import ir.CGenerationContext;
@@ -35,6 +36,12 @@ public class CubexExpression {
 	
 	public void getVars(Set<String> set) {
 		set.add(name);
+	}
+	
+	public void replaceVars(HashMap<String, String> map) {
+		if (map.containsKey(name)) {
+			name = map.get(name);
+		}
 	}
 
 	// // Check if the expression is of some type

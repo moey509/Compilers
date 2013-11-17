@@ -7,6 +7,7 @@ import ir.program.IrTypeTuple;
 import ir.statements.IrBind;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Set;
 
 import Exception.SemanticException;
@@ -191,6 +192,17 @@ public final class CubexFunctionApp extends CubexExpression {
 	
 	@Override
 	public void getVars(Set<String> set){
-		return;
+		expr.getVars(set);
+		for (CubexExpression e : functionParams.contextCollection) {
+			e.getVars(set);
+		}
+	}
+	
+	@Override
+	public void replaceVars(HashMap<String, String> map){
+		expr.replaceVars(map);
+		for (CubexExpression e : functionParams.contextCollection) {
+			e.replaceVars(map);
+		}
 	}
 }

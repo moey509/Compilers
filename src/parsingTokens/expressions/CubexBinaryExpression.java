@@ -1,6 +1,7 @@
 package parsingTokens.expressions;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Set;
 
 import parsingTokens.typeGrammar.CubexTypeGrammar;
@@ -69,8 +70,15 @@ public abstract class CubexBinaryExpression extends CubexExpression {
 	
 	public abstract IrBinaryExpression toIr(IrGenerationContext context);
 	
+	@Override
 	public void getVars(Set<String> s) {
 		mLeft.getVars(s);
 		mRight.getVars(s);
+	}
+	
+	@Override
+	public void replaceVars(HashMap<String, String> map) {
+		mLeft.replaceVars(map);
+		mRight.replaceVars(map);
 	}
 }

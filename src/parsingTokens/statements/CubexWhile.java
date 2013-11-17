@@ -75,7 +75,14 @@ public final class CubexWhile extends CubexStatement {
 
 	@Override
 	public void replaceVars(HashMap<String, String> map) {
-		// TODO Auto-generated method stub
-		
+		e.replaceVars(map);
+		s.replaceVars(map);
+		// replace variables in freeContext
+		for (String s : map.keySet()) {
+			if (freeContext.contains(s)) {
+				freeContext.remove(s);
+				freeContext.add(map.get(s));
+			}
+		}
 	}
 }

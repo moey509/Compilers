@@ -18,6 +18,7 @@ import typeChecker.TypeContext;
 import typeChecker.TypeContextReturn;
 
 public final class CubexReturn extends CubexStatement {
+	// does not exist until after typeCheck is called
 	private Set<String> freeContext;
 	
 	CubexCompleteContext cubexContext;
@@ -75,8 +76,13 @@ public final class CubexReturn extends CubexStatement {
 
 	@Override
 	public void replaceVars(HashMap<String, String> map) {
-		// TODO Auto-generated method stub
-		
+		e.replaceVars(map);
+		for (String s : map.keySet()) {
+			if (freeContext.contains(s)) {
+				freeContext.remove(s);
+				freeContext.add(map.get(s));
+			}
+		}
 	}
 }
 
