@@ -53,6 +53,8 @@ public final class IrReturn implements IrStatement {
 		
 		for(IrBind b : temporaryBinds){
 			arrList.addAll(b.toC(context, isMain));
+			context.varDecl.put(b.tuple.variableName, b.tuple.type.toC());
+			context.varInit.put(b.tuple.variableName, "NULL");
 		}
 		for(int i = 0; i < temporaryBinds.size()-1; i++){
 			IrBind b = temporaryBinds.get(i);

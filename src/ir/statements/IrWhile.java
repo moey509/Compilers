@@ -43,17 +43,17 @@ public final class IrWhile implements IrStatement {
 	public ArrayList<String> toC(CGenerationContext context, boolean isMain) {
 		ArrayList<String> arrList = new ArrayList<String>();
 		arrList.add("while(" + condition.toC(context) + ") {");
+		for (IrBind i : temporaryBinds) {
+			context.varDecl.put(i.tuple.variableName, i.tuple.type.toC());
+			context.varInit.put(i.tuple.variableName, "NULL");
+		}
 		if (isMain) {
 			for(IrStatement s : statements){
 				for(IrBind b : s.getTemporaryVariables()){
 					b.addDeclaration(arrList, context);
-				}
-				s.addDeclaration(arrList, context);
-			}
-			for(IrStatement s : statements){
-				for(IrBind b : s.getTemporaryVariables()){
 					b.addInitialization(arrList, context);
 				}
+				s.addDeclaration(arrList, context);
 				s.addInitialization(arrList, context);
 			}
 		}

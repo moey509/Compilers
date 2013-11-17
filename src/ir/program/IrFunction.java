@@ -53,6 +53,7 @@ public class IrFunction implements IrProgramElem{
 	//TODO: Can structs and functions have the same name
 	public ArrayList<String> toC(CGenerationContext context, boolean isMain) {
 		context.varDecl = new HashMap<String, String>();
+		context.varInit = new HashMap<String, String>();
 		//Declaration
 		ArrayList<String> arr = new ArrayList<String>();
 		
@@ -117,6 +118,9 @@ public class IrFunction implements IrProgramElem{
 				arr.add(context.varDecl.get(str) + " " + str + ";");
 //				arr.add("void* " + str + ";");
 			}
+		}
+		for (String str : context.varInit.keySet()) {
+			arr.add(str + " = " + context.varInit.get(str) + ";");
 		}
 		arr.addAll(postarr);
 		

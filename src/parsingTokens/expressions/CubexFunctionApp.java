@@ -94,7 +94,8 @@ public final class CubexFunctionApp extends CubexExpression {
 		IrTypeTuple tuple = new IrTypeTuple(t, context.nextTemp());
 		IrBind b;
 		if(tempParams.size() == 0){
-			IrFunctionCall call = new IrFunctionCall("_" + obj + "_" + fun, "void*", cubexType);
+			// removed initial "_" from the start of the function due to _Integer_negative in x3_test2.x3
+			IrFunctionCall call = new IrFunctionCall(obj + "_" + fun, "void*", cubexType);
 			if(thisPointer.size() != 0){
 				call.addArgument("void*", new IrVariableExpression(thisPointer.get(thisPointer.size()-1).tuple.variableName, thisPointer.get(thisPointer.size()-1).tuple.type.type));
 			}

@@ -56,6 +56,8 @@ public class IrIf implements IrStatement {
 	public ArrayList<String> toC(CGenerationContext context, boolean isMain) {
 		ArrayList<String> arrList = new ArrayList<String>();
 		for(IrBind b : temporaryBinds){
+			context.varDecl.put(b.tuple.variableName, b.tuple.type.toC());
+			context.varInit.put(b.tuple.variableName, "NULL");
 			arrList.addAll(b.toC(context, isMain));
 		}
 		arrList.add("if(" + condition.toC(context) + ") {");

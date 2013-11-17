@@ -45,7 +45,7 @@ public class IrUnaryExpression implements IrExpression {
 				return "Boolean_onward(" + expression.toC(context) + ", new_integer(0))";
 		} else if (expression.getCType() == "Integer") {
 			if (operator == "-")
-				return "Integer_negate(" + expression.toC(context) + ")";
+				return "Integer_negative(" + expression.toC(context) + ")";
 			else if (operator == "...")
 				return "Integer_onward(" + expression.toC(context) + ", new_integer(1))";
 			else if (operator == "<..")

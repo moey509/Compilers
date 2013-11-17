@@ -20,6 +20,9 @@ public class IrType {
 		if (type.equals("Iterable")) {
 			return "git_t";
 		}
+		if (type.equals("git_t")) {
+			return type;
+		}
 		if (type.length()<2) {
 			return "General_t";
 		}
