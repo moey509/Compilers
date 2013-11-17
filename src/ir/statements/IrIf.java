@@ -60,7 +60,7 @@ public class IrIf implements IrStatement {
 			context.varInit.put(b.tuple.variableName, "NULL");
 			arrList.addAll(b.toC(context, isMain));
 		}
-		arrList.add("if(" + condition.toC(context) + ") {");
+		arrList.add("if(((Boolean_t)" + condition.toC(context) + ")->value) {");
 		for(IrBind b : temporaryBinds){
 			arrList.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
 		}

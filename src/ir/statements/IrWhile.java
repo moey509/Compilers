@@ -42,7 +42,7 @@ public final class IrWhile implements IrStatement {
 	@Override
 	public ArrayList<String> toC(CGenerationContext context, boolean isMain) {
 		ArrayList<String> arrList = new ArrayList<String>();
-		arrList.add("while(" + condition.toC(context) + ") {");
+		arrList.add("while(((Boolean_t)" + condition.toC(context) + ")->value) {");
 		for (IrBind i : temporaryBinds) {
 			context.varDecl.put(i.tuple.variableName, i.tuple.type.toC());
 			context.varInit.put(i.tuple.variableName, "NULL");
