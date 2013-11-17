@@ -28,9 +28,6 @@ public class CubexThrough extends CubexBinaryExpression {
 		includeLeft = inclL;
 		includeRight = inclR;
 		type = l.type;
-	}
-	
-	public IrBinaryExpression toIr(IrGenerationContext context) {
 		operator = "";
 		if(includeLeft){
 			operator += ".";
@@ -44,6 +41,9 @@ public class CubexThrough extends CubexBinaryExpression {
 		else{
 			operator += "<";
 		}
+	}
+	
+	public IrBinaryExpression toIr(IrGenerationContext context) {
 		return new IrBinaryExpression(getmLeft().toIr(context), getmRight().toIr(context), operator, cubexType);
 		//return new IrThrough(getmLeft().toIr(context), getmRight().toIr(context), includeLeft, includeRight, cubexType);
 	}

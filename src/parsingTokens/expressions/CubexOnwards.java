@@ -21,15 +21,15 @@ public class CubexOnwards extends CubexUnaryExpression {
 		super(l);
 		include = incl;
 		type = l.type;
-	}
-	
-	public IrUnaryExpression toIr(IrGenerationContext context) {
 		if(include){
 			operator = "...";
 		}
 		else{
 			operator = "<..";
 		}
+	}
+	
+	public IrUnaryExpression toIr(IrGenerationContext context) {
 		return new IrUnaryExpression(getmArgument().toIr(context), operator, cubexType);
 		//return new IrOnwards(getmArgument().toIr(context), include, cubexType);
 	}
