@@ -96,7 +96,7 @@ public class IrFunction implements IrProgramElem{
 		
 		// if constructor, make first malloc struct for super
 		if(isConstructor){
-			s = type.toC() + " __struct = (" + type.toC() + ")(x3malloc(sizeof(struct " + type.toC().substring(0, type.toC().length()-2) + ")));";
+			s = " __struct = (" + type.toC() + ")(x3malloc(sizeof(struct " + type.toC().substring(0, type.toC().length()-2) + ")));";
 			postarr.add(s);
 			postarr.add("__struct->ref_count = 0;");
 
@@ -134,6 +134,8 @@ public class IrFunction implements IrProgramElem{
 		}
 
 		context.currentObject = null;
+		
+		arr.add(type.toC() + " __struct;");
 		
 		// add binding vars to the output, add everything above (postarr) to the output
 		for (String str : context.varDecl.keySet()) {
