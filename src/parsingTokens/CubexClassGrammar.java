@@ -99,11 +99,14 @@ public class CubexClassGrammar {
 				irStruct.addStructVariable(new IrTypeTuple(tuple
 						.getTypeGrammar().toIrType(), tuple.getName()));
 			}
+			HashSet<String> varSet = new HashSet<String>();
 			for (CubexStatement stmt : statements.iterable()) {
 				if (stmt instanceof CubexBind) {
 					CubexBind bind = (CubexBind) stmt;
-					irStruct.addStructVariable(new IrTypeTuple(
-							bind.getIrType(), bind.getId()));
+					if (!varSet.contains(bind.getId())){
+						irStruct.addStructVariable(new IrTypeTuple(bind.getIrType(), bind.getId()));
+						varSet.add(bind.getId());
+					}
 				}
 			}
 			program.addStruct(irStruct);
@@ -134,7 +137,13 @@ public class CubexClassGrammar {
 			irFunction.addVTableFunctionName("_" + tempName + "_" + tempfun);
 		}
 		
+		// set of variables (var) that need to be replaced with (__struct->var) 
+		HashSet<String> varSet = new HashSet<String>();
 		for (CubexStatement stmt : statements.iterable()) {
+			if (stmt instanceof CubexBind) {
+				CubexBind bind = (CubexBind) stmt;
+				varSet.add(bind.getId());
+			}
 			irFunction.addStatement(stmt.toIr(context));
 		}
 		

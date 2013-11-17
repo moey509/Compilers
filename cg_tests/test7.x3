@@ -1,5 +1,7 @@
 class Aa(s : String)
 {
+	qwerty := 3;
+	qwerty := qwerty + 1;
 	super();
 	fun getString() : String = s;
 }

@@ -444,12 +444,16 @@ Integer_t Integer_times (Integer_t i1, Integer_t i2) {
   return new_integer(i1->value * i2->value);
 }
 
-Integer_t Integer_divide (Integer_t i1, Integer_t i2) {
-  return new_integer(i1->value / i2->value);
+git_t Integer_divide (Integer_t i1, Integer_t i2) {
+  if (i2->value == 0) 
+    return NULL;
+  return new_git_obj(new_integer(i1->value / i2->value));
 }
 
 Integer_t Integer_modulo (Integer_t i1, Integer_t i2) {
-  return new_integer(i1->value % i2->value);
+  if (i2->value == 0)
+    return NULL;
+  return new_git_obj(new_integer(i1->value % i2->value));
 }
 
 Integer_t Integer_negative (Integer_t i1) {
