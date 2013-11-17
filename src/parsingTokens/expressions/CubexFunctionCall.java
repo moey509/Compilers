@@ -7,6 +7,7 @@ import ir.program.IrTypeTuple;
 import ir.statements.IrBind;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Set;
 
 import Exception.SemanticException;
@@ -19,9 +20,9 @@ import typeChecker.IrGenerationContext;
 import typeChecker.TypeContext;
 //TODO: WE SHOULD WRITE DOCUMENTATION SO WE KNOW WHAT IS WHAT
 public final class CubexFunctionCall extends CubexExpression {
-	private String v_vc;
-	private CubexList<CubexTypeGrammar> typeParams;
-	private CubexList<CubexExpression> functionParams;
+	private String v_vc; //function name
+	private CubexList<CubexTypeGrammar> typeParams; // the stuff in angle brackets
+	private CubexList<CubexExpression> functionParams; 
 	
 	CubexTypeGrammar cubexType;
 	CubexCompleteContext cubexContext;
@@ -118,7 +119,16 @@ public final class CubexFunctionCall extends CubexExpression {
 	
 	@Override
 	public void getVars(Set<String> set){
-		return;
+		for (CubexExpression e : functionParams.contextCollection) {
+			e.getVars(set);
+		}
+	}
+	
+	@Override
+	public void replaceVars(HashMap<String, String> map) {
+		for (CubexExpression e : functionParams.contextCollection) {
+			e.replaceVars(map);
+		}
 	}
 	
 	public ArrayList<IrBind> getExpressions(IrGenerationContext context){

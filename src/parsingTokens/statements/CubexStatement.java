@@ -35,6 +35,7 @@ public abstract class CubexStatement {
 	public abstract IrStatement toIr(IrGenerationContext context);
 	
 	// replace any variables in the domain of the map that occur in this statement with map.get(var)
+	// HAVE NOT YET HANDLED cubexContext REPLACEMENT OF VARIABLES!!!
 	public abstract void replaceVars(HashMap<String, String> map);
 	
 }

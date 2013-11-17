@@ -1,6 +1,7 @@
 package parsingTokens.expressions;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Set;
 
 import ir.IrType;
@@ -48,6 +49,11 @@ public final class CubexBoolean extends CubexExpression {
 	
 	@Override
 	public void getVars(Set<String> set){
+		return;
+	}
+	
+	@Override
+	public void replaceVars(HashMap<String, String> map) {
 		return;
 	}
 }

@@ -92,8 +92,10 @@ public final class CubexBind extends CubexStatement {
 
 	@Override
 	public void replaceVars(HashMap<String, String> map) {
-		// TODO Auto-generated method stub
-		
+		e.replaceVars(map);
+		if (map.containsKey(classid)) {
+			classid = map.get(classid);
+		}
 	}
 	
 //	public TypeContextReturn typeCheckReturn(CubexCompleteContext c) throws SemanticException{

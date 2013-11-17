@@ -94,7 +94,9 @@ public final class CubexListStatement extends CubexStatement {
 
 	@Override
 	public void replaceVars(HashMap<String, String> map) {
-		// TODO Auto-generated method stub
-		
+		for (CubexStatement s : cList.contextCollection) {
+			s.replaceVars(map);
+		}
+		return;
 	}
 }

@@ -141,7 +141,18 @@ public class CubexIf extends CubexStatement {
 
 	@Override
 	public void replaceVars(HashMap<String, String> map) {
-		// TODO Auto-generated method stub
+		e.replaceVars(map);
+		s1.replaceVars(map);
+		s2.replaceVars(map);
+		for (String s : map.keySet()){
+			if (freeContext.contains(s)) {
+				freeContext.remove(s);
+				freeContext.add(map.get(s));
+			}
+			if (freeContext2.contains(s)) 
+				freeContext2.remove(s);
+				freeContext2.add(map.get(s));
+		}
 		
 	}
 }
