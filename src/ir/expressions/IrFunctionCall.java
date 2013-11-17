@@ -18,6 +18,8 @@ public final class IrFunctionCall implements IrExpression {
 	
 	public ArrayList<IrExpression> functions = new ArrayList<IrExpression>();
 	
+	
+	
 	public IrFunctionCall(String functionName, String type, CubexTypeGrammar cubexType) {
 		this.functionName = functionName;
 		this.arguments = new ArrayList<IrExpressionTuple>();
@@ -35,6 +37,10 @@ public final class IrFunctionCall implements IrExpression {
 
 	public String getCType () {
 		return cType;
+	}
+	
+	public List<IrExpressionTuple> getArugments() {
+		return this.arguments;
 	}
 	
 	public ArrayList<IrBind> getExpressions(CGenerationContext context){
@@ -77,12 +83,4 @@ public final class IrFunctionCall implements IrExpression {
 	}
 }
 
-class IrExpressionTuple{
-	IrType argType;
-	IrExpression expression;
-	public IrExpressionTuple(IrType argType, IrExpression expression) {
-		//System.out.println("IR: " + argType.type + " " + expression.toString());
-		this.argType = argType;
-		this.expression = expression;
-	}	
-}
+

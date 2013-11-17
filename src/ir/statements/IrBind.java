@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import typeChecker.CubexCompleteContext;
 import ir.CGenerationContext;
 import ir.expressions.IrExpression;
+import ir.expressions.IrExpressionTuple;
+import ir.expressions.IrFunctionCall;
+import ir.expressions.IrVariableExpression;
 import ir.program.IrTypeTuple;
 
 public final class IrBind implements IrStatement {
@@ -67,6 +70,12 @@ public final class IrBind implements IrStatement {
 		else{
 			//TODO: We need to make sure that y was initialized somehow or initialize everything to NULL and set to NULL when freed
 			output.add("ref_decrement((General_t)" + tuple.variableName + ");");
+			if (expression instanceof IrFunctionCall) {
+				IrFunctionCall funcCall = (IrFunctionCall) expression;		
+				for (IrExpressionTuple tuple : funcCall.getArugments()) {
+					output.add("ref_increment((General_t)" + tuple.getExpression().toC(context)+ ");");
+				}
+			}
 			output.add(tuple.variableName + " = " + expression.toC(context) + ";");
 			output.add("ref_increment((General_t)" + tuple.variableName + ");");
 		}
