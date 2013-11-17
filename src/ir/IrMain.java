@@ -71,6 +71,8 @@ public class IrMain {
 //			System.out.println("----------");
 			int counter = 2;
 			writer.write("#include \"cubex_lib.h\"\n");
+			// TODO: REMOVE THIS BEFORE SUBMITTING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			writer.write("#include \"stdio.h\"\n");
 			for (String s : programCode){
 				System.out.println(counter + "\t" + s);
 				counter++;

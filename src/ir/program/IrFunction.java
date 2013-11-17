@@ -71,8 +71,10 @@ public class IrFunction implements IrProgramElem{
 		s = s + "_" + functionName + "(";
 		
 		HashSet<String> tempVarSet = new HashSet<String>();
+		HashSet<String> argumentNames = new HashSet<String>();
 		boolean firstElement = true;
 		for(IrTypeTuple t : arguments){
+			argumentNames.add(t.variableName);
 			tempVarSet.add(t.variableName);
 			if(firstElement){
 				s += t.type.toC() + " " + t.variableName;
@@ -143,7 +145,7 @@ public class IrFunction implements IrProgramElem{
 			}
 		}
 		for (String str : context.varInit.keySet()) {
-			arr.add(str + " = " + context.varInit.get(str) + ";");
+			if (!argumentNames.contains(str)) arr.add(str + " = " + context.varInit.get(str) + ";");
 		}
 		arr.addAll(postarr);
 		
