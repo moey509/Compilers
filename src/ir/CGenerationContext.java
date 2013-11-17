@@ -3,6 +3,7 @@ package ir;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class CGenerationContext {
 	public Map<String, CGenerationType> cVariableToTypeMap;
@@ -12,6 +13,9 @@ public class CGenerationContext {
 	// declare new map whenever we enter a new scope (i.e. function implementation or main function
 	public Map<String, String> varDecl = new HashMap<String, String>();
 	public Map<String, String> varInit = new HashMap<String, String>();
+	
+	public Map<String, Set<String>> structToDataMap;
+	public String currentObject;
 	
 	// final constants:
 	public final String iterator = "_it";
@@ -30,6 +34,7 @@ public class CGenerationContext {
 		cVariableToTypeMap = new HashMap<String, CGenerationType>();
 		variablesDeclaredInScope = new HashSet<String>();
 		variablesInitializedInScope = new HashSet<String>();
+		structToDataMap = new HashMap<String, Set<String>>();
 		cur_iterator = 1; 
 	}
 	

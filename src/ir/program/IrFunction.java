@@ -60,6 +60,7 @@ public class IrFunction implements IrProgramElem{
 	//TODO: Can structs and functions have the same name
 	public ArrayList<String> toC(CGenerationContext context, boolean isMain) {
 		context.varDecl = new HashMap<String, String>();
+		context.varInit = new HashMap<String, String>();
 		//Declaration
 		ArrayList<String> arr = new ArrayList<String>();
 		
@@ -85,8 +86,7 @@ public class IrFunction implements IrProgramElem{
 		arr.add(s);
 		
 		for(IrBind b : tempVariables){
-			if (!isConstructor)
-				arr.add(b.tuple.type.type + " " + b.tuple.variableName + ";");
+			arr.add(b.tuple.type.type + " " + b.tuple.variableName + ";");
 			tempVarSet.add(b.tuple.variableName);
 		}
 		
@@ -125,17 +125,25 @@ public class IrFunction implements IrProgramElem{
 			}
 		}
 		
+		context.currentObject = object;
+		System.out.println("Object: " + object);
 		for(IrStatement st : statements){
 //			System.out.println(st.toC(context));
 			postarr.addAll(st.toC(context, false));
 		}
+
+		context.currentObject = null;
 		
 		// add binding vars to the output, add everything above (postarr) to the output
 		for (String str : context.varDecl.keySet()) {
 			if (!tempVarSet.contains(str)) {
-				arr.add(context.varDecl.get(str) + " " + str + ";");
+				if (!isConstructor)
+					arr.add(context.varDecl.get(str) + " " + str + ";");
 //				arr.add("void* " + str + ";");
 			}
+		}
+		for (String str : context.varInit.keySet()) {
+			arr.add(str + " = " + context.varInit.get(str) + ";");
 		}
 		arr.addAll(postarr);
 		
@@ -148,6 +156,29 @@ public class IrFunction implements IrProgramElem{
 		}
 		arr.add("}");
 		return arr;
+	}
+	
+	public String topDeclaration(){
+		String s = "void* ";
+		if (object != "" && object != null){
+			s = s + "_" + object;
+		}
+		s = s + "_" + functionName + "(";
+		
+		HashSet<String> tempVarSet = new HashSet<String>();
+		boolean firstElement = true;
+		for(IrTypeTuple t : arguments){
+			tempVarSet.add(t.variableName);
+			if(firstElement){
+				s += t.type.toC() + " " + t.variableName;
+				firstElement = false;
+			}
+			else{
+				s += ", " + t.type.toC() + " " + t.variableName;
+			}
+		}
+		s += ");";
+		return s;
 	}
 
 	public void addConstructorStatement(IrBind irBind) {

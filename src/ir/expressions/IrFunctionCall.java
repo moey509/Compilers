@@ -64,6 +64,10 @@ public final class IrFunctionCall implements IrExpression {
 			}
 		}
 		
+		if (functionName.equals("_string")) {
+			functionName = "charToString";
+		}
+		
 		return functionName + "(" + sb.toString() + ")" ;
 	}
 

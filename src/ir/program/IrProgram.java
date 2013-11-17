@@ -67,6 +67,9 @@ public class IrProgram {
 		for (IrStruct irStruct : structs){
 			output.addAll(irStruct.toC(context, false));
 		}
+		for (IrFunction irFunction : functions){
+			output.add(irFunction.topDeclaration());
+		}
 //		for (IrTypeTuple tuple : variables){
 //			if(!context.variablesDeclaredInScope.contains(tuple.variableName)){
 //				output.add("void* " + tuple.variableName + ";");

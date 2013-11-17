@@ -63,8 +63,8 @@ public class IrFor implements IrStatement {
 		String iterator = context.iterator + cur_iterator;
 		
 		for(IrBind b : temporaryBinds){
-			// put variables at the top of main() here:
-			context.varDecl.put(b.tuple.variableName, "void*");
+			// put variables at the top of fcn here:
+			context.varDecl.put(b.tuple.variableName, b.tuple.type.toC());
 			output.add(b.tuple.variableName + " = NULL;");
 			output.addAll(b.toC(context, isMain));
 		}
@@ -88,11 +88,11 @@ public class IrFor implements IrStatement {
 		output.add(iterDeclaration);
 		output.add(itDeclaration);
 		output.add(itCondition);
-		output.add(tempVar);
 
 		for(IrStatement s : statements){
 			for(IrBind b : s.getTemporaryVariables()){
 				b.addDeclaration(output, context);
+//				output.add(b.tuple.type.toC() + " " + b.tuple.variableName + ";");
 			}
 			s.addDeclaration(output, context);
 		}
@@ -102,6 +102,8 @@ public class IrFor implements IrStatement {
 			}
 			s.addInitialization(output, context);
 		}
+
+		output.add(tempVar);
 
 		for (IrStatement s : statements) {
 			output.addAll(s.toC(context, isMain));
