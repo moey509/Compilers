@@ -119,12 +119,25 @@ public class CubexClassGrammar {
 		for (CubexTypeTuple tuple : typecontext.iterable()) {
 			IrTypeTuple argument = new IrTypeTuple(tuple.getTypeGrammar().toIrType(), tuple.getName());
 			irFunction.addFunctionArgument(argument);
-			irFunction.addStatement(new IrBind(new IrTypeTuple(tuple.getTypeGrammar().toIrType(), "__struct->" +tuple.getName()),
-					new IrVariableExpression(tuple.getName(), tuple.getTypeGrammar().toIrType().type, tuple.getTypeGrammar()), completeContext));
+			
+			IrVariableExpression variable = 
+					new IrVariableExpression(tuple.getName(), tuple.getTypeGrammar().toIrType().type, tuple.getTypeGrammar());
+			IrBind bind = new IrBind(new IrTypeTuple(tuple.getTypeGrammar().toIrType(), "__struct->" +tuple.getName()), 
+					variable, completeContext);
+			irFunction.addStatement(bind);
+		}		
+		
+
+		String tempName = name.replace("_", "__");
+		for (CubexFunctionDef funDef : functions.iterable()){
+			String tempfun = funDef.name.replace("_", "__");
+			irFunction.addVTableFunctionName("_" + tempName + "_" + tempfun);
 		}
+		
 		for (CubexStatement stmt : statements.iterable()) {
 			irFunction.addStatement(stmt.toIr(context));
 		}
+		
 		if (constructableComponent != "Thing"){
 			IrExpression e = new IrFunctionCall(this.constructableComponent,this.constructableComponent + "*", extendsType);
 			irFunction.addSuperCall(e);

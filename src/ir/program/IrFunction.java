@@ -17,6 +17,7 @@ public class IrFunction implements IrProgramElem{
 	public String functionName;
 	public List<IrTypeTuple> arguments;
 	public List<IrStatement> statements;
+	public List<String> vTableFunctionNames;
 	public IrExpression superCall;
 	public boolean isConstructor = false;
 	ArrayList<IrBind> tempVariables = new ArrayList<IrBind>();
@@ -27,6 +28,7 @@ public class IrFunction implements IrProgramElem{
 		this.functionName = functionName;
 		this.arguments = new ArrayList<IrTypeTuple>();
 		this.statements = new ArrayList<IrStatement>();
+		this.vTableFunctionNames = new ArrayList<String>();
 	}
 
 	public IrFunction(IrType type, String functionName) {
@@ -35,6 +37,7 @@ public class IrFunction implements IrProgramElem{
 		this.functionName = functionName;
 		this.arguments = new ArrayList<IrTypeTuple>();
 		this.statements = new ArrayList<IrStatement>();
+		this.vTableFunctionNames = new ArrayList<String>();
 	}
 
 	public void addFunctionArgument(IrTypeTuple argument) {
@@ -45,6 +48,10 @@ public class IrFunction implements IrProgramElem{
 		ArrayList<IrBind> binds = statement.getTemporaryVariables();
 		tempVariables.addAll(binds);
 		statements.add(statement);
+	}
+	
+	public void addVTableFunctionName(String functionName){
+		vTableFunctionNames.add(functionName);
 	}
 	
 	public void addSuperCall(IrExpression expression){
@@ -90,6 +97,17 @@ public class IrFunction implements IrProgramElem{
 			s = type.toC() + " __struct = (" + type.toC() + ")(x3malloc(sizeof(struct " + type.toC().substring(0, type.toC().length()-2) + ")));";
 			postarr.add(s);
 			postarr.add("__struct->ref_count = 0;");
+
+			int counter = 0;
+			postarr.add("__struct->fun_ptrs = (functionPointer**) x3malloc(sizeof(functionPointer*) * " + vTableFunctionNames.size() + ");");
+			postarr.add("__struct->fun_names = (char**) x3malloc(sizeof(char**) * " + vTableFunctionNames.size() + ");");
+			postarr.add("__struct->fun_length = " + vTableFunctionNames.size() + ";");
+			for (String str : vTableFunctionNames){
+				postarr.add("__struct->fun_ptrs[" + counter + "] = &" + str + ";");
+				postarr.add("__struct->fun_names[" + counter + "] = \"" + str + "\\0\";");
+				counter++;
+			}
+					
 			for(IrTypeTuple t : arguments){
 				if(firstElement){
 					s += t.type.toC() + " " + t.variableName;
@@ -107,15 +125,20 @@ public class IrFunction implements IrProgramElem{
 			}
 		}
 		
+		context.currentObject = object;
+		System.out.println("Object: " + object);
 		for(IrStatement st : statements){
 //			System.out.println(st.toC(context));
 			postarr.addAll(st.toC(context, false));
 		}
+
+		context.currentObject = null;
 		
 		// add binding vars to the output, add everything above (postarr) to the output
 		for (String str : context.varDecl.keySet()) {
 			if (!tempVarSet.contains(str)) {
-				arr.add(context.varDecl.get(str) + " " + str + ";");
+				if (!isConstructor)
+					arr.add(context.varDecl.get(str) + " " + str + ";");
 //				arr.add("void* " + str + ";");
 			}
 		}
@@ -133,6 +156,29 @@ public class IrFunction implements IrProgramElem{
 		}
 		arr.add("}");
 		return arr;
+	}
+	
+	public String topDeclaration(){
+		String s = "void* ";
+		if (object != "" && object != null){
+			s = s + "_" + object;
+		}
+		s = s + "_" + functionName + "(";
+		
+		HashSet<String> tempVarSet = new HashSet<String>();
+		boolean firstElement = true;
+		for(IrTypeTuple t : arguments){
+			tempVarSet.add(t.variableName);
+			if(firstElement){
+				s += t.type.toC() + " " + t.variableName;
+				firstElement = false;
+			}
+			else{
+				s += ", " + t.type.toC() + " " + t.variableName;
+			}
+		}
+		s += ");";
+		return s;
 	}
 
 	public void addConstructorStatement(IrBind irBind) {

@@ -19,8 +19,7 @@ struct General {
   int ref_count;
   char** fun_names;
   int fun_length;
-  functionPointer** fun_ptrs;
-  int ptr_length;
+  functionPointer* fun_ptrs;
   General_t con_comp;
   int is_iter;
   int is_thru_ward;
@@ -30,8 +29,7 @@ struct Character {
   int ref_count;
   char** fun_names;
   int fun_length;
-  functionPointer** fun_ptrs;
-  int ptr_length;
+  functionPointer* fun_ptrs;
   General_t con_comp;
   int is_iter;
   int is_thru_ward;
@@ -42,8 +40,7 @@ struct Integer {
   int ref_count;
   char** fun_names;
   int fun_length;
-  functionPointer** fun_ptrs;
-  int ptr_length;
+  functionPointer* fun_ptrs;
   General_t con_comp;
   int is_iter;
   int is_thru_ward;
@@ -54,8 +51,7 @@ struct Boolean {
   int ref_count;
   char** fun_names;
   int fun_length;
-  functionPointer** fun_ptrs;
-  int ptr_length;
+  functionPointer* fun_ptrs;
   General_t con_comp;
   int is_iter;
   int is_thru_ward;
@@ -68,8 +64,7 @@ struct git
   int ref_count;
   char** fun_names;
   int fun_length;
-  functionPointer** fun_ptrs;
-  int ptr_length;
+  functionPointer* fun_ptrs;
   General_t con_comp;
   int is_iter;
   int is_thru_ward;
@@ -87,8 +82,7 @@ struct iterator
   int ref_count;
   char** fun_names;
   int fun_length;
-  functionPointer** fun_ptrs;
-  int ptr_length;
+  functionPointer* fun_ptrs;
   General_t con_comp;
   int is_iter;
   int is_thru_ward;
@@ -105,8 +99,7 @@ struct nit
   int ref_count;
   char** fun_names;
   int fun_length;
-  functionPointer** fun_ptrs;
-  int ptr_length;
+  functionPointer* fun_ptrs;
   void* con_comp;
   int is_iter;
   int is_thru_ward;
@@ -121,7 +114,6 @@ Character_t new_character(int input) {
   c->fun_names = NULL;
   c->fun_length = 0;
   c->fun_ptrs = NULL;
-  c->ptr_length = 0;
   c->con_comp = NULL; 
   c->is_iter = 0;
   c->is_thru_ward = 0;
@@ -135,7 +127,6 @@ Integer_t new_integer(int input) {
   i->fun_names = NULL;
   i->fun_length = 0;
   i->fun_ptrs = NULL;
-  i->ptr_length = 0;
   i->con_comp = NULL; 
   i->is_iter = 0;
   i->is_thru_ward = 0;
@@ -149,7 +140,6 @@ Boolean_t new_boolean(int input) {
   b->fun_names = NULL;
   b->fun_length = 0;
   b->fun_ptrs = NULL;
-  b->ptr_length = 0;
   b->con_comp = NULL;
   b->is_iter = 0;
   b->is_thru_ward = 0;
@@ -313,7 +303,6 @@ git_t new_git_obj (void* obj) {
   g->fun_names = NULL;
   g->fun_length = 0;
   g->fun_ptrs = NULL;
-  g->ptr_length = 0;
   g->con_comp = NULL;
   g->is_iter = 0;
   g->is_thru_ward = 0;
@@ -338,7 +327,6 @@ git_t new_git_int (int status, int low, int high) {
   g->fun_names = NULL;
   g->fun_length = 0;
   g->fun_ptrs = NULL;
-  g->ptr_length = 0;
   g->con_comp = NULL;
   g->is_iter = 0;
   g->is_thru_ward = 0;
@@ -653,7 +641,6 @@ General_t Thing(){
   __struct->fun_names = NULL;
   __struct->fun_length = 0;
   __struct->fun_ptrs = NULL;
-  __struct->ptr_length = 0;
   __struct->con_comp = NULL;
   __struct->is_iter = 0;
   __struct->is_thru_ward = 0;
@@ -726,3 +713,53 @@ git_t get_input () {
 char _character(Integer_t i) {
   return new_character(i->value);
 }
+
+/* function look up: given a class struct and the name of a function
+ *     , will return a function pointer to the appropriate function */
+functionPointer function_lookup (General_t gen, char * function_name    ) {
+  int error;
+  int length;
+  int temp;
+  char** arr;
+  functionPointer * pointers;
+  int i;
+  int counter;
+  int eof;
+  char* name;
+  char c1;
+  char c2;
+  /* error checking... */
+  if (gen == NULL) {
+    error = 1;
+    return NULL;
+  }
+  if (function_name == NULL) {
+    error = 2;
+    return NULL;
+  }
+  
+  length = gen->fun_length;
+  arr = gen->fun_names;
+  for (i = 0; i < length; i++) {
+    eof = 1;
+    counter = 0;
+    name = arr[i];
+    while (eof == 1) {
+      c1 = function_name[counter];
+      c2 = name[counter];
+      if (c1 != c2) {
+        eof = 0;
+      }
+      else if (c1 == '\0') {
+        /* found the name */
+        pointers = gen->fun_ptrs;
+        return pointers[i];
+      }
+      else {
+        counter += 1;
+      }
+    }
+    /* not found in this level */
+    return function_lookup (gen->con_comp, function_name);
+  }
+

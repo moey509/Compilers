@@ -3,7 +3,9 @@ package ir.program;
 import ir.CGenerationContext;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class IrStruct implements IrProgramElem{
 	public String structName;
@@ -26,7 +28,6 @@ public class IrStruct implements IrProgramElem{
   char** fun_names;
   int fun_length;
   char** fun_ptrs;
-  int ptr_length;
   void* con_comp;
   int is_iter;
   int is_thru_ward;
@@ -38,8 +39,7 @@ public class IrStruct implements IrProgramElem{
 		arr.add("int ref_count;");
 		arr.add("char** fun_names;");
 		arr.add("int fun_length;");
-		arr.add("functionPointer** fun_ptrs;");
-		arr.add("int ptr_length;");
+		arr.add("functionPointer** fun_ptrs;");	
 		if(this.constructableComponent.equals("Thing")){
 			arr.add("General_t con_comp;");
 		}else{
@@ -47,9 +47,12 @@ public class IrStruct implements IrProgramElem{
 		}
 		arr.add("int is_iter;");
 		arr.add("int is_thru_ward;");
+		Set<String> varSet = new HashSet<String>();
 		for(IrTypeTuple t : structVariables){
 			arr.add(t.type.declarationInStruct() + " " + t.variableName + ";");
+			varSet.add(t.variableName);
 		}
+		context.structToDataMap.put(structName, varSet);
 		
 		arr.add("};");
 		
