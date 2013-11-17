@@ -352,20 +352,50 @@ iterator_t new_iterator (git_t g) {
   return it;
 }
 
+void decrement_iterable(git_t g) {
+  git_t itr;
+  git_t temp;
+  itr = g;
+  while (itr != NULL) {
+    ref_decrement (itr->val);
+    temp = itr;
+    itr = itr->next;
+    ref_decrement (temp);
+  }
+}
+
+void increment_iterable(git_t g) {
+  git_t itr;
+  git_t temp;
+  itr = g;
+  while (itr != NULL) {
+    ref_increment (itr->val);
+    ref_increment (itr);
+    itr = itr->next;
+  }
+}
+
 void ref_decrement(General_t gen) {
   if (gen == NULL) 
     return;
+  if (gen->is_iter) {
+    decrement_iterable (gen);
+    return;
+  }
   gen->ref_count -= 1;
   if (gen->ref_count == 0) {
     x3free(gen);
   }
   return;
-  gen = NULL;
 }
 
 void ref_increment(General_t gen) {
   if (gen == NULL)
     return;
+  if (gen->is_iter) {
+    increment_iterable (gen);
+    return;
+  }
   gen->ref_count += 1;
 }
 
