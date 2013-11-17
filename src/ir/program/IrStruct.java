@@ -3,7 +3,9 @@ package ir.program;
 import ir.CGenerationContext;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class IrStruct implements IrProgramElem{
 	public String structName;
@@ -45,9 +47,12 @@ public class IrStruct implements IrProgramElem{
 		}
 		arr.add("int is_iter;");
 		arr.add("int is_thru_ward;");
+		Set<String> varSet = new HashSet<String>();
 		for(IrTypeTuple t : structVariables){
 			arr.add(t.type.declarationInStruct() + " " + t.variableName + ";");
+			varSet.add(t.variableName);
 		}
+		context.structToDataMap.put(structName, varSet);
 		
 		arr.add("};");
 		
