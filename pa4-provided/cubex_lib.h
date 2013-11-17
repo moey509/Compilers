@@ -710,7 +710,7 @@ git_t get_input () {
 	return head;
 }
 
-char _character(Integer_t i) {
+Character_t _character(Integer_t i) {
   return new_character(i->value);
 }
 
