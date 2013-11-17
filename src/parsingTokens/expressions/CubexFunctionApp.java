@@ -93,31 +93,31 @@ public final class CubexFunctionApp extends CubexExpression {
 		IrType t = new IrType("void*");
 		IrTypeTuple tuple = new IrTypeTuple(t, context.nextTemp());
 		IrBind b;
-		if(tempParams.size() == 0){
-			// removed initial "_" from the start of the function due to _Integer_negative in x3_test2.x3
-			IrFunctionCall call = new IrFunctionCall(obj + "_" + fun, "void*", cubexType);
-			if(thisPointer.size() != 0){
-				call.addArgument("void*", new IrVariableExpression(thisPointer.get(thisPointer.size()-1).tuple.variableName, thisPointer.get(thisPointer.size()-1).tuple.type.type));
-			}
-			else{
-				call.addArgument(expr.type,expr.toIr(context));
-			}
-			b = new IrBind(tuple, call, cubexContext);
+		
+		String instance;
+		if (thisPointer.size() == 0){
+			instance = expr.name;
+		}
+		else {
+			instance = thisPointer.get(thisPointer.size() - 1).tuple.variableName;
+		}
+		
+		String functionName =  "\"" +"_" + obj + "_" + fun + "\"";
+		String functionCall = "(function_lookup(" + instance + ", " + functionName +"))";
+		System.out.println(functionCall);
+		IrFunctionCall call = new IrFunctionCall(functionCall, "void*", cubexType);
+		//Have to add in all arguments. Must figure out how much each has
+		if(thisPointer.size() != 0){
+			call.addArgument("void*", new IrVariableExpression(thisPointer.get(thisPointer.size()-1).tuple.variableName, thisPointer.get(thisPointer.size()-1).tuple.type.type));
 		}
 		else{
-			IrFunctionCall call = new IrFunctionCall(obj + "_" + fun, "void*", cubexType);
-			//Have to add in all arguments. Must figure out how much each has
-			if(thisPointer.size() != 0){
-				call.addArgument("void*", new IrVariableExpression(thisPointer.get(thisPointer.size()-1).tuple.variableName, thisPointer.get(thisPointer.size()-1).tuple.type.type));
-			}
-			else{
-				call.addArgument(expr.type, expr.toIr(context));
-			}
-			for(IrBind bind : tempParams){
-				call.addArgument(bind.tuple.type, new IrVariableExpression(bind.tuple.variableName, bind.tuple.type.type, null));
-			}
-			b = new IrBind(tuple, call, cubexContext);
+			call.addArgument(expr.type, expr.toIr(context));
 		}
+		for(IrBind bind : tempParams){
+			call.addArgument(bind.tuple.type, new IrVariableExpression(bind.tuple.variableName, bind.tuple.type.type, null));
+		}
+		b = new IrBind(tuple, call, cubexContext);
+		
 		arr.add(b);
 		return arr;
 	}
