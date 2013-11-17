@@ -3,7 +3,9 @@ package parsingTokens.expressions;
 import java.util.ArrayList;
 import java.util.Set;
 
+import ir.expressions.IrBinaryExpression;
 import ir.expressions.IrThrough;
+import ir.expressions.IrUnaryExpression;
 import ir.statements.IrBind;
 import parsingTokens.CubexList;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
@@ -16,8 +18,7 @@ public class CubexThrough extends CubexBinaryExpression {
 	private boolean includeRight;
 	//private CubexExpression expr;
 	public CubexFunctionApp function;
-	
-	CubexTypeGrammar cubexType;
+
 	CubexCompleteContext cubexContext;
 
 	public CubexThrough(CubexExpression l, CubexExpression r, boolean inclL,
@@ -29,8 +30,22 @@ public class CubexThrough extends CubexBinaryExpression {
 		type = l.type;
 	}
 	
-	public IrThrough toIr(IrGenerationContext context) {
-		return new IrThrough(getmLeft().toIr(context), getmRight().toIr(context), includeLeft, includeRight, cubexType);
+	public IrBinaryExpression toIr(IrGenerationContext context) {
+		operator = "";
+		if(includeLeft){
+			operator += ".";
+		}
+		else{
+			operator += "<";
+		}
+		if(includeRight){
+			operator += ".";
+		}
+		else{
+			operator += "<";
+		}
+		return new IrBinaryExpression(getmLeft().toIr(context), getmRight().toIr(context), operator, cubexType);
+		//return new IrThrough(getmLeft().toIr(context), getmRight().toIr(context), includeLeft, includeRight, cubexType);
 	}
 
 	public String toString() {
@@ -51,9 +66,5 @@ public class CubexThrough extends CubexBinaryExpression {
 		cubexType = function.typeCheck(c);
 		cubexContext = c.clone();
 		return cubexType;
-	}
-	public ArrayList<IrBind> getExpressions(IrGenerationContext context){
-		ArrayList<IrBind> arr = function.getExpressions(context);
-		return arr;
 	}
 }

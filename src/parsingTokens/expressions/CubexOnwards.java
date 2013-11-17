@@ -3,7 +3,9 @@ package parsingTokens.expressions;
 import java.util.ArrayList;
 import java.util.Set;
 
+import ir.expressions.IrBinaryExpression;
 import ir.expressions.IrOnwards;
+import ir.expressions.IrUnaryExpression;
 import ir.statements.IrBind;
 import parsingTokens.CubexList;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
@@ -14,8 +16,6 @@ import Exception.SemanticException;
 public class CubexOnwards extends CubexUnaryExpression {
 	boolean include;
 	public CubexFunctionApp function;
-	
-	CubexTypeGrammar cubexType;
 
 	public CubexOnwards(CubexExpression l, boolean incl) {
 		super(l);
@@ -23,8 +23,15 @@ public class CubexOnwards extends CubexUnaryExpression {
 		type = l.type;
 	}
 	
-	public IrOnwards toIr(IrGenerationContext context) {
-		return new IrOnwards(getmArgument().toIr(context), include, cubexType);
+	public IrUnaryExpression toIr(IrGenerationContext context) {
+		if(include){
+			operator = "...";
+		}
+		else{
+			operator = "<..";
+		}
+		return new IrUnaryExpression(getmArgument().toIr(context), operator, cubexType);
+		//return new IrOnwards(getmArgument().toIr(context), include, cubexType);
 	}
 
 	public String toString() {
@@ -41,9 +48,5 @@ public class CubexOnwards extends CubexUnaryExpression {
 				new CubexList<CubexTypeGrammar>(), l);
 		cubexType = function.typeCheck(c);
 		return cubexType;
-	}
-	public ArrayList<IrBind> getExpressions(IrGenerationContext context){
-		ArrayList<IrBind> arr = function.getExpressions(context);
-		return arr;
 	}
 }
