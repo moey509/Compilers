@@ -144,7 +144,9 @@ public class IrFunction implements IrProgramElem{
 			}
 		}
 		for (String str : context.varInit.keySet()) {
-			if (!argumentNames.contains(str)) arr.add(str + " = " + context.varInit.get(str) + ";");
+			String begin = str.substring(0, 10);
+			boolean isStruct = begin.equals("__struct->");
+			if (!isStruct && !argumentNames.contains(str)) arr.add(str + " = " + context.varInit.get(str) + ";");
 		}
 		arr.addAll(postarr);
 		
