@@ -1,6 +1,7 @@
 package parsingTokens.statements;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Set;
 
 import ir.expressions.IrVariableExpression;
@@ -126,6 +127,12 @@ public final class CubexFor extends CubexStatement {
 		cubexContext = c.clone();
 		return temp;
 				
+		
+	}
+
+	@Override
+	public void replaceVars(HashMap<String, String> map) {
+		// TODO Auto-generated method stub
 		
 	}
 }

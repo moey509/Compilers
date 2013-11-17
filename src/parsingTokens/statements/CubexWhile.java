@@ -1,6 +1,7 @@
 package parsingTokens.statements;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Set;
 
 import ir.statements.IrWhile;
@@ -69,6 +70,12 @@ public final class CubexWhile extends CubexStatement {
 		TypeContextReturn temp = new TypeContextReturn(ret, false, t.retType);
 		cubexContext = c.clone();
 		return temp;
+		
+	}
+
+	@Override
+	public void replaceVars(HashMap<String, String> map) {
+		// TODO Auto-generated method stub
 		
 	}
 }

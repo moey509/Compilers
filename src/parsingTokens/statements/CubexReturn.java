@@ -1,6 +1,7 @@
 package parsingTokens.statements;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -70,6 +71,12 @@ public final class CubexReturn extends CubexStatement {
 		TypeContextReturn temp = new TypeContextReturn(c.mutableTypeContext.clone(), true, etype);
 		cubexContext = c.clone();
 		return temp;
+	}
+
+	@Override
+	public void replaceVars(HashMap<String, String> map) {
+		// TODO Auto-generated method stub
+		
 	}
 }
 

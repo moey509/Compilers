@@ -1,5 +1,7 @@
 package parsingTokens.statements;
 
+import java.util.HashMap;
+
 import ir.statements.IrStatement;
 import ir.statements.IrStatementList;
 import Exception.SemanticException;
@@ -88,5 +90,11 @@ public final class CubexListStatement extends CubexStatement {
 		TypeContextReturn temp = new TypeContextReturn(prev, guaranteed, rettype);
 		cubexContext = c.clone();
 		return temp;
+	}
+
+	@Override
+	public void replaceVars(HashMap<String, String> map) {
+		// TODO Auto-generated method stub
+		
 	}
 }
