@@ -19,6 +19,7 @@ public class CubexLessNotStrict extends CubexBinaryExpression {
 	public CubexLessNotStrict(CubexExpression left, CubexExpression right) {
 		super(left, right);
 		type = "Integer";
+		operator = "<=";
 	}
 
 	public IrBinaryExpression toIr(IrGenerationContext context) {
@@ -41,10 +42,6 @@ public class CubexLessNotStrict extends CubexBinaryExpression {
 		return cubexType;
 		// return new CubexTypeClass("Boolean", new
 		// CubexList<CubexTypeGrammar>());
-	}
-	public ArrayList<IrBind> getExpressions(IrGenerationContext context){
-		ArrayList<IrBind> arr = function.getExpressions(context);
-		return arr;
 	}
 	
 }

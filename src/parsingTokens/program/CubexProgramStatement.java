@@ -63,10 +63,7 @@ public class CubexProgramStatement implements CubexProgramType {
 		for (String s : globalVariableSet) {
 			context.addGlobalVariable(s);
 		}
-		if (statement instanceof CubexBind) {
-			CubexBind cubexBind = (CubexBind) statement;
-			program.addGlobalVariable(cubexBind.toIr(context));
-		}
+
 		IrStatement s = statement.toIr(context);
 		// overwrite the free context if this is a return
 		if (statement instanceof CubexReturn) {

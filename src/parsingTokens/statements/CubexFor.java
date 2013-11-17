@@ -41,7 +41,6 @@ public final class CubexFor extends CubexStatement {
 			return ir;
 		}
 		else{
-			System.out.println("THERE IS A FOR LOOP");
 			IrBind b = arr.get(arr.size()-1);
 			IrFor ir = new IrFor(varfun, new IrVariableExpression(b.tuple.variableName, b.tuple.type.type), cubexContext);
 			ir.temporaryBinds.addAll(arr);

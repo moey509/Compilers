@@ -16,12 +16,12 @@ import typeChecker.IrGenerationContext;
 public class CubexMultiply extends CubexBinaryExpression {
 	CubexExpression function;
 
-	CubexTypeGrammar cubexType;
 	CubexCompleteContext cubexContext;
 	
 	public CubexMultiply(CubexExpression left, CubexExpression right) {
 		super(left, right);
 		type = "Integer";
+		operator = "*";
 	}
 	
 	public IrBinaryExpression toIr(IrGenerationContext context) {
@@ -42,9 +42,5 @@ public class CubexMultiply extends CubexBinaryExpression {
 		cubexType = function.typeCheck(c);
 		return cubexType;
 	}
-	
-	public ArrayList<IrBind> getExpressions(IrGenerationContext context){
-		ArrayList<IrBind> arr = function.getExpressions(context);
-		return arr;
-	}
+
 }

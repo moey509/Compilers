@@ -60,10 +60,12 @@ public final class IrWhile implements IrStatement {
 		for (IrStatement statement : statements){
 			arrList.addAll(statement.toC(context, isMain));
 		}
+		arrList.add("}");
+
 		for (String s : freeContext) {
 			arrList.add("ref_decrement((General_t)" + s + ");");
 		}
-		arrList.add("}");
+
 		return arrList;
 	}
 /*

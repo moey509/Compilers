@@ -27,10 +27,6 @@ public class IrProgram {
 		programElementList.add(struct);
 	}
 	
-	public void addGlobalVariable(IrBind bind){
-		programElementList.add(bind);
-	}
-	
 	public void addGlobalFunction(IrFunction function){
 		programElementList.add(function);
 	}
