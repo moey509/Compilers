@@ -15,13 +15,12 @@ import typeChecker.IrGenerationContext;
 
 public class CubexSubtract extends CubexBinaryExpression {
 	CubexExpression function;
-	
-	CubexTypeGrammar cubexType;
 	CubexCompleteContext cubexContext;
 	
 	public CubexSubtract(CubexExpression left, CubexExpression right) {
 		super(left, right);
 		type = "Integer";
+		operator = "-";
 	}
 	
 	public IrBinaryExpression toIr(IrGenerationContext context) {
@@ -39,10 +38,5 @@ public class CubexSubtract extends CubexBinaryExpression {
 				new CubexList<CubexTypeGrammar>(), l);
 		cubexType = function.typeCheck(c);
 		return cubexType;
-	}
-	
-	public ArrayList<IrBind> getExpressions(IrGenerationContext context){
-		ArrayList<IrBind> arr = function.getExpressions(context);
-		return arr;
 	}
 }

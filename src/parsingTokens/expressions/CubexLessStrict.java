@@ -12,13 +12,13 @@ import Exception.SemanticException;
 public class CubexLessStrict extends CubexBinaryExpression {
 
 	public CubexFunctionApp function;
-	
-	CubexTypeGrammar cubexType;
+
 	CubexCompleteContext cubexContext;
 
 	public CubexLessStrict(CubexExpression left, CubexExpression right) {
 		super(left, right);
 		type = "Integer";
+		operator = "<";
 	}
 
 	public IrBinaryExpression toIr(IrGenerationContext context) {
@@ -43,8 +43,5 @@ public class CubexLessStrict extends CubexBinaryExpression {
 		// return new CubexTypeClass("Boolean", new
 		// CubexList<CubexTypeGrammar>());
 	}
-	public ArrayList<IrBind> getExpressions(IrGenerationContext context){
-		ArrayList<IrBind> arr = function.getExpressions(context);
-		return arr;
-	}	
+
 }
