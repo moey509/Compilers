@@ -47,7 +47,6 @@ public abstract class CubexBinaryExpression extends CubexExpression {
 		IrTypeTuple tt = new IrTypeTuple(t, context.nextTemp());
 		IrBind b = new IrBind(tt, e, cubexContext);
 		ret.add(b);
-		System.out.println("BINARY EXPRESSION: " + this);
 		return ret;
 	}
 	
