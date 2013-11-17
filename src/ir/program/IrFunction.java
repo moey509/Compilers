@@ -152,7 +152,7 @@ public class IrFunction implements IrProgramElem{
 		arr.addAll(postarr);
 		
 		if(superCall != null){
-			arr.add("__struct->con_comp = " + superCall.toC(context) + ";");
+			arr.add("__struct->con_comp = _" + superCall.toC(context) + ";");
 			arr.add("__struct->con_comp->ref_count = 1;");
 		}
 		if(isConstructor){

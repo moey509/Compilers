@@ -1,6 +1,7 @@
 package parsingTokens.statements;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import ir.IrType;
 import ir.program.IrTypeTuple;
@@ -87,6 +88,12 @@ public final class CubexBind extends CubexStatement {
 		cubexContext = c.clone();
 		cubexContext.appendTypeContext(typecontext);
 		return new TypeContextReturn(typecontext, false, nothing);
+	}
+
+	@Override
+	public void replaceVars(HashMap<String, String> map) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 //	public TypeContextReturn typeCheckReturn(CubexCompleteContext c) throws SemanticException{

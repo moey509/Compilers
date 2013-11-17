@@ -1,6 +1,8 @@
 package parsingTokens.statements;
 
 
+import java.util.HashMap;
+
 import ir.statements.IrStatement;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
@@ -31,5 +33,8 @@ public abstract class CubexStatement {
 	}
 	
 	public abstract IrStatement toIr(IrGenerationContext context);
+	
+	// replace any variables in the domain of the map that occur in this statement with map.get(var)
+	public abstract void replaceVars(HashMap<String, String> map);
 	
 }
