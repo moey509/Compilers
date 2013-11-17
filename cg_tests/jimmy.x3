@@ -1,0 +1,14 @@
+# Cubex Compiler Test 2 - Stage 2
+fun safeModulo(l : Integer, r : Integer, d : Integer) : Integer
+{
+	m := l%r;
+	for(i in m)
+	{
+		return i;
+	}
+	return d;
+}
+
+x:= safeModulo(1,2,3);
+
+return ["nope"];
