@@ -5,6 +5,7 @@ import java.util.Set;
 
 import ir.IrType;
 import ir.expressions.IrAppend;
+import ir.expressions.IrExpression;
 import ir.expressions.IrVariableExpression;
 import ir.program.IrTypeTuple;
 import ir.statements.IrBind;
@@ -32,12 +33,23 @@ public class CubexAppend extends CubexExpression {
 		ArrayList<IrBind> tempe2 = e2.getExpressions(context);
 		
 		//Get the last assignment. This will be the variables that are input into the append function
-		IrBind binde1 = tempe1.get(tempe1.size()-1);
-		IrBind binde2 = tempe2.get(tempe2.size()-1);
-		
-		//Create a variableExpression as the input to an IrAppend
-		IrVariableExpression vare1 = new IrVariableExpression(binde1.tuple.variableName, binde1.tuple.type.type);
-		IrVariableExpression vare2 = new IrVariableExpression(binde2.tuple.variableName, binde2.tuple.type.type);
+		//If temporary variable assigned, create variableExpression as the input to an IrAppend
+		IrExpression vare1;
+		IrExpression vare2;
+		if(tempe1.size() > 0){
+			IrBind binde1 = tempe1.get(tempe1.size()-1);
+			vare1 = new IrVariableExpression(binde1.tuple.variableName, binde1.tuple.type.type);
+		}
+		else{
+			vare1 = e1.toIr(context);
+		}
+		if(tempe2.size() > 0){
+			IrBind binde2 = tempe2.get(tempe2.size()-1);		
+			vare2 = new IrVariableExpression(binde2.tuple.variableName, binde2.tuple.type.type);
+		}
+		else{
+			vare2 = e2.toIr(context);
+		}
 		
 		//Create a bind for the result of the append
 		IrAppend app = new IrAppend(vare1, vare2, cubexType);
