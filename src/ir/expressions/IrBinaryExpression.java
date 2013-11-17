@@ -60,13 +60,13 @@ public class IrBinaryExpression implements IrExpression {
 				return "Integer_subtract(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + ")";
 			else if (operator.equals("*"))
-				return "Integer_multiply(" + leftExpression.toC(context) + ", "
+				return "Integer_times(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + ")";
 			else if (operator.equals("/"))
 				return "Integer_divide(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + ")";
 			else if (operator.equals("%"))
-				return "Integer_mod(" + leftExpression.toC(context) + ", "
+				return "Integer_modulo(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + ")";
 			else if (operator.equals(".."))
 				return "Integer_through(" + leftExpression.toC(context) + ", "
