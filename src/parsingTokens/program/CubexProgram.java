@@ -80,6 +80,7 @@ public class CubexProgram {
 
 	}
 	
+	// called in IrMain to replace all C keywords with safe counterparts
 	public void replaceCKeyWords() {
 		programType.replaceVars(cKeywords);
 		if (nextProgram != null) {
