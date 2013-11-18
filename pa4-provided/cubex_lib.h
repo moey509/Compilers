@@ -490,14 +490,14 @@ Integer_t Integer_negative (Integer_t i1) {
   return new_integer (0 - (i1->value));
 }
 
-git_t Integer_through (Integer_t i1, Integer_t i2, Integer_t include1, Integer_t include2) {
+git_t Integer_through (Integer_t i1, Integer_t i2, int include1, int include2) {
   int int1;
   int int2;
   int1 = i1->value;
   int2 = i2->value; 
-  if (include1->value == 0) 
+  if (include1 == 0) 
     int1 = int1 + 1;
-  if (include2->value == 0) 
+  if (include2 == 0) 
     int2 = int2 - 1;
   return new_git_int(0, int1, int2);
 }
@@ -518,13 +518,13 @@ Boolean_t Integer_equals (Integer_t i1, Integer_t i2) {
   return new_boolean(ans);
 }
 
-Boolean_t Integer_lessThan(Integer_t i1, Integer_t i2, Integer_t strict) {
+Boolean_t Integer_lessThan(Integer_t i1, Integer_t i2, int strict) {
   int int1;
   int int2;
   int ans;
   int1 = i1->value;
   int2 = i2->value;
-  if (strict->value == 0) {
+  if (strict == 0) {
     if (int1 <= int2)
       ans = 1;
     else 
@@ -601,16 +601,16 @@ Boolean_t Boolean_equals (Boolean_t b1, Boolean_t b2) {
   return new_boolean(ans);
 }
 
-git_t Boolean_through (Boolean_t b1, Boolean_t b2, Integer_t include1, Integer_t include2) {
+git_t Boolean_through (Boolean_t b1, Boolean_t b2, int include1, int include2) {
   int int1;
   int int2;
   git_t g1;
   Boolean_t bool1;
   int1 = b1->value;
   int2 = b2->value; 
-  if (include1->value == 0) 
+  if (include1 == 0) 
     int1 = int1 + 1;
-  if (include2->value == 0) 
+  if (include2 == 0) 
     int2 = int2 - 1;
   if (int1 <= int2) {
     bool1 = new_boolean(int1);
@@ -627,11 +627,11 @@ git_t Boolean_through (Boolean_t b1, Boolean_t b2, Integer_t include1, Integer_t
   return g1;
 }
 
-git_t Boolean_onwards (Boolean_t b1, Integer_t include) {
+git_t Boolean_onwards (Boolean_t b1, int include) {
   Boolean_t bool1;
   git_t g1;
   int int1 = b1->value;
-  if (include->value == 0)
+  if (include == 0)
     int1 = int1 + 1;
   if (int1 <= 1) {
     bool1 = new_boolean(int1);
@@ -648,13 +648,13 @@ git_t Boolean_onwards (Boolean_t b1, Integer_t include) {
   return g1;
 }
 
-Boolean_t Boolean_lessThan(Boolean_t b1, Boolean_t b2, Integer_t strict) {
+Boolean_t Boolean_lessThan(Boolean_t b1, Boolean_t b2, int strict) {
   int int1;
   int int2;
   int ans;
   int1 = b1->value;
   int2 = b2->value;
-  if (strict->value == 0) {
+  if (strict == 0) {
     if (int1 <= int2)
       ans = 1;
     else 
@@ -774,9 +774,9 @@ functionPointer function_lookup (General_t gen, char * function_name    ) {
   
   length = gen->fun_length;
   arr = gen->fun_names;
-  printf ("length: %d\n", length);
+  /*printf ("length: %d\n", length); */
   for (i = 0; i < length; i++) {
-    printf ("name: %s\n", arr[i]);
+    /*printf ("name: %s\n", arr[i]); */
     eof = 1;
     counter = 0;
     name = arr[i];
