@@ -162,7 +162,6 @@ public class CubexClassGrammar {
 				varSet.put(bind.getId(), "__struct->" + bind.getId());			
 			}
 			
-			irFunction.addStatement(stmt.toIr(context));
 		}
 		
 		
