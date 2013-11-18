@@ -14,6 +14,7 @@ public class IrGenerationContext {
 	private Set<String> globalFunctions;
 	private Map<String, String> typeToSuperTypeMap;
 	private Map<String, Set<CubexFunctionDef>> objectToFunctionMap;
+	private Map<String, CubexFunctionDef> objectToConstructorMap;
 	int count = 0;
 	
 	public int nextCount(){
@@ -29,6 +30,7 @@ public class IrGenerationContext {
 		globalFunctions = new HashSet<String>();
 		typeToSuperTypeMap = new HashMap<String, String>();
 		objectToFunctionMap = new HashMap<String, Set<CubexFunctionDef>>();
+		objectToConstructorMap = new HashMap<String, CubexFunctionDef>();
 	}
 	
 	public void setCurrentClassDeclaration(String currentClassDeclaration){
@@ -73,6 +75,14 @@ public class IrGenerationContext {
 			objectToFunctionMap.put(object, new HashSet<CubexFunctionDef>());
 		}
 		objectToFunctionMap.get(object).add(function);
+	}
+	
+	public void addConstructor(String object, CubexFunctionDef constructor){
+		objectToConstructorMap.put(object, constructor);
+	}
+	
+	public CubexFunctionDef getConstructor(String object){
+		return objectToConstructorMap.get(object);
 	}
 	
 	public String toString(){
