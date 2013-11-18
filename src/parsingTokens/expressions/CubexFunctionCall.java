@@ -119,9 +119,9 @@ public final class CubexFunctionCall extends CubexExpression {
 	
 	@Override
 	public void getVars(Set<String> set){
-		for (CubexExpression e : functionParams.contextCollection) {
-			e.getVars(set);
-		}
+//		for (CubexExpression e : functionParams.contextCollection) {
+//			e.getVars(set);
+//		}
 	}
 	
 	@Override
