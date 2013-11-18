@@ -67,13 +67,9 @@ public final class IrReturn implements IrStatement {
 			arrList.add(tempVar);
 		}
 		
+		//TODO: UHHHH IS THIS RIGHT
 		for (String s : freeContext) {
-			if (isMain) {
-				// don't auto-decrement the input
-				if (!s.equals("_input"))
-					arrList.add("ref_decrement((General_t)" + s + ");");
-			}
-			else {
+			if (!isMain) {
 				arrList.add("ref_decrement((General_t)" + s + ");");
 			}
 		}
