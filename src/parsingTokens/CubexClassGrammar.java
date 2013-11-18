@@ -189,9 +189,9 @@ public class CubexClassGrammar {
 				if (!addedFunctions.contains(function.name)) {
 					addedFunctions.add(function.name);
 					IrFunction fun = function.toIr(context);
-					fun.addStatement(new IrReturn(new IrFunctionCall("_"
-							+ parentClass + "_" + function.name,
-							function.typescheme.getTypeGrammar().name, function.typescheme.getTypeGrammar()), completeContext));
+//					fun.addStatement(new IrReturn(new IrFunctionCall("_"
+//							+ parentClass + "_" + function.name,
+//							function.typescheme.getTypeGrammar().name, function.typescheme.getTypeGrammar()), completeContext));
 
 					// TODO: check this with Jimmy
 					fun.addFunctionArgument(new IrTypeTuple(new IrType("void*"), "ConstructableComponent"));
