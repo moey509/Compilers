@@ -21,6 +21,8 @@ public class IrBinaryExpression implements IrExpression {
 		this.operator = operator;
 		this.cubexType = cubexType;
 
+		System.out.println("___=> " + operator);
+		
 		// logic to determine type:
 		if (operator.equals("+") || operator.equals("&&")
 				|| operator.equals("/") || operator.equals("-")
@@ -29,6 +31,9 @@ public class IrBinaryExpression implements IrExpression {
 		else if (operator.equals("||") || operator.equals("==")
 				|| operator.equals("<=") || operator.equals("<"))
 			type = IrMiscFunctions.BOOLEAN;
+		else if (operator.equals("..") || operator.equals(".<") || operator.equals("<.") || operator.equals("<<")) {
+			type = IrMiscFunctions.ITERABLE;
+		}
 		else {
 			type = null;
 			System.out.println("WARNING! built it type was not found...");
@@ -52,6 +57,50 @@ public class IrBinaryExpression implements IrExpression {
 	}
 
 	public String toC(CGenerationContext context) {
+		/*
+		// case for iterables:
+		if (type.equals(IrMiscFunctions.ITERABLE)) {
+			// integer case:
+			if (leftExpression.getCType().equals(IrMiscFunctions.INTEGER)) {
+				String base = "Integer_through(" + leftExpression.toC(context) + ", " + rightExpression.toC(context) 
+						+ ", ";
+				if (operator.equals("..")) {
+					return base + "new_integer(1), new_integer(1))";
+				} else if (operator.equals(".<")) {
+					return base + "new_integer(1), new_integer(0))";
+				} else if (operator.equals("<.")){
+					return base + "new_integer(0), new_integer(1))";
+				} else if (operator.equals("<<")) {
+					return base + "new_integer(0), new_integer(0))";
+				} else {
+					System.out.println("WARNING! THIS ITERABLE TYPE NO EXIST");
+					return null;
+				}
+			}
+			// boolean case
+			else if (leftExpression.getCType().equals(IrMiscFunctions.BOOLEAN)) {
+				String base = "Integer_through(" + leftExpression.toC(context) + ", " + rightExpression.toC(context) 
+						+ ", ";
+				if (operator.equals("..")) {
+					return base + "new_integer(1), new_integer(1))";
+				} else if (operator.equals(".<")) {
+					return base + "new_integer(1), new_integer(0))";
+				} else if (operator.equals("<.")){
+					return base + "new_integer(0), new_integer(1))";
+				} else if (operator.equals("<<")) {
+					return base + "new_integer(0), new_integer(0))";
+				} else {
+					System.out.println("WARNING! THIS ITERABLE TYPE NO EXIST");
+					return null;
+				}			
+			}
+			else {
+				System.out.println("WARNING! THRU-WARDS ON WRONG TYPE");
+				return null;
+			}			
+		}
+		*/
+		// everything else
 		if (leftExpression.getCType().equals(IrMiscFunctions.INTEGER)) {
 			if (operator.equals("+"))
 				return "Integer_plus(" + leftExpression.toC(context) + ", "
@@ -70,22 +119,22 @@ public class IrBinaryExpression implements IrExpression {
 						+ rightExpression.toC(context) + ")";
 			else if (operator.equals(".."))
 				return "Integer_through(" + leftExpression.toC(context) + ", "
-						+ rightExpression.toC(context) + ", new_integer(1), new_integer(1))";
+						+ rightExpression.toC(context) + ", 1, 1)";
 			else if (operator.equals("<."))
 				return "Integer_through(" + leftExpression.toC(context) + ", "
-						+ rightExpression.toC(context) + ", new_integer(0), new_integer(1))";
+						+ rightExpression.toC(context) + ", 0, 1)";
 			else if (operator.equals(".<"))
 				return "Integer_through(" + leftExpression.toC(context) + ", "
-						+ rightExpression.toC(context) + ", new_integer(1), new_integer(0))";
+						+ rightExpression.toC(context) + ", 1, 0)";
 			else if (operator.equals("<<"))
 				return "Integer_through(" + leftExpression.toC(context) + ", "
-						+ rightExpression.toC(context) + ", new_integer(0), new_integer(0))";
+						+ rightExpression.toC(context) + ", 0, 0)";
 			else if (operator.equals("<"))
 				return "Integer_lessThan(" + leftExpression.toC(context) + ", "
-						+ rightExpression.toC(context) + ", new_integer(1))";
+						+ rightExpression.toC(context) + ", 1)";
 			else if (operator.equals("<="))
 				return "Integer_lessThan(" + leftExpression.toC(context) + ", "
-						+ rightExpression.toC(context) + ", new_integer(0))";
+						+ rightExpression.toC(context) + ", 0)";
 			else if (operator.equals("=="))
 				return "Integer_equals(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + ")";
@@ -101,22 +150,22 @@ public class IrBinaryExpression implements IrExpression {
 						+ rightExpression.toC(context) + ")";
 			else if (operator.equals(".."))
 				return "Boolean_through(" + leftExpression.toC(context) + ", "
-						+ rightExpression.toC(context) + "new_integer(1), new_integer(1))";
+						+ rightExpression.toC(context) + "1, 1)";
 			else if (operator.equals("<."))
 				return "Boolean_through(" + leftExpression.toC(context) + ", "
-						+ rightExpression.toC(context) + "new_integer(0), new_integer(1))";
+						+ rightExpression.toC(context) + "0, 1)";
 			else if (operator.equals(".<"))
 				return "Boolean_through(" + leftExpression.toC(context) + ", "
-						+ rightExpression.toC(context) + "new_integer(1), new_integer(0))";
+						+ rightExpression.toC(context) + "1, 0)";
 			else if (operator.equals("<<"))
 				return "Boolean_through(" + leftExpression.toC(context) + ", "
-						+ rightExpression.toC(context) + "new_integer(0), new_integer(0))";
+						+ rightExpression.toC(context) + "0, 0)";
 			else if (operator.equals("<"))
 				return "Boolean_lessThan(" + leftExpression.toC(context) + ", "
-						+ rightExpression.toC(context) + ", new_integer(1))";
+						+ rightExpression.toC(context) + ", 1)";
 			else if (operator.equals("<="))
 				return "Boolean_lessThan(" + leftExpression.toC(context) + ", "
-						+ rightExpression.toC(context) + ", new_integer(0))";
+						+ rightExpression.toC(context) + ", 0)";
 			else if (operator.equals("=="))
 				return "Boolean_equal(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + ")";

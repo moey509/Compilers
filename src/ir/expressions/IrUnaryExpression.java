@@ -24,6 +24,8 @@ public class IrUnaryExpression implements IrExpression {
 			this.cType = IrMiscFunctions.BOOLEAN;
 		else if (operator.equals("-"))
 			this.cType = IrMiscFunctions.INTEGER;
+		else if (operator.equals("...") || operator.equals("<..")) 
+			this.cType = IrMiscFunctions.ITERABLE;
 		else {
 			this.cType = null;
 			System.out.println("unary operator: " + operator + " could not be found....");
@@ -36,20 +38,20 @@ public class IrUnaryExpression implements IrExpression {
 
 	@Override
 	public String toC(CGenerationContext context) {
-		if (expression.getCType() == "Boolean") {
-			if (operator == "!")
+		if (expression.getCType().equals("Boolean")) {
+			if (operator.equals("!"))
 				return "Boolean_negate(" + expression.toC(context) + ")";
-			else if (operator == "...")
-				return "Boolean_onward(" + expression.toC(context) + ", new_integer(1))";
-			else if (operator == "<..")
-				return "Boolean_onward(" + expression.toC(context) + ", new_integer(0))";
-		} else if (expression.getCType() == "Integer") {
-			if (operator == "-")
+			else if (operator.equals("..."))
+				return "Boolean_onward(" + expression.toC(context) + ", 1)";
+			else if (operator.equals("<.."))
+				return "Boolean_onward(" + expression.toC(context) + ", 0)";
+		} else if (expression.getCType().equals("Integer")) {
+			if (operator.equals("-"))
 				return "Integer_negative(" + expression.toC(context) + ")";
-			else if (operator == "...")
-				return "Integer_onward(" + expression.toC(context) + ", new_integer(1))";
-			else if (operator == "<..")
-				return "Integer_onward(" + expression.toC(context) + ", new_integer(0))";
+			else if (operator.equals("..."))
+				return "Integer_onward(" + expression.toC(context) + ", 1)";
+			else if (operator.equals("<.."))
+				return "Integer_onward(" + expression.toC(context) + ", 0)";
 		}
 			System.out.println("WARNING: operator for unary expression was null or could not be found");
 			return null;
