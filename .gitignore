@@ -8,3 +8,5 @@
 *prefs
 *log
 out.c
+
+src/Exception/SemanticException.class
