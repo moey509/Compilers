@@ -44,7 +44,7 @@ public final class CubexWhile extends CubexStatement {
 		if (!etype.getName().equals("Boolean")) throw new SemanticException("CubexIf: e is not a boolean");
 
 		TypeContext t = s.typeCheck(c);
-		if (!t.entrySet().containsAll(c.mutableTypeContext.entrySet())) {
+		if (!t.keySet().containsAll(c.mutableTypeContext.keySet())) {
 			throw new SemanticException("CubexWhile: Resultant context does not contain initial context");
 		}
 		freeContext = new HashSet<String>(t.keySet());
