@@ -64,6 +64,8 @@ public class IrMain {
 //		System.out.println(cubParser.programAST);
 		try {
 			cubParser.programAST.typeCheck(c);
+			// replace all C keywords with a safe version
+			cubParser.programAST.replaceCKeyWords();
 			IrGenerationContext context = new IrGenerationContext();
 			IrProgram program = cubParser.programAST.toIr(context, new IrProgram());
 			ArrayList<String> programCode = program.toC();

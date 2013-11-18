@@ -1,5 +1,6 @@
 package parsingTokens.program;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -92,5 +93,13 @@ public class CubexProgramStatementList implements CubexProgramType {
 			program.addMainStatement(s);
 		}
 		return program;
+	}
+
+	@Override
+	public void replaceVars(HashMap<String, String> map) {
+		for (CubexStatement s : statementList.contextCollection) {
+			s.replaceVars(map);
+		}
+		
 	}
 }

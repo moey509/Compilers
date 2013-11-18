@@ -79,7 +79,7 @@ public class CubexIf extends CubexStatement {
 		if (!etype.getName().equals("Boolean")) throw new SemanticException("CubexIf: e is not a boolean");
 		TypeContext t1 = s1.typeCheck(c);
 		if(s2 == null){
-			freeContext = t1.keySet();
+			freeContext = new HashSet<String>(t1.keySet());
 			freeContext.removeAll(c.mutableTypeContext.keySet());
 			freeContext2 = new HashSet<String>();
 			// should actually return containsAll of t1 and c.mutableTypeContext?
@@ -96,8 +96,8 @@ public class CubexIf extends CubexStatement {
 			Set<String> set = t.keySet();
 			set1.removeAll(set);
 			set2.removeAll(set);
-			freeContext = set1;
-			freeContext2 = set2;
+			freeContext = new HashSet<String>(set1);
+			freeContext2 = new HashSet<String>(set2);
 		
 			cubexContext = c.clone();
 			return t;
@@ -113,7 +113,7 @@ public class CubexIf extends CubexStatement {
 		TypeContextReturn t1 = s1.typeCheckReturn(c);
 		if(s2 == null){
 			TypeContext t = t1.typeContext;
-			freeContext = t.keySet();
+			freeContext = new HashSet<String>(t.keySet());
 			freeContext.removeAll(c.mutableTypeContext.keySet());
 			freeContext2 = new HashSet<String>();
 			boolean g = false;
@@ -129,8 +129,8 @@ public class CubexIf extends CubexStatement {
 		Set<String> set = t.keySet();
 		set1.removeAll(set);
 		set2.removeAll(set);
-		freeContext = set1;
-		freeContext2 = set2;
+		freeContext = new HashSet<String>(set1);
+		freeContext2 = new HashSet<String>(set2);
 		
 		
 		boolean g = t1.guaranteedToReturn && t2.guaranteedToReturn;
@@ -143,13 +143,13 @@ public class CubexIf extends CubexStatement {
 	public void replaceVars(HashMap<String, String> map) {
 		e.replaceVars(map);
 		s1.replaceVars(map);
-		s2.replaceVars(map);
+		if (s2 != null) s2.replaceVars(map);
 		for (String s : map.keySet()){
 			if (freeContext.contains(s)) {
 				freeContext.remove(s);
 				freeContext.add(map.get(s));
 			}
-			if (freeContext2.contains(s)) 
+			if (freeContext2 != null && freeContext2.contains(s)) 
 				freeContext2.remove(s);
 				freeContext2.add(map.get(s));
 		}

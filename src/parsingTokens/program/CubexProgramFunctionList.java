@@ -1,5 +1,7 @@
 package parsingTokens.program;
 
+import java.util.HashMap;
+
 import ir.program.IrFunction;
 import ir.program.IrProgram;
 import ir.program.IrTypeTuple;
@@ -65,6 +67,14 @@ public class CubexProgramFunctionList implements CubexProgramType {
 			program.addGlobalFunction(funDef.toIr(context));
 		}
 		return program;
+	}
+
+	@Override
+	public void replaceVars(HashMap<String, String> map) {
+		for (CubexFunctionDef f : functionList.contextCollection) {
+			f.replaceVars(map);
+		}
+		
 	}
 
 }
