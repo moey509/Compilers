@@ -34,8 +34,11 @@ public class IrVariableExpression implements IrExpression {
 
 	@Override
 	public String toC(CGenerationContext context) {
-		if (!context.structToDataMap.containsKey(context.currentObject))
+		if (!context.structToDataMap.containsKey(context.currentObject)){
+			if (variableName.equals("input"))
+				return "_input";
 			return variableName;
+		}
 		else {
 			if (context.structToDataMap.get(context.currentObject).contains(variableName)){
 				return "__struct->" + variableName;

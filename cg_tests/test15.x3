@@ -1,27 +1,36 @@
 # Test for memory leaks
 
-fun foo(int : Integer) : Iterable<String> {
-	if (int <= 0) {
+fun foo(int0 : Integer) : Iterable<String> {
+	if (int0 <= 0) {
 		ret := [];
-		for ( i in input) {
+		for (i in input) {
 			ret := ret++[i];
 		}
 		return ret;
 	}
 	else {
-		return foo(int-1)++foo(int-1);
+		return foo(int0-1)++foo(int0-1);
 	}
 }
 
-x := foo(20);
+#x := foo(20);
+x := foo(19);
 x := foo(18);
+x := foo(17);
 x := foo(16);
+x := foo(15);
 x := foo(14);
+x := foo(13);
 x := foo(12);
+x := foo(11);
 x := foo(10);
+x := foo(9);
 x := foo(8);
+x := foo(7);
 x := foo(6);
+x := foo(5);
 x := foo(4);
+x := foo(3);
 x := foo(2);
 
 return x;

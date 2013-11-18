@@ -36,7 +36,7 @@ public class IrMain {
 
 	public static void main(String[] args) throws IOException {
 //		 CharStream charStream = new ANTLRFileStream(args[0]);
-		CharStream charStream = new ANTLRFileStream("cg_tests/jimmy.x3");
+		CharStream charStream = new ANTLRFileStream("cg_tests/test15.x3");
 		CubexLexer cubLexer = new CubexLexer(charStream);
 		cubLexer.removeErrorListeners();
 
@@ -69,7 +69,7 @@ public class IrMain {
 			ArrayList<String> programCode = program.toC();
 			FileWriter writer = new FileWriter(new File("out.c"));
 //			System.out.println("----------");
-			int counter = 2;
+			int counter = 3;
 			writer.write("#include \"cubex_lib.h\"\n");
 			// TODO: REMOVE THIS BEFORE SUBMITTING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			writer.write("#include \"stdio.h\"\n");

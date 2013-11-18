@@ -82,7 +82,6 @@ public class IrProgram {
 		output.add("");
 		output.add("void cubex_main(){");
 
-		output.add("git_t _input = NULL;");
 		output.add("_input = get_input();");
 
 		ArrayList<String> preOut = new ArrayList<String>();
@@ -104,6 +103,7 @@ public class IrProgram {
 		for (String s : context.varDecl.keySet()) {
 			preOut.add(context.varDecl.get(s) + " " + s + ";");
 		}
+		preOut.add("git_t _input = NULL;");
 		// initialize variables at the beginning of cubexMain
 		for (String s : context.varInit.keySet()) {
 			output.add(s + " = " + context.varInit.get(s) + ";");
