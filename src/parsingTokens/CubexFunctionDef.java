@@ -61,7 +61,9 @@ public class CubexFunctionDef {
 	}
 	
 	public void replaceVars(HashMap<String, String> map) {
-		statement.replaceVars(map);
+		if (statement != null) {
+			statement.replaceVars(map);
+		}
 		typescheme.replaceVars(map);
 	}
 
