@@ -49,12 +49,20 @@ public class IrGenerationContext {
 		return globalVariables.contains(variable);
 	}
 	
+	public void printGlobalVariables(){
+		System.out.println("Global Variables: " + globalVariables.toString());
+	}
+	
 	public void addGlobalFunction(String function){
 		globalFunctions.add(function);
 	}
 	
 	public boolean containsGlobalFunction(String function){
 		return globalFunctions.contains(function);
+	}
+	
+	public void printGlobalFunctions(){
+		System.out.println("Global Functions: " + globalFunctions.toString());
 	}
 	
 	public String getSuperType(String type){
