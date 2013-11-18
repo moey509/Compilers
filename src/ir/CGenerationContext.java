@@ -14,7 +14,7 @@ public class CGenerationContext {
 	public Map<String, String> varDecl = new HashMap<String, String>();
 	public Map<String, String> varInit = new HashMap<String, String>();
 	
-	public Map<String, Set<String>> structToDataMap;
+	public Map<String, Set<String>> objectToDataMap;
 	public String currentObject;
 	
 	// final constants:
@@ -34,7 +34,7 @@ public class CGenerationContext {
 		cVariableToTypeMap = new HashMap<String, CGenerationType>();
 		variablesDeclaredInScope = new HashSet<String>();
 		variablesInitializedInScope = new HashSet<String>();
-		structToDataMap = new HashMap<String, Set<String>>();
+		objectToDataMap = new HashMap<String, Set<String>>();
 		cur_iterator = 1; 
 	}
 	

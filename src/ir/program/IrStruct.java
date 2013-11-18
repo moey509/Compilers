@@ -52,7 +52,7 @@ public class IrStruct implements IrProgramElem{
 			arr.add(t.type.declarationInStruct() + " " + t.variableName + ";");
 			varSet.add(t.variableName);
 		}
-		context.structToDataMap.put(structName, varSet);
+		context.objectToDataMap.put(structName, varSet);
 		
 		arr.add("};");
 		

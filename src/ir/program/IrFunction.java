@@ -135,7 +135,9 @@ public class IrFunction implements IrProgramElem{
 
 		context.currentObject = null;
 		
-		arr.add(type.toC() + " __struct;");
+		if (isConstructor){
+			arr.add(type.toC() + " __struct;");
+		}
 		
 		// add binding vars to the output, add everything above (postarr) to the output
 		for (String str : context.varDecl.keySet()) {
