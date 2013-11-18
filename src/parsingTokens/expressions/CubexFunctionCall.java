@@ -132,6 +132,7 @@ public final class CubexFunctionCall extends CubexExpression {
 	}
 	
 	public ArrayList<IrBind> getExpressions(IrGenerationContext context){
+		System.out.println("wtf");
 		ArrayList<IrBind> arr = new ArrayList<IrBind>();
 		ArrayList<IrBind> tempParams = new ArrayList<IrBind>();
 		for(CubexExpression e : functionParams.contextCollection){
@@ -140,7 +141,13 @@ public final class CubexFunctionCall extends CubexExpression {
 			arr.addAll(functionParamBinds);
 			if(functionParamBinds.size() == 0){
 				IrType t = new IrType("void*");
-				IrTypeTuple tuple = new IrTypeTuple(t, e.toString());
+				IrTypeTuple tuple;
+				if (context.containsGlobalVariable(e.toString())){
+					tuple = new IrTypeTuple(t, "_" + e.toString());
+				}
+				else {
+					tuple = new IrTypeTuple(t, e.toString());
+				}
 				tempParams.add(new IrBind(tuple, new IrVariableExpression(tuple.variableName, tuple.type.type, e.cubexType), cubexContext));
 			}
 			//Throw in a temporary variable
