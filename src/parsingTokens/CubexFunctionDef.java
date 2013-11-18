@@ -1,5 +1,7 @@
 package parsingTokens;
 
+import java.util.HashMap;
+
 import ir.program.IrFunction;
 import ir.program.IrTypeTuple;
 import parsingTokens.context.CubexTypeScheme;
@@ -56,6 +58,11 @@ public class CubexFunctionDef {
 			irFunction.addStatement(statement.toIr(context));
 		}
 		return irFunction;
+	}
+	
+	public void replaceVars(HashMap<String, String> map) {
+		statement.replaceVars(map);
+		typescheme.replaceVars(map);
 	}
 
 }

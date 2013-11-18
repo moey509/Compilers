@@ -2,6 +2,7 @@ package parsingTokens.statements;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Set;
 
 import ir.statements.IrWhile;
@@ -46,7 +47,7 @@ public final class CubexWhile extends CubexStatement {
 		if (!t.entrySet().containsAll(c.mutableTypeContext.entrySet())) {
 			throw new SemanticException("CubexWhile: Resultant context does not contain initial context");
 		}
-		freeContext = t.keySet();
+		freeContext = new HashSet<String>(t.keySet());
 		freeContext.removeAll(c.mutableTypeContext.keySet());
 		TypeContext temp = c.mutableTypeContext.clone();
 		cubexContext = c.clone();
@@ -65,7 +66,7 @@ public final class CubexWhile extends CubexStatement {
 //			throw new SemanticException("CubexWhile: Resultant context does not contain initial context");
 //		}
 		TypeContext ret = t.typeContext.containsAll(c, c.mutableTypeContext);
-		freeContext = t.typeContext.keySet();
+		freeContext = new HashSet<String>(t.typeContext.keySet());
 		freeContext.removeAll(ret.keySet());
 		TypeContextReturn temp = new TypeContextReturn(ret, false, t.retType);
 		cubexContext = c.clone();

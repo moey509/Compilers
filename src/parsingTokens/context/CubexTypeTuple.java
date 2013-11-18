@@ -1,5 +1,7 @@
 package parsingTokens.context;
 
+import java.util.HashMap;
+
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 
 public class CubexTypeTuple {
@@ -21,5 +23,11 @@ public class CubexTypeTuple {
 
 	public String toString() {
 		return name + " : " + typeGrammar.toString();
+	}
+	
+	public void replaceVars(HashMap<String, String> map) {
+		if (map.containsKey(name)) {
+			name = map.get(name);
+		}
 	}
 }

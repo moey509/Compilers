@@ -476,4 +476,16 @@ public class CubexClassGrammar {
 		completeContext = originalContext.clone();
 		return originalContext;
 	}
+	
+	public void replaceVars(HashMap<String, String> map) {
+		for (CubexExpression e : expressions.contextCollection) {
+			e.replaceVars(map);
+		}
+		for (CubexStatement s : statements.contextCollection) {
+			s.replaceVars(map);
+		}
+		for (CubexFunctionDef f : functions.contextCollection) {
+			f.replaceVars(map);
+		}
+	}
 }

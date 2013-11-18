@@ -1,5 +1,7 @@
 package parsingTokens.context;
 
+import java.util.HashMap;
+
 import Exception.SemanticException;
 import parsingTokens.CubexList;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
@@ -58,5 +60,11 @@ public class CubexTypeScheme {
 			list.add(new CubexTypeTuple(i.getName(), i.getTypeGrammar().replaceParams(cont)));
 		}
 		return new CubexTypeScheme(kindContext, list, gram);
+	}
+	
+	public void replaceVars(HashMap<String, String> map) {
+		for (CubexTypeTuple i : typeContext.contextCollection) {
+			i.replaceVars(map);
+		}
 	}
 }

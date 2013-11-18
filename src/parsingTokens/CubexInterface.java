@@ -255,5 +255,11 @@ public class CubexInterface {
 		completeContext = originalContext.clone();
 		return originalContext.classContext;
 	}
+	
+	public void replaceVars(HashMap<String, String> map) {
+		for (CubexFunctionDef f : functionList.contextCollection) {
+			f.replaceVars(map);
+		}
+	}
 
 }

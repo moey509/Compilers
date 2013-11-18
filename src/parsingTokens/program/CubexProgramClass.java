@@ -1,5 +1,7 @@
 package parsingTokens.program;
 
+import java.util.HashMap;
+
 import ir.program.IrProgram;
 import Exception.SemanticException;
 import parsingTokens.CubexClassGrammar;
@@ -27,6 +29,12 @@ public class CubexProgramClass implements CubexProgramType {
 	@Override
 	public IrProgram toIr(IrGenerationContext context, IrProgram program) {
 		return cubexClass.toIr(context, program);
+	}
+
+	@Override
+	public void replaceVars(HashMap<String, String> map) {
+		cubexClass.replaceVars(map);
+		
 	}
 
 }

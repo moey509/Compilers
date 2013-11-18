@@ -2,6 +2,7 @@ package parsingTokens.statements;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Set;
 
 import ir.expressions.IrVariableExpression;
@@ -80,7 +81,7 @@ public final class CubexFor extends CubexStatement {
 		if (!gamma.keySet().containsAll(c.mutableTypeContext.keySet())) {
 			throw new SemanticException("CubexFor: TypeContexts are not subtypes");
 		}
-		freeContext = gamma.keySet();
+		freeContext = new HashSet<String>(gamma.keySet());
 		freeContext.remove(varfun);
 		freeContext.removeAll(c.mutableTypeContext.keySet());
 		return c.mutableTypeContext.clone();
@@ -119,7 +120,7 @@ public final class CubexFor extends CubexStatement {
 			//throw new SemanticException("CubexFor: Initial content is not a subset of context returned by s");
 		//}
 		TypeContext ret = gamma.typeContext.containsAll(copy1, c.mutableTypeContext);
-		freeContext = gamma.typeContext.keySet();
+		freeContext = new HashSet<String>(gamma.typeContext.keySet());
 		freeContext.remove(varfun);
 		freeContext.removeAll(c.mutableTypeContext.keySet());
 		

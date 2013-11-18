@@ -65,7 +65,7 @@ public final class CubexReturn extends CubexStatement {
 		copy0.typeContext.noConflictMerge(copy0.mutableTypeContext);
 		CubexTypeGrammar etype = e.typeCheck(copy0);
 
-		freeContext = c.mutableTypeContext.keySet();
+		freeContext = new HashSet<String>(c.mutableTypeContext.keySet());
 		Set<String> set = new HashSet<String>();
 		e.getVars(set);
 		freeContext.removeAll(set);

@@ -1,17 +1,15 @@
 package parsingTokens.program;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
 import ir.program.IrProgram;
-import ir.program.IrTypeTuple;
-import ir.statements.IrBind;
 import ir.statements.IrReturn;
 import ir.statements.IrStatement;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
-import parsingTokens.statements.CubexBind;
 import parsingTokens.statements.CubexReturn;
 import parsingTokens.statements.CubexStatement;
 import parsingTokens.typeGrammar.CubexTypeClass;
@@ -39,7 +37,6 @@ public class CubexProgramStatement implements CubexProgramType {
 	// Top rule in Program Checking
 	public CubexCompleteContext typeCheck(CubexCompleteContext c)
 			throws SemanticException {
-		CubexList<CubexTypeGrammar> l = new CubexList<CubexTypeGrammar>();
 		c.kindContext = new KindContext();
 		c.mutableTypeContext = new TypeContext();
 		TypeContextReturn ret = statement.typeCheckReturn(c);
@@ -54,7 +51,7 @@ public class CubexProgramStatement implements CubexProgramType {
 			throw new SemanticException("CubexProgramStatement");
 		}
 		globalVariableSet = new HashSet<String>(c.typeContext.keySet());
-		freeContext = c.typeContext.keySet();
+		freeContext = new HashSet<String>(c.typeContext.keySet());
 		return c;
 	}
 
@@ -90,5 +87,18 @@ public class CubexProgramStatement implements CubexProgramType {
 		program.setFreeContext(new ArrayList<String>(freeContext));
 		
 		return program;
+	}
+
+	@Override
+	// need to handle globalVariableSet
+	public void replaceVars(HashMap<String, String> map) {
+		statement.replaceVars(map);
+		for (String s : map.keySet()) {
+			if (freeContext.contains(s)) {
+				freeContext.remove(s);
+				freeContext.add(map.get(s));
+			}
+		}
+		
 	}
 }
