@@ -149,9 +149,10 @@ public class CubexIf extends CubexStatement {
 				freeContext.remove(s);
 				freeContext.add(map.get(s));
 			}
-			if (freeContext2 != null && freeContext2.contains(s)) 
+			if (freeContext2 != null && freeContext2.contains(s))  {
 				freeContext2.remove(s);
 				freeContext2.add(map.get(s));
+			}
 		}
 		
 	}
