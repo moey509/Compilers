@@ -250,6 +250,7 @@ git_t iterable_append (git_t first, git_t second) {
   while (itr != NULL) {
     temp = (git_t)x3malloc(sizeof(struct git));
     temp->val = itr->val;
+    ref_increment(temp->val);
     temp->is_int = itr->is_int;
     temp->next = NULL;
 
@@ -273,6 +274,7 @@ git_t iterable_append (git_t first, git_t second) {
   while (itr != NULL) {
     temp = (git_t)x3malloc(sizeof(struct git));
     temp->val = itr->val;
+    ref_increment(temp->val);
     temp->is_int = itr->is_int;
     temp->next = NULL;
 
