@@ -159,6 +159,11 @@ int hasNext(iterator_t it) {
   g = it->g;
   if (g->is_int == 1) {
     n = g->val;
+    /* set cur value if not set yet */
+    if (it->set == 0) {
+      it->cur = n->low;
+      it->set = 1;
+    }
     /*  through case */
     if (n->status == 0) {
       if (it->cur > n->high) {
