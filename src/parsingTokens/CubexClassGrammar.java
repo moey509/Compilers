@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import Exception.SemanticException;
 import parsingTokens.context.CubexTypeScheme;
@@ -130,11 +131,26 @@ public class CubexClassGrammar {
 			irFunction.addStatement(bind);
 		}		
 		
-
+		Set<CubexFunctionDef> addedFunctions = new HashSet<CubexFunctionDef>();
 		String tempName = name.replace("_", "__");
 		for (CubexFunctionDef funDef : functions.iterable()){
 			String tempfun = funDef.name.replace("_", "__");
 			irFunction.addVTableFunctionName("_" + tempName + "_" + tempfun);
+			addedFunctions.add(funDef);
+		}
+		
+		String parentClass = context.getSuperType(name);
+		String superClass = parentClass;
+
+		while (!superClass.equals("Thing")) {
+			for (CubexFunctionDef function : context.functionSet(superClass)) {
+				if (!addedFunctions.contains(function)) {
+					addedFunctions.add(function);
+					String tempfun = function.name.replace("_", "__");
+					irFunction.addVTableFunctionName("_" + tempName + "_" + tempfun);
+				}
+			}
+			superClass = context.getSuperType(superClass);
 		}
 		
 		// set of variables (var) that need to be replaced with (__struct->var) 
