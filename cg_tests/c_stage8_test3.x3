@@ -1,0 +1,14 @@
+#Test: stage8test1
+#generic classes with class inheritance
+class Aa(s : String)
+{
+	super();
+	fun getString() : String = s;
+}
+
+class Bb() extends Aa
+{
+	super("Hello Worllldddddddd!");
+}
+
+return [Bb().getString()];

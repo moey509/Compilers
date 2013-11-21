@@ -1,0 +1,6 @@
+#Test: stage2test2a
+#non-generic functions
+#not all memory freed
+fun myinitial() : String = "Hello World!";
+
+return [myinitial()];

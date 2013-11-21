@@ -1,0 +1,23 @@
+#stage2test5
+#non-generic functions
+fun reversefirsttwo() : Iterable<String> {
+	getfirst := true;
+	first:= "";
+	for (i in input)
+	{
+		if (getfirst)
+		{
+			first := i;
+			getfirst := false;
+		}
+		else
+		{
+			second := i;
+			return [second]++[first];
+		}
+	}
+	
+	return ["no"];
+}
+
+return reversefirsttwo();
