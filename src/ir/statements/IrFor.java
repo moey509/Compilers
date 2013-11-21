@@ -73,6 +73,7 @@ public class IrFor implements IrStatement {
 		// there is no CubexTypeGrammar for the expression, and the arguments don't have IrTypes
 		// can discuss later?
 		String iterDeclaration = iterable + " = iterable_append((" + list.toC(context) + "), NULL);";
+		String middleDeclaration = "ref_decrement((General_t)" + iterable + ");";
 		String itDeclaration = iterator + " = new_iterator((" + iterable + "));";
 
 		//add iterable to list of stuff declared at the top of the function
@@ -86,6 +87,7 @@ public class IrFor implements IrStatement {
 		String tempVar = "void* " + var + " = getNext(" + iterator + ");";
 
 		output.add(iterDeclaration);
+		output.add(middleDeclaration);
 		output.add(itDeclaration);
 		output.add(itCondition);
 

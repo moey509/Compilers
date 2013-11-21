@@ -11,6 +11,8 @@ static int curr_input = 1;
 static int input_len;
 static char** input;
 
+int counter = 0;
+
 void initialize(int argc, char** argv) {
   input_len = argc;
   input = argv;
@@ -23,6 +25,8 @@ void print_line(char* str, int len) {
   memcpy(buf, str, len);
   puts(buf);
   free(buf);
+  /*printf ("[FREE]\n");*/
+  counter -=1;
 }
 
 int next_line_len() {
@@ -45,10 +49,16 @@ void read_line(char* buffer) {
 }
 
 void* x3malloc(int size) {
+  /*printf ("[MALLOC]\n");*/
+  counter += 1;
   return malloc(size);
 }
 
 void x3free(void* ptr) {
+  /*printf ("[FREE]\n");*/
+  if (ptr != NULL){
+    counter -= 1; 
+  }
   return free(ptr);
 }
 
@@ -58,4 +68,8 @@ char unichar(int uni) {
 
 int charuni(char c) {
   return (int) c;
+}
+
+void ending() {
+ printf ("---FINAL COUNT: %d\n", counter); 
 }
