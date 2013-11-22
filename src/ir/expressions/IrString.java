@@ -1,16 +1,14 @@
 package ir.expressions;
 
+import ir.CGenerationContext;
+import ir.IrMiscFunctions;
+import ir.statements.IrBind;
+
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import parsingTokens.CubexList;
 import parsingTokens.typeGrammar.CubexTypeClass;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
-import ir.CGenerationContext;
-import ir.IrMiscFunctions;
-import ir.IrType;
-import ir.program.IrTypeTuple;
-import ir.statements.IrBind;
 
 public final class IrString implements IrExpression {
 	private String mValue;

@@ -1,7 +1,6 @@
 package ir.expressions;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import parsingTokens.CubexList;
 import parsingTokens.typeGrammar.CubexTypeClass;
