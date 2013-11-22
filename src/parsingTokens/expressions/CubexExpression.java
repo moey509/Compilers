@@ -87,4 +87,12 @@ public class CubexExpression {
 		else return new IrVariableExpression(name, cubexType.name, cubexType);
 
 	}
+	
+	public boolean equals(CubexExpression expr){
+		return name.equals(expr.name);
+	}
+	
+	public int hashCode(){
+		return toString().hashCode();
+	}
 }

@@ -23,4 +23,27 @@ public class CseContext {
 	public String getVariable(CubexExpression expr){
 		return expressionToVariableMap.get(expr);
 	}
+	
+	public CubexExpression getExpression(String variable){
+		return variableToExpressionMap.get(variable);
+	}
+	
+	public void remove(String variable){
+		expressionToVariableMap.remove(variableToExpressionMap.remove(variable));
+	}
+	
+	public void remove(CubexExpression expr){
+		variableToExpressionMap.remove(expressionToVariableMap.remove(expr));
+	}
+	
+	public CseContext merge(CseContext context){
+		CseContext newContext = new CseContext();
+		
+		for (Map.Entry<String, CubexExpression> entry : variableToExpressionMap.entrySet()){
+			if (context.getExpression(entry.getKey()).equals(entry.getValue())){
+				newContext.put(entry.getKey(), entry.getValue());
+			}
+		}	
+		return newContext;
+	}
 }

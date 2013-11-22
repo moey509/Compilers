@@ -118,4 +118,12 @@ public class CubexAppend extends CubexExpression {
 		e1.replaceVars(map);
 		e2.replaceVars(map);
 	}
+	
+	public boolean equals(CubexAppend expr){
+		return e1.equals(expr.e1) && e2.equals(expr.e2);
+	}
+	
+	public int hashCode(){
+		return toString().hashCode();
+	}
 }

@@ -61,4 +61,11 @@ public final class CubexString extends CubexExpression {
 	public void replaceVars(HashMap<String, String> map) {
 		return;
 	}
+	public boolean equals(CubexString expr){
+		return mValue.equals(expr.mValue);
+	}
+	
+	public int hashCode(){
+		return toString().hashCode();
+	}
 }

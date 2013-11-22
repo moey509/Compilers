@@ -2,6 +2,7 @@ package parsingTokens.expressions;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Set;
 
 import ir.IrType;
@@ -111,5 +112,26 @@ public class CubexIterable extends CubexExpression {
 		for (CubexExpression e : list.contextCollection)  {
 			e.replaceVars(map);
 		}
+	}
+	
+	public boolean equals(CubexIterable expr){
+		Iterator<CubexExpression> iter1 = list.iterable().iterator();
+		Iterator<CubexExpression> iter2 = expr.list.iterable().iterator();
+		
+		while (iter1.hasNext() && iter2.hasNext()){
+			CubexExpression expr1 = iter1.next();
+			CubexExpression expr2 = iter2.next();
+			if (!expr1.equals(expr2)){
+				return false;
+			}
+		}
+		if (iter1.hasNext() || iter2.hasNext()){
+			return false;
+		}
+		return true;
+	}
+	
+	public int hashCode(){
+		return toString().hashCode();
 	}
 }
