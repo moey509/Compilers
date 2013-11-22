@@ -6,6 +6,7 @@ import ir.statements.IrBind;
 
 import java.util.ArrayList;
 
+import optimization.CseContext;
 import parsingTokens.CubexList;
 import parsingTokens.typeGrammar.CubexTypeClass;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
@@ -60,11 +61,21 @@ public final class IrString implements IrExpression {
 		return mValue;
 	}
 	
-	public boolean equals(IrString expr){
+	public boolean equals(Object object){
+		IrString expr = (IrString) object;
 		return mValue.equals(expr.mValue);
 	}
 	
 	public int hashCode(){
 		return toString().hashCode();
+	}
+
+	@Override
+	public IrExpression eliminateSubexpression(CseContext context) {
+		if (context.containsExpression(this)){
+			return context.getVariableExpression(this);
+		} else {
+			return this;
+		}
 	}
 }

@@ -2,6 +2,7 @@ package ir.expressions;
 
 import java.util.ArrayList;
 
+import optimization.CseContext;
 import parsingTokens.CubexList;
 import parsingTokens.typeGrammar.CubexTypeClass;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
@@ -41,11 +42,21 @@ public final class IrBoolean implements IrExpression {
 		return mValue ? "true" : "false";
 	}
 	
-	public boolean equals(IrBoolean expr){
+	public boolean equals(Object object){
+		IrBoolean expr = (IrBoolean) object;
 		return mValue == expr.mValue;
 	}
 	
 	public int hashCode(){
 		return toString().hashCode();
+	}
+
+	@Override
+	public IrExpression eliminateSubexpression(CseContext context) {
+		if (context.containsExpression(this)){
+			return context.getVariableExpression(this);
+		} else {
+			return this;
+		}
 	}
 }

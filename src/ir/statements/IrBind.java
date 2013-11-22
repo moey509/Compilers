@@ -4,6 +4,7 @@ import ir.CGenerationContext;
 import ir.expressions.IrExpression;
 import ir.expressions.IrExpressionTuple;
 import ir.expressions.IrFunctionCall;
+import ir.expressions.IrVariableExpression;
 import ir.program.IrTypeTuple;
 
 import java.util.ArrayList;
@@ -22,6 +23,10 @@ public final class IrBind implements IrStatement {
 		this.expression = expression;
 		this.temporaryBinds = new ArrayList<IrBind>();
 		this.context = context;
+	}
+	
+	public String getVariableName(){
+		return tuple.variableName;
 	}
 	
 	public void addDeclaration(ArrayList<String> arr, CGenerationContext context){
@@ -97,7 +102,13 @@ public final class IrBind implements IrStatement {
 	@Override
 	public void removeCommonSubexpressions(CseContext context) {
 		// TODO Auto-generated method stub
-		// DO MANY THINGS
+		
+		for (IrBind tempBind : temporaryBinds){
+			tempBind.expression = tempBind.expression.eliminateSubexpression(context);
+			context.putVariable(tempBind.getVariableName(), tempBind.expression);
+		}
+		expression = expression.eliminateSubexpression(context);
+		context.putVariable(getVariableName(), expression);
 	}
 
 }

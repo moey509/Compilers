@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import optimization.CseContext;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 
 
@@ -99,7 +100,8 @@ public final class IrFunctionCall implements IrExpression {
 		return functionName + "(" + sb.toString() + ")";
 	}
 	
-	public boolean equals(IrFunctionCall expr){
+	public boolean equals(Object object){
+		IrFunctionCall expr = (IrFunctionCall) object;
 		if (!functionName.equals(expr.functionName)){
 			return false;
 		}
@@ -115,6 +117,18 @@ public final class IrFunctionCall implements IrExpression {
 	
 	public int hashCode(){
 		return toString().hashCode();
+	}
+
+	@Override
+	public IrExpression eliminateSubexpression(CseContext context) {
+		for (IrExpressionTuple expr : arguments){
+			expr.expression = expr.expression.eliminateSubexpression(context);
+		}
+		if (context.containsExpression(this)){
+			return context.getVariableExpression(this);
+		} else {
+			return this;
+		}
 	}
 }
 

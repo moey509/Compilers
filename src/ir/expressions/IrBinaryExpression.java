@@ -2,6 +2,7 @@ package ir.expressions;
 
 import java.util.ArrayList;
 
+import optimization.CseContext;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import ir.CGenerationContext;
 import ir.IrMiscFunctions;
@@ -185,7 +186,8 @@ public class IrBinaryExpression implements IrExpression {
 				+ rightExpression.toString();
 	}
 
-	public boolean equals(IrBinaryExpression expr) {
+	public boolean equals(Object object) {
+		IrBinaryExpression expr = (IrBinaryExpression)object;
 		return leftExpression.equals(expr.leftExpression)
 				&& rightExpression.equals(expr.rightExpression)
 				&& operator.equals(expr.operator);
@@ -193,5 +195,16 @@ public class IrBinaryExpression implements IrExpression {
 
 	public int hashCode() {
 		return toString().hashCode();
+	}
+
+	@Override
+	public IrExpression eliminateSubexpression(CseContext context) {
+		leftExpression = leftExpression.eliminateSubexpression(context);
+		rightExpression = rightExpression.eliminateSubexpression(context);
+		if (context.containsExpression(this)){
+			return context.getVariableExpression(this);
+		} else {
+			return this;
+		}
 	}
 }

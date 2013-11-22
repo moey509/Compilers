@@ -3,6 +3,7 @@ package ir.expressions;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import optimization.CseContext;
 import ir.CGenerationContext;
 import ir.IrMiscFunctions;
 import ir.statements.IrBind;
@@ -65,8 +66,8 @@ public class IrIterable implements IrExpression {
 		return "[" + sb.toString() + "]";
 	}
 	
-	public boolean equals(IrIterable expr){
-
+	public boolean equals(Object object){
+		IrIterable expr = (IrIterable)object;
 		Iterator<IrExpression> iter1 = list.iterable().iterator();
 		Iterator<IrExpression> iter2 = list.iterable().iterator();
 		while (iter1.hasNext() && iter2.hasNext()){
@@ -79,5 +80,17 @@ public class IrIterable implements IrExpression {
 	
 	public int hashCode(){
 		return toString().hashCode();
+	}
+
+	@Override
+	public IrExpression eliminateSubexpression(CseContext context) {
+		for (IrExpression expr : list.iterable()){
+			expr = expr.eliminateSubexpression(context);
+		}
+		if (context.containsExpression(this)){
+			return context.getVariableExpression(this);
+		} else {
+			return this;
+		}
 	}
 }

@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import optimization.CseContext;
+
 public class IrProgram {
 	public List<IrProgramElem> programElementList;
 	public ArrayList<String> freeContext; // the immutable variables to be freed at the very end of the program
@@ -113,7 +115,10 @@ public class IrProgram {
 	}
 
 	public void removeCommonSubexpressions() {
-		// TODO Auto-generated method stub
-		
+		CseContext context = new CseContext();
+		for (IrProgramElem programElem : programElementList){
+			programElem.removeCommonSubexpressions(context);
+		}
+		context.printContext();
 	}
 }
