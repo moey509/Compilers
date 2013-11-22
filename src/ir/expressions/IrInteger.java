@@ -1,6 +1,7 @@
 package ir.expressions;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import parsingTokens.CubexList;
 import parsingTokens.typeGrammar.CubexTypeClass;
@@ -39,5 +40,12 @@ public final class IrInteger implements IrExpression {
 	
 	public String toString(){
 		return Integer.toString(mValue);
+	}
+	public boolean equals(IrInteger expr){
+		return mValue == expr.mValue;
+	}
+	
+	public int hashCode(){
+		return toString().hashCode();
 	}
 }

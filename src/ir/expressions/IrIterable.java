@@ -1,6 +1,7 @@
 package ir.expressions;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import ir.CGenerationContext;
 import ir.IrMiscFunctions;
@@ -48,6 +49,7 @@ public class IrIterable implements IrExpression {
 	public CubexTypeGrammar getCubexType() {
 		return cubexType;
 	}
+	
 	public String toString(){
 		StringBuilder sb = new StringBuilder();
 		boolean first = true;
@@ -61,6 +63,21 @@ public class IrIterable implements IrExpression {
 			}
 		}
 		return "[" + sb.toString() + "]";
-		
+	}
+	
+	public boolean equals(IrIterable expr){
+
+		Iterator<IrExpression> iter1 = list.iterable().iterator();
+		Iterator<IrExpression> iter2 = list.iterable().iterator();
+		while (iter1.hasNext() && iter2.hasNext()){
+			if (!iter1.next().equals(iter2.next())){
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public int hashCode(){
+		return toString().hashCode();
 	}
 }

@@ -16,9 +16,17 @@ public class CseContext {
 		expressionToVariableMap = new HashMap<IrExpression, String>();
 	}
 	
-	public void put(String variable, IrExpression expr){
+	public void putVariable(String variable, IrExpression expr){
 		variableToExpressionMap.put(variable, expr);
 		expressionToVariableMap.put(expr, variable);
+	}
+	
+	public void redefineVariable(String variable, IrExpression expr){
+		expressionToVariableMap.remove(expr);
+		variableToExpressionMap.remove(variable);
+
+		expressionToVariableMap.put(expr, variable);
+		variableToExpressionMap.put(variable, expr);
 	}
 	
 	public String getVariable(IrExpression expr){
