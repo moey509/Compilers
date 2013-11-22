@@ -108,17 +108,6 @@ struct nit
   int status;
 };
 
-nit_t new_nit() {
-  nit_t n = (nit_t) x3malloc(sizeof(struct nit));
-  n->ref_count = 0;
-  n->fun_names = NULL;
-  n->fun_length = 0;
-  n->fun_ptrs = NULL;
-  n->con_comp = NULL;
-  n->is_iter = 0;
-  n->is_thru_ward = 0;
-}
-
 Character_t new_character(int input) {
   Character_t c = (Character_t)x3malloc(sizeof(struct Character));
   c->ref_count = 0;
@@ -252,28 +241,6 @@ void freeIterator(iterator_t it) {
     x3free(it);
 }
 
-/* constructs a new iterable for anything but ints */
-git_t new_git_obj(void* obj) {
-  git_t g = (git_t)x3malloc(sizeof(struct git));
-
-  g->ref_count = 0;
-  g->fun_names = NULL;
-  g->fun_length = 0;
-  g->fun_ptrs = NULL;
-  g->con_comp = NULL;
-  g->is_iter = 1;
-  g->is_thru_ward = 0;
-
-  g->val = obj;
-  g->is_int = 0;
-  g->dummy = 0;
-  g->next = NULL;
-
-  g->storage = NULL;
-  g->is_input = 0;
-  return g;
-}
-
 /* combines two iterables, */
 git_t iterable_append (git_t first, git_t second) {
   git_t g;
@@ -286,24 +253,7 @@ git_t iterable_append (git_t first, git_t second) {
   /* first */
   itr = first;
   while (itr != NULL) {
-    /*temp = (git_t)x3malloc(sizeof (struct git));*/
-    temp = new_git_obj(itr->val);
-    /*temp->ref_count = 0;
-  temp->fun_names = NULL;
-  temp->fun_length = 0;
-  temp->fun_ptrs = NULL;
-  temp->con_comp = NULL;
-  temp->is_iter = 1;
-  temp->is_thru_ward = 0;
-
-  temp->val = itr->val;
-  temp->is_int = 0;
-  temp->dummy = 0;
-  temp->next = NULL;
-
-  temp->storage = NULL;
-  temp->is_input = 0;
-*/
+    temp = (git_t)x3malloc(sizeof(struct git));
     temp->val = itr->val;
     ref_increment(temp->val);
     temp->is_int = itr->is_int;
@@ -327,8 +277,7 @@ git_t iterable_append (git_t first, git_t second) {
   /* second */
   itr = second;
   while (itr != NULL) {
-    /* temp = (git_t)x3malloc(sizeof (struct git)); */
-    temp = new_git_obj(itr->val);
+    temp = (git_t)x3malloc(sizeof(struct git));
     temp->val = itr->val;
     ref_increment(temp->val);
     temp->is_int = itr->is_int;
@@ -353,11 +302,33 @@ git_t iterable_append (git_t first, git_t second) {
   return g;
 }
 
+/* constructs a new iterable for anything but ints */
+git_t new_git_obj (void* obj) {
+  git_t g = (git_t)x3malloc(sizeof(struct git));
+
+  g->ref_count = 0;
+  g->fun_names = NULL;
+  g->fun_length = 0;
+  g->fun_ptrs = NULL;
+  g->con_comp = NULL;
+  g->is_iter = 0;
+  g->is_thru_ward = 0;
+
+  g->val = obj;
+  g->is_int = 0;
+  g->dummy = 0;
+  g->next = NULL;
+
+  g->storage = NULL;
+  g->is_input = 0;
+  return g;
+}
+
 /* constructs a new iterable for ints. The status, low and high inputs
 // correspond to the values in a nit_T struct */
 git_t new_git_int (int status, int low, int high) {  
   git_t g = (git_t)x3malloc(sizeof(struct git));
-  nit_t n = new_nit();
+  nit_t n = (nit_t)x3malloc(sizeof(struct nit));
 
 	g->ref_count = 0;
   g->fun_names = NULL;
@@ -382,15 +353,6 @@ git_t new_git_int (int status, int low, int high) {
 
 iterator_t new_iterator (git_t g) {
   iterator_t it = (iterator_t) x3malloc(sizeof(struct iterator));
-
-  it->ref_count = 0;
-  it->fun_names = NULL;
-  it->fun_length = 0;
-  it->fun_ptrs = NULL;
-  it->con_comp = NULL;
-  it->is_iter = 0;
-  it->is_thru_ward = 0;
-
   it->g = g;
   it->cur = 0;
   it->set = 0;
@@ -402,26 +364,10 @@ void decrement_iterable(git_t g) {
   git_t temp;
   itr = g;
   while (itr != NULL) {
-    printf ("decrementing itr from: %d\n", itr->ref_count);
     ref_decrement (itr->val);
     temp = itr;
     itr = itr->next;
-    printf ("here\n");
-    temp->ref_count -= 1;
-        printf ("blah\n");
-    if (temp->ref_count <= 0) {
-      printf ("freeing!\n");
-      if (temp->fun_names != NULL) {
-        x3free(temp->fun_names);  
-      }
-      if (temp->fun_ptrs != NULL) {
-        x3free(temp->fun_ptrs);  
-      }
-      if (temp->con_comp != NULL) {
-        x3free(temp->con_comp);  
-      }    
-      x3free(temp);
-    }
+    ref_decrement (temp);
   }
 }
 
@@ -429,12 +375,9 @@ void increment_iterable(git_t g) {
   git_t itr;
   git_t temp;
   itr = g;
-  /*printf ("INC\n"); */
   while (itr != NULL) {
-    printf ("incrementing itr from: %d\n", itr->ref_count);
     ref_increment (itr->val);
-    itr->ref_count += 1;
-    /*ref_increment (itr);*/
+    ref_increment (itr);
     itr = itr->next;
   }
 }
@@ -446,19 +389,8 @@ void ref_decrement(General_t gen) {
     decrement_iterable (gen);
     return;
   }
-  printf ("decrementing reg from: %d\n", gen->ref_count);
   gen->ref_count -= 1;
-  if (gen->ref_count <= 0) {
-    printf ("freeing!\n");
-    if (gen->fun_names != NULL) {
-      x3free(gen->fun_names);  
-    }
-    if (gen->fun_ptrs != NULL) {
-      x3free(gen->fun_ptrs);  
-    }
-    if (gen->con_comp != NULL) {
-      x3free(gen->con_comp);  
-    }    
+  if (gen->ref_count == 0) {
     x3free(gen);
   }
   return;
@@ -471,7 +403,6 @@ void ref_increment(General_t gen) {
     increment_iterable (gen);
     return;
   }
-  printf ("incrementing reg from: %d\n", gen->ref_count);
   gen->ref_count += 1;
 }
 
@@ -556,7 +487,7 @@ git_t Integer_divide (Integer_t i1, Integer_t i2) {
   return new_git_obj(new_integer(i1->value / i2->value));
 }
 
-git_t Integer_modulo (Integer_t i1, Integer_t i2) {
+Integer_t Integer_modulo (Integer_t i1, Integer_t i2) {
   if (i2->value == 0)
     return NULL;
   return new_git_obj(new_integer(i1->value % i2->value));
@@ -796,7 +727,7 @@ void totoString(git_t g) {
     c = getNext(it);
     buffer = charToString(c);
     printf ("--> %s\n", buffer);
-     /*count -= 1;*/
+     count -= 1;
     if (!hasNext(it)) {
       printf ("[null]\n");
       return;
@@ -807,25 +738,15 @@ void totoString(git_t g) {
 git_t get_input () {
 	char * buf;
 	git_t temp;
-  git_t temp2;
-  git_t cur;
 	git_t string;
 	git_t head = NULL;
 	while (next_line_len() > 0) {
-    printf ("hi\n");
 		buf = (char*)x3malloc(sizeof(char) * next_line_len());
 		read_line(buf);
 		string = stringToIterable(buf);
 		x3free(buf);  
 		temp = new_git_obj(string);
-    if (head == NULL) {
-      head = temp;
-      cur = head;
-    }
-    else {
-      cur->next = temp;
-      cur = cur->next;
-    }
+		head = iterable_append (head, temp);
 	}
 	return head;
 }

@@ -24,7 +24,7 @@ public class IrAppend implements IrExpression {
 	}
 	
 	public String toC(CGenerationContext context) {
-		return "iterable_append(" + e1.toC(context) + ", " + e2.toC(context) +" )";
+		return "iterable_append(" + e1.toC(context) + ", " + e2.toC(context) +")";
 	}
 	
 	@Override
