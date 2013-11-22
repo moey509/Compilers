@@ -38,14 +38,16 @@ public final class CubexFor extends CubexStatement {
 		if(arr.size() == 0){
 			IrFor ir = new IrFor(varfun, e.toIr(context), cubexContext);
 			ir.addStatement(s.toIr(context));
-			ir.setFreeContext(new ArrayList<String>(freeContext));
 			ir.temporaryBinds.addAll(arr);
+			ir.setFreeContext(new ArrayList<String>(freeContext));
+			
 			return ir;
 		}
 		else{
 			IrBind b = arr.get(arr.size()-1);
 			IrFor ir = new IrFor(varfun, new IrVariableExpression(b.tuple.variableName, b.tuple.type.type), cubexContext);
 			ir.temporaryBinds.addAll(arr);
+
 			ir.addStatement(s.toIr(context));
 			ir.setFreeContext(new ArrayList<String>(freeContext));
 			return ir;

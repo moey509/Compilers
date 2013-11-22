@@ -1,4 +1,15 @@
 Notes: 
-x3_test1.x3: __temp1 needs to be defined as NULL at the top of the file and it'll compile and run
-test3.x3: __temp1 and __temp2 need to be defined as NULL before decrementing.
-test4: need to define shit as NULL
+
+
+WHEN ADDING DECREMENT CODE, SET TO NULL
+
+iterable and iterator are not getting freed at the end of for loops
+decrement return 
+check -> in the main return, we need to increment adn decrement the iterator
+check -> for (v in e)
+	need to free v if it's special case
+
+
+
+-> increment input
+-> unrolling (iterable_append(new_git_obj()))

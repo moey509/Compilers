@@ -25,7 +25,8 @@ void print_line(char* str, int len) {
   memcpy(buf, str, len);
   puts(buf);
   free(buf);
-  /*printf ("[FREE]\n");*/
+  printf ("FREE print line buffer\n");
+  printf ("[FREE]\n");
   counter -=1;
 }
 
@@ -49,13 +50,13 @@ void read_line(char* buffer) {
 }
 
 void* x3malloc(int size) {
-  /*printf ("[MALLOC]\n");*/
+  printf ("[MALLOC]\n");
   counter += 1;
   return malloc(size);
 }
 
 void x3free(void* ptr) {
-  /*printf ("[FREE]\n");*/
+  printf ("[FREE]\n");
   if (ptr != NULL){
     counter -= 1; 
   }
