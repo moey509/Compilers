@@ -1,30 +1,31 @@
 package optimization;
 
 
+import ir.expressions.IrExpression;
+
 import java.util.HashMap;
 import java.util.Map;
 
-import parsingTokens.expressions.CubexExpression;
 
 public class CseContext {
-	private Map<String, CubexExpression> variableToExpressionMap;
-	private Map<CubexExpression, String> expressionToVariableMap;
+	private Map<String, IrExpression> variableToExpressionMap;
+	private Map<IrExpression, String> expressionToVariableMap;
 
 	public CseContext() {
-		variableToExpressionMap = new HashMap<String, CubexExpression>();
-		expressionToVariableMap = new HashMap<CubexExpression, String>();
+		variableToExpressionMap = new HashMap<String, IrExpression>();
+		expressionToVariableMap = new HashMap<IrExpression, String>();
 	}
 	
-	public void put(String variable, CubexExpression expr){
+	public void put(String variable, IrExpression expr){
 		variableToExpressionMap.put(variable, expr);
 		expressionToVariableMap.put(expr, variable);
 	}
 	
-	public String getVariable(CubexExpression expr){
+	public String getVariable(IrExpression expr){
 		return expressionToVariableMap.get(expr);
 	}
 	
-	public CubexExpression getExpression(String variable){
+	public IrExpression getExpression(String variable){
 		return variableToExpressionMap.get(variable);
 	}
 	
@@ -32,14 +33,14 @@ public class CseContext {
 		expressionToVariableMap.remove(variableToExpressionMap.remove(variable));
 	}
 	
-	public void remove(CubexExpression expr){
+	public void remove(IrExpression expr){
 		variableToExpressionMap.remove(expressionToVariableMap.remove(expr));
 	}
 	
 	public CseContext merge(CseContext context){
 		CseContext newContext = new CseContext();
 		
-		for (Map.Entry<String, CubexExpression> entry : variableToExpressionMap.entrySet()){
+		for (Map.Entry<String, IrExpression> entry : variableToExpressionMap.entrySet()){
 			if (context.getExpression(entry.getKey()).equals(entry.getValue())){
 				newContext.put(entry.getKey(), entry.getValue());
 			}
