@@ -192,4 +192,8 @@ public class IrBinaryExpression implements IrExpression {
 	public CubexTypeGrammar getCubexType() {
 		return cubexType;
 	}
+	
+	public String toString(){
+		return leftExpression.toString() + operator + rightExpression.toString();
+	}
 }

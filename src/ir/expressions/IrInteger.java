@@ -36,4 +36,8 @@ public final class IrInteger implements IrExpression {
 	public CubexTypeGrammar getCubexType() {
 		return new CubexTypeClass("Integer", new CubexList<CubexTypeGrammar>());
 	}
+	
+	public String toString(){
+		return Integer.toString(mValue);
+	}
 }

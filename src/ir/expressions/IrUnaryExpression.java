@@ -67,4 +67,8 @@ public class IrUnaryExpression implements IrExpression {
 	public CubexTypeGrammar getCubexType() {
 		return cubexType;
 	}
+	
+	public String toString(){
+		return operator + expression.toString();
+	}
 }

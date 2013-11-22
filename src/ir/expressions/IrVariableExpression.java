@@ -60,4 +60,7 @@ public class IrVariableExpression implements IrExpression {
 		return cubexType;
 	}
 
+	public String toString(){
+		return variableName;
+	}
 }

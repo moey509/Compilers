@@ -81,6 +81,22 @@ public final class IrFunctionCall implements IrExpression {
 	public CubexTypeGrammar getCubexType() {
 		return cubexType;
 	}
+	
+	public String toString(){
+		StringBuilder sb = new StringBuilder();
+		boolean first = true;
+		for (IrExpressionTuple tuple : arguments){
+			if (first){
+				first = false;
+				sb.append(tuple.getExpression().toString());	
+			}
+			else {
+				sb.append(", " + tuple.getExpression().toString());
+			}
+		}
+		
+		return functionName + "(" + sb.toString() + ")";
+	}
 }
 
 

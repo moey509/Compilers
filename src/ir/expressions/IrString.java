@@ -56,4 +56,8 @@ public final class IrString implements IrExpression {
 	public CubexTypeGrammar getCubexType() {
 		return new CubexTypeClass("String", new CubexList<CubexTypeGrammar>());
 	}
+	
+	public String toString(){
+		return mValue;
+	}
 }

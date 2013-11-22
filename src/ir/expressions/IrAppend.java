@@ -37,4 +37,9 @@ public class IrAppend implements IrExpression {
 	public CubexTypeGrammar getCubexType() {
 		return cubexType;
 	}
+	
+	public String toString(){
+		return e1.toString() + "::" + e2.toString();
+	}
+
 }

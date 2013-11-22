@@ -48,4 +48,19 @@ public class IrIterable implements IrExpression {
 	public CubexTypeGrammar getCubexType() {
 		return cubexType;
 	}
+	public String toString(){
+		StringBuilder sb = new StringBuilder();
+		boolean first = true;
+		for (IrExpression expr : list.iterable()){
+			if (first){
+				first = false;
+				sb.append(expr.toString());
+			}
+			else{
+				sb.append(", " + expr.toString());
+			}
+		}
+		return "[" + sb.toString() + "]";
+		
+	}
 }
