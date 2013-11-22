@@ -74,8 +74,9 @@ public class IrFor implements IrStatement {
 		// there is no CubexTypeGrammar for the expression, and the arguments don't have IrTypes
 		// can discuss later?
 		String iterDeclaration = iterable + " = iterable_append((" + list.toC(context) + "), NULL);";
-		String middleDeclaration = "ref_decrement((General_t)" + iterable + ");";
+		String inc1Declaration = "ref_increment((General_t)" + iterable + ");";
 		String itDeclaration = iterator + " = new_iterator((" + iterable + "));";
+		String inc2Declaration = "ref_increment((General_t)" + iterator + ");";
 
 		//add iterable to list of stuff declared at the top of the function
 		context.varDecl.put(iterable, "git_t");
@@ -86,10 +87,12 @@ public class IrFor implements IrStatement {
 //		context.fcnVarDecl.put(iterator, "iterator_t");
 		String itCondition = "while(hasNext(" + iterator + ")) {";
 		String tempVar = "void* " + var + " = getNext(" + iterator + ");";
+		String tempVarInc = "ref_increment((General_t)" + var + ");";
 
 		output.add(iterDeclaration);
-		output.add(middleDeclaration);
+		output.add(inc1Declaration);
 		output.add(itDeclaration);
+		output.add(inc2Declaration);
 		output.add(itCondition);
 
 		for(IrStatement s : statements){
@@ -107,14 +110,38 @@ public class IrFor implements IrStatement {
 		}
 
 		output.add(tempVar);
+		output.add(tempVarInc);
 
+		/*** vvv THE FOLLOWING IS A CODE BLOCK ***/
+		// MODIFY CONTEXT
+		context.controlFlowVariables.add(iterable);
+		context.controlFlowVariables.add(iterator);
+		
 		for (IrStatement s : statements) {
 			output.addAll(s.toC(context, isMain));
 		}
-
+		
+		// UNDO MODIFICATIONS
+		context.controlFlowVariables.remove(iterable);
+		context.controlFlowVariables.remove(iterator);
+		/*** ^^^^ END CODE BLOCK ***/
+	
+		//TODO: POSSIBLE DOUBLE FREE?
+		String tempVarDec = "ref_decrement((General_t)" + var + ");";
 		String endLoop = "}";
 
+		output.add(tempVarDec);
 		output.add(endLoop);
+		
+		String dec1Declaration = "ref_decrement((General_t)" + iterable + ");";
+		String dec2Declaration = "ref_decrement((General_t)" + iterator + ");";
+		String null1Declaration = iterable + " = NULL;";
+		String null2Declaration = iterator + " = NULL;";
+		
+		output.add(dec1Declaration);
+		output.add(dec2Declaration);
+		output.add(null1Declaration);
+		output.add(null2Declaration);
 
 		//decrementing variables in the free context
 		//TODO: need to handle v and e in "for(v in e)"

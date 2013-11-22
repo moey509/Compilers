@@ -79,6 +79,7 @@ public class IrProgram {
 		output.add("void cubex_main(){");
 
 		output.add("_input = get_input();");
+		output.add("ref_increment((General_t)_input);");
 
 		ArrayList<String> preOut = new ArrayList<String>();
 		ArrayList<String> postOut = new ArrayList<String>();

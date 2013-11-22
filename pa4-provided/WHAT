@@ -1,0 +1,166 @@
+NEW temp string buf
+[MALLOC]
+NEW char
+[MALLOC]
+NEW git
+[MALLOC]
+FREE temp string buff
+[FREE]
+NEW git
+[MALLOC]
+finished with input
+|--ref_increment((General_t)_input);
+incrementing itr from: 0 to 1
+incrementing itr from: 0 to 1
+incrementing reg from: 0 to 1
+_iter0 = iterable_append((_input), NULL);
+NEW git
+[MALLOC]
+ref_increment((General_t)_iter0);
+incrementing itr from: 0 to 1
+incrementing itr from: 1 to 2
+incrementing reg from: 1 to 2
+NEW iterator
+[MALLOC]
+ref_increment((General_t)_it1)
+incrementing reg from: 0 to 1
+begin loop...
+nothing above...
+NEW git
+[MALLOC]
+NEW git
+[MALLOC]
+ref_increment((General_t)__temp1);
+incrementing itr from: 0 to 1
+incrementing itr from: 2 to 3
+incrementing reg from: 2 to 3
+|__end increment__|
+ret is null
+NEW git
+[MALLOC]
+ref_increment((General_t)__temp2);
+incrementing itr from: 0 to 1
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+|__end increment__|
+NEW git
+[MALLOC]
+NEW git
+[MALLOC]
+ref_increment((General_t)__temp3);
+incrementing itr from: 0 to 1
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+|__end increment__|
+__temp4 = iterable_append(__temp2, __temp3 );
+NEW git
+[MALLOC]
+NEW git
+[MALLOC]
+|--ref_increment((General_t)__temp4);
+incrementing itr from: 0 to 1
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 0 to 1
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+|__end increment__|
+ref_decrement((General_t)_ret);
+|__end decrement__|
+|--ref_increment((General_t)_ret);
+incrementing itr from: 1 to 2
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 1 to 2
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+|__end crement__|
+|--ref_decrement((General_t)__temp1);
+decrementing itr from: 1 to 0
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+freeing!
+[FREE]
+|__end crement__|
+|--ref_decrement((General_t)__temp2);
+decrementing itr from: 1 to 0
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+freeing!
+[FREE]
+|__end crement__|
+|--ref_decrement((General_t)__temp3);
+decrementing itr from: 1 to 0
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+freeing!
+[FREE]
+|__end crement__|
+|--ref_decrement((General_t)__temp4);
+decrementing itr from: 2 to 1
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 2 to 1
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+|__end crement__|
+[END LOOP]
+|--ref_decrement((General_t) _iter0);
+decrementing itr from: 1 to 0
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+freeing!
+[FREE]
+|__end crement__|
+|--ref_decrement((General_t)_it1);
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+|__end crement__|
+NEW iterator
+[MALLOC]
+incrementing reg from: 0 to 1
+[START WHILE LOOP]
+QWERTY
+NEW string
+[MALLOC]
+d
+FREE print line buffer
+[FREE]
+QWERTY
+NEW string
+[MALLOC]
+d
+FREE print line buffer
+[FREE]
+[END WHILE LOOP]
+|--ref_decrement((General_t)_it2);
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+|__end crement__|
+|--ref_decrement((General_t)_ret);
+decrementing itr from: 1 to 0
+decrementing itr from: 3 to 2
+decrementing reg from: 3 to 2
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing itr from: 2 to 1
+decrementing reg from: 2 to 1
+freeing!
+[FREE]
+|__end crement__|
+|--ref_decrement((General_t)_input);
+decrementing itr from: 1 to 0
+decrementing itr from: 1 to 0
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+freeing!
+[FREE]
+freeing!
+[FREE]
+|__end crement__|
+[FINISH]
+---FINAL COUNT: 2

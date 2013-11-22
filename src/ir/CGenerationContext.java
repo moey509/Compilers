@@ -9,6 +9,11 @@ public class CGenerationContext {
 	public Map<String, CGenerationType> cVariableToTypeMap;
 	public HashSet<String> variablesDeclaredInScope;
 	public HashSet<String> variablesInitializedInScope;
+	
+	// set that contains all variables that need to be freed from control flow types.
+	// ie. in the case for (v in e) {}, 'e' will get placed into this set
+	public HashSet<String> controlFlowVariables = new HashSet<String>();
+	
 	//map of variable name to variable type that needs to be declared at the top of scope
 	// declare new map whenever we enter a new scope (i.e. function implementation or main function
 	public Map<String, String> varDecl = new HashMap<String, String>();

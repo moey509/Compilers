@@ -38,16 +38,20 @@ public final class IrReturn implements IrStatement {
 	@Override
 	public ArrayList<String> toC(CGenerationContext context, boolean isMain) {
 		ArrayList<String> arrList = new ArrayList<String>();
+		
+		String iterator = "";
 
 		String itDeclaration = "";
+		String itIncrement = "";
 		String itCondition = "";
 		String tempVar = "";
 		if (isMain) {
 			int cur_iterator = context.getCurIterator();
 			context.incrementCurIterator();
-			String iterator = "_it" + cur_iterator;
+			iterator = "_it" + cur_iterator;
 			context.varDecl.put(iterator, "iterator_t");
 			itDeclaration = iterator + " = new_iterator((" + expression.toC(context) + "));";
+			itIncrement = "ref_increment((General_t)" + iterator + ");";
 			itCondition = "while(hasNext(" + iterator + ")) {";
 			tempVar = "_return = getNext(" + iterator + ");";
 		}
@@ -64,21 +68,32 @@ public final class IrReturn implements IrStatement {
 		
 		if (isMain) {
 			arrList.add(itDeclaration);
+			arrList.add(itIncrement);
 			arrList.add(itCondition);
 			arrList.add(tempVar);
 		}
 		
-		//TODO: UHHHH IS THIS RIGHT
+		//TODO: UHHHH IS THIS RIGHT [comment: lololol]
 		for (String s : freeContext) {
 			if (!isMain) {
 				arrList.add("ref_decrement((General_t)" + s + ");");
 			}
 		}
 		
+		// free control flow variables
+		for (String s : context.controlFlowVariables) {
+			arrList.add("ref_decrement((General_t)" + s + ");");
+		}
+		//NOTE: note sure if supposed to empty this set...
+		
 		if (isMain) {
 			arrList.add("print_line(charToString(_return), stringLength(_return));");
 			
 			arrList.add("}");
+			// free the iterator
+			arrList.add("ref_decrement((General_t)" + iterator + ");");
+			arrList.add(iterator + " = NULL;");
+			
 			for (String s : freeContext) {
 				arrList.add("ref_decrement((General_t)" + s + ");");
 			}

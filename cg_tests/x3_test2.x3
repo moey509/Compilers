@@ -37,7 +37,7 @@ fun intToStr(i : Integer) : String
 	}
 	return string(pref ++ ret);
 }
-
+blahblahblah := 1;
 for(i in (1..5) ++ [6])
    return [intToStr(i)];
 
