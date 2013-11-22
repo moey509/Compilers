@@ -50,21 +50,33 @@ public class CseContext {
 		variableToExpressionMap.remove(expressionToVariableMap.remove(expr));
 	}
 	
+	public CseContext clone(){
+		CseContext output = new CseContext();
+		
+		for (Map.Entry<String, IrExpression> entry : variableToExpressionMap.entrySet()){
+			output.putVariable(entry.getKey(), entry.getValue());
+		}
+		
+		return output;
+	}
+	
+
+	
 	public CseContext merge(CseContext context){
-		CseContext newContext = new CseContext();
+		CseContext output = new CseContext();
 		
 		for (Map.Entry<String, IrExpression> entry : variableToExpressionMap.entrySet()){
 			if (context.containsVariable(entry.getKey())){
 				if (entry.getValue().equals(context.getExpression(entry.getKey()))){
-					newContext.putVariable(entry.getKey(), entry.getValue());
+					output.putVariable(entry.getKey(), entry.getValue());
 				}
 				else{
-					newContext.putVariable(entry.getKey(), 
+					output.putVariable(entry.getKey(), 
 							new IrVariableExpression(entry.getKey(), entry.getValue().getCType(), 
 									entry.getValue().getCubexType()));
 				}
 			}
 		}	
-		return newContext;
+		return output;
 	}
 }
