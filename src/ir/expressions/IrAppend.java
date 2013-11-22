@@ -24,7 +24,7 @@ public class IrAppend implements IrExpression {
 	}
 	
 	public String toC(CGenerationContext context) {
-		return "iterable_append(" + e1.toC(context) + ", " + e2.toC(context) +" )";
+		return "iterable_append(" + e1.toC(context) + ", " + e2.toC(context) +")";
 	}
 	
 	@Override
@@ -36,5 +36,17 @@ public class IrAppend implements IrExpression {
 	@Override
 	public CubexTypeGrammar getCubexType() {
 		return cubexType;
+	}
+	
+	public String toString(){
+		return e1.toString() + "::" + e2.toString();
+	}
+	
+	public boolean equals(IrAppend expr){
+		return e1.equals(expr.e1) && e2.equals(expr.e2);
+	}
+	
+	public int hashCode(){
+		return toString().hashCode();
 	}
 }

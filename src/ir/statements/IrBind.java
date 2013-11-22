@@ -1,14 +1,15 @@
 package ir.statements;
 
-import java.util.ArrayList;
-
-import typeChecker.CubexCompleteContext;
 import ir.CGenerationContext;
 import ir.expressions.IrExpression;
 import ir.expressions.IrExpressionTuple;
 import ir.expressions.IrFunctionCall;
-import ir.expressions.IrVariableExpression;
 import ir.program.IrTypeTuple;
+
+import java.util.ArrayList;
+
+import optimization.CseContext;
+import typeChecker.CubexCompleteContext;
 
 public final class IrBind implements IrStatement {
 	public IrTypeTuple tuple;
@@ -68,7 +69,8 @@ public final class IrBind implements IrStatement {
 			output.add("ref_increment((General_t)" + tuple.variableName + ");");
 		}
 		else{
-			//TODO: We need to make sure that y was initialized somehow or initialize everything to NULL and set to NULL when freed
+			// TODO: We need to make sure that y was initialized somehow or initialize everything to 
+			//   NULL and set to NULL when freed
 			output.add("ref_decrement((General_t)" + tuple.variableName + ");");
 			if (expression instanceof IrFunctionCall) {
 				IrFunctionCall funcCall = (IrFunctionCall) expression;		
@@ -86,8 +88,16 @@ public final class IrBind implements IrStatement {
 		return output;
 	}
 	
+	
+	
 	public ArrayList<IrBind> getTemporaryVariables(){
 		return this.temporaryBinds;
+	}
+
+	@Override
+	public void removeCommonSubexpressions(CseContext context) {
+		// TODO Auto-generated method stub
+		// DO MANY THINGS
 	}
 
 }

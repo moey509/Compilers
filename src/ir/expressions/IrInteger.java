@@ -36,4 +36,15 @@ public final class IrInteger implements IrExpression {
 	public CubexTypeGrammar getCubexType() {
 		return new CubexTypeClass("Integer", new CubexList<CubexTypeGrammar>());
 	}
+	
+	public String toString(){
+		return Integer.toString(mValue);
+	}
+	public boolean equals(IrInteger expr){
+		return mValue == expr.mValue;
+	}
+	
+	public int hashCode(){
+		return toString().hashCode();
+	}
 }

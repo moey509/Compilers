@@ -1,15 +1,11 @@
 package ir.program;
 
 import ir.CGenerationContext;
-import ir.statements.IrBind;
 import ir.statements.IrStatement;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import typeChecker.TypeContext;
 
 public class IrProgram {
 	public List<IrProgramElem> programElementList;
@@ -114,5 +110,10 @@ public class IrProgram {
 		output.add("}");
 		preOut.addAll(output);
 		return preOut;
+	}
+
+	public void removeCommonSubexpressions() {
+		// TODO Auto-generated method stub
+		
 	}
 }

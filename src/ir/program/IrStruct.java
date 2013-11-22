@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import optimization.CseContext;
+
 public class IrStruct implements IrProgramElem{
 	public String structName;
 	public String constructableComponent;
@@ -57,5 +59,10 @@ public class IrStruct implements IrProgramElem{
 		arr.add("};");
 		
 		return arr;
+	}
+
+	@Override
+	public void removeCommonSubexpressions(CseContext context) {
+		//DO NOTHING
 	}
 }

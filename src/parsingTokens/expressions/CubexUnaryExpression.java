@@ -66,4 +66,12 @@ public abstract class CubexUnaryExpression extends CubexExpression {
 	public void replaceVars(HashMap<String, String> map) {
 		mArgument.replaceVars(map);
 	}
+	
+	public boolean equals(CubexUnaryExpression expr){
+		return operator.equals(expr.operator) && mArgument.equals(expr.mArgument);
+	}
+	
+	public int hashCode(){
+		return toString().hashCode();
+	}
 }

@@ -37,11 +37,13 @@ public class CubexAppend extends CubexExpression {
 		//If temporary variable assigned, create variableExpression as the input to an IrAppend
 		IrExpression vare1;
 		IrExpression vare2;
+		System.out.println("here: " + this);
 		if(tempe1.size() > 0){
 			IrBind binde1 = tempe1.get(tempe1.size()-1);
 			vare1 = new IrVariableExpression(binde1.tuple.variableName, binde1.tuple.type.type);
 		}
 		else{
+			System.out.println("tempe1: " + this);
 			vare1 = e1.toIr(context);
 		}
 		if(tempe2.size() > 0){
@@ -63,7 +65,6 @@ public class CubexAppend extends CubexExpression {
 		arr.addAll(tempe1);
 		arr.addAll(tempe2);
 		arr.add(b);
-		
 		return arr;
 	}
 	
@@ -117,5 +118,13 @@ public class CubexAppend extends CubexExpression {
 	public void replaceVars(HashMap<String, String> map){
 		e1.replaceVars(map);
 		e2.replaceVars(map);
+	}
+	
+	public boolean equals(CubexAppend expr){
+		return e1.equals(expr.e1) && e2.equals(expr.e2);
+	}
+	
+	public int hashCode(){
+		return toString().hashCode();
 	}
 }

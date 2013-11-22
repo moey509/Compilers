@@ -1,6 +1,7 @@
 package ir.expressions;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import ir.CGenerationContext;
 import ir.IrMiscFunctions;
@@ -22,8 +23,8 @@ public class IrIterable implements IrExpression {
 	//git_t i6 = iterable_append(i1, iterable_append(i2, iterable_append(i3, iterable_append(i4, iterable_append(i5, iterable_append(i6, NULL)))));
 	public String helper(int index, CGenerationContext context) {
 		if (index == list.size()-1) 
-			return ("iterable_append(new_git_obj("+list.get(index).toC(context) +"), NULL)");
-		return ("iterable_append(new_git_obj(" + list.get(index).toC(context) + "), " + helper(index+1, context) + ")");
+			return ("iterable_append("+list.get(index).toC(context) +", NULL)");
+		return ("iterable_append(" + list.get(index).toC(context) + ", " + helper(index+1, context) + ")");
 	}
 
 	public String getCType() {
@@ -47,5 +48,36 @@ public class IrIterable implements IrExpression {
 	@Override
 	public CubexTypeGrammar getCubexType() {
 		return cubexType;
+	}
+	
+	public String toString(){
+		StringBuilder sb = new StringBuilder();
+		boolean first = true;
+		for (IrExpression expr : list.iterable()){
+			if (first){
+				first = false;
+				sb.append(expr.toString());
+			}
+			else{
+				sb.append(", " + expr.toString());
+			}
+		}
+		return "[" + sb.toString() + "]";
+	}
+	
+	public boolean equals(IrIterable expr){
+
+		Iterator<IrExpression> iter1 = list.iterable().iterator();
+		Iterator<IrExpression> iter2 = list.iterable().iterator();
+		while (iter1.hasNext() && iter2.hasNext()){
+			if (!iter1.next().equals(iter2.next())){
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public int hashCode(){
+		return toString().hashCode();
 	}
 }

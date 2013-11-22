@@ -36,4 +36,16 @@ public final class IrBoolean implements IrExpression {
 	public CubexTypeGrammar getCubexType() {
 		return new CubexTypeClass("Boolean", new CubexList<CubexTypeGrammar>());
 	}
+	
+	public String toString(){
+		return mValue ? "true" : "false";
+	}
+	
+	public boolean equals(IrBoolean expr){
+		return mValue == expr.mValue;
+	}
+	
+	public int hashCode(){
+		return toString().hashCode();
+	}
 }

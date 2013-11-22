@@ -81,4 +81,11 @@ public abstract class CubexBinaryExpression extends CubexExpression {
 		mLeft.replaceVars(map);
 		mRight.replaceVars(map);
 	}
+	public boolean equals(CubexBinaryExpression expr){
+		return mLeft.equals(expr.mLeft) && mRight.equals(expr.mRight) && operator.equals(expr.operator);
+	}
+	
+	public int hashCode(){
+		return toString().hashCode();
+	}
 }

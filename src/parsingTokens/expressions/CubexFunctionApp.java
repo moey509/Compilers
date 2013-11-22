@@ -8,6 +8,7 @@ import ir.statements.IrBind;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Set;
 
 import Exception.SemanticException;
@@ -210,5 +211,44 @@ public final class CubexFunctionApp extends CubexExpression {
 		for (CubexExpression e : functionParams.contextCollection) {
 			e.replaceVars(map);
 		}
+	}
+	
+	public boolean equals(CubexFunctionApp expression){
+		if (!expression.expr.equals(expr)){
+			return false;
+		}
+		if (!name.equals(expression.name)){
+			return false;
+		}
+		Iterator<CubexTypeGrammar> paramIter1 = typeParams.iterable().iterator();
+		Iterator<CubexTypeGrammar> paramIter2 = expression.typeParams.iterable().iterator();
+		while (paramIter1.hasNext() && paramIter2.hasNext()){
+			CubexTypeGrammar t1 = paramIter1.next();
+			CubexTypeGrammar t2 = paramIter2.next();
+			if (t1.name != t2.name){
+				return false;
+			}
+		}
+		if (paramIter1.hasNext() || paramIter2.hasNext()){
+			return false;
+		}
+		Iterator<CubexExpression> exprIter1 = functionParams.iterable().iterator();
+		Iterator<CubexExpression> exprIter2 = expression.functionParams.iterable().iterator();
+		while (exprIter1.hasNext() && exprIter2.hasNext()){
+			CubexExpression e1 = exprIter1.next();
+			CubexExpression e2 = exprIter2.next();
+			if (!e1.equals(e2)){
+				return false;
+			}
+		}
+		if (exprIter1.hasNext() || exprIter2.hasNext()){
+			return false;
+		}
+		
+		return true;
+	}
+	
+	public int hashCode(){
+		return toString().hashCode();
 	}
 }

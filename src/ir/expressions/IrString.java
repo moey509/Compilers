@@ -1,15 +1,14 @@
 package ir.expressions;
 
+import ir.CGenerationContext;
+import ir.IrMiscFunctions;
+import ir.statements.IrBind;
+
 import java.util.ArrayList;
 
 import parsingTokens.CubexList;
 import parsingTokens.typeGrammar.CubexTypeClass;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
-import ir.CGenerationContext;
-import ir.IrMiscFunctions;
-import ir.IrType;
-import ir.program.IrTypeTuple;
-import ir.statements.IrBind;
 
 public final class IrString implements IrExpression {
 	private String mValue;
@@ -55,5 +54,17 @@ public final class IrString implements IrExpression {
 	@Override
 	public CubexTypeGrammar getCubexType() {
 		return new CubexTypeClass("String", new CubexList<CubexTypeGrammar>());
+	}
+	
+	public String toString(){
+		return mValue;
+	}
+	
+	public boolean equals(IrString expr){
+		return mValue.equals(expr.mValue);
+	}
+	
+	public int hashCode(){
+		return toString().hashCode();
 	}
 }
