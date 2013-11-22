@@ -5,6 +5,7 @@ import ir.IrType;
 import ir.statements.IrBind;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import parsingTokens.typeGrammar.CubexTypeGrammar;
@@ -96,6 +97,24 @@ public final class IrFunctionCall implements IrExpression {
 		}
 		
 		return functionName + "(" + sb.toString() + ")";
+	}
+	
+	public boolean equals(IrFunctionCall expr){
+		if (!functionName.equals(expr.functionName)){
+			return false;
+		}
+		Iterator<IrExpressionTuple> iter1 = arguments.iterator();
+		Iterator<IrExpressionTuple> iter2 = arguments.iterator();
+		while (iter1.hasNext() && iter2.hasNext()){
+			if (!iter1.next().expression.equals(iter2.next().expression)){
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public int hashCode(){
+		return toString().hashCode();
 	}
 }
 

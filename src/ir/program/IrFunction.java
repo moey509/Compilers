@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
+import optimization.CseContext;
 import ir.CGenerationContext;
 import ir.IrType;
 import ir.expressions.IrExpression;
@@ -196,6 +197,14 @@ public class IrFunction implements IrProgramElem{
 	}
 
 	public void addConstructorStatement(IrBind irBind) {
+		
+	}
+
+	@Override
+	public void removeCommonSubexpressions(CseContext context) {
+		for (IrStatement statement : statements){
+			statement.removeCommonSubexpressions(context);
+		}
 		
 	}
 }

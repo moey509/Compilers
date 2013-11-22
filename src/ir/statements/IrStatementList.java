@@ -5,6 +5,7 @@ import ir.CGenerationContext;
 import java.util.ArrayList;
 import java.util.List;
 
+import optimization.CseContext;
 import typeChecker.CubexCompleteContext;
 
 public class IrStatementList implements IrStatement{
@@ -60,5 +61,12 @@ public class IrStatementList implements IrStatement{
 			this.temporaryBinds.addAll(s.getTemporaryVariables());
 		}
 		return this.temporaryBinds;
+	}
+
+	@Override
+	public void removeCommonSubexpressions(CseContext context) {
+		for (IrStatement statement : statementList){
+			statement.removeCommonSubexpressions(context);
+		}
 	}
 }

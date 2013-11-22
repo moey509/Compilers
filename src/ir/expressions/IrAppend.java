@@ -41,5 +41,12 @@ public class IrAppend implements IrExpression {
 	public String toString(){
 		return e1.toString() + "::" + e2.toString();
 	}
-
+	
+	public boolean equals(IrAppend expr){
+		return e1.equals(expr.e1) && e2.equals(expr.e2);
+	}
+	
+	public int hashCode(){
+		return toString().hashCode();
+	}
 }

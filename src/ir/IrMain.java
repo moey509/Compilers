@@ -68,6 +68,7 @@ public class IrMain {
 			cubParser.programAST.replaceCKeyWords();
 			IrGenerationContext context = new IrGenerationContext();
 			IrProgram program = cubParser.programAST.toIr(context, new IrProgram());
+			program.removeCommonSubexpressions();
 			ArrayList<String> programCode = program.toC();
 			FileWriter writer = new FileWriter(new File("out.c"));
 //			System.out.println("----------");

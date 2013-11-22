@@ -3,6 +3,7 @@ package ir.statements;
 import java.util.ArrayList;
 import java.util.List;
 
+import optimization.CseContext;
 import typeChecker.CubexCompleteContext;
 import ir.CGenerationContext;
 import ir.expressions.IrExpression;
@@ -183,6 +184,12 @@ public class IrFor implements IrStatement {
 	 */
 	public ArrayList<IrBind> getTemporaryVariables(){
 		return this.temporaryBinds;
+	}
+
+	@Override
+	public void removeCommonSubexpressions(CseContext context) {
+		// TODO Auto-generated method stub
+		
 	}
 }
 

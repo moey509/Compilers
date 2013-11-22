@@ -1,6 +1,7 @@
 package ir.expressions;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import ir.CGenerationContext;
@@ -70,5 +71,13 @@ public class IrUnaryExpression implements IrExpression {
 	
 	public String toString(){
 		return operator + expression.toString();
+	}
+	
+	public boolean equals(IrUnaryExpression expr){
+		return expression.equals(expr.expression) && operator.equals(expr.operator);
+	}
+	
+	public int hashCode(){
+		return toString().hashCode();
 	}
 }

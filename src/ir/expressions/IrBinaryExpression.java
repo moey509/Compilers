@@ -15,14 +15,15 @@ public class IrBinaryExpression implements IrExpression {
 	private CubexTypeGrammar cubexType;
 
 	public IrBinaryExpression(IrExpression leftExpression,
-			IrExpression rightExpression, String operator, CubexTypeGrammar cubexType) {
+			IrExpression rightExpression, String operator,
+			CubexTypeGrammar cubexType) {
 		this.leftExpression = leftExpression;
 		this.rightExpression = rightExpression;
 		this.operator = operator;
 		this.cubexType = cubexType;
 
 		System.out.println("___=> " + operator);
-		
+
 		// logic to determine type:
 		if (operator.equals("+") || operator.equals("&&")
 				|| operator.equals("/") || operator.equals("-")
@@ -31,10 +32,10 @@ public class IrBinaryExpression implements IrExpression {
 		else if (operator.equals("||") || operator.equals("==")
 				|| operator.equals("<=") || operator.equals("<"))
 			type = IrMiscFunctions.BOOLEAN;
-		else if (operator.equals("..") || operator.equals(".<") || operator.equals("<.") || operator.equals("<<")) {
+		else if (operator.equals("..") || operator.equals(".<")
+				|| operator.equals("<.") || operator.equals("<<")) {
 			type = IrMiscFunctions.ITERABLE;
-		}
-		else {
+		} else {
 			type = null;
 			System.out.println("WARNING! built it type was not found...");
 		}
@@ -58,48 +59,33 @@ public class IrBinaryExpression implements IrExpression {
 
 	public String toC(CGenerationContext context) {
 		/*
-		// case for iterables:
-		if (type.equals(IrMiscFunctions.ITERABLE)) {
-			// integer case:
-			if (leftExpression.getCType().equals(IrMiscFunctions.INTEGER)) {
-				String base = "Integer_through(" + leftExpression.toC(context) + ", " + rightExpression.toC(context) 
-						+ ", ";
-				if (operator.equals("..")) {
-					return base + "new_integer(1), new_integer(1))";
-				} else if (operator.equals(".<")) {
-					return base + "new_integer(1), new_integer(0))";
-				} else if (operator.equals("<.")){
-					return base + "new_integer(0), new_integer(1))";
-				} else if (operator.equals("<<")) {
-					return base + "new_integer(0), new_integer(0))";
-				} else {
-					System.out.println("WARNING! THIS ITERABLE TYPE NO EXIST");
-					return null;
-				}
-			}
-			// boolean case
-			else if (leftExpression.getCType().equals(IrMiscFunctions.BOOLEAN)) {
-				String base = "Integer_through(" + leftExpression.toC(context) + ", " + rightExpression.toC(context) 
-						+ ", ";
-				if (operator.equals("..")) {
-					return base + "new_integer(1), new_integer(1))";
-				} else if (operator.equals(".<")) {
-					return base + "new_integer(1), new_integer(0))";
-				} else if (operator.equals("<.")){
-					return base + "new_integer(0), new_integer(1))";
-				} else if (operator.equals("<<")) {
-					return base + "new_integer(0), new_integer(0))";
-				} else {
-					System.out.println("WARNING! THIS ITERABLE TYPE NO EXIST");
-					return null;
-				}			
-			}
-			else {
-				System.out.println("WARNING! THRU-WARDS ON WRONG TYPE");
-				return null;
-			}			
-		}
-		*/
+		 * // case for iterables: if (type.equals(IrMiscFunctions.ITERABLE)) {
+		 * // integer case: if
+		 * (leftExpression.getCType().equals(IrMiscFunctions.INTEGER)) { String
+		 * base = "Integer_through(" + leftExpression.toC(context) + ", " +
+		 * rightExpression.toC(context) + ", "; if (operator.equals("..")) {
+		 * return base + "new_integer(1), new_integer(1))"; } else if
+		 * (operator.equals(".<")) { return base +
+		 * "new_integer(1), new_integer(0))"; } else if (operator.equals("<.")){
+		 * return base + "new_integer(0), new_integer(1))"; } else if
+		 * (operator.equals("<<")) { return base +
+		 * "new_integer(0), new_integer(0))"; } else {
+		 * System.out.println("WARNING! THIS ITERABLE TYPE NO EXIST"); return
+		 * null; } } // boolean case else if
+		 * (leftExpression.getCType().equals(IrMiscFunctions.BOOLEAN)) { String
+		 * base = "Integer_through(" + leftExpression.toC(context) + ", " +
+		 * rightExpression.toC(context) + ", "; if (operator.equals("..")) {
+		 * return base + "new_integer(1), new_integer(1))"; } else if
+		 * (operator.equals(".<")) { return base +
+		 * "new_integer(1), new_integer(0))"; } else if (operator.equals("<.")){
+		 * return base + "new_integer(0), new_integer(1))"; } else if
+		 * (operator.equals("<<")) { return base +
+		 * "new_integer(0), new_integer(0))"; } else {
+		 * System.out.println("WARNING! THIS ITERABLE TYPE NO EXIST"); return
+		 * null; } } else {
+		 * System.out.println("WARNING! THRU-WARDS ON WRONG TYPE"); return null;
+		 * } }
+		 */
 		// everything else
 		if (leftExpression.getCType().equals(IrMiscFunctions.INTEGER)) {
 			if (operator.equals("+"))
@@ -178,7 +164,8 @@ public class IrBinaryExpression implements IrExpression {
 				return "String_equals(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + ")";
 		}
-		System.out.println("WARNING: there is no operator in this Binary Expression");
+		System.out
+				.println("WARNING: there is no operator in this Binary Expression");
 		return operator;
 	}
 
@@ -192,8 +179,19 @@ public class IrBinaryExpression implements IrExpression {
 	public CubexTypeGrammar getCubexType() {
 		return cubexType;
 	}
-	
-	public String toString(){
-		return leftExpression.toString() + operator + rightExpression.toString();
+
+	public String toString() {
+		return leftExpression.toString() + operator
+				+ rightExpression.toString();
+	}
+
+	public boolean equals(IrBinaryExpression expr) {
+		return leftExpression.equals(expr.leftExpression)
+				&& rightExpression.equals(expr.rightExpression)
+				&& operator.equals(expr.operator);
+	}
+
+	public int hashCode() {
+		return toString().hashCode();
 	}
 }
