@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+import ir.expressions.IrVariableExpression;
+import ir.statements.IrBind;
+import ir.statements.IrFor;
 import ir.statements.IrWhile;
 import Exception.SemanticException;
 import parsingTokens.expressions.CubexExpression;
@@ -26,10 +29,24 @@ public final class CubexWhile extends CubexStatement {
 	}
 	
 	public IrWhile toIr(IrGenerationContext context) {
-		IrWhile ir = new IrWhile(e.toIr(context), cubexContext);
-		ir.addStatement(s.toIr(context));
-		ir.setFreeContext(new ArrayList<String>(freeContext));
-		return ir;
+		ArrayList<IrBind> arr = e.getExpressions(context);
+		if(arr.size() == 0){
+			IrWhile ir = new IrWhile(e.toIr(context), cubexContext);
+			ir.addStatement(s.toIr(context));
+			ir.temporaryBinds.addAll(arr);
+			ir.setFreeContext(new ArrayList<String>(freeContext));
+			
+			return ir;
+		}
+		else{
+			IrBind b = arr.get(arr.size()-1);
+			IrWhile ir = new IrWhile(new IrVariableExpression(b.tuple.variableName, b.tuple.type.type), cubexContext);
+			ir.temporaryBinds.addAll(arr);
+
+			ir.addStatement(s.toIr(context));
+			ir.setFreeContext(new ArrayList<String>(freeContext));
+			return ir;
+		}
 	}
 
 	public String toString() {

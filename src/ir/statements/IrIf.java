@@ -63,7 +63,9 @@ public class IrIf implements IrStatement {
 		}
 		arrList.add("if(((Boolean_t)" + condition.toC(context) + ")->value) {");
 		for(IrBind b : temporaryBinds){
-			arrList.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
+			String s = b.tuple.variableName;
+			arrList.add("ref_decrement((General_t)" + s + ");");
+			arrList.add(s + "= NULL;");
 		}
 		for (IrStatement s1 : statements1) {
 			arrList.addAll(s1.toC(context, isMain));
@@ -74,8 +76,18 @@ public class IrIf implements IrStatement {
 		}
 		if (statements2.isEmpty()) {
 			arrList.add("}");
+			for(IrBind b : temporaryBinds){
+				String s = b.tuple.variableName;
+				arrList.add("ref_decrement((General_t)" + s + ");");
+				arrList.add(s + "= NULL;");
+			}
 		} else {
 			arrList.add("} else {");
+			for(IrBind b : temporaryBinds){
+				String s = b.tuple.variableName;
+				arrList.add("ref_decrement((General_t)" + s + ");");
+				arrList.add(s + "= NULL;");
+			}
 			for (IrStatement s2 : statements2) {
 				arrList.addAll(s2.toC(context, isMain));
 			}
