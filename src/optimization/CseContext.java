@@ -64,21 +64,24 @@ public class CseContext {
 	
 
 	
-	public CseContext merge(CseContext context){
+	public CseContext merge(CseContext mergedContext){
 		CseContext output = new CseContext();
 		
 		for (Map.Entry<String, IrExpression> entry : variableToExpressionMap.entrySet()){
-			if (context.containsVariable(entry.getKey())){
-				if (entry.getValue().equals(context.getExpression(entry.getKey()))){
-					output.putVariable(entry.getKey(), entry.getValue());
+			if (mergedContext.containsVariable(entry.getKey())){
+				if (entry.getValue().equals(mergedContext.getExpression(entry.getKey()))){
+					output.variableToExpressionMap.put(entry.getKey(), entry.getValue());
 				}
 				else{
-					output.putVariable(entry.getKey(), 
+					output.variableToExpressionMap.put(entry.getKey(),
 							new IrVariableExpression(entry.getKey(), entry.getValue().getCType(), 
 									entry.getValue().getCubexType()));
 				}
 			}
-		}	
+		}
+		for (Map.Entry<IrExpression, String> entry : expressionToVariableMap.entrySet()){
+			
+		}
 		return output;
 	}
 	
