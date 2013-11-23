@@ -502,7 +502,7 @@ int stringLength(git_t g) {
 
 /* convert a char iterable into a String */
 char* charToString(git_t g) {
-  printf ("QWERTY\n");
+  /*printf ("QWERTY\n");*/
   git_t itr;
   int counter;
   char* buf;
@@ -514,7 +514,7 @@ char* charToString(git_t g) {
     counter += 1;
     itr = itr->next;
   }
-  printf ("NEW string\n");
+  /*printf ("NEW string\n"); */
   buf = (char*) x3malloc (sizeof(char*) * (counter + 1));
   itr = g;
   counter = 0;
