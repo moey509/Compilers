@@ -120,9 +120,14 @@ public final class IrReturn implements IrStatement {
 			arrList.add("return;");
 		}
 		else {
-			for(int i = 0; i < temporaryBinds.size(); i++){
+			for(int i = 0; i < temporaryBinds.size()-1; i++){
 				IrBind b = temporaryBinds.get(i);
-				arrList.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
+				if(i == temporaryBinds.size()-1 && b.tuple.variableName.equals(b.toC(context, isMain))){
+					arrList.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
+				}
+				else{
+					arrList.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
+				}
 			}
 			arrList.add("return " + expression.toC(context) + ";");
 		}
