@@ -42,7 +42,12 @@ public final class IrInteger implements IrExpression {
 		return Integer.toString(mValue);
 	}
 	public boolean equals(Object object){
-		return mValue == ((IrInteger)object).mValue;
+		if (object instanceof IrInteger){
+			return mValue == ((IrInteger)object).mValue;
+		}
+		else{
+			return false;
+		}
 	}
 	
 	public int hashCode(){
@@ -51,10 +56,16 @@ public final class IrInteger implements IrExpression {
 
 	@Override
 	public IrExpression eliminateSubexpression(CseContext context) {
-		if (context.containsExpression(this)){
-			return context.getVariableExpression(this);
+		IrExpression expr = getSubexpressions(context);
+		if (context.containsExpression(expr)){
+			return context.getVariableExpression(expr);
 		} else {
 			return this;
 		}
+	}
+
+	@Override
+	public IrExpression getSubexpressions(CseContext context) {
+		return new IrInteger(mValue);
 	}
 }

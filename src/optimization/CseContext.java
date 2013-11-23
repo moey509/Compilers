@@ -18,15 +18,8 @@ public class CseContext {
 	}
 	
 	public void putVariable(String variable, IrExpression expr){
-		variableToExpressionMap.put(variable, expr);
-		expressionToVariableMap.put(expr, variable);
-	}
-	
-	public void redefineVariable(String variable, IrExpression expr){
-		expressionToVariableMap.remove(expr);
-		variableToExpressionMap.remove(variable);
-
-		expressionToVariableMap.put(expr, variable);
+		if (!expressionToVariableMap.containsKey(expr))
+			expressionToVariableMap.put(expr, variable);
 		variableToExpressionMap.put(variable, expr);
 	}
 	
@@ -95,8 +88,8 @@ public class CseContext {
 		for (Map.Entry<String, IrExpression> entry : variableToExpressionMap.entrySet()){
 			System.out.println(entry.getKey() + " => " + entry.getValue().toString());
 		}
-		System.out.println("------------");
 		System.out.println(variableToExpressionMap.toString());
 		System.out.println(expressionToVariableMap.toString());
+		System.out.println("------------");
 	}
 }

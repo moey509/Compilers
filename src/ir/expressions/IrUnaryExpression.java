@@ -75,8 +75,13 @@ public class IrUnaryExpression implements IrExpression {
 	}
 	
 	public boolean equals(Object object){
-		IrUnaryExpression expr = (IrUnaryExpression) object;
-		return expression.equals(expr.expression) && operator.equals(expr.operator);
+		if (object instanceof IrUnaryExpression){
+			IrUnaryExpression expr = (IrUnaryExpression) object;
+			return expression.equals(expr.expression) && operator.equals(expr.operator);
+		}
+		else {
+			return false;
+		}
 	}
 	
 	public int hashCode(){
@@ -85,11 +90,17 @@ public class IrUnaryExpression implements IrExpression {
 
 	@Override
 	public IrExpression eliminateSubexpression(CseContext context) {
-		expression = expression.eliminateSubexpression(context);
-		if (context.containsExpression(this)){
-			return context.getVariableExpression(this);
+		IrExpression expr = getSubexpressions(context);
+		if (context.containsExpression(expr)){
+			return context.getVariableExpression(expr);
 		} else {
+			expression = expression.eliminateSubexpression(context);
 			return this;
 		}
+	}
+
+	@Override
+	public IrExpression getSubexpressions(CseContext context) {
+		return new IrUnaryExpression(expression.eliminateSubexpression(context), operator, cubexType);
 	}
 }

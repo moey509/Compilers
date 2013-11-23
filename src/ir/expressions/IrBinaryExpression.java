@@ -187,10 +187,15 @@ public class IrBinaryExpression implements IrExpression {
 	}
 
 	public boolean equals(Object object) {
-		IrBinaryExpression expr = (IrBinaryExpression)object;
-		return leftExpression.equals(expr.leftExpression)
-				&& rightExpression.equals(expr.rightExpression)
-				&& operator.equals(expr.operator);
+		if (object instanceof IrBinaryExpression){
+			IrBinaryExpression expr = (IrBinaryExpression)object;
+			return leftExpression.equals(expr.leftExpression)
+					&& rightExpression.equals(expr.rightExpression)
+					&& operator.equals(expr.operator);
+		}
+		else {
+			return false;
+		}
 	}
 
 	public int hashCode() {
@@ -199,12 +204,19 @@ public class IrBinaryExpression implements IrExpression {
 
 	@Override
 	public IrExpression eliminateSubexpression(CseContext context) {
-		leftExpression = leftExpression.eliminateSubexpression(context);
-		rightExpression = rightExpression.eliminateSubexpression(context);
-		if (context.containsExpression(this)){
-			return context.getVariableExpression(this);
+		IrExpression expr = getSubexpressions(context);
+		if (context.containsExpression(expr)){
+			return context.getVariableExpression(expr);
 		} else {
+			leftExpression = leftExpression.eliminateSubexpression(context);
+			rightExpression = rightExpression.eliminateSubexpression(context);
 			return this;
 		}
+	}
+
+	@Override
+	public IrExpression getSubexpressions(CseContext context) {
+		return new IrBinaryExpression(leftExpression.getSubexpressions(context), 
+				rightExpression.getSubexpressions(context), operator, cubexType);
 	}
 }

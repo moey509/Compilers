@@ -43,8 +43,13 @@ public final class IrBoolean implements IrExpression {
 	}
 	
 	public boolean equals(Object object){
-		IrBoolean expr = (IrBoolean) object;
-		return mValue == expr.mValue;
+		if (object instanceof IrBoolean){
+			IrBoolean expr = (IrBoolean) object;
+			return mValue == expr.mValue;
+		}
+		else {
+			return false;
+		}
 	}
 	
 	public int hashCode(){
@@ -53,10 +58,16 @@ public final class IrBoolean implements IrExpression {
 
 	@Override
 	public IrExpression eliminateSubexpression(CseContext context) {
-		if (context.containsExpression(this)){
-			return context.getVariableExpression(this);
+		IrExpression expr = getSubexpressions(context);
+		if (context.containsExpression(expr)){
+			return context.getVariableExpression(expr);
 		} else {
 			return this;
 		}
+	}
+
+	@Override
+	public IrExpression getSubexpressions(CseContext context) {
+		return new IrBoolean(mValue);
 	}
 }

@@ -44,8 +44,13 @@ public class IrAppend implements IrExpression {
 	}
 	
 	public boolean equals(Object object){
-		IrAppend expr = (IrAppend) object;
-		return e1.equals(expr.e1) && e2.equals(expr.e2);
+		if (object instanceof IrAppend){
+			IrAppend expr = (IrAppend) object;
+			return e1.equals(expr.e1) && e2.equals(expr.e2);
+		}
+		else {
+			return false;
+		}
 	}
 	
 	public int hashCode(){
@@ -54,12 +59,18 @@ public class IrAppend implements IrExpression {
 
 	@Override
 	public IrExpression eliminateSubexpression(CseContext context) {
-		e1 = e1.eliminateSubexpression(context);
-		e2 = e2.eliminateSubexpression(context);
-		if (context.containsExpression(this)){
-			return context.getVariableExpression(this);
+		IrExpression expr = getSubexpressions(context);
+		if (context.containsExpression(expr)){
+			return context.getVariableExpression(expr);
 		} else {
+			e1 = e1.eliminateSubexpression(context);
+			e2 = e2.eliminateSubexpression(context);
 			return this;
 		}
+	}
+
+	@Override
+	public IrExpression getSubexpressions(CseContext context) {
+		return new IrAppend(e1.getSubexpressions(context), e2.getSubexpressions(context), cubexType);
 	}
 }

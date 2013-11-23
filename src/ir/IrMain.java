@@ -68,7 +68,7 @@ public class IrMain {
 			cubParser.programAST.replaceCKeyWords();
 			IrGenerationContext context = new IrGenerationContext();
 			IrProgram program = cubParser.programAST.toIr(context, new IrProgram());
-			program.removeCommonSubexpressions();
+			//program.removeCommonSubexpressions();
 			ArrayList<String> programCode = program.toC();
 			FileWriter writer = new FileWriter(new File("out.c"));
 //			System.out.println("----------");
@@ -76,11 +76,11 @@ public class IrMain {
 			writer.write("#include \"cubex_lib.h\"\n");
 			// TODO: REMOVE THIS BEFORE SUBMITTING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			writer.write("#include \"stdio.h\"\n");
-//			for (String s : programCode){
-//				System.out.println(counter + "\t" + s);
-//				counter++;
-//				writer.write(s + "\n");
-//			}
+			for (String s : programCode){
+				System.out.println(counter + "\t" + s);
+				counter++;
+				writer.write(s + "\n");
+			}
 			writer.close();
 			
 		} catch (SemanticException e) {

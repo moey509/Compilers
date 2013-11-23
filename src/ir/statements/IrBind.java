@@ -17,7 +17,8 @@ public final class IrBind implements IrStatement {
 	public IrExpression expression;
 	public ArrayList<IrBind> temporaryBinds;
 	public CubexCompleteContext context;
-
+	public boolean cse = false;
+	
 	public IrBind(IrTypeTuple tuple, IrExpression expression, CubexCompleteContext context) {
 		this.tuple = tuple;
 		this.expression = expression;
@@ -68,10 +69,17 @@ public final class IrBind implements IrStatement {
 //		}
 
 		if(temporaryBinds.size() > 0){
-			String s = temporaryBinds.get(temporaryBinds.size()-1).tuple.variableName;
+			String s;
+			if (cse){
+				s = expression.toC(context);
+			}
+			else {
+				s = temporaryBinds.get(temporaryBinds.size()-1).tuple.variableName;
+			}
 			output.add("ref_decrement((General_t)" + tuple.variableName + ");");
 			output.add(tuple.variableName + " = " + s + ";");
 			output.add("ref_increment((General_t)" + tuple.variableName + ");");
+			
 		}
 		else{
 			// TODO: We need to make sure that y was initialized somehow or initialize everything to 
@@ -105,10 +113,16 @@ public final class IrBind implements IrStatement {
 		
 		for (IrBind tempBind : temporaryBinds){
 			tempBind.expression = tempBind.expression.eliminateSubexpression(context);
-			context.putVariable(tempBind.getVariableName(), tempBind.expression);
+			context.putVariable(tempBind.getVariableName(), tempBind.expression.getSubexpressions(context));
 		}
-		expression = expression.eliminateSubexpression(context);
-		context.putVariable(getVariableName(), expression);
+		System.out.println("Before CSE: " + getVariableName() + "=" + expression);
+		IrExpression temp = expression.eliminateSubexpression(context);
+		if (!temp.equals(expression)){
+			cse = true;
+			expression = temp;
+		}
+		System.out.println("After CSE: " + getVariableName() + "=" + expression);
+		context.putVariable(getVariableName(), expression.getSubexpressions(context));
 	}
 
 }

@@ -67,15 +67,20 @@ public class IrIterable implements IrExpression {
 	}
 	
 	public boolean equals(Object object){
-		IrIterable expr = (IrIterable)object;
-		Iterator<IrExpression> iter1 = list.iterable().iterator();
-		Iterator<IrExpression> iter2 = list.iterable().iterator();
-		while (iter1.hasNext() && iter2.hasNext()){
-			if (!iter1.next().equals(iter2.next())){
-				return false;
+		if (object instanceof IrIterable){
+			IrIterable expr = (IrIterable)object;
+			Iterator<IrExpression> iter1 = list.iterable().iterator();
+			Iterator<IrExpression> iter2 = expr.list.iterable().iterator();
+			while (iter1.hasNext() && iter2.hasNext()){
+				if (!iter1.next().equals(iter2.next())){
+					return false;
+				}
 			}
+			return true;
 		}
-		return true;
+		else {
+			return false;
+		}
 	}
 	
 	public int hashCode(){
@@ -84,13 +89,23 @@ public class IrIterable implements IrExpression {
 
 	@Override
 	public IrExpression eliminateSubexpression(CseContext context) {
-		for (IrExpression expr : list.iterable()){
-			expr = expr.eliminateSubexpression(context);
-		}
-		if (context.containsExpression(this)){
-			return context.getVariableExpression(this);
+		IrExpression expr = getSubexpressions(context);
+		if (context.containsExpression(expr)){
+			return context.getVariableExpression(expr);
 		} else {
+			for (IrExpression expr1 : list.iterable()){
+				expr1 = expr1.eliminateSubexpression(context);
+			}
 			return this;
 		}
+	}
+
+	@Override
+	public IrExpression getSubexpressions(CseContext context) {
+		CubexList<IrExpression> lst = new CubexList<IrExpression>();
+		for (IrExpression expr : list.iterable()){
+			lst.add(expr.getSubexpressions(context));
+		}
+		return new IrIterable(lst, cubexType);
 	}
 }

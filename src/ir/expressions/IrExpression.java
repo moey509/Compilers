@@ -20,4 +20,6 @@ public interface IrExpression {
 	public String toString();
 	
 	public IrExpression eliminateSubexpression(CseContext context);
+	
+	public IrExpression getSubexpressions(CseContext context);
 }
