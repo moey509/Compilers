@@ -148,6 +148,10 @@ public class IrFor implements IrStatement {
 		for (String s : freeContext) {
 			output.add("ref_decrement((General_t)" + s + ");");
 		}
+		for(IrBind b : this.temporaryBinds){
+			String s = b.tuple.variableName;
+			output.add("ref_decrement((General_t)" + s + ");");
+		}
 
 		return output;
 	}

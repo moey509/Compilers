@@ -21,6 +21,9 @@ public final class IrReturn implements IrStatement {
 	}
 	
 	public void setFreeContext(ArrayList<String> fc) {
+		for (String s : fc) {
+			System.out.println("setting freecontext: " + s);
+		}
 		freeContext = fc;
 	}
 	
@@ -45,6 +48,10 @@ public final class IrReturn implements IrStatement {
 		String itIncrement = "";
 		String itCondition = "";
 		String tempVar = "";
+		String printline = "";
+		String endBrace = "";
+		String itDecrement = "";
+		String itNull = "";
 		if (isMain) {
 			int cur_iterator = context.getCurIterator();
 			context.incrementCurIterator();
@@ -54,6 +61,14 @@ public final class IrReturn implements IrStatement {
 			itIncrement = "ref_increment((General_t)" + iterator + ");";
 			itCondition = "while(hasNext(" + iterator + ")) {";
 			tempVar = "_return = getNext(" + iterator + ");";
+			
+			// newly moved line
+			printline = ("print_line(charToString(_return), stringLength(_return));");
+			
+			endBrace = ("}");
+			// free the iterator
+			itDecrement = ("ref_decrement((General_t)" + iterator + ");");
+			itNull = (iterator + " = NULL;");
 		}
 		
 		for(IrBind b : temporaryBinds){
@@ -71,6 +86,10 @@ public final class IrReturn implements IrStatement {
 			arrList.add(itIncrement);
 			arrList.add(itCondition);
 			arrList.add(tempVar);
+			arrList.add(printline);
+			arrList.add(endBrace);
+			arrList.add(itDecrement);
+			arrList.add(itNull);
 		}
 		
 		//TODO: UHHHH IS THIS RIGHT [comment: lololol]
@@ -87,15 +106,15 @@ public final class IrReturn implements IrStatement {
 		//NOTE: note sure if supposed to empty this set...
 		
 		if (isMain) {
-			arrList.add("print_line(charToString(_return), stringLength(_return));");
-			
-			arrList.add("}");
-			// free the iterator
-			arrList.add("ref_decrement((General_t)" + iterator + ");");
-			arrList.add(iterator + " = NULL;");
-			
 			for (String s : freeContext) {
+				System.out.println("free context: " + s);
 				arrList.add("ref_decrement((General_t)" + s + ");");
+			}
+			//TODO: this looks wrong 
+			for (String s : this.context.typeContext.keySet()) {
+				if (!freeContext.contains(s)) {
+					arrList.add("ref_decrement((General_t)" + s + ");");
+				}
 			}
 			//GARBAGE COLLECT EVERYTHING
 			arrList.add("return;");

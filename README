@@ -1,15 +1,9 @@
 Notes: 
 
 
-WHEN ADDING DECREMENT CODE, SET TO NULL
+-> control flow shit for frees
+-> input is not in some of the returns
+-> top level variables do not have '_' appended to them
 
-iterable and iterator are not getting freed at the end of for loops
-decrement return 
-check -> in the main return, we need to increment adn decrement the iterator
-check -> for (v in e)
-	need to free v if it's special case
-
-
-
--> increment input
--> unrolling (iterable_append(new_git_obj()))
+check to if (v in e) e is getting freed
+things are not getting freed

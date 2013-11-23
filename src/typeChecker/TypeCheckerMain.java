@@ -428,8 +428,7 @@ public class TypeCheckerMain {
 						stringFunctionArguments, typeMap.get("String")));
 	}
 
-	public void defineInput(TypeContext typeContext,
-			Map<String, CubexTypeClass> typeMap) {
+	public void defineInput(TypeContext typeContext, Map<String, CubexTypeClass> typeMap) {
 		CubexTypeClass stringIterable = new CubexTypeClass("Iterable",
 				new CubexList<CubexTypeGrammar>());
 		stringIterable.getTypeList().add(typeMap.get("String"));
