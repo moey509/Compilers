@@ -78,9 +78,9 @@ public class CubexProgramStatement implements CubexProgramType {
 			Set<String> modfc = new HashSet<String>();
 			
 			//toplevel variables: prepend _
-			for (String str : freeContext) {
-				modfc.add("_" + str);
-			}
+//			for (String str : freeContext) {
+//				modfc.add("_" + str);
+//			}
 
 			IrReturn ret = (IrReturn) s;
 			ret.setFreeContext(new ArrayList<String>(modfc));

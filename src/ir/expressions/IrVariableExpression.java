@@ -37,8 +37,6 @@ public class IrVariableExpression implements IrExpression {
 	@Override
 	public String toC(CGenerationContext context) {
 		if (!context.objectToDataMap.containsKey(context.currentObject)){
-			if (variableName.equals("input"))
-				return "_input";
 			return variableName;
 		}
 		else {

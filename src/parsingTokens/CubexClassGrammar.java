@@ -119,7 +119,7 @@ public class CubexClassGrammar {
 	private void addConstructor(IrGenerationContext context, IrProgram program) {
 		IrFunction irFunction = new IrFunction(new IrType(name), name);
 		irFunction.isConstructor = true;
-		context.addGlobalFunction("_" + name);
+		//context.addGlobalFunction("_" + name);
 		for (CubexTypeTuple tuple : typecontext.iterable()) {
 			IrTypeTuple argument = new IrTypeTuple(tuple.getTypeGrammar().toIrType(), tuple.getName());
 			irFunction.addFunctionArgument(argument);
