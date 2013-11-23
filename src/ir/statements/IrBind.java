@@ -4,7 +4,6 @@ import ir.CGenerationContext;
 import ir.expressions.IrExpression;
 import ir.expressions.IrExpressionTuple;
 import ir.expressions.IrFunctionCall;
-import ir.expressions.IrVariableExpression;
 import ir.program.IrTypeTuple;
 
 import java.util.ArrayList;

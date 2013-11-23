@@ -1,0 +1,9 @@
+fun foo(i : Integer) : Integer = i;
+
+x := 3;
+a := foo(3);
+b := foo(3);
+c := foo(x);
+d := foo(2);
+
+return [];
