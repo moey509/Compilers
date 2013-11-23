@@ -3,6 +3,7 @@ package ir.expressions;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import optimization.CseContext;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import ir.CGenerationContext;
 import ir.expressions.IrExpression;
@@ -65,11 +66,32 @@ public class IrVariableExpression implements IrExpression {
 		return variableName;
 	}
 	
-	public boolean equals(IrVariableExpression expr){
-		return variableName.equals(expr.variableName);
+	public boolean equals(Object object){
+		if (object instanceof IrVariableExpression){
+			IrVariableExpression expr = (IrVariableExpression) object;
+			return variableName.equals(expr.variableName);
+		}
+		else{
+			return false;
+		}
 	}
 	
 	public int hashCode(){
 		return toString().hashCode();
+	}
+
+	@Override
+	public IrExpression eliminateSubexpression(CseContext context) {
+		IrExpression expr = getSubexpressions(context);
+		if (context.containsExpression(expr)){
+			return context.getVariableExpression(expr);
+		} else {
+			return this;
+		}
+	}
+
+	@Override
+	public IrExpression getSubexpressions(CseContext context) {
+		return context.getExpression(variableName).getSubexpressions(context);
 	}
 }

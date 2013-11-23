@@ -4,6 +4,7 @@ import ir.CGenerationContext;
 import ir.expressions.IrExpression;
 import ir.expressions.IrExpressionTuple;
 import ir.expressions.IrFunctionCall;
+import ir.expressions.IrVariableExpression;
 import ir.program.IrTypeTuple;
 
 import java.util.ArrayList;
@@ -16,12 +17,17 @@ public final class IrBind implements IrStatement {
 	public IrExpression expression;
 	public ArrayList<IrBind> temporaryBinds;
 	public CubexCompleteContext context;
-
+	public boolean cse = false;
+	
 	public IrBind(IrTypeTuple tuple, IrExpression expression, CubexCompleteContext context) {
 		this.tuple = tuple;
 		this.expression = expression;
 		this.temporaryBinds = new ArrayList<IrBind>();
 		this.context = context;
+	}
+	
+	public String getVariableName(){
+		return tuple.variableName;
 	}
 	
 	public void addDeclaration(ArrayList<String> arr, CGenerationContext context){
@@ -63,10 +69,17 @@ public final class IrBind implements IrStatement {
 //		}
 
 		if(temporaryBinds.size() > 0){
-			String s = temporaryBinds.get(temporaryBinds.size()-1).tuple.variableName;
+			String s;
+			if (cse){
+				s = expression.toC(context);
+			}
+			else {
+				s = temporaryBinds.get(temporaryBinds.size()-1).tuple.variableName;
+			}
 			output.add("ref_decrement((General_t)" + tuple.variableName + ");");
 			output.add(tuple.variableName + " = " + s + ";");
 			output.add("ref_increment((General_t)" + tuple.variableName + ");");
+			
 		}
 		else{
 			// TODO: We need to make sure that y was initialized somehow or initialize everything to 
@@ -97,7 +110,19 @@ public final class IrBind implements IrStatement {
 	@Override
 	public void removeCommonSubexpressions(CseContext context) {
 		// TODO Auto-generated method stub
-		// DO MANY THINGS
+		
+		for (IrBind tempBind : temporaryBinds){
+			tempBind.expression = tempBind.expression.eliminateSubexpression(context);
+			context.putVariable(tempBind.getVariableName(), tempBind.expression.getSubexpressions(context));
+		}
+		System.out.println("Before CSE: " + getVariableName() + "=" + expression);
+		IrExpression temp = expression.eliminateSubexpression(context);
+		if (!temp.equals(expression)){
+			cse = true;
+			expression = temp;
+		}
+		System.out.println("After CSE: " + getVariableName() + "=" + expression);
+		context.putVariable(getVariableName(), expression.getSubexpressions(context));
 	}
 
 }

@@ -2,6 +2,7 @@ package ir.expressions;
 
 import java.util.ArrayList;
 
+import optimization.CseContext;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import ir.CGenerationContext;
 import ir.statements.IrBind;
@@ -17,4 +18,8 @@ public interface IrExpression {
 	public ArrayList<IrBind> getExpressions(CGenerationContext context);
 	
 	public String toString();
+	
+	public IrExpression eliminateSubexpression(CseContext context);
+	
+	public IrExpression getSubexpressions(CseContext context);
 }

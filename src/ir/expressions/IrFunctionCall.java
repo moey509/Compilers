@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import optimization.CseContext;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 
 
@@ -99,22 +100,50 @@ public final class IrFunctionCall implements IrExpression {
 		return functionName + "(" + sb.toString() + ")";
 	}
 	
-	public boolean equals(IrFunctionCall expr){
-		if (!functionName.equals(expr.functionName)){
-			return false;
-		}
-		Iterator<IrExpressionTuple> iter1 = arguments.iterator();
-		Iterator<IrExpressionTuple> iter2 = arguments.iterator();
-		while (iter1.hasNext() && iter2.hasNext()){
-			if (!iter1.next().expression.equals(iter2.next().expression)){
+	public boolean equals(Object object){
+		if (object instanceof IrFunctionCall){
+			IrFunctionCall expr = (IrFunctionCall) object;
+			if (!functionName.equals(expr.functionName)){
 				return false;
 			}
+			Iterator<IrExpressionTuple> iter1 = arguments.iterator();
+			Iterator<IrExpressionTuple> iter2 = expr.arguments.iterator();
+			while (iter1.hasNext() && iter2.hasNext()){
+				if (!iter1.next().expression.equals(iter2.next().expression)){
+					return false;
+				}
+			}
+			return true;
 		}
-		return true;
+		else {
+			return false;
+		}
 	}
 	
 	public int hashCode(){
 		return toString().hashCode();
+	}
+
+	@Override
+	public IrExpression eliminateSubexpression(CseContext context) {
+		IrExpression expr = getSubexpressions(context);
+		if (context.containsExpression(expr)){
+			return context.getVariableExpression(expr);
+		} else {
+			for (IrExpressionTuple tuple : arguments){
+				tuple.expression = tuple.expression.eliminateSubexpression(context);
+			}
+			return this;
+		}
+	}
+
+	@Override
+	public IrExpression getSubexpressions(CseContext context) {
+		IrFunctionCall output = new IrFunctionCall(functionName, cType, cubexType);
+		for (IrExpressionTuple tuple : arguments){
+			output.addArgument(tuple.argType, tuple.expression.getSubexpressions(context));
+		}
+		return output;
 	}
 }
 
