@@ -76,10 +76,6 @@ public final class IrReturn implements IrStatement {
 			context.varDecl.put(b.tuple.variableName, b.tuple.type.toC());
 			context.varInit.put(b.tuple.variableName, "NULL");
 		}
-		for(int i = 0; i < temporaryBinds.size()-1; i++){
-			IrBind b = temporaryBinds.get(i);
-			arrList.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
-		}
 		
 		if (isMain) {
 			arrList.add(itDeclaration);
@@ -117,9 +113,17 @@ public final class IrReturn implements IrStatement {
 				}
 			}
 			//GARBAGE COLLECT EVERYTHING
+			for(int i = 0; i < temporaryBinds.size(); i++){
+				IrBind b = temporaryBinds.get(i);
+				arrList.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
+			}
 			arrList.add("return;");
 		}
 		else {
+			for(int i = 0; i < temporaryBinds.size(); i++){
+				IrBind b = temporaryBinds.get(i);
+				arrList.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
+			}
 			arrList.add("return " + expression.toC(context) + ";");
 		}
 		return arrList;
