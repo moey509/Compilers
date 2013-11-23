@@ -35,32 +35,38 @@ public class CubexIterable extends CubexExpression {
 		ArrayList<IrBind> arr = new ArrayList<IrBind>();
 		ArrayList<IrBind> tempBinds = new ArrayList<IrBind>();
 		ArrayList<IrBind> params = new ArrayList<IrBind>();
-		for(CubexExpression e : list.contextCollection){
+		String appendLeft = "";
+		String appendRight = "NULL";
+		for(int i = list.contextCollection.size()-1; i >=0; i--){
+			CubexExpression e = list.contextCollection.get(i);
 			params = e.getExpressions(context);
 			arr.addAll(params);
+			IrVariableExpression fun;
+			IrType t = new IrType("git_t");
+			appendLeft = context.nextTemp();
+			//Create a new git object
+			IrTypeTuple tuple = new IrTypeTuple(t, appendLeft);
 			if(params.size() == 0){
-				IrType t = new IrType("git_t");
-				IrTypeTuple tuple = new IrTypeTuple(t, context.nextTemp());
-				IrVariableExpression fun = new IrVariableExpression("new_git_obj(" + e.name + ")","");//new IrFunctionCall("new_git_obj", "git_t", null);
-				//fun.addArgument(e.type, new IrVariableExpression(e.name, e.type));
-				IrBind bind = new IrBind(tuple, fun, cubexContext);
-				tempBinds.add(bind);
-				arr.add(bind);
+				fun = new IrVariableExpression("new_git_obj(" + e.name + ")","");//new IrFunctionCall("new_git_obj", "git_t", null);
 			}
 			//Throw in a temporary variable
 			else{
 				IrBind paramBind = params.get(params.size()-1);
-				
-				IrType t = new IrType("git_t");
-				IrTypeTuple tuple = new IrTypeTuple(t, context.nextTemp());
-				//IrFunctionCall fun = new IrFunctionCall("new_git_obj", "git_t", null);
-				IrVariableExpression fun = new IrVariableExpression("new_git_obj(" + paramBind.tuple.variableName + ")","");
-				//fun.addArgument(e.type, new IrVariableExpression(paramBind.tuple.variableName, paramBind.tuple.type.type));
-				IrBind bind = new IrBind(tuple, fun, cubexContext);
-				
-				tempBinds.add(bind);
-				arr.add(bind);
+				fun = new IrVariableExpression("new_git_obj(" + paramBind.tuple.variableName + ")","");
 			}
+			IrBind bind = new IrBind(tuple, fun, cubexContext);
+			tempBinds.add(bind);
+			arr.add(bind);
+			
+			//Iterable Appends
+			String nextAppendRight = context.nextTemp();
+			tuple = new IrTypeTuple(t, nextAppendRight);
+			System.out.println("iterable_append(" + appendLeft + ", " + appendRight + ")");
+			fun = new IrVariableExpression("iterable_append(" + appendLeft + ", " + appendRight + ")","");//new IrFunctionCall("new_git_obj", "git_t", null);
+			bind = new IrBind(tuple, fun, cubexContext);
+			tempBinds.add(bind);
+			arr.add(bind);
+			appendRight = nextAppendRight;
 		}
 		if(tempBinds.size() == 0){
 			IrType t = new IrType("git_t");
@@ -69,19 +75,20 @@ public class CubexIterable extends CubexExpression {
 			arr.add(b);
 			return arr;
 		}
-		else{
-			CubexList<IrExpression> irE = new CubexList<IrExpression>();
-			for (IrBind s : tempBinds) {
-				//TODO something
-				irE.add(new IrVariableExpression(s.tuple.variableName, s.tuple.type.type));
-			}
-			IrIterable iterable = new IrIterable(irE, cubexType);
-			IrType t = new IrType("git_t");
-			IrTypeTuple tuple = new IrTypeTuple(t, context.nextTemp());
-			IrBind b = new IrBind(tuple, iterable, cubexContext);
-			arr.add(b);			
-			return arr;
-		}
+//		else{
+//			CubexList<IrExpression> irE = new CubexList<IrExpression>();
+//			for (IrBind s : tempBinds) {
+//				//TODO something
+//				irE.add(new IrVariableExpression(s.tuple.variableName, s.tuple.type.type));
+//			}
+//			IrIterable iterable = new IrIterable(irE, cubexType);
+//			IrType t = new IrType("git_t");
+//			IrTypeTuple tuple = new IrTypeTuple(t, context.nextTemp());
+//			IrBind b = new IrBind(tuple, iterable, cubexContext);
+//			arr.add(b);			
+//			return arr;
+//		}
+		return arr;
 	}
 	
 	public IrIterable toIr(IrGenerationContext context) {
