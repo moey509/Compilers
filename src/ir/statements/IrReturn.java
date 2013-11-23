@@ -117,6 +117,10 @@ public final class IrReturn implements IrStatement {
 				IrBind b = temporaryBinds.get(i);
 				arrList.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
 			}
+			
+			//TODO: REMOVE BEFORE SUBMISSION
+			arrList.add("ending();");
+			
 			arrList.add("return;");
 		}
 		else {
