@@ -364,7 +364,7 @@ git_t new_git_int (int status, int low, int high) {
   g->fun_length = 0;
   g->fun_ptrs = NULL;
   g->con_comp = NULL;
-  g->is_iter = 0;
+  g->is_iter = 1;
   g->is_thru_ward = 0;
 
   n->status = status;
