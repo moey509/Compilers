@@ -46,7 +46,8 @@ public class IrGenerationContext {
 	}
 	
 	public boolean containsGlobalVariable(String variable){
-		return globalVariables.contains(variable);
+		return false;
+		//return globalVariables.contains(variable);
 	}
 	
 	public void printGlobalVariables(){

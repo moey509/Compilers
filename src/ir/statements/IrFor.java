@@ -93,6 +93,10 @@ public class IrFor implements IrStatement {
 		output.add(inc1Declaration);
 		output.add(itDeclaration);
 		output.add(inc2Declaration);
+		for(IrBind b : this.temporaryBinds){
+			String s = b.tuple.variableName;
+			output.add("ref_decrement((General_t)" + s + ");");
+		}
 		output.add(itCondition);
 
 		for(IrStatement s : statements){
@@ -146,10 +150,6 @@ public class IrFor implements IrStatement {
 		//decrementing variables in the free context
 		//TODO: need to handle v and e in "for(v in e)"
 		for (String s : freeContext) {
-			output.add("ref_decrement((General_t)" + s + ");");
-		}
-		for(IrBind b : this.temporaryBinds){
-			String s = b.tuple.variableName;
 			output.add("ref_decrement((General_t)" + s + ");");
 		}
 
