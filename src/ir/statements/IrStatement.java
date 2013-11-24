@@ -61,7 +61,7 @@ public abstract class IrStatement implements IrProgramElem{
 				out.add(s);
 			}
 		}
-		return null;
+		return out;
 	}
 	
 	// populates the nextSet and useSet for each statement
