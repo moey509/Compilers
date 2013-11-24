@@ -201,6 +201,13 @@ public class CubexClassGrammar {
 			IrExpression e = new IrFunctionCall(this.constructableComponent,this.constructableComponent + "*", extendsType);
 			irFunction.addSuperCall(e);
 		}
+	
+		ArrayList<String> dec_inputs = new ArrayList<String>();
+		for(CubexTypeTuple t : typecontext.contextCollection){
+			dec_inputs.add("ref_decrement(" + t.getName() + ");");
+		}
+
+		irFunction.addStatement(new IrCStatement(dec_inputs));
 		program.addGlobalFunction(irFunction);
 	}
 

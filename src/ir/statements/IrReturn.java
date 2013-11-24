@@ -88,19 +88,21 @@ public final class IrReturn extends IrStatement {
 			arrList.add(itNull);
 		}
 		
-		//TODO: UHHHH IS THIS RIGHT [comment: lololol]
+		//TODO: Should be replaced by Ansha's code methinks
 		for (String s : freeContext) {
 			if (!isMain) {
 				arrList.add("ref_decrement((General_t)" + s + ");");
 			}
 		}
 		
+		//TODO: Should be replaced by Ansha's code methinks
 		// free control flow variables
 		for (String s : context.controlFlowVariables) {
 			arrList.add("ref_decrement((General_t)" + s + ");");
 		}
 		//NOTE: note sure if supposed to empty this set...
 		
+		//TODO: Should be replaced by Ansha's code methinks
 		if (isMain) {
 			for (String s : freeContext) {
 				System.out.println("free context: " + s);
@@ -138,46 +140,7 @@ public final class IrReturn extends IrStatement {
 		}
 		return arrList;
 	}
-/*
-	@Override
-	public ArrayList<String> toMainC(CGenerationContext context) {
-		ArrayList<String> output = new ArrayList<String>();
-//		int cur_iterator = context.getCurIterator();
-//		context.incrementCurIterator();
-//		String iterator = "_it" + cur_iterator;
-//		context.mainVarDecl.put(iterator, "iterator_t");
-//		String itDeclaration = iterator + " = new_iterator((" + expression.toC(context) + "));";
-//		String itCondition = "while(hasNext(" + iterator + ")) {";
-//		String tempVar = "_return = getNext(" + iterator + ");";
-//		
-		
-//		for(IrBind b : temporaryBinds){
-//			output.addAll(b.toC(context));
-//		}
-//		for(int i = 0; i < temporaryBinds.size()-1; i++){
-//			IrBind b = temporaryBinds.get(i);
-//			output.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
-//		}
-//		output.add(itDeclaration);
-//		output.add(itCondition);
-//		output.add(tempVar);
-		
-//		for (String s : freeContext) {
-//			if (!s.equals("_input"))
-//			output.add("ref_decrement((General_t)" + s + ");");
-//		}
-////		
-//		output.add("print_line(charToString(_return), stringLength(_return));");
-//		
-//		output.add("}");
-//		for (String s : freeContext) {
-//			output.add("ref_decrement((General_t)" + s + ");");
-//		}
-//		//GARBAGE COLLECT EVERYTHING
-//		output.add("return;");
-//		return output;
-	}
-	*/
+
 	public ArrayList<IrBind> getTemporaryVariables(){
 		return this.temporaryBinds;
 	}

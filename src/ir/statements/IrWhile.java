@@ -50,6 +50,7 @@ public final class IrWhile extends IrStatement {
 			arrList.addAll(i.toC(context, isMain));
 		}
 		arrList.add("while(((Boolean_t)" + condition.toC(context) + ")->value) {");
+		//TODO: Should be replaced by Ansha's code methinks
 		for(IrBind b : this.temporaryBinds){
 			String s = b.tuple.variableName;
 			arrList.add("ref_decrement((General_t)" + s + ");");
@@ -76,46 +77,20 @@ public final class IrWhile extends IrStatement {
 			arrList.addAll(i.toC(context, isMain));
 		}
 		arrList.add("}");
+		//TODO: Should be replaced by Ansha's code methinks
 		for(IrBind b : this.temporaryBinds){
 			String s = b.tuple.variableName;
 			arrList.add("ref_decrement((General_t)" + s + ");");
 			arrList.add(s + "= NULL;");
 		}
+		//TODO: Should be replaced by Ansha's code methinks
 		for (String s : freeContext) {
 			arrList.add("ref_decrement((General_t)" + s + ");");
 		}
 
 		return arrList;
 	}
-/*
-	@Override
-	public ArrayList<String> toMainC(CGenerationContext context) {
-		ArrayList<String> arrList = new ArrayList<String>();
-		arrList.add("while(" + condition.toC(context) + ") {");
-		
-		for(IrStatement s : statements){
-			for(IrBind b : s.getTemporaryVariables()){
-				b.addDeclaration(arrList, context);
-			}
-			s.addDeclaration(arrList, context);
-		}
-		for(IrStatement s : statements){
-			for(IrBind b : s.getTemporaryVariables()){
-				b.addInitialization(arrList, context);
-			}
-			s.addInitialization(arrList, context);
-		}
 
-//		for (IrStatement statement : statements){
-//			arrList.addAll(statement.toMainC(context));
-//		}
-//		for (String s : freeContext) {
-//			arrList.add("ref_decrement((General_t)" + s + ");");
-//		}
-		//arrList.add("}");
-		//return arrList;
-	}
-	*/
 	public ArrayList<IrBind> getTemporaryVariables(){
 		return this.temporaryBinds;
 	}
