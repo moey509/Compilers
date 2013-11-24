@@ -10,9 +10,7 @@ import ir.expressions.IrExpression;
 import ir.expressions.IrExpressionTuple;
 import ir.expressions.IrFunctionCall;
 import ir.program.IrTypeTuple;
-import java.util.ArrayList;
 import optimization.CseContext;
-import typeChecker.CubexCompleteContext;
 
 public final class IrBind extends IrStatement {
 
@@ -119,12 +117,8 @@ public final class IrBind extends IrStatement {
 	public void lva(LvaContext c) {
 		lvaHelper(c);
 		// DEBUG STATEMENTS
-		System.out.println("IrBind: " + expression.toString());
-		System.out.println("  inSet: " + inSet.toString());
-		System.out.println("  outSet: " + outSet.toString());
-		System.out.println("  useSet: " + useSet.toString());
-		System.out.println("  defSet: " + defSet.toString());
-		System.out.println("  nextSet: " + nextSet.toString());
+		System.out.println(toString());
+		lvaDebugHelper();
 		//
 	}
 
@@ -160,6 +154,11 @@ public final class IrBind extends IrStatement {
 		}
 		System.out.println("After CSE: " + getVariableName() + "=" + expression);
 		context.putVariable(getVariableName(), expression.getSubexpressions(context));
+	}
+
+	@Override
+	public String toString() {
+		return "IrBind: " + tuple.type.toString() + tuple.variableName + " := " + expression.toString();
 	}
 
 }

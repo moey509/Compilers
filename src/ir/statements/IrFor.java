@@ -3,10 +3,7 @@ package ir.statements;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-
 import optimization.LvaContext;
-import parsingTokens.statements.CubexListStatement;
-import parsingTokens.statements.CubexStatement;
 import optimization.CseContext;
 import typeChecker.CubexCompleteContext;
 import ir.CGenerationContext;
@@ -226,12 +223,8 @@ public class IrFor extends IrStatement {
 	public void lva(LvaContext c) {
 		lvaHelper(c);
 		// DEBUG STATEMENTS
-		System.out.println("IrFor: " + list.toString());
-		System.out.println("  inSet: " + inSet.toString());
-		System.out.println("  outSet: " + outSet.toString());
-		System.out.println("  useSet: " + useSet.toString());
-		System.out.println("  defSet: " + defSet.toString());
-		System.out.println("  nextSet: " + nextSet.toString());
+		System.out.println(toString());
+		lvaDebugHelper();
 		//
 		
 		for (IrStatement s : statements) {
@@ -292,6 +285,11 @@ public class IrFor extends IrStatement {
 		}
 		context = context.merge(context2);
 		
+	}
+
+	@Override
+	public String toString() {
+		return "IrFor: " + "for ( " + var + " in " + list.toString() + " )";
 	}
 }
 

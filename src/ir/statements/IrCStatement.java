@@ -56,4 +56,9 @@ public class IrCStatement extends IrStatement {
 		return;
 	}
 
+	@Override
+	public String toString() {
+		return "IrCStatement";
+	}
+
 }
