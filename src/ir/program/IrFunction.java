@@ -101,7 +101,6 @@ public class IrFunction implements IrProgramElem{
 			postarr.add(s);
 			postarr.add("__struct->ref_count = 0;");
 			postarr.add("__struct->fun_names = NULL;");
-			postarr.add("g->fun_names = NULL;");
 			postarr.add("__struct->fun_length = 0;");
 			postarr.add("__struct->fun_ptrs = NULL;");
 			postarr.add("__struct->con_comp = NULL;");
