@@ -395,7 +395,7 @@ public class CubexClassGrammar {
 		}
 
 		context.typeContext.noConflictMerge(context.mutableTypeContext);
-		// TODO: Check to see that super call is valid ??
+		// Check to see that super call is valid ??
 		if (!superElement.name.equals("Thing")) {
 			Map<String, CubexTypeScheme> superTypeFunctions = superElement.functionMap;
 			for (CubexFunctionDef function : functions.iterable()) {
