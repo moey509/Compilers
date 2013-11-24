@@ -86,9 +86,11 @@ public final class IrBind implements IrStatement {
 			//   NULL and set to NULL when freed
 			output.add("ref_decrement((General_t)" + tuple.variableName + ");");
 			if (expression instanceof IrFunctionCall) {
-				IrFunctionCall funcCall = (IrFunctionCall) expression;		
-				for (IrExpressionTuple tuple : funcCall.getArugments()) {
-					output.add("ref_increment((General_t)" + tuple.getExpression().toC(context)+ ");");
+				IrFunctionCall funcCall = (IrFunctionCall) expression;
+				if(!funcCall.functionName.equals("_string") && !funcCall.functionName.equals("_character")){
+					for (IrExpressionTuple tuple : funcCall.getArugments()) {
+						output.add("ref_increment((General_t)" + tuple.getExpression().toC(context)+ ");");
+					}
 				}
 			}
 			output.add(tuple.variableName + " = " + expression.toC(context) + ";");

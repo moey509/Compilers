@@ -133,7 +133,7 @@ public final class IrReturn implements IrStatement {
 					arrList.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
 				}
 			}
-			arrList.add("((General_t) " + expression.toC(context) + ")->ref_count -= 1;");
+			arrList.add("ref_decrement_no_free((General_t)" + expression.toC(context) + ");");
 			arrList.add("return " + expression.toC(context) + ";");
 		}
 		return arrList;

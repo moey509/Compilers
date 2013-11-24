@@ -133,7 +133,6 @@ public final class CubexFunctionCall extends CubexExpression {
 	}
 	
 	public ArrayList<IrBind> getExpressions(IrGenerationContext context){
-		System.out.println("wtf");
 		ArrayList<IrBind> arr = new ArrayList<IrBind>();
 		ArrayList<IrBind> tempParams = new ArrayList<IrBind>();
 		for(CubexExpression e : functionParams.contextCollection){

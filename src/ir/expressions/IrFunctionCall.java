@@ -13,7 +13,7 @@ import parsingTokens.typeGrammar.CubexTypeGrammar;
 
 
 public final class IrFunctionCall implements IrExpression {
-	private String functionName;	
+	public String functionName;	
 	private List<IrExpressionTuple> arguments;
 	private String cType;	
 	private CubexTypeGrammar cubexType;
@@ -70,10 +70,6 @@ public final class IrFunctionCall implements IrExpression {
 			else{
 				sb.append(", (" + tuple.argType.toC() + ") " + tuple.expression.toC(context));
 			}
-		}
-		
-		if (functionName.equals("_string")) {
-			return sb.toString();
 		}
 		
 		return functionName + "(" + sb.toString() + ")" ;
