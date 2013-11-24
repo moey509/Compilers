@@ -1,0 +1,5 @@
+a := true;
+a := input;
+a := 2;
+
+return [];

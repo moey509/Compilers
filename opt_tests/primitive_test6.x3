@@ -1,0 +1,11 @@
+fun foo(i : Integer) : Integer = i;
+
+a := 0;
+b := ["cry"];
+
+while (a < foo(10){
+	a := a + 1;
+	b := b++b;
+}	
+
+return b;
