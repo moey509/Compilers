@@ -1,7 +1,10 @@
 package ir.expressions;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Set;
 
+import optimization.LvaContext;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import ir.CGenerationContext;
 import ir.IrMiscFunctions;
@@ -40,6 +43,12 @@ public class IrAppend implements IrExpression {
 	
 	public String toString(){
 		return e1.toString() + "::" + e2.toString();
+	}
+	
+	@Override
+	public void getVars(Set<String> set, Map<String, Set<String>> map){
+		e1.getVars(set, map);
+		e2.getVars(set, map);
 	}
 
 }

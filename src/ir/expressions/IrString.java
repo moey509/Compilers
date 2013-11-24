@@ -1,6 +1,8 @@
 package ir.expressions;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Set;
 
 import parsingTokens.CubexList;
 import parsingTokens.typeGrammar.CubexTypeClass;
@@ -59,5 +61,10 @@ public final class IrString implements IrExpression {
 	
 	public String toString(){
 		return mValue;
+	}
+
+	@Override
+	public void getVars(Set<String> set, Map<String, Set<String>> map) {
+		return;
 	}
 }

@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import optimization.LvaContext;
+
 public class IrStruct implements IrProgramElem{
 	public String structName;
 	public String constructableComponent;
@@ -58,4 +60,5 @@ public class IrStruct implements IrProgramElem{
 		
 		return arr;
 	}
+
 }

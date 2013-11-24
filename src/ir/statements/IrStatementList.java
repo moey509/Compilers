@@ -3,15 +3,18 @@ package ir.statements;
 import ir.CGenerationContext;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
+import optimization.LvaContext;
+import parsingTokens.statements.CubexStatement;
 import typeChecker.CubexCompleteContext;
 
-public class IrStatementList implements IrStatement{
+public class IrStatementList extends IrStatement{
 	private List<IrStatement> statementList;
 	private ArrayList<IrBind> temporaryBinds = new ArrayList<IrBind>();
 	public CubexCompleteContext context;
-	
+
 	public IrStatementList(CubexCompleteContext context){
 		this.statementList = new ArrayList<IrStatement>();
 		this.context = context;
@@ -61,4 +64,31 @@ public class IrStatementList implements IrStatement{
 		}
 		return this.temporaryBinds;
 	}
+
+	@Override
+	public void lva(LvaContext c) {
+		for (IrBind s : temporaryBinds) {
+			s.lva(c);
+		}
+		for (IrStatement s : statementList) {
+			s.lva(c);
+		}
+		
+	}
+
+	@Override
+	public void populateSets(LvaContext c) {
+		if (nextSet==null) {
+			nextSet = new HashSet<IrStatement>();
+			
+			populateSetsTemps(c);
+			
+			c.nextList.addAll(0, statementList);
+			for (IrStatement s : statementList) {
+				s.populateSets(c);
+			}
+		}
+		
+	}
+
 }

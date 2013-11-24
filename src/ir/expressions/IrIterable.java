@@ -1,11 +1,14 @@
 package ir.expressions;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Set;
 
 import ir.CGenerationContext;
 import ir.IrMiscFunctions;
 import ir.statements.IrBind;
 import parsingTokens.CubexList;
+import parsingTokens.expressions.CubexExpression;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 
 public class IrIterable implements IrExpression {
@@ -62,5 +65,12 @@ public class IrIterable implements IrExpression {
 		}
 		return "[" + sb.toString() + "]";
 		
+	}
+	
+	@Override
+	public void getVars(Set<String> set, Map<String, Set<String>> map){
+		for (IrExpression e : list.contextCollection) {
+			e.getVars(set, map);
+		}
 	}
 }

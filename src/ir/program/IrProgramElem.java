@@ -2,6 +2,7 @@ package ir.program;
 
 import java.util.ArrayList;
 
+import optimization.LvaContext;
 import ir.CGenerationContext;
 
 public interface IrProgramElem {

@@ -1,6 +1,8 @@
 package ir.expressions;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Set;
 
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import ir.CGenerationContext;
@@ -195,5 +197,11 @@ public class IrBinaryExpression implements IrExpression {
 	
 	public String toString(){
 		return leftExpression.toString() + operator + rightExpression.toString();
+	}
+	
+	@Override
+	public void getVars(Set<String> set, Map<String, Set<String>> map) {
+		leftExpression.getVars(set, map);
+		rightExpression.getVars(set, map);
 	}
 }

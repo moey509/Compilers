@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
+import optimization.LvaContext;
 import ir.CGenerationContext;
 import ir.IrType;
 import ir.expressions.IrExpression;
@@ -22,9 +23,12 @@ public class IrFunction implements IrProgramElem{
 	public boolean isConstructor = false;
 	ArrayList<IrBind> tempVariables = new ArrayList<IrBind>();
 
+	public boolean isToplevel;
+
 	public IrFunction(IrType type, String object, String functionName) {
 		this.type = type;
 		this.object = (object == null) ? "" : object;
+		this.isToplevel = (object == null) ? true : false;
 		this.functionName = functionName;
 		this.arguments = new ArrayList<IrTypeTuple>();
 		this.statements = new ArrayList<IrStatement>();
@@ -198,4 +202,5 @@ public class IrFunction implements IrProgramElem{
 	public void addConstructorStatement(IrBind irBind) {
 		
 	}
+
 }

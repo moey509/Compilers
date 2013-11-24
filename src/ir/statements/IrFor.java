@@ -1,14 +1,18 @@
 package ir.statements;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
+import optimization.LvaContext;
+import parsingTokens.statements.CubexListStatement;
+import parsingTokens.statements.CubexStatement;
 import typeChecker.CubexCompleteContext;
 import ir.CGenerationContext;
 import ir.expressions.IrExpression;
 
 
-public class IrFor implements IrStatement {
+public class IrFor extends IrStatement {
 	private ArrayList<String> freeContext = new ArrayList<String>();
 	private IrExpression list;
 	private String var;
@@ -22,6 +26,8 @@ public class IrFor implements IrStatement {
 		this.statements = new ArrayList<IrStatement>();
 		this.temporaryBinds = new ArrayList<IrBind>();
 		this.context = context;
+		
+//		list.getVars(this.useSet);
 	}
 
 	// initialize the freeContext - used by the typeChecker
@@ -184,6 +190,47 @@ public class IrFor implements IrStatement {
 	public ArrayList<IrBind> getTemporaryVariables(){
 		return this.temporaryBinds;
 	}
+
+	@Override
+	public void lva(LvaContext c) {
+		lvaHelper(c);
+		for (IrStatement s : statements) {
+			s.lva(c);
+		}
+	}
+
+	@Override
+	public void populateSets(LvaContext c) {
+		if (nextSet==null) {
+			nextSet = new HashSet<IrStatement>();
+			
+			useSet = new HashSet<String>();
+			list.getVars(useSet, c.functionUse);
+			
+			populateSetsTemps(c);
+			
+			if (c.nextList.size() > 0) {
+				nextSet.add(c.nextList.removeFirst().getTop());
+			}
+		
+			int length = statements.size();
+			if (length > 0) {
+				c.nextList.addAll(0, statements);
+				nextSet.add(c.nextList.removeFirst().getTop());
+
+				// changes the nextSet of the last statement inside the for loop
+				// to point to the for loop
+				IrStatement lastForStatement = statements.get(length-1);
+				lastForStatement.nextSet = new HashSet<IrStatement>();
+				lastForStatement.nextSet.add(this);
+				
+				for (IrStatement s : statements) {
+					s.populateSets(c);
+				}
+			}
+		}
+	}
+
 }
 
 
