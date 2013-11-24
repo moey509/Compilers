@@ -176,19 +176,12 @@ public class IrIf extends IrStatement {
 				} else {
 					statementlist.addAll(statements1);
 				}
-				int length = statementlist.size();
 				
 				LvaContext cCopy = c.clone();
-				IrStatement afterIf = cCopy.nextList.removeFirst().getTop();
 
 				cCopy.nextList.addAll(0, statementlist);
 				nextSet.add(cCopy.nextList.removeFirst().getTop());
 
-				IrStatement lastIfStatement = statementlist.get(length-1);
-				lastIfStatement.nextSet = new HashSet<IrStatement>();
-				lastIfStatement.nextSet.add(afterIf);
-				lastIfStatement.populateSetsTemps(cCopy);
-				
 				for (IrStatement s : statementlist) {
 					s.populateSets(cCopy);
 				}

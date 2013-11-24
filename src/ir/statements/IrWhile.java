@@ -158,22 +158,15 @@ public final class IrWhile extends IrStatement {
 				} else {
 					statementlist.addAll(statements);
 				}
-				int length = statementlist.size();
 				
+				if (temporaryBinds.size() > 0) {
+					c.nextList.add(0, temporaryBinds.get(0));
+				} else {
+					c.nextList.add(0, this);
+				}
 				c.nextList.addAll(0, statementlist);
 				nextSet.add(c.nextList.removeFirst().getTop());
 
-				// changes the nextSet of the last statement inside the for loop
-				// to point to the for loop
-				IrStatement lastWhileStatement = statementlist.get(length-1);
-				lastWhileStatement.nextSet = new HashSet<IrStatement>();
-				if (temporaryBinds.size()>0) {
-					lastWhileStatement.nextSet.add(temporaryBinds.get(0));
-				} else {
-					lastWhileStatement.nextSet.add(this);
-				}
-				lastWhileStatement.populateSetsTemps(c);
-				
 				for (IrStatement s : statementlist) {
 					s.populateSets(c);
 				}

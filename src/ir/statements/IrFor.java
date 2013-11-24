@@ -253,18 +253,11 @@ public class IrFor extends IrStatement {
 				} else {
 					statementlist.addAll(statements);
 				}
-				int length = statementlist.size();
 
+				c.nextList.add(0, this);
 				c.nextList.addAll(0, statementlist);
 				nextSet.add(c.nextList.removeFirst().getTop());
 
-				// changes the nextSet of the last statement inside the for loop
-				// to point to the for loop
-				IrStatement lastForStatement = statementlist.get(length-1);
-				lastForStatement.nextSet = new HashSet<IrStatement>();
-				lastForStatement.nextSet.add(this);
-				lastForStatement.populateSetsTemps(c);
-				
 				for (IrStatement s : statementlist) {
 					s.populateSets(c);
 				}
