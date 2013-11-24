@@ -79,26 +79,32 @@ public final class IrBind extends IrStatement {
 			else {
 				s = temporaryBinds.get(temporaryBinds.size()-1).tuple.variableName;
 			}
+			//Decrements whatever was previously set to this variable
 			output.add("ref_decrement((General_t)" + tuple.variableName + ");");
 			output.add(tuple.variableName + " = " + s + ";");
 			output.add("ref_increment((General_t)" + tuple.variableName + ");");
 			
 		}
-		else{
-			// TODO: We need to make sure that y was initialized somehow or initialize everything to 
-			//   NULL and set to NULL when freed
+		else{			
+			//Decrements whatever was previously bound to this variable
 			output.add("ref_decrement((General_t)" + tuple.variableName + ");");
+			
 			if (expression instanceof IrFunctionCall) {
 				IrFunctionCall funcCall = (IrFunctionCall) expression;
 				if(!funcCall.functionName.equals("_string") && !funcCall.functionName.equals("_character")){
+					
+					//Increments arguments before a function call
 					for (IrExpressionTuple tuple : funcCall.getArugments()) {
 						output.add("ref_increment((General_t)" + tuple.getExpression().toC(context)+ ");");
 					}
 				}
 			}
+			//Sets the variable then increments.
 			output.add(tuple.variableName + " = " + expression.toC(context) + ";");
 			output.add("ref_increment((General_t)" + tuple.variableName + ");");
 		}
+		
+		//TODO: Should be replaced by Ansha's code
 		for(IrBind b : temporaryBinds){
 			output.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
 			output.add(b.tuple.variableName + " = NULL;");
@@ -138,9 +144,7 @@ public final class IrBind extends IrStatement {
 		}
 	}
 
-	public void removeCommonSubexpressions(CseContext context) {
-		// TODO Auto-generated method stub
-		
+	public void removeCommonSubexpressions(CseContext context) {		
 		for (IrBind tempBind : temporaryBinds){
 			tempBind.expression = tempBind.expression.eliminateSubexpression(context);
 			context.putVariable(tempBind.getVariableName(), tempBind.expression.getSubexpressions(context));

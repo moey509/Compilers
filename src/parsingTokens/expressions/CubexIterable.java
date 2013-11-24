@@ -92,7 +92,6 @@ public class CubexIterable extends CubexExpression {
 //		else{
 //			CubexList<IrExpression> irE = new CubexList<IrExpression>();
 //			for (IrBind s : tempBinds) {
-//				//TODO something
 //				irE.add(new IrVariableExpression(s.tuple.variableName, s.tuple.type.type));
 //			}
 //			IrIterable iterable = new IrIterable(irE, cubexType);

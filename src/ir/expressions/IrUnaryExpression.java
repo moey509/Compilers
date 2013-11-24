@@ -63,7 +63,6 @@ public class IrUnaryExpression implements IrExpression {
 	
 	@Override
 	public ArrayList<IrBind> getExpressions(CGenerationContext context) {
-		// TODO Auto-generated method stub
 		return new ArrayList<IrBind>();
 	}
 

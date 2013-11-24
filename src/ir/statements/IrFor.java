@@ -170,7 +170,6 @@ public class IrFor extends IrStatement {
 	 */
 	//String iterDeclaration = iterable + " = iterable_append((" + list.toC(context) + "), NULL);";
 	//		context.mainVarDecl.put(list.toC(context), "void*");
-	// TODO: add iterable (variable) to list of things to be declared at the top of the main function
 	//context.mainVarDecl.put(iterable, "git_t");
 	//String itDeclaration = iterator + " = new_iterator((" + iterable + "));";
 	//		context.mainVarDecl.put(iterator, "iterator_t");
@@ -202,7 +201,6 @@ public class IrFor extends IrStatement {
 		}
 
 		//decrementing variables in the free context
-		//TODO: need to handle v and e in "for(v in e)"
 		for (String s : freeContext) {
 			arr.add("ref_decrement((General_t)" + s + ");");
 		}

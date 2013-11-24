@@ -48,10 +48,8 @@ public class CubexProgramStatementList implements CubexProgramType {
 
 		for (int i = 0; i < statementList.size(); i++) {
 			tempContext.mutableTypeContext = nextContext;
-			// TODO:needs typeCheckReturns method
 			ret = statementList.get(i).typeCheckReturn(tempContext);
 			nextContext = ret.typeContext;
-			// TODO:Check for ret.typeContext <: Iterable<String>
 			// CubexList<CubexTypeGrammar> typeList = ret.retType.getTypeList();
 			if (ret.guaranteedToReturn) {
 				CubexList<CubexTypeGrammar> iterableString = new CubexList<CubexTypeGrammar>();
@@ -82,7 +80,6 @@ public class CubexProgramStatementList implements CubexProgramType {
 			if (statement instanceof CubexBind) {
 				IrBind b = ((CubexBind) statement).toIr(context);
 				s = b;
-				// TODO: Uncomment if problematic: temporary variable declarations now added in IrBind
 //				for(IrBind bind : b.getTemporaryVariables()){
 //					program.addGlobalVariable(bind);
 //				}

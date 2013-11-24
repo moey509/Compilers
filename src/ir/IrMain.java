@@ -68,6 +68,7 @@ public class IrMain {
 			cubParser.programAST.replaceCKeyWords();
 			IrGenerationContext context = new IrGenerationContext();
 			IrProgram program = cubParser.programAST.toIr(context, new IrProgram());
+//			program.lva();
 			//program.removeCommonSubexpressions();
 			ArrayList<String> programCode = program.toC();
 			FileWriter writer = new FileWriter(new File("out.c"));
@@ -96,7 +97,6 @@ public class IrMain {
 		public void reportAmbiguity(@NotNull Parser arg0, @NotNull DFA arg1,
 				int arg2, int arg3, boolean arg4, @NotNull BitSet arg5,
 				@NotNull ATNConfigSet arg6) {
-			// TODO Auto-generated method stub
 			return;
 		}
 
@@ -104,7 +104,6 @@ public class IrMain {
 		public void reportAttemptingFullContext(@NotNull Parser arg0,
 				@NotNull DFA arg1, int arg2, int arg3, @Nullable BitSet arg4,
 				@NotNull ATNConfigSet arg5) {
-			// TODO Auto-generated method stub
 			return;
 		}
 
@@ -112,7 +111,6 @@ public class IrMain {
 		public void reportContextSensitivity(@NotNull Parser arg0,
 				@NotNull DFA arg1, int arg2, int arg3, int arg4,
 				@NotNull ATNConfigSet arg5) {
-			// TODO Auto-generated method stub
 			return;
 		}
 
@@ -125,7 +123,6 @@ public class IrMain {
 		public void syntaxError(Recognizer<?, ?> arg0, @Nullable Object arg1,
 				int arg2, int arg3, String arg4,
 				@Nullable RecognitionException arg5) {
-			// TODO Auto-generated method stub
 			lexedWithError = true;
 		}
 	}

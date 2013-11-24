@@ -49,8 +49,6 @@ public final class IrString implements IrExpression {
 	@Override
 	public ArrayList<IrBind> getExpressions(CGenerationContext context) {
 		ArrayList<IrBind> arr = new ArrayList<IrBind>();
-		// TODO Fix this to take in a context
-		//arr.add(new IrBind(new IrTypeTuple(new IrType("void*"), "_tmp" + context.nextCount()), this));
 		return arr;
 	}
 	
