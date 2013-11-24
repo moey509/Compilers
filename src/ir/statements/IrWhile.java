@@ -124,6 +124,15 @@ public final class IrWhile extends IrStatement {
 	@Override
 	public void lva(LvaContext c) {
 		lvaHelper(c);
+		// DEBUG STATEMENTS
+		System.out.println("IrWhile: " + condition.toString());
+		System.out.println("  inSet: " + inSet.toString());
+		System.out.println("  outSet: " + outSet.toString());
+		System.out.println("  useSet: " + useSet.toString());
+		System.out.println("  defSet: " + defSet.toString());
+		System.out.println("  nextSet: " + nextSet.toString());
+		//
+
 		for (IrStatement s : statements) {
 			s.lva(c);
 		}
