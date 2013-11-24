@@ -107,7 +107,9 @@ public class IrCFunctionCall implements IrExpression {
 
 	@Override
 	public void getVars(Set<String> set, Map<String, Set<String>> map) {
-		// TODO Auto-generated method stub
+		for (String s : parameters) {
+			set.add(s);
+		}
 		
 	}	
 }
