@@ -120,6 +120,7 @@ nit_t new_nit() {
 }
 
 Character_t new_character(int input) {
+  printf ("NEW char\n");
   Character_t c = (Character_t)x3malloc(sizeof(struct Character));
   c->ref_count = 0;
   c->fun_names = NULL;
@@ -156,6 +157,58 @@ Boolean_t new_boolean(int input) {
   b->is_thru_ward = 0;
   b->value = input;
   return b;
+}
+
+/* function look up: given a class struct and the name of a function
+ *     , will return a function pointer to the appropriate function */
+functionPointer function_lookup (General_t gen, char * function_name    ) {
+  int error;
+  int length;
+  int temp;
+  char** arr;
+  functionPointer * pointers;
+  int i;
+  int counter;
+  int eof;
+  char* name;
+  char c1;
+  char c2;
+  /* error checking... */
+  if (gen == NULL) {
+    error = 1;
+    return NULL;
+  }
+  if (function_name == NULL) {
+    error = 2;
+    return NULL;
+  }
+  
+  length = gen->fun_length;
+  arr = gen->fun_names;
+  /*printf ("length: %d\n", length); */
+  for (i = 0; i < length; i++) {
+    /*printf ("name: %s\n", arr[i]); */
+    eof = 1;
+    counter = 0;
+    name = arr[i];
+    while (eof == 1) {
+      c1 = function_name[counter];
+      c2 = name[counter];
+      if (c1 != c2) {
+        eof = 0;
+      }
+      else if (c1 == '\0') {
+        /* found the name */
+        pointers = gen->fun_ptrs;
+        return pointers[i];
+      }
+      else {
+        counter += 1;
+      }
+    }
+  }
+  /* not found in this level */
+  return function_lookup (gen->con_comp, function_name);
 }
 
 /*returns whether there is another element left */
@@ -199,6 +252,7 @@ int hasNext(iterator_t it) {
 void* getNext(iterator_t it) {
   void * temp;
   int int_temp;
+  Integer_t integer;
   git_t g;
   nit_t n;
   if (it == NULL || it->g == NULL) {
@@ -235,7 +289,9 @@ void* getNext(iterator_t it) {
       int_temp = it->cur;
       it->cur += 1;
     }
-    return new_integer(int_temp);
+    integer = new_integer(int_temp);
+    integer->is_thru_ward = 1;
+    return integer;
   }
   /* regular case */
   else {
@@ -246,14 +302,10 @@ void* getNext(iterator_t it) {
   }
 }
 
-/* method that frees an iterator */
-void freeIterator(iterator_t it) {
-  if (it != NULL)
-    x3free(it);
-}
-
 /* constructs a new iterable for anything but ints */
 git_t new_git_obj(void* obj) {
+  if(obj == NULL)return NULL;
+  printf ("NEW git\n");
   git_t g = (git_t)x3malloc(sizeof(struct git));
 
   g->ref_count = 0;
@@ -305,7 +357,7 @@ git_t iterable_append (git_t first, git_t second) {
   temp->is_input = 0;
 */
     temp->val = itr->val;
-    ref_increment(temp->val);
+    /*ref_increment(temp->val); */
     temp->is_int = itr->is_int;
     temp->next = NULL;
 
@@ -330,7 +382,7 @@ git_t iterable_append (git_t first, git_t second) {
     /* temp = (git_t)x3malloc(sizeof (struct git)); */
     temp = new_git_obj(itr->val);
     temp->val = itr->val;
-    ref_increment(temp->val);
+    /*ref_increment(temp->val); */
     temp->is_int = itr->is_int;
     temp->next = NULL;
 
@@ -356,6 +408,7 @@ git_t iterable_append (git_t first, git_t second) {
 /* constructs a new iterable for ints. The status, low and high inputs
 // correspond to the values in a nit_T struct */
 git_t new_git_int (int status, int low, int high) {  
+  printf ("NEW git\n");
   git_t g = (git_t)x3malloc(sizeof(struct git));
   nit_t n = new_nit();
 
@@ -364,7 +417,7 @@ git_t new_git_int (int status, int low, int high) {
   g->fun_length = 0;
   g->fun_ptrs = NULL;
   g->con_comp = NULL;
-  g->is_iter = 0;
+  g->is_iter = 1;
   g->is_thru_ward = 0;
 
   n->status = status;
@@ -381,6 +434,7 @@ git_t new_git_int (int status, int low, int high) {
 }
 
 iterator_t new_iterator (git_t g) {
+  printf ("NEW iterator\n");
   iterator_t it = (iterator_t) x3malloc(sizeof(struct iterator));
 
   it->ref_count = 0;
@@ -402,26 +456,39 @@ void decrement_iterable(git_t g) {
   git_t temp;
   itr = g;
   while (itr != NULL) {
-    printf ("decrementing itr from: %d\n", itr->ref_count);
+    printf ("decrementing itr from: %d to %d\n", itr->ref_count, itr->ref_count - 1);
     ref_decrement (itr->val);
     temp = itr;
     itr = itr->next;
-    printf ("here\n");
     temp->ref_count -= 1;
-        printf ("blah\n");
-    if (temp->ref_count <= 0) {
+    if (temp->ref_count <= 0) {  
       printf ("freeing!\n");
-      if (temp->fun_names != NULL) {
+      if (temp->fun_length > 0) {
+        (function_lookup (g, "__kill"))();
+      }
+      if (temp->fun_names != NULL) {        
         x3free(temp->fun_names);  
       }
-      if (temp->fun_ptrs != NULL) {
+      if (temp->fun_ptrs != NULL) {      
         x3free(temp->fun_ptrs);  
       }
-      if (temp->con_comp != NULL) {
+      if (temp->con_comp != NULL) {        
         x3free(temp->con_comp);  
-      }    
+      }          
       x3free(temp);
     }
+  }
+}
+void decrement_iterable_no_free(git_t g) {
+  git_t itr;
+  git_t temp;
+  itr = g;
+  while (itr != NULL) {
+    printf ("decrementing itr from: %d to %d\n", itr->ref_count, itr->ref_count - 1);
+    ref_decrement_no_free (itr->val);
+    temp = itr;
+    itr = itr->next;
+    temp->ref_count -= 1;
   }
 }
 
@@ -431,7 +498,7 @@ void increment_iterable(git_t g) {
   itr = g;
   /*printf ("INC\n"); */
   while (itr != NULL) {
-    printf ("incrementing itr from: %d\n", itr->ref_count);
+    printf ("incrementing itr from: %d to %d\n", itr->ref_count, itr->ref_count + 1);
     ref_increment (itr->val);
     itr->ref_count += 1;
     /*ref_increment (itr);*/
@@ -446,21 +513,36 @@ void ref_decrement(General_t gen) {
     decrement_iterable (gen);
     return;
   }
-  printf ("decrementing reg from: %d\n", gen->ref_count);
+  printf ("decrementing reg from: %d to %d\n", gen->ref_count, gen->ref_count - 1);
   gen->ref_count -= 1;
   if (gen->ref_count <= 0) {
     printf ("freeing!\n");
-    if (gen->fun_names != NULL) {
+    if (gen->fun_length > 0) {
+      (function_lookup (gen, "__kill"))();
+    }
+    if (gen->fun_names != NULL) {        
       x3free(gen->fun_names);  
     }
-    if (gen->fun_ptrs != NULL) {
+    if (gen->fun_ptrs != NULL) {      
       x3free(gen->fun_ptrs);  
     }
-    if (gen->con_comp != NULL) {
+    if (gen->con_comp != NULL) {        
       x3free(gen->con_comp);  
-    }    
+    }          
+    
     x3free(gen);
   }
+  return;
+}
+void ref_decrement_no_free(General_t gen) {
+  if (gen == NULL) 
+    return;
+  if (gen->is_iter) {
+    decrement_iterable_no_free (gen);
+    return;
+  }
+  printf ("decrementing reg from: %d to %d\n", gen->ref_count, gen->ref_count - 1);
+  gen->ref_count -= 1;
   return;
 }
 
@@ -471,8 +553,17 @@ void ref_increment(General_t gen) {
     increment_iterable (gen);
     return;
   }
-  printf ("incrementing reg from: %d\n", gen->ref_count);
+  printf ("incrementing reg from: %d to %d\n", gen->ref_count, gen->ref_count + 1);
   gen->ref_count += 1;
+}
+
+
+void for_v_free(General_t gen) {
+  if (gen == NULL)
+    return;
+  if (gen->is_thru_ward == 1) {
+    ref_decrement (gen);
+  }
 }
 
 int stringLength(git_t g) {
@@ -491,6 +582,7 @@ int stringLength(git_t g) {
 
 /* convert a char iterable into a String */
 char* charToString(git_t g) {
+  /*printf ("QWERTY\n");*/
   git_t itr;
   int counter;
   char* buf;
@@ -502,6 +594,7 @@ char* charToString(git_t g) {
     counter += 1;
     itr = itr->next;
   }
+  /*printf ("NEW string\n"); */
   buf = (char*) x3malloc (sizeof(char*) * (counter + 1));
   itr = g;
   counter = 0;
@@ -517,12 +610,15 @@ char* charToString(git_t g) {
 git_t stringToIterableHelper(char* buf, int offset) {
   Character_t c;
   git_t g;
+  git_t temp;
   if (buf[offset] == '\0') {
     return NULL;
   }
   c = new_character((int)(buf[offset]));
   g = new_git_obj(c);
-  return iterable_append(g, stringToIterableHelper(buf, offset+1));
+  g->next = stringToIterableHelper(buf, offset+1);
+  return g;
+  /*(return iterable_append(g, stringToIterableHelper(buf, offset+1)); */
 }
 
 git_t stringToIterable(char* buf) {
@@ -745,7 +841,7 @@ Boolean_t Boolean_lessThan(Boolean_t b1, Boolean_t b2, int strict) {
   return new_boolean(ans);
 } 
 
-General_t Thing(){
+General_t Thing(){  
   General_t __struct = (General_t)x3malloc(sizeof(struct General));
   __struct->ref_count = 0;
   __struct->fun_names = NULL;
@@ -812,10 +908,11 @@ git_t get_input () {
 	git_t string;
 	git_t head = NULL;
 	while (next_line_len() > 0) {
-    printf ("hi\n");
+    printf ("NEW temp string buf\n");
 		buf = (char*)x3malloc(sizeof(char) * next_line_len());
 		read_line(buf);
 		string = stringToIterable(buf);
+    printf ("FREE temp string buff\n");
 		x3free(buf);  
 		temp = new_git_obj(string);
     if (head == NULL) {
@@ -834,54 +931,8 @@ Character_t _character(Integer_t i) {
   return new_character(i->value);
 }
 
-/* function look up: given a class struct and the name of a function
- *     , will return a function pointer to the appropriate function */
-functionPointer function_lookup (General_t gen, char * function_name    ) {
-  int error;
-  int length;
-  int temp;
-  char** arr;
-  functionPointer * pointers;
-  int i;
-  int counter;
-  int eof;
-  char* name;
-  char c1;
-  char c2;
-  /* error checking... */
-  if (gen == NULL) {
-    error = 1;
-    return NULL;
-  }
-  if (function_name == NULL) {
-    error = 2;
-    return NULL;
-  }
-  
-  length = gen->fun_length;
-  arr = gen->fun_names;
-  /*printf ("length: %d\n", length); */
-  for (i = 0; i < length; i++) {
-    /*printf ("name: %s\n", arr[i]); */
-    eof = 1;
-    counter = 0;
-    name = arr[i];
-    while (eof == 1) {
-      c1 = function_name[counter];
-      c2 = name[counter];
-      if (c1 != c2) {
-        eof = 0;
-      }
-      else if (c1 == '\0') {
-        /* found the name */
-        pointers = gen->fun_ptrs;
-        return pointers[i];
-      }
-      else {
-        counter += 1;
-      }
-    }
-  }
-  /* not found in this level */
-  return function_lookup (gen->con_comp, function_name);
+git_t _string(git_t str) {
+  return str;
 }
+
+

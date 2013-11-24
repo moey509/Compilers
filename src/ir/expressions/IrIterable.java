@@ -3,7 +3,9 @@ package ir.expressions;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
+import java.util.Iterator;
 
+import optimization.CseContext;
 import ir.CGenerationContext;
 import ir.IrMiscFunctions;
 import ir.statements.IrBind;
@@ -25,8 +27,8 @@ public class IrIterable implements IrExpression {
 	//git_t i6 = iterable_append(i1, iterable_append(i2, iterable_append(i3, iterable_append(i4, iterable_append(i5, iterable_append(i6, NULL)))));
 	public String helper(int index, CGenerationContext context) {
 		if (index == list.size()-1) 
-			return ("iterable_append(new_git_obj("+list.get(index).toC(context) +"), NULL)");
-		return ("iterable_append(new_git_obj(" + list.get(index).toC(context) + "), " + helper(index+1, context) + ")");
+			return ("iterable_append("+list.get(index).toC(context) +", NULL)");
+		return ("iterable_append(" + list.get(index).toC(context) + ", " + helper(index+1, context) + ")");
 	}
 
 	public String getCType() {
@@ -51,6 +53,7 @@ public class IrIterable implements IrExpression {
 	public CubexTypeGrammar getCubexType() {
 		return cubexType;
 	}
+	
 	public String toString(){
 		StringBuilder sb = new StringBuilder();
 		boolean first = true;
@@ -64,7 +67,49 @@ public class IrIterable implements IrExpression {
 			}
 		}
 		return "[" + sb.toString() + "]";
-		
+	}
+	
+	public boolean equals(Object object){
+		if (object instanceof IrIterable){
+			IrIterable expr = (IrIterable)object;
+			Iterator<IrExpression> iter1 = list.iterable().iterator();
+			Iterator<IrExpression> iter2 = expr.list.iterable().iterator();
+			while (iter1.hasNext() && iter2.hasNext()){
+				if (!iter1.next().equals(iter2.next())){
+					return false;
+				}
+			}
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public int hashCode(){
+		return toString().hashCode();
+	}
+
+	@Override
+	public IrExpression eliminateSubexpression(CseContext context) {
+		IrExpression expr = getSubexpressions(context);
+		if (context.containsExpression(expr)){
+			return context.getVariableExpression(expr);
+		} else {
+			for (IrExpression expr1 : list.iterable()){
+				expr1 = expr1.eliminateSubexpression(context);
+			}
+			return this;
+		}
+	}
+
+	@Override
+	public IrExpression getSubexpressions(CseContext context) {
+		CubexList<IrExpression> lst = new CubexList<IrExpression>();
+		for (IrExpression expr : list.iterable()){
+			lst.add(expr.getSubexpressions(context));
+		}
+		return new IrIterable(lst, cubexType);
 	}
 	
 	@Override

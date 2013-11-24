@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 import optimization.LvaContext;
+import optimization.CseContext;
+>>>>>>> 059289e3fa9cdbf674a1fc0536d23c2bf78796ed
 import typeChecker.CubexCompleteContext;
 
 public final class IrReturn extends IrStatement {
@@ -20,10 +22,12 @@ public final class IrReturn extends IrStatement {
 		this.expression = expression;
 		this.context = context;
 		
-//		expression.getVars(this.useSet);
 	}
 	
 	public void setFreeContext(ArrayList<String> fc) {
+		for (String s : fc) {
+			System.out.println("setting freecontext: " + s);
+		}
 		freeContext = fc;
 	}
 	
@@ -41,18 +45,34 @@ public final class IrReturn extends IrStatement {
 	@Override
 	public ArrayList<String> toC(CGenerationContext context, boolean isMain) {
 		ArrayList<String> arrList = new ArrayList<String>();
+		
+		String iterator = "";
 
 		String itDeclaration = "";
+		String itIncrement = "";
 		String itCondition = "";
 		String tempVar = "";
+		String printline = "";
+		String endBrace = "";
+		String itDecrement = "";
+		String itNull = "";
 		if (isMain) {
 			int cur_iterator = context.getCurIterator();
 			context.incrementCurIterator();
-			String iterator = "_it" + cur_iterator;
+			iterator = "_it" + cur_iterator;
 			context.varDecl.put(iterator, "iterator_t");
 			itDeclaration = iterator + " = new_iterator((" + expression.toC(context) + "));";
+			itIncrement = "ref_increment((General_t)" + iterator + ");";
 			itCondition = "while(hasNext(" + iterator + ")) {";
 			tempVar = "_return = getNext(" + iterator + ");";
+			
+			// newly moved line
+			printline = ("print_line(charToString(_return), stringLength(_return));");
+			
+			endBrace = ("}");
+			// free the iterator
+			itDecrement = ("ref_decrement((General_t)" + iterator + ");");
+			itNull = (iterator + " = NULL;");
 		}
 		
 		for(IrBind b : temporaryBinds){
@@ -60,35 +80,64 @@ public final class IrReturn extends IrStatement {
 			context.varDecl.put(b.tuple.variableName, b.tuple.type.toC());
 			context.varInit.put(b.tuple.variableName, "NULL");
 		}
-		for(int i = 0; i < temporaryBinds.size()-1; i++){
-			IrBind b = temporaryBinds.get(i);
-			arrList.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
-		}
 		
 		if (isMain) {
 			arrList.add(itDeclaration);
+			arrList.add(itIncrement);
 			arrList.add(itCondition);
 			arrList.add(tempVar);
+			arrList.add(printline);
+			arrList.add(endBrace);
+			arrList.add(itDecrement);
+			arrList.add(itNull);
 		}
 		
-		//TODO: UHHHH IS THIS RIGHT
+		//TODO: UHHHH IS THIS RIGHT [comment: lololol]
 		for (String s : freeContext) {
 			if (!isMain) {
 				arrList.add("ref_decrement((General_t)" + s + ");");
 			}
 		}
 		
+		// free control flow variables
+		for (String s : context.controlFlowVariables) {
+			arrList.add("ref_decrement((General_t)" + s + ");");
+		}
+		//NOTE: note sure if supposed to empty this set...
+		
 		if (isMain) {
-			arrList.add("print_line(charToString(_return), stringLength(_return));");
-			
-			arrList.add("}");
 			for (String s : freeContext) {
+				System.out.println("free context: " + s);
 				arrList.add("ref_decrement((General_t)" + s + ");");
 			}
+			//TODO: this looks wrong 
+			for (String s : this.context.typeContext.keySet()) {
+				if (!freeContext.contains(s)) {
+					arrList.add("ref_decrement((General_t)" + s + ");");
+				}
+			}
 			//GARBAGE COLLECT EVERYTHING
+			for(int i = 0; i < temporaryBinds.size(); i++){
+				IrBind b = temporaryBinds.get(i);
+				arrList.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
+			}
+			
+			//TODO: REMOVE BEFORE SUBMISSION
+			arrList.add("ending();");
+			
 			arrList.add("return;");
 		}
 		else {
+			for(int i = 0; i < temporaryBinds.size()-1; i++){
+				IrBind b = temporaryBinds.get(i);
+				if(i == temporaryBinds.size()-1 && b.tuple.variableName.equals(b.toC(context, isMain))){
+					arrList.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
+				}
+				else{
+					arrList.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
+				}
+			}
+			arrList.add("ref_decrement_no_free((General_t)" + expression.toC(context) + ");");
 			arrList.add("return " + expression.toC(context) + ";");
 		}
 		return arrList;
@@ -154,5 +203,13 @@ public final class IrReturn extends IrStatement {
 		}
 	}
 
+	public void removeCommonSubexpressions(CseContext context) {
+		for (IrBind tempBind : temporaryBinds){
+			tempBind.expression = tempBind.expression.eliminateSubexpression(context);
+			context.putVariable(tempBind.getVariableName(), tempBind.expression.getSubexpressions(context));
+		}
+		expression = expression.eliminateSubexpression(context);
+		
+	}
 }
 

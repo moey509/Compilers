@@ -1,0 +1,10 @@
+a := 0;
+b := "hello";
+while (a < 5){
+	b := "world";
+	a := a + 1;
+	b := "hello";
+}
+c := "hello";
+
+return [];

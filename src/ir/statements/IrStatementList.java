@@ -8,6 +8,7 @@ import java.util.List;
 
 import optimization.LvaContext;
 import parsingTokens.statements.CubexStatement;
+import optimization.CseContext;
 import typeChecker.CubexCompleteContext;
 
 public class IrStatementList extends IrStatement{
@@ -91,4 +92,9 @@ public class IrStatementList extends IrStatement{
 		
 	}
 
+	public void removeCommonSubexpressions(CseContext context) {
+		for (IrStatement statement : statementList){
+			statement.removeCommonSubexpressions(context);
+		}
+	}
 }

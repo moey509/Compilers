@@ -1,17 +1,16 @@
 package ir.program;
 
 import ir.CGenerationContext;
-import ir.statements.IrBind;
 import ir.statements.IrStatement;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 
 import optimization.LvaContext;
 import typeChecker.TypeContext;
+import optimization.CseContext;
 
 public class IrProgram {
 	public List<IrProgramElem> programElementList;
@@ -41,6 +40,9 @@ public class IrProgram {
 	public ArrayList<String> toC(){
 		CGenerationContext context = new CGenerationContext();
 		ArrayList<String> output = new ArrayList<String>();
+		ArrayList<String> preOut = new ArrayList<String>();
+		ArrayList<String> postOut = new ArrayList<String>();
+		ArrayList<String> declarations = new ArrayList<String>();
 
 		ArrayList<IrFunction> functions = new ArrayList<IrFunction>();
 		ArrayList<IrStatement> statements = new ArrayList<IrStatement>();
@@ -61,12 +63,11 @@ public class IrProgram {
 			}
 		}
 		
-
 		for (IrStruct irStruct : structs){
-			output.addAll(irStruct.toC(context, false));
+			declarations.addAll(irStruct.toC(context, false));
 		}
 		for (IrFunction irFunction : functions){
-			output.add(irFunction.topDeclaration());
+			declarations.add(irFunction.topDeclaration());
 		}
 //		for (IrTypeTuple tuple : variables){
 //			if(!context.variablesDeclaredInScope.contains(tuple.variableName)){
@@ -80,14 +81,18 @@ public class IrProgram {
 		for (IrFunction irFunction : functions){
 			output.addAll(irFunction.toC(context, false));
 		}
+		
+		// CUT HERE
+		
+		
 		//CUBEX_MAIN
 		output.add("");
 		output.add("void cubex_main(){");
 
-		output.add("_input = get_input();");
+		output.add("input = get_input();");
+		output.add("ref_increment((General_t)input);");
 
-		ArrayList<String> preOut = new ArrayList<String>();
-		ArrayList<String> postOut = new ArrayList<String>();
+		
 //		for (IrTypeTuple tuple : variables){
 //			if(!context.variablesInitializedInScope.contains(tuple.variableName)){
 //				postout.add(tuple.variableName + " = NULL;");
@@ -101,11 +106,15 @@ public class IrProgram {
 		for (IrStatement irStatement : statements){
 			postOut.addAll(irStatement.toC(context, true));
 		}
+		
+		// put struct and function headers on the top
+		preOut.addAll(declarations);
+		
 		// declare variables at the top
 		for (String s : context.varDecl.keySet()) {
 			preOut.add(context.varDecl.get(s) + " " + s + ";");
 		}
-		preOut.add("git_t _input = NULL;");
+		preOut.add("git_t input = NULL;");
 		// initialize variables at the beginning of cubexMain
 		for (String s : context.varInit.keySet()) {
 			output.add(s + " = " + context.varInit.get(s) + ";");
@@ -173,5 +182,13 @@ public class IrProgram {
 				s.lva(c0);
 			}
 		}
+	}
+
+	public void removeCommonSubexpressions() {
+		CseContext context = new CseContext();
+		for (IrProgramElem programElem : programElementList){
+			programElem.removeCommonSubexpressions(context);
+		}
+		context.printContext();
 	}
 }

@@ -44,7 +44,7 @@ public final class CubexReturn extends CubexStatement {
 			IrReturn ir = new IrReturn(new IrVariableExpression(arr.get(arr.size()-1).tuple.variableName, arr.get(arr.size()-1).tuple.type.type), cubexContext);
 			ir.setFreeContext(new ArrayList<String>(freeContext));
 			ir.temporaryBinds = arr;
-//			System.out.println("In cubexreturn: " + ir.temporaryBinds);
+			System.out.println("In cubexreturn: " + ir.temporaryBinds.size());
 			return ir;
 		}
 	}

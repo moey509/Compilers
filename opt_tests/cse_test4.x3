@@ -1,0 +1,6 @@
+t := true;
+f := false;
+a := true;
+b := false;
+
+return [];

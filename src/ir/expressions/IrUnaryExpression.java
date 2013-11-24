@@ -3,7 +3,9 @@ package ir.expressions;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
+import java.util.Iterator;
 
+import optimization.CseContext;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import ir.CGenerationContext;
 import ir.IrMiscFunctions;
@@ -77,5 +79,35 @@ public class IrUnaryExpression implements IrExpression {
 	@Override
 	public void getVars(Set<String> set, Map<String, Set<String>> map) {
 		expression.getVars(set, map);
+	}
+
+	public boolean equals(Object object){
+		if (object instanceof IrUnaryExpression){
+			IrUnaryExpression expr = (IrUnaryExpression) object;
+			return expression.equals(expr.expression) && operator.equals(expr.operator);
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public int hashCode(){
+		return toString().hashCode();
+	}
+
+	@Override
+	public IrExpression eliminateSubexpression(CseContext context) {
+		IrExpression expr = getSubexpressions(context);
+		if (context.containsExpression(expr)){
+			return context.getVariableExpression(expr);
+		} else {
+			expression = expression.eliminateSubexpression(context);
+			return this;
+		}
+	}
+
+	@Override
+	public IrExpression getSubexpressions(CseContext context) {
+		return new IrUnaryExpression(expression.getSubexpressions(context), operator, cubexType);
 	}
 }

@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import optimization.LvaContext;
+import optimization.CseContext;
 import typeChecker.CubexCompleteContext;
 import ir.CGenerationContext;
 import ir.expressions.IrExpression;
@@ -66,7 +67,9 @@ public class IrIf extends IrStatement {
 		}
 		arrList.add("if(((Boolean_t)" + condition.toC(context) + ")->value) {");
 		for(IrBind b : temporaryBinds){
-			arrList.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
+			String s = b.tuple.variableName;
+			arrList.add("ref_decrement((General_t)" + s + ");");
+			arrList.add(s + "= NULL;");
 		}
 		for (IrStatement s1 : statements1) {
 			arrList.addAll(s1.toC(context, isMain));
@@ -77,8 +80,18 @@ public class IrIf extends IrStatement {
 		}
 		if (statements2.isEmpty()) {
 			arrList.add("}");
+			for(IrBind b : temporaryBinds){
+				String s = b.tuple.variableName;
+				arrList.add("ref_decrement((General_t)" + s + ");");
+				arrList.add(s + "= NULL;");
+			}
 		} else {
 			arrList.add("} else {");
+			for(IrBind b : temporaryBinds){
+				String s = b.tuple.variableName;
+				arrList.add("ref_decrement((General_t)" + s + ");");
+				arrList.add(s + "= NULL;");
+			}
 			for (IrStatement s2 : statements2) {
 				arrList.addAll(s2.toC(context, isMain));
 			}
@@ -180,4 +193,20 @@ public class IrIf extends IrStatement {
 		}
 	}
 
+	public void removeCommonSubexpressions(CseContext context) {
+		for (IrBind tempBind : temporaryBinds){
+			tempBind.expression = tempBind.expression.eliminateSubexpression(context);
+			context.putVariable(tempBind.getVariableName(), tempBind.expression.getSubexpressions(context));
+		}
+		condition = condition.eliminateSubexpression(context);
+		CseContext context1 = context.clone();
+		CseContext context2 = context.clone();
+		for (IrStatement statement : statements1){
+			statement.removeCommonSubexpressions(context1);
+		}
+		for (IrStatement statement : statements1){
+			statement.removeCommonSubexpressions(context2);
+		}
+		context = context1.merge(context2);
+	}
 }

@@ -5,7 +5,11 @@ import java.util.HashMap;
 import java.util.Set;
 
 import ir.IrType;
+import ir.expressions.IrCFunctionCall;
+import ir.expressions.IrExpression;
+import ir.expressions.IrIterable;
 import ir.expressions.IrString;
+import ir.expressions.IrVariableExpression;
 import ir.program.IrTypeTuple;
 import ir.statements.IrBind;
 import Exception.SemanticException;
@@ -37,11 +41,53 @@ public final class CubexString extends CubexExpression {
 	public ArrayList<IrBind> getExpressions(IrGenerationContext context){
 		//System.out.println("In CubexString: " + this);
 		ArrayList<IrBind> arr = new ArrayList<IrBind>();
-		IrType t = new IrType("void*");
-		IrTypeTuple tuple = new IrTypeTuple(t, context.nextTemp());
-		//System.out.println(tuple.variableName);
-		//System.out.println(this.toIr(context).toC(null));
-		arr.add(new IrBind(tuple, this.toIr(context), cubexContext));
+		if(mValue.length() <= 2){
+			IrType t = new IrType("void*");
+			IrTypeTuple tuple = new IrTypeTuple(t, context.nextTemp());
+			//System.out.println(tuple.variableName);
+			//System.out.println(this.toIr(context).toC(null));
+			arr.add(new IrBind(tuple, this.toIr(context), cubexContext));
+			return arr;
+		}
+		String appendLeft = "";
+		String appendRight = "NULL";
+		for(int i = mValue.length()-2; i > 0; i--){
+			char c = mValue.charAt(i);
+			IrType t = new IrType("git_t");
+			appendLeft = context.nextTemp();
+			IrTypeTuple tuple = new IrTypeTuple(t, appendLeft);
+			ArrayList<String> cParameters = new ArrayList<String>();
+			cParameters.add("'" + c + "'))");
+			ArrayList<String> cParameterTypes = new ArrayList<String>();
+			cParameterTypes.add("char");
+			IrCFunctionCall fun = new IrCFunctionCall("new_git_obj(new_character(charuni" + "", cParameters, cParameterTypes,"");
+			IrBind bind = new IrBind(tuple, fun, cubexContext);
+			arr.add(bind);
+			
+			//Iterable Appends
+			String nextAppendRight = context.nextTemp();
+			tuple = new IrTypeTuple(t, nextAppendRight);
+			cParameters = new ArrayList<String>();
+			cParameters.add(appendLeft);
+			cParameters.add(appendRight);
+			cParameterTypes = new ArrayList<String>();
+			cParameterTypes.add("General_t");
+			cParameterTypes.add("General_t");
+			fun = new IrCFunctionCall("iterable_append", cParameters, cParameterTypes,"");
+			bind = new IrBind(tuple, fun, cubexContext);
+			arr.add(bind);
+			appendRight = nextAppendRight;
+		}
+//		CubexList<IrExpression> irE = new CubexList<IrExpression>();
+//		for (IrBind s : arr) {
+//			//TODO something
+//			irE.add(new IrVariableExpression(s.tuple.variableName, s.tuple.type.type));
+//		}
+//		IrIterable iterable = new IrIterable(irE, cubexType);
+//		IrType t = new IrType("git_t");
+//		IrTypeTuple tuple = new IrTypeTuple(t, context.nextTemp());
+//		IrBind b = new IrBind(tuple, iterable, cubexContext);
+//		arr.add(b);
 		return arr;
 	}
 
@@ -60,5 +106,12 @@ public final class CubexString extends CubexExpression {
 	@Override 
 	public void replaceVars(HashMap<String, String> map) {
 		return;
+	}
+	public boolean equals(CubexString expr){
+		return mValue.equals(expr.mValue);
+	}
+	
+	public int hashCode(){
+		return toString().hashCode();
 	}
 }

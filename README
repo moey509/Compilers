@@ -1,4 +1,11 @@
 Notes: 
-x3_test1.x3: __temp1 needs to be defined as NULL at the top of the file and it'll compile and run
-test3.x3: __temp1 and __temp2 need to be defined as NULL before decrementing.
-test4: need to define shit as NULL
+
+
+-> control flow shit for frees
+-> input is not in some of the returns
+-> top level variables do not have '_' appended to them
+
+check to if (v in e) e is getting freed
+things are not getting freed
+
+CONTROL FLOW SHIT

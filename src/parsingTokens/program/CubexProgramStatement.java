@@ -64,17 +64,23 @@ public class CubexProgramStatement implements CubexProgramType {
 		IrStatement s = statement.toIr(context);
 		// overwrite the free context if this is a return
 		if (statement instanceof CubexReturn) {
+			// add the return variable to the freeContext at the toplevel
+
+			
+			// removing to allow for freeing of var we're returning in main
+			/*
 			// find all variables associated with the return statement
 			CubexReturn cr = (CubexReturn) statement;
 			Set<String> donotfree = new HashSet<String>();
-			cr.gete().getVars(donotfree);
-			freeContext.removeAll(donotfree);
+			cr.gete().getVars(donotfree);			
+			//freeContext.removeAll(donotfree);			 
+			 */
 			Set<String> modfc = new HashSet<String>();
 			
 			//toplevel variables: prepend _
-			for (String str : freeContext) {
-				modfc.add("_" + str);
-			}
+//			for (String str : freeContext) {
+//				modfc.add("_" + str);
+//			}
 
 			IrReturn ret = (IrReturn) s;
 			ret.setFreeContext(new ArrayList<String>(modfc));

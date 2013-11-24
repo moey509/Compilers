@@ -39,7 +39,7 @@ public final class CubexBind extends CubexStatement {
 	public IrBind toIr(IrGenerationContext context) {
 		String s = "";
 		if(context.containsGlobalVariable(classid)){
-			s+="_";
+			//s+="_";
 		}
 		ArrayList<IrBind> arr = e.getExpressions(context);
 		if(arr.size() == 0){

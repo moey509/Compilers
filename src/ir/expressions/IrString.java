@@ -1,17 +1,17 @@
 package ir.expressions;
 
+import ir.CGenerationContext;
+import ir.IrMiscFunctions;
+import ir.statements.IrBind;
+
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
 
+import optimization.CseContext;
 import parsingTokens.CubexList;
 import parsingTokens.typeGrammar.CubexTypeClass;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
-import ir.CGenerationContext;
-import ir.IrMiscFunctions;
-import ir.IrType;
-import ir.program.IrTypeTuple;
-import ir.statements.IrBind;
 
 public final class IrString implements IrExpression {
 	private String mValue;
@@ -66,5 +66,34 @@ public final class IrString implements IrExpression {
 	@Override
 	public void getVars(Set<String> set, Map<String, Set<String>> map) {
 		return;
+	}
+	
+	public boolean equals(Object object){
+		if (object instanceof IrString) {
+			IrString expr = (IrString) object;
+			return mValue.equals(expr.mValue);
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public int hashCode(){
+		return toString().hashCode();
+	}
+
+	@Override
+	public IrExpression eliminateSubexpression(CseContext context) {
+		IrExpression expr = getSubexpressions(context);
+		if (context.containsExpression(expr)){
+			return context.getVariableExpression(expr);
+		} else {
+			return this;
+		}
+	}
+
+	@Override
+	public IrExpression getSubexpressions(CseContext context) {
+		return new IrString(mValue);
 	}
 }

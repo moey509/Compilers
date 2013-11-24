@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import optimization.LvaContext;
+import optimization.CseContext;
 import ir.CGenerationContext;
 import ir.IrType;
 import ir.expressions.IrExpression;
@@ -103,24 +104,25 @@ public class IrFunction implements IrProgramElem{
 			s = " __struct = (" + type.toC() + ")(x3malloc(sizeof(struct " + type.toC().substring(0, type.toC().length()-2) + ")));";
 			postarr.add(s);
 			postarr.add("__struct->ref_count = 0;");
-			postarr.add("__struct->fun_names = NULL");
-			postarr.add("g->fun_names = NULL;");
+			postarr.add("__struct->fun_names = NULL;");
 			postarr.add("__struct->fun_length = 0;");
 			postarr.add("__struct->fun_ptrs = NULL;");
 			postarr.add("__struct->con_comp = NULL;");
 			postarr.add("__struct->is_iter = 0;");
-			postarr.add("__struct->is_thru_ward = 0");
+			postarr.add("__struct->is_thru_ward = 0;");
 
 
 			int counter = 0;
-			postarr.add("__struct->fun_ptrs = (functionPointer*) x3malloc(sizeof(functionPointer*) * " + vTableFunctionNames.size() + ");");
-			postarr.add("__struct->fun_names = (char**) x3malloc(sizeof(char**) * " + vTableFunctionNames.size() + ");");
+			postarr.add("__struct->fun_ptrs = (functionPointer*) x3malloc(sizeof(functionPointer*) * " + (vTableFunctionNames.size()+1) + ");");
+			postarr.add("__struct->fun_names = (char**) x3malloc(sizeof(char**) * " + (vTableFunctionNames.size()+1) + ");");
 			postarr.add("__struct->fun_length = " + vTableFunctionNames.size() + ";");
 			for (String str : vTableFunctionNames){
 				postarr.add("__struct->fun_ptrs[" + counter + "] = &" + str + ";");
 				postarr.add("__struct->fun_names[" + counter + "] = \"" + str + "\";");
 				counter++;
 			}
+			postarr.add("__struct->fun_ptrs[" + counter + "] = &" + "__kill_" + type.toC().substring(0, type.toC().length()-2) + ";");
+			postarr.add("__struct->fun_names[" + counter + "] = \"" + "__kill" + "\";");
 					
 			for(IrTypeTuple t : arguments){
 				if(firstElement){
@@ -203,4 +205,11 @@ public class IrFunction implements IrProgramElem{
 		
 	}
 
+	@Override
+	public void removeCommonSubexpressions(CseContext context) {
+		for (IrStatement statement : statements){
+			statement.removeCommonSubexpressions(context);
+		}
+		
+	}
 }

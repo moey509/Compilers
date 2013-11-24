@@ -10,13 +10,18 @@ import ir.expressions.IrExpression;
 import ir.expressions.IrExpressionTuple;
 import ir.expressions.IrFunctionCall;
 import ir.program.IrTypeTuple;
+import java.util.ArrayList;
+import optimization.CseContext;
+import typeChecker.CubexCompleteContext;
 
 public final class IrBind extends IrStatement {
+
 	public IrTypeTuple tuple;
 	public IrExpression expression;
 	public ArrayList<IrBind> temporaryBinds;
 	public CubexCompleteContext context;
-
+	public boolean cse = false;
+	
 	public IrBind(IrTypeTuple tuple, IrExpression expression, CubexCompleteContext context) {
 		this.tuple = tuple;
 		this.expression = expression;
@@ -25,6 +30,10 @@ public final class IrBind extends IrStatement {
 		
 //		expression.getVars(this.useSet);
 		this.defSet.add(tuple.variableName);
+	}
+	
+	public String getVariableName(){
+		return tuple.variableName;
 	}
 	
 	public void addDeclaration(ArrayList<String> arr, CGenerationContext context){
@@ -66,18 +75,28 @@ public final class IrBind extends IrStatement {
 //		}
 
 		if(temporaryBinds.size() > 0){
-			String s = temporaryBinds.get(temporaryBinds.size()-1).tuple.variableName;
+			String s;
+			if (cse){
+				s = expression.toC(context);
+			}
+			else {
+				s = temporaryBinds.get(temporaryBinds.size()-1).tuple.variableName;
+			}
 			output.add("ref_decrement((General_t)" + tuple.variableName + ");");
 			output.add(tuple.variableName + " = " + s + ";");
 			output.add("ref_increment((General_t)" + tuple.variableName + ");");
+			
 		}
 		else{
-			//TODO: We need to make sure that y was initialized somehow or initialize everything to NULL and set to NULL when freed
+			// TODO: We need to make sure that y was initialized somehow or initialize everything to 
+			//   NULL and set to NULL when freed
 			output.add("ref_decrement((General_t)" + tuple.variableName + ");");
 			if (expression instanceof IrFunctionCall) {
-				IrFunctionCall funcCall = (IrFunctionCall) expression;		
-				for (IrExpressionTuple tuple : funcCall.getArugments()) {
-					output.add("ref_increment((General_t)" + tuple.getExpression().toC(context)+ ");");
+				IrFunctionCall funcCall = (IrFunctionCall) expression;
+				if(!funcCall.functionName.equals("_string") && !funcCall.functionName.equals("_character")){
+					for (IrExpressionTuple tuple : funcCall.getArugments()) {
+						output.add("ref_increment((General_t)" + tuple.getExpression().toC(context)+ ");");
+					}
 				}
 			}
 			output.add(tuple.variableName + " = " + expression.toC(context) + ";");
@@ -89,6 +108,8 @@ public final class IrBind extends IrStatement {
 		}
 		return output;
 	}
+	
+	
 	
 	public ArrayList<IrBind> getTemporaryVariables(){
 		return this.temporaryBinds;
@@ -114,6 +135,23 @@ public final class IrBind extends IrStatement {
 				nextSet.add(c.nextList.removeFirst().getTop());
 			}
 		}
+	}
+
+	public void removeCommonSubexpressions(CseContext context) {
+		// TODO Auto-generated method stub
+		
+		for (IrBind tempBind : temporaryBinds){
+			tempBind.expression = tempBind.expression.eliminateSubexpression(context);
+			context.putVariable(tempBind.getVariableName(), tempBind.expression.getSubexpressions(context));
+		}
+		System.out.println("Before CSE: " + getVariableName() + "=" + expression);
+		IrExpression temp = expression.eliminateSubexpression(context);
+		if (!temp.equals(expression)){
+			cse = true;
+			expression = temp;
+		}
+		System.out.println("After CSE: " + getVariableName() + "=" + expression);
+		context.putVariable(getVariableName(), expression.getSubexpressions(context));
 	}
 
 }

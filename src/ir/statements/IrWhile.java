@@ -8,13 +8,14 @@ import java.util.HashSet;
 import java.util.List;
 
 import optimization.LvaContext;
+import optimization.CseContext;
 import typeChecker.CubexCompleteContext;
 
 public final class IrWhile extends IrStatement {
 	private ArrayList<String> freeContext = new ArrayList<String>();
 	private IrExpression condition;
 	private List<IrStatement> statements;
-	private ArrayList<IrBind> temporaryBinds;
+	public ArrayList<IrBind> temporaryBinds;
 	public CubexCompleteContext context;
 
 	public IrWhile(IrExpression condition, CubexCompleteContext context) {
@@ -46,7 +47,15 @@ public final class IrWhile extends IrStatement {
 	@Override
 	public ArrayList<String> toC(CGenerationContext context, boolean isMain) {
 		ArrayList<String> arrList = new ArrayList<String>();
+		for (IrBind i : temporaryBinds) {
+			arrList.addAll(i.toC(context, isMain));
+		}
 		arrList.add("while(((Boolean_t)" + condition.toC(context) + ")->value) {");
+		for(IrBind b : this.temporaryBinds){
+			String s = b.tuple.variableName;
+			arrList.add("ref_decrement((General_t)" + s + ");");
+			arrList.add(s + "= NULL;");
+		}
 		for (IrBind i : temporaryBinds) {
 			context.varDecl.put(i.tuple.variableName, i.tuple.type.toC());
 			context.varInit.put(i.tuple.variableName, "NULL");
@@ -64,8 +73,15 @@ public final class IrWhile extends IrStatement {
 		for (IrStatement statement : statements){
 			arrList.addAll(statement.toC(context, isMain));
 		}
+		for (IrBind i : temporaryBinds) {
+			arrList.addAll(i.toC(context, isMain));
+		}
 		arrList.add("}");
-
+		for(IrBind b : this.temporaryBinds){
+			String s = b.tuple.variableName;
+			arrList.add("ref_decrement((General_t)" + s + ");");
+			arrList.add(s + "= NULL;");
+		}
 		for (String s : freeContext) {
 			arrList.add("ref_decrement((General_t)" + s + ");");
 		}
@@ -150,4 +166,18 @@ public final class IrWhile extends IrStatement {
 		}
 	}
 
+	public void removeCommonSubexpressions(CseContext context) {
+		CseContext context1 = context.clone();
+		CseContext context2 = context.clone();
+		for (IrStatement statement : statements){
+			statement.removeCommonSubexpressions(context1);
+		}
+		context2 = context1.merge(context2);
+		for (IrBind tempBind : temporaryBinds){
+			tempBind.expression = tempBind.expression.eliminateSubexpression(context);
+			context.putVariable(tempBind.getVariableName(), tempBind.expression.getSubexpressions(context));
+		}
+		context = context.merge(context2);
+		
+	}
 }

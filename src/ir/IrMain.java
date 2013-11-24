@@ -36,7 +36,7 @@ public class IrMain {
 
 	public static void main(String[] args) throws IOException {
 //		 CharStream charStream = new ANTLRFileStream(args[0]);
-		CharStream charStream = new ANTLRFileStream("cg_tests/x3_test1.x3");
+		CharStream charStream = new ANTLRFileStream("cg_tests/x3_test4.x3");
 		CubexLexer cubLexer = new CubexLexer(charStream);
 		cubLexer.removeErrorListeners();
 
@@ -68,6 +68,7 @@ public class IrMain {
 			cubParser.programAST.replaceCKeyWords();
 			IrGenerationContext context = new IrGenerationContext();
 			IrProgram program = cubParser.programAST.toIr(context, new IrProgram());
+			//program.removeCommonSubexpressions();
 			ArrayList<String> programCode = program.toC();
 			FileWriter writer = new FileWriter(new File("out.c"));
 //			System.out.println("----------");
