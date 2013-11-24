@@ -173,6 +173,7 @@ functionPointer function_lookup (General_t gen, char * function_name    ) {
   char* name;
   char c1;
   char c2;
+  printf("ENTER FUNCTION LOOKUP\n");
   /* error checking... */
   if (gen == NULL) {
     error = 1;
@@ -187,13 +188,16 @@ functionPointer function_lookup (General_t gen, char * function_name    ) {
   arr = gen->fun_names;
   /*printf ("length: %d\n", length); */
   for (i = 0; i < length; i++) {
+  	printf("ENTER FOR\n\n");
     /*printf ("name: %s\n", arr[i]); */
     eof = 1;
     counter = 0;
     name = arr[i];
     while (eof == 1) {
       c1 = function_name[counter];
+      /*printf("\n\Function Name: %s\n\n", c1); */
       c2 = name[counter];
+      printf("\nFunction Name: %s\n\n", name); 
       if (c1 != c2) {
         eof = 0;
       }
@@ -206,6 +210,7 @@ functionPointer function_lookup (General_t gen, char * function_name    ) {
         counter += 1;
       }
     }
+    printf("\n\n\nDOES NOT FIND\n\n\n");
   }
   /* not found in this level */
   return function_lookup (gen->con_comp, function_name);
@@ -451,6 +456,37 @@ iterator_t new_iterator (git_t g) {
   return it;
 }
 
+void memery_kopee(char* src, char* dst, int length) {
+  int i;
+  if (src == NULL || dst == NULL) {
+    return;
+  }
+  i = 0;  
+  while (i < length) {    
+    dst[i] = src[i];
+    i++;
+  }  
+}
+
+void free_name_array(General_t gen) {
+  int length;
+  int i;
+  char* arr;
+  if (gen == NULL) {
+    return;
+  }
+  printf ("FREE_NAME %d\n", gen->fun_length);
+  length = gen->fun_length;
+  arr = gen->fun_names;
+  printf ("LENGTH:  %d\n", sizeof(arr[0]));
+  /*x3free(gen->fun_names[0]);*/
+  for (i = 0; i < length; i++) {
+    printf ("FREE_NAME_ARRAY\n");
+    x3free((gen->fun_names)[i]);
+  }
+  
+}
+
 void decrement_iterable(git_t g) {
   git_t itr;
   git_t temp;
@@ -464,9 +500,11 @@ void decrement_iterable(git_t g) {
     if (temp->ref_count <= 0) {  
       printf ("freeing!\n");
       if (temp->fun_length > 0) {
-        (function_lookup (g, "__kill"))();
+       printf("HEERRREEE2");
+        (function_lookup (temp, "__kill"))(temp);
       }
-      if (temp->fun_names != NULL) {        
+      if (temp->fun_names != NULL) {  
+        free_name_array(temp);      
         x3free(temp->fun_names);  
       }
       if (temp->fun_ptrs != NULL) {      
@@ -518,9 +556,11 @@ void ref_decrement(General_t gen) {
   if (gen->ref_count <= 0) {
     printf ("freeing!\n");
     if (gen->fun_length > 0) {
-      (function_lookup (gen, "__kill"))();
+    printf ("HEEEERREEEEEE");
+      (function_lookup (gen, "__kill"))(gen);
     }
     if (gen->fun_names != NULL) {        
+      free_name_array(gen);
       x3free(gen->fun_names);  
     }
     if (gen->fun_ptrs != NULL) {      

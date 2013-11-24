@@ -113,16 +113,21 @@ public class IrFunction implements IrProgramElem{
 
 
 			int counter = 0;
-			postarr.add("__struct->fun_ptrs = (functionPointer*) x3malloc(sizeof(functionPointer*) * " + (vTableFunctionNames.size()+1) + ");");
-			postarr.add("__struct->fun_names = (char**) x3malloc(sizeof(char**) * " + (vTableFunctionNames.size()+1) + ");");
-			postarr.add("__struct->fun_length = " + vTableFunctionNames.size() + ";");
+			postarr.add("__struct->fun_ptrs = (functionPointer*) x3malloc(sizeof(functionPointer) * " + (vTableFunctionNames.size()+1) + ");");
+			postarr.add("__struct->fun_names = (char**) x3malloc(sizeof(char*) * " + (vTableFunctionNames.size()+1) + ");");
+			postarr.add("__struct->fun_length = " + (vTableFunctionNames.size() + 1) + ";");
 			for (String str : vTableFunctionNames){
+				postarr.add("__struct->fun_names[" + counter + "] = (char*) x3malloc(sizeof(char) * " + (str.length() + 1) + ");");
 				postarr.add("__struct->fun_ptrs[" + counter + "] = &" + str + ";");
-				postarr.add("__struct->fun_names[" + counter + "] = \"" + str + "\";");
+				//postarr.add("__struct->fun_names[" + counter + "] = \"" + str + "\";");
+				//memery_kopee("_Multiplier_print\0", __struct->fun_names[0], 18);
+				postarr.add("memery_kopee(\"" + str + "\", __struct->fun_names[" + counter + "], " + (str.length() + 1) + ");");
 				counter++;
 			}
+			postarr.add("__struct->fun_names[" + counter + "] = (char*) x3malloc(sizeof(char) * " + ("__kill".length() + 1) + ");");
 			postarr.add("__struct->fun_ptrs[" + counter + "] = &" + "__kill_" + type.toC().substring(0, type.toC().length()-2) + ";");
-			postarr.add("__struct->fun_names[" + counter + "] = \"" + "__kill" + "\";");
+			//postarr.add("__struct->fun_names[" + counter + "] = \"" + "__kill" + "\";");
+			postarr.add("memery_kopee(\"" + "__kill" + "\", __struct->fun_names[" + counter + "], " + ("__kill".length() + 1) + ");");
 					
 			for(IrTypeTuple t : arguments){
 				if(firstElement){
