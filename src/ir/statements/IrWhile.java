@@ -125,12 +125,8 @@ public final class IrWhile extends IrStatement {
 	public void lva(LvaContext c) {
 		lvaHelper(c);
 		// DEBUG STATEMENTS
-		System.out.println("IrWhile: " + condition.toString());
-		System.out.println("  inSet: " + inSet.toString());
-		System.out.println("  outSet: " + outSet.toString());
-		System.out.println("  useSet: " + useSet.toString());
-		System.out.println("  defSet: " + defSet.toString());
-		System.out.println("  nextSet: " + nextSet.toString());
+		System.out.println(toString());
+		lvaDebugHelper();
 		//
 
 		for (IrStatement s : statements) {
@@ -196,5 +192,10 @@ public final class IrWhile extends IrStatement {
 		}
 		context = context.merge(context2);
 		
+	}
+
+	@Override
+	public String toString() {
+		return "IrWhile : while (" + condition.toString() + " )";
 	}
 }

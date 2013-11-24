@@ -97,4 +97,9 @@ public class IrStatementList extends IrStatement{
 			statement.removeCommonSubexpressions(context);
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "IrStatementList";
+	}
 }

@@ -2,23 +2,22 @@ package ir.statements;
 
 import ir.CGenerationContext;
 import ir.program.IrProgramElem;
-
 import java.util.ArrayList;
 import java.util.HashSet;
-
+import java.util.Set;
 import optimization.LvaContext;
 
 public abstract class IrStatement implements IrProgramElem{
 	private ArrayList<IrBind> temporaryBinds = new ArrayList<IrBind>();
 	// useSet not populated before populateSets call
-	public HashSet<String> useSet = new HashSet<String>();
-	public HashSet<String> defSet = new HashSet<String>();
-	protected HashSet<String> inSet = new HashSet<String>();
-	protected HashSet<String> outSet = new HashSet<String>();
+	public Set<String> useSet = new HashSet<String>();
+	public Set<String> defSet = new HashSet<String>();
+	protected Set<String> inSet = new HashSet<String>();
+	protected Set<String> outSet = new HashSet<String>();
 	// invariant: the nextSet should not contain any CubexListStatements
 	// invariant: the nextSet is initially null before any populateNext calls,
 	//			  and is nonnull after the first populateSets call
-	protected HashSet<IrStatement> nextSet;
+	protected Set<IrStatement> nextSet;
 	// used to check that we've called getTop already
 	// don't want to go to infinite loop on populateNext
 	protected boolean topAccessed = false;
@@ -28,11 +27,17 @@ public abstract class IrStatement implements IrProgramElem{
 	public abstract void addInitialization(ArrayList<String> arr, CGenerationContext context);
 	public abstract ArrayList<String> toC(CGenerationContext context, boolean isMain);
 	
-	// run after toIr, before toC
+	// use after lva to get the set of variables that need to be decremented
+	public Set<String> inMinusOut() {
+		Set<String> set = new HashSet<String>(inSet);
+		set.removeAll(outSet);
+		return set;
+	}
+	
 	// needs populateNext to be run before working
 	public abstract void lva(LvaContext c);
 	
-	public void lvaHelper(LvaContext c) {
+	protected void lvaHelper(LvaContext c) {
 		for (IrBind s : temporaryBinds) {
 			s.lva(c);
 		}
@@ -53,7 +58,16 @@ public abstract class IrStatement implements IrProgramElem{
 		}
 	}
 	
-	// returns the set of "in" variables used by the first statement(s) of this CubexStatement
+	protected void lvaDebugHelper(){
+		System.out.println("  decrement: " + inMinusOut().toString());
+		System.out.println("  inSet: " + inSet.toString());
+		System.out.println("  outSet: " + outSet.toString());
+		System.out.println("  useSet: " + useSet.toString());
+		System.out.println("  defSet: " + defSet.toString());
+		System.out.println("  nextSet: " + nextSet.toString());
+	}
+	
+	// returns the set of "in" variables used by this CubexStatement
 	public HashSet<String> getIns() {
 		HashSet<String> out = new HashSet<String>();
 		for (IrStatement i : nextSet) {
@@ -69,17 +83,6 @@ public abstract class IrStatement implements IrProgramElem{
 	// via a check for whether the nextSet is null
 	public abstract void populateSets(LvaContext c);
 	
-	// gets the top statement from each IrStatement, accounting for temporaryBinds
-	// private because the expected behavior isn't achieved after calling for lva
-	protected IrStatement getTop() {
-		if (temporaryBinds.size() >0 && !topAccessed) {
-			topAccessed = true;
-			return temporaryBinds.get(0);
-		}
-		topAccessed = true;
-		return this;
-	}
-	
 	// helper function for populateNext
 	protected void populateSetsTemps(LvaContext c) {
 		// populateNext the temporary variables first
@@ -92,4 +95,18 @@ public abstract class IrStatement implements IrProgramElem{
 			}
 		}
 	}
+	
+	// gets the top statement from each IrStatement, accounting for temporaryBinds
+	// private because the expected behavior isn't achieved after calling for lva
+	protected IrStatement getTop() {
+		if (temporaryBinds.size() >0 && !topAccessed) {
+			topAccessed = true;
+			return temporaryBinds.get(0);
+		}
+		topAccessed = true;
+		return this;
+	}
+	
+	@Override
+	public abstract String toString();
 }

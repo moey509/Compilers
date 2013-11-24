@@ -161,10 +161,16 @@ public class IrProgram {
 					
 					while (c.changed) {
 						c.changed = false;
+						//DEBUG STATEMENTS
+						System.out.println(">>>> BEGIN FUNCTION LOOP");
+						System.out.println(f.functionName);
+
 						// lva all function statements
 						for (IrStatement s : f.statements) {
 							s.lva(c);
 						}
+						
+						System.out.println("END FUNCTION LOOP <<<<");
 					}
 					
 					// reset doNotDecrement for next IrProgramElem
@@ -178,9 +184,12 @@ public class IrProgram {
 		}
 		while (c0.changed) {
 			c0.changed = false;
+			// DEBUG STATEMENTS
+			System.out.println(">>>> BEGIN STATEMENT LOOP");
 			for (IrStatement s : statements) {
 				s.lva(c0);
 			}
+			System.out.println("END STATEMENT LOOP <<<<");
 		}
 	}
 

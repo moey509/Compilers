@@ -2,10 +2,8 @@ package ir.statements;
 
 import ir.CGenerationContext;
 import ir.expressions.IrExpression;
-
 import java.util.ArrayList;
 import java.util.HashSet;
-
 import optimization.LvaContext;
 import optimization.CseContext;
 import typeChecker.CubexCompleteContext;
@@ -189,12 +187,8 @@ public final class IrReturn extends IrStatement {
 	public void lva(LvaContext c) {
 		lvaHelper(c);
 		// DEBUG STATEMENTS
-		System.out.println("IrReturn: " + expression.toString());
-		System.out.println("  inSet: " + inSet.toString());
-		System.out.println("  outSet: " + outSet.toString());
-		System.out.println("  useSet: " + useSet.toString());
-		System.out.println("  defSet: " + defSet.toString());
-		System.out.println("  nextSet: " + nextSet.toString());
+		System.out.println(toString());
+		lvaDebugHelper();
 		//
 		
 	}
@@ -217,6 +211,11 @@ public final class IrReturn extends IrStatement {
 		}
 		expression = expression.eliminateSubexpression(context);
 		
+	}
+
+	@Override
+	public String toString() {
+		return "IrReturn: return " + expression.toString();
 	}
 }
 

@@ -145,12 +145,8 @@ public class IrIf extends IrStatement {
 	public void lva(LvaContext c) {
 		lvaHelper(c);
 		// DEBUG STATEMENTS
-		System.out.println("IrIf: " + condition.toString());
-		System.out.println("  inSet: " + inSet.toString());
-		System.out.println("  outSet: " + outSet.toString());
-		System.out.println("  useSet: " + useSet.toString());
-		System.out.println("  defSet: " + defSet.toString());
-		System.out.println("  nextSet: " + nextSet.toString());
+		System.out.println(toString());
+		lvaDebugHelper();
 		//
 		
 		for (IrStatement s : statements1) {
@@ -233,5 +229,10 @@ public class IrIf extends IrStatement {
 			statement.removeCommonSubexpressions(context2);
 		}
 		context = context1.merge(context2);
+	}
+
+	@Override
+	public String toString() {
+		return "IrIf: if ( " + condition.toString() + " )";
 	}
 }
