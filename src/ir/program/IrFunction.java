@@ -109,14 +109,16 @@ public class IrFunction implements IrProgramElem{
 
 
 			int counter = 0;
-			postarr.add("__struct->fun_ptrs = (functionPointer*) x3malloc(sizeof(functionPointer*) * " + (vTableFunctionNames.size()+1) + ");");
-			postarr.add("__struct->fun_names = (char**) x3malloc(sizeof(char**) * " + (vTableFunctionNames.size()+1) + ");");
-			postarr.add("__struct->fun_length = " + vTableFunctionNames.size() + ";");
+			postarr.add("__struct->fun_ptrs = (functionPointer*) x3malloc(sizeof(functionPointer) * " + (vTableFunctionNames.size()+1) + ");");
+			postarr.add("__struct->fun_names = (char**) x3malloc(sizeof(char*) * " + (vTableFunctionNames.size()+1) + ");");
+			postarr.add("__struct->fun_length = " + (vTableFunctionNames.size() + 1) + ";");
 			for (String str : vTableFunctionNames){
+				postarr.add("__struct->fun_names[" + counter + "] = (char*) x3malloc(sizeof(char) * " + (str.length() + 1) + ");");
 				postarr.add("__struct->fun_ptrs[" + counter + "] = &" + str + ";");
 				postarr.add("__struct->fun_names[" + counter + "] = \"" + str + "\";");
 				counter++;
 			}
+			postarr.add("__struct->fun_names[" + counter + "] = (char*) x3malloc(sizeof(char) * " + ("__kill".length() + 1) + ");");
 			postarr.add("__struct->fun_ptrs[" + counter + "] = &" + "__kill_" + type.toC().substring(0, type.toC().length()-2) + ";");
 			postarr.add("__struct->fun_names[" + counter + "] = \"" + "__kill" + "\";");
 					
