@@ -127,6 +127,8 @@ public class IrProgram {
 	}
 	
 	public void lva() {
+		boolean debug = true; // REMOVE AFTER FINISH DEBUGGING
+		
 		LvaContext c0 = new LvaContext();
 		HashSet<String> topLevelVarsSoFar = new HashSet<String>();
 		ArrayList<IrStatement> statements = new ArrayList<IrStatement>();
@@ -161,19 +163,24 @@ public class IrProgram {
 					
 					while (c.changed) {
 						c.changed = false;
-						//DEBUG STATEMENTS
-						System.out.println(">>>> BEGIN FUNCTION LOOP");
-						System.out.println(f.functionName);
-
 						// lva all function statements
 						for (IrStatement s : f.statements) {
 							s.lva(c);
 						}
-						
-						System.out.println("END FUNCTION LOOP <<<<");
 					}
 					
-					// reset doNotDecrement for next IrProgramElem
+					if (debug) {
+						//DEBUG STATEMENTS
+						c.debug = true;
+						System.out.println(">>>> BEGIN FUNCTION LOOP");
+						System.out.println(f.functionName);
+						// lva all function statements
+						for (IrStatement s : f.statements) {
+							s.lva(c);
+						}
+						System.out.println("END FUNCTION LOOP <<<<");
+						System.out.println("");
+					}
 				}
 			} // else IrProgramElem is struct, in which case we do nothing
 		}
@@ -184,12 +191,20 @@ public class IrProgram {
 		}
 		while (c0.changed) {
 			c0.changed = false;
+			for (IrStatement s : statements) {
+				s.lva(c0);
+			}
+		}
+		
+		if (debug) {
+			c0.debug = true;
 			// DEBUG STATEMENTS
 			System.out.println(">>>> BEGIN STATEMENT LOOP");
 			for (IrStatement s : statements) {
 				s.lva(c0);
 			}
 			System.out.println("END STATEMENT LOOP <<<<");
+			System.out.println("");
 		}
 	}
 
