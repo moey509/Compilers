@@ -5,8 +5,11 @@ import ir.statements.IrStatement;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
+import optimization.LvaContext;
+import typeChecker.TypeContext;
 import optimization.CseContext;
 
 public class IrProgram {
@@ -121,6 +124,64 @@ public class IrProgram {
 		output.add("}");
 		preOut.addAll(output);
 		return preOut;
+	}
+	
+	public void lva() {
+		LvaContext c0 = new LvaContext();
+		HashSet<String> topLevelVarsSoFar = new HashSet<String>();
+		ArrayList<IrStatement> statements = new ArrayList<IrStatement>();
+
+		for (IrProgramElem i : programElementList) {
+			if (i instanceof IrStatement) {
+				IrStatement s = (IrStatement) i;
+				topLevelVarsSoFar.addAll(((IrStatement) i).defSet);
+				statements.add(s);
+
+			} else if (i instanceof IrFunction) {
+				IrFunction f = (IrFunction) i;
+				if (f.isToplevel) { // only do if function is not a class method
+					// add mapping for the toplevel variables used by this function
+					LvaContext c = new LvaContext();
+					c.functionUse.putAll(c0.functionUse);
+					c.doNotDecrement = topLevelVarsSoFar;
+					c.nextList.addAll(f.statements);
+					c.nextList.removeFirst();
+					
+					for (IrStatement s : f.statements) {
+						s.populateSets(c);
+					}
+					
+					HashSet<String> topLevelVarsUsed = new HashSet<String>();
+					for (IrStatement s : f.statements) {
+						topLevelVarsUsed.addAll(s.useSet);
+					}
+					topLevelVarsUsed.retainAll(topLevelVarsSoFar);
+					c0.functionUse.put(f.functionName, topLevelVarsUsed);
+					
+					
+					while (c.changed) {
+						c.changed = false;
+						// lva all function statements
+						for (IrStatement s : f.statements) {
+							s.lva(c);
+						}
+					}
+					
+					// reset doNotDecrement for next IrProgramElem
+				}
+			} // else IrProgramElem is struct, in which case we do nothing
+		}
+		c0.nextList.addAll(statements);
+		c0.nextList.removeFirst();
+		for (IrStatement s : statements) {
+			s.populateSets(c0);
+		}
+		while (c0.changed) {
+			c0.changed = false;
+			for (IrStatement s : statements) {
+				s.lva(c0);
+			}
+		}
 	}
 
 	public void removeCommonSubexpressions() {

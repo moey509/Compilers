@@ -5,6 +5,8 @@ import ir.IrMiscFunctions;
 import ir.statements.IrBind;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Set;
 
 import optimization.CseContext;
 import parsingTokens.CubexList;
@@ -59,6 +61,11 @@ public final class IrString implements IrExpression {
 	
 	public String toString(){
 		return mValue;
+	}
+
+	@Override
+	public void getVars(Set<String> set, Map<String, Set<String>> map) {
+		return;
 	}
 	
 	public boolean equals(Object object){

@@ -1,6 +1,8 @@
 package ir.expressions;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Set;
 
 import optimization.CseContext;
 import parsingTokens.CubexList;
@@ -41,6 +43,12 @@ public final class IrInteger implements IrExpression {
 	public String toString(){
 		return Integer.toString(mValue);
 	}
+
+	@Override
+	public void getVars(Set<String> set, Map<String, Set<String>> map) {
+		return;
+	}
+
 	public boolean equals(Object object){
 		if (object instanceof IrInteger){
 			return mValue == ((IrInteger)object).mValue;

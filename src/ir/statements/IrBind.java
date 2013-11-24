@@ -1,17 +1,21 @@
 package ir.statements;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+
+import optimization.LvaContext;
+import typeChecker.CubexCompleteContext;
 import ir.CGenerationContext;
 import ir.expressions.IrExpression;
 import ir.expressions.IrExpressionTuple;
 import ir.expressions.IrFunctionCall;
 import ir.program.IrTypeTuple;
-
 import java.util.ArrayList;
-
 import optimization.CseContext;
 import typeChecker.CubexCompleteContext;
 
-public final class IrBind implements IrStatement {
+public final class IrBind extends IrStatement {
+
 	public IrTypeTuple tuple;
 	public IrExpression expression;
 	public ArrayList<IrBind> temporaryBinds;
@@ -23,6 +27,9 @@ public final class IrBind implements IrStatement {
 		this.expression = expression;
 		this.temporaryBinds = new ArrayList<IrBind>();
 		this.context = context;
+		
+//		expression.getVars(this.useSet);
+		this.defSet.add(tuple.variableName);
 	}
 	
 	public String getVariableName(){
@@ -109,6 +116,27 @@ public final class IrBind implements IrStatement {
 	}
 
 	@Override
+	public void lva(LvaContext c) {
+		lvaHelper(c);
+	}
+
+	@Override
+	public void populateSets(LvaContext c) {
+		if (nextSet==null) {
+			nextSet = new HashSet<IrStatement>();
+			
+			useSet = new HashSet<String>();
+			expression.getVars(useSet, c.functionUse);
+			
+			populateSetsTemps(c);
+
+			// now add to the nextList for this bind
+			if (c.nextList.size()>0) {
+				nextSet.add(c.nextList.removeFirst().getTop());
+			}
+		}
+	}
+
 	public void removeCommonSubexpressions(CseContext context) {
 		// TODO Auto-generated method stub
 		
