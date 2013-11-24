@@ -34,6 +34,7 @@ import ir.program.IrProgram;
 import ir.program.IrStruct;
 import ir.program.IrTypeTuple;
 import ir.statements.IrBind;
+import ir.statements.IrCStatement;
 import ir.statements.IrReturn;
 
 public class CubexClassGrammar {
@@ -88,6 +89,7 @@ public class CubexClassGrammar {
 		context.setSuperType(name, extendsType.name);
 		addStruct(context, program);
 		addConstructor(context, program);
+		addDestructor(context, program);
 		addFunctions(context, program);
 		return program;
 	}
@@ -112,6 +114,33 @@ public class CubexClassGrammar {
 			}
 			program.addStruct(irStruct);
 		}
+	}
+	
+	private void addDestructor(IrGenerationContext context, IrProgram program){
+		ArrayList<String> arr = new ArrayList<String>();
+		IrFunction irFunction = new IrFunction(new IrType("_kill_" + name), "_kill_" + name);
+		IrTypeTuple argument = new IrTypeTuple(new IrType(name), "__struct");
+		irFunction.addFunctionArgument(argument);
+		HashMap<String, String> varSet = new HashMap<String, String>();
+		for (CubexStatement stmt : statements.iterable()) {
+			if (stmt instanceof CubexBind) {
+				CubexBind bind = (CubexBind) stmt;
+				varSet.put(bind.getId(), "__struct->" + bind.getId());			
+			}
+			
+		}
+		for(CubexTypeTuple t : typecontext.contextCollection){
+			System.out.println("ref_decrement(__struct->((General_t)" + t.getName() + "));");
+			arr.add("ref_decrement(__struct->" + t.getName() + ");");
+		}
+		
+		for(String s : varSet.keySet()){
+			System.out.println("ref_decrement(__struct->((General_t)" + s + "));");
+			arr.add("ref_decrement(" + s + ");");
+		}
+		irFunction.isConstructor = false;
+		irFunction.addStatement(new IrCStatement(arr));
+		program.addGlobalFunction(irFunction);
 	}
 
 	// TODO: Needs call to super constructor unless constructable component is
