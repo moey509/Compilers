@@ -2,8 +2,10 @@ package ir.statements;
 
 import ir.CGenerationContext;
 import ir.expressions.IrExpression;
+
 import java.util.ArrayList;
 import java.util.HashSet;
+
 import optimization.LvaContext;
 import optimization.CseContext;
 import typeChecker.CubexCompleteContext;
@@ -39,7 +41,7 @@ public final class IrReturn extends IrStatement {
 	}
 
 	@Override
-	public ArrayList<String> toC(CGenerationContext context, boolean isMain) {
+	public ArrayList<String> toC(CGenerationContext context, boolean isMain, ArrayList<String> extras) {
 		ArrayList<String> arrList = new ArrayList<String>();
 		
 		String iterator = "";
@@ -72,7 +74,7 @@ public final class IrReturn extends IrStatement {
 		}
 		
 		for(IrBind b : temporaryBinds){
-			arrList.addAll(b.toC(context, isMain));
+			arrList.addAll(b.toC(context, isMain, extras));
 			context.varDecl.put(b.tuple.variableName, b.tuple.type.toC());
 			context.varInit.put(b.tuple.variableName, "NULL");
 		}
@@ -118,6 +120,8 @@ public final class IrReturn extends IrStatement {
 				arrList.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
 			}
 			
+			// extra expressions will not get added
+			
 			//TODO: REMOVE BEFORE SUBMISSION
 			arrList.add("ending();");
 			
@@ -126,7 +130,7 @@ public final class IrReturn extends IrStatement {
 		else {
 			for(int i = 0; i < temporaryBinds.size()-1; i++){
 				IrBind b = temporaryBinds.get(i);
-				if(i == temporaryBinds.size()-1 && b.tuple.variableName.equals(b.toC(context, isMain))){
+				if(i == temporaryBinds.size()-1 && b.tuple.variableName.equals(b.toC(context, isMain, extras))){
 					arrList.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
 				}
 				else{
@@ -134,11 +138,15 @@ public final class IrReturn extends IrStatement {
 				}
 			}
 			arrList.add("ref_decrement_no_free((General_t)" + expression.toC(context) + ");");
+			// add statements that are in extras
+			if (extras != null) {
+				arrList.addAll(extras);
+			}
 			arrList.add("return " + expression.toC(context) + ";");
 		}
 		return arrList;
 	}
-/*
+	/*
 	@Override
 	public ArrayList<String> toMainC(CGenerationContext context) {
 		ArrayList<String> output = new ArrayList<String>();

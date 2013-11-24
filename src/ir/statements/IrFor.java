@@ -3,6 +3,7 @@ package ir.statements;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+
 import optimization.LvaContext;
 import optimization.CseContext;
 import typeChecker.CubexCompleteContext;
@@ -55,7 +56,7 @@ public class IrFor extends IrStatement {
 	public void addInitialization(ArrayList<String> arr, CGenerationContext context){
 	}
 
-	public ArrayList<String> toC(CGenerationContext context, boolean isMain) {
+	public ArrayList<String> toC(CGenerationContext context, boolean isMain, ArrayList<String> extras) {
 		ArrayList<String> output = new ArrayList<String>();
 		int cur_iterator = context.getCurIterator();
 		int cur_iterable = context.getCurIterable();
@@ -68,7 +69,7 @@ public class IrFor extends IrStatement {
 			// put variables at the top of fcn here:
 			context.varDecl.put(b.tuple.variableName, b.tuple.type.toC());
 			output.add(b.tuple.variableName + " = NULL;");
-			output.addAll(b.toC(context, isMain));
+			output.addAll(b.toC(context, isMain, extras));
 		}
 
 		// there's a reason why these aren't IrBinds! The rhs is not really an IrFunctionCall ...
@@ -123,7 +124,7 @@ public class IrFor extends IrStatement {
 		context.controlFlowVariables.add(iterator);
 		
 		for (IrStatement s : statements) {
-			output.addAll(s.toC(context, isMain));
+			output.addAll(s.toC(context, isMain, extras));
 		}
 		
 		// UNDO MODIFICATIONS

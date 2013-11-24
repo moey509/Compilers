@@ -41,10 +41,10 @@ public class IrStatementList extends IrStatement{
 	}
 	
 	@Override
-	public ArrayList<String> toC(CGenerationContext context, boolean isMain) {
+	public ArrayList<String> toC(CGenerationContext context, boolean isMain, ArrayList<String> extras) {
 		ArrayList<String> output = new ArrayList<String>();
 		for (IrStatement stmt : statementList){
-			output.addAll(stmt.toC(context, isMain));
+			output.addAll(stmt.toC(context, isMain, extras));
 		}
 		return output;
 	}

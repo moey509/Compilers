@@ -2,9 +2,12 @@ package ir.statements;
 
 import ir.CGenerationContext;
 import ir.program.IrProgramElem;
+
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
 import optimization.LvaContext;
 
 public abstract class IrStatement implements IrProgramElem{
@@ -25,7 +28,7 @@ public abstract class IrStatement implements IrProgramElem{
 	public abstract ArrayList<IrBind> getTemporaryVariables();
 	public abstract void addDeclaration(ArrayList<String> arr, CGenerationContext context);
 	public abstract void addInitialization(ArrayList<String> arr, CGenerationContext context);
-	public abstract ArrayList<String> toC(CGenerationContext context, boolean isMain);
+	public abstract ArrayList<String> toC(CGenerationContext context, boolean isMain, ArrayList<String> extras);
 	
 	// use after lva to get the set of variables that need to be decremented
 	public Set<String> inMinusOut() {

@@ -20,6 +20,7 @@ public class IrFunction implements IrProgramElem{
 	public List<IrTypeTuple> arguments;
 	public List<IrStatement> statements;
 	public List<String> vTableFunctionNames;
+	public ArrayList<String> extraStatements;
 	public IrExpression superCall;
 	public boolean isConstructor = false;
 	ArrayList<IrBind> tempVariables = new ArrayList<IrBind>();
@@ -34,6 +35,7 @@ public class IrFunction implements IrProgramElem{
 		this.arguments = new ArrayList<IrTypeTuple>();
 		this.statements = new ArrayList<IrStatement>();
 		this.vTableFunctionNames = new ArrayList<String>();
+		this.extraStatements = null;
 	}
 
 	public IrFunction(IrType type, String functionName) {
@@ -43,6 +45,7 @@ public class IrFunction implements IrProgramElem{
 		this.arguments = new ArrayList<IrTypeTuple>();
 		this.statements = new ArrayList<IrStatement>();
 		this.vTableFunctionNames = new ArrayList<String>();
+		this.extraStatements = null;
 	}
 
 	public void addFunctionArgument(IrTypeTuple argument) {
@@ -55,6 +58,10 @@ public class IrFunction implements IrProgramElem{
 		statements.add(statement);
 	}
 	
+	public void addExtras(ArrayList<String> extras) {
+		this.extraStatements = extras;
+	}
+	
 	public void addVTableFunctionName(String functionName){
 		vTableFunctionNames.add(functionName);
 	}
@@ -63,7 +70,7 @@ public class IrFunction implements IrProgramElem{
 		superCall = expression;
 	}
 	//TODO: Can structs and functions have the same name
-	public ArrayList<String> toC(CGenerationContext context, boolean isMain) {
+	public ArrayList<String> toC(CGenerationContext context, boolean isMain, ArrayList<String> extras) {
 		context.varDecl = new HashMap<String, String>();
 		context.varInit = new HashMap<String, String>();
 		//Declaration
@@ -149,7 +156,9 @@ public class IrFunction implements IrProgramElem{
 		context.currentObject = object;
 		for(IrStatement st : statements){
 //			System.out.println(st.toC(context));
-			postarr.addAll(st.toC(context, false));
+			if (extraStatements != null)
+				System.out.println("lbah blah");
+			postarr.addAll(st.toC(context, false, extraStatements));
 		}
 
 		context.currentObject = null;
@@ -176,6 +185,7 @@ public class IrFunction implements IrProgramElem{
 			arr.add("__struct->con_comp = _" + superCall.toC(context) + ";");
 			arr.add("__struct->con_comp->ref_count = 1;");
 		}
+
 		if(isConstructor){
 			arr.add("return __struct;");
 		}
