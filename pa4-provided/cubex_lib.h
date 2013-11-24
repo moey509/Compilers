@@ -461,9 +461,20 @@ void decrement_iterable(git_t g) {
     temp = itr;
     itr = itr->next;
     temp->ref_count -= 1;
-    if (temp->ref_count <= 0) {
-      printf ("freeing!\n");    
-      (function_lookup (g, "__kill"))();
+    if (temp->ref_count <= 0) {  
+      printf ("freeing!\n");
+      if (temp->fun_length > 0) {
+        (function_lookup (g, "__kill"))();
+      }
+      if (temp->fun_names != NULL) {        
+        x3free(temp->fun_names);  
+      }
+      if (temp->fun_ptrs != NULL) {      
+        x3free(temp->fun_ptrs);  
+      }
+      if (temp->con_comp != NULL) {        
+        x3free(temp->con_comp);  
+      }          
       x3free(temp);
     }
   }
@@ -506,7 +517,19 @@ void ref_decrement(General_t gen) {
   gen->ref_count -= 1;
   if (gen->ref_count <= 0) {
     printf ("freeing!\n");
-    (function_lookup (gen, "__kill"))();
+    if (gen->fun_length > 0) {
+      (function_lookup (gen, "__kill"))();
+    }
+    if (gen->fun_names != NULL) {        
+      x3free(gen->fun_names);  
+    }
+    if (gen->fun_ptrs != NULL) {      
+      x3free(gen->fun_ptrs);  
+    }
+    if (gen->con_comp != NULL) {        
+      x3free(gen->con_comp);  
+    }          
+    
     x3free(gen);
   }
   return;
