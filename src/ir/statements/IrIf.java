@@ -65,20 +65,22 @@ public class IrIf extends IrStatement {
 			arrList.addAll(b.toC(context, isMain, extras));
 		}
 		arrList.add("if(((Boolean_t)" + condition.toC(context) + ")->value) {");
+		//TODO: Should be replaced by Ansha's code methinks
 		for(IrBind b : temporaryBinds){
 			String s = b.tuple.variableName;
-			arrList.add("ref_decrement((General_t)" + s + ");");
+			arrList.add("ref_decrement((General_t)" + s + ");"); 
 			arrList.add(s + "= NULL;");
 		}
 		for (IrStatement s1 : statements1) {
 			arrList.addAll(s1.toC(context, isMain, extras));
 		}
-		//ref_decrement the discarded variables
+		//TODO: Should be replaced by Ansha's code methinks
 		for (String s : freeContext) {
 			arrList.add("ref_decrement((General_t)" + s + ");");
 		}
 		if (statements2.isEmpty()) {
 			arrList.add("}");
+			//TODO: Should be replaced by Ansha's code methinks
 			for(IrBind b : temporaryBinds){
 				String s = b.tuple.variableName;
 				arrList.add("ref_decrement((General_t)" + s + ");");
@@ -86,6 +88,7 @@ public class IrIf extends IrStatement {
 			}
 		} else {
 			arrList.add("} else {");
+			//TODO: Should be replaced by Ansha's code methinks
 			for(IrBind b : temporaryBinds){
 				String s = b.tuple.variableName;
 				arrList.add("ref_decrement((General_t)" + s + ");");
@@ -94,7 +97,8 @@ public class IrIf extends IrStatement {
 			for (IrStatement s2 : statements2) {
 				arrList.addAll(s2.toC(context, isMain, extras));
 			}
-			//ref_decrement the else discarded variables
+
+			//TODO: Should be replaced by Ansha's code methinks
 			for (String s : freeContext2) {
 				arrList.add("ref_decrement((General_t)" + s + ");");
 			}
@@ -102,40 +106,7 @@ public class IrIf extends IrStatement {
 		}
 		return arrList;
 	}
-/*
-	@Override
-	public ArrayList<String> toMainC(CGenerationContext context) {
-//		ArrayList<String> arrList = new ArrayList<String>();
-//		for (IrBind b : temporaryBinds){
-//			arrList.addAll(b.toC(context));
-//		}
-//		arrList.add("if(" + condition.toC(context) + ") {");
-//		for(IrBind b : temporaryBinds){
-//			arrList.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
-//		}
-//		for (IrStatement s1 : statements1) {
-//			arrList.addAll(s1.toMainC(context));
-//		}
-//		//ref_decrement the else discarded variables
-//		for (String s : freeContext) {
-//			arrList.add("ref_decrement((General_t)" + s + ");");
-//		}
-		if (statements2.isEmpty()) {
-			arrList.add("}");
-		} else {
-			arrList.add("} else {");
-			for (IrStatement s2 : statements2) {
-				arrList.addAll(s2.toMainC(context));
-			}
-			//ref_decrement the else discarded variables
-			for (String s : freeContext2) {
-				arrList.add("ref_decrement((General_t)" + s + ");");
-			}
-			arrList.add("}");
-		}
-		return arrList;
-	}
-	*/
+
 	public ArrayList<IrBind> getTemporaryVariables(){
 		return this.temporaryBinds;
 	}
@@ -176,19 +147,12 @@ public class IrIf extends IrStatement {
 				} else {
 					statementlist.addAll(statements1);
 				}
-				int length = statementlist.size();
 				
 				LvaContext cCopy = c.clone();
-				IrStatement afterIf = cCopy.nextList.removeFirst().getTop();
 
 				cCopy.nextList.addAll(0, statementlist);
 				nextSet.add(cCopy.nextList.removeFirst().getTop());
 
-				IrStatement lastIfStatement = statementlist.get(length-1);
-				lastIfStatement.nextSet = new HashSet<IrStatement>();
-				lastIfStatement.nextSet.add(afterIf);
-				lastIfStatement.populateSetsTemps(cCopy);
-				
 				for (IrStatement s : statementlist) {
 					s.populateSets(cCopy);
 				}

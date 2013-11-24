@@ -79,7 +79,7 @@ public final class IrBind extends IrStatement {
 			else {
 				s = temporaryBinds.get(temporaryBinds.size()-1).tuple.variableName;
 			}
-			//Decrements whatever was previously set to this variable
+			//No live variable analysis. Decrements whatever was previously set to this variable
 			output.add("ref_decrement((General_t)" + tuple.variableName + ");");
 			output.add(tuple.variableName + " = " + s + ";");
 			output.add("ref_increment((General_t)" + tuple.variableName + ");");

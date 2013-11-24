@@ -44,9 +44,12 @@ public class IrStatementList extends IrStatement{
 	public ArrayList<String> toC(CGenerationContext context, boolean isMain, ArrayList<String> extras) {
 		ArrayList<String> output = new ArrayList<String>();
 		for (IrStatement stmt : statementList){
+<<<<<<< HEAD
 			output.addAll(stmt.toC(context, isMain, extras));
+=======
 			System.out.println("hi" + stmt.toC(context, isMain));
 			output.addAll(stmt.toC(context, isMain));
+>>>>>>> 94276b5ee646ecab715074d2dc47479b770b8ac7
 		}
 		return output;
 	}

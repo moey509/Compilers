@@ -222,7 +222,7 @@ public class CubexClassGrammar {
 			
 			// Hack to free __struct at the bottom of a method call
 			ArrayList<String> dec_inputs = new ArrayList<String>();			
-			dec_inputs.add("ref_decrement_no_free(__struct);");
+			dec_inputs.add("ref_decrement(__struct);");
 			
 			fun.addExtras(dec_inputs);
 			

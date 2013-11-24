@@ -50,6 +50,7 @@ public final class IrWhile extends IrStatement {
 			arrList.addAll(i.toC(context, isMain, extras));
 		}
 		arrList.add("while(((Boolean_t)" + condition.toC(context) + ")->value) {");
+		//TODO: Should be replaced by Ansha's code methinks
 		for(IrBind b : this.temporaryBinds){
 			String s = b.tuple.variableName;
 			arrList.add("ref_decrement((General_t)" + s + ");");
@@ -76,46 +77,20 @@ public final class IrWhile extends IrStatement {
 			arrList.addAll(i.toC(context, isMain, extras));
 		}
 		arrList.add("}");
+		//TODO: Should be replaced by Ansha's code methinks
 		for(IrBind b : this.temporaryBinds){
 			String s = b.tuple.variableName;
 			arrList.add("ref_decrement((General_t)" + s + ");");
 			arrList.add(s + "= NULL;");
 		}
+		//TODO: Should be replaced by Ansha's code methinks
 		for (String s : freeContext) {
 			arrList.add("ref_decrement((General_t)" + s + ");");
 		}
 
 		return arrList;
 	}
-/*
-	@Override
-	public ArrayList<String> toMainC(CGenerationContext context) {
-		ArrayList<String> arrList = new ArrayList<String>();
-		arrList.add("while(" + condition.toC(context) + ") {");
-		
-		for(IrStatement s : statements){
-			for(IrBind b : s.getTemporaryVariables()){
-				b.addDeclaration(arrList, context);
-			}
-			s.addDeclaration(arrList, context);
-		}
-		for(IrStatement s : statements){
-			for(IrBind b : s.getTemporaryVariables()){
-				b.addInitialization(arrList, context);
-			}
-			s.addInitialization(arrList, context);
-		}
 
-//		for (IrStatement statement : statements){
-//			arrList.addAll(statement.toMainC(context));
-//		}
-//		for (String s : freeContext) {
-//			arrList.add("ref_decrement((General_t)" + s + ");");
-//		}
-		//arrList.add("}");
-		//return arrList;
-	}
-	*/
 	public ArrayList<IrBind> getTemporaryVariables(){
 		return this.temporaryBinds;
 	}
@@ -158,22 +133,15 @@ public final class IrWhile extends IrStatement {
 				} else {
 					statementlist.addAll(statements);
 				}
-				int length = statementlist.size();
 				
+				if (temporaryBinds.size() > 0) {
+					c.nextList.add(0, temporaryBinds.get(0));
+				} else {
+					c.nextList.add(0, this);
+				}
 				c.nextList.addAll(0, statementlist);
 				nextSet.add(c.nextList.removeFirst().getTop());
 
-				// changes the nextSet of the last statement inside the for loop
-				// to point to the for loop
-				IrStatement lastWhileStatement = statementlist.get(length-1);
-				lastWhileStatement.nextSet = new HashSet<IrStatement>();
-				if (temporaryBinds.size()>0) {
-					lastWhileStatement.nextSet.add(temporaryBinds.get(0));
-				} else {
-					lastWhileStatement.nextSet.add(this);
-				}
-				lastWhileStatement.populateSetsTemps(c);
-				
 				for (IrStatement s : statementlist) {
 					s.populateSets(c);
 				}

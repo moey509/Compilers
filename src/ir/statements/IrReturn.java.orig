@@ -148,6 +148,7 @@ public final class IrReturn extends IrStatement {
 		}
 		return arrList;
 	}
+<<<<<<< HEAD
 	/*
 	@Override
 	public ArrayList<String> toMainC(CGenerationContext context) {
@@ -188,7 +189,9 @@ public final class IrReturn extends IrStatement {
 //		return output;
 	}
 	*/
+=======
 
+>>>>>>> 94276b5ee646ecab715074d2dc47479b770b8ac7
 	public ArrayList<IrBind> getTemporaryVariables(){
 		return this.temporaryBinds;
 	}

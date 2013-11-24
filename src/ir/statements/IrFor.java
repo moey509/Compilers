@@ -95,6 +95,8 @@ public class IrFor extends IrStatement {
 		output.add(inc1Declaration);
 		output.add(itDeclaration);
 		output.add(inc2Declaration);
+		
+		//TODO: Should be replaced by Ansha's code
 		for(IrBind b : this.temporaryBinds){
 			String s = b.tuple.variableName;
 			output.add("ref_decrement((General_t)" + s + ");");
@@ -132,13 +134,14 @@ public class IrFor extends IrStatement {
 		context.controlFlowVariables.remove(iterator);
 		/*** ^^^^ END CODE BLOCK ***/
 	
-		//TODO: POSSIBLE DOUBLE FREE?
+		//TODO: Should be replaced by Ansha's code?
 		String tempVarDec = "ref_decrement((General_t)" + var + ");";
 		String endLoop = "}";
 
 		output.add(tempVarDec);
 		output.add(endLoop);
 		
+		///TODO: Shouldn't be replaced by Ansha's code?...what if there are two for loops in a row with the same iterable?
 		String dec1Declaration = "ref_decrement((General_t)" + iterable + ");";
 		String dec2Declaration = "ref_decrement((General_t)" + iterator + ");";
 		String null1Declaration = iterable + " = NULL;";
@@ -150,69 +153,14 @@ public class IrFor extends IrStatement {
 		output.add(null2Declaration);
 
 		//decrementing variables in the free context
-		//TODO: need to handle v and e in "for(v in e)"
+		//TODO: Should be replaced by Ansha's code methinks
 		for (String s : freeContext) {
 			output.add("ref_decrement((General_t)" + s + ");");
 		}
 
 		return output;
 	}
-	/*
-	@Override
-	public ArrayList<String> toMainC(CGenerationContext context) {
-    /*
-		ArrayList<String> arr = new ArrayList<String>();
-		int cur_iterator = context.getCurIterator();
-		int cur_iterable = context.getCurIterable();
-		context.incrementCurIterator();
-		context.incrementCurIterable();
-		String iterable = context.iterable + cur_iterable;
-		String iterator = context.iterator + cur_iterator;
-	 */
-	//String iterDeclaration = iterable + " = iterable_append((" + list.toC(context) + "), NULL);";
-	//		context.mainVarDecl.put(list.toC(context), "void*");
-	//context.mainVarDecl.put(iterable, "git_t");
-	//String itDeclaration = iterator + " = new_iterator((" + iterable + "));";
-	//		context.mainVarDecl.put(iterator, "iterator_t");
-	//		String itCondition = "while(hasNext(" + iterator + ")) {";
-	//		String tempVar = "void* " + var + " = getNext(" + iterator + ");";
 
-	//		System.out.println("sdfadfasdfasdff"  + iterDeclaration);
-	/*
-		arr.add(iterDeclaration);
-		arr.add(itDeclaration);
-		arr.add(itCondition);
-		arr.add(tempVar);
-
-		for(IrStatement s : statements){
-			for(IrBind b : s.getTemporaryVariables()){
-				b.addDeclaration(arr, context);
-			}
-			s.addDeclaration(arr, context);
-		}
-		for(IrStatement s : statements){
-			for(IrBind b : s.getTemporaryVariables()){
-				b.addInitialization(arr, context);
-			}
-			s.addInitialization(arr, context);
-		}
-
-		for (IrStatement s : statements) {
-			arr.addAll(s.toMainC(context));
-		}
-
-		//decrementing variables in the free context
-		for (String s : freeContext) {
-			arr.add("ref_decrement((General_t)" + s + ");");
-		}
-
-		String endLoop = "}";
-
-		arr.add(endLoop);
-
-		return arr;
-	}
-	 */
 	public ArrayList<IrBind> getTemporaryVariables(){
 		return this.temporaryBinds;
 	}
@@ -220,7 +168,6 @@ public class IrFor extends IrStatement {
 	@Override
 	public void lva(LvaContext c) {
 		lvaHelper(c);
-		
 		if (c.debug) {
 			// DEBUG STATEMENTS
 			System.out.println(toString());
@@ -254,18 +201,11 @@ public class IrFor extends IrStatement {
 				} else {
 					statementlist.addAll(statements);
 				}
-				int length = statementlist.size();
 
+				c.nextList.add(0, this);
 				c.nextList.addAll(0, statementlist);
 				nextSet.add(c.nextList.removeFirst().getTop());
 
-				// changes the nextSet of the last statement inside the for loop
-				// to point to the for loop
-				IrStatement lastForStatement = statementlist.get(length-1);
-				lastForStatement.nextSet = new HashSet<IrStatement>();
-				lastForStatement.nextSet.add(this);
-				lastForStatement.populateSetsTemps(c);
-				
 				for (IrStatement s : statementlist) {
 					s.populateSets(c);
 				}
