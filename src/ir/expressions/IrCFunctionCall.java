@@ -68,9 +68,7 @@ public class IrCFunctionCall implements IrExpression {
 
 	@Override
 	public ArrayList<IrBind> getExpressions(CGenerationContext context) {
-		// TODO Auto-generated method stub
 		ArrayList<IrBind> arr = new ArrayList<IrBind>();
-		//arr.add(null);
 		return arr;
 	}
 
