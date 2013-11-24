@@ -101,6 +101,6 @@ public class IrUnaryExpression implements IrExpression {
 
 	@Override
 	public IrExpression getSubexpressions(CseContext context) {
-		return new IrUnaryExpression(expression.eliminateSubexpression(context), operator, cubexType);
+		return new IrUnaryExpression(expression.getSubexpressions(context), operator, cubexType);
 	}
 }
