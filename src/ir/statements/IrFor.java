@@ -15,7 +15,6 @@ public class IrFor extends IrStatement {
 	private IrExpression list;
 	private String var;
 	private List<IrStatement> statements;
-	public ArrayList<IrBind> temporaryBinds;
 	public CubexCompleteContext context;
 
 	public IrFor(String var, IrExpression list, CubexCompleteContext context) {
@@ -264,6 +263,7 @@ public class IrFor extends IrStatement {
 				IrStatement lastForStatement = statementlist.get(length-1);
 				lastForStatement.nextSet = new HashSet<IrStatement>();
 				lastForStatement.nextSet.add(this);
+				lastForStatement.populateSetsTemps(c);
 				
 				for (IrStatement s : statementlist) {
 					s.populateSets(c);

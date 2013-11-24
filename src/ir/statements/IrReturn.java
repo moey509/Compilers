@@ -12,7 +12,6 @@ public final class IrReturn extends IrStatement {
 	// the Cubex variables to be freed before returning
 	private ArrayList<String> freeContext = new ArrayList<String>();
 	private IrExpression expression;
-	public ArrayList<IrBind> temporaryBinds = new ArrayList<IrBind>();
 	public CubexCompleteContext context;
 
 	public IrReturn(IrExpression expression, CubexCompleteContext context) {
