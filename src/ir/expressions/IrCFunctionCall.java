@@ -47,7 +47,6 @@ public class IrCFunctionCall implements IrExpression {
 					functionCall.append(",");
 				}
 				String parameterPrefix = "";
-				System.out.println("IrCFunctionCall: " + parameterTypes.get(i));
 				functionCall.append("(" + parameterTypes.get(i) + ") " + parameterPrefix + parameters.get(i));
 			}
 			functionCall.append(")");
@@ -60,7 +59,6 @@ public class IrCFunctionCall implements IrExpression {
 					functionCall.append(",");
 				}
 				String parameterPrefix = (context.objectToDataMap.get(context.currentObject).contains(parameters.get(i))) ? "__struct->" : "";
-				System.out.println("IrCFunctionCall: " + parameterTypes.get(i));
 				functionCall.append("(" + parameterTypes.get(i) + ") " + parameterPrefix + parameters.get(i));
 			}
 			functionCall.append(")");

@@ -37,7 +37,6 @@ public class CubexAppend extends CubexExpression {
 		//If temporary variable assigned, create variableExpression as the input to an IrAppend
 		IrExpression vare1;
 		IrExpression vare2;
-		System.out.println("here: " + this);
 		if(tempe1.size() > 0){
 			IrBind binde1 = tempe1.get(tempe1.size()-1);
 			vare1 = new IrVariableExpression(binde1.tuple.variableName, binde1.tuple.type.type);
