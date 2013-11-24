@@ -130,12 +130,10 @@ public class CubexClassGrammar {
 			
 		}
 		for(CubexTypeTuple t : typecontext.contextCollection){
-			System.out.println("ref_decrement(__struct->((General_t)" + t.getName() + "));");
 			arr.add("ref_decrement(__struct->" + t.getName() + ");");
 		}
 		
 		for(String s : varSet.keySet()){
-			System.out.println("ref_decrement(__struct->((General_t)" + s + "));");
 			arr.add("ref_decrement(" + s + ");");
 		}
 		irFunction.isConstructor = false;
