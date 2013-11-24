@@ -74,18 +74,32 @@ public class IrCFunctionCall implements IrExpression {
 		return arr;
 	}
 
-	//TODO: MATT FILL THESE IN
 	@Override
 	public IrExpression eliminateSubexpression(CseContext context) {
-		// TODO Auto-generated method stub
-		return null;
+		IrExpression expr = getSubexpressions(context);
+		if (context.containsExpression(expr)){
+			return context.getVariableExpression(expr);
+		} else {
+			for (String s : parameters){
+				if (context.containsVariable(s)){
+					s = context.getVariable(context.getExpression(s));
+				}
+			}
+			return this;
+		}
 	}
 
 	@Override
 	public IrExpression getSubexpressions(CseContext context) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	
+		IrFunctionCall output = new IrFunctionCall(functionName, cType, cubexType);
+		for (int i = 0; i < parameters.size(); i++){
+			if (context.containsVariable(parameters.get(i))){
+				output.addArgument(parameterTypes.get(i), context.getExpression(parameters.get(i)));
+			}
+			else {
+				output.addArgument(parameterTypes.get(i), new IrVariableExpression(parameters.get(i), parameterTypes.get(i)));
+			}
+		}
+		return output;
+	}	
 }
