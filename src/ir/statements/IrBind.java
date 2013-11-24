@@ -121,10 +121,12 @@ public final class IrBind extends IrStatement {
 	@Override
 	public void lva(LvaContext c) {
 		lvaHelper(c);
-		// DEBUG STATEMENTS
-		System.out.println(toString());
-		lvaDebugHelper();
-		//
+
+		if (c.debug) {
+			// DEBUG STATEMENTS
+			System.out.println(toString());
+			lvaDebugHelper();
+		}
 	}
 
 	@Override

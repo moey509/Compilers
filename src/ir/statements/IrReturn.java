@@ -185,11 +185,12 @@ public final class IrReturn extends IrStatement {
 	@Override
 	public void lva(LvaContext c) {
 		lvaHelper(c);
+		
+		if (c.debug) {
 		// DEBUG STATEMENTS
 		System.out.println(toString());
 		lvaDebugHelper();
-		//
-		
+		}
 	}
 
 	@Override

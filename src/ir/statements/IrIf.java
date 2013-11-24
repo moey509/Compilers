@@ -143,10 +143,12 @@ public class IrIf extends IrStatement {
 	@Override
 	public void lva(LvaContext c) {
 		lvaHelper(c);
-		// DEBUG STATEMENTS
-		System.out.println(toString());
-		lvaDebugHelper();
-		//
+		
+		if (c.debug) {
+			// DEBUG STATEMENTS
+			System.out.println(toString());
+			lvaDebugHelper();
+		}
 		
 		for (IrStatement s : statements1) {
 			s.lva(c);

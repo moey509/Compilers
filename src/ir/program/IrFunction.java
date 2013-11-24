@@ -29,7 +29,7 @@ public class IrFunction implements IrProgramElem{
 	public IrFunction(IrType type, String object, String functionName) {
 		this.type = type;
 		this.object = (object == null) ? "" : object;
-		this.isToplevel = (object == null) ? true : false;
+		this.isToplevel = (this.object.equals("")) ? true : false;
 		this.functionName = functionName;
 		this.arguments = new ArrayList<IrTypeTuple>();
 		this.statements = new ArrayList<IrStatement>();
