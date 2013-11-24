@@ -4,6 +4,8 @@ import ir.CGenerationContext;
 import ir.statements.IrBind;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Set;
 
 import optimization.CseContext;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
@@ -101,5 +103,11 @@ public class IrCFunctionCall implements IrExpression {
 			}
 		}
 		return output;
+	}
+
+	@Override
+	public void getVars(Set<String> set, Map<String, Set<String>> map) {
+		// TODO Auto-generated method stub
+		
 	}	
 }
