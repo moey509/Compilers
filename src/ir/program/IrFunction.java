@@ -109,14 +109,16 @@ public class IrFunction implements IrProgramElem{
 
 
 			int counter = 0;
-			postarr.add("__struct->fun_ptrs = (functionPointer*) x3malloc(sizeof(functionPointer*) * " + vTableFunctionNames.size() + ");");
-			postarr.add("__struct->fun_names = (char**) x3malloc(sizeof(char**) * " + vTableFunctionNames.size() + ");");
+			postarr.add("__struct->fun_ptrs = (functionPointer*) x3malloc(sizeof(functionPointer*) * " + (vTableFunctionNames.size()+1) + ");");
+			postarr.add("__struct->fun_names = (char**) x3malloc(sizeof(char**) * " + (vTableFunctionNames.size()+1) + ");");
 			postarr.add("__struct->fun_length = " + vTableFunctionNames.size() + ";");
 			for (String str : vTableFunctionNames){
 				postarr.add("__struct->fun_ptrs[" + counter + "] = &" + str + ";");
 				postarr.add("__struct->fun_names[" + counter + "] = \"" + str + "\";");
 				counter++;
 			}
+			postarr.add("__struct->fun_ptrs[" + counter + "] = &" + "__kill_" + type.toC().substring(0, type.toC().length()-2) + ";");
+			postarr.add("__struct->fun_names[" + counter + "] = \"" + "__kill" + "\";");
 					
 			for(IrTypeTuple t : arguments){
 				if(firstElement){
@@ -134,13 +136,12 @@ public class IrFunction implements IrProgramElem{
 				postarr.add("__struct->" + t.variableName + " = NULL;");
 			}
 		}
-		postarr.add("/* BEGIN */");
+		
 		context.currentObject = object;
 		for(IrStatement st : statements){
 //			System.out.println(st.toC(context));
 			postarr.addAll(st.toC(context, false));
 		}
-		postarr.add("/* END */");
 
 		context.currentObject = null;
 		
