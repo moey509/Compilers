@@ -99,8 +99,8 @@ public class CubexInterface {
 		return build.toString();
 	}
 
-	// TODO: Need a way to get functions from supertype
-	// TODO: Need a way to get the constructable component
+	// Need a way to get functions from supertype
+	// Need a way to get the constructable component
 	public ClassContext typeCheck(CubexCompleteContext originalContext)
 			throws SemanticException {
 		CubexCompleteContext context = originalContext.clone();
@@ -176,7 +176,7 @@ public class CubexInterface {
 		}
 
 		context.typeContext.noConflictMerge(context.mutableTypeContext);
-		// TODO: Check to see that super call is valid ??
+		// Check to see that super call is valid ??
 		if (!superElement.name.equals("Thing")) {
 			Map<String, CubexTypeScheme> superTypeFunctions = superElement.functionMap;
 			for (CubexFunctionDef function : functionList.iterable()) {

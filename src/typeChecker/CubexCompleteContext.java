@@ -27,7 +27,6 @@ public class CubexCompleteContext {
 		mutableTypeContext = mt;
 	}
 
-	// TODO: implement adding onto the complete context
 	// CubexCompleteContext add(ClassContext c, KindContext k, FunctionContext
 	// f, TypeContext t, TypeContext mt){
 	// CubexCompleteContext ccc = new CubexCompleteContext(c, k, f, t, mt);
@@ -74,7 +73,7 @@ public class CubexCompleteContext {
 		functionContext.merge(t);
 	}
 
-	// TODO: Make sure appending the function context does not overload
+	// Make sure appending the function context does not overload
 	public void appendFunctionContext(String s, CubexTypeScheme t) {
 		functionContext.put(s, t);
 	}

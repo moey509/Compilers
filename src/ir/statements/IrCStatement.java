@@ -15,32 +15,26 @@ public class IrCStatement extends IrStatement {
 	}
 	
 	public void removeCommonSubexpressions(CseContext context) {
-		// TODO Auto-generated method stub
 		return;
 	}
 
 	@Override
 	public ArrayList<IrBind> getTemporaryVariables() {
-		// TODO Auto-generated method stub
 		return new ArrayList<IrBind>();
 	}
 
 	@Override
 	public void addDeclaration(ArrayList<String> arr, CGenerationContext context) {
-		// TODO Auto-generated method stub
 		return;
 	}
 
 	@Override
-	public void addInitialization(ArrayList<String> arr,
-			CGenerationContext context) {
-		// TODO Auto-generated method stub
+	public void addInitialization(ArrayList<String> arr, CGenerationContext context) {
 		return;
 	}
 
 	@Override
 	public ArrayList<String> toC(CGenerationContext context, boolean isMain) {
-		// TODO Auto-generated method stub
 		return cStatements;
 	}
 

@@ -19,7 +19,7 @@ import parsingTokens.typeGrammar.CubexTypeGrammar;
 import typeChecker.CubexCompleteContext;
 import typeChecker.IrGenerationContext;
 import typeChecker.TypeContext;
-//TODO: WE SHOULD WRITE DOCUMENTATION SO WE KNOW WHAT IS WHAT
+
 public final class CubexFunctionCall extends CubexExpression {
 	private String v_vc; //function name
 	private CubexList<CubexTypeGrammar> typeParams; // the stuff in angle brackets
@@ -36,7 +36,6 @@ public final class CubexFunctionCall extends CubexExpression {
 	}
 
 	public IrFunctionCall toIr(IrGenerationContext context) {
-		//TODO something with context to know which function to call in c
 		IrFunctionCall irFunCall;
 		if (context.containsGlobalFunction("_" + v_vc)){
 			String obj = "";

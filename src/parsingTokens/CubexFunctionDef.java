@@ -19,7 +19,6 @@ public class CubexFunctionDef {
 		name = n;
 		typescheme = tscheme;
 		statement = s;
-		// TODO: What happens if statement is null?
 		if (s != null) {
 			statement = new CubexListStatement(s.flatten());
 		}

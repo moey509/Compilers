@@ -141,7 +141,7 @@ public class CubexClassGrammar {
 		program.addGlobalFunction(irFunction);
 	}
 
-	// TODO: Needs call to super constructor unless constructable component is
+	// Needs call to super constructor unless constructable component is
 	// thing
 	private void addConstructor(IrGenerationContext context, IrProgram program) {
 		IrFunction irFunction = new IrFunction(new IrType(name), name);
@@ -227,7 +227,6 @@ public class CubexClassGrammar {
 //							+ parentClass + "_" + function.name,
 //							function.typescheme.getTypeGrammar().name, function.typescheme.getTypeGrammar()), completeContext));
 
-					// TODO: check this with Jimmy
 					fun.addFunctionArgument(new IrTypeTuple(new IrType("void*"), "ConstructableComponent"));
 					program.addGlobalFunction(fun);
 				}
@@ -271,8 +270,8 @@ public class CubexClassGrammar {
 		return build.toString();
 	}
 
-	// TODO: Need a way to get functions from supertype
-	// TODO: Need a way to get the constructable component
+	// Need a way to get functions from supertype
+	// Need a way to get the constructable component
 	public CubexCompleteContext typeCheck(CubexCompleteContext originalContext)
 			throws SemanticException {
 
