@@ -17,7 +17,6 @@ public class IrIf extends IrStatement {
 	private IrExpression condition;
 	private List<IrStatement> statements1; // { s1 }
 	private List<IrStatement> statements2; // else {s2}
-	public ArrayList<IrBind> temporaryBinds = new ArrayList<IrBind>();
 	public CubexCompleteContext context;
 
 	// if there is no else statement, let s2 be null
@@ -183,9 +182,10 @@ public class IrIf extends IrStatement {
 				cCopy.nextList.addAll(0, statementlist);
 				nextSet.add(cCopy.nextList.removeFirst().getTop());
 
-				IrStatement lastForStatement = statementlist.get(length-1);
-				lastForStatement.nextSet = new HashSet<IrStatement>();
-				lastForStatement.nextSet.add(afterIf);
+				IrStatement lastIfStatement = statementlist.get(length-1);
+				lastIfStatement.nextSet = new HashSet<IrStatement>();
+				lastIfStatement.nextSet.add(afterIf);
+				lastIfStatement.populateSetsTemps(cCopy);
 				
 				for (IrStatement s : statementlist) {
 					s.populateSets(cCopy);

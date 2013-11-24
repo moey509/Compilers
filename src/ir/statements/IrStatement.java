@@ -8,7 +8,7 @@ import java.util.Set;
 import optimization.LvaContext;
 
 public abstract class IrStatement implements IrProgramElem{
-	private ArrayList<IrBind> temporaryBinds = new ArrayList<IrBind>();
+	public ArrayList<IrBind> temporaryBinds = new ArrayList<IrBind>();
 	// useSet not populated before populateSets call
 	public Set<String> useSet = new HashSet<String>();
 	public Set<String> defSet = new HashSet<String>();

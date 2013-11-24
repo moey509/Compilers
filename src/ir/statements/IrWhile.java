@@ -15,7 +15,6 @@ public final class IrWhile extends IrStatement {
 	private ArrayList<String> freeContext = new ArrayList<String>();
 	private IrExpression condition;
 	private List<IrStatement> statements;
-	public ArrayList<IrBind> temporaryBinds;
 	public CubexCompleteContext context;
 
 	public IrWhile(IrExpression condition, CubexCompleteContext context) {
@@ -164,13 +163,14 @@ public final class IrWhile extends IrStatement {
 
 				// changes the nextSet of the last statement inside the for loop
 				// to point to the for loop
-				IrStatement lastForStatement = statementlist.get(length-1);
-				lastForStatement.nextSet = new HashSet<IrStatement>();
+				IrStatement lastWhileStatement = statementlist.get(length-1);
+				lastWhileStatement.nextSet = new HashSet<IrStatement>();
 				if (temporaryBinds.size()>0) {
-					lastForStatement.nextSet.add(temporaryBinds.get(0));
+					lastWhileStatement.nextSet.add(temporaryBinds.get(0));
 				} else {
-					lastForStatement.nextSet.add(this);
+					lastWhileStatement.nextSet.add(this);
 				}
+				lastWhileStatement.populateSetsTemps(c);
 				
 				for (IrStatement s : statementlist) {
 					s.populateSets(c);

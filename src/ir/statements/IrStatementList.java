@@ -13,7 +13,6 @@ import typeChecker.CubexCompleteContext;
 
 public class IrStatementList extends IrStatement{
 	protected List<IrStatement> statementList;
-	private ArrayList<IrBind> temporaryBinds = new ArrayList<IrBind>();
 	public CubexCompleteContext context;
 
 	public IrStatementList(CubexCompleteContext context){

@@ -16,7 +16,6 @@ public final class IrBind extends IrStatement {
 
 	public IrTypeTuple tuple;
 	public IrExpression expression;
-	public ArrayList<IrBind> temporaryBinds;
 	public CubexCompleteContext context;
 	public boolean cse = false;
 	
@@ -162,7 +161,7 @@ public final class IrBind extends IrStatement {
 
 	@Override
 	public String toString() {
-		return "IrBind: " + tuple.type.toString() + tuple.variableName + " := " + expression.toString();
+		return "IrBind: " + tuple.type.toC() + tuple.variableName + " := " + expression.toString();
 	}
 
 }
