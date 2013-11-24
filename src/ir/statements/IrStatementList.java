@@ -12,7 +12,7 @@ import optimization.CseContext;
 import typeChecker.CubexCompleteContext;
 
 public class IrStatementList extends IrStatement{
-	private List<IrStatement> statementList;
+	protected List<IrStatement> statementList;
 	private ArrayList<IrBind> temporaryBinds = new ArrayList<IrBind>();
 	public CubexCompleteContext context;
 

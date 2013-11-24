@@ -225,6 +225,15 @@ public class IrFor extends IrStatement {
 	@Override
 	public void lva(LvaContext c) {
 		lvaHelper(c);
+		// DEBUG STATEMENTS
+		System.out.println("IrFor: " + list.toString());
+		System.out.println("  inSet: " + inSet.toString());
+		System.out.println("  outSet: " + outSet.toString());
+		System.out.println("  useSet: " + useSet.toString());
+		System.out.println("  defSet: " + defSet.toString());
+		System.out.println("  nextSet: " + nextSet.toString());
+		//
+		
 		for (IrStatement s : statements) {
 			s.lva(c);
 		}
@@ -244,18 +253,26 @@ public class IrFor extends IrStatement {
 				nextSet.add(c.nextList.removeFirst().getTop());
 			}
 		
-			int length = statements.size();
-			if (length > 0) {
-				c.nextList.addAll(0, statements);
+			if (statements.size() > 0) {
+				ArrayList<IrStatement> statementlist = new ArrayList<IrStatement>();
+				if (statements.get(0) instanceof IrStatementList) {
+					IrStatementList st = (IrStatementList) statements.get(0);
+					statementlist.addAll(st.statementList);
+				} else {
+					statementlist.addAll(statements);
+				}
+				int length = statementlist.size();
+
+				c.nextList.addAll(0, statementlist);
 				nextSet.add(c.nextList.removeFirst().getTop());
 
 				// changes the nextSet of the last statement inside the for loop
 				// to point to the for loop
-				IrStatement lastForStatement = statements.get(length-1);
+				IrStatement lastForStatement = statementlist.get(length-1);
 				lastForStatement.nextSet = new HashSet<IrStatement>();
 				lastForStatement.nextSet.add(this);
 				
-				for (IrStatement s : statements) {
+				for (IrStatement s : statementlist) {
 					s.populateSets(c);
 				}
 			}

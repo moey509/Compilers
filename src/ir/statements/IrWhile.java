@@ -124,6 +124,15 @@ public final class IrWhile extends IrStatement {
 	@Override
 	public void lva(LvaContext c) {
 		lvaHelper(c);
+		// DEBUG STATEMENTS
+		System.out.println("IrWhile: " + condition.toString());
+		System.out.println("  inSet: " + inSet.toString());
+		System.out.println("  outSet: " + outSet.toString());
+		System.out.println("  useSet: " + useSet.toString());
+		System.out.println("  defSet: " + defSet.toString());
+		System.out.println("  nextSet: " + nextSet.toString());
+		//
+
 		for (IrStatement s : statements) {
 			s.lva(c);
 		}
@@ -144,14 +153,22 @@ public final class IrWhile extends IrStatement {
 				nextSet.add(c.nextList.removeFirst().getTop());
 			}
 		
-			int length = statements.size();
-			if (length > 0) {
-				c.nextList.addAll(0, statements);
+			if (statements.size() > 0) {
+				ArrayList<IrStatement> statementlist = new ArrayList<IrStatement>();
+				if (statements.get(0) instanceof IrStatementList) {
+					IrStatementList st = (IrStatementList) statements.get(0);
+					statementlist.addAll(st.statementList);
+				} else {
+					statementlist.addAll(statements);
+				}
+				int length = statementlist.size();
+				
+				c.nextList.addAll(0, statementlist);
 				nextSet.add(c.nextList.removeFirst().getTop());
 
 				// changes the nextSet of the last statement inside the for loop
 				// to point to the for loop
-				IrStatement lastForStatement = statements.get(length-1);
+				IrStatement lastForStatement = statementlist.get(length-1);
 				lastForStatement.nextSet = new HashSet<IrStatement>();
 				if (temporaryBinds.size()>0) {
 					lastForStatement.nextSet.add(temporaryBinds.get(0));
@@ -159,7 +176,7 @@ public final class IrWhile extends IrStatement {
 					lastForStatement.nextSet.add(this);
 				}
 				
-				for (IrStatement s : statements) {
+				for (IrStatement s : statementlist) {
 					s.populateSets(c);
 				}
 			}

@@ -144,6 +144,15 @@ public class IrIf extends IrStatement {
 	@Override
 	public void lva(LvaContext c) {
 		lvaHelper(c);
+		// DEBUG STATEMENTS
+		System.out.println("IrIf: " + condition.toString());
+		System.out.println("  inSet: " + inSet.toString());
+		System.out.println("  outSet: " + outSet.toString());
+		System.out.println("  useSet: " + useSet.toString());
+		System.out.println("  defSet: " + defSet.toString());
+		System.out.println("  nextSet: " + nextSet.toString());
+		//
+		
 		for (IrStatement s : statements1) {
 			s.lva(c);
 		}
@@ -162,29 +171,45 @@ public class IrIf extends IrStatement {
 			
 			populateSetsTemps(c);
 			
-			int length = statements1.size();
-			if (length > 0) {
+			if (statements1.size() > 0) {
+				ArrayList<IrStatement> statementlist = new ArrayList<IrStatement>();
+				if (statements1.get(0) instanceof IrStatementList) {
+					IrStatementList st = (IrStatementList) statements1.get(0);
+					statementlist.addAll(st.statementList);
+				} else {
+					statementlist.addAll(statements1);
+				}
+				int length = statementlist.size();
+				
 				LvaContext cCopy = c.clone();
 				IrStatement afterIf = cCopy.nextList.removeFirst().getTop();
 
-				cCopy.nextList.addAll(0, statements1);
+				cCopy.nextList.addAll(0, statementlist);
 				nextSet.add(cCopy.nextList.removeFirst().getTop());
 
-				IrStatement lastForStatement = statements1.get(length-1);
+				IrStatement lastForStatement = statementlist.get(length-1);
 				lastForStatement.nextSet = new HashSet<IrStatement>();
 				lastForStatement.nextSet.add(afterIf);
 				
-				for (IrStatement s : statements1) {
+				for (IrStatement s : statementlist) {
 					s.populateSets(cCopy);
 				}
 				
 			}
 			
 			if (statements2.size() > 0) {
-				c.nextList.addAll(0, statements2);
+				ArrayList<IrStatement> statementlist = new ArrayList<IrStatement>();
+				if (statements2.get(0) instanceof IrStatementList) {
+					IrStatementList st = (IrStatementList) statements2.get(0);
+					statementlist.addAll(st.statementList);
+				} else {
+					statementlist.addAll(statements2);
+				}
+				
+				c.nextList.addAll(0, statementlist);
 				nextSet.add(c.nextList.removeFirst().getTop());
 				
-				for (IrStatement s : statements2) {
+				for (IrStatement s : statementlist) {
 					s.populateSets(c);
 				}
 			} else {

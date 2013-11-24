@@ -38,14 +38,14 @@ public abstract class IrStatement implements IrProgramElem{
 		}
 		
 		HashSet<String> outTemp = getIns();
-		boolean changeTemp0 = outTemp.equals(outSet);
+		boolean changeTemp0 = !outTemp.equals(outSet);
 		outSet = outTemp;
 
 		HashSet<String> inTemp = new HashSet<String>(outSet);
 		inTemp.removeAll(defSet);
 		inTemp.addAll(useSet);
 		inTemp.removeAll(c.doNotDecrement);
-		boolean changeTemp1 = inTemp.equals(inSet);
+		boolean changeTemp1 = !inTemp.equals(inSet);
 		inSet = inTemp;
 
 		if (changeTemp0 || changeTemp1) {
@@ -61,7 +61,7 @@ public abstract class IrStatement implements IrProgramElem{
 				out.add(s);
 			}
 		}
-		return null;
+		return out;
 	}
 	
 	// populates the nextSet and useSet for each statement

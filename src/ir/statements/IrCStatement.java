@@ -46,13 +46,13 @@ public class IrCStatement extends IrStatement {
 
 	@Override
 	public void lva(LvaContext c) {
-		// TODO Auto-generated method stub
+		System.out.println("IrCStatement lva NOT IMPLEMENTED");
 		return;
 	}
 
 	@Override
 	public void populateSets(LvaContext c) {
-		// TODO Auto-generated method stub
+		System.out.println("IrCStatement populateSets NOT IMPLEMENTED");
 		return;
 	}
 
