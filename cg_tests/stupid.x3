@@ -2,6 +2,7 @@
 
 class Multiplier(s : String, n : Integer)
 {
+yum:=2;	
 	fun print() : Iterable<String>
 	{
 		ret := [];
