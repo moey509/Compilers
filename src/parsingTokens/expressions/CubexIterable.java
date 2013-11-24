@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 import ir.IrType;
+import ir.expressions.IrCFunctionCall;
 import ir.expressions.IrExpression;
 import ir.expressions.IrFunctionCall;
 import ir.expressions.IrIterable;
@@ -41,18 +42,27 @@ public class CubexIterable extends CubexExpression {
 			CubexExpression e = list.contextCollection.get(i);
 			params = e.getExpressions(context);
 			arr.addAll(params);
-			IrVariableExpression fun;
+			IrCFunctionCall fun;
 			IrType t = new IrType("git_t");
 			appendLeft = context.nextTemp();
 			//Create a new git object
 			IrTypeTuple tuple = new IrTypeTuple(t, appendLeft);
 			if(params.size() == 0){
-				fun = new IrVariableExpression("new_git_obj(" + e.name + ")","");//new IrFunctionCall("new_git_obj", "git_t", null);
+				ArrayList<String> cParameters = new ArrayList<String>();
+				cParameters.add(e.name);
+				System.out.println("NO PARAMETERS: " + cParameters);
+				ArrayList<String> cParameterTypes = new ArrayList<String>();
+				cParameterTypes.add("General_t");
+				fun = new IrCFunctionCall("new_git_obj", cParameters, cParameterTypes,"");//new IrFunctionCall("new_git_obj", "git_t", null);
 			}
 			//Throw in a temporary variable
 			else{
 				IrBind paramBind = params.get(params.size()-1);
-				fun = new IrVariableExpression("new_git_obj(" + paramBind.tuple.variableName + ")","");
+				ArrayList<String> cParameters = new ArrayList<String>();
+				cParameters.add(paramBind.tuple.variableName);
+				ArrayList<String> cParameterTypes = new ArrayList<String>();
+				cParameterTypes.add("General_t");
+				fun = new IrCFunctionCall("new_git_obj", cParameters, cParameterTypes,"");
 			}
 			IrBind bind = new IrBind(tuple, fun, cubexContext);
 			tempBinds.add(bind);
@@ -62,7 +72,13 @@ public class CubexIterable extends CubexExpression {
 			String nextAppendRight = context.nextTemp();
 			tuple = new IrTypeTuple(t, nextAppendRight);
 			System.out.println("iterable_append(" + appendLeft + ", " + appendRight + ")");
-			fun = new IrVariableExpression("iterable_append(" + appendLeft + ", " + appendRight + ")","");//new IrFunctionCall("new_git_obj", "git_t", null);
+			ArrayList<String> cParameters = new ArrayList<String>();
+			cParameters.add(appendLeft);
+			cParameters.add(appendRight);
+			ArrayList<String> cParameterTypes = new ArrayList<String>();
+			cParameterTypes.add("General_t");
+			cParameterTypes.add("General_t");
+			fun = new IrCFunctionCall("iterable_append", cParameters, cParameterTypes,"");
 			bind = new IrBind(tuple, fun, cubexContext);
 			tempBinds.add(bind);
 			arr.add(bind);

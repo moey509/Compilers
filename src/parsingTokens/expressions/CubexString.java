@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 import ir.IrType;
+import ir.expressions.IrCFunctionCall;
 import ir.expressions.IrExpression;
 import ir.expressions.IrIterable;
 import ir.expressions.IrString;
@@ -55,15 +56,24 @@ public final class CubexString extends CubexExpression {
 			IrType t = new IrType("git_t");
 			appendLeft = context.nextTemp();
 			IrTypeTuple tuple = new IrTypeTuple(t, appendLeft);
-			IrVariableExpression fun = new IrVariableExpression("new_git_obj(new_character(charuni('" + c + "')))","");
+			ArrayList<String> cParameters = new ArrayList<String>();
+			cParameters.add("'" + c + "'))");
+			ArrayList<String> cParameterTypes = new ArrayList<String>();
+			cParameterTypes.add("char");
+			IrCFunctionCall fun = new IrCFunctionCall("new_git_obj(new_character(charuni" + "", cParameters, cParameterTypes,"");
 			IrBind bind = new IrBind(tuple, fun, cubexContext);
 			arr.add(bind);
 			
 			//Iterable Appends
 			String nextAppendRight = context.nextTemp();
 			tuple = new IrTypeTuple(t, nextAppendRight);
-			System.out.println("iterable_append(" + appendLeft + ", " + appendRight + ")");
-			fun = new IrVariableExpression("iterable_append(" + appendLeft + ", " + appendRight + ")","");//new IrFunctionCall("new_git_obj", "git_t", null);
+			cParameters = new ArrayList<String>();
+			cParameters.add(appendLeft);
+			cParameters.add(appendRight);
+			cParameterTypes = new ArrayList<String>();
+			cParameterTypes.add("General_t");
+			cParameterTypes.add("General_t");
+			fun = new IrCFunctionCall("iterable_append", cParameters, cParameterTypes,"");
 			bind = new IrBind(tuple, fun, cubexContext);
 			arr.add(bind);
 			appendRight = nextAppendRight;

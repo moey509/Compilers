@@ -1,0 +1,9 @@
+a := "Foo";
+#if (false){
+#	a := "Bar";
+#} else {
+#	a := "Bar";
+#}
+b := "Bar";
+
+return ["Bar"];

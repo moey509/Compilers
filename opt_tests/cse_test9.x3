@@ -1,0 +1,7 @@
+a := "Foo";
+while (false) {
+	a := "Bar";
+}
+b := "Bar";
+
+return [a];
