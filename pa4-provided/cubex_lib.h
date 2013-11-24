@@ -252,6 +252,7 @@ void* getNext(iterator_t it) {
 
 /* constructs a new iterable for anything but ints */
 git_t new_git_obj(void* obj) {
+  if(obj == NULL)return NULL;
   printf ("NEW git\n");
   git_t g = (git_t)x3malloc(sizeof(struct git));
 
@@ -426,6 +427,18 @@ void decrement_iterable(git_t g) {
     }
   }
 }
+void decrement_iterable_no_free(git_t g) {
+  git_t itr;
+  git_t temp;
+  itr = g;
+  while (itr != NULL) {
+    printf ("decrementing itr from: %d to %d\n", itr->ref_count, itr->ref_count - 1);
+    ref_decrement_no_free (itr->val);
+    temp = itr;
+    itr = itr->next;
+    temp->ref_count -= 1;
+  }
+}
 
 void increment_iterable(git_t g) {
   git_t itr;
@@ -463,6 +476,17 @@ void ref_decrement(General_t gen) {
     }    
     x3free(gen);
   }
+  return;
+}
+void ref_decrement_no_free(General_t gen) {
+  if (gen == NULL) 
+    return;
+  if (gen->is_iter) {
+    decrement_iterable_no_free (gen);
+    return;
+  }
+  printf ("decrementing reg from: %d to %d\n", gen->ref_count, gen->ref_count - 1);
+  gen->ref_count -= 1;
   return;
 }
 
@@ -849,6 +873,10 @@ git_t get_input () {
 
 Character_t _character(Integer_t i) {
   return new_character(i->value);
+}
+
+git_t _string(git_t str) {
+  return str;
 }
 
 /* function look up: given a class struct and the name of a function
