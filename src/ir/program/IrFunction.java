@@ -134,12 +134,13 @@ public class IrFunction implements IrProgramElem{
 				postarr.add("__struct->" + t.variableName + " = NULL;");
 			}
 		}
-		
+		postarr.add("/* BEGIN */");
 		context.currentObject = object;
 		for(IrStatement st : statements){
 //			System.out.println(st.toC(context));
 			postarr.addAll(st.toC(context, false));
 		}
+		postarr.add("/* END */");
 
 		context.currentObject = null;
 		

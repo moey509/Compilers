@@ -4,163 +4,4161 @@ NEW char
 [MALLOC]
 NEW git
 [MALLOC]
+NEW char
+[MALLOC]
+NEW git
+[MALLOC]
+NEW char
+[MALLOC]
+NEW git
+[MALLOC]
+NEW char
+[MALLOC]
+NEW git
+[MALLOC]
+NEW char
+[MALLOC]
+NEW git
+[MALLOC]
+NEW char
+[MALLOC]
+NEW git
+[MALLOC]
+NEW char
+[MALLOC]
+NEW git
+[MALLOC]
+NEW char
+[MALLOC]
+NEW git
+[MALLOC]
+NEW char
+[MALLOC]
+NEW git
+[MALLOC]
 FREE temp string buff
 [FREE]
 NEW git
 [MALLOC]
-finished with input
-|--ref_increment((General_t)_input);
+NEW temp string buf
+[MALLOC]
+NEW char
+[MALLOC]
+NEW git
+[MALLOC]
+NEW char
+[MALLOC]
+NEW git
+[MALLOC]
+NEW char
+[MALLOC]
+NEW git
+[MALLOC]
+FREE temp string buff
+[FREE]
+NEW git
+[MALLOC]
+NEW temp string buf
+[MALLOC]
+NEW char
+[MALLOC]
+NEW git
+[MALLOC]
+NEW char
+[MALLOC]
+NEW git
+[MALLOC]
+NEW char
+[MALLOC]
+NEW git
+[MALLOC]
+FREE temp string buff
+[FREE]
+NEW git
+[MALLOC]
+NEW temp string buf
+[MALLOC]
+NEW char
+[MALLOC]
+NEW git
+[MALLOC]
+NEW char
+[MALLOC]
+NEW git
+[MALLOC]
+NEW char
+[MALLOC]
+NEW git
+[MALLOC]
+NEW char
+[MALLOC]
+NEW git
+[MALLOC]
+NEW char
+[MALLOC]
+NEW git
+[MALLOC]
+NEW char
+[MALLOC]
+NEW git
+[MALLOC]
+NEW char
+[MALLOC]
+NEW git
+[MALLOC]
+FREE temp string buff
+[FREE]
+NEW git
+[MALLOC]
+NEW temp string buf
+[MALLOC]
+NEW char
+[MALLOC]
+NEW git
+[MALLOC]
+NEW char
+[MALLOC]
+NEW git
+[MALLOC]
+NEW char
+[MALLOC]
+NEW git
+[MALLOC]
+NEW char
+[MALLOC]
+NEW git
+[MALLOC]
+NEW char
+[MALLOC]
+NEW git
+[MALLOC]
+NEW char
+[MALLOC]
+NEW git
+[MALLOC]
+FREE temp string buff
+[FREE]
+NEW git
+[MALLOC]
 incrementing itr from: 0 to 1
 incrementing itr from: 0 to 1
 incrementing reg from: 0 to 1
-_iter0 = iterable_append((_input), NULL);
+incrementing itr from: 0 to 1
+incrementing reg from: 0 to 1
+incrementing itr from: 0 to 1
+incrementing reg from: 0 to 1
+incrementing itr from: 0 to 1
+incrementing reg from: 0 to 1
+incrementing itr from: 0 to 1
+incrementing reg from: 0 to 1
+incrementing itr from: 0 to 1
+incrementing reg from: 0 to 1
+incrementing itr from: 0 to 1
+incrementing reg from: 0 to 1
+incrementing itr from: 0 to 1
+incrementing reg from: 0 to 1
+incrementing itr from: 0 to 1
+incrementing reg from: 0 to 1
+incrementing itr from: 0 to 1
+incrementing itr from: 0 to 1
+incrementing reg from: 0 to 1
+incrementing itr from: 0 to 1
+incrementing reg from: 0 to 1
+incrementing itr from: 0 to 1
+incrementing reg from: 0 to 1
+incrementing itr from: 0 to 1
+incrementing itr from: 0 to 1
+incrementing reg from: 0 to 1
+incrementing itr from: 0 to 1
+incrementing reg from: 0 to 1
+incrementing itr from: 0 to 1
+incrementing reg from: 0 to 1
+incrementing itr from: 0 to 1
+incrementing itr from: 0 to 1
+incrementing reg from: 0 to 1
+incrementing itr from: 0 to 1
+incrementing reg from: 0 to 1
+incrementing itr from: 0 to 1
+incrementing reg from: 0 to 1
+incrementing itr from: 0 to 1
+incrementing reg from: 0 to 1
+incrementing itr from: 0 to 1
+incrementing reg from: 0 to 1
+incrementing itr from: 0 to 1
+incrementing reg from: 0 to 1
+incrementing itr from: 0 to 1
+incrementing reg from: 0 to 1
+incrementing itr from: 0 to 1
+incrementing itr from: 0 to 1
+incrementing reg from: 0 to 1
+incrementing itr from: 0 to 1
+incrementing reg from: 0 to 1
+incrementing itr from: 0 to 1
+incrementing reg from: 0 to 1
+incrementing itr from: 0 to 1
+incrementing reg from: 0 to 1
+incrementing itr from: 0 to 1
+incrementing reg from: 0 to 1
+incrementing itr from: 0 to 1
+incrementing reg from: 0 to 1
+[MALLOC]
+incrementing reg from: 0 to 1
+incrementing reg from: 1 to 2
+decrementing reg from: 2 to 1
 NEW git
 [MALLOC]
-ref_increment((General_t)_iter0);
+NEW git
+[MALLOC]
+NEW git
+[MALLOC]
+NEW git
+[MALLOC]
+NEW git
+[MALLOC]
 incrementing itr from: 0 to 1
+incrementing itr from: 1 to 2
+incrementing reg from: 1 to 2
+incrementing itr from: 1 to 2
+incrementing reg from: 1 to 2
+incrementing itr from: 1 to 2
+incrementing reg from: 1 to 2
+incrementing itr from: 1 to 2
+incrementing reg from: 1 to 2
+incrementing itr from: 1 to 2
+incrementing reg from: 1 to 2
+incrementing itr from: 1 to 2
+incrementing reg from: 1 to 2
+incrementing itr from: 1 to 2
+incrementing reg from: 1 to 2
+incrementing itr from: 1 to 2
+incrementing reg from: 1 to 2
+incrementing itr from: 1 to 2
+incrementing reg from: 1 to 2
+incrementing itr from: 0 to 1
+incrementing itr from: 1 to 2
+incrementing reg from: 1 to 2
+incrementing itr from: 1 to 2
+incrementing reg from: 1 to 2
+incrementing itr from: 1 to 2
+incrementing reg from: 1 to 2
+incrementing itr from: 0 to 1
+incrementing itr from: 1 to 2
+incrementing reg from: 1 to 2
+incrementing itr from: 1 to 2
+incrementing reg from: 1 to 2
+incrementing itr from: 1 to 2
+incrementing reg from: 1 to 2
+incrementing itr from: 0 to 1
+incrementing itr from: 1 to 2
+incrementing reg from: 1 to 2
+incrementing itr from: 1 to 2
+incrementing reg from: 1 to 2
+incrementing itr from: 1 to 2
+incrementing reg from: 1 to 2
+incrementing itr from: 1 to 2
+incrementing reg from: 1 to 2
+incrementing itr from: 1 to 2
+incrementing reg from: 1 to 2
+incrementing itr from: 1 to 2
+incrementing reg from: 1 to 2
+incrementing itr from: 1 to 2
+incrementing reg from: 1 to 2
+incrementing itr from: 0 to 1
+incrementing itr from: 1 to 2
+incrementing reg from: 1 to 2
+incrementing itr from: 1 to 2
+incrementing reg from: 1 to 2
+incrementing itr from: 1 to 2
+incrementing reg from: 1 to 2
+incrementing itr from: 1 to 2
+incrementing reg from: 1 to 2
+incrementing itr from: 1 to 2
+incrementing reg from: 1 to 2
 incrementing itr from: 1 to 2
 incrementing reg from: 1 to 2
 NEW iterator
 [MALLOC]
-ref_increment((General_t)_it1)
 incrementing reg from: 0 to 1
-begin loop...
-nothing above...
-NEW git
-[MALLOC]
-NEW git
-[MALLOC]
-ref_increment((General_t)__temp1);
-incrementing itr from: 0 to 1
 incrementing itr from: 2 to 3
 incrementing reg from: 2 to 3
-|__end increment__|
-ret is null
+incrementing itr from: 2 to 3
+incrementing reg from: 2 to 3
+incrementing itr from: 2 to 3
+incrementing reg from: 2 to 3
+incrementing itr from: 2 to 3
+incrementing reg from: 2 to 3
+incrementing itr from: 2 to 3
+incrementing reg from: 2 to 3
+incrementing itr from: 2 to 3
+incrementing reg from: 2 to 3
+incrementing itr from: 2 to 3
+incrementing reg from: 2 to 3
+incrementing itr from: 2 to 3
+incrementing reg from: 2 to 3
+incrementing itr from: 2 to 3
+incrementing reg from: 2 to 3
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing reg from: 1 to 2
+[MALLOC]
+[MALLOC]
+[MALLOC]
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing reg from: 2 to 3
+incrementing reg from: 0 to 1
 NEW git
 [MALLOC]
-ref_increment((General_t)__temp2);
+incrementing itr from: 0 to 1
+incrementing reg from: 1 to 2
+NEW git
+[MALLOC]
+incrementing itr from: 0 to 1
+incrementing reg from: 2 to 3
+NEW git
+[MALLOC]
+incrementing itr from: 0 to 1
+incrementing reg from: 3 to 4
+incrementing itr from: 1 to 2
+incrementing reg from: 4 to 5
+decrementing reg from: 5 to 4
+decrementing itr from: 1 to 0
+decrementing reg from: 4 to 3
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing reg from: 3 to 2
+freeing!
+[FREE]
+decrementing itr from: 2 to 1
+decrementing reg from: 2 to 1
+[MALLOC]
+incrementing reg from: 0 to 1
+[MALLOC]
+incrementing reg from: 0 to 1
+decrementing reg from: 3 to 2
+incrementing reg from: 1 to 2
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+decrementing reg from: 2 to 1
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+incrementing itr from: 2 to 3
+incrementing reg from: 2 to 3
+incrementing itr from: 2 to 3
+incrementing reg from: 2 to 3
+incrementing itr from: 2 to 3
+incrementing reg from: 2 to 3
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing reg from: 1 to 2
+[MALLOC]
+[MALLOC]
+[MALLOC]
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing reg from: 2 to 3
+incrementing reg from: 0 to 1
+NEW git
+[MALLOC]
+incrementing itr from: 0 to 1
+incrementing reg from: 1 to 2
+NEW git
+[MALLOC]
+incrementing itr from: 0 to 1
+incrementing reg from: 2 to 3
+NEW git
+[MALLOC]
+NEW git
+[MALLOC]
+incrementing itr from: 0 to 1
+incrementing reg from: 1 to 2
+incrementing itr from: 0 to 1
+incrementing reg from: 3 to 4
+decrementing itr from: 1 to 0
+decrementing reg from: 2 to 1
+freeing!
+[FREE]
+incrementing itr from: 1 to 2
+incrementing reg from: 1 to 2
+incrementing itr from: 1 to 2
+incrementing reg from: 4 to 5
+decrementing reg from: 5 to 4
+decrementing itr from: 1 to 0
+decrementing reg from: 4 to 3
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing reg from: 3 to 2
+freeing!
+[FREE]
+decrementing itr from: 2 to 1
+decrementing reg from: 2 to 1
+decrementing itr from: 2 to 1
+decrementing reg from: 2 to 1
+[MALLOC]
+incrementing reg from: 0 to 1
+[MALLOC]
+incrementing reg from: 0 to 1
+decrementing reg from: 3 to 2
+incrementing reg from: 1 to 2
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+decrementing reg from: 2 to 1
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+incrementing itr from: 2 to 3
+incrementing reg from: 2 to 3
+incrementing itr from: 2 to 3
+incrementing reg from: 2 to 3
+incrementing itr from: 2 to 3
+incrementing reg from: 2 to 3
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing reg from: 1 to 2
+[MALLOC]
+[MALLOC]
+[MALLOC]
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing reg from: 2 to 3
+incrementing reg from: 0 to 1
+NEW git
+[MALLOC]
+incrementing itr from: 0 to 1
+incrementing reg from: 1 to 2
+NEW git
+[MALLOC]
+incrementing itr from: 0 to 1
+incrementing reg from: 2 to 3
+NEW git
+[MALLOC]
+NEW git
+[MALLOC]
+NEW git
+[MALLOC]
+incrementing itr from: 0 to 1
+incrementing reg from: 1 to 2
+incrementing itr from: 0 to 1
+incrementing reg from: 1 to 2
+incrementing itr from: 0 to 1
+incrementing reg from: 3 to 4
+decrementing itr from: 1 to 0
+decrementing reg from: 2 to 1
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing reg from: 2 to 1
+freeing!
+[FREE]
+incrementing itr from: 1 to 2
+incrementing reg from: 1 to 2
+incrementing itr from: 1 to 2
+incrementing reg from: 1 to 2
+incrementing itr from: 1 to 2
+incrementing reg from: 4 to 5
+decrementing reg from: 5 to 4
+decrementing itr from: 1 to 0
+decrementing reg from: 4 to 3
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing reg from: 3 to 2
+freeing!
+[FREE]
+decrementing itr from: 2 to 1
+decrementing reg from: 2 to 1
+decrementing itr from: 2 to 1
+decrementing reg from: 2 to 1
+decrementing itr from: 2 to 1
+decrementing reg from: 2 to 1
+[MALLOC]
+incrementing reg from: 0 to 1
+[MALLOC]
+incrementing reg from: 0 to 1
+decrementing reg from: 3 to 2
+incrementing reg from: 1 to 2
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+decrementing reg from: 2 to 1
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+incrementing itr from: 2 to 3
+incrementing reg from: 2 to 3
+incrementing itr from: 2 to 3
+incrementing reg from: 2 to 3
+incrementing itr from: 2 to 3
+incrementing reg from: 2 to 3
+incrementing itr from: 2 to 3
+incrementing reg from: 2 to 3
+incrementing itr from: 2 to 3
+incrementing reg from: 2 to 3
+incrementing itr from: 2 to 3
+incrementing reg from: 2 to 3
+incrementing itr from: 2 to 3
+incrementing reg from: 2 to 3
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing reg from: 1 to 2
+[MALLOC]
+[MALLOC]
+[MALLOC]
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing reg from: 2 to 3
+incrementing reg from: 0 to 1
+NEW git
+[MALLOC]
+incrementing itr from: 0 to 1
+incrementing reg from: 1 to 2
+NEW git
+[MALLOC]
+incrementing itr from: 0 to 1
+incrementing reg from: 2 to 3
+NEW git
+[MALLOC]
+NEW git
+[MALLOC]
+NEW git
+[MALLOC]
+NEW git
+[MALLOC]
+incrementing itr from: 0 to 1
+incrementing reg from: 1 to 2
+incrementing itr from: 0 to 1
+incrementing reg from: 1 to 2
+incrementing itr from: 0 to 1
+incrementing reg from: 1 to 2
+incrementing itr from: 0 to 1
+incrementing reg from: 3 to 4
+decrementing itr from: 1 to 0
+decrementing reg from: 2 to 1
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing reg from: 2 to 1
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing reg from: 2 to 1
+freeing!
+[FREE]
+incrementing itr from: 1 to 2
+incrementing reg from: 1 to 2
+incrementing itr from: 1 to 2
+incrementing reg from: 1 to 2
+incrementing itr from: 1 to 2
+incrementing reg from: 1 to 2
+incrementing itr from: 1 to 2
+incrementing reg from: 4 to 5
+decrementing reg from: 5 to 4
+decrementing itr from: 1 to 0
+decrementing reg from: 4 to 3
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing reg from: 3 to 2
+freeing!
+[FREE]
+decrementing itr from: 2 to 1
+decrementing reg from: 2 to 1
+decrementing itr from: 2 to 1
+decrementing reg from: 2 to 1
+decrementing itr from: 2 to 1
+decrementing reg from: 2 to 1
+decrementing itr from: 2 to 1
+decrementing reg from: 2 to 1
+[MALLOC]
+incrementing reg from: 0 to 1
+[MALLOC]
+incrementing reg from: 0 to 1
+decrementing reg from: 3 to 2
+incrementing reg from: 1 to 2
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+decrementing reg from: 2 to 1
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+incrementing itr from: 2 to 3
+incrementing reg from: 2 to 3
+incrementing itr from: 2 to 3
+incrementing reg from: 2 to 3
+incrementing itr from: 2 to 3
+incrementing reg from: 2 to 3
+incrementing itr from: 2 to 3
+incrementing reg from: 2 to 3
+incrementing itr from: 2 to 3
+incrementing reg from: 2 to 3
+incrementing itr from: 2 to 3
+incrementing reg from: 2 to 3
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing reg from: 1 to 2
+[MALLOC]
+[MALLOC]
+[MALLOC]
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing reg from: 2 to 3
+incrementing reg from: 0 to 1
+NEW git
+[MALLOC]
+incrementing itr from: 0 to 1
+incrementing reg from: 1 to 2
+NEW git
+[MALLOC]
+incrementing itr from: 0 to 1
+incrementing reg from: 2 to 3
+NEW git
+[MALLOC]
+NEW git
+[MALLOC]
+NEW git
+[MALLOC]
+NEW git
+[MALLOC]
+NEW git
+[MALLOC]
+incrementing itr from: 0 to 1
+incrementing reg from: 1 to 2
+incrementing itr from: 0 to 1
+incrementing reg from: 1 to 2
+incrementing itr from: 0 to 1
+incrementing reg from: 1 to 2
+incrementing itr from: 0 to 1
+incrementing reg from: 1 to 2
+incrementing itr from: 0 to 1
+incrementing reg from: 3 to 4
+decrementing itr from: 1 to 0
+decrementing reg from: 2 to 1
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing reg from: 2 to 1
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing reg from: 2 to 1
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing reg from: 2 to 1
+freeing!
+[FREE]
+incrementing itr from: 1 to 2
+incrementing reg from: 1 to 2
+incrementing itr from: 1 to 2
+incrementing reg from: 1 to 2
+incrementing itr from: 1 to 2
+incrementing reg from: 1 to 2
+incrementing itr from: 1 to 2
+incrementing reg from: 1 to 2
+incrementing itr from: 1 to 2
+incrementing reg from: 4 to 5
+decrementing reg from: 5 to 4
+decrementing itr from: 1 to 0
+decrementing reg from: 4 to 3
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing reg from: 3 to 2
+freeing!
+[FREE]
+decrementing itr from: 2 to 1
+decrementing reg from: 2 to 1
+decrementing itr from: 2 to 1
+decrementing reg from: 2 to 1
+decrementing itr from: 2 to 1
+decrementing reg from: 2 to 1
+decrementing itr from: 2 to 1
+decrementing reg from: 2 to 1
+decrementing itr from: 2 to 1
+decrementing reg from: 2 to 1
+[MALLOC]
+incrementing reg from: 0 to 1
+[MALLOC]
+incrementing reg from: 0 to 1
+decrementing reg from: 3 to 2
+incrementing reg from: 1 to 2
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+decrementing reg from: 2 to 1
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 1 to 0
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+freeing!
+[FREE]
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+NEW git
+[MALLOC]
+NEW git
+[MALLOC]
+NEW git
+[MALLOC]
+NEW git
+[MALLOC]
+NEW git
+[MALLOC]
+incrementing itr from: 0 to 1
+incrementing reg from: 1 to 2
+incrementing itr from: 0 to 1
+incrementing reg from: 1 to 2
+incrementing itr from: 0 to 1
+incrementing reg from: 1 to 2
+incrementing itr from: 0 to 1
+incrementing reg from: 1 to 2
+incrementing itr from: 0 to 1
+incrementing reg from: 1 to 2
+NEW iterator
+[MALLOC]
+incrementing reg from: 0 to 1
+incrementing reg from: 2 to 3
+incrementing reg from: 3 to 4
+incrementing reg from: 2 to 3
+[MALLOC]
+incrementing reg from: 0 to 1
+[MALLOC]
+incrementing reg from: 0 to 1
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+decrementing reg from: 3 to 2
+decrementing reg from: 4 to 3
+incrementing reg from: 2 to 3
+incrementing reg from: 3 to 4
+incrementing reg from: 2 to 3
+[MALLOC]
+incrementing reg from: 0 to 1
+[MALLOC]
+incrementing reg from: 0 to 1
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+[MALLOC]
+incrementing reg from: 0 to 1
+[MALLOC]
+incrementing reg from: 0 to 1
+decrementing reg from: 3 to 2
+incrementing reg from: 1 to 2
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+decrementing reg from: 2 to 1
+NEW git
+[MALLOC]
 incrementing itr from: 0 to 1
 incrementing itr from: 3 to 4
 incrementing reg from: 3 to 4
-|__end increment__|
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
 NEW git
 [MALLOC]
-NEW git
-[MALLOC]
-ref_increment((General_t)__temp3);
 incrementing itr from: 0 to 1
 incrementing itr from: 4 to 5
 incrementing reg from: 4 to 5
-|__end increment__|
-__temp4 = iterable_append(__temp2, __temp3 );
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
 NEW git
 [MALLOC]
-NEW git
-[MALLOC]
-|--ref_increment((General_t)__temp4);
 incrementing itr from: 0 to 1
 incrementing itr from: 5 to 6
 incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 1 to 2
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+decrementing itr from: 1 to 0
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+freeing!
+[FREE]
+decrementing itr from: 2 to 1
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+[MALLOC]
+incrementing reg from: 0 to 1
+[MALLOC]
+incrementing reg from: 0 to 1
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+incrementing itr from: 0 to 1
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+NEW git
+[MALLOC]
+incrementing itr from: 0 to 1
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 1 to 2
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+decrementing itr from: 1 to 0
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+freeing!
+[FREE]
+decrementing itr from: 2 to 1
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing reg from: 4 to 3
+incrementing reg from: 2 to 3
+incrementing reg from: 3 to 4
+incrementing reg from: 2 to 3
+[MALLOC]
+incrementing reg from: 0 to 1
+[MALLOC]
+incrementing reg from: 0 to 1
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+[MALLOC]
+incrementing reg from: 0 to 1
+[MALLOC]
+incrementing reg from: 0 to 1
+decrementing reg from: 3 to 2
+incrementing reg from: 1 to 2
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+decrementing reg from: 2 to 1
+NEW git
+[MALLOC]
+incrementing itr from: 0 to 1
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+NEW git
+[MALLOC]
+incrementing itr from: 0 to 1
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+NEW git
+[MALLOC]
+incrementing itr from: 0 to 1
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 1 to 2
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+decrementing itr from: 1 to 0
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+freeing!
+[FREE]
+decrementing itr from: 2 to 1
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+[MALLOC]
+incrementing reg from: 0 to 1
+[MALLOC]
+incrementing reg from: 0 to 1
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+[MALLOC]
+incrementing reg from: 0 to 1
+[MALLOC]
+incrementing reg from: 0 to 1
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+incrementing reg from: 1 to 2
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+decrementing reg from: 2 to 1
+NEW git
+[MALLOC]
+incrementing itr from: 0 to 1
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+NEW git
+[MALLOC]
+incrementing itr from: 0 to 1
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+NEW git
+[MALLOC]
+NEW git
+[MALLOC]
 incrementing itr from: 0 to 1
 incrementing itr from: 6 to 7
 incrementing reg from: 6 to 7
-|__end increment__|
-ref_decrement((General_t)_ret);
-|__end decrement__|
-|--ref_increment((General_t)_ret);
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 0 to 1
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+decrementing itr from: 1 to 0
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+freeing!
+[FREE]
 incrementing itr from: 1 to 2
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
 incrementing itr from: 7 to 8
 incrementing reg from: 7 to 8
 incrementing itr from: 1 to 2
 incrementing itr from: 8 to 9
 incrementing reg from: 8 to 9
-|__end crement__|
-|--ref_decrement((General_t)__temp1);
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
 decrementing itr from: 1 to 0
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
 decrementing itr from: 9 to 8
 decrementing reg from: 9 to 8
 freeing!
 [FREE]
-|__end crement__|
-|--ref_decrement((General_t)__temp2);
 decrementing itr from: 1 to 0
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
 decrementing itr from: 8 to 7
 decrementing reg from: 8 to 7
 freeing!
 [FREE]
-|__end crement__|
-|--ref_decrement((General_t)__temp3);
+decrementing itr from: 2 to 1
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 2 to 1
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+[MALLOC]
+incrementing reg from: 0 to 1
+[MALLOC]
+incrementing reg from: 0 to 1
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
 decrementing itr from: 1 to 0
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 1 to 0
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+incrementing itr from: 0 to 1
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 0 to 1
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+NEW git
+[MALLOC]
+NEW git
+[MALLOC]
+NEW git
+[MALLOC]
+incrementing itr from: 0 to 1
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 0 to 1
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 0 to 1
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+decrementing itr from: 1 to 0
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+freeing!
+[FREE]
+incrementing itr from: 1 to 2
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 1 to 2
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 1 to 2
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+decrementing itr from: 1 to 0
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+freeing!
+[FREE]
+decrementing itr from: 2 to 1
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 2 to 1
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 2 to 1
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing reg from: 4 to 3
+incrementing reg from: 2 to 3
+incrementing reg from: 3 to 4
+incrementing reg from: 2 to 3
+[MALLOC]
+incrementing reg from: 0 to 1
+[MALLOC]
+incrementing reg from: 0 to 1
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+[MALLOC]
+incrementing reg from: 0 to 1
+[MALLOC]
+incrementing reg from: 0 to 1
+decrementing reg from: 3 to 2
+incrementing reg from: 1 to 2
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+decrementing reg from: 2 to 1
+NEW git
+[MALLOC]
+incrementing itr from: 0 to 1
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+NEW git
+[MALLOC]
+incrementing itr from: 0 to 1
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+NEW git
+[MALLOC]
+incrementing itr from: 0 to 1
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 1 to 2
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+decrementing itr from: 1 to 0
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
 decrementing itr from: 7 to 6
 decrementing reg from: 7 to 6
 freeing!
 [FREE]
-|__end crement__|
-|--ref_decrement((General_t)__temp4);
-decrementing itr from: 2 to 1
+decrementing itr from: 1 to 0
 decrementing itr from: 6 to 5
 decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+freeing!
+[FREE]
 decrementing itr from: 2 to 1
 decrementing itr from: 5 to 4
 decrementing reg from: 5 to 4
-|__end crement__|
-[END LOOP]
-|--ref_decrement((General_t) _iter0);
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+[MALLOC]
+incrementing reg from: 0 to 1
+[MALLOC]
+incrementing reg from: 0 to 1
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+[MALLOC]
+incrementing reg from: 0 to 1
+[MALLOC]
+incrementing reg from: 0 to 1
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+incrementing reg from: 1 to 2
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+decrementing reg from: 2 to 1
+NEW git
+[MALLOC]
+incrementing itr from: 0 to 1
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+NEW git
+[MALLOC]
+incrementing itr from: 0 to 1
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+NEW git
+[MALLOC]
+NEW git
+[MALLOC]
+incrementing itr from: 0 to 1
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 0 to 1
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+decrementing itr from: 1 to 0
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+freeing!
+[FREE]
+incrementing itr from: 1 to 2
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 1 to 2
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+decrementing itr from: 1 to 0
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+freeing!
+[FREE]
+decrementing itr from: 2 to 1
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 2 to 1
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+[MALLOC]
+incrementing reg from: 0 to 1
+[MALLOC]
+incrementing reg from: 0 to 1
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+[MALLOC]
+incrementing reg from: 0 to 1
+[MALLOC]
+incrementing reg from: 0 to 1
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+incrementing reg from: 1 to 2
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+decrementing reg from: 2 to 1
+NEW git
+[MALLOC]
+incrementing itr from: 0 to 1
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+NEW git
+[MALLOC]
+incrementing itr from: 0 to 1
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+NEW git
+[MALLOC]
+NEW git
+[MALLOC]
+NEW git
+[MALLOC]
+incrementing itr from: 0 to 1
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 0 to 1
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 0 to 1
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+decrementing itr from: 1 to 0
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+freeing!
+[FREE]
+incrementing itr from: 1 to 2
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 1 to 2
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 1 to 2
+incrementing itr from: 10 to 11
+incrementing reg from: 10 to 11
+incrementing itr from: 10 to 11
+incrementing reg from: 10 to 11
+incrementing itr from: 10 to 11
+incrementing reg from: 10 to 11
+incrementing itr from: 10 to 11
+incrementing reg from: 10 to 11
+incrementing itr from: 10 to 11
+incrementing reg from: 10 to 11
+incrementing itr from: 10 to 11
+incrementing reg from: 10 to 11
+incrementing itr from: 10 to 11
+incrementing reg from: 10 to 11
+decrementing itr from: 1 to 0
+decrementing itr from: 11 to 10
+decrementing reg from: 11 to 10
+decrementing itr from: 11 to 10
+decrementing reg from: 11 to 10
+decrementing itr from: 11 to 10
+decrementing reg from: 11 to 10
+decrementing itr from: 11 to 10
+decrementing reg from: 11 to 10
+decrementing itr from: 11 to 10
+decrementing reg from: 11 to 10
+decrementing itr from: 11 to 10
+decrementing reg from: 11 to 10
+decrementing itr from: 11 to 10
+decrementing reg from: 11 to 10
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+freeing!
+[FREE]
+decrementing itr from: 2 to 1
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 2 to 1
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 2 to 1
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+[MALLOC]
+incrementing reg from: 0 to 1
+[MALLOC]
+incrementing reg from: 0 to 1
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 1 to 0
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
 decrementing itr from: 1 to 0
 decrementing itr from: 4 to 3
 decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+incrementing itr from: 0 to 1
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 0 to 1
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 0 to 1
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+NEW git
+[MALLOC]
+NEW git
+[MALLOC]
+NEW git
+[MALLOC]
+NEW git
+[MALLOC]
+NEW git
+[MALLOC]
+NEW git
+[MALLOC]
+incrementing itr from: 0 to 1
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 0 to 1
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 0 to 1
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 0 to 1
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 0 to 1
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 0 to 1
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+decrementing itr from: 1 to 0
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
 freeing!
 [FREE]
-|__end crement__|
-|--ref_decrement((General_t)_it1);
+decrementing itr from: 1 to 0
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+freeing!
+[FREE]
+incrementing itr from: 1 to 2
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 1 to 2
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 1 to 2
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 1 to 2
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 1 to 2
+incrementing itr from: 10 to 11
+incrementing reg from: 10 to 11
+incrementing itr from: 10 to 11
+incrementing reg from: 10 to 11
+incrementing itr from: 10 to 11
+incrementing reg from: 10 to 11
+incrementing itr from: 10 to 11
+incrementing reg from: 10 to 11
+incrementing itr from: 10 to 11
+incrementing reg from: 10 to 11
+incrementing itr from: 10 to 11
+incrementing reg from: 10 to 11
+incrementing itr from: 10 to 11
+incrementing reg from: 10 to 11
+incrementing itr from: 1 to 2
+incrementing itr from: 11 to 12
+incrementing reg from: 11 to 12
+incrementing itr from: 11 to 12
+incrementing reg from: 11 to 12
+incrementing itr from: 11 to 12
+incrementing reg from: 11 to 12
+incrementing itr from: 11 to 12
+incrementing reg from: 11 to 12
+incrementing itr from: 11 to 12
+incrementing reg from: 11 to 12
+incrementing itr from: 11 to 12
+incrementing reg from: 11 to 12
+incrementing itr from: 11 to 12
+incrementing reg from: 11 to 12
+decrementing itr from: 1 to 0
+decrementing itr from: 12 to 11
+decrementing reg from: 12 to 11
+decrementing itr from: 12 to 11
+decrementing reg from: 12 to 11
+decrementing itr from: 12 to 11
+decrementing reg from: 12 to 11
+decrementing itr from: 12 to 11
+decrementing reg from: 12 to 11
+decrementing itr from: 12 to 11
+decrementing reg from: 12 to 11
+decrementing itr from: 12 to 11
+decrementing reg from: 12 to 11
+decrementing itr from: 12 to 11
+decrementing reg from: 12 to 11
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing itr from: 11 to 10
+decrementing reg from: 11 to 10
+decrementing itr from: 11 to 10
+decrementing reg from: 11 to 10
+decrementing itr from: 11 to 10
+decrementing reg from: 11 to 10
+decrementing itr from: 11 to 10
+decrementing reg from: 11 to 10
+decrementing itr from: 11 to 10
+decrementing reg from: 11 to 10
+decrementing itr from: 11 to 10
+decrementing reg from: 11 to 10
+decrementing itr from: 11 to 10
+decrementing reg from: 11 to 10
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+freeing!
+[FREE]
+decrementing itr from: 2 to 1
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 2 to 1
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 2 to 1
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 2 to 1
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 2 to 1
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 2 to 1
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing reg from: 4 to 3
+incrementing reg from: 2 to 3
+incrementing reg from: 3 to 4
+incrementing reg from: 2 to 3
+[MALLOC]
+incrementing reg from: 0 to 1
+[MALLOC]
+incrementing reg from: 0 to 1
 decrementing reg from: 1 to 0
 freeing!
 [FREE]
-|__end crement__|
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+[MALLOC]
+incrementing reg from: 0 to 1
+[MALLOC]
+incrementing reg from: 0 to 1
+decrementing reg from: 3 to 2
+incrementing reg from: 1 to 2
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+decrementing reg from: 2 to 1
+NEW git
+[MALLOC]
+incrementing itr from: 0 to 1
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+NEW git
+[MALLOC]
+incrementing itr from: 0 to 1
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+NEW git
+[MALLOC]
+incrementing itr from: 0 to 1
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 1 to 2
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+decrementing itr from: 1 to 0
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+freeing!
+[FREE]
+decrementing itr from: 2 to 1
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+[MALLOC]
+incrementing reg from: 0 to 1
+[MALLOC]
+incrementing reg from: 0 to 1
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+[MALLOC]
+incrementing reg from: 0 to 1
+[MALLOC]
+incrementing reg from: 0 to 1
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+incrementing reg from: 1 to 2
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+decrementing reg from: 2 to 1
+NEW git
+[MALLOC]
+incrementing itr from: 0 to 1
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+NEW git
+[MALLOC]
+incrementing itr from: 0 to 1
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+NEW git
+[MALLOC]
+NEW git
+[MALLOC]
+incrementing itr from: 0 to 1
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 0 to 1
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+decrementing itr from: 1 to 0
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+freeing!
+[FREE]
+incrementing itr from: 1 to 2
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 1 to 2
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+decrementing itr from: 1 to 0
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+freeing!
+[FREE]
+decrementing itr from: 2 to 1
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 2 to 1
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+[MALLOC]
+incrementing reg from: 0 to 1
+[MALLOC]
+incrementing reg from: 0 to 1
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+[MALLOC]
+incrementing reg from: 0 to 1
+[MALLOC]
+incrementing reg from: 0 to 1
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+incrementing reg from: 1 to 2
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+decrementing reg from: 2 to 1
+NEW git
+[MALLOC]
+incrementing itr from: 0 to 1
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+NEW git
+[MALLOC]
+incrementing itr from: 0 to 1
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+NEW git
+[MALLOC]
+NEW git
+[MALLOC]
+NEW git
+[MALLOC]
+incrementing itr from: 0 to 1
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 0 to 1
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 0 to 1
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+decrementing itr from: 1 to 0
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+freeing!
+[FREE]
+incrementing itr from: 1 to 2
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 1 to 2
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 1 to 2
+incrementing itr from: 10 to 11
+incrementing reg from: 10 to 11
+incrementing itr from: 10 to 11
+incrementing reg from: 10 to 11
+incrementing itr from: 10 to 11
+incrementing reg from: 10 to 11
+incrementing itr from: 10 to 11
+incrementing reg from: 10 to 11
+incrementing itr from: 10 to 11
+incrementing reg from: 10 to 11
+incrementing itr from: 10 to 11
+incrementing reg from: 10 to 11
+decrementing itr from: 1 to 0
+decrementing itr from: 11 to 10
+decrementing reg from: 11 to 10
+decrementing itr from: 11 to 10
+decrementing reg from: 11 to 10
+decrementing itr from: 11 to 10
+decrementing reg from: 11 to 10
+decrementing itr from: 11 to 10
+decrementing reg from: 11 to 10
+decrementing itr from: 11 to 10
+decrementing reg from: 11 to 10
+decrementing itr from: 11 to 10
+decrementing reg from: 11 to 10
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+freeing!
+[FREE]
+decrementing itr from: 2 to 1
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 2 to 1
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 2 to 1
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+[MALLOC]
+incrementing reg from: 0 to 1
+[MALLOC]
+incrementing reg from: 0 to 1
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+[MALLOC]
+incrementing reg from: 0 to 1
+[MALLOC]
+incrementing reg from: 0 to 1
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+incrementing reg from: 1 to 2
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+decrementing reg from: 2 to 1
+NEW git
+[MALLOC]
+incrementing itr from: 0 to 1
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+NEW git
+[MALLOC]
+incrementing itr from: 0 to 1
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+NEW git
+[MALLOC]
+NEW git
+[MALLOC]
+NEW git
+[MALLOC]
+NEW git
+[MALLOC]
+incrementing itr from: 0 to 1
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 0 to 1
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 0 to 1
+incrementing itr from: 10 to 11
+incrementing reg from: 10 to 11
+incrementing itr from: 10 to 11
+incrementing reg from: 10 to 11
+incrementing itr from: 10 to 11
+incrementing reg from: 10 to 11
+incrementing itr from: 10 to 11
+incrementing reg from: 10 to 11
+incrementing itr from: 10 to 11
+incrementing reg from: 10 to 11
+incrementing itr from: 10 to 11
+incrementing reg from: 10 to 11
+incrementing itr from: 0 to 1
+incrementing itr from: 11 to 12
+incrementing reg from: 11 to 12
+incrementing itr from: 11 to 12
+incrementing reg from: 11 to 12
+incrementing itr from: 11 to 12
+incrementing reg from: 11 to 12
+incrementing itr from: 11 to 12
+incrementing reg from: 11 to 12
+incrementing itr from: 11 to 12
+incrementing reg from: 11 to 12
+incrementing itr from: 11 to 12
+incrementing reg from: 11 to 12
+decrementing itr from: 1 to 0
+decrementing itr from: 12 to 11
+decrementing reg from: 12 to 11
+decrementing itr from: 12 to 11
+decrementing reg from: 12 to 11
+decrementing itr from: 12 to 11
+decrementing reg from: 12 to 11
+decrementing itr from: 12 to 11
+decrementing reg from: 12 to 11
+decrementing itr from: 12 to 11
+decrementing reg from: 12 to 11
+decrementing itr from: 12 to 11
+decrementing reg from: 12 to 11
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing itr from: 11 to 10
+decrementing reg from: 11 to 10
+decrementing itr from: 11 to 10
+decrementing reg from: 11 to 10
+decrementing itr from: 11 to 10
+decrementing reg from: 11 to 10
+decrementing itr from: 11 to 10
+decrementing reg from: 11 to 10
+decrementing itr from: 11 to 10
+decrementing reg from: 11 to 10
+decrementing itr from: 11 to 10
+decrementing reg from: 11 to 10
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+freeing!
+[FREE]
+incrementing itr from: 1 to 2
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 1 to 2
+incrementing itr from: 10 to 11
+incrementing reg from: 10 to 11
+incrementing itr from: 10 to 11
+incrementing reg from: 10 to 11
+incrementing itr from: 10 to 11
+incrementing reg from: 10 to 11
+incrementing itr from: 10 to 11
+incrementing reg from: 10 to 11
+incrementing itr from: 10 to 11
+incrementing reg from: 10 to 11
+incrementing itr from: 10 to 11
+incrementing reg from: 10 to 11
+incrementing itr from: 1 to 2
+incrementing itr from: 11 to 12
+incrementing reg from: 11 to 12
+incrementing itr from: 11 to 12
+incrementing reg from: 11 to 12
+incrementing itr from: 11 to 12
+incrementing reg from: 11 to 12
+incrementing itr from: 11 to 12
+incrementing reg from: 11 to 12
+incrementing itr from: 11 to 12
+incrementing reg from: 11 to 12
+incrementing itr from: 11 to 12
+incrementing reg from: 11 to 12
+incrementing itr from: 1 to 2
+incrementing itr from: 12 to 13
+incrementing reg from: 12 to 13
+incrementing itr from: 12 to 13
+incrementing reg from: 12 to 13
+incrementing itr from: 12 to 13
+incrementing reg from: 12 to 13
+incrementing itr from: 12 to 13
+incrementing reg from: 12 to 13
+incrementing itr from: 12 to 13
+incrementing reg from: 12 to 13
+incrementing itr from: 12 to 13
+incrementing reg from: 12 to 13
+decrementing itr from: 1 to 0
+decrementing itr from: 13 to 12
+decrementing reg from: 13 to 12
+decrementing itr from: 13 to 12
+decrementing reg from: 13 to 12
+decrementing itr from: 13 to 12
+decrementing reg from: 13 to 12
+decrementing itr from: 13 to 12
+decrementing reg from: 13 to 12
+decrementing itr from: 13 to 12
+decrementing reg from: 13 to 12
+decrementing itr from: 13 to 12
+decrementing reg from: 13 to 12
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing itr from: 12 to 11
+decrementing reg from: 12 to 11
+decrementing itr from: 12 to 11
+decrementing reg from: 12 to 11
+decrementing itr from: 12 to 11
+decrementing reg from: 12 to 11
+decrementing itr from: 12 to 11
+decrementing reg from: 12 to 11
+decrementing itr from: 12 to 11
+decrementing reg from: 12 to 11
+decrementing itr from: 12 to 11
+decrementing reg from: 12 to 11
+freeing!
+[FREE]
+decrementing itr from: 2 to 1
+decrementing itr from: 11 to 10
+decrementing reg from: 11 to 10
+decrementing itr from: 11 to 10
+decrementing reg from: 11 to 10
+decrementing itr from: 11 to 10
+decrementing reg from: 11 to 10
+decrementing itr from: 11 to 10
+decrementing reg from: 11 to 10
+decrementing itr from: 11 to 10
+decrementing reg from: 11 to 10
+decrementing itr from: 11 to 10
+decrementing reg from: 11 to 10
+decrementing itr from: 2 to 1
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+decrementing itr from: 2 to 1
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 2 to 1
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+[MALLOC]
+incrementing reg from: 0 to 1
+[MALLOC]
+incrementing reg from: 0 to 1
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 1 to 0
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 1 to 0
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 1 to 0
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+incrementing itr from: 0 to 1
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 3 to 4
+incrementing reg from: 3 to 4
+incrementing itr from: 0 to 1
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 0 to 1
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 0 to 1
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+NEW git
+[MALLOC]
+NEW git
+[MALLOC]
+NEW git
+[MALLOC]
+NEW git
+[MALLOC]
+NEW git
+[MALLOC]
+NEW git
+[MALLOC]
+NEW git
+[MALLOC]
+NEW git
+[MALLOC]
+NEW git
+[MALLOC]
+NEW git
+[MALLOC]
+incrementing itr from: 0 to 1
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 0 to 1
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 0 to 1
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 0 to 1
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 0 to 1
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 0 to 1
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 0 to 1
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 0 to 1
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 0 to 1
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 9 to 10
+incrementing reg from: 9 to 10
+incrementing itr from: 0 to 1
+incrementing itr from: 10 to 11
+incrementing reg from: 10 to 11
+incrementing itr from: 10 to 11
+incrementing reg from: 10 to 11
+incrementing itr from: 10 to 11
+incrementing reg from: 10 to 11
+incrementing itr from: 10 to 11
+incrementing reg from: 10 to 11
+incrementing itr from: 10 to 11
+incrementing reg from: 10 to 11
+incrementing itr from: 10 to 11
+incrementing reg from: 10 to 11
+decrementing itr from: 1 to 0
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+freeing!
+[FREE]
+incrementing itr from: 1 to 2
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 4 to 5
+incrementing reg from: 4 to 5
+incrementing itr from: 1 to 2
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 5 to 6
+incrementing reg from: 5 to 6
+incrementing itr from: 1 to 2
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 1 to 2
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 6 to 7
+incrementing reg from: 6 to 7
+incrementing itr from: 1 to 2
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 7 to 8
+incrementing reg from: 7 to 8
+incrementing itr from: 1 to 2
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 8 to 9
+incrementing reg from: 8 to 9
+incrementing itr from: 1 to 2
+incrementing itr from: 11 to 12
+incrementing reg from: 11 to 12
+incrementing itr from: 11 to 12
+incrementing reg from: 11 to 12
+incrementing itr from: 11 to 12
+incrementing reg from: 11 to 12
+incrementing itr from: 11 to 12
+incrementing reg from: 11 to 12
+incrementing itr from: 11 to 12
+incrementing reg from: 11 to 12
+incrementing itr from: 11 to 12
+incrementing reg from: 11 to 12
+incrementing itr from: 1 to 2
+incrementing itr from: 12 to 13
+incrementing reg from: 12 to 13
+incrementing itr from: 12 to 13
+incrementing reg from: 12 to 13
+incrementing itr from: 12 to 13
+incrementing reg from: 12 to 13
+incrementing itr from: 12 to 13
+incrementing reg from: 12 to 13
+incrementing itr from: 12 to 13
+incrementing reg from: 12 to 13
+incrementing itr from: 12 to 13
+incrementing reg from: 12 to 13
+incrementing itr from: 1 to 2
+incrementing itr from: 13 to 14
+incrementing reg from: 13 to 14
+incrementing itr from: 13 to 14
+incrementing reg from: 13 to 14
+incrementing itr from: 13 to 14
+incrementing reg from: 13 to 14
+incrementing itr from: 13 to 14
+incrementing reg from: 13 to 14
+incrementing itr from: 13 to 14
+incrementing reg from: 13 to 14
+incrementing itr from: 13 to 14
+incrementing reg from: 13 to 14
+incrementing itr from: 1 to 2
+incrementing itr from: 14 to 15
+incrementing reg from: 14 to 15
+incrementing itr from: 14 to 15
+incrementing reg from: 14 to 15
+incrementing itr from: 14 to 15
+incrementing reg from: 14 to 15
+incrementing itr from: 14 to 15
+incrementing reg from: 14 to 15
+incrementing itr from: 14 to 15
+incrementing reg from: 14 to 15
+incrementing itr from: 14 to 15
+incrementing reg from: 14 to 15
+decrementing itr from: 1 to 0
+decrementing itr from: 15 to 14
+decrementing reg from: 15 to 14
+decrementing itr from: 15 to 14
+decrementing reg from: 15 to 14
+decrementing itr from: 15 to 14
+decrementing reg from: 15 to 14
+decrementing itr from: 15 to 14
+decrementing reg from: 15 to 14
+decrementing itr from: 15 to 14
+decrementing reg from: 15 to 14
+decrementing itr from: 15 to 14
+decrementing reg from: 15 to 14
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing itr from: 14 to 13
+decrementing reg from: 14 to 13
+decrementing itr from: 14 to 13
+decrementing reg from: 14 to 13
+decrementing itr from: 14 to 13
+decrementing reg from: 14 to 13
+decrementing itr from: 14 to 13
+decrementing reg from: 14 to 13
+decrementing itr from: 14 to 13
+decrementing reg from: 14 to 13
+decrementing itr from: 14 to 13
+decrementing reg from: 14 to 13
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing itr from: 13 to 12
+decrementing reg from: 13 to 12
+decrementing itr from: 13 to 12
+decrementing reg from: 13 to 12
+decrementing itr from: 13 to 12
+decrementing reg from: 13 to 12
+decrementing itr from: 13 to 12
+decrementing reg from: 13 to 12
+decrementing itr from: 13 to 12
+decrementing reg from: 13 to 12
+decrementing itr from: 13 to 12
+decrementing reg from: 13 to 12
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing itr from: 12 to 11
+decrementing reg from: 12 to 11
+decrementing itr from: 12 to 11
+decrementing reg from: 12 to 11
+decrementing itr from: 12 to 11
+decrementing reg from: 12 to 11
+decrementing itr from: 12 to 11
+decrementing reg from: 12 to 11
+decrementing itr from: 12 to 11
+decrementing reg from: 12 to 11
+decrementing itr from: 12 to 11
+decrementing reg from: 12 to 11
+freeing!
+[FREE]
+decrementing itr from: 2 to 1
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 2 to 1
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 2 to 1
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 2 to 1
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 2 to 1
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 2 to 1
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 2 to 1
+decrementing itr from: 11 to 10
+decrementing reg from: 11 to 10
+decrementing itr from: 11 to 10
+decrementing reg from: 11 to 10
+decrementing itr from: 11 to 10
+decrementing reg from: 11 to 10
+decrementing itr from: 11 to 10
+decrementing reg from: 11 to 10
+decrementing itr from: 11 to 10
+decrementing reg from: 11 to 10
+decrementing itr from: 11 to 10
+decrementing reg from: 11 to 10
+decrementing itr from: 2 to 1
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+decrementing itr from: 10 to 9
+decrementing reg from: 10 to 9
+decrementing itr from: 2 to 1
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 9 to 8
+decrementing reg from: 9 to 8
+decrementing itr from: 2 to 1
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing itr from: 8 to 7
+decrementing reg from: 8 to 7
+decrementing reg from: 4 to 3
+decrementing itr from: 1 to 0
+decrementing reg from: 3 to 2
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing reg from: 3 to 2
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing reg from: 3 to 2
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing reg from: 3 to 2
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing reg from: 3 to 2
+freeing!
+[FREE]
+decrementing reg from: 1 to 0
+freeing!
+[FREE]
 NEW iterator
 [MALLOC]
 incrementing reg from: 0 to 1
-[START WHILE LOOP]
-QWERTY
-NEW string
+>>>>>
 [MALLOC]
-d
-FREE print line buffer
-[FREE]
-QWERTY
-NEW string
+are
+>>>>>
 [MALLOC]
-d
-FREE print line buffer
-[FREE]
-[END WHILE LOOP]
-|--ref_decrement((General_t)_it2);
+the
+>>>>>
+[MALLOC]
+the
+>>>>>
+[MALLOC]
+coolest
+>>>>>
+[MALLOC]
+coolest
+>>>>>
+[MALLOC]
+coolest
+>>>>>
+[MALLOC]
+thing!
+>>>>>
+[MALLOC]
+thing!
+>>>>>
+[MALLOC]
+thing!
+>>>>>
+[MALLOC]
+thing!
 decrementing reg from: 1 to 0
 freeing!
 [FREE]
-|__end crement__|
-|--ref_decrement((General_t)_ret);
 decrementing itr from: 1 to 0
+decrementing itr from: 3 to 2
+decrementing reg from: 3 to 2
+decrementing itr from: 3 to 2
+decrementing reg from: 3 to 2
+decrementing itr from: 3 to 2
+decrementing reg from: 3 to 2
+decrementing itr from: 3 to 2
+decrementing reg from: 3 to 2
+decrementing itr from: 3 to 2
+decrementing reg from: 3 to 2
+decrementing itr from: 3 to 2
+decrementing reg from: 3 to 2
+decrementing itr from: 3 to 2
+decrementing reg from: 3 to 2
+decrementing itr from: 3 to 2
+decrementing reg from: 3 to 2
 decrementing itr from: 3 to 2
 decrementing reg from: 3 to 2
 freeing!
 [FREE]
 decrementing itr from: 1 to 0
-decrementing itr from: 2 to 1
-decrementing reg from: 2 to 1
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
 freeing!
 [FREE]
-|__end crement__|
-|--ref_decrement((General_t)_input);
 decrementing itr from: 1 to 0
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+freeing!
+[FREE]
 decrementing itr from: 1 to 0
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+decrementing itr from: 7 to 6
+decrementing reg from: 7 to 6
+freeing!
+[FREE]
 decrementing reg from: 1 to 0
 freeing!
 [FREE]
+decrementing itr from: 1 to 0
+decrementing reg from: 2 to 1
 freeing!
 [FREE]
+decrementing itr from: 1 to 0
+decrementing reg from: 2 to 1
 freeing!
 [FREE]
-|__end crement__|
-[FINISH]
----FINAL COUNT: 2
+decrementing itr from: 1 to 0
+decrementing reg from: 2 to 1
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing reg from: 2 to 1
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing reg from: 2 to 1
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing itr from: 3 to 2
+decrementing reg from: 3 to 2
+decrementing itr from: 3 to 2
+decrementing reg from: 3 to 2
+decrementing itr from: 3 to 2
+decrementing reg from: 3 to 2
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing itr from: 3 to 2
+decrementing reg from: 3 to 2
+decrementing itr from: 3 to 2
+decrementing reg from: 3 to 2
+decrementing itr from: 3 to 2
+decrementing reg from: 3 to 2
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing itr from: 3 to 2
+decrementing reg from: 3 to 2
+decrementing itr from: 3 to 2
+decrementing reg from: 3 to 2
+decrementing itr from: 3 to 2
+decrementing reg from: 3 to 2
+decrementing itr from: 3 to 2
+decrementing reg from: 3 to 2
+decrementing itr from: 3 to 2
+decrementing reg from: 3 to 2
+decrementing itr from: 3 to 2
+decrementing reg from: 3 to 2
+decrementing itr from: 3 to 2
+decrementing reg from: 3 to 2
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+decrementing itr from: 6 to 5
+decrementing reg from: 6 to 5
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+decrementing itr from: 5 to 4
+decrementing reg from: 5 to 4
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+decrementing itr from: 4 to 3
+decrementing reg from: 4 to 3
+freeing!
+[FREE]
+decrementing itr from: 1 to 0
+decrementing itr from: 3 to 2
+decrementing reg from: 3 to 2
+decrementing itr from: 3 to 2
+decrementing reg from: 3 to 2
+decrementing itr from: 3 to 2
+decrementing reg from: 3 to 2
+decrementing itr from: 3 to 2
+decrementing reg from: 3 to 2
+decrementing itr from: 3 to 2
+decrementing reg from: 3 to 2
+decrementing itr from: 3 to 2
+decrementing reg from: 3 to 2
+freeing!
+[FREE]
+---FINAL COUNT: 76
