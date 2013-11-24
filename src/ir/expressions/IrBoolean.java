@@ -1,6 +1,8 @@
 package ir.expressions;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Set;
 
 import optimization.CseContext;
 import parsingTokens.CubexList;
@@ -42,6 +44,11 @@ public final class IrBoolean implements IrExpression {
 		return mValue ? "true" : "false";
 	}
 	
+	@Override
+	public void getVars(Set<String> set, Map<String, Set<String>> map){
+		return;
+	}
+
 	public boolean equals(Object object){
 		if (object instanceof IrBoolean){
 			IrBoolean expr = (IrBoolean) object;

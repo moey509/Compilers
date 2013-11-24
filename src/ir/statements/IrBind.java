@@ -1,20 +1,21 @@
 package ir.statements;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+
+import optimization.LvaContext;
+import typeChecker.CubexCompleteContext;
 import ir.CGenerationContext;
 import ir.expressions.IrExpression;
 import ir.expressions.IrExpressionTuple;
 import ir.expressions.IrFunctionCall;
 import ir.program.IrTypeTuple;
-
-import java.util.ArrayList;
-
 import optimization.CseContext;
-import typeChecker.CubexCompleteContext;
 
-public final class IrBind implements IrStatement {
+public final class IrBind extends IrStatement {
+
 	public IrTypeTuple tuple;
 	public IrExpression expression;
-	public ArrayList<IrBind> temporaryBinds;
 	public CubexCompleteContext context;
 	public boolean cse = false;
 	
@@ -23,6 +24,9 @@ public final class IrBind implements IrStatement {
 		this.expression = expression;
 		this.temporaryBinds = new ArrayList<IrBind>();
 		this.context = context;
+		
+//		expression.getVars(this.useSet);
+		this.defSet.add(tuple.variableName);
 	}
 	
 	public String getVariableName(){
@@ -75,26 +79,32 @@ public final class IrBind implements IrStatement {
 			else {
 				s = temporaryBinds.get(temporaryBinds.size()-1).tuple.variableName;
 			}
+			//Decrements whatever was previously set to this variable
 			output.add("ref_decrement((General_t)" + tuple.variableName + ");");
 			output.add(tuple.variableName + " = " + s + ";");
 			output.add("ref_increment((General_t)" + tuple.variableName + ");");
 			
 		}
-		else{
-			// TODO: We need to make sure that y was initialized somehow or initialize everything to 
-			//   NULL and set to NULL when freed
+		else{			
+			//Decrements whatever was previously bound to this variable
 			output.add("ref_decrement((General_t)" + tuple.variableName + ");");
+			
 			if (expression instanceof IrFunctionCall) {
 				IrFunctionCall funcCall = (IrFunctionCall) expression;
 				if(!funcCall.functionName.equals("_string") && !funcCall.functionName.equals("_character")){
+					
+					//Increments arguments before a function call
 					for (IrExpressionTuple tuple : funcCall.getArugments()) {
 						output.add("ref_increment((General_t)" + tuple.getExpression().toC(context)+ ");");
 					}
 				}
 			}
+			//Sets the variable then increments.
 			output.add(tuple.variableName + " = " + expression.toC(context) + ";");
 			output.add("ref_increment((General_t)" + tuple.variableName + ");");
 		}
+		
+		//TODO: Should be replaced by Ansha's code
 		for(IrBind b : temporaryBinds){
 			output.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
 			output.add(b.tuple.variableName + " = NULL;");
@@ -109,9 +119,32 @@ public final class IrBind implements IrStatement {
 	}
 
 	@Override
-	public void removeCommonSubexpressions(CseContext context) {
-		// TODO Auto-generated method stub
-		
+	public void lva(LvaContext c) {
+		lvaHelper(c);
+		// DEBUG STATEMENTS
+		System.out.println(toString());
+		lvaDebugHelper();
+		//
+	}
+
+	@Override
+	public void populateSets(LvaContext c) {
+		if (nextSet==null) {
+			nextSet = new HashSet<IrStatement>();
+			
+			useSet = new HashSet<String>();
+			expression.getVars(useSet, c.functionUse);
+			
+			populateSetsTemps(c);
+
+			// now add to the nextList for this bind
+			if (c.nextList.size()>0) {
+				nextSet.add(c.nextList.removeFirst().getTop());
+			}
+		}
+	}
+
+	public void removeCommonSubexpressions(CseContext context) {		
 		for (IrBind tempBind : temporaryBinds){
 			tempBind.expression = tempBind.expression.eliminateSubexpression(context);
 			context.putVariable(tempBind.getVariableName(), tempBind.expression.getSubexpressions(context));
@@ -124,6 +157,11 @@ public final class IrBind implements IrStatement {
 		}
 		System.out.println("After CSE: " + getVariableName() + "=" + expression);
 		context.putVariable(getVariableName(), expression.getSubexpressions(context));
+	}
+
+	@Override
+	public String toString() {
+		return "IrBind: " + tuple.type.toC() + tuple.variableName + " := " + expression.toString();
 	}
 
 }

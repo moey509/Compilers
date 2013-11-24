@@ -4,16 +4,17 @@ import ir.CGenerationContext;
 import ir.expressions.IrExpression;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
+import optimization.LvaContext;
 import optimization.CseContext;
 import typeChecker.CubexCompleteContext;
 
-public final class IrWhile implements IrStatement {
+public final class IrWhile extends IrStatement {
 	private ArrayList<String> freeContext = new ArrayList<String>();
 	private IrExpression condition;
 	private List<IrStatement> statements;
-	public ArrayList<IrBind> temporaryBinds;
 	public CubexCompleteContext context;
 
 	public IrWhile(IrExpression condition, CubexCompleteContext context) {
@@ -21,6 +22,8 @@ public final class IrWhile implements IrStatement {
 		this.statements = new ArrayList<IrStatement>();
 		this.temporaryBinds = new ArrayList<IrBind>();
 		this.context = context;
+		
+//		condition.getVars(this.useSet);
 	}
 	
 	public void addDeclaration(ArrayList<String> arr, CGenerationContext context){
@@ -118,6 +121,64 @@ public final class IrWhile implements IrStatement {
 	}
 
 	@Override
+	public void lva(LvaContext c) {
+		lvaHelper(c);
+		// DEBUG STATEMENTS
+		System.out.println(toString());
+		lvaDebugHelper();
+		//
+
+		for (IrStatement s : statements) {
+			s.lva(c);
+		}
+		
+	}
+
+	@Override
+	public void populateSets(LvaContext c) {
+		if (nextSet==null) {
+			nextSet = new HashSet<IrStatement>();
+			
+			useSet = new HashSet<String>();
+			condition.getVars(useSet, c.functionUse);
+			
+			populateSetsTemps(c);
+			
+			if (c.nextList.size() > 0) {
+				nextSet.add(c.nextList.removeFirst().getTop());
+			}
+		
+			if (statements.size() > 0) {
+				ArrayList<IrStatement> statementlist = new ArrayList<IrStatement>();
+				if (statements.get(0) instanceof IrStatementList) {
+					IrStatementList st = (IrStatementList) statements.get(0);
+					statementlist.addAll(st.statementList);
+				} else {
+					statementlist.addAll(statements);
+				}
+				int length = statementlist.size();
+				
+				c.nextList.addAll(0, statementlist);
+				nextSet.add(c.nextList.removeFirst().getTop());
+
+				// changes the nextSet of the last statement inside the for loop
+				// to point to the for loop
+				IrStatement lastWhileStatement = statementlist.get(length-1);
+				lastWhileStatement.nextSet = new HashSet<IrStatement>();
+				if (temporaryBinds.size()>0) {
+					lastWhileStatement.nextSet.add(temporaryBinds.get(0));
+				} else {
+					lastWhileStatement.nextSet.add(this);
+				}
+				lastWhileStatement.populateSetsTemps(c);
+				
+				for (IrStatement s : statementlist) {
+					s.populateSets(c);
+				}
+			}
+		}
+	}
+
 	public void removeCommonSubexpressions(CseContext context) {
 		CseContext context1 = context.clone();
 		CseContext context2 = context.clone();
@@ -131,5 +192,10 @@ public final class IrWhile implements IrStatement {
 		}
 		context = context.merge(context2);
 		
+	}
+
+	@Override
+	public String toString() {
+		return "IrWhile : while (" + condition.toString() + " )";
 	}
 }

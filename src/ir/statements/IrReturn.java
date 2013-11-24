@@ -2,22 +2,22 @@ package ir.statements;
 
 import ir.CGenerationContext;
 import ir.expressions.IrExpression;
-
 import java.util.ArrayList;
-
+import java.util.HashSet;
+import optimization.LvaContext;
 import optimization.CseContext;
 import typeChecker.CubexCompleteContext;
 
-public final class IrReturn implements IrStatement {
+public final class IrReturn extends IrStatement {
 	// the Cubex variables to be freed before returning
 	private ArrayList<String> freeContext = new ArrayList<String>();
 	private IrExpression expression;
-	public ArrayList<IrBind> temporaryBinds = new ArrayList<IrBind>();
 	public CubexCompleteContext context;
-	
+
 	public IrReturn(IrExpression expression, CubexCompleteContext context) {
 		this.expression = expression;
 		this.context = context;
+		
 	}
 	
 	public void setFreeContext(ArrayList<String> fc) {
@@ -183,6 +183,26 @@ public final class IrReturn implements IrStatement {
 	}
 
 	@Override
+	public void lva(LvaContext c) {
+		lvaHelper(c);
+		// DEBUG STATEMENTS
+		System.out.println(toString());
+		lvaDebugHelper();
+		//
+		
+	}
+
+	@Override
+	// return statements don't have next
+	public void populateSets(LvaContext c) {
+		if (nextSet==null) {
+			nextSet = new HashSet<IrStatement>();
+			useSet = new HashSet<String>();
+			expression.getVars(useSet, c.functionUse);
+			populateSetsTemps(c);
+		}
+	}
+
 	public void removeCommonSubexpressions(CseContext context) {
 		for (IrBind tempBind : temporaryBinds){
 			tempBind.expression = tempBind.expression.eliminateSubexpression(context);
@@ -190,6 +210,11 @@ public final class IrReturn implements IrStatement {
 		}
 		expression = expression.eliminateSubexpression(context);
 		
+	}
+
+	@Override
+	public String toString() {
+		return "IrReturn: return " + expression.toString();
 	}
 }
 

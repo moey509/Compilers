@@ -7,6 +7,8 @@ import ir.statements.IrBind;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import optimization.CseContext;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
@@ -94,6 +96,19 @@ public final class IrFunctionCall implements IrExpression {
 		}
 		
 		return functionName + "(" + sb.toString() + ")";
+	}
+
+	@Override
+	public void getVars(Set<String> set, Map<String, Set<String>> map) {
+		// TODO: FIX
+		for (IrExpressionTuple e : arguments) {
+			e.expression.getVars(set, map);
+		}
+		
+		if (map.containsKey(functionName)) {
+			set.addAll(map.get(functionName));
+		}
+		return;
 	}
 	
 	public boolean equals(Object object){

@@ -80,7 +80,6 @@ public final class CubexString extends CubexExpression {
 		}
 //		CubexList<IrExpression> irE = new CubexList<IrExpression>();
 //		for (IrBind s : arr) {
-//			//TODO something
 //			irE.add(new IrVariableExpression(s.tuple.variableName, s.tuple.type.type));
 //		}
 //		IrIterable iterable = new IrIterable(irE, cubexType);

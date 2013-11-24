@@ -4,6 +4,8 @@ import ir.CGenerationContext;
 import ir.statements.IrBind;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Set;
 
 import optimization.CseContext;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
@@ -45,7 +47,6 @@ public class IrCFunctionCall implements IrExpression {
 					functionCall.append(",");
 				}
 				String parameterPrefix = "";
-				System.out.println("IrCFunctionCall: " + parameterTypes.get(i));
 				functionCall.append("(" + parameterTypes.get(i) + ") " + parameterPrefix + parameters.get(i));
 			}
 			functionCall.append(")");
@@ -58,7 +59,6 @@ public class IrCFunctionCall implements IrExpression {
 					functionCall.append(",");
 				}
 				String parameterPrefix = (context.objectToDataMap.get(context.currentObject).contains(parameters.get(i))) ? "__struct->" : "";
-				System.out.println("IrCFunctionCall: " + parameterTypes.get(i));
 				functionCall.append("(" + parameterTypes.get(i) + ") " + parameterPrefix + parameters.get(i));
 			}
 			functionCall.append(")");
@@ -68,9 +68,7 @@ public class IrCFunctionCall implements IrExpression {
 
 	@Override
 	public ArrayList<IrBind> getExpressions(CGenerationContext context) {
-		// TODO Auto-generated method stub
 		ArrayList<IrBind> arr = new ArrayList<IrBind>();
-		//arr.add(null);
 		return arr;
 	}
 
@@ -101,5 +99,10 @@ public class IrCFunctionCall implements IrExpression {
 			}
 		}
 		return output;
+	}
+
+	@Override
+	public void getVars(Set<String> set, Map<String, Set<String>> map) {
+		return; //nothing here needed since they are not variables
 	}	
 }

@@ -50,7 +50,6 @@ public class CubexIterable extends CubexExpression {
 			if(params.size() == 0){
 				ArrayList<String> cParameters = new ArrayList<String>();
 				cParameters.add(e.name);
-				System.out.println("NO PARAMETERS: " + cParameters);
 				ArrayList<String> cParameterTypes = new ArrayList<String>();
 				cParameterTypes.add("General_t");
 				fun = new IrCFunctionCall("new_git_obj", cParameters, cParameterTypes,"");//new IrFunctionCall("new_git_obj", "git_t", null);
@@ -71,7 +70,6 @@ public class CubexIterable extends CubexExpression {
 			//Iterable Appends
 			String nextAppendRight = context.nextTemp();
 			tuple = new IrTypeTuple(t, nextAppendRight);
-			System.out.println("iterable_append(" + appendLeft + ", " + appendRight + ")");
 			ArrayList<String> cParameters = new ArrayList<String>();
 			cParameters.add(appendLeft);
 			cParameters.add(appendRight);
@@ -94,7 +92,6 @@ public class CubexIterable extends CubexExpression {
 //		else{
 //			CubexList<IrExpression> irE = new CubexList<IrExpression>();
 //			for (IrBind s : tempBinds) {
-//				//TODO something
 //				irE.add(new IrVariableExpression(s.tuple.variableName, s.tuple.type.type));
 //			}
 //			IrIterable iterable = new IrIterable(irE, cubexType);

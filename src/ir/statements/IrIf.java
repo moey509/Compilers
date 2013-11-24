@@ -1,23 +1,24 @@
 package ir.statements;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
+import optimization.LvaContext;
 import optimization.CseContext;
 import typeChecker.CubexCompleteContext;
 import ir.CGenerationContext;
 import ir.expressions.IrExpression;
 
-public class IrIf implements IrStatement {
+public class IrIf extends IrStatement {
 
 	private ArrayList<String> freeContext; //if block
 	private ArrayList<String> freeContext2; // else block
 	private IrExpression condition;
 	private List<IrStatement> statements1; // { s1 }
 	private List<IrStatement> statements2; // else {s2}
-	public ArrayList<IrBind> temporaryBinds = new ArrayList<IrBind>();
 	public CubexCompleteContext context;
-	
+
 	// if there is no else statement, let s2 be null
 	public IrIf(IrExpression condition, CubexCompleteContext context) {
 		this.condition = condition;
@@ -25,6 +26,8 @@ public class IrIf implements IrStatement {
 		this.statements2 = new ArrayList<IrStatement>();
 		this.temporaryBinds = new ArrayList<IrBind>();
 		this.context = context;
+		
+//		condition.getVars(this.useSet);
 	}
 	
 	public void addDeclaration(ArrayList<String> arr, CGenerationContext context){
@@ -138,6 +141,79 @@ public class IrIf implements IrStatement {
 	}
 
 	@Override
+	public void lva(LvaContext c) {
+		lvaHelper(c);
+		// DEBUG STATEMENTS
+		System.out.println(toString());
+		lvaDebugHelper();
+		//
+		
+		for (IrStatement s : statements1) {
+			s.lva(c);
+		}
+		for (IrStatement s : statements2) {
+			s.lva(c);
+		}
+	}
+
+	@Override
+	public void populateSets(LvaContext c) {
+		if (nextSet==null) {
+			nextSet = new HashSet<IrStatement>();
+			
+			useSet = new HashSet<String>();
+			condition.getVars(useSet, c.functionUse);
+			
+			populateSetsTemps(c);
+			
+			if (statements1.size() > 0) {
+				ArrayList<IrStatement> statementlist = new ArrayList<IrStatement>();
+				if (statements1.get(0) instanceof IrStatementList) {
+					IrStatementList st = (IrStatementList) statements1.get(0);
+					statementlist.addAll(st.statementList);
+				} else {
+					statementlist.addAll(statements1);
+				}
+				int length = statementlist.size();
+				
+				LvaContext cCopy = c.clone();
+				IrStatement afterIf = cCopy.nextList.removeFirst().getTop();
+
+				cCopy.nextList.addAll(0, statementlist);
+				nextSet.add(cCopy.nextList.removeFirst().getTop());
+
+				IrStatement lastIfStatement = statementlist.get(length-1);
+				lastIfStatement.nextSet = new HashSet<IrStatement>();
+				lastIfStatement.nextSet.add(afterIf);
+				lastIfStatement.populateSetsTemps(cCopy);
+				
+				for (IrStatement s : statementlist) {
+					s.populateSets(cCopy);
+				}
+				
+			}
+			
+			if (statements2.size() > 0) {
+				ArrayList<IrStatement> statementlist = new ArrayList<IrStatement>();
+				if (statements2.get(0) instanceof IrStatementList) {
+					IrStatementList st = (IrStatementList) statements2.get(0);
+					statementlist.addAll(st.statementList);
+				} else {
+					statementlist.addAll(statements2);
+				}
+				
+				c.nextList.addAll(0, statementlist);
+				nextSet.add(c.nextList.removeFirst().getTop());
+				
+				for (IrStatement s : statementlist) {
+					s.populateSets(c);
+				}
+			} else {
+				nextSet.add(c.nextList.removeFirst().getTop());
+			}
+		}
+	}
+
 	public void removeCommonSubexpressions(CseContext context) {
 		for (IrBind tempBind : temporaryBinds){
 			tempBind.expression = tempBind.expression.eliminateSubexpression(context);
@@ -153,5 +229,10 @@ public class IrIf implements IrStatement {
 			statement.removeCommonSubexpressions(context2);
 		}
 		context = context1.merge(context2);
+	}
+
+	@Override
+	public String toString() {
+		return "IrIf: if ( " + condition.toString() + " )";
 	}
 }

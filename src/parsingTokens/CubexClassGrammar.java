@@ -34,6 +34,7 @@ import ir.program.IrProgram;
 import ir.program.IrStruct;
 import ir.program.IrTypeTuple;
 import ir.statements.IrBind;
+import ir.statements.IrCStatement;
 import ir.statements.IrReturn;
 
 public class CubexClassGrammar {
@@ -88,6 +89,7 @@ public class CubexClassGrammar {
 		context.setSuperType(name, extendsType.name);
 		addStruct(context, program);
 		addConstructor(context, program);
+		addDestructor(context, program);
 		addFunctions(context, program);
 		return program;
 	}
@@ -113,8 +115,33 @@ public class CubexClassGrammar {
 			program.addStruct(irStruct);
 		}
 	}
+	
+	private void addDestructor(IrGenerationContext context, IrProgram program){
+		ArrayList<String> arr = new ArrayList<String>();
+		IrFunction irFunction = new IrFunction(new IrType("_kill_" + name), "_kill_" + name);
+		IrTypeTuple argument = new IrTypeTuple(new IrType(name), "__struct");
+		irFunction.addFunctionArgument(argument);
+		HashMap<String, String> varSet = new HashMap<String, String>();
+		for (CubexStatement stmt : statements.iterable()) {
+			if (stmt instanceof CubexBind) {
+				CubexBind bind = (CubexBind) stmt;
+				varSet.put(bind.getId(), "__struct->" + bind.getId());			
+			}
+			
+		}
+		for(CubexTypeTuple t : typecontext.contextCollection){
+			arr.add("ref_decrement(__struct->" + t.getName() + ");");
+		}
+		
+		for(String s : varSet.keySet()){
+			arr.add("ref_decrement(" + s + ");");
+		}
+		irFunction.isConstructor = false;
+		irFunction.addStatement(new IrCStatement(arr));
+		program.addGlobalFunction(irFunction);
+	}
 
-	// TODO: Needs call to super constructor unless constructable component is
+	// Needs call to super constructor unless constructable component is
 	// thing
 	private void addConstructor(IrGenerationContext context, IrProgram program) {
 		IrFunction irFunction = new IrFunction(new IrType(name), name);
@@ -200,7 +227,6 @@ public class CubexClassGrammar {
 //							+ parentClass + "_" + function.name,
 //							function.typescheme.getTypeGrammar().name, function.typescheme.getTypeGrammar()), completeContext));
 
-					// TODO: check this with Jimmy
 					fun.addFunctionArgument(new IrTypeTuple(new IrType("void*"), "ConstructableComponent"));
 					program.addGlobalFunction(fun);
 				}
@@ -244,8 +270,8 @@ public class CubexClassGrammar {
 		return build.toString();
 	}
 
-	// TODO: Need a way to get functions from supertype
-	// TODO: Need a way to get the constructable component
+	// Need a way to get functions from supertype
+	// Need a way to get the constructable component
 	public CubexCompleteContext typeCheck(CubexCompleteContext originalContext)
 			throws SemanticException {
 
@@ -369,7 +395,7 @@ public class CubexClassGrammar {
 		}
 
 		context.typeContext.noConflictMerge(context.mutableTypeContext);
-		// TODO: Check to see that super call is valid ??
+		// Check to see that super call is valid ??
 		if (!superElement.name.equals("Thing")) {
 			Map<String, CubexTypeScheme> superTypeFunctions = superElement.functionMap;
 			for (CubexFunctionDef function : functions.iterable()) {

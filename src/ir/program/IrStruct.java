@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import optimization.LvaContext;
 import optimization.CseContext;
 
 public class IrStruct implements IrProgramElem{

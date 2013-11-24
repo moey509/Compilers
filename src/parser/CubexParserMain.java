@@ -64,7 +64,6 @@ public class CubexParserMain {
 		public void reportAmbiguity(@NotNull Parser arg0, @NotNull DFA arg1,
 				int arg2, int arg3, boolean arg4, @NotNull BitSet arg5,
 				@NotNull ATNConfigSet arg6) {
-			// TODO Auto-generated method stub
 			return;
 		}
 
@@ -72,7 +71,6 @@ public class CubexParserMain {
 		public void reportAttemptingFullContext(@NotNull Parser arg0,
 				@NotNull DFA arg1, int arg2, int arg3, @Nullable BitSet arg4,
 				@NotNull ATNConfigSet arg5) {
-			// TODO Auto-generated method stub
 			return;
 		}
 
@@ -80,7 +78,6 @@ public class CubexParserMain {
 		public void reportContextSensitivity(@NotNull Parser arg0,
 				@NotNull DFA arg1, int arg2, int arg3, int arg4,
 				@NotNull ATNConfigSet arg5) {
-			// TODO Auto-generated method stub
 			return;
 		}
 
@@ -93,7 +90,6 @@ public class CubexParserMain {
 		public void syntaxError(Recognizer<?, ?> arg0, @Nullable Object arg1,
 				int arg2, int arg3, String arg4,
 				@Nullable RecognitionException arg5) {
-			// TODO Auto-generated method stub
 			lexedWithError = true;
 		}
 	}

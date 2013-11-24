@@ -1,6 +1,8 @@
 package ir.expressions;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Set;
 import java.util.Iterator;
 
 import optimization.CseContext;
@@ -61,7 +63,6 @@ public class IrUnaryExpression implements IrExpression {
 	
 	@Override
 	public ArrayList<IrBind> getExpressions(CGenerationContext context) {
-		// TODO Auto-generated method stub
 		return new ArrayList<IrBind>();
 	}
 
@@ -74,6 +75,11 @@ public class IrUnaryExpression implements IrExpression {
 		return operator + expression.toString();
 	}
 	
+	@Override
+	public void getVars(Set<String> set, Map<String, Set<String>> map) {
+		expression.getVars(set, map);
+	}
+
 	public boolean equals(Object object){
 		if (object instanceof IrUnaryExpression){
 			IrUnaryExpression expr = (IrUnaryExpression) object;

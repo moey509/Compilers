@@ -31,7 +31,7 @@ public abstract class CubexTypeGrammar {
 	public abstract boolean equalType(CubexTypeGrammar t)
 			throws SemanticException;
 
-	// TODO: when I check for subtypes, should I also check that the types are
+	// when I check for subtypes, should I also check that the types are
 	// valid? or is this handled elsewhere
 	// o.subtype(c, e) must be true if e is a subtype of o in the context of c
 	// e :< o

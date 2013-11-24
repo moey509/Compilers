@@ -22,7 +22,7 @@ import typeChecker.CubexCompleteContext;
 import typeChecker.IrGenerationContext;
 import typeChecker.KindContext;
 import typeChecker.TypeContext;
-//TODO: WE SHOULD WRITE DOCUMENTATION SO WE KNOW WHAT IS WHAT
+
 public final class CubexFunctionApp extends CubexExpression {
 	private CubexExpression expr;
 	private String v_v;
@@ -48,7 +48,6 @@ public final class CubexFunctionApp extends CubexExpression {
 	}
 	
 	public IrFunctionCall toIr(IrGenerationContext context) {
-		//TODO something with context to know which function to call in c
 		String obj = "";
 		String fun = "";
 		if (expr.type != null){
@@ -134,7 +133,6 @@ public final class CubexFunctionApp extends CubexExpression {
 	public CubexTypeGrammar typeCheck(CubexCompleteContext c) throws SemanticException {
 		CubexTypeGrammar objectType = expr.typeCheck(c);
 		ClassContextElement element = c.classContext.get(objectType.getName());
-		//TODO: Is this right, if type is nothing it always works?
 		if(objectType.getName().equals("Nothing")){
 			return objectType;
 		}
@@ -175,7 +173,6 @@ public final class CubexFunctionApp extends CubexExpression {
 			throw new SemanticException("Incorrect number of parameters");
 		}
 		
-		//TODO: What's the difference between these two?
 		for (int i = 0; i < kContext.size(); i++) {
 			cont.put(kContext.get(i), params.get(i));
 			if (!c.containsClassName(params.get(i).getName()) && !c.kindContextContainsTypeParam(params.get(i).getName())){

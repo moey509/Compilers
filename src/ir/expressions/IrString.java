@@ -5,6 +5,8 @@ import ir.IrMiscFunctions;
 import ir.statements.IrBind;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Set;
 
 import optimization.CseContext;
 import parsingTokens.CubexList;
@@ -47,8 +49,6 @@ public final class IrString implements IrExpression {
 	@Override
 	public ArrayList<IrBind> getExpressions(CGenerationContext context) {
 		ArrayList<IrBind> arr = new ArrayList<IrBind>();
-		// TODO Fix this to take in a context
-		//arr.add(new IrBind(new IrTypeTuple(new IrType("void*"), "_tmp" + context.nextCount()), this));
 		return arr;
 	}
 	
@@ -59,6 +59,11 @@ public final class IrString implements IrExpression {
 	
 	public String toString(){
 		return mValue;
+	}
+
+	@Override
+	public void getVars(Set<String> set, Map<String, Set<String>> map) {
+		return;
 	}
 	
 	public boolean equals(Object object){
