@@ -90,6 +90,8 @@ public class IrVariableExpression implements IrExpression {
 
 	@Override
 	public IrExpression getSubexpressions(CseContext context) {
-		return context.getExpression(variableName).getSubexpressions(context);
+		if (context.containsVariable(variableName))
+			return context.getExpression(variableName);
+		else return this;
 	}
 }

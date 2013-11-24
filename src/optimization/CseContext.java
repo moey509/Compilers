@@ -18,6 +18,16 @@ public class CseContext {
 	}
 	
 	public void putVariable(String variable, IrExpression expr){
+		if (variableToExpressionMap.containsKey(variable)){
+			IrExpression oldExpr = variableToExpressionMap.get(variable);
+			if (expressionToVariableMap.get(oldExpr).equals(variable)){
+				for (Map.Entry<String, IrExpression> entry : variableToExpressionMap.entrySet()){
+					if (entry.getValue().equals(oldExpr)){
+						expressionToVariableMap.put(oldExpr, entry.getKey());
+					}
+				}
+			}
+		}
 		if (!expressionToVariableMap.containsKey(expr))
 			expressionToVariableMap.put(expr, variable);
 		variableToExpressionMap.put(variable, expr);
@@ -29,6 +39,7 @@ public class CseContext {
 	
 	public IrVariableExpression getVariableExpression(IrExpression expr){
 		String name = expressionToVariableMap.get(expr);
+		System.out.println(expr);
 		return new IrVariableExpression(name, expr.getCType(), expr.getCubexType());
 	}
 	
@@ -42,14 +53,6 @@ public class CseContext {
 	
 	public boolean containsVariable(String variable){
 		return variableToExpressionMap.containsKey(variable);
-	}
-	
-	public void remove(String variable){
-		expressionToVariableMap.remove(variableToExpressionMap.remove(variable));
-	}
-	
-	public void remove(IrExpression expr){
-		variableToExpressionMap.remove(expressionToVariableMap.remove(expr));
 	}
 	
 	public CseContext clone(){

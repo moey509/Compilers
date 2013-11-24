@@ -219,7 +219,17 @@ public class IrFor implements IrStatement {
 
 	@Override
 	public void removeCommonSubexpressions(CseContext context) {
-		// TODO Auto-generated method stub
+		CseContext context1 = context.clone();
+		CseContext context2 = context.clone();
+		for (IrStatement statement : statements){
+			statement.removeCommonSubexpressions(context1);
+		}
+		context2 = context1.merge(context2);
+		for (IrBind tempBind : temporaryBinds){
+			tempBind.expression = tempBind.expression.eliminateSubexpression(context);
+			context.putVariable(tempBind.getVariableName(), tempBind.expression.getSubexpressions(context));
+		}
+		context = context.merge(context2);
 		
 	}
 }

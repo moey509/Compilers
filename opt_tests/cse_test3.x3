@@ -1,0 +1,6 @@
+a := "hey";
+b := "hey";
+#c := ["hey"];
+#d := [a];
+
+return ["hey"];

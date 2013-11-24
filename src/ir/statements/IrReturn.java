@@ -184,7 +184,11 @@ public final class IrReturn implements IrStatement {
 
 	@Override
 	public void removeCommonSubexpressions(CseContext context) {
-		// TODO Auto-generated method stub
+		for (IrBind tempBind : temporaryBinds){
+			tempBind.expression = tempBind.expression.eliminateSubexpression(context);
+			context.putVariable(tempBind.getVariableName(), tempBind.expression.getSubexpressions(context));
+		}
+		expression = expression.eliminateSubexpression(context);
 		
 	}
 }
