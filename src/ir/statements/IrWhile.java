@@ -45,10 +45,10 @@ public final class IrWhile extends IrStatement {
 	}
 
 	@Override
-	public ArrayList<String> toC(CGenerationContext context, boolean isMain) {
+	public ArrayList<String> toC(CGenerationContext context, boolean isMain, ArrayList<String> extras) {
 		ArrayList<String> arrList = new ArrayList<String>();
 		for (IrBind i : temporaryBinds) {
-			arrList.addAll(i.toC(context, isMain));
+			arrList.addAll(i.toC(context, isMain, extras));
 		}
 		arrList.add("while(((Boolean_t)" + condition.toC(context) + ")->value) {");
 		//TODO: Should be replaced by Ansha's code methinks
@@ -72,10 +72,10 @@ public final class IrWhile extends IrStatement {
 			}
 		}
 		for (IrStatement statement : statements){
-			arrList.addAll(statement.toC(context, isMain));
+			arrList.addAll(statement.toC(context, isMain, extras));
 		}
 		for (IrBind i : temporaryBinds) {
-			arrList.addAll(i.toC(context, isMain));
+			arrList.addAll(i.toC(context, isMain, extras));
 		}
 		arrList.add("}");
 		//TODO: Should be replaced by Ansha's code methinks

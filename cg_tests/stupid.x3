@@ -17,6 +17,7 @@ yum:=2;
 }
 
 a := Multiplier("ab",2);
+b := a.print();
 ds := [];
 
 return ds;

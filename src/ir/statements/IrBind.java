@@ -51,7 +51,7 @@ public final class IrBind extends IrStatement {
 	}
 
 	@Override
-	public ArrayList<String> toC(CGenerationContext context, boolean isMain) {
+	public ArrayList<String> toC(CGenerationContext context, boolean isMain, ArrayList<String> extras) {
 		ArrayList<String> output = new ArrayList<String>();
 		//output.add(tuple.type.toC() + " " + tuple.variableName + " = " + expression.toC(context) + ";");
 		for(IrBind b : temporaryBinds){
@@ -61,7 +61,7 @@ public final class IrBind extends IrStatement {
 				context.varInit.put(b.tuple.variableName, "NULL");
 			}
 			output.add(b.tuple.variableName + " = NULL;");
-			output.addAll(b.toC(context, isMain));
+			output.addAll(b.toC(context, isMain, extras));
 		}
 		context.varDecl.put(tuple.variableName, tuple.type.toC());
 		context.varInit.put(tuple.variableName, "NULL");

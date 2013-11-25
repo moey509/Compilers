@@ -58,12 +58,12 @@ public class IrIf extends IrStatement {
 	}
 
 	@Override
-	public ArrayList<String> toC(CGenerationContext context, boolean isMain) {
+	public ArrayList<String> toC(CGenerationContext context, boolean isMain, ArrayList<String> extras) {
 		ArrayList<String> arrList = new ArrayList<String>();
 		for(IrBind b : temporaryBinds){
 			context.varDecl.put(b.tuple.variableName, b.tuple.type.toC());
 			context.varInit.put(b.tuple.variableName, "NULL");
-			arrList.addAll(b.toC(context, isMain));
+			arrList.addAll(b.toC(context, isMain, extras));
 		}
 		arrList.add("if(((Boolean_t)" + condition.toC(context) + ")->value) {");
 		//TODO: Should be replaced by Ansha's code methinks
@@ -73,7 +73,7 @@ public class IrIf extends IrStatement {
 			arrList.add(s + "= NULL;");
 		}
 		for (IrStatement s1 : statements1) {
-			arrList.addAll(s1.toC(context, isMain));
+			arrList.addAll(s1.toC(context, isMain, extras));
 		}
 		//TODO: Should be replaced by Ansha's code methinks
 		for (String s : freeContext) {
@@ -96,7 +96,7 @@ public class IrIf extends IrStatement {
 				arrList.add(s + "= NULL;");
 			}
 			for (IrStatement s2 : statements2) {
-				arrList.addAll(s2.toC(context, isMain));
+				arrList.addAll(s2.toC(context, isMain, extras));
 			}
 
 			//TODO: Should be replaced by Ansha's code methinks
