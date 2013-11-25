@@ -1,2 +1,9 @@
-
+i := 2;
+a := 6;
+if(i < 5 * 4 + a){
+acorn := a;
+}
+else{
+blah := i;
+}
 return ["Hello World!"];
