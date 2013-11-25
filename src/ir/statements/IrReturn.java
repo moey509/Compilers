@@ -92,11 +92,6 @@ public final class IrReturn extends IrStatement {
 		}
 		
 		//TODO: Should be replaced by Ansha's code methinks
-		for (String s : freeContext) {
-			if (!isMain) {
-				arrList.add("ref_decrement((General_t)" + s + ");");
-			}
-		}
 		
 		if(context.lva){
 			for(String s : inMinusOut()){
@@ -107,10 +102,19 @@ public final class IrReturn extends IrStatement {
 				arrList.add("ref_decrement((General_t)input);");
 				arrList.add("ending();");
 			}
+			else{
+				arrList.add("return " + expression.toC(context) + ";");
+			}
 		}
 		else{
 			//TODO: Should be replaced by Ansha's code methinks
 			// free control flow variables
+			for (String s : freeContext) {
+				if (!isMain) {
+					arrList.add("ref_decrement((General_t)" + s + ");");
+				}
+			}
+			
 			for (String s : context.controlFlowVariables) {
 				arrList.add("ref_decrement((General_t)" + s + ");");
 			}
