@@ -11,7 +11,7 @@ import optimization.CseContext;
 import typeChecker.CubexCompleteContext;
 
 public class IrStatementList extends IrStatement{
-	protected List<IrStatement> statementList;
+	public List<IrStatement> statementList;
 	public CubexCompleteContext context;
 
 	public IrStatementList(CubexCompleteContext context){
