@@ -107,9 +107,14 @@ public final class IrBind extends IrStatement {
 		}
 		
 		//TODO: Should be replaced by Ansha's code
-		for(IrBind b : temporaryBinds){
-			output.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
-			output.add(b.tuple.variableName + " = NULL;");
+		if(nextSet == null){
+			for(IrBind b : temporaryBinds){
+				output.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
+				output.add(b.tuple.variableName + " = NULL;");
+			}
+		}
+		else{
+			
 		}
 		return output;
 	}

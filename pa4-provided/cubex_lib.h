@@ -971,6 +971,10 @@ Character_t _character(Integer_t i) {
   return new_character(i->value);
 }
 
+git_t new_git_obj_charuni(char c) {
+  return new_git_obj(new_character(charuni(c)));
+}
+
 git_t _string(git_t str) {
   return str;
 }
