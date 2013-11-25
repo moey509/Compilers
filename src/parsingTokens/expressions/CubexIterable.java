@@ -53,6 +53,9 @@ public class CubexIterable extends CubexExpression {
 				ArrayList<String> cParameterTypes = new ArrayList<String>();
 				cParameterTypes.add("General_t");
 				fun = new IrCFunctionCall("new_git_obj", cParameters, cParameterTypes,"");//new IrFunctionCall("new_git_obj", "git_t", null);
+				fun.input.add(e.name);
+				System.out.println(cParameters);
+				fun.input = cParameters;
 			}
 			//Throw in a temporary variable
 			else{
@@ -62,12 +65,16 @@ public class CubexIterable extends CubexExpression {
 				ArrayList<String> cParameterTypes = new ArrayList<String>();
 				cParameterTypes.add("General_t");
 				fun = new IrCFunctionCall("new_git_obj", cParameters, cParameterTypes,"");
+				fun.input.add(paramBind.tuple.variableName);
+				System.out.println(cParameters);
+				fun.input = cParameters;
 			}
 			IrBind bind = new IrBind(tuple, fun, cubexContext);
 			tempBinds.add(bind);
 			arr.add(bind);
 			
 			//Iterable Appends
+			//Internal to cubexIterable
 			String nextAppendRight = context.nextTemp();
 			tuple = new IrTypeTuple(t, nextAppendRight);
 			ArrayList<String> cParameters = new ArrayList<String>();
@@ -77,6 +84,8 @@ public class CubexIterable extends CubexExpression {
 			cParameterTypes.add("General_t");
 			cParameterTypes.add("General_t");
 			fun = new IrCFunctionCall("iterable_append", cParameters, cParameterTypes,"");
+			if(!appendLeft.equals("NULL"))fun.input.add(appendLeft);
+			if(!appendRight.equals("NULL"))fun.input.add(appendRight);
 			bind = new IrBind(tuple, fun, cubexContext);
 			tempBinds.add(bind);
 			arr.add(bind);

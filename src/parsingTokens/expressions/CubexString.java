@@ -57,10 +57,10 @@ public final class CubexString extends CubexExpression {
 			appendLeft = context.nextTemp();
 			IrTypeTuple tuple = new IrTypeTuple(t, appendLeft);
 			ArrayList<String> cParameters = new ArrayList<String>();
-			cParameters.add("'" + c + "'))");
+			cParameters.add("'" + c + "'");
 			ArrayList<String> cParameterTypes = new ArrayList<String>();
 			cParameterTypes.add("char");
-			IrCFunctionCall fun = new IrCFunctionCall("new_git_obj(new_character(charuni" + "", cParameters, cParameterTypes,"");
+			IrCFunctionCall fun = new IrCFunctionCall("new_git_obj_charuni" + "", cParameters, cParameterTypes,"");
 			IrBind bind = new IrBind(tuple, fun, cubexContext);
 			arr.add(bind);
 			
@@ -74,19 +74,12 @@ public final class CubexString extends CubexExpression {
 			cParameterTypes.add("General_t");
 			cParameterTypes.add("General_t");
 			fun = new IrCFunctionCall("iterable_append", cParameters, cParameterTypes,"");
+			if(!appendLeft.equals("NULL"))fun.input.add(appendLeft);
+			if(!appendRight.equals("NULL"))fun.input.add(appendRight);
 			bind = new IrBind(tuple, fun, cubexContext);
 			arr.add(bind);
 			appendRight = nextAppendRight;
 		}
-//		CubexList<IrExpression> irE = new CubexList<IrExpression>();
-//		for (IrBind s : arr) {
-//			irE.add(new IrVariableExpression(s.tuple.variableName, s.tuple.type.type));
-//		}
-//		IrIterable iterable = new IrIterable(irE, cubexType);
-//		IrType t = new IrType("git_t");
-//		IrTypeTuple tuple = new IrTypeTuple(t, context.nextTemp());
-//		IrBind b = new IrBind(tuple, iterable, cubexContext);
-//		arr.add(b);
 		return arr;
 	}
 
