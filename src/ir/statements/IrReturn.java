@@ -95,12 +95,18 @@ public final class IrReturn extends IrStatement {
 		
 		if(context.lva){
 			for(String s : inMinusOut()){
-				arrList.add("ref_decrement((General_t)" + s + ");");
-				arrList.add(s + " = NULL;");
+				if(s.equals(expression.toC(context))&& !isMain){
+					arrList.add("ref_decrement_no_free((General_t)" + s + ");");
+				}
+				else{
+					arrList.add("ref_decrement((General_t)" + s + ");");
+					arrList.add(s + " = NULL;");
+				}
 			}
 			if (isMain) {
 				arrList.add("ref_decrement((General_t)input);");
 				arrList.add("ending();");
+				arrList.add("return;");
 			}
 			else{
 				arrList.add("return " + expression.toC(context) + ";");
