@@ -52,10 +52,18 @@ public final class IrWhile extends IrStatement {
 		}
 		arrList.add("while(((Boolean_t)" + condition.toC(context) + ")->value) {");
 		//TODO: Should be replaced by Ansha's code methinks
-		for(IrBind b : this.temporaryBinds){
-			String s = b.tuple.variableName;
-			arrList.add("ref_decrement((General_t)" + s + ");");
-			arrList.add(s + "= NULL;");
+		if(!context.lva){
+			for(IrBind b : this.temporaryBinds){
+				String s = b.tuple.variableName;
+				arrList.add("ref_decrement((General_t)" + s + ");");
+				arrList.add(s + "= NULL;");
+			}
+		}
+		else{
+			for(String s : inMinusOut()){
+				arrList.add("ref_decrement((General_t)" + s + ");");
+				arrList.add(s + " = NULL;");
+			}
 		}
 		for (IrBind i : temporaryBinds) {
 			context.varDecl.put(i.tuple.variableName, i.tuple.type.toC());
@@ -79,16 +87,21 @@ public final class IrWhile extends IrStatement {
 		}
 		arrList.add("}");
 		//TODO: Should be replaced by Ansha's code methinks
-		for(IrBind b : this.temporaryBinds){
-			String s = b.tuple.variableName;
-			arrList.add("ref_decrement((General_t)" + s + ");");
-			arrList.add(s + "= NULL;");
+		if(!context.lva){
+			for(IrBind b : this.temporaryBinds){
+				String s = b.tuple.variableName;
+				arrList.add("ref_decrement((General_t)" + s + ");");
+				arrList.add(s + "= NULL;");
+			}
+			for (String s : freeContext) {
+				arrList.add("ref_decrement((General_t)" + s + ");");
+			}
 		}
-		//TODO: Should be replaced by Ansha's code methinks
-		for (String s : freeContext) {
+		else{
+			for(String s : inMinusOut())
 			arrList.add("ref_decrement((General_t)" + s + ");");
 		}
-
+		
 		return arrList;
 	}
 
