@@ -9,6 +9,7 @@ import optimization.CseContext;
 import typeChecker.CubexCompleteContext;
 import ir.CGenerationContext;
 import ir.expressions.IrExpression;
+import ir.expressions.IrVariableExpression;
 
 public class IrIf extends IrStatement {
 
@@ -135,7 +136,7 @@ public class IrIf extends IrStatement {
 			nextSet = new HashSet<IrStatement>();
 			
 			useSet = new HashSet<String>();
-			condition.getVars(useSet, c.functionUse);
+			getExpression().getVars(useSet, c.functionUse);
 			
 			populateSetsTemps(c);
 			
@@ -199,6 +200,16 @@ public class IrIf extends IrStatement {
 
 	@Override
 	public String toString() {
-		return "IrIf: if ( " + condition.toString() + " )";
+		return "IrIf: if ( " + getExpression().toString() + " )";
+	}
+
+	public IrExpression getExpression() {
+		int length = temporaryBinds.size();
+		if (length > 0) {
+			String varname = temporaryBinds.get(length-1).tuple.variableName;
+			String ctype = temporaryBinds.get(length-1).tuple.type.toC();
+			return new IrVariableExpression(varname, ctype);
+		}
+		return condition;
 	}
 }

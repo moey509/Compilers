@@ -9,6 +9,7 @@ import ir.CGenerationContext;
 import ir.expressions.IrExpression;
 import ir.expressions.IrExpressionTuple;
 import ir.expressions.IrFunctionCall;
+import ir.expressions.IrVariableExpression;
 import ir.program.IrTypeTuple;
 import optimization.CseContext;
 
@@ -135,7 +136,7 @@ public final class IrBind extends IrStatement {
 			nextSet = new HashSet<IrStatement>();
 			
 			useSet = new HashSet<String>();
-			expression.getVars(useSet, c.functionUse);
+			getExpression().getVars(useSet, c.functionUse);
 			
 			populateSetsTemps(c);
 
@@ -163,7 +164,17 @@ public final class IrBind extends IrStatement {
 
 	@Override
 	public String toString() {
-		return "IrBind: " + tuple.type.toC() + tuple.variableName + " := " + expression.toString();
+		return "IrBind: " + tuple.type.toC() + " " + tuple.variableName + " := " + getExpression().toString();
+	}
+
+	public IrExpression getExpression() {
+		int length = temporaryBinds.size();
+		if (length > 0) {
+			String varname = temporaryBinds.get(length-1).tuple.variableName;
+			String ctype = temporaryBinds.get(length-1).tuple.type.toC();
+			return new IrVariableExpression(varname, ctype);
+		}
+		return expression;
 	}
 
 }

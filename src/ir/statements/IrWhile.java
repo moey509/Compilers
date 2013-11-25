@@ -2,6 +2,7 @@ package ir.statements;
 
 import ir.CGenerationContext;
 import ir.expressions.IrExpression;
+import ir.expressions.IrVariableExpression;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -117,7 +118,7 @@ public final class IrWhile extends IrStatement {
 			nextSet = new HashSet<IrStatement>();
 			
 			useSet = new HashSet<String>();
-			condition.getVars(useSet, c.functionUse);
+			getExpression().getVars(useSet, c.functionUse);
 			
 			populateSetsTemps(c);
 			
@@ -166,6 +167,16 @@ public final class IrWhile extends IrStatement {
 
 	@Override
 	public String toString() {
-		return "IrWhile : while (" + condition.toString() + " )";
+		return "IrWhile : while (" + getExpression().toString() + " )";
+	}
+
+	public IrExpression getExpression() {
+		int length =  temporaryBinds.size();
+		if (length > 0) {
+			String varname = temporaryBinds.get(length-1).tuple.variableName;
+			String ctype = temporaryBinds.get(length-1).tuple.type.toC();
+			return new IrVariableExpression(varname, ctype);
+		}
+		return condition;
 	}
 }

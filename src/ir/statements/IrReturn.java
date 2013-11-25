@@ -2,8 +2,11 @@ package ir.statements;
 
 import ir.CGenerationContext;
 import ir.expressions.IrExpression;
+import ir.expressions.IrVariableExpression;
+
 import java.util.ArrayList;
 import java.util.HashSet;
+
 import optimization.LvaContext;
 import optimization.CseContext;
 import typeChecker.CubexCompleteContext;
@@ -162,7 +165,7 @@ public final class IrReturn extends IrStatement {
 		if (nextSet==null) {
 			nextSet = new HashSet<IrStatement>();
 			useSet = new HashSet<String>();
-			expression.getVars(useSet, c.functionUse);
+			getExpression().getVars(useSet, c.functionUse);
 			populateSetsTemps(c);
 		}
 	}
@@ -178,7 +181,17 @@ public final class IrReturn extends IrStatement {
 
 	@Override
 	public String toString() {
-		return "IrReturn: return " + expression.toString();
+		return "IrReturn: return " + getExpression().toString();
+	}
+
+	public IrExpression getExpression() {
+		int length = temporaryBinds.size();
+		if (length > 0) {
+			String varname = temporaryBinds.get(length-1).tuple.variableName;
+			String ctype = temporaryBinds.get(length-1).tuple.type.toC();
+			return new IrVariableExpression(varname, ctype);
+		}
+		return expression;
 	}
 }
 

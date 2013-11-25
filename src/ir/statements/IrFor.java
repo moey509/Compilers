@@ -3,11 +3,13 @@ package ir.statements;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+
 import optimization.LvaContext;
 import optimization.CseContext;
 import typeChecker.CubexCompleteContext;
 import ir.CGenerationContext;
 import ir.expressions.IrExpression;
+import ir.expressions.IrVariableExpression;
 
 
 public class IrFor extends IrStatement {
@@ -184,7 +186,7 @@ public class IrFor extends IrStatement {
 			nextSet = new HashSet<IrStatement>();
 			
 			useSet = new HashSet<String>();
-			list.getVars(useSet, c.functionUse);
+			getExpression().getVars(useSet, c.functionUse);
 			
 			populateSetsTemps(c);
 			
@@ -229,7 +231,17 @@ public class IrFor extends IrStatement {
 
 	@Override
 	public String toString() {
-		return "IrFor: " + "for ( " + var + " in " + list.toString() + " )";
+		return "IrFor: " + "for ( " + var + " in " + getExpression().toString() + " )";
+	}
+
+	public IrExpression getExpression() {
+		int length = temporaryBinds.size();
+		if (length > 0) {
+			String varname = temporaryBinds.get(length-1).tuple.variableName;
+			String ctype = temporaryBinds.get(length-1).tuple.type.toC();
+			return new IrVariableExpression(varname, ctype);
+		}
+		return list;
 	}
 }
 
