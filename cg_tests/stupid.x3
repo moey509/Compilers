@@ -1,23 +1,2 @@
-# Cubex Compiler Test 4 - Stage 4
 
-class Multiplier(s : String, n : Integer)
-{
-yum:=2;	
-	fun print() : Iterable<String>
-	{
-		ret := [];
-		v := n;
-		while(v>0)
-		{
-			v:=v-1;
-			ret := ret ++ [s];
-		}
-		return ret;
-	}
-}
-
-a := Multiplier("ab",2);
-b := a.print();
-ds := [];
-
-return ds;
+return ["Hello World!"];
