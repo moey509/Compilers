@@ -160,6 +160,11 @@ public class IrIf extends IrStatement {
 				
 			}
 			
+			IrStatement afterIf = c.nextList.getFirst();
+			if (statements1.size() >0) {
+				afterIf.topAccessed = false;
+			}
+
 			if (statements2.size() > 0) {
 				ArrayList<IrStatement> statementlist = new ArrayList<IrStatement>();
 				if (statements2.get(0) instanceof IrStatementList) {

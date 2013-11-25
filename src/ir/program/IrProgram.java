@@ -147,7 +147,7 @@ public class IrProgram {
 					c.functionUse.putAll(c0.functionUse);
 					c.doNotDecrement = topLevelVarsSoFar;
 					c.nextList.addAll(f.statements);
-					c.nextList.removeFirst();
+					c.nextList.removeFirst().topAccessed = true;
 					
 					for (IrStatement s : f.statements) {
 						s.populateSets(c);
@@ -185,7 +185,7 @@ public class IrProgram {
 			} // else IrProgramElem is struct, in which case we do nothing
 		}
 		c0.nextList.addAll(statements);
-		c0.nextList.removeFirst();
+		c0.nextList.removeFirst().topAccessed = true;
 		for (IrStatement s : statements) {
 			s.populateSets(c0);
 		}

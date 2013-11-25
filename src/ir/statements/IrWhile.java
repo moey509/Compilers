@@ -123,7 +123,11 @@ public final class IrWhile extends IrStatement {
 			populateSetsTemps(c);
 			
 			if (c.nextList.size() > 0) {
-				nextSet.add(c.nextList.removeFirst().getTop());
+				IrStatement afterWhile = c.nextList.removeFirst();
+				IrStatement top = afterWhile.getTop();
+				top.afterLoop = true;
+				top.prevLoop = this;
+				nextSet.add(top);
 			}
 		
 			if (statements.size() > 0) {

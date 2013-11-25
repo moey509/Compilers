@@ -13,6 +13,7 @@ import optimization.LvaContext;
 
 public abstract class IrStatement implements IrProgramElem{
 	public ArrayList<IrBind> temporaryBinds = new ArrayList<IrBind>();
+
 	// useSet not populated before populateSets call
 	public Set<String> useSet = new HashSet<String>();
 	public Set<String> defSet = new HashSet<String>();
@@ -24,7 +25,10 @@ public abstract class IrStatement implements IrProgramElem{
 	protected Set<IrStatement> nextSet;
 	// used to check that we've called getTop already
 	// don't want to go to infinite loop on populateNext
-	protected boolean topAccessed = false;
+	public boolean topAccessed = false;
+	protected boolean afterLoop = false;
+	protected IrStatement prevLoop;
+	protected Set<String> freeBefore;
 
 	public abstract ArrayList<IrBind> getTemporaryVariables();
 	public abstract void addDeclaration(ArrayList<String> arr, CGenerationContext context);
@@ -37,7 +41,19 @@ public abstract class IrStatement implements IrProgramElem{
 		set.removeAll(outSet);
 		return set;
 	}
-	
+
+	/*
+	 * Instructions:
+	 * after lva, inMinusOut() returns all variables that need to be 
+	 *   decremented after the execution of each statement.
+	 * these do not exclude variables in the
+	 *   the return statements of a function
+	 * if a statment is afterLoop, then the variables in freeBefore
+	 *   have to in addition be decremented before that statement executes.
+	 * if a statement is an irBind and it isDead(),
+	 *   that statement must not be executed.
+	 * this does not affect any of its temporaryBinds.
+	 */
 	// needs populateNext to be run before working
 	public abstract void lva(LvaContext c);
 	
@@ -60,10 +76,18 @@ public abstract class IrStatement implements IrProgramElem{
 		if (changeTemp0 || changeTemp1) {
 			c.changed = true;
 		}
+		
+		if (afterLoop) {
+			freeBefore = new HashSet<String>(prevLoop.outSet);
+			freeBefore.removeAll(inSet);
+		}
 	}
 	
 	protected void lvaDebugHelper(){
 		System.out.println("  decrement: " + inMinusOut().toString());
+		if (afterLoop) {
+			System.out.println("  freeBefore: " + freeBefore.toString());
+		}
 		System.out.println("  inSet: " + inSet.toString());
 		System.out.println("  outSet: " + outSet.toString());
 		System.out.println("  useSet: " + useSet.toString());

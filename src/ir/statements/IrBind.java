@@ -6,6 +6,7 @@ import java.util.HashSet;
 import optimization.LvaContext;
 import typeChecker.CubexCompleteContext;
 import ir.CGenerationContext;
+import ir.expressions.IrCFunctionCall;
 import ir.expressions.IrExpression;
 import ir.expressions.IrExpressionTuple;
 import ir.expressions.IrFunctionCall;
@@ -126,6 +127,7 @@ public final class IrBind extends IrStatement {
 		if (c.debug) {
 			// DEBUG STATEMENTS
 			System.out.println(toString());
+			System.out.println("  isDead: " + isDead());
 			lvaDebugHelper();
 		}
 	}
@@ -145,6 +147,18 @@ public final class IrBind extends IrStatement {
 				nextSet.add(c.nextList.removeFirst().getTop());
 			}
 		}
+	}
+	
+	
+	public boolean isDead() {
+		IrExpression e = getExpression();
+		boolean isCFunctionCall = e instanceof IrCFunctionCall;
+		for (String s : defSet) {
+			if (!outSet.contains(s) && !isCFunctionCall) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public void removeCommonSubexpressions(CseContext context) {		

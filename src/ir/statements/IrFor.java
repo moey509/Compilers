@@ -191,7 +191,10 @@ public class IrFor extends IrStatement {
 			populateSetsTemps(c);
 			
 			if (c.nextList.size() > 0) {
-				nextSet.add(c.nextList.removeFirst().getTop());
+				IrStatement afterFor = c.nextList.removeFirst();
+				afterFor.afterLoop = true;
+				afterFor.prevLoop = this;
+				nextSet.add(afterFor.getTop());
 			}
 		
 			if (statements.size() > 0) {
