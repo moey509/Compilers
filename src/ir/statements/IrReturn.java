@@ -94,6 +94,9 @@ public final class IrReturn extends IrStatement {
 		//Should be replaced by Ansha's code methinks
 		
 		if(context.lva){
+			for (String s : context.controlFlowVariables) {
+				arrList.add("ref_decrement((General_t)" + s + ");");
+			}
 			for(String s : inMinusOut()){
 				if(s.equals(expression.toC(context))&& !isMain){
 					arrList.add("ref_decrement_no_free((General_t)" + s + ");");

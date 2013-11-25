@@ -72,7 +72,7 @@ public final class IrBind extends IrStatement {
 //		if (!isMain) {
 //			context.varDecl.put(tuple.variableName, tuple.type.toC());
 //		}
-//		if(!context.lva || !isDead()){
+		if(!isDead()){
 			if(temporaryBinds.size() > 0){
 				String s;
 				if (cse){
@@ -104,7 +104,7 @@ public final class IrBind extends IrStatement {
 				output.add(tuple.variableName + " = " + expression.toC(context) + ";");
 				output.add("ref_increment((General_t)" + tuple.variableName + ");");
 			}
-//		}
+		}
 		
 		if(context.lva){
 			for(String s : inMinusOut()){
