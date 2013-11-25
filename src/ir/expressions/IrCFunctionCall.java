@@ -16,6 +16,7 @@ public class IrCFunctionCall implements IrExpression {
 	private ArrayList<String> parameters;
 	private ArrayList<String> parameterTypes;
 	private CubexTypeGrammar cubexType;
+	public ArrayList<String> input = new ArrayList<String>();
 	
 	public IrCFunctionCall(String fName, ArrayList<String> params, ArrayList<String> parameterTypes, String cType) {
 		this.functionName = fName;
@@ -39,6 +40,7 @@ public class IrCFunctionCall implements IrExpression {
 
 	@Override
 	public String toC(CGenerationContext context) {
+		System.out.println("PARAMETERS: " + input); 
 		// TODO Auto-generated method stub
 		if (!context.objectToDataMap.containsKey(context.currentObject)){
 			StringBuilder functionCall = new StringBuilder(functionName + "(");
