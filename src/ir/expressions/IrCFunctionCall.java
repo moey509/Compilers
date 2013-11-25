@@ -105,6 +105,16 @@ public class IrCFunctionCall implements IrExpression {
 
 	@Override
 	public void getVars(Set<String> set, Map<String, Set<String>> map) {
-		return; //nothing here needed since they are not variables
+		for (String s : input) {
+			set.add(s);
+		}
 	}	
+	
+	public String toString() {
+		String str = "C-" + functionName + " ( ";
+		for (String s : input) {
+			str = str + " , " + s;
+		}
+		return str + " )";
+	}
 }
