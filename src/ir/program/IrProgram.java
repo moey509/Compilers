@@ -130,6 +130,7 @@ public class IrProgram {
 		boolean debug = true; // REMOVE AFTER FINISH DEBUGGING
 		
 		LvaContext c0 = new LvaContext();
+		c0.doNotDecrement.add("input");
 		HashSet<String> topLevelVarsSoFar = new HashSet<String>();
 		ArrayList<IrStatement> statements = new ArrayList<IrStatement>();
 
