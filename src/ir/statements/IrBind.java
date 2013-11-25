@@ -72,7 +72,7 @@ public final class IrBind extends IrStatement {
 //		if (!isMain) {
 //			context.varDecl.put(tuple.variableName, tuple.type.toC());
 //		}
-		if(!isDead()){
+		if(!context.lva || !isDead()){
 			if(temporaryBinds.size() > 0){
 				String s;
 				if (cse){
