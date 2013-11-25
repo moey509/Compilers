@@ -92,15 +92,24 @@ public class IrFor extends IrStatement {
 		String tempVar = "void* " + var + " = getNext(" + iterator + ");";
 		String tempVarInc = "ref_increment((General_t)" + var + ");";
 
+
 		output.add(iterDeclaration);
 		output.add(inc1Declaration);
 		output.add(itDeclaration);
 		output.add(inc2Declaration);
 		
 		//TODO: Should be replaced by Ansha's code
-		for(IrBind b : this.temporaryBinds){
-			String s = b.tuple.variableName;
-			output.add("ref_decrement((General_t)" + s + ");");
+		if(context.lva){
+			for(String s : inMinusOut()){
+				output.add("ref_decrement((General_t)" + s + ");");
+				output.add(s + " = NULL;");
+			}
+		}
+		else{
+			for(IrBind b : this.temporaryBinds){
+				String s = b.tuple.variableName;
+				output.add("ref_decrement((General_t)" + s + ");");
+			}
 		}
 		output.add(itCondition);
 
@@ -119,7 +128,9 @@ public class IrFor extends IrStatement {
 		}
 
 		output.add(tempVar);
-		output.add(tempVarInc);
+		if(!context.lva || freeAfter.contains(var)){
+			output.add(tempVarInc);
+		}
 
 		/*** vvv THE FOLLOWING IS A CODE BLOCK ***/
 		// MODIFY CONTEXT
@@ -134,15 +145,23 @@ public class IrFor extends IrStatement {
 		context.controlFlowVariables.remove(iterable);
 		context.controlFlowVariables.remove(iterator);
 		/*** ^^^^ END CODE BLOCK ***/
-	
-		//TODO: Should be replaced by Ansha's code?
-		String tempVarDec = "ref_decrement((General_t)" + var + ");";
-		String endLoop = "}";
-
-		output.add(tempVarDec);
-		output.add(endLoop);
 		
-		///TODO: Shouldn't be replaced by Ansha's code?...what if there are two for loops in a row with the same iterable?
+		if(context.lva){
+				output.add("ref_decrement((General_t)" + var + ");");
+				output.add(var + " = NULL;");
+		}
+		String endLoop = "}";
+		output.add(endLoop);
+		if(context.lva){
+			for(String s : freeAfter){
+				if(!s.equals(var)){
+					output.add("ref_decrement((General_t)" + s + ");");
+					output.add(s + " = NULL;");
+				}
+			}
+		}
+		
+		///TODO: Shouldn't be replaced by Ansha's code?...what if there are two for loops in a row with the same iterable? who cares?
 		String dec1Declaration = "ref_decrement((General_t)" + iterable + ");";
 		String dec2Declaration = "ref_decrement((General_t)" + iterator + ");";
 		String null1Declaration = iterable + " = NULL;";
@@ -155,9 +174,12 @@ public class IrFor extends IrStatement {
 
 		//decrementing variables in the free context
 		//TODO: Should be replaced by Ansha's code methinks
-		for (String s : freeContext) {
-			output.add("ref_decrement((General_t)" + s + ");");
+		if(!context.lva){
+			for (String s : freeContext) {
+				output.add("ref_decrement((General_t)" + s + ");");
+			}
 		}
+		
 
 		return output;
 	}

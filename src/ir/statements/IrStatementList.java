@@ -44,8 +44,6 @@ public class IrStatementList extends IrStatement{
 		ArrayList<String> output = new ArrayList<String>();
 		for (IrStatement stmt : statementList){
 			output.addAll(stmt.toC(context, isMain, extras));
-			System.out.println("hi" + stmt.toC(context, isMain, extras));
-			output.addAll(stmt.toC(context, isMain, extras));
 		}
 		return output;
 	}

@@ -3,8 +3,10 @@ package ir.statements;
 import ir.CGenerationContext;
 import ir.expressions.IrExpression;
 import ir.expressions.IrVariableExpression;
+
 import java.util.ArrayList;
 import java.util.HashSet;
+
 import optimization.LvaContext;
 import optimization.CseContext;
 import typeChecker.CubexCompleteContext;
@@ -96,54 +98,66 @@ public final class IrReturn extends IrStatement {
 			}
 		}
 		
-		//TODO: Should be replaced by Ansha's code methinks
-		// free control flow variables
-		for (String s : context.controlFlowVariables) {
-			arrList.add("ref_decrement((General_t)" + s + ");");
+		if(context.lva){
+			for(String s : inMinusOut()){
+				arrList.add("ref_decrement((General_t)" + s + ");");
+				arrList.add(s + " = NULL;");
+			}
+			if (isMain) {
+				arrList.add("ref_decrement((General_t)input);");
+				arrList.add("ending();");
+			}
 		}
-		//NOTE: note sure if supposed to empty this set...
-		
-		//TODO: Should be replaced by Ansha's code methinks
-		if (isMain) {
-			for (String s : freeContext) {
-				System.out.println("free context: " + s);
+		else{
+			//TODO: Should be replaced by Ansha's code methinks
+			// free control flow variables
+			for (String s : context.controlFlowVariables) {
 				arrList.add("ref_decrement((General_t)" + s + ");");
 			}
-			//TODO: this looks wrong 
-			for (String s : this.context.typeContext.keySet()) {
-				if (!freeContext.contains(s)) {
+			//NOTE: note sure if supposed to empty this set...
+
+			//TODO: Should be replaced by Ansha's code methinks
+			if (isMain) {
+				for (String s : freeContext) {
+					System.out.println("free context: " + s);
 					arrList.add("ref_decrement((General_t)" + s + ");");
 				}
-			}
-			//GARBAGE COLLECT EVERYTHING
-			for(int i = 0; i < temporaryBinds.size(); i++){
-				IrBind b = temporaryBinds.get(i);
-				arrList.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
-			}
-			
-			// extra expressions will not get added
-			
-			//TODO: REMOVE BEFORE SUBMISSION
-			arrList.add("ending();");
-			
-			arrList.add("return;");
-		}
-		else {
-			for(int i = 0; i < temporaryBinds.size()-1; i++){
-				IrBind b = temporaryBinds.get(i);
-				if(i == temporaryBinds.size()-1 && b.tuple.variableName.equals(b.toC(context, isMain, extras))){
+				//TODO: this looks wrong 
+				for (String s : this.context.typeContext.keySet()) {
+					if (!freeContext.contains(s)) {
+						arrList.add("ref_decrement((General_t)" + s + ");");
+					}
+				}
+				//GARBAGE COLLECT EVERYTHING
+				for(int i = 0; i < temporaryBinds.size(); i++){
+					IrBind b = temporaryBinds.get(i);
 					arrList.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
 				}
-				else{
-					arrList.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
+
+				// extra expressions will not get added
+
+				//TODO: REMOVE BEFORE SUBMISSION
+				arrList.add("ending();");
+
+				arrList.add("return;");
+			}
+			else {
+				for(int i = 0; i < temporaryBinds.size()-1; i++){
+					IrBind b = temporaryBinds.get(i);
+					if(i == temporaryBinds.size()-1 && b.tuple.variableName.equals(b.toC(context, isMain, extras))){
+						arrList.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
+					}
+					else{
+						arrList.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
+					}
 				}
+				arrList.add("ref_decrement_no_free((General_t)" + expression.toC(context) + ");");
+				// add statements that are in extras
+				if (extras != null) {
+					arrList.addAll(extras);
+				}
+				arrList.add("return " + expression.toC(context) + ";");
 			}
-			arrList.add("ref_decrement_no_free((General_t)" + expression.toC(context) + ");");
-			// add statements that are in extras
-			if (extras != null) {
-				arrList.addAll(extras);
-			}
-			arrList.add("return " + expression.toC(context) + ";");
 		}
 		return arrList;
 	}

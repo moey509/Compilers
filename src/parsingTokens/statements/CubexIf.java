@@ -134,6 +134,11 @@ public class CubexIf extends CubexStatement {
 		
 		
 		boolean g = t1.guaranteedToReturn && t2.guaranteedToReturn;
+		//TODO: There is a problem with unary/binary expression types...first found out because of this
+		if(t1.retType == null){
+			cubexContext = c.clone();
+			return new TypeContextReturn(t, g, t2.retType);
+		}
 		TypeContextReturn temp = new TypeContextReturn(t, g, t1.retType.join(c, t2.retType));
 		cubexContext = c.clone();
 		return temp;

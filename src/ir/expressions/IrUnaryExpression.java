@@ -42,6 +42,7 @@ public class IrUnaryExpression implements IrExpression {
 
 	@Override
 	public String toC(CGenerationContext context) {
+		System.out.println(expression.toC(context));
 		if (expression.getCType().equals("Boolean")) {
 			if (operator.equals("!"))
 				return "Boolean_negate(" + expression.toC(context) + ")";

@@ -27,8 +27,9 @@ public abstract class IrStatement implements IrProgramElem{
 	// don't want to go to infinite loop on populateNext
 	public boolean topAccessed = false;
 	protected boolean afterLoop = false;
+	protected boolean hasFreeAfter = false;
 	protected IrStatement prevLoop;
-	protected Set<String> freeBefore;
+	protected Set<String> freeAfter = new HashSet<String>();
 
 	public abstract ArrayList<IrBind> getTemporaryVariables();
 	public abstract void addDeclaration(ArrayList<String> arr, CGenerationContext context);
@@ -78,15 +79,16 @@ public abstract class IrStatement implements IrProgramElem{
 		}
 		
 		if (afterLoop) {
-			freeBefore = new HashSet<String>(prevLoop.outSet);
-			freeBefore.removeAll(inSet);
+			prevLoop.freeAfter = new HashSet<String>(prevLoop.outSet);
+			prevLoop.freeAfter.removeAll(inSet);
+			prevLoop.hasFreeAfter = true;
 		}
 	}
 	
 	protected void lvaDebugHelper(){
 		System.out.println("  decrement: " + inMinusOut().toString());
-		if (afterLoop) {
-			System.out.println("  freeBefore: " + freeBefore.toString());
+		if (hasFreeAfter) {
+			System.out.println("  freeAfter: " + freeAfter.toString());
 		}
 		System.out.println("  inSet: " + inSet.toString());
 		System.out.println("  outSet: " + outSet.toString());

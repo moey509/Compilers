@@ -26,7 +26,6 @@ public abstract class CubexBinaryExpression extends CubexExpression {
 		
 		IrExpression var1;
 		IrExpression var2;
-		
 		if(arr1.size() == 0){
 			var1 = mLeft.toIr(context);
 		}

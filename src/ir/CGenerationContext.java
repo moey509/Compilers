@@ -22,6 +22,8 @@ public class CGenerationContext {
 	public Map<String, Set<String>> objectToDataMap;
 	public String currentObject;
 	
+	public boolean lva = false;
+	
 	// final constants:
 	public final String iterator = "_it";
 	public final String iterable = "_iter";
