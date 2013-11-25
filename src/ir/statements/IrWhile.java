@@ -51,7 +51,7 @@ public final class IrWhile extends IrStatement {
 			arrList.addAll(i.toC(context, isMain, extras));
 		}
 		arrList.add("while(((Boolean_t)" + condition.toC(context) + ")->value) {");
-		//TODO: Should be replaced by Ansha's code methinks
+		//Should be replaced by Ansha's code methinks
 		if(!context.lva){
 			for(IrBind b : this.temporaryBinds){
 				String s = b.tuple.variableName;
@@ -86,7 +86,7 @@ public final class IrWhile extends IrStatement {
 			arrList.addAll(i.toC(context, isMain, extras));
 		}
 		arrList.add("}");
-		//TODO: Should be replaced by Ansha's code methinks
+		//Should be replaced by Ansha's code methinks
 		if(!context.lva){
 			for(IrBind b : this.temporaryBinds){
 				String s = b.tuple.variableName;

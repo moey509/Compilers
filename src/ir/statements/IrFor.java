@@ -98,7 +98,7 @@ public class IrFor extends IrStatement {
 		output.add(itDeclaration);
 		output.add(inc2Declaration);
 		
-		//TODO: Should be replaced by Ansha's code
+		//Should be replaced by Ansha's code
 		if(context.lva){
 			for(String s : inMinusOut()){
 				output.add("ref_decrement((General_t)" + s + ");");
@@ -161,7 +161,7 @@ public class IrFor extends IrStatement {
 			}
 		}
 		
-		///TODO: Shouldn't be replaced by Ansha's code?...what if there are two for loops in a row with the same iterable? who cares?
+		///Shouldn't be replaced by Ansha's code?...what if there are two for loops in a row with the same iterable? who cares?
 		String dec1Declaration = "ref_decrement((General_t)" + iterable + ");";
 		String dec2Declaration = "ref_decrement((General_t)" + iterator + ");";
 		String null1Declaration = iterable + " = NULL;";
@@ -173,7 +173,7 @@ public class IrFor extends IrStatement {
 		output.add(null2Declaration);
 
 		//decrementing variables in the free context
-		//TODO: Should be replaced by Ansha's code methinks
+		//Should be replaced by Ansha's code methinks
 		if(!context.lva){
 			for (String s : freeContext) {
 				output.add("ref_decrement((General_t)" + s + ");");

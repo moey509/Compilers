@@ -91,7 +91,7 @@ public final class IrReturn extends IrStatement {
 			arrList.add(itNull);
 		}
 		
-		//TODO: Should be replaced by Ansha's code methinks
+		//Should be replaced by Ansha's code methinks
 		
 		if(context.lva){
 			for(String s : inMinusOut()){
@@ -107,7 +107,7 @@ public final class IrReturn extends IrStatement {
 			}
 		}
 		else{
-			//TODO: Should be replaced by Ansha's code methinks
+			//Should be replaced by Ansha's code methinks
 			// free control flow variables
 			for (String s : freeContext) {
 				if (!isMain) {
@@ -120,7 +120,7 @@ public final class IrReturn extends IrStatement {
 			}
 			//NOTE: note sure if supposed to empty this set...
 
-			//TODO: Should be replaced by Ansha's code methinks
+			//Should be replaced by Ansha's code methinks
 			if (isMain) {
 				for (String s : freeContext) {
 					System.out.println("free context: " + s);

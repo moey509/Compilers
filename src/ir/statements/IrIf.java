@@ -67,41 +67,66 @@ public class IrIf extends IrStatement {
 		}
 		arrList.add("if(((Boolean_t)" + condition.toC(context) + ")->value) {");
 		//TODO: Should be replaced by Ansha's code methinks
-		for(IrBind b : temporaryBinds){
-			String s = b.tuple.variableName;
-			arrList.add("ref_decrement((General_t)" + s + ");"); 
-			arrList.add(s + "= NULL;");
+		if(!context.lva){
+			for(IrBind b : temporaryBinds){
+				String s = b.tuple.variableName;
+				arrList.add("ref_decrement((General_t)" + s + ");"); 
+				arrList.add(s + "= NULL;");
+			}
+		}
+		else{
+			for(String s : inMinusOut()){
+				arrList.add("ref_decrement((General_t)" + s + ");"); 
+				arrList.add(s + "= NULL;");
+			}
 		}
 		for (IrStatement s1 : statements1) {
 			arrList.addAll(s1.toC(context, isMain, extras));
 		}
-		//TODO: Should be replaced by Ansha's code methinks
-		for (String s : freeContext) {
-			arrList.add("ref_decrement((General_t)" + s + ");");
+		//Should be replaced by Ansha's code methinks
+		if(!context.lva){
+			for (String s : freeContext) {
+				arrList.add("ref_decrement((General_t)" + s + ");");
+			}
 		}
 		if (statements2.isEmpty()) {
 			arrList.add("}");
-			//TODO: Should be replaced by Ansha's code methinks
-			for(IrBind b : temporaryBinds){
-				String s = b.tuple.variableName;
-				arrList.add("ref_decrement((General_t)" + s + ");");
-				arrList.add(s + "= NULL;");
+			//Should be replaced by Ansha's code methinks
+			if(!context.lva){
+				for(IrBind b : temporaryBinds){
+					String s = b.tuple.variableName;
+					arrList.add("ref_decrement((General_t)" + s + ");");
+					arrList.add(s + "= NULL;");
+				}
+			}
+			else{
+				for(String s : inMinusOut()){
+					arrList.add("ref_decrement((General_t)" + s + ");"); 
+					arrList.add(s + "= NULL;");
+				}
 			}
 		} else {
 			arrList.add("} else {");
-			//TODO: Should be replaced by Ansha's code methinks
-			for(IrBind b : temporaryBinds){
-				String s = b.tuple.variableName;
-				arrList.add("ref_decrement((General_t)" + s + ");");
-				arrList.add(s + "= NULL;");
+			//Should be replaced by Ansha's code methinks
+			if(!context.lva){
+				for(IrBind b : temporaryBinds){
+					String s = b.tuple.variableName;
+					arrList.add("ref_decrement((General_t)" + s + ");"); 
+					arrList.add(s + "= NULL;");
+				}
 			}
-			for (IrStatement s2 : statements2) {
-				arrList.addAll(s2.toC(context, isMain, extras));
+			else{
+				for(String s : inMinusOut()){
+					arrList.add("ref_decrement((General_t)" + s + ");"); 
+					arrList.add(s + "= NULL;");
+				}
 			}
 
-			//TODO: Should be replaced by Ansha's code methinks
-			for (String s : freeContext2) {
-				arrList.add("ref_decrement((General_t)" + s + ");");
+			//Should be replaced by Ansha's code methinks
+			if(!context.lva){
+				for (String s : freeContext2) {
+					arrList.add("ref_decrement((General_t)" + s + ");");
+				}
 			}
 			arrList.add("}");
 		}
