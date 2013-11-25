@@ -1,9 +1,12 @@
 i := 2;
 a := 6;
+x := 2;
+y := 8;
 if(i < 5 * 4 + a){
-acorn := a;
+x := a;
 }
 else{
-blah := i;
+y := i;
 }
+x := x + y;
 return ["Hello World!"];
