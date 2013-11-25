@@ -82,7 +82,7 @@ public class ClassContextElement {
 				
 				return " extends " + intersection.typeGrammar1.name + " & " + intersection.typeGrammar2.name + ". " + kindContext.toString() + ". Functions:" + functionMap.toString();
 			}
-			return " extends " + type.getName() + ". " + kindContext.toString() + ". Functions:" + functionMap.toString();
+			return " extends " + type.getName() + "<" + type.getTypeList().toString(",") + ">" + ". " + kindContext.toString() + ". Functions:" + functionMap.toString();
 		} catch (SemanticException e) {
 			e.printStackTrace();
 			return "ERROR";

@@ -60,6 +60,7 @@ public final class CubexFor extends CubexStatement {
 	}
 	
 	public TypeContext typeCheck(CubexCompleteContext c) throws SemanticException {
+	
 		// check that varfun is not in scope
 		if (c.mutableTypeContext.containsKey(varfun) || c.typeContext.containsKey(varfun))
 			throw new SemanticException("CubexFor: varfun exists in scope");
@@ -115,8 +116,12 @@ public final class CubexFor extends CubexStatement {
 		CubexCompleteContext copy1 = c.clone();
 		CubexTypeGrammar vtype = nclass.join(copy1, etype);
 		if (etype.getName().equals("String")) vtype = tclass.join(copy1, etype);
-		copy1.mutableTypeContext.put(varfun, vtype.getTypeList().get(0));
 
+		if (etype.getName().equals("String")){
+			copy1.mutableTypeContext.put(varfun, new CubexTypeClass("Character", new CubexList<CubexTypeGrammar>()));
+		} else {
+			copy1.mutableTypeContext.put(varfun, vtype.getTypeList().get(0));
+		}
 		TypeContextReturn gamma = s.typeCheckReturn(copy1);
 		//if (!gamma.typeContext.containsAll(copy1, c.mutableTypeContext)){
 			//throw new SemanticException("CubexFor: Initial content is not a subset of context returned by s");
