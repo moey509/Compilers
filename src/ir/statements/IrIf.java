@@ -9,6 +9,7 @@ import optimization.CseContext;
 import typeChecker.CubexCompleteContext;
 import ir.CGenerationContext;
 import ir.expressions.IrExpression;
+import ir.expressions.IrVariableExpression;
 
 public class IrIf extends IrStatement {
 
@@ -57,12 +58,12 @@ public class IrIf extends IrStatement {
 	}
 
 	@Override
-	public ArrayList<String> toC(CGenerationContext context, boolean isMain) {
+	public ArrayList<String> toC(CGenerationContext context, boolean isMain, ArrayList<String> extras) {
 		ArrayList<String> arrList = new ArrayList<String>();
 		for(IrBind b : temporaryBinds){
 			context.varDecl.put(b.tuple.variableName, b.tuple.type.toC());
 			context.varInit.put(b.tuple.variableName, "NULL");
-			arrList.addAll(b.toC(context, isMain));
+			arrList.addAll(b.toC(context, isMain, extras));
 		}
 		arrList.add("if(((Boolean_t)" + condition.toC(context) + ")->value) {");
 		//TODO: Should be replaced by Ansha's code methinks
@@ -72,7 +73,7 @@ public class IrIf extends IrStatement {
 			arrList.add(s + "= NULL;");
 		}
 		for (IrStatement s1 : statements1) {
-			arrList.addAll(s1.toC(context, isMain));
+			arrList.addAll(s1.toC(context, isMain, extras));
 		}
 		//TODO: Should be replaced by Ansha's code methinks
 		for (String s : freeContext) {
@@ -95,7 +96,7 @@ public class IrIf extends IrStatement {
 				arrList.add(s + "= NULL;");
 			}
 			for (IrStatement s2 : statements2) {
-				arrList.addAll(s2.toC(context, isMain));
+				arrList.addAll(s2.toC(context, isMain, extras));
 			}
 
 			//TODO: Should be replaced by Ansha's code methinks
@@ -135,7 +136,7 @@ public class IrIf extends IrStatement {
 			nextSet = new HashSet<IrStatement>();
 			
 			useSet = new HashSet<String>();
-			condition.getVars(useSet, c.functionUse);
+			getExpression().getVars(useSet, c.functionUse);
 			
 			populateSetsTemps(c);
 			
@@ -147,19 +148,12 @@ public class IrIf extends IrStatement {
 				} else {
 					statementlist.addAll(statements1);
 				}
-				int length = statementlist.size();
 				
 				LvaContext cCopy = c.clone();
-				IrStatement afterIf = cCopy.nextList.removeFirst().getTop();
 
 				cCopy.nextList.addAll(0, statementlist);
 				nextSet.add(cCopy.nextList.removeFirst().getTop());
 
-				IrStatement lastIfStatement = statementlist.get(length-1);
-				lastIfStatement.nextSet = new HashSet<IrStatement>();
-				lastIfStatement.nextSet.add(afterIf);
-				lastIfStatement.populateSetsTemps(cCopy);
-				
 				for (IrStatement s : statementlist) {
 					s.populateSets(cCopy);
 				}
@@ -206,6 +200,16 @@ public class IrIf extends IrStatement {
 
 	@Override
 	public String toString() {
-		return "IrIf: if ( " + condition.toString() + " )";
+		return "IrIf: if ( " + getExpression().toString() + " )";
+	}
+
+	public IrExpression getExpression() {
+		int length = temporaryBinds.size();
+		if (length > 0) {
+			String varname = temporaryBinds.get(length-1).tuple.variableName;
+			String ctype = temporaryBinds.get(length-1).tuple.type.toC();
+			return new IrVariableExpression(varname, ctype);
+		}
+		return condition;
 	}
 }

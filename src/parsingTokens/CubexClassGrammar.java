@@ -219,6 +219,14 @@ public class CubexClassGrammar {
 			fun.functionName = funDef.name;
 			fun.addFunctionArgument(new IrTypeTuple(new IrType(name), "__struct"));
 			addedFunctions.add(funDef.name);
+			
+			// Hack to free __struct at the bottom of a method call
+			ArrayList<String> dec_inputs = new ArrayList<String>();			
+			dec_inputs.add("ref_decrement(__struct);");
+			
+			fun.addExtras(dec_inputs);
+			
+			
 			context.objectAddFunction(name, funDef);
 			program.addGlobalFunction(fun);
 		}
@@ -230,6 +238,10 @@ public class CubexClassGrammar {
 				if (!addedFunctions.contains(function.name)) {
 					addedFunctions.add(function.name);
 					IrFunction fun = function.toIr(context);
+					
+					
+					
+					
 //					fun.addStatement(new IrReturn(new IrFunctionCall("_"
 //							+ parentClass + "_" + function.name,
 //							function.typescheme.getTypeGrammar().name, function.typescheme.getTypeGrammar()), completeContext));

@@ -9,6 +9,7 @@ import ir.CGenerationContext;
 import ir.expressions.IrExpression;
 import ir.expressions.IrExpressionTuple;
 import ir.expressions.IrFunctionCall;
+import ir.expressions.IrVariableExpression;
 import ir.program.IrTypeTuple;
 import optimization.CseContext;
 
@@ -50,7 +51,7 @@ public final class IrBind extends IrStatement {
 	}
 
 	@Override
-	public ArrayList<String> toC(CGenerationContext context, boolean isMain) {
+	public ArrayList<String> toC(CGenerationContext context, boolean isMain, ArrayList<String> extras) {
 		ArrayList<String> output = new ArrayList<String>();
 		//output.add(tuple.type.toC() + " " + tuple.variableName + " = " + expression.toC(context) + ";");
 		for(IrBind b : temporaryBinds){
@@ -60,7 +61,7 @@ public final class IrBind extends IrStatement {
 				context.varInit.put(b.tuple.variableName, "NULL");
 			}
 			output.add(b.tuple.variableName + " = NULL;");
-			output.addAll(b.toC(context, isMain));
+			output.addAll(b.toC(context, isMain, extras));
 		}
 		context.varDecl.put(tuple.variableName, tuple.type.toC());
 		context.varInit.put(tuple.variableName, "NULL");
@@ -140,7 +141,7 @@ public final class IrBind extends IrStatement {
 			nextSet = new HashSet<IrStatement>();
 			
 			useSet = new HashSet<String>();
-			expression.getVars(useSet, c.functionUse);
+			getExpression().getVars(useSet, c.functionUse);
 			
 			populateSetsTemps(c);
 
@@ -168,7 +169,17 @@ public final class IrBind extends IrStatement {
 
 	@Override
 	public String toString() {
-		return "IrBind: " + tuple.type.toC() + tuple.variableName + " := " + expression.toString();
+		return "IrBind: " + tuple.type.toC() + " " + tuple.variableName + " := " + getExpression().toString();
+	}
+
+	public IrExpression getExpression() {
+		int length = temporaryBinds.size();
+		if (length > 0) {
+			String varname = temporaryBinds.get(length-1).tuple.variableName;
+			String ctype = temporaryBinds.get(length-1).tuple.type.toC();
+			return new IrVariableExpression(varname, ctype);
+		}
+		return expression;
 	}
 
 }

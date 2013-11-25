@@ -2,6 +2,7 @@ package ir.statements;
 
 import ir.CGenerationContext;
 import ir.expressions.IrExpression;
+import ir.expressions.IrVariableExpression;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -44,10 +45,10 @@ public final class IrWhile extends IrStatement {
 	}
 
 	@Override
-	public ArrayList<String> toC(CGenerationContext context, boolean isMain) {
+	public ArrayList<String> toC(CGenerationContext context, boolean isMain, ArrayList<String> extras) {
 		ArrayList<String> arrList = new ArrayList<String>();
 		for (IrBind i : temporaryBinds) {
-			arrList.addAll(i.toC(context, isMain));
+			arrList.addAll(i.toC(context, isMain, extras));
 		}
 		arrList.add("while(((Boolean_t)" + condition.toC(context) + ")->value) {");
 		//TODO: Should be replaced by Ansha's code methinks
@@ -71,10 +72,10 @@ public final class IrWhile extends IrStatement {
 			}
 		}
 		for (IrStatement statement : statements){
-			arrList.addAll(statement.toC(context, isMain));
+			arrList.addAll(statement.toC(context, isMain, extras));
 		}
 		for (IrBind i : temporaryBinds) {
-			arrList.addAll(i.toC(context, isMain));
+			arrList.addAll(i.toC(context, isMain, extras));
 		}
 		arrList.add("}");
 		//TODO: Should be replaced by Ansha's code methinks
@@ -117,7 +118,7 @@ public final class IrWhile extends IrStatement {
 			nextSet = new HashSet<IrStatement>();
 			
 			useSet = new HashSet<String>();
-			condition.getVars(useSet, c.functionUse);
+			getExpression().getVars(useSet, c.functionUse);
 			
 			populateSetsTemps(c);
 			
@@ -133,22 +134,15 @@ public final class IrWhile extends IrStatement {
 				} else {
 					statementlist.addAll(statements);
 				}
-				int length = statementlist.size();
 				
+				if (temporaryBinds.size() > 0) {
+					c.nextList.add(0, temporaryBinds.get(0));
+				} else {
+					c.nextList.add(0, this);
+				}
 				c.nextList.addAll(0, statementlist);
 				nextSet.add(c.nextList.removeFirst().getTop());
 
-				// changes the nextSet of the last statement inside the for loop
-				// to point to the for loop
-				IrStatement lastWhileStatement = statementlist.get(length-1);
-				lastWhileStatement.nextSet = new HashSet<IrStatement>();
-				if (temporaryBinds.size()>0) {
-					lastWhileStatement.nextSet.add(temporaryBinds.get(0));
-				} else {
-					lastWhileStatement.nextSet.add(this);
-				}
-				lastWhileStatement.populateSetsTemps(c);
-				
 				for (IrStatement s : statementlist) {
 					s.populateSets(c);
 				}
@@ -173,6 +167,16 @@ public final class IrWhile extends IrStatement {
 
 	@Override
 	public String toString() {
-		return "IrWhile : while (" + condition.toString() + " )";
+		return "IrWhile : while (" + getExpression().toString() + " )";
+	}
+
+	public IrExpression getExpression() {
+		int length =  temporaryBinds.size();
+		if (length > 0) {
+			String varname = temporaryBinds.get(length-1).tuple.variableName;
+			String ctype = temporaryBinds.get(length-1).tuple.type.toC();
+			return new IrVariableExpression(varname, ctype);
+		}
+		return condition;
 	}
 }

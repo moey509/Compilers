@@ -64,7 +64,7 @@ public class IrProgram {
 		}
 		
 		for (IrStruct irStruct : structs){
-			declarations.addAll(irStruct.toC(context, false));
+			declarations.addAll(irStruct.toC(context, false, null));
 		}
 		for (IrFunction irFunction : functions){
 			declarations.add(irFunction.topDeclaration());
@@ -79,7 +79,7 @@ public class IrProgram {
 		output.add("git_t _return;");
 		
 		for (IrFunction irFunction : functions){
-			output.addAll(irFunction.toC(context, false));
+			output.addAll(irFunction.toC(context, false, null));
 		}
 		
 		// CUT HERE
@@ -104,7 +104,7 @@ public class IrProgram {
 		context.varDecl = new HashMap<String, String>();
 		context.varInit = new HashMap<String, String>();
 		for (IrStatement irStatement : statements){
-			postOut.addAll(irStatement.toC(context, true));
+			postOut.addAll(irStatement.toC(context, true, null));
 		}
 		
 		// put struct and function headers on the top

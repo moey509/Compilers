@@ -1,6 +1,7 @@
 package ir.statements;
 
 import ir.CGenerationContext;
+import ir.expressions.IrExpression;
 
 import java.util.ArrayList;
 
@@ -34,7 +35,7 @@ public class IrCStatement extends IrStatement {
 	}
 
 	@Override
-	public ArrayList<String> toC(CGenerationContext context, boolean isMain) {
+	public ArrayList<String> toC(CGenerationContext context, boolean isMain, ArrayList<String> extras) {
 		return cStatements;
 	}
 

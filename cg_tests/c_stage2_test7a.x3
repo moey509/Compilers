@@ -1,0 +1,10 @@
+a := [];
+
+for (str in input)
+{
+	for (c in str)
+	{
+		a := a++[c];
+	}
+}
+return [string(a)];

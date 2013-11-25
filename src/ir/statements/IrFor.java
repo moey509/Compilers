@@ -3,11 +3,13 @@ package ir.statements;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+
 import optimization.LvaContext;
 import optimization.CseContext;
 import typeChecker.CubexCompleteContext;
 import ir.CGenerationContext;
 import ir.expressions.IrExpression;
+import ir.expressions.IrVariableExpression;
 
 
 public class IrFor extends IrStatement {
@@ -55,7 +57,7 @@ public class IrFor extends IrStatement {
 	public void addInitialization(ArrayList<String> arr, CGenerationContext context){
 	}
 
-	public ArrayList<String> toC(CGenerationContext context, boolean isMain) {
+	public ArrayList<String> toC(CGenerationContext context, boolean isMain, ArrayList<String> extras) {
 		ArrayList<String> output = new ArrayList<String>();
 		int cur_iterator = context.getCurIterator();
 		int cur_iterable = context.getCurIterable();
@@ -68,7 +70,7 @@ public class IrFor extends IrStatement {
 			// put variables at the top of fcn here:
 			context.varDecl.put(b.tuple.variableName, b.tuple.type.toC());
 			output.add(b.tuple.variableName + " = NULL;");
-			output.addAll(b.toC(context, isMain));
+			output.addAll(b.toC(context, isMain, extras));
 		}
 
 		// there's a reason why these aren't IrBinds! The rhs is not really an IrFunctionCall ...
@@ -125,7 +127,7 @@ public class IrFor extends IrStatement {
 		context.controlFlowVariables.add(iterator);
 		
 		for (IrStatement s : statements) {
-			output.addAll(s.toC(context, isMain));
+			output.addAll(s.toC(context, isMain, extras));
 		}
 		
 		// UNDO MODIFICATIONS
@@ -184,7 +186,7 @@ public class IrFor extends IrStatement {
 			nextSet = new HashSet<IrStatement>();
 			
 			useSet = new HashSet<String>();
-			list.getVars(useSet, c.functionUse);
+			getExpression().getVars(useSet, c.functionUse);
 			
 			populateSetsTemps(c);
 			
@@ -200,18 +202,11 @@ public class IrFor extends IrStatement {
 				} else {
 					statementlist.addAll(statements);
 				}
-				int length = statementlist.size();
 
+				c.nextList.add(0, this);
 				c.nextList.addAll(0, statementlist);
 				nextSet.add(c.nextList.removeFirst().getTop());
 
-				// changes the nextSet of the last statement inside the for loop
-				// to point to the for loop
-				IrStatement lastForStatement = statementlist.get(length-1);
-				lastForStatement.nextSet = new HashSet<IrStatement>();
-				lastForStatement.nextSet.add(this);
-				lastForStatement.populateSetsTemps(c);
-				
 				for (IrStatement s : statementlist) {
 					s.populateSets(c);
 				}
@@ -236,7 +231,17 @@ public class IrFor extends IrStatement {
 
 	@Override
 	public String toString() {
-		return "IrFor: " + "for ( " + var + " in " + list.toString() + " )";
+		return "IrFor: " + "for ( " + var + " in " + getExpression().toString() + " )";
+	}
+
+	public IrExpression getExpression() {
+		int length = temporaryBinds.size();
+		if (length > 0) {
+			String varname = temporaryBinds.get(length-1).tuple.variableName;
+			String ctype = temporaryBinds.get(length-1).tuple.type.toC();
+			return new IrVariableExpression(varname, ctype);
+		}
+		return list;
 	}
 }
 
