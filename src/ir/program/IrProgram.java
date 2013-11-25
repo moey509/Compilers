@@ -2,6 +2,7 @@ package ir.program;
 
 import ir.CGenerationContext;
 import ir.statements.IrStatement;
+import ir.statements.IrStatementList;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -128,7 +129,7 @@ public class IrProgram {
 	}
 	
 	public void lva() {
-		boolean debug = true; // REMOVE AFTER FINISH DEBUGGING
+		boolean debug = true; // SET TO FALSE AFTER FINISH DEBUGGING
 		
 		LvaContext c0 = new LvaContext();
 		c0.doNotDecrement.add("input");
@@ -148,15 +149,28 @@ public class IrProgram {
 					LvaContext c = new LvaContext();
 					c.functionUse.putAll(c0.functionUse);
 					c.doNotDecrement = topLevelVarsSoFar;
-					c.nextList.addAll(f.statements);
+					
+					ArrayList<IrStatement> fcnstatements = new ArrayList<IrStatement>();
+					if (f.statements.size() >0) {
+						IrStatement statement = f.statements.get(0);
+						if (statement instanceof IrStatementList) {
+							IrStatementList list = (IrStatementList) statement;
+//							fcnstatements.addAll(list.temporaryBinds);
+							fcnstatements.addAll(list.statementList);
+						} else {
+							fcnstatements.addAll(f.statements);
+						}
+					}
+
+					c.nextList.addAll(fcnstatements);
 					c.nextList.removeFirst().topAccessed = true;
 					
-					for (IrStatement s : f.statements) {
+					for (IrStatement s : fcnstatements) {
 						s.populateSets(c);
 					}
 					
 					HashSet<String> topLevelVarsUsed = new HashSet<String>();
-					for (IrStatement s : f.statements) {
+					for (IrStatement s : fcnstatements) {
 						topLevelVarsUsed.addAll(s.useSet);
 					}
 					topLevelVarsUsed.retainAll(topLevelVarsSoFar);
@@ -166,7 +180,7 @@ public class IrProgram {
 					while (c.changed) {
 						c.changed = false;
 						// lva all function statements
-						for (IrStatement s : f.statements) {
+						for (IrStatement s : fcnstatements) {
 							s.lva(c);
 						}
 					}
@@ -177,7 +191,7 @@ public class IrProgram {
 						System.out.println(">>>> BEGIN FUNCTION LOOP");
 						System.out.println(f.functionName);
 						// lva all function statements
-						for (IrStatement s : f.statements) {
+						for (IrStatement s : fcnstatements) {
 							s.lva(c);
 						}
 						System.out.println("END FUNCTION LOOP <<<<");

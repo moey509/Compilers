@@ -208,6 +208,11 @@ public class IrIf extends IrStatement {
 			} else {
 				nextSet.add(c.nextList.removeFirst().getTop());
 			}
+			
+			for (IrStatement s: nextSet) {
+				s.afterLoop = true;
+				s.prevLoop = this;
+			}
 		}
 	}
 

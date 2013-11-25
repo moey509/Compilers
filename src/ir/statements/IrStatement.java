@@ -28,8 +28,10 @@ public abstract class IrStatement implements IrProgramElem{
 	public boolean topAccessed = false;
 	protected boolean afterLoop = false;
 	protected boolean hasFreeAfter = false;
+	protected boolean hasFreeBefore = false;
 	protected IrStatement prevLoop;
 	protected Set<String> freeAfter = new HashSet<String>();
+	protected Set<String> freeBefore = new HashSet<String>();
 
 	public abstract ArrayList<IrBind> getTemporaryVariables();
 	public abstract void addDeclaration(ArrayList<String> arr, CGenerationContext context);
@@ -79,9 +81,15 @@ public abstract class IrStatement implements IrProgramElem{
 		}
 		
 		if (afterLoop) {
-			prevLoop.freeAfter = new HashSet<String>(prevLoop.outSet);
-			prevLoop.freeAfter.removeAll(inSet);
-			prevLoop.hasFreeAfter = true;
+			if (prevLoop instanceof IrIf) {
+				freeBefore = new HashSet<String>(prevLoop.outSet);
+				freeBefore.removeAll(inSet);
+				hasFreeBefore = true;
+			} else {
+				prevLoop.freeAfter = new HashSet<String>(prevLoop.outSet);
+				prevLoop.freeAfter.removeAll(inSet);
+				prevLoop.hasFreeAfter = true;
+			}
 		}
 	}
 	
@@ -89,6 +97,9 @@ public abstract class IrStatement implements IrProgramElem{
 		System.out.println("  decrement: " + inMinusOut().toString());
 		if (hasFreeAfter) {
 			System.out.println("  freeAfter: " + freeAfter.toString());
+		}
+		if (hasFreeBefore) {
+			System.out.println("  freeBefore: " + freeBefore.toString());
 		}
 		System.out.println("  inSet: " + inSet.toString());
 		System.out.println("  outSet: " + outSet.toString());
