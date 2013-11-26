@@ -216,6 +216,7 @@ public class IrFor extends IrStatement {
 				IrStatement afterFor = c.nextList.removeFirst();
 				afterFor.afterLoop = true;
 				afterFor.prevLoop = this;
+				afterFor.lastAfterLoop = true;
 				nextSet.add(afterFor.getTop());
 			}
 		
@@ -231,6 +232,9 @@ public class IrFor extends IrStatement {
 				c.nextList.add(0, this);
 				c.nextList.addAll(0, statementlist);
 				nextSet.add(c.nextList.removeFirst().getTop());
+				statementlist.get(0).afterLoop = true;
+				statementlist.get(0).prevLoop = this;
+				statementlist.get(0).lastAfterLoop = false;
 
 				for (IrStatement s : statementlist) {
 					s.populateSets(c);

@@ -27,6 +27,7 @@ public abstract class IrStatement implements IrProgramElem{
 	// don't want to go to infinite loop on populateNext
 	public boolean topAccessed = false;
 	protected boolean afterLoop = false;
+	protected boolean lastAfterLoop = false;
 	protected boolean hasFreeAfter = false;
 	protected boolean hasFreeBefore = false;
 	protected IrStatement prevLoop;
@@ -81,7 +82,7 @@ public abstract class IrStatement implements IrProgramElem{
 		}
 		
 		if (afterLoop) {
-			if (prevLoop instanceof IrIf) {
+			if (!lastAfterLoop) {
 				freeBefore = new HashSet<String>(prevLoop.outSet);
 				freeBefore.removeAll(inSet);
 				hasFreeBefore = true;
