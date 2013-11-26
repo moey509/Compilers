@@ -147,7 +147,7 @@ public class IrProgram {
 				if (f.isToplevel) { // only do if function is not a class method
 					// add mapping for the toplevel variables used by this function
 					LvaContext c = new LvaContext();
-					c.functionUse.putAll(c0.functionUse);
+//					c.functionUse.putAll(c0.functionUse);
 					c.doNotDecrement = topLevelVarsSoFar;
 					
 					ArrayList<IrStatement> fcnstatements = new ArrayList<IrStatement>();
@@ -174,7 +174,7 @@ public class IrProgram {
 						topLevelVarsUsed.addAll(s.useSet);
 					}
 					topLevelVarsUsed.retainAll(topLevelVarsSoFar);
-					c0.functionUse.put(f.functionName, topLevelVarsUsed);
+					c0.functionUse.put("_" + f.functionName, topLevelVarsUsed);
 					
 					
 					while (c.changed) {
