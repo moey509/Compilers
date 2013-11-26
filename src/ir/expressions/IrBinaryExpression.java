@@ -25,7 +25,7 @@ public class IrBinaryExpression implements IrExpression {
 		this.operator = operator;
 		this.cubexType = cubexType;
 
-		System.out.println("___=> " + operator);
+		//System.out.println("___=> " + operator);
 
 		// logic to determine type:
 		if (operator.equals("+") || operator.equals("&&")
@@ -90,7 +90,7 @@ public class IrBinaryExpression implements IrExpression {
 		 * } }
 		 */
 		// everything else
-		if (leftExpression.getCType().equals(IrMiscFunctions.INTEGER)) {
+		if (leftExpression.getCubexType().name.equals("Integer")) {
 			if (operator.equals("+"))
 				return "Integer_plus(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + ")";
@@ -127,7 +127,7 @@ public class IrBinaryExpression implements IrExpression {
 			else if (operator.equals("=="))
 				return "Integer_equals(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + ")";
-		} else if (leftExpression.getCType().equals(IrMiscFunctions.BOOLEAN)) {
+		} else if (leftExpression.getCubexType().name.equals("Boolean"))  {
 			if (operator.equals("&&"))
 				return "Boolean_and(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + ")";
@@ -158,11 +158,11 @@ public class IrBinaryExpression implements IrExpression {
 			else if (operator.equals("=="))
 				return "Boolean_equal(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + ")";
-		} else if (leftExpression.getCType().equals(IrMiscFunctions.CHARACTER)) {
+		} else if (leftExpression.getCubexType().name.equals("Character"))  {
 			if (operator.equals("=="))
 				return "Character_equals(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + ")";
-		} else if (leftExpression.getCType().equals("String")) {
+		} else if (leftExpression.getCubexType().name.equals("String")) {
 			if (operator.equals("=="))
 				return "String_equals(" + leftExpression.toC(context) + ", "
 						+ rightExpression.toC(context) + ")";

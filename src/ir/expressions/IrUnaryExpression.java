@@ -43,14 +43,14 @@ public class IrUnaryExpression implements IrExpression {
 	@Override
 	public String toC(CGenerationContext context) {
 		System.out.println(expression.toC(context));
-		if (expression.getCType().equals("Boolean")) {
+		if (expression.getCubexType().name.equals("Boolean")) {
 			if (operator.equals("!"))
 				return "Boolean_negate(" + expression.toC(context) + ")";
 			else if (operator.equals("..."))
 				return "Boolean_onward(" + expression.toC(context) + ", 1)";
 			else if (operator.equals("<.."))
 				return "Boolean_onward(" + expression.toC(context) + ", 0)";
-		} else if (expression.getCType().equals("Integer")) {
+		} else if (expression.getCubexType().name.equals("Integer")) {
 			if (operator.equals("-"))
 				return "Integer_negative(" + expression.toC(context) + ")";
 			else if (operator.equals("..."))
