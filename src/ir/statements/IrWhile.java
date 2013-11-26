@@ -106,6 +106,12 @@ public final class IrWhile extends IrStatement {
 		else{
 			for(String s : inMinusOut())
 			arrList.add("ref_decrement((General_t)" + s + ");");
+			if(hasFreeAfter){
+				for(String s : freeAfter){
+					arrList.add("ref_decrement((General_t)" + s + ");");
+					arrList.add(s + "= NULL;");
+				}
+			}
 		}
 		
 		return arrList;
