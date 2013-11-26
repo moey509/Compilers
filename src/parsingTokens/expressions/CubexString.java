@@ -83,8 +83,8 @@ public final class CubexString extends CubexExpression {
 			cParameters.add(appendLeft);
 			cParameters.add(appendRight);
 			cParameterTypes = new ArrayList<String>();
-			cParameterTypes.add("General_t");
-			cParameterTypes.add("General_t");
+			cParameterTypes.add("git_t");
+			cParameterTypes.add("git_t");
 			fun = new IrCFunctionCall("iterable_append", cParameters, cParameterTypes,"");
 			if(!appendLeft.equals("NULL"))fun.input.add(appendLeft);
 			if(!appendRight.equals("NULL"))fun.input.add(appendRight);

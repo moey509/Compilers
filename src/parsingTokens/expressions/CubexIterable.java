@@ -51,7 +51,7 @@ public class CubexIterable extends CubexExpression {
 				ArrayList<String> cParameters = new ArrayList<String>();
 				cParameters.add(e.name);
 				ArrayList<String> cParameterTypes = new ArrayList<String>();
-				cParameterTypes.add("General_t");
+				cParameterTypes.add("void*");
 				fun = new IrCFunctionCall("new_git_obj", cParameters, cParameterTypes,"");//new IrFunctionCall("new_git_obj", "git_t", null);
 				fun.input.add(e.name);
 				System.out.println(cParameters);
@@ -63,7 +63,7 @@ public class CubexIterable extends CubexExpression {
 				ArrayList<String> cParameters = new ArrayList<String>();
 				cParameters.add(paramBind.tuple.variableName);
 				ArrayList<String> cParameterTypes = new ArrayList<String>();
-				cParameterTypes.add("General_t");
+				cParameterTypes.add("void*");
 				fun = new IrCFunctionCall("new_git_obj", cParameters, cParameterTypes,"");
 				fun.input.add(paramBind.tuple.variableName);
 				System.out.println(cParameters);
@@ -81,8 +81,8 @@ public class CubexIterable extends CubexExpression {
 			cParameters.add(appendLeft);
 			cParameters.add(appendRight);
 			ArrayList<String> cParameterTypes = new ArrayList<String>();
-			cParameterTypes.add("General_t");
-			cParameterTypes.add("General_t");
+			cParameterTypes.add("git_t");
+			cParameterTypes.add("git_t");
 			fun = new IrCFunctionCall("iterable_append", cParameters, cParameterTypes,"");
 			if(!appendLeft.equals("NULL"))fun.input.add(appendLeft);
 			if(!appendRight.equals("NULL"))fun.input.add(appendRight);
