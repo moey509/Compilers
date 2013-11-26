@@ -866,30 +866,6 @@ General_t Thing(){
   return __struct;
 }
 
-/*TODO: delete before submitting */
-void toString(git_t g) {
-  int count = 5;
-  char * buffer;
-  if (g == NULL) {
-    printf ("[null]\n");
-    return;
-  }
-  iterator_t it;
-  it = new_iterator(g);
-  Character_t c;
-  int temp = count;
-  while (count > 0) {
-    c = getNext(it);
-    /*buffer = charToString(c); */
-    printf ("--> %c\n", c->value);
-     
-    if (!hasNext(it)) {
-      printf ("[null]\n");
-      return;
-    }
-  }
-}
-
 void totoString(git_t g) {
   int count = 5;
   char * buffer;

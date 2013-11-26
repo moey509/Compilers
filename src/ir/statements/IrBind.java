@@ -75,7 +75,7 @@ public final class IrBind extends IrStatement {
 		if(context.lva && hasFreeBefore){
 			if(hasFreeBefore){
 				for(String s : freeBefore){
-					System.out.println("FREE BEFORE: " + s);
+//					System.out.println("FREE BEFORE: " + s);
 					output.add("ref_decrement((General_t)" + s + ");");
 					output.add(s + " = NULL;");
 				}
@@ -142,8 +142,8 @@ public final class IrBind extends IrStatement {
 
 		if (c.debug) {
 			// DEBUG STATEMENTS
-			System.out.println(toString());
-			System.out.println("  isDead: " + isDead());
+//			System.out.println(toString());
+//			System.out.println("  isDead: " + isDead());
 			lvaDebugHelper();
 		}
 	}
@@ -182,13 +182,13 @@ public final class IrBind extends IrStatement {
 			tempBind.expression = tempBind.expression.eliminateSubexpression(context);
 			context.putVariable(tempBind.getVariableName(), tempBind.expression.getSubexpressions(context));
 		}
-		System.out.println("Before CSE: " + getVariableName() + "=" + expression);
+//		System.out.println("Before CSE: " + getVariableName() + "=" + expression);
 		IrExpression temp = expression.eliminateSubexpression(context);
 		if (!temp.equals(expression)){
 			cse = true;
 			expression = temp;
 		}
-		System.out.println("After CSE: " + getVariableName() + "=" + expression);
+//		System.out.println("After CSE: " + getVariableName() + "=" + expression);
 		context.putVariable(getVariableName(), expression.getSubexpressions(context));
 	}
 

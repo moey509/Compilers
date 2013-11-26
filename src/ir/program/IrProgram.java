@@ -129,7 +129,7 @@ public class IrProgram {
 	}
 	
 	public void lva() {
-		boolean debug = true; // SET TO FALSE AFTER FINISH DEBUGGING
+		boolean debug = false; // SET TO FALSE AFTER FINISH DEBUGGING
 		
 		LvaContext c0 = new LvaContext();
 		c0.doNotDecrement.add("input");
@@ -147,7 +147,7 @@ public class IrProgram {
 				if (f.isToplevel) { // only do if function is not a class method
 					// add mapping for the toplevel variables used by this function
 					LvaContext c = new LvaContext();
-					c.functionUse.putAll(c0.functionUse);
+//					c.functionUse.putAll(c0.functionUse);
 					c.doNotDecrement = topLevelVarsSoFar;
 					
 					ArrayList<IrStatement> fcnstatements = new ArrayList<IrStatement>();
@@ -174,7 +174,7 @@ public class IrProgram {
 						topLevelVarsUsed.addAll(s.useSet);
 					}
 					topLevelVarsUsed.retainAll(topLevelVarsSoFar);
-					c0.functionUse.put(f.functionName, topLevelVarsUsed);
+					c0.functionUse.put("_" + f.functionName, topLevelVarsUsed);
 					
 					
 					while (c.changed) {
@@ -188,14 +188,14 @@ public class IrProgram {
 					if (debug) {
 						//DEBUG STATEMENTS
 						c.debug = true;
-						System.out.println(">>>> BEGIN FUNCTION LOOP");
-						System.out.println(f.functionName);
+//						System.out.println(">>>> BEGIN FUNCTION LOOP");
+//						System.out.println(f.functionName);
 						// lva all function statements
 						for (IrStatement s : fcnstatements) {
 							s.lva(c);
 						}
-						System.out.println("END FUNCTION LOOP <<<<");
-						System.out.println("");
+//						System.out.println("END FUNCTION LOOP <<<<");
+//						System.out.println("");
 					}
 				}
 			} // else IrProgramElem is struct, in which case we do nothing
@@ -215,12 +215,12 @@ public class IrProgram {
 		if (debug) {
 			c0.debug = true;
 			// DEBUG STATEMENTS
-			System.out.println(">>>> BEGIN STATEMENT LOOP");
+//			System.out.println(">>>> BEGIN STATEMENT LOOP");
 			for (IrStatement s : statements) {
 				s.lva(c0);
 			}
-			System.out.println("END STATEMENT LOOP <<<<");
-			System.out.println("");
+//			System.out.println("END STATEMENT LOOP <<<<");
+//			System.out.println("");
 		}
 	}
 

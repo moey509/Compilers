@@ -35,9 +35,9 @@ public class IrMain {
 	static boolean parsedWithError = false;
 
 	public static void main(String[] args) throws IOException {
-//		 CharStream charStream = new ANTLRFileStream(args[0]);
+		 CharStream charStream = new ANTLRFileStream(args[0]);
 
-		CharStream charStream = new ANTLRFileStream("cg_tests/c_stage1_test6.x3");
+		//CharStream charStream = new ANTLRFileStream("cg_tests/c_stage2_test1.x3");
 		CubexLexer cubLexer = new CubexLexer(charStream);
 		cubLexer.removeErrorListeners();
 

@@ -156,6 +156,10 @@ public final class IrFunctionCall implements IrExpression {
 		}
 		return output;
 	}
+	
+	public IrExpression clone(){
+		return new IrFunctionCall(functionName, cType, cubexType);
+	}
 }
 
 

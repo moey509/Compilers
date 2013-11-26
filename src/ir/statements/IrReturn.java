@@ -74,12 +74,12 @@ public final class IrReturn extends IrStatement {
 		}
 		if (cse){
 			String s = expression.toC(context);
-			System.out.println("RETURN: " +s);
+//			System.out.println("RETURN: " +s);
 		}
 		else {
 			if(temporaryBinds.size()>0){
 			String s = temporaryBinds.get(temporaryBinds.size()-1).tuple.variableName;
-			System.out.println("RETURN: " +s);
+//			System.out.println("RETURN: " +s);
 			}
 		}
 		
@@ -240,7 +240,7 @@ public final class IrReturn extends IrStatement {
 		
 		if (c.debug) {
 		// DEBUG STATEMENTS
-		System.out.println(toString());
+//		System.out.println(toString());
 		lvaDebugHelper();
 		}
 	}
@@ -258,10 +258,10 @@ public final class IrReturn extends IrStatement {
 
 	public void removeCommonSubexpressions(CseContext context) {
 		for (IrBind tempBind : temporaryBinds){
-			System.out.println("Before CSE: " + tempBind.getVariableName() + "=" + tempBind.getExpression());
+//			System.out.println("Before CSE: " + tempBind.getVariableName() + "=" + tempBind.getExpression());
 			tempBind.expression = tempBind.expression.eliminateSubexpression(context);
 			context.putVariable(tempBind.getVariableName(), tempBind.expression.getSubexpressions(context));
-			System.out.println("After CSE: " + tempBind.getVariableName() + "=" + tempBind.getExpression());
+//			System.out.println("After CSE: " + tempBind.getVariableName() + "=" + tempBind.getExpression());
 		}
 		IrExpression temp = expression.eliminateSubexpression(context);
 		if (!expression.equals(temp)){

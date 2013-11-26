@@ -25,8 +25,6 @@ public class IrBinaryExpression implements IrExpression {
 		this.operator = operator;
 		this.cubexType = cubexType;
 
-		System.out.println("___=> " + operator);
-
 		// logic to determine type:
 		if (operator.equals("+") || operator.equals("&&")
 				|| operator.equals("/") || operator.equals("-")
@@ -248,8 +246,8 @@ public class IrBinaryExpression implements IrExpression {
 							+ rightExpression.toC(context) + ")";
 			}
 		}
-		System.out
-				.println("WARNING: there is no operator in this Binary Expression");
+//		System.out
+//				.println("WARNING: there is no operator in this Binary Expression");
 		return operator;
 	}
 
@@ -306,5 +304,9 @@ public class IrBinaryExpression implements IrExpression {
 	public void getVars(Set<String> set, Map<String, Set<String>> map) {
 		leftExpression.getVars(set, map);
 		rightExpression.getVars(set, map);
+	}
+	
+	public IrExpression clone(){
+		return new IrBinaryExpression(leftExpression.clone(), rightExpression.clone(), operator, cubexType);
 	}
 }
