@@ -1,0 +1,12 @@
+Compilers PA5 text file
+
+1. We did not discuss the assignment with any other group.
+
+2. Distribution of work: 
+   The entire group was responsible for fixing PA4 so that the output would compile and run correctly.
+   Jimmy and Toshi were responsible for fixing Memory Management from PA4.
+   Ansha was responsible for LSA.
+   Matt was responsible for CSE.
+
+3. Additional Comments: 
+   We spent a very long time fixing issues from PA4 and as a result we did not have time to complete Primitives. 

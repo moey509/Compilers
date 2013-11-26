@@ -3,4 +3,4 @@ f := false;
 a := true;
 b := false;
 
-return [];
+return ["hello"];

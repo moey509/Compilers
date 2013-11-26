@@ -1,9 +1,9 @@
 a := "Foo";
-#if (false){
-#	a := "Bar";
-#} else {
-#	a := "Bar";
-#}
+if (false){
+	a := "Bar";
+} else {
+	a := "Bar";
+}
 b := "Bar";
 
 return ["Bar"];

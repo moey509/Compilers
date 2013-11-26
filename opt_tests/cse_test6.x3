@@ -3,4 +3,7 @@ b := 1 + 2;
 a := 3;
 c := 1 + 2;
 
-return [];
+x := "Derp";
+y := "Derp" ++ x ++ "Derp";
+
+return [y];
