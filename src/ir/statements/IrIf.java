@@ -240,7 +240,7 @@ public class IrIf extends IrStatement {
 			statement.removeCommonSubexpressions(context1);
 		}
 		context1.printContext();
-		for (IrStatement statement : statements1){
+		for (IrStatement statement : statements2){
 			statement.removeCommonSubexpressions(context2);
 		}
 		context2.printContext();
