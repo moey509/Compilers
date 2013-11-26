@@ -229,20 +229,39 @@ public class IrIf extends IrStatement {
 	}
 
 	public void removeCommonSubexpressions(CseContext context) {
-		for (IrBind tempBind : temporaryBinds){
-			tempBind.expression = tempBind.expression.eliminateSubexpression(context);
-			context.putVariable(tempBind.getVariableName(), tempBind.expression.getSubexpressions(context));
+		if (context.isInLoop()){
+			CseContext context1 = context.clone();
+			CseContext context2 = context.clone();
+			for (IrStatement statement : statements1){
+				statement.removeCommonSubexpressions(context1);
+			}
+			for (IrStatement statement : statements2){
+				statement.removeCommonSubexpressions(context2);
+			}
+			CseContext context3 = context1.merge(context2);
+			for (IrBind tempBind : temporaryBinds){
+				tempBind.expression = tempBind.expression.eliminateSubexpression(context3);
+				context3.putVariable(tempBind.getVariableName(), tempBind.expression.getSubexpressions(context3));
+			}
+			condition = condition.eliminateSubexpression(context3);
+			context.setContext(context3);
 		}
-		condition = condition.eliminateSubexpression(context);
-		CseContext context1 = context.clone();
-		CseContext context2 = context.clone();
-		for (IrStatement statement : statements1){
-			statement.removeCommonSubexpressions(context1);
+		else {
+			for (IrBind tempBind : temporaryBinds){
+				tempBind.expression = tempBind.expression.eliminateSubexpression(context);
+				context.putVariable(tempBind.getVariableName(), tempBind.expression.getSubexpressions(context));
+			}
+			condition = condition.eliminateSubexpression(context);
+			CseContext context1 = context.clone();
+			CseContext context2 = context.clone();
+			for (IrStatement statement : statements1){
+				statement.removeCommonSubexpressions(context1);
+			}
+			for (IrStatement statement : statements2){
+				statement.removeCommonSubexpressions(context2);
+			}
+			context.setContext(context1.merge(context2));
 		}
-		for (IrStatement statement : statements2){
-			statement.removeCommonSubexpressions(context2);
-		}
-		context.setContext(context1.merge(context2));
 	}
 
 	@Override

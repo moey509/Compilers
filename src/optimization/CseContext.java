@@ -11,10 +11,20 @@ import java.util.Map;
 public class CseContext {
 	private Map<String, IrExpression> variableToExpressionMap;
 	private Map<IrExpression, String> expressionToVariableMap;
+	private boolean inLoop;
 
 	public CseContext() {
 		variableToExpressionMap = new HashMap<String, IrExpression>();
 		expressionToVariableMap = new HashMap<IrExpression, String>();
+		inLoop = false;
+	}
+	
+	public boolean isInLoop(){
+		return inLoop;
+	}
+	
+	public void setInLoop(boolean loop){
+		inLoop = loop;
 	}
 	
 	public void putVariable(String variable, IrExpression expr){
@@ -99,7 +109,7 @@ public class CseContext {
 		System.out.println("------------");
 		System.out.println("CseContext:");
 		for (Map.Entry<String, IrExpression> entry : variableToExpressionMap.entrySet()){
-			System.out.println(entry.getKey() + " => " + entry.getValue().toString());
+			//System.out.println(entry.getKey() + " => " + entry.getValue().toString());
 		}
 		System.out.println(variableToExpressionMap.toString());
 		System.out.println(expressionToVariableMap.toString());

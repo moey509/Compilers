@@ -91,7 +91,6 @@ public class IrVariableExpression implements IrExpression {
 	public IrExpression eliminateSubexpression(CseContext context) {
 		IrExpression expr = getSubexpressions(context);
 		if (context.containsExpression(expr)){
-			System.out.println(this + " -> " + expr + " -> " + context.getVariableExpression(expr));
 			return context.getVariableExpression(expr);
 		} else {
 			return this;
