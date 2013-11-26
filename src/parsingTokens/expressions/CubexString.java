@@ -57,10 +57,22 @@ public final class CubexString extends CubexExpression {
 			appendLeft = context.nextTemp();
 			IrTypeTuple tuple = new IrTypeTuple(t, appendLeft);
 			ArrayList<String> cParameters = new ArrayList<String>();
-			cParameters.add("'" + c + "'");
+			if(c == '\''){
+				cParameters.add("'" + '\\' + '\'' + "'");
+			}
+			else if(c == '\"'){
+				cParameters.add("'" + '\\' + '\'' + "'");
+			}
+			else if(c == '\\'){
+				cParameters.add("'" + '\\' + '\\' + "'");
+			}
+			else{
+				cParameters.add("'" + c + "'");
+			}
 			ArrayList<String> cParameterTypes = new ArrayList<String>();
 			cParameterTypes.add("char");
-			IrCFunctionCall fun = new IrCFunctionCall("new_git_obj_charuni" + "", cParameters, cParameterTypes,"");
+			IrCFunctionCall fun;
+			fun = new IrCFunctionCall("new_git_obj_charuni" + "", cParameters, cParameterTypes,"");
 			IrBind bind = new IrBind(tuple, fun, cubexContext);
 			arr.add(bind);
 			
