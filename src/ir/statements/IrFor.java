@@ -25,7 +25,7 @@ public class IrFor extends IrStatement {
 		this.statements = new ArrayList<IrStatement>();
 		this.temporaryBinds = new ArrayList<IrBind>();
 		this.context = context;
-		
+		this.defSet.add(var);
 	}
 
 	// initialize the freeContext - used by the typeChecker
@@ -219,6 +219,7 @@ public class IrFor extends IrStatement {
 			
 			useSet = new HashSet<String>();
 			getExpression().getVars(useSet, c.functionUse);
+			useSet.remove(var);
 			
 			populateSetsTemps(c);
 			
