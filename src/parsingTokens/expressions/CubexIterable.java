@@ -54,7 +54,6 @@ public class CubexIterable extends CubexExpression {
 				cParameterTypes.add("void*");
 				fun = new IrCFunctionCall("new_git_obj", cParameters, cParameterTypes,"");//new IrFunctionCall("new_git_obj", "git_t", null);
 				fun.input.add(e.name);
-				System.out.println(cParameters);
 				fun.input = cParameters;
 			}
 			//Throw in a temporary variable
@@ -66,7 +65,6 @@ public class CubexIterable extends CubexExpression {
 				cParameterTypes.add("void*");
 				fun = new IrCFunctionCall("new_git_obj", cParameters, cParameterTypes,"");
 				fun.input.add(paramBind.tuple.variableName);
-				System.out.println(cParameters);
 				fun.input = cParameters;
 			}
 			IrBind bind = new IrBind(tuple, fun, cubexContext);

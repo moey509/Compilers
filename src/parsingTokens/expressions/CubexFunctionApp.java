@@ -111,7 +111,7 @@ public final class CubexFunctionApp extends CubexExpression {
 		
 		String functionName =  "\"" +"_" + obj + "_" + fun + "\"";
 		String functionCall = "(function_lookup(" + instance + ", " + functionName +"))";
-		System.out.println(functionCall);
+//		System.out.println(functionCall);
 		IrFunctionCall call = new IrFunctionCall(functionCall, "void*", cubexType);
 		//Have to add in all arguments. Must figure out how much each has
 		if(thisPointer.size() != 0){

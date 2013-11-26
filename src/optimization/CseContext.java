@@ -40,7 +40,7 @@ public class CseContext {
 	
 	public IrVariableExpression getVariableExpression(IrExpression expr){
 		String name = expressionToVariableMap.get(expr);
-		System.out.println(expr);
+//		System.out.println(expr);
 		return new IrVariableExpression(name, expr.getCType(), expr.getCubexType());
 	}
 	
@@ -93,13 +93,13 @@ public class CseContext {
 	}
 	
 	public void printContext(){
-		System.out.println("------------");
-		System.out.println("CseContext:");
-		for (Map.Entry<String, IrExpression> entry : variableToExpressionMap.entrySet()){
-			System.out.println(entry.getKey() + " => " + entry.getValue().toString());
-		}
-		System.out.println(variableToExpressionMap.toString());
-		System.out.println(expressionToVariableMap.toString());
-		System.out.println("------------");
+//		System.out.println("------------");
+//		System.out.println("CseContext:");
+//		for (Map.Entry<String, IrExpression> entry : variableToExpressionMap.entrySet()){
+//			System.out.println(entry.getKey() + " => " + entry.getValue().toString());
+//		}
+//		System.out.println(variableToExpressionMap.toString());
+//		System.out.println(expressionToVariableMap.toString());
+//		System.out.println("------------");
 	}
 }

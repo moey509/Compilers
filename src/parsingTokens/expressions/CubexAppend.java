@@ -42,7 +42,7 @@ public class CubexAppend extends CubexExpression {
 			vare1 = new IrVariableExpression(binde1.tuple.variableName, binde1.tuple.type.type);
 		}
 		else{
-			System.out.println("tempe1: " + this);
+//			System.out.println("tempe1: " + this);
 			vare1 = e1.toIr(context);
 		}
 		if(tempe2.size() > 0){
