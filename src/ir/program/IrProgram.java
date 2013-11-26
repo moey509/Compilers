@@ -61,7 +61,7 @@ public class IrProgram {
 				IrStatement st = (IrStatement) i;
 				statements.add(st);
 			} else {
-				System.out.println("IrProgram dun goofd");
+//				System.out.println("IrProgram dun goofd");
 			}
 		}
 		

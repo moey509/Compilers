@@ -32,7 +32,7 @@ public class IrUnaryExpression implements IrExpression {
 			this.cType = IrMiscFunctions.ITERABLE;
 		else {
 			this.cType = null;
-			System.out.println("unary operator: " + operator + " could not be found....");
+//			System.out.println("unary operator: " + operator + " could not be found....");
 		}
 	}
 	
@@ -42,7 +42,6 @@ public class IrUnaryExpression implements IrExpression {
 
 	@Override
 	public String toC(CGenerationContext context) {
-		System.out.println(expression.toC(context));
 		if (expression.getCType().equals("Boolean")) {
 			if (operator.equals("!"))
 				return "Boolean_negate(" + expression.toC(context) + ")";
@@ -58,7 +57,7 @@ public class IrUnaryExpression implements IrExpression {
 			else if (operator.equals("<.."))
 				return "Integer_onward(" + expression.toC(context) + ", 0)";
 		}
-			System.out.println("WARNING: operator for unary expression was null or could not be found");
+//			System.out.println("WARNING: operator for unary expression was null or could not be found");
 			return null;
 	}
 	

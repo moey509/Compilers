@@ -155,9 +155,6 @@ public class IrFunction implements IrProgramElem{
 		
 		context.currentObject = object;
 		for(IrStatement st : statements){
-//			System.out.println(st.toC(context));
-			if (extraStatements != null)
-				System.out.println("lbah blah");
 			postarr.addAll(st.toC(context, false, extraStatements));
 		}
 

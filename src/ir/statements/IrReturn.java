@@ -24,9 +24,6 @@ public final class IrReturn extends IrStatement {
 	}
 	
 	public void setFreeContext(ArrayList<String> fc) {
-		for (String s : fc) {
-			System.out.println("setting freecontext: " + s);
-		}
 		freeContext = fc;
 	}
 	
@@ -55,6 +52,7 @@ public final class IrReturn extends IrStatement {
 		String endBrace = "";
 		String itDecrement = "";
 		String itNull = "";
+		
 		if (isMain) {
 			int cur_iterator = context.getCurIterator();
 			context.incrementCurIterator();
@@ -92,6 +90,13 @@ public final class IrReturn extends IrStatement {
 		}
 		
 		//Should be replaced by Ansha's code methinks
+		
+		if(context.lva && hasFreeBefore){
+			for(String s : freeBefore){
+				arrList.add("ref_decrement((General_t)" + s + ");");
+				arrList.add(s + " = NULL;");
+			}
+		}
 		
 		if(context.lva){
 			for (String s : context.controlFlowVariables) {
@@ -132,7 +137,6 @@ public final class IrReturn extends IrStatement {
 			//Should be replaced by Ansha's code methinks
 			if (isMain) {
 				for (String s : freeContext) {
-					System.out.println("free context: " + s);
 					arrList.add("ref_decrement((General_t)" + s + ");");
 				}
 				//TODO: this looks wrong 

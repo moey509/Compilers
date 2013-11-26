@@ -60,6 +60,14 @@ public class IrIf extends IrStatement {
 	@Override
 	public ArrayList<String> toC(CGenerationContext context, boolean isMain, ArrayList<String> extras) {
 		ArrayList<String> arrList = new ArrayList<String>();
+		
+		if(context.lva && hasFreeBefore){
+			for(String s : freeBefore){
+				arrList.add("ref_decrement((General_t)" + s + ");");
+				arrList.add(s + " = NULL;");
+			}
+		}
+		
 		for(IrBind b : temporaryBinds){
 			context.varDecl.put(b.tuple.variableName, b.tuple.type.toC());
 			context.varInit.put(b.tuple.variableName, "NULL");
