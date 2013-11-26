@@ -77,6 +77,6 @@ public final class IrInteger implements IrExpression {
 	}
 	
 	public IrExpression clone(){
-		return new IrInteger(mValue)
+		return new IrInteger(mValue);
 	}
 }

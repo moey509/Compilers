@@ -125,6 +125,5 @@ public class IrIterable implements IrExpression {
 			lst.add(expr.clone());
 		}
 		return new IrIterable(lst, cubexType);
-		
 	}
 }
