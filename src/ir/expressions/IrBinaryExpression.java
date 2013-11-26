@@ -247,7 +247,7 @@ public class IrBinaryExpression implements IrExpression {
 			}
 		}
 //		System.out
-				.println("WARNING: there is no operator in this Binary Expression");
+//				.println("WARNING: there is no operator in this Binary Expression");
 		return operator;
 	}
 
