@@ -72,6 +72,16 @@ public final class IrBind extends IrStatement {
 //		if (!isMain) {
 //			context.varDecl.put(tuple.variableName, tuple.type.toC());
 //		}
+		if(context.lva && hasFreeBefore){
+			if(hasFreeBefore){
+				for(String s : freeBefore){
+					System.out.println("FREE BEFORE: " + s);
+					output.add("ref_decrement((General_t)" + s + ");");
+					output.add(s + " = NULL;");
+				}
+			}
+		}
+		
 		if(!isDead()){
 			if(temporaryBinds.size() > 0){
 				String s;
@@ -93,7 +103,6 @@ public final class IrBind extends IrStatement {
 				if (expression instanceof IrFunctionCall) {
 					IrFunctionCall funcCall = (IrFunctionCall) expression;
 					if(!funcCall.functionName.equals("_string") && !funcCall.functionName.equals("_character")){
-						System.out.println("FUNCCALL: " + funcCall.functionName);
 						//Increments arguments before a function call
 						for (IrExpressionTuple tuple : funcCall.getArugments()) {
 							output.add("ref_increment((General_t)" + tuple.getExpression().toC(context)+ ");");

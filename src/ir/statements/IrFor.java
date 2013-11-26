@@ -100,7 +100,15 @@ public class IrFor extends IrStatement {
 		
 		//Should be replaced by Ansha's code
 		if(context.lva){
+			if(hasFreeBefore){
+				for(String s : freeBefore){
+					System.out.println("Free Before For: " + s);
+					output.add("ref_decrement((General_t)" + s + ");");
+					output.add(s + " = NULL;");
+				}
+			}
 			for(String s : inMinusOut()){
+				System.out.println("Free inMinusOut For: " + s);
 				output.add("ref_decrement((General_t)" + s + ");");
 				output.add(s + " = NULL;");
 			}
@@ -139,6 +147,8 @@ public class IrFor extends IrStatement {
 		
 		for (IrStatement s : statements) {
 			output.addAll(s.toC(context, isMain, extras));
+			System.out.println(s);
+			System.out.println("FORRRR: " + s.toC(context, isMain, extras));
 		}
 		
 		// UNDO MODIFICATIONS
@@ -147,8 +157,8 @@ public class IrFor extends IrStatement {
 		/*** ^^^^ END CODE BLOCK ***/
 		
 		if(context.lva){
-				output.add("ref_decrement((General_t)" + var + ");");
-				output.add(var + " = NULL;");
+			output.add("ref_decrement((General_t)" + var + ");");
+			output.add(var + " = NULL;");
 		}
 		String endLoop = "}";
 		output.add(endLoop);
@@ -213,11 +223,11 @@ public class IrFor extends IrStatement {
 			populateSetsTemps(c);
 			
 			if (c.nextList.size() > 0) {
-				IrStatement afterFor = c.nextList.removeFirst();
+				IrStatement afterFor = c.nextList.removeFirst().getTop();
 				afterFor.afterLoop = true;
 				afterFor.prevLoop = this;
 				afterFor.lastAfterLoop = true;
-				nextSet.add(afterFor.getTop());
+				nextSet.add(afterFor);
 			}
 		
 			if (statements.size() > 0) {
@@ -231,10 +241,11 @@ public class IrFor extends IrStatement {
 
 				c.nextList.add(0, this);
 				c.nextList.addAll(0, statementlist);
-				nextSet.add(c.nextList.removeFirst().getTop());
-				statementlist.get(0).afterLoop = true;
-				statementlist.get(0).prevLoop = this;
-				statementlist.get(0).lastAfterLoop = false;
+				IrStatement first = c.nextList.removeFirst().getTop();
+				nextSet.add(first);
+				first.afterLoop = true;
+				first.prevLoop = this;
+				first.lastAfterLoop = false;
 
 				for (IrStatement s : statementlist) {
 					s.populateSets(c);

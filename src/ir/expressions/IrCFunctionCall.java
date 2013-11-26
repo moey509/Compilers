@@ -40,7 +40,6 @@ public class IrCFunctionCall implements IrExpression {
 
 	@Override
 	public String toC(CGenerationContext context) {
-		System.out.println("PARAMETERS: " + input); 
 		// TODO Auto-generated method stub
 		if (!context.objectToDataMap.containsKey(context.currentObject)){
 			StringBuilder functionCall = new StringBuilder(functionName + "(");

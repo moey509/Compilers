@@ -47,6 +47,12 @@ public final class IrWhile extends IrStatement {
 	@Override
 	public ArrayList<String> toC(CGenerationContext context, boolean isMain, ArrayList<String> extras) {
 		ArrayList<String> arrList = new ArrayList<String>();
+		if(context.lva && hasFreeBefore){
+			for(String s : freeBefore){
+				arrList.add("ref_decrement((General_t)" + s + ");");
+				arrList.add(s + " = NULL;");
+			}
+		}
 		for (IrBind i : temporaryBinds) {
 			arrList.addAll(i.toC(context, isMain, extras));
 		}
@@ -100,6 +106,12 @@ public final class IrWhile extends IrStatement {
 		else{
 			for(String s : inMinusOut())
 			arrList.add("ref_decrement((General_t)" + s + ");");
+			if(hasFreeAfter){
+				for(String s : freeAfter){
+					arrList.add("ref_decrement((General_t)" + s + ");");
+					arrList.add(s + "= NULL;");
+				}
+			}
 		}
 		
 		return arrList;
@@ -158,11 +170,14 @@ public final class IrWhile extends IrStatement {
 				} else {
 					c.nextList.add(0, this);
 				}
-				statementlist.get(0).afterLoop = true;
-				statementlist.get(0).prevLoop = this;
-				statementlist.get(0).lastAfterLoop = false;
+
 				c.nextList.addAll(0, statementlist);
-				nextSet.add(c.nextList.removeFirst().getTop());
+				IrStatement first = c.nextList.removeFirst().getTop();
+				// do stuff with the first statement inside While
+				nextSet.add(first);
+				first.afterLoop = true;
+				first.prevLoop = this;
+				first.lastAfterLoop = false;
 
 				for (IrStatement s : statementlist) {
 					s.populateSets(c);
