@@ -5,6 +5,7 @@ import ir.expressions.IrExpression;
 import ir.expressions.IrVariableExpression;
 import ir.statements.IrBind;
 import ir.statements.IrStatement;
+import ir.statements.IrStatementList;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,21 +15,13 @@ import java.util.Map;
 public class CseContext {
 	private Map<String, IrExpression> variableToExpressionMap;
 	private Map<IrExpression, String> expressionToVariableMap;
-	private boolean inLoop;
+
 
 	public CseContext() {
 		variableToExpressionMap = new HashMap<String, IrExpression>();
 		expressionToVariableMap = new HashMap<IrExpression, String>();
-		inLoop = false;
 	}
 	
-	public boolean isInLoop(){
-		return inLoop;
-	}
-	
-	public void setInLoop(boolean loop){
-		inLoop = loop;
-	}
 	
 	public void putVariable(String variable, IrExpression expr){
 		if (variableToExpressionMap.containsKey(variable)){
@@ -108,25 +101,28 @@ public class CseContext {
 		return output;
 	}
 	
-	public CseContext stripBinds(List<IrStatement> lst){
-		CseContext output = clone();
+	public void stripBinds(List<IrStatement> lst){
+		
 		for (IrStatement stmt : lst){
+			if (stmt instanceof IrStatementList){
+				IrStatementList stmtList = (IrStatementList) stmt;
+				stripBinds(stmtList.statementList);
+			}
 			if (stmt instanceof IrBind){
 				IrBind bind = (IrBind) stmt;
-				if (output.variableToExpressionMap.containsKey(bind.getVariableName())){
-					IrExpression expr = output.variableToExpressionMap.get(bind.getVariableName());
-					output.putVariable(bind.getVariableName(), new IrVariableExpression(bind.getVariableName(), expr.getCType(), expr.getCubexType()));
+				if (variableToExpressionMap.containsKey(bind.getVariableName())){
+					IrExpression expr = variableToExpressionMap.get(bind.getVariableName());
+					putVariable(bind.getVariableName(), new IrVariableExpression(bind.getVariableName(), expr.getCType(), expr.getCubexType()));
 				}
 			}
 		}
-		return output;
 	}
 	
 	public void printContext(){
 		System.out.println("------------");
 		System.out.println("CseContext:");
 		for (Map.Entry<String, IrExpression> entry : variableToExpressionMap.entrySet()){
-			//System.out.println(entry.getKey() + " => " + entry.getValue().toString());
+			System.out.println(entry.getKey() + " => " + entry.getValue().toString());
 		}
 		System.out.println(variableToExpressionMap.toString());
 		System.out.println(expressionToVariableMap.toString());

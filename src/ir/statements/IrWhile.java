@@ -187,10 +187,10 @@ public final class IrWhile extends IrStatement {
 	}
 
 	public void removeCommonSubexpressions(CseContext context) {
-		CseContext context1 = context.clone().stripBinds(statements);
+		CseContext context1 = context.clone()
+		context1.stripBinds(statements);
 		CseContext context2 = context.clone();
-		context1.setInLoop(true);
-		context2.setInLoop(true);
+
 		for (IrStatement statement : statements){
 			statement.removeCommonSubexpressions(context1);
 		}
@@ -200,7 +200,6 @@ public final class IrWhile extends IrStatement {
 			context3.putVariable(tempBind.getVariableName(), tempBind.expression.getSubexpressions(context3));
 		}
 		context.setContext(context3);
-		context.setInLoop(false);
 	}
 
 	@Override
