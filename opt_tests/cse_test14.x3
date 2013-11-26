@@ -1,0 +1,14 @@
+a := true;
+b := "";
+
+if (true){
+	a := false;
+}
+
+if (a){
+	b := "Hello";
+}
+else {
+	b := "World";
+}
+return [b];

@@ -69,7 +69,10 @@ public class CseContext {
 		return output;
 	}
 	
-
+	public void setContext(CseContext setContext){
+		variableToExpressionMap = setContext.variableToExpressionMap;
+		expressionToVariableMap = setContext.expressionToVariableMap;
+	}
 	
 	public CseContext merge(CseContext mergedContext){
 		CseContext output = new CseContext();

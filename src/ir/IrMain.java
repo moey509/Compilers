@@ -37,7 +37,8 @@ public class IrMain {
 	public static void main(String[] args) throws IOException {
 //		 CharStream charStream = new ANTLRFileStream(args[0]);
 
-		CharStream charStream = new ANTLRFileStream("cg_tests/c_stage1_test3.x3");
+		//CharStream charStream = new ANTLRFileStream("opt_tests/cse_test15.x3");
+		CharStream charStream = new ANTLRFileStream("cg_tests/c_stage1_test5.x3");
 		CubexLexer cubLexer = new CubexLexer(charStream);
 		cubLexer.removeErrorListeners();
 

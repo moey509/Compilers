@@ -1,0 +1,9 @@
+a := "A";
+
+if (true){
+	a := "T";
+} else {
+	a := "F";
+}
+
+return [a];

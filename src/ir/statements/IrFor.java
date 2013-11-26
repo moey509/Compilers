@@ -264,9 +264,9 @@ public class IrFor extends IrStatement {
 		CseContext context3 = context1.merge(context2);
 		for (IrBind tempBind : temporaryBinds){
 			tempBind.expression = tempBind.expression.eliminateSubexpression(context3);
-			context.putVariable(tempBind.getVariableName(), tempBind.expression.getSubexpressions(context3));
+			context3.putVariable(tempBind.getVariableName(), tempBind.expression.getSubexpressions(context3));
 		}
-		context = context3;
+		context.setContext(context3);
 	}
 
 	@Override
