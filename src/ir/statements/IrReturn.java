@@ -16,6 +16,7 @@ public final class IrReturn extends IrStatement {
 	private ArrayList<String> freeContext = new ArrayList<String>();
 	private IrExpression expression;
 	public CubexCompleteContext context;
+	boolean cse;
 
 	public IrReturn(IrExpression expression, CubexCompleteContext context) {
 		this.expression = expression;
@@ -70,6 +71,16 @@ public final class IrReturn extends IrStatement {
 			// free the iterator
 			itDecrement = ("ref_decrement((General_t)" + iterator + ");");
 			itNull = (iterator + " = NULL;");
+		}
+		if (cse){
+			String s = expression.toC(context);
+			System.out.println("RETURN: " +s);
+		}
+		else {
+			if(temporaryBinds.size()>0){
+			String s = temporaryBinds.get(temporaryBinds.size()-1).tuple.variableName;
+			System.out.println("RETURN: " +s);
+			}
 		}
 		
 		for(IrBind b : temporaryBinds){
@@ -247,11 +258,16 @@ public final class IrReturn extends IrStatement {
 
 	public void removeCommonSubexpressions(CseContext context) {
 		for (IrBind tempBind : temporaryBinds){
+			System.out.println("Before CSE: " + tempBind.getVariableName() + "=" + tempBind.getExpression());
 			tempBind.expression = tempBind.expression.eliminateSubexpression(context);
 			context.putVariable(tempBind.getVariableName(), tempBind.expression.getSubexpressions(context));
+			System.out.println("After CSE: " + tempBind.getVariableName() + "=" + tempBind.getExpression());
 		}
-		expression = expression.eliminateSubexpression(context);
-		
+		IrExpression temp = expression.eliminateSubexpression(context);
+		if (!expression.equals(temp)){
+			cse = true;
+			expression = temp;
+		}
 	}
 
 	@Override
