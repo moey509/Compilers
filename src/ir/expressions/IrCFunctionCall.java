@@ -116,4 +116,8 @@ public class IrCFunctionCall implements IrExpression {
 		}
 		return str + " )";
 	}
+	
+	public IrExpression clone(){
+		return new IrCFunctionCall(functionName, parameters, parameterTypes, cType);
+	}
 }

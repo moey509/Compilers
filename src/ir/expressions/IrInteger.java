@@ -75,4 +75,8 @@ public final class IrInteger implements IrExpression {
 	public IrExpression getSubexpressions(CseContext context) {
 		return new IrInteger(mValue);
 	}
+	
+	public IrExpression clone(){
+		return new IrInteger(mValue)
+	}
 }

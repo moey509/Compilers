@@ -82,4 +82,8 @@ public class IrAppend implements IrExpression {
 	public IrExpression getSubexpressions(CseContext context) {
 		return new IrAppend(e1.getSubexpressions(context), e2.getSubexpressions(context), cubexType);
 	}
+	
+	public IrExpression clone(){
+		return new IrAppend(e1.clone(), e2.clone(), cubexType);
+	}
 }

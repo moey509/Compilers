@@ -118,4 +118,13 @@ public class IrIterable implements IrExpression {
 			e.getVars(set, map);
 		}
 	}
+	
+	public IrExpression clone(){
+		CubexList<IrExpression> lst = new CubexList<IrExpression>();
+		for (IrExpression expr : list.iterable()){
+			lst.add(expr.clone());
+		}
+		return new IrIterable(lst, cubexType);
+		
+	}
 }

@@ -305,4 +305,8 @@ public class IrBinaryExpression implements IrExpression {
 		leftExpression.getVars(set, map);
 		rightExpression.getVars(set, map);
 	}
+	
+	public IrExpression clone(){
+		return new IrBinaryExpression(leftExpression.clone(), rightExpression.clone(), operator, cubexType);
+	}
 }

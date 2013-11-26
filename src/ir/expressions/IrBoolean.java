@@ -77,4 +77,8 @@ public final class IrBoolean implements IrExpression {
 	public IrExpression getSubexpressions(CseContext context) {
 		return new IrBoolean(mValue);
 	}
+	
+	public IrExpression clone(){
+		return new IrBoolean(mValue);
+	}
 }
