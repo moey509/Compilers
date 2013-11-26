@@ -3,4 +3,4 @@ b := "hey";
 #c := ["hey"];
 #d := [a];
 
-return ["hey"];
+return [b]++["hey"];
