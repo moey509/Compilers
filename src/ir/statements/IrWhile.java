@@ -187,7 +187,7 @@ public final class IrWhile extends IrStatement {
 	}
 
 	public void removeCommonSubexpressions(CseContext context) {
-		CseContext context1 = context.clone()
+		CseContext context1 = context.clone();
 		context1.stripBinds(statements);
 		CseContext context2 = context.clone();
 
