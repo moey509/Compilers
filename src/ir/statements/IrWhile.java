@@ -170,11 +170,14 @@ public final class IrWhile extends IrStatement {
 				} else {
 					c.nextList.add(0, this);
 				}
-				statementlist.get(0).afterLoop = true;
-				statementlist.get(0).prevLoop = this;
-				statementlist.get(0).lastAfterLoop = false;
+
 				c.nextList.addAll(0, statementlist);
-				nextSet.add(c.nextList.removeFirst().getTop());
+				IrStatement first = c.nextList.removeFirst().getTop();
+				// do stuff with the first statement inside While
+				nextSet.add(first);
+				first.afterLoop = true;
+				first.prevLoop = this;
+				first.lastAfterLoop = false;
 
 				for (IrStatement s : statementlist) {
 					s.populateSets(c);
