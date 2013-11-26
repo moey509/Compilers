@@ -129,6 +129,9 @@ public class IrIf extends IrStatement {
 					arrList.add(s + "= NULL;");
 				}
 			}
+			for (IrStatement s2 : statements2) {
+				arrList.addAll(s2.toC(context, isMain, extras));
+			}
 
 			//Should be replaced by Ansha's code methinks
 			if(!context.lva){
