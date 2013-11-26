@@ -3,8 +3,11 @@ package optimization;
 
 import ir.expressions.IrExpression;
 import ir.expressions.IrVariableExpression;
+import ir.statements.IrBind;
+import ir.statements.IrStatement;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -101,6 +104,20 @@ public class CseContext {
 		}
 		for (Map.Entry<IrExpression, String> entry : expressionToVariableMap.entrySet()){
 			
+		}
+		return output;
+	}
+	
+	public CseContext stripBinds(List<IrStatement> lst){
+		CseContext output = clone();
+		for (IrStatement stmt : lst){
+			if (stmt instanceof IrBind){
+				IrBind bind = (IrBind) stmt;
+				if (output.variableToExpressionMap.containsKey(bind.getVariableName())){
+					IrExpression expr = output.variableToExpressionMap.get(bind.getVariableName());
+					output.putVariable(bind.getVariableName(), new IrVariableExpression(bind.getVariableName(), expr.getCType(), expr.getCubexType()));
+				}
+			}
 		}
 		return output;
 	}

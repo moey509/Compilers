@@ -256,7 +256,7 @@ public class IrFor extends IrStatement {
 	}
 
 	public void removeCommonSubexpressions(CseContext context) {
-		CseContext context1 = context.clone();
+		CseContext context1 = context.clone().stripBinds(statements);
 		CseContext context2 = context.clone();
 		context1.setInLoop(true);
 		context2.setInLoop(true);
