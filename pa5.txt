@@ -10,3 +10,5 @@ Compilers PA5 text file
 
 3. Additional Comments: 
    We spent a very long time fixing issues from PA4 and as a result we did not have time to complete Primitives. 
+   There are many bugs, especially with CSE because when we have a known bug with cloning a CSE context. 
+   CSE can be disabled by commenting out line 72 in IrMain.
