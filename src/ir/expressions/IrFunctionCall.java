@@ -158,7 +158,11 @@ public final class IrFunctionCall implements IrExpression {
 	}
 	
 	public IrExpression clone(){
-		return new IrFunctionCall(functionName, cType, cubexType);
+		IrFunctionCall output = new IrFunctionCall(functionName, cType, cubexType);
+		for (IrExpressionTuple tuple : arguments){
+			output.addArgument(new IrType(tuple.argType.type), tuple.expression.clone());
+		}
+		return output;
 	}
 }
 

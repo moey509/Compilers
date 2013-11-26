@@ -118,6 +118,14 @@ public class IrCFunctionCall implements IrExpression {
 	}
 	
 	public IrExpression clone(){
-		return new IrCFunctionCall(functionName, parameters, parameterTypes, cType);
+		ArrayList<String> newParams = new ArrayList<String>();
+		for (String s : parameters){
+			newParams.add(new String(s));
+		}
+		ArrayList<String> newParamTypes = new ArrayList<String>();
+		for (String s : parameterTypes){
+			newParamTypes.add(new String(s));
+		}
+		return new IrCFunctionCall(new String(functionName), newParams, newParamTypes, new String(cType));
 	}
 }

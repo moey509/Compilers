@@ -60,10 +60,10 @@ public class CseContext {
 		CseContext output = new CseContext();
 		
 		for (Map.Entry<String, IrExpression> entry : variableToExpressionMap.entrySet()){
-			output.variableToExpressionMap.put(entry.getKey()+"", entry.getValue());
+			output.variableToExpressionMap.put(new String(entry.getKey()), entry.getValue().clone());
 		}
 		for (Map.Entry<IrExpression, String> entry : expressionToVariableMap.entrySet()){
-			output.expressionToVariableMap.put(entry.getKey(), entry.getValue()+"");
+			output.expressionToVariableMap.put(entry.getKey().clone(), new String(entry.getValue()));
 		}
 		
 		return output;
@@ -93,13 +93,13 @@ public class CseContext {
 	}
 	
 	public void printContext(){
-//		System.out.println("------------");
-//		System.out.println("CseContext:");
-//		for (Map.Entry<String, IrExpression> entry : variableToExpressionMap.entrySet()){
-//			System.out.println(entry.getKey() + " => " + entry.getValue().toString());
-//		}
-//		System.out.println(variableToExpressionMap.toString());
-//		System.out.println(expressionToVariableMap.toString());
-//		System.out.println("------------");
+		System.out.println("------------");
+		System.out.println("CseContext:");
+		for (Map.Entry<String, IrExpression> entry : variableToExpressionMap.entrySet()){
+			System.out.println(entry.getKey() + " => " + entry.getValue().toString());
+		}
+		System.out.println(variableToExpressionMap.toString());
+		System.out.println(expressionToVariableMap.toString());
+		System.out.println("------------");
 	}
 }
