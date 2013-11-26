@@ -39,6 +39,10 @@ public class IrUnaryExpression implements IrExpression {
 	public String getCType() {
 		return cType;
 	}
+	
+	public IrUnaryExpression clone() {
+		return new IrUnaryExpression(expression.clone(), new String(operator), cubexType);
+	}
 
 	@Override
 	public String toC(CGenerationContext context) {

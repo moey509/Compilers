@@ -26,4 +26,6 @@ public interface IrExpression {
 	public IrExpression eliminateSubexpression(CseContext context);
 	
 	public IrExpression getSubexpressions(CseContext context);
+	
+	public IrExpression clone();
 }

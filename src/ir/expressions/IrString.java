@@ -26,6 +26,10 @@ public final class IrString implements IrExpression {
 		return this.cType;
 	}
 	
+	public IrString clone () {
+		return new IrString(new String(mValue));
+	}
+	
 	public String helper(int index, CGenerationContext context) {
 		if (index == mValue.length() - 2){
 			return ("iterable_append(new_git_obj(new_character(charuni('" + mValue.charAt(index) + "'))), NULL)");
