@@ -140,6 +140,7 @@ public final class IrWhile extends IrStatement {
 				IrStatement top = afterWhile.getTop();
 				top.afterLoop = true;
 				top.prevLoop = this;
+				top.lastAfterLoop = true;
 				nextSet.add(top);
 			}
 		
@@ -157,6 +158,9 @@ public final class IrWhile extends IrStatement {
 				} else {
 					c.nextList.add(0, this);
 				}
+				statementlist.get(0).afterLoop = true;
+				statementlist.get(0).prevLoop = this;
+				statementlist.get(0).lastAfterLoop = false;
 				c.nextList.addAll(0, statementlist);
 				nextSet.add(c.nextList.removeFirst().getTop());
 

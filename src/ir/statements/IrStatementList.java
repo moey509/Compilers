@@ -60,8 +60,9 @@ public class IrStatementList extends IrStatement{
 	public ArrayList<IrBind> getTemporaryVariables(){
 		for(IrStatement s : statementList){
 			this.temporaryBinds.addAll(s.getTemporaryVariables());
+			System.out.println("HELLO: " + s);
 		}
-		return this.temporaryBinds;
+		return new ArrayList<IrBind>();
 	}
 
 	@Override

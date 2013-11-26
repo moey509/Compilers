@@ -211,6 +211,7 @@ public class IrIf extends IrStatement {
 			
 			for (IrStatement s: nextSet) {
 				s.afterLoop = true;
+				s.lastAfterLoop = false;
 				s.prevLoop = this;
 			}
 		}

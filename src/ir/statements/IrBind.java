@@ -72,7 +72,7 @@ public final class IrBind extends IrStatement {
 //		if (!isMain) {
 //			context.varDecl.put(tuple.variableName, tuple.type.toC());
 //		}
-		if(!context.lva || !isDead()){
+		if(!isDead()){
 			if(temporaryBinds.size() > 0){
 				String s;
 				if (cse){
@@ -85,7 +85,6 @@ public final class IrBind extends IrStatement {
 				output.add("ref_decrement((General_t)" + tuple.variableName + ");");
 				output.add(tuple.variableName + " = " + s + ";");
 				output.add("ref_increment((General_t)" + tuple.variableName + ");");
-
 			}
 			else{			
 				//Decrements whatever was previously bound to this variable
@@ -94,7 +93,7 @@ public final class IrBind extends IrStatement {
 				if (expression instanceof IrFunctionCall) {
 					IrFunctionCall funcCall = (IrFunctionCall) expression;
 					if(!funcCall.functionName.equals("_string") && !funcCall.functionName.equals("_character")){
-
+						System.out.println("FUNCCALL: " + funcCall.functionName);
 						//Increments arguments before a function call
 						for (IrExpressionTuple tuple : funcCall.getArugments()) {
 							output.add("ref_increment((General_t)" + tuple.getExpression().toC(context)+ ");");
