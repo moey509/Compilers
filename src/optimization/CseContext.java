@@ -21,6 +21,7 @@ public class CseContext {
 		if (variableToExpressionMap.containsKey(variable)){
 			IrExpression oldExpr = variableToExpressionMap.get(variable);
 			if (expressionToVariableMap.get(oldExpr).equals(variable)){
+				
 				for (Map.Entry<String, IrExpression> entry : variableToExpressionMap.entrySet()){
 					if (entry.getValue().equals(oldExpr)){
 						expressionToVariableMap.put(oldExpr, entry.getKey());
@@ -59,7 +60,10 @@ public class CseContext {
 		CseContext output = new CseContext();
 		
 		for (Map.Entry<String, IrExpression> entry : variableToExpressionMap.entrySet()){
-			output.putVariable(entry.getKey(), entry.getValue());
+			output.variableToExpressionMap.put(entry.getKey()+"", entry.getValue());
+		}
+		for (Map.Entry<IrExpression, String> entry : expressionToVariableMap.entrySet()){
+			output.expressionToVariableMap.put(entry.getKey(), entry.getValue()+"");
 		}
 		
 		return output;
@@ -73,10 +77,10 @@ public class CseContext {
 		for (Map.Entry<String, IrExpression> entry : variableToExpressionMap.entrySet()){
 			if (mergedContext.containsVariable(entry.getKey())){
 				if (entry.getValue().equals(mergedContext.getExpression(entry.getKey()))){
-					output.variableToExpressionMap.put(entry.getKey(), entry.getValue());
+					output.putVariable(entry.getKey(), entry.getValue());
 				}
 				else{
-					output.variableToExpressionMap.put(entry.getKey(),
+					output.putVariable(entry.getKey(),
 							new IrVariableExpression(entry.getKey(), entry.getValue().getCType(), 
 									entry.getValue().getCubexType()));
 				}
