@@ -1,0 +1,1 @@
+return ["FUCK"]++["THIS"]++[if (true) ["CLASS"]];
