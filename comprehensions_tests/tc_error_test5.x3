@@ -1,0 +1,1 @@
+return ["hello", if (false) 1];
