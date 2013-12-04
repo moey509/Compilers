@@ -203,7 +203,7 @@ public class IrFor extends IrStatement {
 		lvaHelper(c);
 		if (c.debug) {
 			// DEBUG STATEMENTS
-//			System.out.println(toString());
+			System.out.println(toString());
 			lvaDebugHelper();
 		}
 		

@@ -142,8 +142,8 @@ public final class IrBind extends IrStatement {
 
 		if (c.debug) {
 			// DEBUG STATEMENTS
-//			System.out.println(toString());
-//			System.out.println("  isDead: " + isDead());
+			System.out.println(toString());
+			System.out.println("  isDead: " + isDead());
 			lvaDebugHelper();
 		}
 	}

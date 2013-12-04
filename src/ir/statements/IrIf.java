@@ -154,7 +154,7 @@ public class IrIf extends IrStatement {
 		
 		if (c.debug) {
 			// DEBUG STATEMENTS
-//			System.out.println(toString());
+			System.out.println(toString());
 			lvaDebugHelper();
 		}
 		

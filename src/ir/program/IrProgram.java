@@ -188,14 +188,14 @@ public class IrProgram {
 					if (debug) {
 						//DEBUG STATEMENTS
 						c.debug = true;
-//						System.out.println(">>>> BEGIN FUNCTION LOOP");
-//						System.out.println(f.functionName);
+						System.out.println(">>>> BEGIN FUNCTION LOOP");
+						System.out.println(f.functionName);
 						// lva all function statements
 						for (IrStatement s : fcnstatements) {
 							s.lva(c);
 						}
-//						System.out.println("END FUNCTION LOOP <<<<");
-//						System.out.println("");
+						System.out.println("END FUNCTION LOOP <<<<");
+						System.out.println("");
 					}
 				}
 			} // else IrProgramElem is struct, in which case we do nothing
@@ -215,12 +215,12 @@ public class IrProgram {
 		if (debug) {
 			c0.debug = true;
 			// DEBUG STATEMENTS
-//			System.out.println(">>>> BEGIN STATEMENT LOOP");
+			System.out.println(">>>> BEGIN STATEMENT LOOP");
 			for (IrStatement s : statements) {
 				s.lva(c0);
 			}
-//			System.out.println("END STATEMENT LOOP <<<<");
-//			System.out.println("");
+			System.out.println("END STATEMENT LOOP <<<<");
+			System.out.println("");
 		}
 	}
 
