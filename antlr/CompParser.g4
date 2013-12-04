@@ -2,7 +2,16 @@ parser grammar CompParser;
 options { tokenVocab = CubexLexer; }
 
 @header {
+package parser;
 import java.util.*;
+import parsingTokens.*;
+import parsingTokens.expressions.*;
+import parsingTokens.context.*;
+import parsingTokens.operations.*;
+import parsingTokens.program.*;
+import parsingTokens.statements.*;
+import parsingTokens.typeGrammar.*;
+import parsingTokens.comprehension.*;
 }
 @parser::members {
   CubexProgram programAST; 
@@ -44,11 +53,11 @@ tscheme returns [CubexTypeScheme cub]
     $cub = new CubexTypeScheme(kcontlist, $tcont.cub, $type.cub); }
 ;
 
-comp return [CubexComp cub]
-  : e=expr { $cub = new CompPair(new CubexExpression($e.cub), null); }
-  | e=expr COMMA c=comp { $cub = new CompPair(new CubexExpression($e.cub), $c.cub); }
+comp returns [Comp cub]
+  : e=expr { $cub = new CompPair($e.cub, null); }
+  | e=expr COMMA c=comp { $cub = new CompPair($e.cub, $c.cub); }
   | IF LPAREN e=expr RPAREN c=comp { $cub = new CompIf($e.cub, $c.cub); }
-  | FOR LPAREN VARFUN IN e=expr RPAREN s=statement { $cub = new CompFor($VARFUN.text, $e.cub, $s.cub); }
+  | FOR LPAREN VARFUN IN e=expr RPAREN c=comp { $cub = new CompFor($VARFUN.text, $e.cub, $c.cub); }
 ;
 
 expr returns [CubexExpression cub]
