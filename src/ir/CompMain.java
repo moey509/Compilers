@@ -38,7 +38,7 @@ public class CompMain {
 	public static void main(String[] args) throws IOException {
 //		 CharStream charStream = new ANTLRFileStream(args[0]);
 
-		CharStream charStream = new ANTLRFileStream("cg_tests/c_stage1_test6.x3");
+		CharStream charStream = new ANTLRFileStream("comprehensions_tests/parser_error_test4.x3");
 		CubexLexer cubLexer = new CubexLexer(charStream);
 		cubLexer.removeErrorListeners();
 
@@ -57,8 +57,9 @@ public class CompMain {
 
 		cubParser.fullprogram();
 		// ParseTree parseTree = xiParser.fullprogram();
+		System.out.println(cubParser.programAST.toString());
 
-		CubexCompleteContext c = (new TypeCheckerMain()).initialize();
+//		CubexCompleteContext c = (new TypeCheckerMain()).initialize();
 		if (cubParser.getNumberOfSyntaxErrors() > 0) {
 			System.out.print("reject");
 			return;

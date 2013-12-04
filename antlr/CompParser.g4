@@ -69,6 +69,7 @@ expr returns [CubexExpression cub]
   |  ex=expr DOT VARFUN {CubexList<CubexTypeGrammar> teslist = new CubexList<CubexTypeGrammar>();} (LANGLE tes=types { teslist = $tes.cub; }  RANGLE)? LPAREN pes=exprs RPAREN 
     { $cub = new CubexFunctionApp($ex.cub, $VARFUN.text, teslist, $pes.cub); }
   | LBRACKET c=comp RBRACKET {$cub = new CubexIterableComp($c.cub); }
+  | LBRACKET RBRACKET {$cub = new CubexIterableComp(null); }
   | TRUE { $cub = new CubexBoolean(true); }
   | FALSE { $cub = new CubexBoolean(false); }
   | INTEGER { $cub = new CubexInteger($INTEGER.int); }

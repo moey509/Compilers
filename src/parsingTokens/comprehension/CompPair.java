@@ -19,7 +19,10 @@ public class CompPair extends Comp {
 	}
 	
 	public String toString() {
-		return e.toString() + " , " + comp.toString();
+		if (comp!=null) {
+			return e.toString() + " , " + comp.toString();
+		}
+		return e.toString();
 	}
 
 	@Override

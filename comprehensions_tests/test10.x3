@@ -1,5 +1,5 @@
 lst := [0..10];
-lst := [for (i in lst) if (i < 5) lst]
+lst := [for (i in lst) if (i < 5) lst];
 
 output := [];
 for (i in lst){
