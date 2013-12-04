@@ -41,7 +41,7 @@ public class TypeCheckerMain {
 	public static void main(String[] args) throws IOException {
 		// CharStream charStream = new ANTLRFileStream(args[0]);
 		CharStream charStream = new ANTLRFileStream(
-				"cg_tests/c_stage2_test7.x3");
+				"comprehensions_tests/test3.x3");
 		CubexLexer cubLexer = new CubexLexer(charStream);
 		cubLexer.removeErrorListeners();
 
@@ -71,7 +71,7 @@ public class TypeCheckerMain {
 		// System.out.println(c.functionContext);
 		// System.out.println(c.classContext);
 		if (cubParser.getNumberOfSyntaxErrors() > 0) {
-			System.out.print("reject");
+			System.out.print("parser reject");
 			return;
 		}
 		// TODO GET RID OF THIS PRINT STATEMENT BEFORE WE SUBMIT
@@ -82,7 +82,7 @@ public class TypeCheckerMain {
 		} catch (SemanticException e) {
 			// TODO GET RID OF e.toString() BEFORE WE SUBMIT
 			e.printStackTrace();
-			System.out.print("reject" + e.toString());
+			System.out.print("type checker reject" + e.toString());
 		}
 	}
 

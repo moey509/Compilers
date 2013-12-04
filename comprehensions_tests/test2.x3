@@ -1,1 +1,1 @@
-return ["FUCK"]++["THIS", if (true) ["CLASS"]];
+return [if (true) "Hello World"];
