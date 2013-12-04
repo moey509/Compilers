@@ -1,0 +1,7 @@
+a := true;
+
+while (a) {
+	a := false;
+}
+
+return ["yay"];

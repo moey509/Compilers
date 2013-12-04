@@ -307,6 +307,6 @@ public class IrBinaryExpression implements IrExpression {
 	}
 	
 	public IrExpression clone(){
-		return new IrBinaryExpression(leftExpression.clone(), rightExpression.clone(), operator, cubexType);
+		return new IrBinaryExpression(leftExpression.clone(), rightExpression.clone(), new String(operator), cubexType);
 	}
 }

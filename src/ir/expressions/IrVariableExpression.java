@@ -26,8 +26,8 @@ public class IrVariableExpression implements IrExpression {
 		this.cubexType = null;
 	}
 	
-	public IrVariableExpression clone() {
-		return new IrVariableExpression(new String(variableName), new String(cType));
+	public IrExpression clone() {
+		return new IrVariableExpression(new String(variableName), new String(cType), cubexType);
 	}
 
 	public IrVariableExpression(String variableName, String cType, CubexTypeGrammar cubexType) {

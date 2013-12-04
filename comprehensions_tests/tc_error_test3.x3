@@ -1,0 +1,1 @@
+return [for (bool in ["true", "false", "true"]) if (bool) "Hello"];

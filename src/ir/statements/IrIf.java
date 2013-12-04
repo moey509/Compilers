@@ -239,10 +239,11 @@ public class IrIf extends IrStatement {
 		for (IrStatement statement : statements1){
 			statement.removeCommonSubexpressions(context1);
 		}
-		for (IrStatement statement : statements1){
+		for (IrStatement statement : statements2){
 			statement.removeCommonSubexpressions(context2);
 		}
-		context = context1.merge(context2);
+		context.setContext(context1.merge(context2));
+
 	}
 
 	@Override

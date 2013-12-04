@@ -40,7 +40,7 @@ public class IrUnaryExpression implements IrExpression {
 		return cType;
 	}
 	
-	public IrUnaryExpression clone() {
+	public IrExpression clone() {
 		return new IrUnaryExpression(expression.clone(), new String(operator), cubexType);
 	}
 

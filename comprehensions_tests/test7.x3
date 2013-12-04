@@ -1,0 +1,4 @@
+x := ["Hello", "World"];
+y := ["!", "!!"];
+output := [for (hello in x) for (exclamation in y) x++y];
+return output;

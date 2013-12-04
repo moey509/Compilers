@@ -1,0 +1,13 @@
+a := 1;
+
+if (true){
+	a := 2;
+}
+else {
+	a := 3;
+}
+
+k := a;
+if (k == 2)
+	return ["Yes"];
+return ["No"];
