@@ -22,8 +22,11 @@ public class CompIf extends Comp {
 
 	@Override
 	public CubexTypeGrammar typeCheck(CubexCompleteContext c) throws SemanticException {
-		// TODO Auto-generated method stub
-		return null;
+		if (!e.typeCheck(c).getName().equals("Boolean"))
+			throw new SemanticException(e.toString() + " must be of type Boolean");
+		if (comp == null)
+			throw new SemanticException("Cannot have a null comprehension following an if");
+		return comp.typeCheck(c);
 	}
 
 	@Override

@@ -2,17 +2,23 @@ package parsingTokens.expressions;
 
 import ir.expressions.IrIterable;
 import ir.statements.IrBind;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
+
 import Exception.SemanticException;
 import parsingTokens.comprehension.Comp;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
+import parsingTokens.typeGrammar.CubexTypeName;
 import typeChecker.CubexCompleteContext;
 import typeChecker.IrGenerationContext;
 
 public class CubexIterableComp extends CubexExpression {
 	Comp comp; // may be null!
+	
+	CubexTypeGrammar cubexType;
+	CubexCompleteContext cubexContext;
 	
 	public CubexIterableComp(Comp c) {
 		this.comp = c;
@@ -35,7 +41,14 @@ public class CubexIterableComp extends CubexExpression {
 
 	// Check if the expression is of some type
 	public CubexTypeGrammar typeCheck(CubexCompleteContext c) throws SemanticException {
-		return null;
+		if (comp == null){
+			cubexType = new CubexTypeName("Nothing");
+		} 
+		else {
+			cubexContext = c.clone();
+			cubexType = comp.typeCheck(cubexContext);
+		}
+		return cubexType;
 	}
 	
 	@Override
