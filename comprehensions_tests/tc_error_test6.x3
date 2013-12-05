@@ -1,1 +1,1 @@
-return [for (i in ["Hello"]) 
+return [for (i in ["Hello"])] 

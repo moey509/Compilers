@@ -1,25 +1,23 @@
 package parsingTokens.expressions;
 
+import ir.IrType;
+import ir.expressions.IrCFunctionCall;
+import ir.expressions.IrExpression;
+import ir.expressions.IrIterable;
+import ir.program.IrTypeTuple;
+import ir.statements.IrBind;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 
-import ir.IrType;
-import ir.expressions.IrCFunctionCall;
-import ir.expressions.IrExpression;
-import ir.expressions.IrFunctionCall;
-import ir.expressions.IrIterable;
-import ir.expressions.IrVariableExpression;
-import ir.program.IrTypeTuple;
-import ir.statements.IrBind;
-import ir.statements.IrStatement;
-import Exception.SemanticException;
 import parsingTokens.CubexList;
 import parsingTokens.typeGrammar.CubexTypeClass;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import typeChecker.CubexCompleteContext;
 import typeChecker.IrGenerationContext;
+import Exception.SemanticException;
 
 public class CubexIterable extends CubexExpression {
 	CubexList<CubexExpression> list;
