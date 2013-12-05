@@ -32,10 +32,11 @@ public class CompFor extends Comp {
 		tempList.add(new CubexTypeName("Thing"));
 		if (!(new CubexTypeClass("Iterable", tempList)).isSuperTypeOf(c, exprType)) 
 			throw new SemanticException(e.toString() + " must be of type Iterable");
-		if (comp == null)
-			throw new SemanticException("Cannot have a null comprehension following a for");
+//		if (comp == null)
+//			throw new SemanticException("Cannot have a null comprehension following a for");
 		CubexCompleteContext c1 = c.clone();
 		c1.mutableTypeContext.put(v, exprType.getTypeList().get(0));
+		System.out.println(c1.toString());
 		return comp.typeCheck(c1);
 	}
 

@@ -1,1 +1,1 @@
-return [if (true) for (i in [1..3]) "Hello"];
+return [if (true) for (i in 1..3) "Hello"];

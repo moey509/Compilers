@@ -31,7 +31,7 @@ public class CompPair extends Comp {
 			return new CubexTypeName("Nothing");
 		} else {
 			cubexType = e.typeCheck(c);
-			if (c == null){
+			if (comp == null){
 				return cubexType;
 			} else {
 				return cubexType.join(c, comp.typeCheck(c));

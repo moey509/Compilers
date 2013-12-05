@@ -48,7 +48,7 @@ public class CubexProgramStatement implements CubexProgramType {
 		if (!ret.guaranteedToReturn
 				|| !(new CubexTypeClass("Iterable", iterableString))
 						.isSuperTypeOf(c, ret.retType)) {
-			throw new SemanticException("CubexProgramStatement");
+			throw new SemanticException("CubexProgramStatement " +  ret.retType.toString() + "is not a subtype of Iterable<String>");
 		}
 		globalVariableSet = new HashSet<String>(c.typeContext.keySet());
 		freeContext = new HashSet<String>(c.typeContext.keySet());

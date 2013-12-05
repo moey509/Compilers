@@ -1,4 +1,4 @@
-evens := [for (i in (1..5)) 2*i];
+evens := [for (i in 1..5) 2*i];
 output := [];
 for (j in evens){
 	if (j == 2) {

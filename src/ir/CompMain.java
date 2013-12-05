@@ -38,7 +38,7 @@ public class CompMain {
 	public static void main(String[] args) throws IOException {
 //		 CharStream charStream = new ANTLRFileStream(args[0]);
 
-		CharStream charStream = new ANTLRFileStream("comprehensions_tests/parser_error_test4.x3");
+		CharStream charStream = new ANTLRFileStream("comprehensions_tests/tc_error_test5.x3");
 		CubexLexer cubLexer = new CubexLexer(charStream);
 		cubLexer.removeErrorListeners();
 
@@ -57,17 +57,17 @@ public class CompMain {
 
 		cubParser.fullprogram();
 		// ParseTree parseTree = xiParser.fullprogram();
-		System.out.println(cubParser.programAST.toString());
 
-//		CubexCompleteContext c = (new TypeCheckerMain()).initialize();
+		CubexCompleteContext c = (new TypeCheckerMain()).initialize();
 		if (cubParser.getNumberOfSyntaxErrors() > 0) {
 			System.out.print("reject");
 			return;
 		}
-//		System.out.println(cubParser.programAST);
-//		try {
-//			cubParser.programAST.typeCheck(c);
-//			// replace all C keywords with a safe version
+		System.out.println(cubParser.programAST);
+		try {
+			cubParser.programAST.typeCheck(c);
+			System.out.println("Passed Typechecker");
+			// replace all C keywords with a safe version
 //			cubParser.programAST.replaceCKeyWords();
 //			IrGenerationContext context = new IrGenerationContext();
 //			IrProgram program = cubParser.programAST.toIr(context, new IrProgram());
@@ -86,13 +86,12 @@ public class CompMain {
 //				writer.write(s + "\n");
 //			}
 //			writer.close();
-//			
-//		} catch (SemanticException e) {
-//			// TODO GET RID OF e.toString() BEFORE WE SUBMIT
-////			e.printStackTrace();
-////			System.out.print("reject" + e.toString());
-//			System.out.print("reject");
-//		}
+			
+		} catch (SemanticException e) {
+			// TODO GET RID OF e.toString() BEFORE WE SUBMIT
+			e.printStackTrace();
+			System.out.print("reject " + e.toString());
+		}
 	}
 
 	static class ErrorListener implements ANTLRErrorListener {
