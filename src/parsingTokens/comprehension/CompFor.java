@@ -1,5 +1,8 @@
 package parsingTokens.comprehension;
 
+import ir.comp.IrComprehension;
+import ir.comp.IrComprehensionFor;
+
 import java.util.HashMap;
 import java.util.Set;
 
@@ -10,9 +13,12 @@ import parsingTokens.typeGrammar.CubexTypeClass;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import parsingTokens.typeGrammar.CubexTypeName;
 import typeChecker.CubexCompleteContext;
+import typeChecker.IrGenerationContext;
 
 public class CompFor extends Comp {
 	private String v;
+	
+	CubexTypeGrammar cubexType;
 //	private Set<String> freeContext;
 	
 	public CompFor(String v, CubexExpression e, Comp c) {
@@ -32,12 +38,11 @@ public class CompFor extends Comp {
 		tempList.add(new CubexTypeName("Thing"));
 		if (!(new CubexTypeClass("Iterable", tempList)).isSuperTypeOf(c, exprType)) 
 			throw new SemanticException(e.toString() + " must be of type Iterable");
-//		if (comp == null)
-//			throw new SemanticException("Cannot have a null comprehension following a for");
 		CubexCompleteContext c1 = c.clone();
 		c1.mutableTypeContext.put(v, exprType.getTypeList().get(0));
-		System.out.println(c1.toString());
-		return comp.typeCheck(c1);
+		//System.out.println(c1.toString());
+		cubexType = comp.typeCheck(c1);
+		return cubexType;
 	}
 
 	@Override
@@ -50,5 +55,10 @@ public class CompFor extends Comp {
 	public void replaceVars(HashMap<String, String> map) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public IrComprehension toIr(IrGenerationContext context) {
+		return new IrComprehensionFor(comp.toIr(context), e.toIr(context), v, cubexType);
 	}
 }

@@ -1,5 +1,9 @@
 package parsingTokens.comprehension;
 
+import ir.comp.IrComprehension;
+import ir.comp.IrComprehensionFor;
+import ir.comp.IrComprehensionIf;
+
 import java.util.HashMap;
 import java.util.Set;
 
@@ -7,9 +11,11 @@ import Exception.SemanticException;
 import parsingTokens.expressions.CubexExpression;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import typeChecker.CubexCompleteContext;
+import typeChecker.IrGenerationContext;
 
 public class CompIf extends Comp {
-//	private Set<String> freeContext;
+	CubexTypeGrammar cubexType;
+	
 	
 	public CompIf(CubexExpression e, Comp c) {
 		this.e = e;
@@ -26,7 +32,8 @@ public class CompIf extends Comp {
 			throw new SemanticException(e.toString() + " must be of type Boolean");
 		if (comp == null)
 			throw new SemanticException("Cannot have a null comprehension following an if");
-		return comp.typeCheck(c);
+		cubexType = comp.typeCheck(c);
+		return cubexType;
 	}
 
 	@Override
@@ -39,6 +46,11 @@ public class CompIf extends Comp {
 	public void replaceVars(HashMap<String, String> map) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public IrComprehension toIr(IrGenerationContext context) {
+		return new IrComprehensionIf(comp.toIr(context), e.toIr(context), cubexType);
 	}
 
 }

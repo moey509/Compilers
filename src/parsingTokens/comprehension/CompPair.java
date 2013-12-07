@@ -1,5 +1,8 @@
 package parsingTokens.comprehension;
 
+import ir.comp.IrComprehension;
+import ir.comp.IrComprehensionPair;
+
 import java.util.HashMap;
 import java.util.Set;
 
@@ -8,9 +11,9 @@ import parsingTokens.expressions.CubexExpression;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import parsingTokens.typeGrammar.CubexTypeName;
 import typeChecker.CubexCompleteContext;
+import typeChecker.IrGenerationContext;
 
 public class CompPair extends Comp {
-//	private Set<String> freeContext;
 	CubexTypeGrammar cubexType;
 	
 	public CompPair(CubexExpression e, Comp c) {
@@ -51,4 +54,15 @@ public class CompPair extends Comp {
 		
 	}
 
+	@Override
+	public IrComprehension toIr(IrGenerationContext context) {
+		IrComprehensionPair output;
+		if (comp == null){
+			output = new IrComprehensionPair(null, e.toIr(context), cubexType);
+		}
+		else{
+			output = new IrComprehensionPair(comp.toIr(context), e.toIr(context), cubexType);
+		}
+		return output;
+	}
 }
