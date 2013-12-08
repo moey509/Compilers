@@ -1,2 +1,2 @@
-a := [true, false, true, false, true, false]
-return := [for (i in a) if (i) "Hello"]
+a := [true, false, true, false, true, false];
+return [for (i in a) if (i) "Hello"];

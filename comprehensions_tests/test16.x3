@@ -1,4 +1,4 @@
 i := "a";
-x := [for (i in ["b", "c"]) i]
+x := [for (i in ["b", "c"]) i];
 
-return [i]++[x];
+return [i]++x;
