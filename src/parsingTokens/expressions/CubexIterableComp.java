@@ -61,10 +61,16 @@ public class CubexIterableComp extends CubexExpression {
 	
 	@Override
 	public void getVars(Set<String> set){
+		if (comp!=null) {
+			comp.getVars(set);
+		}
 	}
 	
 	@Override
 	public void replaceVars(HashMap<String, String> map) {
+		if (comp!=null) {
+			comp.replaceVars(map);
+		}
 	}
 	
 	public boolean equals(CubexIterable expr){

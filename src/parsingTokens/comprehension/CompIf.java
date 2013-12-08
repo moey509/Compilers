@@ -38,14 +38,18 @@ public class CompIf extends Comp {
 
 	@Override
 	public void getVars(Set<String> set) {
-		// TODO Auto-generated method stub
-		
+		e.getVars(set);
+		if (comp!=null) {
+			comp.getVars(set);
+		}
 	}
 
 	@Override
 	public void replaceVars(HashMap<String, String> map) {
-		// TODO Auto-generated method stub
-		
+		e.replaceVars(map);
+		if (comp!=null) {
+			comp.replaceVars(map);
+		}
 	}
 
 	@Override

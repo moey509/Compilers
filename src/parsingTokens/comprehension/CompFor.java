@@ -47,14 +47,22 @@ public class CompFor extends Comp {
 
 	@Override
 	public void getVars(Set<String> set) {
-		// TODO Auto-generated method stub
-		
+		set.add(v);
+		e.getVars(set);
+		if (comp!=null) {
+			comp.getVars(set);
+		}
 	}
 
 	@Override
 	public void replaceVars(HashMap<String, String> map) {
-		// TODO Auto-generated method stub
-		
+		if (map.containsKey(v)) {
+			v = map.get(v);
+		}
+		e.replaceVars(map);
+		if (comp!=null) {
+			comp.replaceVars(map);
+		}
 	}
 
 	@Override
