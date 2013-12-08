@@ -38,7 +38,7 @@ public class CompMain {
 	public static void main(String[] args) throws IOException {
 //		 CharStream charStream = new ANTLRFileStream(args[0]);
 
-		CharStream charStream = new ANTLRFileStream("comprehensions_tests/tc_error_test5.x3");
+		CharStream charStream = new ANTLRFileStream("comprehensions_tests/test12.x3");
 		CubexLexer cubLexer = new CubexLexer(charStream);
 		cubLexer.removeErrorListeners();
 
@@ -63,12 +63,13 @@ public class CompMain {
 			System.out.print("reject");
 			return;
 		}
-		System.out.println(cubParser.programAST);
+//		System.out.println(cubParser.programAST);
 		try {
 			cubParser.programAST.typeCheck(c);
 			System.out.println("Passed Typechecker");
 			// replace all C keywords with a safe version
-//			cubParser.programAST.replaceCKeyWords();
+			cubParser.programAST.replaceCKeyWords();
+			System.out.println(cubParser.programAST.toString());
 //			IrGenerationContext context = new IrGenerationContext();
 //			IrProgram program = cubParser.programAST.toIr(context, new IrProgram());
 ////			program.removeCommonSubexpressions();
