@@ -1,6 +1,7 @@
 package parsingTokens.expressions;
 
 import ir.expressions.IrIterable;
+import ir.expressions.IrIterableComp;
 import ir.statements.IrBind;
 
 import java.util.ArrayList;
@@ -27,11 +28,11 @@ public class CubexIterableComp extends CubexExpression {
 	}
 		
 	public ArrayList<IrBind> getExpressions(IrGenerationContext context){
-		return null;
+		return new ArrayList<IrBind>();
 	}
 	
-	public IrIterable toIr(IrGenerationContext context) {
-		return null;
+	public IrIterableComp toIr(IrGenerationContext context) {
+		return new IrIterableComp();
 	}
 
 	public String toString() {

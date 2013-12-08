@@ -16,6 +16,7 @@ public class IrGenerationContext {
 	private Map<String, Set<CubexFunctionDef>> objectToFunctionMap;
 	private Map<String, CubexFunctionDef> objectToConstructorMap;
 	int count = 0;
+	int comprehensionCount = 0;
 	
 	public int nextCount(){
 		return count++;
@@ -144,6 +145,13 @@ public class IrGenerationContext {
 		
 		
 		return sb.toString();
+	}
+
+	public String nextComprehensionName() {
+		return "__comp" + nextComprehensionCount();
+	}
+	public int nextComprehensionCount(){
+		return comprehensionCount++;
 	}
 	
 }

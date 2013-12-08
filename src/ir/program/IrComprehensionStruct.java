@@ -7,17 +7,16 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import optimization.LvaContext;
 import optimization.CseContext;
 
-public class IrStruct implements IrProgramElem{
+public class IrComprehensionStruct implements IrProgramElem {
 	public String structName;
-	public String constructableComponent;
+	public String nestedComprehension;
 	public List<IrTypeTuple> structVariables;
-
-	public IrStruct(String structName, String constructableComponent){
+	
+	public IrComprehensionStruct(String structName, String nestedComprehension){
 		this.structName = structName;
-		this.constructableComponent = constructableComponent;
+		this.nestedComprehension = nestedComprehension;
 		this.structVariables = new ArrayList<IrTypeTuple>();
 	}
 	
@@ -30,23 +29,19 @@ public class IrStruct implements IrProgramElem{
 		arr.add("typedef struct " + structName + "* "	+ structName + "_t;");
 		arr.add("struct " + structName);
 		arr.add("{");
-		arr.add("int ref_count;");
-		arr.add("char** fun_names;");
-		arr.add("int fun_length;");
-		arr.add("functionPointer** fun_ptrs;");	
-		if(this.constructableComponent.equals("Thing")){
-			arr.add("General_t con_comp;");
+		if(this.nestedComprehension.equals(null)){
+			arr.add("General_t _nest_comp;");
 		}else{
-			arr.add(this.constructableComponent + "_t con_comp;");
+			arr.add(this.nestedComprehension + "_t _nest_comp;");
 		}
-		arr.add("int is_iter;");
-		arr.add("int is_thru_ward;");
+		arr.add("git_t _iterable;");
+		arr.add("iterator_t _iterator;");
 		Set<String> varSet = new HashSet<String>();
 		for(IrTypeTuple t : structVariables){
 			arr.add(t.type.declarationInStruct() + " " + t.variableName + ";");
 			varSet.add(t.variableName);
 		}
-		context.objectToDataMap.put(structName, varSet);
+		//context.objectToDataMap.put(structName, varSet);
 		
 		arr.add("};");
 		
@@ -55,6 +50,7 @@ public class IrStruct implements IrProgramElem{
 
 	@Override
 	public void removeCommonSubexpressions(CseContext context) {
-		//DO NOTHING
+		// TODO Auto-generated method stub
+		
 	}
 }

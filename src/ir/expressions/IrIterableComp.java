@@ -32,7 +32,7 @@ public class IrIterableComp implements IrExpression{
 	@Override
 	public String toC(CGenerationContext context) {
 		// TODO Auto-generated method stub
-		return null;
+		return "";
 	}
 
 	@Override

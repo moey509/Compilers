@@ -28,6 +28,10 @@ public class CompIf extends Comp {
 
 	@Override
 	public CubexTypeGrammar typeCheck(CubexCompleteContext c) throws SemanticException {
+		for(String s : c.mutableTypeContext.keySet()){
+			CubexTypeGrammar g = c.mutableTypeContext.get(s);
+			varList.put(s, g);
+		}
 		if (!e.typeCheck(c).getName().equals("Boolean"))
 			throw new SemanticException(e.toString() + " must be of type Boolean");
 		if (comp == null)

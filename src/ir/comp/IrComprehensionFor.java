@@ -1,5 +1,6 @@
 package ir.comp;
 
+import ir.CGenerationContext;
 import ir.expressions.IrExpression;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 
@@ -17,6 +18,12 @@ public class IrComprehensionFor implements IrComprehension{
 		this.expression = expression;
 		this.variableName = variableName;
 		this.cubexType = cubexType;
+	}
+
+	@Override
+	public String toC(CGenerationContext context) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

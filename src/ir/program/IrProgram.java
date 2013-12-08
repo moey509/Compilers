@@ -29,6 +29,11 @@ public class IrProgram {
 		programElementList.add(struct);
 	}
 	
+	public void addComprehensionStruct(IrComprehensionStruct struct) {
+		// TODO Auto-generated method stub
+		programElementList.add(struct);
+	}
+	
 	public void addGlobalFunction(IrFunction function){
 		programElementList.add(function);
 	}
@@ -40,7 +45,7 @@ public class IrProgram {
 	
 	public ArrayList<String> toC(){
 		CGenerationContext context = new CGenerationContext();
-		context.lva = true;
+		//context.lva = true;
 		ArrayList<String> output = new ArrayList<String>();
 		ArrayList<String> preOut = new ArrayList<String>();
 		ArrayList<String> postOut = new ArrayList<String>();
@@ -49,11 +54,15 @@ public class IrProgram {
 		ArrayList<IrFunction> functions = new ArrayList<IrFunction>();
 		ArrayList<IrStatement> statements = new ArrayList<IrStatement>();
 		ArrayList<IrStruct> structs = new ArrayList<IrStruct>();
+		ArrayList<IrComprehensionStruct> comprehensionStructs = new ArrayList<IrComprehensionStruct>();
 		
 		for (IrProgramElem i : programElementList) {
 			if (i instanceof IrStruct) {
 				IrStruct struct = (IrStruct) i;
 				structs.add(struct);
+			} else if(i instanceof IrComprehensionStruct){
+				IrComprehensionStruct struct = (IrComprehensionStruct) i;
+				comprehensionStructs.add(struct);
 			} else if (i instanceof IrFunction) {
 				IrFunction func = (IrFunction) i;
 				functions.add(func);
@@ -67,6 +76,9 @@ public class IrProgram {
 		
 		for (IrStruct irStruct : structs){
 			declarations.addAll(irStruct.toC(context, false, null));
+		}
+		for (IrComprehensionStruct struct : comprehensionStructs){
+			declarations.addAll(struct.toC(context, false, null));
 		}
 		for (IrFunction irFunction : functions){
 			declarations.add(irFunction.topDeclaration());
@@ -231,4 +243,5 @@ public class IrProgram {
 		}
 		context.printContext();
 	}
+
 }

@@ -31,6 +31,10 @@ public class CompPair extends Comp {
 
 	@Override
 	public CubexTypeGrammar typeCheck(CubexCompleteContext c) throws SemanticException {
+		for(String s : c.mutableTypeContext.keySet()){
+			CubexTypeGrammar g = c.mutableTypeContext.get(s);
+			varList.put(s, g);
+		}
 		if (e == null){
 			return new CubexTypeName("Nothing");
 		} else {

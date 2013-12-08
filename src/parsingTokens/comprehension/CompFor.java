@@ -33,6 +33,10 @@ public class CompFor extends Comp {
 
 	@Override
 	public CubexTypeGrammar typeCheck(CubexCompleteContext c) throws SemanticException {
+		for(String s : c.mutableTypeContext.keySet()){
+			CubexTypeGrammar g = c.mutableTypeContext.get(s);
+			varList.put(s, g);
+		}
 		CubexTypeGrammar exprType = e.typeCheck(c);
 		CubexList<CubexTypeGrammar> tempList = new CubexList<CubexTypeGrammar>();
 		tempList.add(new CubexTypeName("Thing"));

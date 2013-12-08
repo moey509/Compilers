@@ -38,7 +38,7 @@ public class CompMain {
 	public static void main(String[] args) throws IOException {
 //		 CharStream charStream = new ANTLRFileStream(args[0]);
 
-		CharStream charStream = new ANTLRFileStream("comprehensions_tests/test12.x3");
+		CharStream charStream = new ANTLRFileStream("comprehensions_tests/test2.x3");
 		CubexLexer cubLexer = new CubexLexer(charStream);
 		cubLexer.removeErrorListeners();
 
@@ -70,23 +70,23 @@ public class CompMain {
 			// replace all C keywords with a safe version
 			cubParser.programAST.replaceCKeyWords();
 			System.out.println(cubParser.programAST.toString());
-//			IrGenerationContext context = new IrGenerationContext();
-//			IrProgram program = cubParser.programAST.toIr(context, new IrProgram());
-////			program.removeCommonSubexpressions();
-////			program.lva();
-//			ArrayList<String> programCode = program.toC();
-//			FileWriter writer = new FileWriter(new File("out.c"));
-////			System.out.println("----------");
-//			int counter = 3;
-//			writer.write("#include \"cubex_lib.h\"\n");
-//			// TODO: REMOVE THIS BEFORE SUBMITTING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//			writer.write("#include \"stdio.h\"\n");
-//			for (String s : programCode){
-//				System.out.println(counter + "\t" + s);
-//				counter++;
-//				writer.write(s + "\n");
-//			}
-//			writer.close();
+			IrGenerationContext context = new IrGenerationContext();
+			IrProgram program = cubParser.programAST.toIr(context, new IrProgram());
+//			program.removeCommonSubexpressions();
+//			program.lva();
+			ArrayList<String> programCode = program.toC();
+			FileWriter writer = new FileWriter(new File("out.c"));
+//			System.out.println("----------");
+			int counter = 3;
+			writer.write("#include \"cubex_lib.h\"\n");
+			// TODO: REMOVE THIS BEFORE SUBMITTING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			writer.write("#include \"stdio.h\"\n");
+			for (String s : programCode){
+				System.out.println(counter + "\t" + s);
+				counter++;
+				writer.write(s + "\n");
+			}
+			writer.close();
 			
 		} catch (SemanticException e) {
 			// TODO GET RID OF e.toString() BEFORE WE SUBMIT
