@@ -1,3 +1,15 @@
+<<<<<<< HEAD
 x := [for (i in input) [i, i, i]];
 output := [for (i in x) for (j in i) j];
 return output;
+=======
+lst := 0..10;
+lst := [for (float in lst) if (float < 5) float];
+
+output := [];
+for (i in lst){
+	output := output ++ ["Hello"];
+}
+
+return output;
+>>>>>>> a790f86cbf72c34e97f6596a0843f4341f4fbcf5

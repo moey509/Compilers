@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 return [for (i in input) i, i, i];
+=======
+return [for (break in (1..1)) "one", for (auto in (1..3)) "three", for (int in (1..5)) "five", if (true) "return"]; 
+>>>>>>> a790f86cbf72c34e97f6596a0843f4341f4fbcf5
