@@ -1,0 +1,9 @@
+lst := 0..10;
+lst := [for (i in lst) if (i < 5) i];
+
+output := [];
+for (i in lst){
+	output := output ++ ["Hello"];
+}
+
+return output;

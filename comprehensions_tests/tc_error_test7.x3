@@ -1,0 +1,4 @@
+x := [for (i in (1..10)) i];
+if (i == 10)
+	return ["cry"];
+return ["cry harder"];
