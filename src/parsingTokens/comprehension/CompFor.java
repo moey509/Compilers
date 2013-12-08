@@ -42,6 +42,8 @@ public class CompFor extends Comp {
 		tempList.add(new CubexTypeName("Thing"));
 		if (!(new CubexTypeClass("Iterable", tempList)).isSuperTypeOf(c, exprType)) 
 			throw new SemanticException(e.toString() + " must be of type Iterable");
+		if (c.containsTypeVariableInMutableTypeContext(v))
+			throw new SemanticException(v + " is a variable that has already been declared");
 		CubexCompleteContext c1 = c.clone();
 		c1.mutableTypeContext.put(v, exprType.getTypeList().get(0));
 		//System.out.println(c1.toString());

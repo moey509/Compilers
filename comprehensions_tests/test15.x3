@@ -1,0 +1,3 @@
+x := [for (i in input) [i, i, i]];
+output := [for (i in x) for (j in i) j];
+return output;
