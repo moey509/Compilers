@@ -1,0 +1,13 @@
+# Program A
+fun forever(): String {
+    x := 0;
+    while (true)
+        x := x;
+    return "FOREVER!!! FOREVER!!!";
+}
+c := ["Me and Squidward are gonna stay on strike...", forever(), if (true) forever()];
+
+for (v in c)
+    return [v];
+
+return ["On strike with Spongebob... FOREVER?!?!"];

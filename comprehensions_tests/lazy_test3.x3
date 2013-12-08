@@ -1,0 +1,9 @@
+fun forever(): Boolean {
+    x := 0;
+    while (true)
+        x := x;
+    return true;
+}
+for (v in ["GARY", if (forever()) "LOL LOL"])
+    return [v];
+return ["DUPLICATOR"];

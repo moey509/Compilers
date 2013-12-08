@@ -1,0 +1,5 @@
+# Program B
+c := [for (i in 1...) "hello"];
+for (v in c)
+    return [v];
+return ["goodbye"];
