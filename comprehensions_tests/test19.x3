@@ -1,0 +1,6 @@
+fun powerset (stringset : Iterable<String>) : Iterable<Iterable<String>> {
+	output := [[]];
+	for (s in stringset) output := [for (i in output) i, i++[s]];
+	return output;
+}
+return [for (i in powerset(input)) for (j in i++[","]) j];
