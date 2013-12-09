@@ -32,6 +32,9 @@ public class CubexIterableComp extends CubexExpression {
 	}
 	
 	public IrIterableComp toIr(IrGenerationContext context) {
+		if(comp != null){
+			comp.toIr(context);
+		}
 		return new IrIterableComp();
 	}
 

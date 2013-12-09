@@ -1,5 +1,6 @@
 package ir;
 
+import ir.program.IrComprehensionStruct;
 import ir.program.IrProgram;
 import parser.CompParser;
 
@@ -72,6 +73,9 @@ public class CompMain {
 			System.out.println(cubParser.programAST.toString());
 			IrGenerationContext context = new IrGenerationContext();
 			IrProgram program = cubParser.programAST.toIr(context, new IrProgram());
+			for(IrComprehensionStruct struct : context.comprehensionStructs){
+				program.addComprehensionStruct(struct);
+			}
 //			program.removeCommonSubexpressions();
 //			program.lva();
 			ArrayList<String> programCode = program.toC();

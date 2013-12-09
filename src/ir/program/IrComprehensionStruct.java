@@ -29,7 +29,7 @@ public class IrComprehensionStruct implements IrProgramElem {
 		arr.add("typedef struct " + structName + "* "	+ structName + "_t;");
 		arr.add("struct " + structName);
 		arr.add("{");
-		if(this.nestedComprehension.equals(null)){
+		if(this.nestedComprehension == null){
 			arr.add("General_t _nest_comp;");
 		}else{
 			arr.add(this.nestedComprehension + "_t _nest_comp;");

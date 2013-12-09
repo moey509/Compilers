@@ -73,6 +73,7 @@ public class CompFor extends Comp {
 
 	@Override
 	public IrComprehension toIr(IrGenerationContext context) {
+		addStruct(context);
 		return new IrComprehensionFor(comp.toIr(context), e.toIr(context), v, cubexType);
 	}
 }

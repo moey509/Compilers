@@ -34,10 +34,13 @@ public abstract class Comp {
 	public abstract IrComprehension toIr(IrGenerationContext context);
 	
 	
-	private String addStruct(IrGenerationContext context, IrProgram program) {
+	public String addStruct(IrGenerationContext context) {
+		if(this instanceof CompPair){
+			return null;
+		}
 		String nestedName = null;
 		if(comp != null){
-			nestedName = comp.addStruct(context, program);
+			nestedName = comp.addStruct(context);
 		}
 		String name = context.nextComprehensionName();
 		IrComprehensionStruct struct = new IrComprehensionStruct(name, nestedName);
@@ -45,7 +48,7 @@ public abstract class Comp {
 		for(String variable : varList.keySet()){
 			struct.addStructVariable(new IrTypeTuple(varList.get(variable).toIrType(), variable));
 		}
-		program.addComprehensionStruct(struct);
+		context.comprehensionStructs.add(struct);
 		return name;
 	}
 }

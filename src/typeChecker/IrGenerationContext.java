@@ -1,5 +1,8 @@
 package typeChecker;
 
+import ir.program.IrComprehensionStruct;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -15,6 +18,7 @@ public class IrGenerationContext {
 	private Map<String, String> typeToSuperTypeMap;
 	private Map<String, Set<CubexFunctionDef>> objectToFunctionMap;
 	private Map<String, CubexFunctionDef> objectToConstructorMap;
+	public ArrayList<IrComprehensionStruct> comprehensionStructs = new ArrayList<IrComprehensionStruct>();
 	int count = 0;
 	int comprehensionCount = 0;
 	
