@@ -1,1 +1,2 @@
-return [if (true) "Hello World"];
+x :=["hello", "hi there", "yo", if (true) "Hello World"];
+return x;

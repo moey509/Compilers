@@ -36,6 +36,8 @@ public class IrComprehensionStruct implements IrProgramElem {
 		}
 		arr.add("git_t _iterable;");
 		arr.add("iterator_t _iterator;");
+		arr.add("int hasEvaluatedOnce;");
+		arr.add("int evaluatedValue;");
 		Set<String> varSet = new HashSet<String>();
 		for(IrTypeTuple t : structVariables){
 			arr.add(t.type.declarationInStruct() + " " + t.variableName + ";");

@@ -60,4 +60,15 @@ public class CGenerationContext {
 	public void incrementCurIterable() {
 		this.cur_iterable +=1 ;
 	}
+	
+	public String getComprehensionStruct(){
+		return "__compStruct" + getComprehensionCount();
+	}
+	int comprehensionCount = 0;
+	private int getComprehensionCount() {
+		// TODO Auto-generated method stub
+		
+		return comprehensionCount++;
+	}
+	
 }

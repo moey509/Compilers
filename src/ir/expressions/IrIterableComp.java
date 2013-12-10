@@ -12,33 +12,38 @@ import optimization.CseContext;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 
 public class IrIterableComp implements IrExpression{
-	public ArrayList<IrComprehension> list;
+	public IrComprehension comprehension;
 	
 	public String cType;
 	public CubexTypeGrammar cubexType;
 
+	public IrIterableComp(IrComprehension comprehension){
+		this.comprehension = comprehension;
+	}
+	
 	@Override
 	public String getCType() {
 		// TODO Auto-generated method stub
-		return null;
+		return cType;
 	}
 
 	@Override
 	public CubexTypeGrammar getCubexType() {
 		// TODO Auto-generated method stub
-		return null;
+		return cubexType;
 	}
 
 	@Override
 	public String toC(CGenerationContext context) {
-		// TODO Auto-generated method stub
-		return "";
+		StringBuilder s = new StringBuilder();
+		s.append("new_lazy_git_obj((void*) " + comprehension.getStructVariableName() + ")");
+		return s.toString();
 	}
 
 	@Override
 	public ArrayList<IrBind> getExpressions(CGenerationContext context) {
-		// TODO Auto-generated method stub
-		return null;
+		//TODO: Need to 
+		return comprehension.getExpressions(context);
 	}
 
 	@Override

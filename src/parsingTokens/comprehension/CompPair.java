@@ -68,10 +68,14 @@ public class CompPair extends Comp {
 	public IrComprehension toIr(IrGenerationContext context) {
 		IrComprehensionPair output;
 		if (comp == null){
-			output = new IrComprehensionPair(null, e.toIr(context), cubexType);
+			addStruct(context, null);
+			output = new IrComprehensionPair(null, e.toIr(context), cubexType, comprehensionName, nestedComprehensionName, varList);
+			System.out.println("PAIR: " + this.comprehensionName);
 		}
 		else{
-			output = new IrComprehensionPair(comp.toIr(context), e.toIr(context), cubexType);
+			IrComprehension c = comp.toIr(context);
+			addStruct(context, c.getComprehensionName());
+			output = new IrComprehensionPair(c, e.toIr(context), cubexType, comprehensionName, nestedComprehensionName, varList);
 		}
 		return output;
 	}

@@ -21,6 +21,8 @@ import typeChecker.CubexCompleteContext;
 import typeChecker.IrGenerationContext;
 
 public abstract class Comp {
+	public String nestedComprehensionName;
+	public String comprehensionName;
 	protected CubexExpression e;
 	protected Comp comp; // can be null - needs to be checked
 	
@@ -33,22 +35,25 @@ public abstract class Comp {
 
 	public abstract IrComprehension toIr(IrGenerationContext context);
 	
-	
-	public String addStruct(IrGenerationContext context) {
-		if(this instanceof CompPair){
-			return null;
-		}
-		String nestedName = null;
-		if(comp != null){
-			nestedName = comp.addStruct(context);
-		}
-		String name = context.nextComprehensionName();
-		IrComprehensionStruct struct = new IrComprehensionStruct(name, nestedName);
+	public String addStruct(IrGenerationContext context, String nestedComprehensionName) {
+		System.out.println("struct: " + this);
+//		if(comp != null && !(this instanceof CompPair)){
+//			nestedComprehensionName = comp.addStruct(context);
+//		}
+		this.comprehensionName = context.nextComprehensionName();
+		IrComprehensionStruct struct = new IrComprehensionStruct(comprehensionName, nestedComprehensionName);
 		//TODO: Check this to make sure IrType is correct
 		for(String variable : varList.keySet()){
 			struct.addStructVariable(new IrTypeTuple(varList.get(variable).toIrType(), variable));
 		}
+		HashMap<String, String> varMap = new HashMap<String, String>();
+		for (String s : varList.keySet()) {
+			varMap.put(s, "__comp->" + s);			
+		}
+		
+		//Every comprehension makes a struct. After the struct is made, we can replace variable names.
+		e.replaceVars(varMap);
 		context.comprehensionStructs.add(struct);
-		return name;
+		return comprehensionName;
 	}
 }

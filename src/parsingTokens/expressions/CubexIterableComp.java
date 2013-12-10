@@ -1,5 +1,6 @@
 package parsingTokens.expressions;
 
+import ir.comp.IrComprehension;
 import ir.expressions.IrIterable;
 import ir.expressions.IrIterableComp;
 import ir.statements.IrBind;
@@ -32,10 +33,11 @@ public class CubexIterableComp extends CubexExpression {
 	}
 	
 	public IrIterableComp toIr(IrGenerationContext context) {
+		IrComprehension irComp = null;
 		if(comp != null){
-			comp.toIr(context);
+			irComp = comp.toIr(context);
 		}
-		return new IrIterableComp();
+		return new IrIterableComp(irComp);
 	}
 
 	public String toString() {

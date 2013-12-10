@@ -9,6 +9,8 @@ import java.util.Set;
 import Exception.SemanticException;
 import parsingTokens.CubexList;
 import parsingTokens.expressions.CubexExpression;
+import parsingTokens.statements.CubexBind;
+import parsingTokens.statements.CubexStatement;
 import parsingTokens.typeGrammar.CubexTypeClass;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import parsingTokens.typeGrammar.CubexTypeName;
@@ -17,6 +19,7 @@ import typeChecker.IrGenerationContext;
 
 public class CompFor extends Comp {
 	private String v;
+	public String structName;
 	
 	CubexTypeGrammar cubexType;
 //	private Set<String> freeContext;
@@ -77,7 +80,10 @@ public class CompFor extends Comp {
 
 	@Override
 	public IrComprehension toIr(IrGenerationContext context) {
-		addStruct(context);
-		return new IrComprehensionFor(comp.toIr(context), e.toIr(context), v, cubexType);
+		IrComprehension c = comp.toIr(context);
+		addStruct(context, c.getComprehensionName());
+		return new IrComprehensionFor(comp.toIr(context), e.toIr(context), v, cubexType, comprehensionName, nestedComprehensionName, varList);
 	}
+	
+	
 }

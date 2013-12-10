@@ -58,8 +58,9 @@ public class CompIf extends Comp {
 
 	@Override
 	public IrComprehension toIr(IrGenerationContext context) {
-		addStruct(context);
-		return new IrComprehensionIf(comp.toIr(context), e.toIr(context), cubexType);
+		IrComprehension c = comp.toIr(context);
+		addStruct(context, c.getComprehensionName());
+		return new IrComprehensionIf(c, e.toIr(context), cubexType, comprehensionName, nestedComprehensionName, varList);
 	}
 
 }
