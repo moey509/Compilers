@@ -369,6 +369,7 @@ int hasNext(iterator_t it) {
         it->lazy_block = NULL;
         return hasNext(it);
       } 
+    }
 
     return 1;
   }
