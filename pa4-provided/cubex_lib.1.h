@@ -171,7 +171,7 @@ Boolean_t new_boolean(int input) {
 
 
 iterator_t new_iterator (git_t g) {
-  if (g == NULL) return;
+  if (g == NULL) return NULL;
   iterator_t it = (iterator_t) x3malloc(sizeof(struct iterator));
 
   it->ref_count = 0;
