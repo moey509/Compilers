@@ -32,7 +32,6 @@ public class IrComprehensionPair implements IrComprehension{
 		this.varList = varList;
 	}
 
-	@Override
 	public String toC(CGenerationContext context) {
 		return this.toC(context, context.getComprehensionStruct());
 	}
@@ -43,6 +42,7 @@ public class IrComprehensionPair implements IrComprehension{
 		structVariableName = variableName;
 		context.varDecl.put(structVariableName, this.getComprehensionName() + "_t");
 		s.append(structVariableName + " = x3malloc(sizeof(struct " + this.getComprehensionName() + "));\n");
+		s.append(structVariableName + "->ref_count = " + "-1;\n");
 		s.append(structVariableName + "->_iterable = " + "NULL;\n");
 		s.append(structVariableName + "->_iterator = " + "NULL;\n");
 		s.append(structVariableName + "->hasEvaluatedOnce = " + "0;\n");
@@ -70,7 +70,6 @@ public class IrComprehensionPair implements IrComprehension{
 	}
 	
 	public String addHasNextFunction(CGenerationContext context){
-//		System.out.println("WHAT");
 		StringBuilder s = new StringBuilder();
 //		if(comp != null){
 //			comp.addHasNextFunction(context);

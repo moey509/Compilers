@@ -2,6 +2,7 @@ package ir.statements;
 
 import ir.CGenerationContext;
 import ir.expressions.IrExpression;
+import ir.expressions.IrIterableComp;
 import ir.expressions.IrVariableExpression;
 
 import java.util.ArrayList;
@@ -53,13 +54,21 @@ public final class IrReturn extends IrStatement {
 		String endBrace = "";
 		String itDecrement = "";
 		String itNull = "";
-		
+		ArrayList<String> beforeIterator = new ArrayList<String>();
 		if (isMain) {
 			int cur_iterator = context.getCurIterator();
 			context.incrementCurIterator();
 			iterator = "_it" + cur_iterator;
-			context.varDecl.put(iterator, "iterator_t");
-			itDeclaration = iterator + " = new_iterator((" + expression.toC(context) + "));";
+			context.varDecl.put(iterator, "iterator_t"); 
+			
+			if(expression instanceof IrIterableComp){
+				IrIterableComp comp = (IrIterableComp)expression;
+				beforeIterator.add(comp.comprehension.toC(context));
+				itDeclaration = iterator + " = new_iterator((" + comp.toC(context) + "));";
+			}
+			else{
+				itDeclaration = iterator + " = new_iterator((" + expression.toC(context) + "));";
+			}
 			itIncrement = "ref_increment((General_t)" + iterator + ");";
 			itCondition = "while(hasNext(" + iterator + ")) {";
 			tempVar = "_return = getNext(" + iterator + ");";
@@ -69,7 +78,7 @@ public final class IrReturn extends IrStatement {
 			
 			endBrace = ("}");
 			// free the iterator
-			itDecrement = ("ref_decrement((General_t)" + iterator + ");");
+//			itDecrement = ("ref_decrement((General_t)" + iterator + ");");
 			itNull = (iterator + " = NULL;");
 		}
 		if (cse){
@@ -90,6 +99,7 @@ public final class IrReturn extends IrStatement {
 		}
 		
 		if (isMain) {
+			arrList.addAll(beforeIterator);
 			arrList.add(itDeclaration);
 			arrList.add(itIncrement);
 			arrList.add(itCondition);
@@ -104,26 +114,26 @@ public final class IrReturn extends IrStatement {
 		
 		if(context.lva && hasFreeBefore){
 			for(String s : freeBefore){
-				arrList.add("ref_decrement((General_t)" + s + ");");
+//				arrList.add("ref_decrement((General_t)" + s + ");");
 				arrList.add(s + " = NULL;");
 			}
 		}
 		
 		if(context.lva){
 			for (String s : context.controlFlowVariables) {
-				arrList.add("ref_decrement((General_t)" + s + ");");
+//				arrList.add("ref_decrement((General_t)" + s + ");");
 			}
 			for(String s : inMinusOut()){
 				if(s.equals(expression.toC(context))&& !isMain){
-					arrList.add("ref_decrement_no_free((General_t)" + s + ");");
+//					arrList.add("ref_decrement_no_free((General_t)" + s + ");");
 				}
 				else{
-					arrList.add("ref_decrement((General_t)" + s + ");");
+//					arrList.add("ref_decrement((General_t)" + s + ");");
 					arrList.add(s + " = NULL;");
 				}
 			}
 			if (isMain) {
-				arrList.add("ref_decrement((General_t)input);");
+//				arrList.add("ref_decrement((General_t)input);");
 //				arrList.add("ending();");
 				arrList.add("return;");
 			}
@@ -136,30 +146,30 @@ public final class IrReturn extends IrStatement {
 			// free control flow variables
 			for (String s : freeContext) {
 				if (!isMain) {
-					arrList.add("ref_decrement((General_t)" + s + ");");
+//					arrList.add("ref_decrement((General_t)" + s + ");");
 				}
 			}
 			
 			for (String s : context.controlFlowVariables) {
-				arrList.add("ref_decrement((General_t)" + s + ");");
+//				arrList.add("ref_decrement((General_t)" + s + ");");
 			}
 			//NOTE: note sure if supposed to empty this set...
 
 			//Should be replaced by Ansha's code methinks
 			if (isMain) {
 				for (String s : freeContext) {
-					arrList.add("ref_decrement((General_t)" + s + ");");
+//					arrList.add("ref_decrement((General_t)" + s + ");");
 				}
 				//TODO: this looks wrong 
 				for (String s : this.context.typeContext.keySet()) {
 					if (!freeContext.contains(s)) {
-						arrList.add("ref_decrement((General_t)" + s + ");");
+//						arrList.add("ref_decrement((General_t)" + s + ");");
 					}
 				}
 				//GARBAGE COLLECT EVERYTHING
 				for(int i = 0; i < temporaryBinds.size(); i++){
 					IrBind b = temporaryBinds.get(i);
-					arrList.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
+//					arrList.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
 				}
 
 				// extra expressions will not get added
@@ -173,13 +183,13 @@ public final class IrReturn extends IrStatement {
 				for(int i = 0; i < temporaryBinds.size()-1; i++){
 					IrBind b = temporaryBinds.get(i);
 					if(i == temporaryBinds.size()-1 && b.tuple.variableName.equals(b.toC(context, isMain, extras))){
-						arrList.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
+//						arrList.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
 					}
 					else{
-						arrList.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
+//						arrList.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
 					}
 				}
-				arrList.add("ref_decrement_no_free((General_t)" + expression.toC(context) + ");");
+//				arrList.add("ref_decrement_no_free((General_t)" + expression.toC(context) + ");");
 				// add statements that are in extras
 				if (extras != null) {
 					arrList.addAll(extras);
@@ -207,7 +217,7 @@ public final class IrReturn extends IrStatement {
 //		}
 //		for(int i = 0; i < temporaryBinds.size()-1; i++){
 //			IrBind b = temporaryBinds.get(i);
-//			output.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
+			output.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
 //		}
 //		output.add(itDeclaration);
 //		output.add(itCondition);
@@ -215,7 +225,7 @@ public final class IrReturn extends IrStatement {
 		
 //		for (String s : freeContext) {
 //			if (!s.equals("_input"))
-//			output.add("ref_decrement((General_t)" + s + ");");
+			output.add("ref_decrement((General_t)" + s + ");");
 //		}
 ////		
 //		output.add("print_line(charToString(_return), stringLength(_return));");

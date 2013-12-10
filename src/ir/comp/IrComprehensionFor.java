@@ -32,19 +32,33 @@ public class IrComprehensionFor implements IrComprehension{
 		this.varList = varList;
 	}
 
-	@Override
+	
+	//TODO: Figure out how IRFor creates iterators and stuff
 	public String toC(CGenerationContext context) {
+		return this.toC(context, context.getComprehensionStruct());
+	}
+	
+	public String toC(CGenerationContext context, String variableName) {
 		// TODO Auto-generated method stub
 		StringBuilder s = new StringBuilder();
-		structVariableName = context.getComprehensionStruct();
+		structVariableName = variableName;
+		context.varDecl.put(structVariableName, this.getComprehensionName() + "_t");
 		s.append(structVariableName + " = x3malloc(sizeof(struct " + this.getComprehensionName() + "));\n");
-		s.append(structVariableName + "->iterable = " + "NULL;\n");
-		s.append(structVariableName + "->iterator = " + "NULL;\n");
+		s.append(structVariableName + "->_iterable = " + "NULL;\n");
+		s.append(structVariableName + "->_iterator = " + "NULL;\n");
 		s.append(structVariableName + "->hasEvaluatedOnce = " + "0;\n");
 		s.append(structVariableName + "->evaluatedValue = " + "0;\n");
 		for(String str : varList.keySet()){
 			s.append(structVariableName + "->" + str + " = " + str + ";\n");
 		}
+		if(comp != null){
+			String nestName = context.getComprehensionStruct();
+			s.append(comp.toC(context, nestName));
+			s.append(structVariableName + "->_nest_comp = " + nestName + ";");
+		}
+		context.comprehensionFunctions.add(addHasNextFunction(context));
+		context.comprehensionFunctions.add(addGetNextFunction(context));
+		
 		return s.toString();
 	}
 

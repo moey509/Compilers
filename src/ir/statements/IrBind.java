@@ -87,13 +87,12 @@ public final class IrBind extends IrStatement {
 				if(hasFreeBefore){
 					for(String s : freeBefore){
 						//					System.out.println("FREE BEFORE: " + s);
-						output.add("ref_decrement((General_t)" + s + ");");
+//						output.add("ref_decrement((General_t)" + s + ");");
 						output.add(s + " = NULL;");
 					}
 				}
 			}
-
-			if(!isDead()){
+			if(!(context.lva && isDead())){
 				if(temporaryBinds.size() > 0){
 					String s;
 					if (cse){
@@ -103,13 +102,13 @@ public final class IrBind extends IrStatement {
 						s = temporaryBinds.get(temporaryBinds.size()-1).tuple.variableName;
 					}
 					//No live variable analysis. Decrements whatever was previously set to this variable
-					output.add("ref_decrement((General_t)" + tuple.variableName + ");");
+//					output.add("ref_decrement((General_t)" + tuple.variableName + ");");
 					output.add(tuple.variableName + " = " + s + ";");
 					output.add("ref_increment((General_t)" + tuple.variableName + ");");
 				}
 				else{
 					//Decrements whatever was previously bound to this variable
-					output.add("ref_decrement((General_t)" + tuple.variableName + ");");
+//					output.add("ref_decrement((General_t)" + tuple.variableName + ");");
 
 					if (expression instanceof IrFunctionCall) {
 						IrFunctionCall funcCall = (IrFunctionCall) expression;
@@ -128,13 +127,13 @@ public final class IrBind extends IrStatement {
 
 			if(context.lva){
 				for(String s : inMinusOut()){
-					output.add("ref_decrement((General_t)" + s + ");");
+//					output.add("ref_decrement((General_t)" + s + ");");
 					output.add(s + " = NULL;");
 				}
 			}
 			else{
 				for(IrBind b : temporaryBinds){
-					output.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
+//					output.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
 					output.add(b.tuple.variableName + " = NULL;");
 				}
 			}
