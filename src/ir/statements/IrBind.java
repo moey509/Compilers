@@ -60,7 +60,9 @@ public final class IrBind extends IrStatement {
 		if(expression instanceof IrIterableComp){
 			IrIterableComp comp = (IrIterableComp)expression;
 			context.varDecl.put(tuple.variableName, tuple.type.toC());
-			output.add(comp.comprehension.toC(context));
+			if (comp.comprehension!=null) {
+				output.add(comp.comprehension.toC(context));
+			}
 			output.add(tuple.variableName + " = " + comp.toC(context) + ";");
 			return output;
 		}
