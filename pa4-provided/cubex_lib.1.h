@@ -530,6 +530,7 @@ git_t iterable_append (git_t first, git_t second) {
   git_t temp;
   git_t itr;
   git_t prev = NULL;
+  git_t new_lazy;
   g = NULL;
 
   /* regular cases */
@@ -538,26 +539,7 @@ git_t iterable_append (git_t first, git_t second) {
   while (itr != NULL) {
     /*temp = (git_t)x3malloc(sizeof (struct git));*/
     temp = new_git_obj(itr->val);
-    /*temp->ref_count = 0;
-  temp->fun_names = NULL;
-  temp->fun_length = 0;
-  temp->fun_ptrs = NULL;
-  temp->con_comp = NULL;
-  temp->is_iter = 1;
-  temp->is_thru_ward = 0;
 
-  temp->val = itr->val;
-  temp->is_int = 0;
-  temp->dummy = 0;
-  temp->next = NULL;
-
-  temp->storage = NULL;
-  temp->is_input = 0;
-
-  git_t lazy;
-  int is_lazy;
-  lazy poitner
-*/
     temp->val = itr->val;
     /*ref_increment(temp->val); */
     temp->is_int = itr->is_int;
@@ -572,6 +554,13 @@ git_t iterable_append (git_t first, git_t second) {
     temp->lazy_has_next = itr->lazy_has_next;
     temp->lazy_get_next = itr->lazy_get_next;
     temp->dummy = itr->dummy;
+
+    /* do lazy stuff here */
+    if (temp->is_lazy == 1) {
+      new_lazy = iterable_append (temp->lazy, NULL);
+      temp->lazy = new_lazy;  
+    } 
+    
 
     itr = itr->next;  
     /* update pointers */
@@ -603,6 +592,12 @@ git_t iterable_append (git_t first, git_t second) {
     temp->lazy_has_next = itr->lazy_has_next;
     temp->lazy_get_next = itr->lazy_get_next;  
     temp->dummy = itr->dummy;
+
+    /* do lazy stuff here */
+    if (temp->is_lazy == 1) {
+      new_lazy = iterable_append (temp->lazy, NULL);
+      temp->lazy = new_lazy;  
+    } 
 
     itr = itr->next;  
     /* update pointers */
