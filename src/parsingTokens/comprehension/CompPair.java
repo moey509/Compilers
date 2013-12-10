@@ -75,6 +75,7 @@ public class CompPair extends Comp {
 		else{
 			IrComprehension c = comp.toIr(context);
 			addStruct(context, c.getComprehensionName());
+			nestedComprehensionName = c.getComprehensionName();
 			output = new IrComprehensionPair(c, e.toIr(context), cubexType, comprehensionName, nestedComprehensionName, varList);
 		}
 		return output;

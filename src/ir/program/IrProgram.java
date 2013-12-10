@@ -136,6 +136,7 @@ public class IrProgram {
 		//add all statements after the initializations
 		output.addAll(postOut);
 		output.add("}");
+		preOut.addAll(context.comprehensionFunctions);
 		preOut.addAll(output);
 		return preOut;
 	}

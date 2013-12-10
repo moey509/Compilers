@@ -1,2 +1,2 @@
-x :=["hello", "hi there", "yo", if (true) "Hello World"];
+x :=["h", "b"];
 return x;

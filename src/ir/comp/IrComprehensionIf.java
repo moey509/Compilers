@@ -57,7 +57,7 @@ public class IrComprehensionIf implements IrComprehension{
 		//See if we can get an element from farther down in the list of comprehensions
 		//ex: for(v in e) for(v2 in e2) v2
 		if(nestedComprehensionName != null){
-			System.out.println("if(_" + nestedComprehensionName + "_hasNext(" + nestedComprehensionName + ") == 1);");
+			System.out.println("if(" + nestedComprehensionName + "_hasNext(" + nestedComprehensionName + ") == 1);");
 			System.out.println("{return 1;}");
 		}
 		return "";

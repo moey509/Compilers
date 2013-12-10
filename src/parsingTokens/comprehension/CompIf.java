@@ -60,6 +60,7 @@ public class CompIf extends Comp {
 	public IrComprehension toIr(IrGenerationContext context) {
 		IrComprehension c = comp.toIr(context);
 		addStruct(context, c.getComprehensionName());
+		nestedComprehensionName = c.getComprehensionName();
 		return new IrComprehensionIf(c, e.toIr(context), cubexType, comprehensionName, nestedComprehensionName, varList);
 	}
 

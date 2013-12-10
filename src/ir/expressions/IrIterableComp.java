@@ -36,7 +36,9 @@ public class IrIterableComp implements IrExpression{
 	@Override
 	public String toC(CGenerationContext context) {
 		StringBuilder s = new StringBuilder();
-		s.append("new_lazy_git_obj((void*) " + comprehension.getStructVariableName() + ")");
+		String hasNext = "&" + comprehension.getComprehensionName() + "_hasNext";
+		String getNext = "&" + comprehension.getComprehensionName() + "_getNext";
+		s.append("new_lazy_git_obj((void*) " + comprehension.getStructVariableName() + ", " + hasNext + ", " + getNext + ")");
 		return s.toString();
 	}
 

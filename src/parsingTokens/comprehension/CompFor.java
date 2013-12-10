@@ -82,6 +82,7 @@ public class CompFor extends Comp {
 	public IrComprehension toIr(IrGenerationContext context) {
 		IrComprehension c = comp.toIr(context);
 		addStruct(context, c.getComprehensionName());
+		nestedComprehensionName = c.getComprehensionName();
 		return new IrComprehensionFor(comp.toIr(context), e.toIr(context), v, cubexType, comprehensionName, nestedComprehensionName, varList);
 	}
 	

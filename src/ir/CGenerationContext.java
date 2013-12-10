@@ -1,5 +1,6 @@
 package ir;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -9,6 +10,7 @@ public class CGenerationContext {
 	public Map<String, CGenerationType> cVariableToTypeMap;
 	public HashSet<String> variablesDeclaredInScope;
 	public HashSet<String> variablesInitializedInScope;
+	public ArrayList<String> comprehensionFunctions = new ArrayList<String>();
 	
 	// set that contains all variables that need to be freed from control flow types.
 	// ie. in the case for (v in e) {}, 'e' will get placed into this set
