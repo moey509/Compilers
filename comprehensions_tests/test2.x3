@@ -1,2 +1,1 @@
-x :=["h", "b"];
-return x;
+return ["h", "b"];

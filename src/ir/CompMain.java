@@ -82,7 +82,7 @@ public class CompMain {
 			FileWriter writer = new FileWriter(new File("out.c"));
 //			System.out.println("----------");
 			int counter = 3;
-			writer.write("#include \"cubex_lib.h\"\n");
+			writer.write("#include \"cubex_lib.1.h\"\n");
 			// TODO: REMOVE THIS BEFORE SUBMITTING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			writer.write("#include \"stdio.h\"\n");
 			for (String s : programCode){

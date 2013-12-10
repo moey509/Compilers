@@ -15,4 +15,5 @@ public interface IrComprehension {
 	public String addGetNextFunction(CGenerationContext context);
 	public String getComprehensionName();
 	public String getStructVariableName();
+	public String toC(CGenerationContext context, String variableName);
 }
