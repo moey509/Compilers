@@ -242,49 +242,6 @@ functionPointer function_lookup (General_t gen, char * function_name    ) {
   return function_lookup (gen->con_comp, function_name);
 }
 
-/*returns whether there is another element left */
-int hasNext(iterator_t it) {
-  git_t g;
-  nit_t n;
-  if (it == NULL || it->g == NULL) {
-    return 0;  
-  }
-
-  g = it->g;
-  /* lazy case */
-  if (g->is_lazy) {
-    /*do not compile. */
-    /*TODO: implement has next*/
-  }
-
-  /* through and onward cases */
-  if (g->is_int == 1) {
-    n = g->val;
-    /* set cur value if not set yet */
-    if (it->set == 0) {
-      it->cur = n->low;
-      it->set = 1;
-    }
-    /*  through case */
-    if (n->status == 0) {
-      if (it->cur > n->high) {
-        it->g = g->next;
-        it->set = 0;
-        return hasNext(it);
-      }
-      return 1;
-    }
-    /* infinite case */
-    else {
-      return 1;
-    }
-  }
-  /* regular case */
-  else {
-    return 1;
-  }
-}
-
 /* constructs a new iterable for anything but ints */
 git_t new_git_obj(void* obj) {  
   git_t g = (git_t)x3malloc(sizeof(struct git));
@@ -346,7 +303,76 @@ git_t new_lazy_git_obj(void* comp, functionPointer has,
   return g;
 }
 
+/*returns whether there is another element left */
+int hasNext(iterator_t it) {
+  git_t g;
+  nit_t n;
+  if (it == NULL || it->g == NULL) {
+    return 0;  
+  }
 
+  /* if no more elements, check regular loop */
+  if (it->g == NULL) {
+    /* check the lazy block */
+    if (it->lazy_block != NULL) {
+      it->g = it->lazy_block->next;
+      it->lazy_block = NULL;
+      return hasNext(it);
+    }
+    else {
+      return 0;
+    }
+  }
+
+  g = it->g;
+
+  /* lazy case */
+  if (g->is_lazy) {
+    it->lazy_block = g;
+    it->g = g->lazy;
+
+    return hasNext(it);
+  }
+
+  /* through and onward cases */
+  if (g->is_int == 1) {
+    n = g->val;
+    /* set cur value if not set yet */
+    if (it->set == 0) {
+      it->cur = n->low;
+      it->set = 1;
+    }
+    /*  through case */
+    if (n->status == 0) {
+      if (it->cur > n->high) {
+        it->g = g->next;
+        it->set = 0;
+        return hasNext(it);
+      }
+      return 1;
+    }
+    /* infinite case */
+    else {
+      return 1;
+    }
+  }
+  /* regular case */
+  else {
+    /* check the dummy case */
+    if (g->dummy == 1) {
+      /* check if there's anything left */
+      if ((it->lazy_block->lazy_has_next)(it->lazy_block->val) == 1) {
+        return 1;
+      }
+      else {
+        it->g = it->lazy_block->next;
+        it->lazy_block = NULL;
+        return hasNext(it);
+      } 
+
+    return 1;
+  }
+}
 /**** POSSIBLE BUG: SET FIELDS __AFTER__ SWAPPING VALUES */
 
 /* returns a pointer to the next elements */
