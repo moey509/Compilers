@@ -69,7 +69,7 @@ public final class IrReturn extends IrStatement {
 			else{
 				itDeclaration = iterator + " = new_iterator((" + expression.toC(context) + "));";
 			}
-			itIncrement = "ref_increment((General_t)" + iterator + ");";
+//			itIncrement = "ref_increment((General_t)" + iterator + ");";
 			itCondition = "while(hasNext(" + iterator + ")) {";
 			tempVar = "_return = getNext(" + iterator + ");";
 			

@@ -65,7 +65,9 @@ public class IrComprehensionPair implements IrComprehension{
 	public ArrayList<IrBind> getExpressions(CGenerationContext context) {
 		// TODO Auto-generated method stub
 		ArrayList<IrBind> arr = expr.getExpressions(context);
-		arr.addAll(comp.getExpressions(context));
+		if(comp != null){
+			arr.addAll(comp.getExpressions(context));
+		}
 		return arr;
 	}
 	

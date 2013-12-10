@@ -77,9 +77,9 @@ public class IrFor extends IrStatement {
 		// there is no CubexTypeGrammar for the expression, and the arguments don't have IrTypes
 		// can discuss later?
 		String iterDeclaration = iterable + " = iterable_append((" + list.toC(context) + "), NULL);";
-		String inc1Declaration = "ref_increment((General_t)" + iterable + ");";
+//		String inc1Declaration = "ref_increment((General_t)" + iterable + ");";
 		String itDeclaration = iterator + " = new_iterator((" + iterable + "));";
-		String inc2Declaration = "ref_increment((General_t)" + iterator + ");";
+//		String inc2Declaration = "ref_increment((General_t)" + iterator + ");";
 
 		//add iterable to list of stuff declared at the top of the function
 		context.varDecl.put(iterable, "git_t");
@@ -90,13 +90,13 @@ public class IrFor extends IrStatement {
 //		context.fcnVarDecl.put(iterator, "iterator_t");
 		String itCondition = "while(hasNext(" + iterator + ")) {";
 		String tempVar = "void* " + var + " = getNext(" + iterator + ");";
-		String tempVarInc = "ref_increment((General_t)" + var + ");";
+//		String tempVarInc = "ref_increment((General_t)" + var + ");";
 
 
 		output.add(iterDeclaration);
-		output.add(inc1Declaration);
+//		output.add(inc1Declaration);
 		output.add(itDeclaration);
-		output.add(inc2Declaration);
+//		output.add(inc2Declaration);
 		
 		//Should be replaced by Ansha's code
 		if(context.lva){
@@ -137,7 +137,7 @@ public class IrFor extends IrStatement {
 
 		output.add(tempVar);
 		if(!context.lva || freeAfter.contains(var)){
-			output.add(tempVarInc);
+//			output.add(tempVarInc);
 		}
 
 		/*** vvv THE FOLLOWING IS A CODE BLOCK ***/

@@ -27,6 +27,17 @@ public class IrAppend implements IrExpression {
 		return cType;
 	}
 	
+	public String toC(CGenerationContext context, String variableName) {
+		StringBuilder s = new StringBuilder();
+		if(e1 instanceof IrIterableComp){
+			s.append(((IrIterableComp) e1).comprehension.toC(context));
+		}
+		if(e2 instanceof IrIterableComp){
+			s.append(((IrIterableComp) e2).comprehension.toC(context));
+		}
+		return s.toString() + variableName + " = iterable_append(" + e1.toC(context) + ", " + e2.toC(context) +");";
+	}
+	
 	public String toC(CGenerationContext context) {
 		return "iterable_append(" + e1.toC(context) + ", " + e2.toC(context) +")";
 	}

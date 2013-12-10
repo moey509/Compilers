@@ -6,6 +6,7 @@ import java.util.HashSet;
 import optimization.LvaContext;
 import typeChecker.CubexCompleteContext;
 import ir.CGenerationContext;
+import ir.expressions.IrAppend;
 import ir.expressions.IrCFunctionCall;
 import ir.expressions.IrExpression;
 import ir.expressions.IrExpressionTuple;
@@ -55,90 +56,93 @@ public final class IrBind extends IrStatement {
 	@Override
 	public ArrayList<String> toC(CGenerationContext context, boolean isMain, ArrayList<String> extras) {
 		//Hacky fix for Comprehensions
+		ArrayList<String> output = new ArrayList<String>();
 		if(expression instanceof IrIterableComp){
-			ArrayList<String> output = new ArrayList<String>();
 			IrIterableComp comp = (IrIterableComp)expression;
 			context.varDecl.put(tuple.variableName, tuple.type.toC());
 			output.add(comp.comprehension.toC(context));
 			output.add(tuple.variableName + " = " + comp.toC(context) + ";");
 			return output;
 		}
-		else{
-			ArrayList<String> output = new ArrayList<String>();
-			//output.add(tuple.type.toC() + " " + tuple.variableName + " = " + expression.toC(context) + ";");
-			for(IrBind b : temporaryBinds){
-				// put variables at the top of main() here:
-				if (isMain) {
-					context.varDecl.put(b.tuple.variableName, tuple.type.toC());
-					context.varInit.put(b.tuple.variableName, "NULL");
-				}
-				output.add(b.tuple.variableName + " = NULL;");
-				output.addAll(b.toC(context, isMain, extras));
-			}
-			context.varDecl.put(tuple.variableName, tuple.type.toC());
-			context.varInit.put(tuple.variableName, "NULL");
 
-			// put everything in fcnVarDecl ->
-			// the check for whether things already exist in temporaryBinds happens in IrFunction
-			//		if (!isMain) {
-			//			context.varDecl.put(tuple.variableName, tuple.type.toC());
-			//		}
-			if(context.lva && hasFreeBefore){
-				if(hasFreeBefore){
-					for(String s : freeBefore){
-						//					System.out.println("FREE BEFORE: " + s);
-//						output.add("ref_decrement((General_t)" + s + ");");
-						output.add(s + " = NULL;");
-					}
-				}
+		//output.add(tuple.type.toC() + " " + tuple.variableName + " = " + expression.toC(context) + ";");
+		for(IrBind b : temporaryBinds){
+			// put variables at the top of main() here:
+			if (isMain) {
+				context.varDecl.put(b.tuple.variableName, tuple.type.toC());
+				context.varInit.put(b.tuple.variableName, "NULL");
 			}
-			if(!(context.lva && isDead())){
-				if(temporaryBinds.size() > 0){
-					String s;
-					if (cse){
-						s = expression.toC(context);
-					}
-					else {
-						s = temporaryBinds.get(temporaryBinds.size()-1).tuple.variableName;
-					}
-					//No live variable analysis. Decrements whatever was previously set to this variable
-//					output.add("ref_decrement((General_t)" + tuple.variableName + ");");
-					output.add(tuple.variableName + " = " + s + ";");
-					output.add("ref_increment((General_t)" + tuple.variableName + ");");
-				}
-				else{
-					//Decrements whatever was previously bound to this variable
-//					output.add("ref_decrement((General_t)" + tuple.variableName + ");");
+			output.add(b.tuple.variableName + " = NULL;");
+			output.addAll(b.toC(context, isMain, extras));
+		}
+		context.varDecl.put(tuple.variableName, tuple.type.toC());
+		context.varInit.put(tuple.variableName, "NULL");
 
-					if (expression instanceof IrFunctionCall) {
-						IrFunctionCall funcCall = (IrFunctionCall) expression;
-						if(!funcCall.functionName.equals("_string") && !funcCall.functionName.equals("_character")){
-							//Increments arguments before a function call
-							for (IrExpressionTuple tuple : funcCall.getArugments()) {
-								output.add("ref_increment((General_t)" + tuple.getExpression().toC(context)+ ");");
-							}
-						}
-					}
-					//Sets the variable then increments.
-					output.add(tuple.variableName + " = " + expression.toC(context) + ";");
-					output.add("ref_increment((General_t)" + tuple.variableName + ");");
-				}
-			}
-
-			if(context.lva){
-				for(String s : inMinusOut()){
-//					output.add("ref_decrement((General_t)" + s + ");");
+		// put everything in fcnVarDecl ->
+		// the check for whether things already exist in temporaryBinds happens in IrFunction
+		//		if (!isMain) {
+		//			context.varDecl.put(tuple.variableName, tuple.type.toC());
+		//		}
+		if(context.lva && hasFreeBefore){
+			if(hasFreeBefore){
+				for(String s : freeBefore){
+					//					System.out.println("FREE BEFORE: " + s);
+					//						output.add("ref_decrement((General_t)" + s + ");");
 					output.add(s + " = NULL;");
 				}
 			}
-			else{
-				for(IrBind b : temporaryBinds){
-//					output.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
-					output.add(b.tuple.variableName + " = NULL;");
-				}
-			}
-			return output;
 		}
+		if(!(context.lva && isDead())){
+			if(temporaryBinds.size() > 0){
+				String s;
+				if (cse){
+					s = expression.toC(context);
+				}
+				else {
+					s = temporaryBinds.get(temporaryBinds.size()-1).tuple.variableName;
+				}
+				//No live variable analysis. Decrements whatever was previously set to this variable
+				//					output.add("ref_decrement((General_t)" + tuple.variableName + ");");
+				output.add(tuple.variableName + " = " + s + ";");
+//				output.add("ref_increment((General_t)" + tuple.variableName + ");");
+			}
+			else{
+				//Decrements whatever was previously bound to this variable
+				//					output.add("ref_decrement((General_t)" + tuple.variableName + ");");
+
+				if (expression instanceof IrFunctionCall) {
+					IrFunctionCall funcCall = (IrFunctionCall) expression;
+					if(!funcCall.functionName.equals("_string") && !funcCall.functionName.equals("_character")){
+						//Increments arguments before a function call
+						for (IrExpressionTuple tuple : funcCall.getArugments()) {
+//							output.add("ref_increment((General_t)" + tuple.getExpression().toC(context)+ ");");
+						}
+					}
+				}
+				//Sets the variable then increments.
+				if(expression instanceof IrAppend){
+					output.add(((IrAppend)expression).toC(context, tuple.variableName));
+				}
+				else{
+					output.add(tuple.variableName + " = " + expression.toC(context) + ";");
+				}
+//				output.add("ref_increment((General_t)" + tuple.variableName + ");");
+			}
+		}
+
+		if(context.lva){
+			for(String s : inMinusOut()){
+				//					output.add("ref_decrement((General_t)" + s + ");");
+				output.add(s + " = NULL;");
+			}
+		}
+		else{
+			for(IrBind b : temporaryBinds){
+				//					output.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
+				output.add(b.tuple.variableName + " = NULL;");
+			}
+		}
+		return output;
 	}
 	
 	

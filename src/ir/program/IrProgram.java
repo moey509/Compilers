@@ -104,7 +104,7 @@ public class IrProgram {
 		output.add("void cubex_main(){");
 
 		output.add("input = get_input();");
-		output.add("ref_increment((General_t)input);");
+//		output.add("ref_increment((General_t)input);");
 
 		
 //		for (IrTypeTuple tuple : variables){
