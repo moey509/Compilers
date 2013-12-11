@@ -63,7 +63,9 @@ public final class IrReturn extends IrStatement {
 			
 			if(expression instanceof IrIterableComp){
 				IrIterableComp comp = (IrIterableComp)expression;
-				beforeIterator.add(comp.comprehension.toC(context));
+				if (comp.comprehension!=null) {
+					beforeIterator.add(comp.comprehension.toC(context));
+				}
 				itDeclaration = iterator + " = new_iterator((" + comp.toC(context) + "));";
 			}
 			else{
