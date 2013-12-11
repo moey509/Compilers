@@ -51,45 +51,45 @@ public class IrUnaryExpression implements IrExpression {
 				if (operator.equals("!"))
 					return "Boolean_negate(" + expression.toC(context) + ")";
 				else if (operator.equals("..."))
-					return "Boolean_onward(" + expression.toC(context) + ", 1)";
+					return "Boolean_onwards(" + expression.toC(context) + ", 1)";
 				else if (operator.equals("<.."))
-					return "Boolean_onward(" + expression.toC(context) + ", 0)";
+					return "Boolean_onwards(" + expression.toC(context) + ", 0)";
 			} else if (expression.getCType().equals("Integer")) {
 				if (operator.equals("-"))
 					return "Integer_negative(" + expression.toC(context) + ")";
 				else if (operator.equals("..."))
-					return "Integer_onward(" + expression.toC(context) + ", 1)";
+					return "Integer_onwards(" + expression.toC(context) + ", 1)";
 				else if (operator.equals("<.."))
-					return "Integer_onward(" + expression.toC(context) + ", 0)";
+					return "Integer_onwards(" + expression.toC(context) + ", 0)";
 			}
 		} else if (expression.getCubexType() != null){
 			if (expression.getCubexType().name.equals("Boolean")) {
 				if (operator.equals("!"))
 					return "Boolean_negate(" + expression.toC(context) + ")";
 				else if (operator.equals("..."))
-					return "Boolean_onward(" + expression.toC(context) + ", 1)";
+					return "Boolean_onwards(" + expression.toC(context) + ", 1)";
 				else if (operator.equals("<.."))
-					return "Boolean_onward(" + expression.toC(context) + ", 0)";
+					return "Boolean_onwards(" + expression.toC(context) + ", 0)";
 			} else if (expression.getCubexType().name.equals("Integer")) {
 				if (operator.equals("-"))
 					return "Integer_negative(" + expression.toC(context) + ")";
 				else if (operator.equals("..."))
-					return "Integer_onward(" + expression.toC(context) + ", 1)";
+					return "Integer_onwards(" + expression.toC(context) + ", 1)";
 				else if (operator.equals("<.."))
-					return "Integer_onward(" + expression.toC(context) + ", 0)";
+					return "Integer_onwards(" + expression.toC(context) + ", 0)";
 			} else {
 				if (operator.equals("!"))
 					return "Boolean_negate(" + expression.toC(context) + ")";
 				else if (operator.equals("..."))
-					return "Boolean_onward(" + expression.toC(context) + ", 1)";
+					return "Boolean_onwards(" + expression.toC(context) + ", 1)";
 				else if (operator.equals("<.."))
-					return "Boolean_onward(" + expression.toC(context) + ", 0)";
+					return "Boolean_onwards(" + expression.toC(context) + ", 0)";
 				else if (operator.equals("-"))
 						return "Integer_negative(" + expression.toC(context) + ")";
 				else if (operator.equals("..."))
-					return "Integer_onward(" + expression.toC(context) + ", 1)";
+					return "Integer_onwards(" + expression.toC(context) + ", 1)";
 				else if (operator.equals("<.."))
-					return "Integer_onward(" + expression.toC(context) + ", 0)";
+					return "Integer_onwards(" + expression.toC(context) + ", 0)";
 			}
 		} 
 		System.out.println(toString());

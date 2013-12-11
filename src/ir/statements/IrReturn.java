@@ -197,7 +197,15 @@ public final class IrReturn extends IrStatement {
 				if (extras != null) {
 					arrList.addAll(extras);
 				}
-				arrList.add("return " + expression.toC(context) + ";");
+				if(expression instanceof IrIterableComp){
+					IrIterableComp comp = (IrIterableComp)expression;
+					if (comp.comprehension!=null) {
+						arrList.add("return " + comp.comprehension.toC(context));
+					}
+				}
+				else{
+					arrList.add("return " + expression.toC(context) + ";");
+				}
 			}
 		}
 		return arrList;

@@ -51,7 +51,8 @@ public class IrComprehensionPair implements IrComprehension{
 		s.append(structVariableName + "->hasEvaluatedOnce = " + "0;\n");
 		s.append(structVariableName + "->evaluatedValue = " + "0;\n");
 		for(String str : varList.keySet()){
-			s.append(structVariableName + "->" + str + " = " + str + ";\n");
+			System.out.println("VARLIST: " + varList.get(str));
+			s.append(structVariableName + "->" + str + " = __comp->" + str + ";\n");
 		}
 		if(comp != null){
 			String nestName = context.getComprehensionStruct();
