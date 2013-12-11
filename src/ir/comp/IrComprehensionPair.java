@@ -78,6 +78,9 @@ public class IrComprehensionPair implements IrComprehension{
 		s.append("int " + comprehensionName + "_hasNext(" + comprehensionName + "_t __comp){\n");
 		//Check to see if we should look at expression
 		s.append("if(__comp->hasEvaluatedOnce == 0){\n");
+		if(comp != null){
+			s.append("__comp->hasEvaluatedOnce = 0;");
+		}
 		s.append("return 1;\n");
 		s.append("}\n");
 		

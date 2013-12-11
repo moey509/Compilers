@@ -71,12 +71,18 @@ public class IrComprehensionIf implements IrComprehension{
 		//Check to see if we should look at expression
 		
 		s.append("if(__comp->hasEvaluatedOnce == 0){\n");
-		//In this case, evaluate
+		//In this case, evaluate the if
 		s.append("if(((Boolean_t)" + expression.toC(context) + ")->value){\n");
 		s.append("__comp->evaluatedValue = 1;");
 		s.append("}\n");
+		//Need to reset the future comprehensions
+		if(comp != null){
+			s.append("__comp->hasEvaluatedOnce = 0;");
+		}
 		s.append("}\n");
-		s.append("if(__comp->evaluatedValue == 0){ return 0;}");
+		
+		//If result is false then do not continue
+		s.append("if(__comp->evaluatedValue == 0){ return 0;}\n");
 		
 		//See if we can get an element from farther down in the list of comprehensions
 		//ex: for(v in e) for(v2 in e2) v2
@@ -90,8 +96,18 @@ public class IrComprehensionIf implements IrComprehension{
 		return s.toString();
 	}
 	public String addGetNextFunction(CGenerationContext context){
-		System.out.println();
-		return "";
+		StringBuilder s = new StringBuilder();
+		s.append("int " + comprehensionName + "_getNext(" + comprehensionName + "_t __comp){\n");
+		if(nestedComprehensionName != null){
+			s.append("if(" + nestedComprehensionName + "_hasNext(__comp->_nest_comp) == 1){\n");
+			s.append("return " + nestedComprehensionName + "_getNext(__comp->_nest_comp);\n");
+			s.append("}");
+		}
+		else{
+			s.append("return NULL;\n");
+		}
+		s.append("}\n");
+		return s.toString();
 	}
 	
 	public String getComprehensionName() {
