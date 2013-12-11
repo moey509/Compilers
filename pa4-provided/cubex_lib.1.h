@@ -1113,8 +1113,8 @@ void totoString(git_t g) {
 }
 
 
-Character_t _character(Integer_t i) {
-  return new_character(i->value);
+git_t _character(Integer_t i) {
+  return new_git_obj(new_character(i->value));
 }
 
 git_t new_git_obj_charuni(char c) {
