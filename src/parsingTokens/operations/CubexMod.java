@@ -20,7 +20,7 @@ public class CubexMod extends CubexBinaryExpression {
 
 	public CubexMod(CubexExpression left, CubexExpression right) {
 		super(left, right);
-		type = "Integer";
+		type = "Iterable";
 		operator = "%";
 	}
 

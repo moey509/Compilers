@@ -20,7 +20,7 @@ public class CubexDivide extends CubexBinaryExpression {
 	
 	public CubexDivide(CubexExpression left, CubexExpression right) {
 		super(left, right);
-		type = "Integer";
+		type = "Iterable";
 		operator = "/";
 	}
 	

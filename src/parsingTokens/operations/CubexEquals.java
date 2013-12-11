@@ -20,7 +20,7 @@ public class CubexEquals extends CubexBinaryExpression {
 	
 	public CubexEquals(CubexExpression left, CubexExpression right) {
 		super(left, right);
-		type = left.type;
+		type = "Boolean";
 		operator = "==";
 	}
 	
@@ -37,7 +37,8 @@ public class CubexEquals extends CubexBinaryExpression {
 		l.add(super.getmRight());
 		function = new CubexFunctionApp(super.getmLeft(), "equals",
 				new CubexList<CubexTypeGrammar>(), l);
-		cubexType = function.typeCheck(c);
+		this.cubexType = function.typeCheck(c);
+		System.out.println("IN TYPECHECKER: " + function + " .. " + cubexType.name);
 		return cubexType;
 	}
 
