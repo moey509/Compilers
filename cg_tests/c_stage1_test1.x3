@@ -1,4 +1,5 @@
 #stage1test4
 # assignment
 #not all memory freed at the end of the program
-return[if(true) "hi", "hello"];
+#return[if(5-1 == (1 * 2) + 3-1) "hi", "hello"];
+return[for(v in ["y"]) "x"];

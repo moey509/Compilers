@@ -6,7 +6,6 @@ import ir.program.IrProgram;
 import ir.program.IrStruct;
 import ir.program.IrTypeTuple;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -33,9 +32,9 @@ public abstract class Comp {
 	public abstract void getVars(Set<String> set);
 	public abstract void replaceVars(HashMap<String, String> map);
 
-	public abstract IrComprehension toIr(IrGenerationContext context);
+	public abstract IrComprehension toIr(IrGenerationContext context, HashMap<String, CubexTypeGrammar> extras);
 	
-	public String addStruct(IrGenerationContext context, String nestedComprehensionName) {
+	public String addStruct(IrGenerationContext context, String nestedComprehensionName, HashMap<String, CubexTypeGrammar> extras) {
 		System.out.println("struct: " + this);
 //		if(comp != null && !(this instanceof CompPair)){
 //			nestedComprehensionName = comp.addStruct(context);
@@ -46,9 +45,15 @@ public abstract class Comp {
 		for(String variable : varList.keySet()){
 			struct.addStructVariable(new IrTypeTuple(varList.get(variable).toIrType(), variable));
 		}
+		for (String s : extras.keySet()){
+			struct.addStructVariable(new IrTypeTuple(extras.get(s).toIrType(), s));
+		}
 		HashMap<String, String> varMap = new HashMap<String, String>();
 		for (String s : varList.keySet()) {
 			varMap.put(s, "__comp->" + s);			
+		}
+		for (String s : extras.keySet()){
+			varMap.put(s, "__comp->" + s);
 		}
 		
 		//Every comprehension makes a struct. After the struct is made, we can replace variable names.

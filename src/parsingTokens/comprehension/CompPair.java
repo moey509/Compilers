@@ -65,16 +65,17 @@ public class CompPair extends Comp {
 	}
 
 	@Override
-	public IrComprehension toIr(IrGenerationContext context) {
+	public IrComprehension toIr(IrGenerationContext context, HashMap<String, CubexTypeGrammar> extras) {
 		IrComprehensionPair output;
 		if (comp == null){
-			addStruct(context, null);
+			addStruct(context, null, extras);
 			output = new IrComprehensionPair(null, e.toIr(context), cubexType, comprehensionName, nestedComprehensionName, varList);
 			System.out.println("PAIR: " + this.comprehensionName);
+			System.out.println("PAIRtoIR: " + this);
 		}
 		else{
-			IrComprehension c = comp.toIr(context);
-			addStruct(context, c.getComprehensionName());
+			IrComprehension c = comp.toIr(context, extras);
+			addStruct(context, c.getComprehensionName(), extras);
 			nestedComprehensionName = c.getComprehensionName();
 			output = new IrComprehensionPair(c, e.toIr(context), cubexType, comprehensionName, nestedComprehensionName, varList);
 		}

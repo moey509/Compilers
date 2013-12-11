@@ -40,6 +40,7 @@ public class IrComprehensionPair implements IrComprehension{
 	}
 	
 	public String toC(CGenerationContext context, String variableName) {
+		System.out.println("PAIRZEES: " + this.comprehensionName);
 		// TODO Auto-generated method stub
 		StringBuilder s = new StringBuilder();
 		structVariableName = variableName;
@@ -57,6 +58,7 @@ public class IrComprehensionPair implements IrComprehension{
 			s.append(comp.toC(context, nestName));
 			s.append(structVariableName + "->_nest_comp = " + nestName + ";");
 		}
+		System.out.println("PAIRZEES: " + this.comprehensionName);
 		context.comprehensionFunctions.add(addHasNextFunction(context));
 		context.comprehensionFunctions.add(addGetNextFunction(context));
 		
@@ -79,7 +81,10 @@ public class IrComprehensionPair implements IrComprehension{
 		//Check to see if we should look at expression
 		s.append("if(__comp->hasEvaluatedOnce == 0){\n");
 		if(comp != null){
-			s.append("__comp->hasEvaluatedOnce = 0;");
+			s.append("__comp->_nest_comp->hasEvaluatedOnce = 0;\n");
+			for(String str : varList.keySet()){
+				s.append("__comp->_nest_comp->" + str + " = __comp->" + str + ";\n");
+			}
 		}
 		s.append("return 1;\n");
 		s.append("}\n");

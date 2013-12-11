@@ -35,7 +35,7 @@ public class CubexIterableComp extends CubexExpression {
 	public IrIterableComp toIr(IrGenerationContext context) {
 		IrComprehension irComp = null;
 		if(comp != null){
-			irComp = comp.toIr(context);
+			irComp = comp.toIr(context, new HashMap<String, CubexTypeGrammar>());
 		}
 		return new IrIterableComp(irComp);
 	}

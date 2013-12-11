@@ -33,6 +33,7 @@ public class IrComprehensionIf implements IrComprehension{
 	
 	public String toC(CGenerationContext context, String variableName) {
 		// TODO Auto-generated method stub
+		System.out.println("IF: " + this.comprehensionName);
 		StringBuilder s = new StringBuilder();
 		structVariableName = variableName;
 		context.varDecl.put(structVariableName, this.getComprehensionName() + "_t");
@@ -73,11 +74,15 @@ public class IrComprehensionIf implements IrComprehension{
 		s.append("if(__comp->hasEvaluatedOnce == 0){\n");
 		//In this case, evaluate the if
 		s.append("if(((Boolean_t)" + expression.toC(context) + ")->value){\n");
-		s.append("__comp->evaluatedValue = 1;");
+		s.append("__comp->evaluatedValue = 1;\n");
+		s.append("__comp->hasEvaluatedOnce = 1;\n");
 		s.append("}\n");
 		//Need to reset the future comprehensions
 		if(comp != null){
-			s.append("__comp->hasEvaluatedOnce = 0;");
+			s.append("__comp->_nest_comp->hasEvaluatedOnce = 0;\n");
+			for(String str : varList.keySet()){
+				s.append("__comp->_nest_comp->" + str + " = __comp->" + str + ";\n");
+			}
 		}
 		s.append("}\n");
 		
