@@ -67,9 +67,22 @@ public final class IrFunctionCall implements IrExpression {
 		for (IrExpressionTuple tuple : arguments){
 			if(firstTime){
 				firstTime = false;
-				sb.append("(" + tuple.argType.toC() + ") " + tuple.expression.toC(context));
+				if(tuple.expression instanceof IrIterableComp){
+					IrIterableComp comp = (IrIterableComp) tuple.expression;
+					sb.append("(" + tuple.argType.toC() + ") " + comp.comprehension.getComprehensionName() + "_getNext(" + comp.comprehension.getStructVariableName() + ")");
+				}
+				else{
+					sb.append("(" + tuple.argType.toC() + ") " + tuple.expression.toC(context));
+				}
 			}
 			else{
+				if(tuple.expression instanceof IrIterableComp){
+					IrIterableComp comp = (IrIterableComp) tuple.expression;
+					sb.append(", (" + tuple.argType.toC() + ") " + comp.comprehension.getComprehensionName() + "_getNext(" + comp.comprehension.getStructVariableName() + ")");
+				}
+				else{
+					sb.append(", (" + tuple.argType.toC() + ") " + tuple.expression.toC(context));
+				}
 				sb.append(", (" + tuple.argType.toC() + ") " + tuple.expression.toC(context));
 			}
 		}
