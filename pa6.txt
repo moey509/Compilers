@@ -1,0 +1,14 @@
+Compilers PA6 text file
+
+As a group we decided to do Cubex with List Comprehensions for PA6
+
+1. We did not discuss the assignment with any other group.
+
+2. Distribution of work: 
+   Jimmy was responsible for architecture and the IR.
+   Toshi was responsible for writing C functions to handle lazy evaluation and comprehensions.
+   Ansha was responsible for lexing and parsing.
+   Matt was responsible for typechecking.
+
+3. Additional Comments: 
+   None.

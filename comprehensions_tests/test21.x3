@@ -1,0 +1,4 @@
+x := [true, false, true, false, true, false];
+y := [];
+for (a in x) y := y++[if (a) "Hello"];
+return y;
