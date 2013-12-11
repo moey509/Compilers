@@ -31,10 +31,21 @@ public final class IrString implements IrExpression {
 	}
 	
 	public String helper(int index, CGenerationContext context) {
+		char c = mValue.charAt(index);
+		String s;
+		if (c == '\'')
+			s = "\\\'";
+		else if (c == '\"')
+			s = "\\\"";
+		else if (c == '\\')
+			s = "\\\\";
+		else
+			s = c + "";
+		System.out.println("String s: " + s);
 		if (index == mValue.length() - 2){
-			return ("iterable_append(new_git_obj(new_character(charuni('" + mValue.charAt(index) + "'))), NULL)");
+			return ("iterable_append(new_git_obj(new_character(charuni('" + s + "'))), NULL)");
 		}
-		return ("iterable_append(new_git_obj(new_character(charuni('" + mValue.charAt(index) + "'))), " + helper(index+1, context) + ")");
+		return ("iterable_append(new_git_obj(new_character(charuni('" + s + "'))), " + helper(index+1, context) + ")");
 	}
 	
 	// NOTE: STRINGS SHOULD BE CONVERTED INTO ITERABLES OF CHARS
