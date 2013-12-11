@@ -18,6 +18,7 @@ public class IrComprehensionFor implements IrComprehension{
 	public String nestedComprehensionName;
 	public String structVariableName;
 	public HashMap<String, CubexTypeGrammar> varList;
+	public HashMap<String, String> varMap = new HashMap<String, String>();
 	
 	public CubexTypeGrammar cubexType;
 	public String cType;
@@ -51,7 +52,34 @@ public class IrComprehensionFor implements IrComprehension{
 		if(comp != null){
 			System.out.println("COMP SHOULD NOT BE NULL");
 			String nestName = context.getComprehensionStruct();
-			s.append(comp.toC(context, nestName));
+			s.append(comp.toC(context, nestName, true));
+			System.out.println(comp.getStructVariableName());
+			s.append(structVariableName + "->_nest_comp = " + nestName + ";");
+		}
+		context.comprehensionFunctions.add(addHasNextFunction(context));
+		context.comprehensionFunctions.add(addGetNextFunction(context));
+		
+		return s.toString();
+	}
+	
+	public String toC(CGenerationContext context, String variableName, boolean embe) {
+		// TODO Auto-generated method stub
+		System.out.println("FOR: " + this.comprehensionName);
+		StringBuilder s = new StringBuilder();
+		structVariableName = variableName;
+		context.varDecl.put(structVariableName, this.getComprehensionName() + "_t");
+		s.append(structVariableName + " = x3malloc(sizeof(struct " + this.getComprehensionName() + "));\n");
+		s.append(structVariableName + "->_iterable = " + "NULL;\n");
+		s.append(structVariableName + "->_iterator = " + "NULL;\n");
+		s.append(structVariableName + "->hasEvaluatedOnce = " + "0;\n");
+		s.append(structVariableName + "->evaluatedValue = " + "0;\n");
+		for(String str : varList.keySet()){
+			s.append(structVariableName + "->" + str + " = __comp->" + str + ";\n");
+		}
+		if(comp != null){
+			System.out.println("COMP SHOULD NOT BE NULL");
+			String nestName = context.getComprehensionStruct();
+			s.append(comp.toC(context, nestName, true));
 			System.out.println(comp.getStructVariableName());
 			s.append(structVariableName + "->_nest_comp = " + nestName + ";");
 		}
@@ -63,6 +91,10 @@ public class IrComprehensionFor implements IrComprehension{
 	
 	public String toC(CGenerationContext context) {
 		return this.toC(context, context.getComprehensionStruct());
+	}
+	
+	public String toC(CGenerationContext context, boolean embedded) {
+		return this.toC(context, context.getComprehensionStruct(), embedded);
 	}
 
 	@Override
@@ -136,7 +168,7 @@ public class IrComprehensionFor implements IrComprehension{
 		StringBuilder s = new StringBuilder();
 		s.append("void* " + comprehensionName + "_getNext(" + comprehensionName + "_t __comp){\n");
 		s.append("if(" + nestedComprehensionName + "_hasNext(__comp->_nest_comp) == 1){\n");
-		s.append(comp.toC(context));
+		s.append(comp.toC(context, true));
 		s.append("return " + nestedComprehensionName + "_hasNext(__comp->_nest_comp);\n");
 		s.append("}\n");
 		s.append("}\n");

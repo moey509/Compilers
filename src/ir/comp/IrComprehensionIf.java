@@ -17,6 +17,7 @@ public class IrComprehensionIf implements IrComprehension{
 	public String nestedComprehensionName;
 	public String structVariableName;
 	public HashMap<String, CubexTypeGrammar> varList;
+	public HashMap<String, String> varMap = new HashMap<String, String>();
 	
 	public CubexTypeGrammar cubexType;
 	public String cType;
@@ -47,7 +48,31 @@ public class IrComprehensionIf implements IrComprehension{
 		}
 		if(comp != null){
 			String nestName = context.getComprehensionStruct();
-			s.append(comp.toC(context, nestName));
+			s.append(comp.toC(context, nestName, true));
+			s.append(structVariableName + "->_nest_comp = " + nestName + ";");
+		}
+		context.comprehensionFunctions.add(addHasNextFunction(context));
+		context.comprehensionFunctions.add(addGetNextFunction(context));
+		
+		return s.toString();
+	}
+	public String toC(CGenerationContext context, String variableName, boolean embedded) {
+		// TODO Auto-generated method stub
+		System.out.println("IF: " + this.comprehensionName);
+		StringBuilder s = new StringBuilder();
+		structVariableName = variableName;
+		context.varDecl.put(structVariableName, this.getComprehensionName() + "_t");
+		s.append(structVariableName + " = x3malloc(sizeof(struct " + this.getComprehensionName() + "));\n");
+		s.append(structVariableName + "->_iterable = " + "NULL;\n");
+		s.append(structVariableName + "->_iterator = " + "NULL;\n");
+		s.append(structVariableName + "->hasEvaluatedOnce = " + "0;\n");
+		s.append(structVariableName + "->evaluatedValue = " + "0;\n");
+		for(String str : varList.keySet()){
+			s.append(structVariableName + "->" + str + " = __comp->" + str + ";\n");
+		}
+		if(comp != null){
+			String nestName = context.getComprehensionStruct();
+			s.append(comp.toC(context, nestName, true));
 			s.append(structVariableName + "->_nest_comp = " + nestName + ";");
 		}
 		context.comprehensionFunctions.add(addHasNextFunction(context));
@@ -58,6 +83,10 @@ public class IrComprehensionIf implements IrComprehension{
 	
 	public String toC(CGenerationContext context) {
 		return this.toC(context, context.getComprehensionStruct());
+	}
+	
+	public String toC(CGenerationContext context, boolean embedded) {
+		return this.toC(context, context.getComprehensionStruct(), embedded);
 	}
 
 	@Override

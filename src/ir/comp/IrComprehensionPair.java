@@ -21,6 +21,7 @@ public class IrComprehensionPair implements IrComprehension{
 	public String nestedComprehensionName;
 	public String structVariableName;
 	public HashMap<String, CubexTypeGrammar> varList;
+	public HashMap<String, String> varMap = new HashMap<String, String>();
 	
 	public CubexTypeGrammar cubexType;
 	public String cType;
@@ -39,6 +40,10 @@ public class IrComprehensionPair implements IrComprehension{
 		return this.toC(context, context.getComprehensionStruct());
 	}
 	
+	public String toC(CGenerationContext context, boolean embedded) {
+		return this.toC(context, context.getComprehensionStruct(), embedded);
+	}
+	
 	public String toC(CGenerationContext context, String variableName) {
 		System.out.println("PAIRZEES: " + this.comprehensionName);
 		// TODO Auto-generated method stub
@@ -52,7 +57,34 @@ public class IrComprehensionPair implements IrComprehension{
 		s.append(structVariableName + "->evaluatedValue = " + "0;\n");
 		for(String str : varList.keySet()){
 			System.out.println("VARLIST: " + varList.get(str));
-			s.append(structVariableName + "->" + str + " = __comp->" + str + ";\n");
+			s.append(structVariableName + "->" + str + " = " + str + ";\n");
+		}
+		if(comp != null){
+			String nestName = context.getComprehensionStruct();
+			s.append(comp.toC(context, nestName, true));
+			s.append(structVariableName + "->_nest_comp = " + nestName + ";");
+		}
+		System.out.println("PAIRZEES: " + this.comprehensionName);
+		context.comprehensionFunctions.add(addHasNextFunction(context));
+		context.comprehensionFunctions.add(addGetNextFunction(context));
+		
+		return s.toString();
+	}
+	
+	public String toC(CGenerationContext context, String variableName, boolean embedded) {
+		System.out.println("PAIRZEES: " + this.comprehensionName);
+		// TODO Auto-generated method stub
+		StringBuilder s = new StringBuilder();
+		structVariableName = variableName;
+		context.varDecl.put(structVariableName, this.getComprehensionName() + "_t");
+		s.append(structVariableName + " = x3malloc(sizeof(struct " + this.getComprehensionName() + "));\n");
+		s.append(structVariableName + "->_iterable = " + "NULL;\n");
+		s.append(structVariableName + "->_iterator = " + "NULL;\n");
+		s.append(structVariableName + "->hasEvaluatedOnce = " + "0;\n");
+		s.append(structVariableName + "->evaluatedValue = " + "0;\n");
+		for(String str : varList.keySet()){
+			System.out.println("VARLIST: " + varList.get(str));
+			s.append(structVariableName + "->" + str + " = " + str + ";\n");
 		}
 		if(comp != null){
 			String nestName = context.getComprehensionStruct();
@@ -144,4 +176,5 @@ public class IrComprehensionPair implements IrComprehension{
 	public String getStructVariableName(){
 		return structVariableName;
 	}
+
 }
