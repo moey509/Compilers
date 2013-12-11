@@ -41,6 +41,7 @@ public class CompMain {
 
 //		CharStream charStream = new ANTLRFileStream("cg_tests/c_stage1_test1.x3");
 		CharStream charStream = new ANTLRFileStream("cg_tests/c_stage2_test3.x3");
+
 		CubexLexer cubLexer = new CubexLexer(charStream);
 		cubLexer.removeErrorListeners();
 
@@ -67,11 +68,13 @@ public class CompMain {
 		}
 //		System.out.println(cubParser.programAST);
 		try {
+			System.out.println(cubParser.programAST.toString());
+			
 			cubParser.programAST.typeCheck(c);
 			System.out.println("Passed Typechecker");
 			// replace all C keywords with a safe version
 			cubParser.programAST.replaceCKeyWords();
-			System.out.println(cubParser.programAST.toString());
+			
 			IrGenerationContext context = new IrGenerationContext();
 			IrProgram program = cubParser.programAST.toIr(context, new IrProgram());
 			for(IrComprehensionStruct struct : context.comprehensionStructs){

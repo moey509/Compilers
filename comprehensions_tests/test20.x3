@@ -1,0 +1,1 @@
+return [if (true) "Hello", if (true) "World!", if (true) if (false) "WTF don't show this!", if (true) "Lol this either"];

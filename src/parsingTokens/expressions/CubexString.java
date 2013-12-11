@@ -51,8 +51,10 @@ public final class CubexString extends CubexExpression {
 		}
 		String appendLeft = "";
 		String appendRight = "NULL";
+		System.out.println(mValue);
 		for(int i = mValue.length()-2; i > 0; i--){
 			char c = mValue.charAt(i);
+			System.out.println(c);
 			IrType t = new IrType("git_t");
 			appendLeft = context.nextTemp();
 			IrTypeTuple tuple = new IrTypeTuple(t, appendLeft);
