@@ -1,7 +1,3 @@
 #GC test (garbage)
-out := 67;
-for(i in -10000..10000)
-{
-	out:=out+i;
-}
-return [string([character(out)])];
+x := [character(67)];
+return [];

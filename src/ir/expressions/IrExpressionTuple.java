@@ -4,7 +4,7 @@ import ir.IrType;
 
 public class IrExpressionTuple{
 	IrType argType;
-	IrExpression expression;
+	public IrExpression expression;
 	public IrExpressionTuple(IrType argType, IrExpression expression) {
 		//System.out.println("IR: " + argType.type + " " + expression.toString());
 		this.argType = argType;

@@ -6,6 +6,9 @@ import java.util.HashMap;
 
 import ir.CGenerationContext;
 import ir.expressions.IrExpression;
+import ir.expressions.IrExpressionTuple;
+import ir.expressions.IrFunctionCall;
+import ir.expressions.IrIterableComp;
 import ir.statements.IrBind;
 import parsingTokens.typeGrammar.CubexTypeGrammar;
 import typeChecker.IrGenerationContext;
@@ -42,7 +45,6 @@ public class IrComprehensionPair implements IrComprehension{
 		structVariableName = variableName;
 		context.varDecl.put(structVariableName, this.getComprehensionName() + "_t");
 		s.append(structVariableName + " = x3malloc(sizeof(struct " + this.getComprehensionName() + "));\n");
-		s.append(structVariableName + "->ref_count = " + "-1;\n");
 		s.append(structVariableName + "->_iterable = " + "NULL;\n");
 		s.append(structVariableName + "->_iterator = " + "NULL;\n");
 		s.append(structVariableName + "->hasEvaluatedOnce = " + "0;\n");
@@ -73,9 +75,6 @@ public class IrComprehensionPair implements IrComprehension{
 	
 	public String addHasNextFunction(CGenerationContext context){
 		StringBuilder s = new StringBuilder();
-//		if(comp != null){
-//			comp.addHasNextFunction(context);
-//		}
 		s.append("int " + comprehensionName + "_hasNext(" + comprehensionName + "_t __comp){\n");
 		//Check to see if we should look at expression
 		s.append("if(__comp->hasEvaluatedOnce == 0){\n");
@@ -102,6 +101,15 @@ public class IrComprehensionPair implements IrComprehension{
 		//Check to see if we should look at expression
 		s.append("if(__comp->hasEvaluatedOnce == 0){\n");
 		s.append("__comp->hasEvaluatedOnce = 1;\n");
+		if(expr instanceof IrFunctionCall){
+			IrFunctionCall fun = (IrFunctionCall)expr;
+			for (IrExpressionTuple tuple : fun.arguments){
+				if(tuple.expression instanceof IrIterableComp){
+					IrIterableComp comp = (IrIterableComp)tuple.expression;
+					s.append(comp.comprehension.toC(context));
+				}
+			}
+		}
 		s.append("return (void*)" + expr.toC(context) + ";\n");
 		s.append("}");
 		

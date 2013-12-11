@@ -40,7 +40,7 @@ public class CompMain {
 //		 CharStream charStream = new ANTLRFileStream(args[0]);
 
 //		CharStream charStream = new ANTLRFileStream("cg_tests/c_stage1_test1.x3");
-		CharStream charStream = new ANTLRFileStream("cg_tests/x3_test1.x3");
+		CharStream charStream = new ANTLRFileStream("cg_tests/c_stage1_test6.x3");
 		CubexLexer cubLexer = new CubexLexer(charStream);
 		cubLexer.removeErrorListeners();
 

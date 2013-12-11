@@ -64,6 +64,15 @@ public final class IrBind extends IrStatement {
 			output.add(tuple.variableName + " = " + comp.toC(context) + ";");
 			return output;
 		}
+		else if(expression instanceof IrFunctionCall){
+			IrFunctionCall fun = (IrFunctionCall)expression;
+			for (IrExpressionTuple tuple : fun.arguments){
+				if(tuple.expression instanceof IrIterableComp){
+					IrIterableComp comp = (IrIterableComp)tuple.expression;
+					output.add(comp.comprehension.toC(context));
+				}
+			}
+		}
 
 		//output.add(tuple.type.toC() + " " + tuple.variableName + " = " + expression.toC(context) + ";");
 		for(IrBind b : temporaryBinds){

@@ -16,7 +16,7 @@ import parsingTokens.typeGrammar.CubexTypeGrammar;
 
 public final class IrFunctionCall implements IrExpression {
 	public String functionName;	
-	private List<IrExpressionTuple> arguments;
+	public List<IrExpressionTuple> arguments;
 	private String cType;	
 	private CubexTypeGrammar cubexType;
 	
