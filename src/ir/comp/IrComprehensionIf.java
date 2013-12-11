@@ -36,15 +36,20 @@ public class IrComprehensionIf implements IrComprehension{
 		// TODO Auto-generated method stub
 		StringBuilder s = new StringBuilder();
 		structVariableName = context.getComprehensionStruct();
+		context.varDecl.put(structVariableName, this.getComprehensionName() + "_t");
 		s.append(structVariableName + " = x3malloc(sizeof(struct " + this.getComprehensionName() + "));\n");
-		s.append(structVariableName + "->iterable = " + "NULL;\n");
-		s.append(structVariableName + "->iterator = " + "NULL;\n");
+		s.append(structVariableName + "->_iterable = " + "NULL;\n");
+		s.append(structVariableName + "->_iterator = " + "NULL;\n");
 		s.append(structVariableName + "->hasEvaluatedOnce = " + "0;\n");
 		s.append(structVariableName + "->evaluatedValue = " + "0;\n");
 		for(String str : varList.keySet()){
 			s.append(structVariableName + "->" + str + " = " + str + ";\n");
 		}
 		return s.toString();
+	}
+	
+	public String toC(CGenerationContext context, String variableName) {
+		return toC(context);
 	}
 
 	@Override

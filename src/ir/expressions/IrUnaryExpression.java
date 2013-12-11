@@ -46,7 +46,7 @@ public class IrUnaryExpression implements IrExpression {
 
 	@Override
 	public String toC(CGenerationContext context) {
-		if (expression.getCubexType() == null){
+		if (expression.getCType() != null){
 			if (expression.getCType().equals("Boolean")) {
 				if (operator.equals("!"))
 					return "Boolean_negate(" + expression.toC(context) + ")";
@@ -62,7 +62,7 @@ public class IrUnaryExpression implements IrExpression {
 				else if (operator.equals("<.."))
 					return "Integer_onward(" + expression.toC(context) + ", 0)";
 			}
-		} else {
+		} else if (expression.getCubexType() != null){
 			if (expression.getCubexType().name.equals("Boolean")) {
 				if (operator.equals("!"))
 					return "Boolean_negate(" + expression.toC(context) + ")";
@@ -91,9 +91,11 @@ public class IrUnaryExpression implements IrExpression {
 				else if (operator.equals("<.."))
 					return "Integer_onward(" + expression.toC(context) + ", 0)";
 			}
-		}
-			//System.out.println("WARNING: operator for unary expression was null or could not be found");
-			return null;
+		} 
+		System.out.println(toString());
+		System.out.println("EXPRESSION " + expression);
+		return expression.getCubexType().name;
+		//return "Boolean_negate(" + expression.toC(context) + ")";
 	}
 	
 	@Override
