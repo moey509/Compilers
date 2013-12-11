@@ -1,4 +1,7 @@
 #stage1test4
 # assignment
 #not all memory freed at the end of the program
-return[if(true) "hi"];
+retVal := "";
+s := "The Return Value.";
+retVal := s;
+return [retVal];
