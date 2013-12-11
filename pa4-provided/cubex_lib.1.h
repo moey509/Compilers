@@ -556,11 +556,12 @@ git_t iterable_append (git_t first, git_t second) {
     temp->dummy = itr->dummy;
 
     /* do lazy stuff here */
+    /*
     if (temp->is_lazy == 1) {
       new_lazy = iterable_append (temp->lazy, NULL);
       temp->lazy = new_lazy;  
     } 
-    
+    */
 
     itr = itr->next;  
     /* update pointers */
@@ -593,12 +594,12 @@ git_t iterable_append (git_t first, git_t second) {
     temp->lazy_get_next = itr->lazy_get_next;  
     temp->dummy = itr->dummy;
 
-    /* do lazy stuff here */
+    /* do lazy stuff here */ /*
     if (temp->is_lazy == 1) {
       new_lazy = iterable_append (temp->lazy, NULL);
       temp->lazy = new_lazy;  
     } 
-
+*/
     itr = itr->next;  
     /* update pointers */
     if (prev != NULL) { 
@@ -1080,6 +1081,7 @@ void toString(git_t g) {
   it = new_iterator(g);
   git_t c;
   git_t temp = g;  
+
   while (temp != NULL) {    
     printf ("--> %c\n", ((Character_t)temp->val)->value);
     temp = temp->next;
@@ -1148,9 +1150,10 @@ git_t _lazy_input_get(void* lazy_block) {
   printf ("buffer: %s, length: %d\n", buf, len);
   string = stringToIterable(buf);
   x3free(buf);  
+  /*
   printf ("lazy input get\n");
   toString(string);
-  
+  */
   return string;
 }
 
@@ -1194,6 +1197,19 @@ int length(git_t g) {
       counter += 1;
     }
     temp = temp->next;    
+  }
+  return counter;
+}
+
+int pure_length(git_t g) {
+  git_t temp;
+  int counter;
+  counter = 0;
+  temp = g;
+  while (temp != NULL) {
+    printf ("laaazy? %d\n", g->is_lazy);
+    temp = temp->next;
+    counter +=1 ;
   }
   return counter;
 }
