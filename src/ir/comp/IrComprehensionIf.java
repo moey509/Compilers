@@ -58,6 +58,10 @@ public class IrComprehensionIf implements IrComprehension{
 		
 		return s.toString();
 	}
+	
+	public String toC(CGenerationContext context, String variableName) {
+		return toC(context);
+	}
 
 	@Override
 	public ArrayList<IrBind> getExpressions(CGenerationContext context) {
