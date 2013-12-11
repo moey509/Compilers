@@ -30,10 +30,6 @@ public class IrComprehensionIf implements IrComprehension{
 		this.nestedComprehensionName = nestedComprehensionName;
 		this.varList = varList;
 	}
-
-	public String toC(CGenerationContext context) {
-		return this.toC(context, context.getComprehensionStruct());
-	}
 	
 	public String toC(CGenerationContext context, String variableName) {
 		// TODO Auto-generated method stub
@@ -59,8 +55,8 @@ public class IrComprehensionIf implements IrComprehension{
 		return s.toString();
 	}
 	
-	public String toC(CGenerationContext context, String variableName) {
-		return toC(context);
+	public String toC(CGenerationContext context) {
+		return this.toC(context, context.getComprehensionStruct());
 	}
 
 	@Override
@@ -73,9 +69,14 @@ public class IrComprehensionIf implements IrComprehension{
 		StringBuilder s = new StringBuilder();
 		s.append("int " + comprehensionName + "_hasNext(" + comprehensionName + "_t __comp){\n");
 		//Check to see if we should look at expression
+		
 		s.append("if(__comp->hasEvaluatedOnce == 0){\n");
-		s.append("return 1;\n");
+		//In this case, evaluate
+		s.append("if(((Boolean_t)" + expression.toC(context) + ")->value){\n");
+		s.append("__comp->evaluatedValue = 1;");
 		s.append("}\n");
+		s.append("}\n");
+		s.append("if(__comp->evaluatedValue == 0){ return 0;}");
 		
 		//See if we can get an element from farther down in the list of comprehensions
 		//ex: for(v in e) for(v2 in e2) v2
