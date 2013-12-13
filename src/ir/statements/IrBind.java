@@ -7,6 +7,7 @@ import optimization.LvaContext;
 import typeChecker.CubexCompleteContext;
 import ir.CGenerationContext;
 import ir.expressions.IrAppend;
+import ir.expressions.IrBinaryExpression;
 import ir.expressions.IrCFunctionCall;
 import ir.expressions.IrExpression;
 import ir.expressions.IrExpressionTuple;
@@ -120,7 +121,7 @@ public final class IrBind extends IrStatement {
 			else{
 				//Decrements whatever was previously bound to this variable
 				output.add("ref_decrement((General_t)" + tuple.variableName + ");");
-
+				//System.out.println("toC: " + tuple.toString() + " " + expression.toC(context));
 				if (expression instanceof IrFunctionCall) {
 					IrFunctionCall funcCall = (IrFunctionCall) expression;
 					if(!funcCall.functionName.equals("_string") && !funcCall.functionName.equals("_character")){
@@ -135,6 +136,8 @@ public final class IrBind extends IrStatement {
 					output.add(((IrAppend)expression).toC(context, tuple.variableName));
 				}
 				else{
+					if (expression instanceof IrBinaryExpression)
+						System.out.println("toC: " + tuple.toString() + " " + expression.toC(context));
 					output.add(tuple.variableName + " = " + expression.toC(context) + ";");
 				}
 				output.add("ref_increment((General_t)" + tuple.variableName + ");");
@@ -208,18 +211,15 @@ public final class IrBind extends IrStatement {
 			tempBind.expression = tempBind.expression.eliminateSubexpression(context);
 			context.putVariable(tempBind.getVariableName(), tempBind.expression.getSubexpressions(context));
 		}
-		if (getVariableName().equals("a")){
 		System.out.println("------------");
 		context.printContext();
 		System.out.println("Before CSE: " + getVariableName() + "=" + expression);
-		}
 		IrExpression temp = expression.eliminateSubexpression(context);
 		if (!temp.equals(expression)){
 			cse = true;
 			expression = temp;
 		}
-		if (getVariableName().equals("a"))
-			System.out.println("After CSE: " + getVariableName() + "=" + expression);
+		System.out.println("After CSE: " + getVariableName() + "=" + expression);
 		context.putVariable(getVariableName(), expression.getSubexpressions(context));
 	}
 

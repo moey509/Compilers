@@ -38,7 +38,6 @@ public class CubexEquals extends CubexBinaryExpression {
 		function = new CubexFunctionApp(super.getmLeft(), "equals",
 				new CubexList<CubexTypeGrammar>(), l);
 		this.cubexType = function.typeCheck(c);
-		System.out.println("IN TYPECHECKER: " + function + " .. " + cubexType.name);
 		return cubexType;
 	}
 

@@ -74,7 +74,7 @@ public final class CubexString extends CubexExpression {
 			ArrayList<String> cParameterTypes = new ArrayList<String>();
 			cParameterTypes.add("char");
 			IrCFunctionCall fun;
-			fun = new IrCFunctionCall("new_git_obj_charuni" + "", cParameters, cParameterTypes,"");
+			fun = new IrCFunctionCall("new_git_obj_charuni" + "", cParameters, cParameterTypes,"Character");
 			IrBind bind = new IrBind(tuple, fun, cubexContext);
 			arr.add(bind);
 			
@@ -87,7 +87,7 @@ public final class CubexString extends CubexExpression {
 			cParameterTypes = new ArrayList<String>();
 			cParameterTypes.add("git_t");
 			cParameterTypes.add("git_t");
-			fun = new IrCFunctionCall("iterable_append", cParameters, cParameterTypes,"");
+			fun = new IrCFunctionCall("iterable_append", cParameters, cParameterTypes,"String");
 			if(!appendLeft.equals("NULL"))fun.input.add(appendLeft);
 			if(!appendRight.equals("NULL"))fun.input.add(appendRight);
 			bind = new IrBind(tuple, fun, cubexContext);

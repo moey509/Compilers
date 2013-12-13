@@ -88,6 +88,7 @@ public class IrBinaryExpression implements IrExpression {
 		 * } }
 		 */
 		// everything else
+		System.out.println("BINOP " + this);
 		if (leftExpression.getCubexType()== null){
 			if (leftExpression.getCType().equals("Integer")) {
 				if (operator.equals("+"))
@@ -248,7 +249,10 @@ public class IrBinaryExpression implements IrExpression {
 		}
 //		System.out
 //				.println("WARNING: there is no operator in this Binary Expression");
-		return operator;
+		System.out.println("C Type: " + leftExpression.getCType());
+		System.out.println("Cubex Type: " + leftExpression.getCubexType());
+
+		throw new RuntimeException("there is no operator in this Binary Expression");
 	}
 
 	@Override
@@ -286,10 +290,12 @@ public class IrBinaryExpression implements IrExpression {
 	public IrExpression eliminateSubexpression(CseContext context) {
 		IrExpression expr = getSubexpressions(context);
 		if (context.containsExpression(expr)){
+			System.out.println("BINOP1: " + context.getVariableExpression(expr));
 			return context.getVariableExpression(expr);
 		} else {
 			leftExpression = leftExpression.eliminateSubexpression(context);
 			rightExpression = rightExpression.eliminateSubexpression(context);
+			System.out.println("BINOP2: " + this);
 			return this;
 		}
 	}

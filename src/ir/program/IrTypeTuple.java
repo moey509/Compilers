@@ -10,4 +10,8 @@ public class IrTypeTuple{
 		this.type = type;
 		this.variableName = variableName;
 	}	
+	
+	public String toString(){
+		return type.toC() + " " + variableName;
+	}
 }
