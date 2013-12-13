@@ -1,6 +1,6 @@
 a := "hey";
 b := "hey";
-#c := ["hey"];
-#d := [a];
+c := ["hey"];
+d := [a];
 
 return [b]++["hey"];

@@ -4,6 +4,8 @@ if (false){
 } else {
 	a := "Bar";
 }
-b := "Bar";
+b := "Foo";
 
-return ["Bar"];
+if (a != b)
+	return ["Bar"];
+return ["Fail"];

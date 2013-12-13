@@ -1,5 +1,7 @@
-a := 1 + 2;
-b := 1 + 2;
-c := 1 + 2;
+b := "hello";
+a := ["hello", "hello", b];
 
-return [];
+for (i in a){
+	a := a++[b];
+}
+return a;

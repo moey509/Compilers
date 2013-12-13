@@ -1,0 +1,16 @@
+a := true;
+b := "";
+
+if (true){
+	a := false;
+}
+
+if (a){
+	b := "Hello";
+}
+else {
+	b := "World";
+}
+for (i in b)
+	return ["Hello World"];
+return ["fail"];

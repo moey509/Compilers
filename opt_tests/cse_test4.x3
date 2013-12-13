@@ -3,4 +3,14 @@ f := false;
 a := true;
 b := false;
 
-return ["hello"];
+if (a){
+	if (t){
+		if (b){
+			return ["GTFO"];
+		}
+		if (!f){
+			return ["hello"];
+		}
+	}
+}
+return ["WTF"];

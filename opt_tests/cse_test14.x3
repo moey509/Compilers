@@ -1,4 +1,4 @@
-a := true;
+a := false;
 b := "";
 
 if (true){
@@ -11,4 +11,6 @@ if (a){
 else {
 	b := "World";
 }
-return [b];
+for (i in b)
+	return ["Hello World"];
+return ["fail"];

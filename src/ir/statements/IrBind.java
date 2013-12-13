@@ -98,7 +98,7 @@ public final class IrBind extends IrStatement {
 			if(hasFreeBefore){
 				for(String s : freeBefore){
 					//					System.out.println("FREE BEFORE: " + s);
-					//						output.add("ref_decrement((General_t)" + s + ");");
+					output.add("ref_decrement((General_t)" + s + ");");
 					output.add(s + " = NULL;");
 				}
 			}
@@ -113,20 +113,20 @@ public final class IrBind extends IrStatement {
 					s = temporaryBinds.get(temporaryBinds.size()-1).tuple.variableName;
 				}
 				//No live variable analysis. Decrements whatever was previously set to this variable
-				//					output.add("ref_decrement((General_t)" + tuple.variableName + ");");
+				output.add("ref_decrement((General_t)" + tuple.variableName + ");");
 				output.add(tuple.variableName + " = " + s + ";");
-//				output.add("ref_increment((General_t)" + tuple.variableName + ");");
+				output.add("ref_increment((General_t)" + tuple.variableName + ");");
 			}
 			else{
 				//Decrements whatever was previously bound to this variable
-				//					output.add("ref_decrement((General_t)" + tuple.variableName + ");");
+				output.add("ref_decrement((General_t)" + tuple.variableName + ");");
 
 				if (expression instanceof IrFunctionCall) {
 					IrFunctionCall funcCall = (IrFunctionCall) expression;
 					if(!funcCall.functionName.equals("_string") && !funcCall.functionName.equals("_character")){
 						//Increments arguments before a function call
 						for (IrExpressionTuple tuple : funcCall.getArugments()) {
-//							output.add("ref_increment((General_t)" + tuple.getExpression().toC(context)+ ");");
+							output.add("ref_increment((General_t)" + tuple.getExpression().toC(context)+ ");");
 						}
 					}
 				}
@@ -137,19 +137,19 @@ public final class IrBind extends IrStatement {
 				else{
 					output.add(tuple.variableName + " = " + expression.toC(context) + ";");
 				}
-//				output.add("ref_increment((General_t)" + tuple.variableName + ");");
+				output.add("ref_increment((General_t)" + tuple.variableName + ");");
 			}
 		}
 
 		if(context.lva){
 			for(String s : inMinusOut()){
-				//					output.add("ref_decrement((General_t)" + s + ");");
+				output.add("ref_decrement((General_t)" + s + ");");
 				output.add(s + " = NULL;");
 			}
 		}
 		else{
 			for(IrBind b : temporaryBinds){
-				//					output.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
+				output.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
 				output.add(b.tuple.variableName + " = NULL;");
 			}
 		}

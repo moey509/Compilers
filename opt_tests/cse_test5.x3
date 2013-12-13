@@ -6,4 +6,9 @@ b := foo(3);
 c := foo(x);
 d := foo(2);
 
-return [];
+if (a == b){
+	if (c != d){
+		return ["yay"];
+	}
+}
+return ["WTF"];

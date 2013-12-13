@@ -45,7 +45,7 @@ public class IrProgram {
 	
 	public ArrayList<String> toC(){
 		CGenerationContext context = new CGenerationContext();
-		//context.lva = true;
+		context.lva = true;
 		ArrayList<String> output = new ArrayList<String>();
 		ArrayList<String> preOut = new ArrayList<String>();
 		ArrayList<String> postOut = new ArrayList<String>();
@@ -104,7 +104,7 @@ public class IrProgram {
 		output.add("void cubex_main(){");
 
 		output.add("input = get_input();");
-//		output.add("ref_increment((General_t)input);");
+		output.add("ref_increment((General_t)input);");
 
 		
 //		for (IrTypeTuple tuple : variables){

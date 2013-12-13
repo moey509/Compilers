@@ -41,7 +41,6 @@ public final class IrString implements IrExpression {
 			s = "\\\\";
 		else
 			s = c + "";
-		System.out.println("String s: " + s);
 		if (index == mValue.length() - 2){
 			return ("iterable_append(new_git_obj(new_character(charuni('" + s + "'))), NULL)");
 		}

@@ -4,6 +4,7 @@ import ir.CGenerationContext;
 import ir.statements.IrBind;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -74,6 +75,21 @@ public class IrCFunctionCall implements IrExpression {
 	}
 
 	@Override
+	public void getVars(Set<String> set, Map<String, Set<String>> map) {
+		for (String s : input) {
+			set.add(s);
+		}
+	}	
+	
+	public String toString() {
+		String str = "C-" + functionName + " ( ";
+		for (String s : input) {
+			str = str + " , " + s;
+		}
+		return str + " )";
+	}
+	
+	@Override
 	public IrExpression eliminateSubexpression(CseContext context) {
 		IrExpression expr = getSubexpressions(context);
 		if (context.containsExpression(expr)){
@@ -87,7 +103,27 @@ public class IrCFunctionCall implements IrExpression {
 			return this;
 		}
 	}
-
+	
+	public boolean equals(Object object){
+		if (object instanceof IrCFunctionCall){
+			IrCFunctionCall expr = (IrCFunctionCall) object;
+			if (!functionName.equals(expr.functionName)){
+				return false;
+			}
+			Iterator<String> iter1 = parameters.iterator();
+			Iterator<String> iter2 = expr.parameters.iterator();
+			while (iter1.hasNext() && iter2.hasNext()){
+				if (!iter1.next().equals(iter2.next())){
+					return false;
+				}
+			}
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
 	@Override
 	public IrExpression getSubexpressions(CseContext context) {
 		IrFunctionCall output = new IrFunctionCall(functionName, cType, cubexType);
@@ -100,21 +136,6 @@ public class IrCFunctionCall implements IrExpression {
 			}
 		}
 		return output;
-	}
-
-	@Override
-	public void getVars(Set<String> set, Map<String, Set<String>> map) {
-		for (String s : input) {
-			set.add(s);
-		}
-	}	
-	
-	public String toString() {
-		String str = "C-" + functionName + " ( ";
-		for (String s : input) {
-			str = str + " , " + s;
-		}
-		return str + " )";
 	}
 	
 	public IrExpression clone(){
