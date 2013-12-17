@@ -137,7 +137,7 @@ public final class IrReturn extends IrStatement {
 			}
 			if (isMain) {
 //				arrList.add("ref_decrement((General_t)input);");
-//				arrList.add("ending();");
+				arrList.add("ending();");
 				arrList.add("return;");
 			}
 			else{
@@ -178,7 +178,7 @@ public final class IrReturn extends IrStatement {
 				// extra expressions will not get added
 
 				//TODO: REMOVE BEFORE SUBMISSION
-//				arrList.add("ending();");
+				arrList.add("ending();");
 
 				arrList.add("return;");
 			}

@@ -1,0 +1,4 @@
+make: Entering directory `/home/toshi/code/school/CS4120/Compilers/pa4-provided'
+gcc -c -o out.o out.c -ansi -pedantic
+make: Leaving directory `/home/toshi/code/school/CS4120/Compilers/pa4-provided'
+blah

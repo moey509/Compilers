@@ -1,8 +1,13 @@
 #stage1test5
 #if/else
 
-t := 1;
-
-t := 3;
-
-return [];
+t := [""];
+if (true)
+{
+	t := ["TRUE"];
+}
+else
+{
+	t := ["FALSE"];
+}
+return t;

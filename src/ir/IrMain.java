@@ -37,7 +37,7 @@ public class IrMain {
 	public static void main(String[] args) throws IOException {
 //		 CharStream charStream = new ANTLRFileStream(args[0]);
 
-		CharStream charStream = new ANTLRFileStream("cg_tests/b_tc_test1.x3");
+		CharStream charStream = new ANTLRFileStream("cg_tests/x3_test1.x3");
 		//CharStream charStream = new ANTLRFileStream("cg_tests/test8.x3");
 		CubexLexer cubLexer = new CubexLexer(charStream);
 		cubLexer.removeErrorListeners();
@@ -76,7 +76,9 @@ public class IrMain {
 			//program.removeCommonSubexpressions();
 			//program.lva();
 			ArrayList<String> programCode = program.toC();
-			FileWriter writer = new FileWriter(new File("cg_tests/out.c"));
+			// first option for regular stuff, second for automated testing
+			FileWriter writer = new FileWriter(new File("out.c"));
+//			FileWriter writer = new FileWriter(new File("cg_tests/out.c"));
 //			System.out.println("----------");
 			int counter = 3;
 			writer.write("#include \"cubex_lib.h\"\n");
