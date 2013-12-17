@@ -45,7 +45,7 @@ public class IrMain {
 		ErrorListener listener = new ErrorListener();
 		cubLexer.addErrorListener(listener);
 		List<? extends Token> list1 = cubLexer.getAllTokens();
-		if (lexedWithError) {
+		if (lexedWithError) { 
 			System.out.print("reject");
 			return;
 		}
