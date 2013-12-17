@@ -37,8 +37,8 @@ public class IrMain {
 	public static void main(String[] args) throws IOException {
 //		 CharStream charStream = new ANTLRFileStream(args[0]);
 
-//		CharStream charStream = new ANTLRFileStream("opt_tests/cse_test10.x3");
-		CharStream charStream = new ANTLRFileStream("cg_tests/test8.x3");
+		CharStream charStream = new ANTLRFileStream("cg_tests/b_tc_test1.x3");
+		//CharStream charStream = new ANTLRFileStream("cg_tests/test8.x3");
 		CubexLexer cubLexer = new CubexLexer(charStream);
 		cubLexer.removeErrorListeners();
 
@@ -70,10 +70,13 @@ public class IrMain {
 			cubParser.programAST.replaceCKeyWords();
 			IrGenerationContext context = new IrGenerationContext();
 			IrProgram program = cubParser.programAST.toIr(context, new IrProgram());
+			
+			// NOTE: if you turn off LVA, in IrProgram.java turn off the following variable: (48) context.lva = true;
+			
 			//program.removeCommonSubexpressions();
-			program.lva();
+			//program.lva();
 			ArrayList<String> programCode = program.toC();
-			FileWriter writer = new FileWriter(new File("out.c"));
+			FileWriter writer = new FileWriter(new File("cg_tests/out.c"));
 //			System.out.println("----------");
 			int counter = 3;
 			writer.write("#include \"cubex_lib.h\"\n");
