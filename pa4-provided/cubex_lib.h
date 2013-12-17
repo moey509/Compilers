@@ -131,6 +131,7 @@ nit_t new_nit() {
 }
 
 Character_t new_character(int input) {
+  printf ("here\n");
   Character_t c = (Character_t)x3malloc(sizeof(struct Character));
   c->ref_count = 0;
   c->fun_names = NULL;
@@ -1115,8 +1116,8 @@ void totoString(git_t g) {
 }
 
 
-git_t _character(Integer_t i) {
-  return new_git_obj(new_character(i->value));
+Character_t _character(Integer_t i) {
+  return (new_character(i->value));
 }
 
 git_t new_git_obj_charuni(char c) {
@@ -1159,17 +1160,21 @@ git_t _lazy_input_get(void* lazy_block) {
 
 git_t get_input () {
   char * buf;
+  int len;
   git_t temp;
   git_t temp2;
   git_t cur;
   git_t string;
-  git_t head = NULL;
+  git_t head = NULL;  
+
   while (next_line_len() > 0) {
-    buf = (char*)x3malloc(sizeof(char) * next_line_len());
+    len = next_line_len();
+    buf = (char*)x3malloc(sizeof(char) * (len+1));
     read_line(buf);
+    buf[len] = '\0';
     string = stringToIterable(buf);
     x3free(buf);  
-    temp = new_git_obj(string);
+    temp = new_git_obj(string);    
     if (head == NULL) {
       head = temp;
       cur = head;
