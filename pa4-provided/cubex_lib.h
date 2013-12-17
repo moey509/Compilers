@@ -112,7 +112,7 @@ struct nit
   int fun_length;
   functionPointer* fun_ptrs;
   void* con_comp;
-  int is_iter;
+  int is_iter; 
   int is_thru_ward;
   int low;
   int high;
