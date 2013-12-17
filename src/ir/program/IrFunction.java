@@ -224,4 +224,16 @@ public class IrFunction implements IrProgramElem{
 		}
 		
 	}
+
+	@Override
+	public String toString() {
+		return "IrFunction [type=" + type.toString() + ", object=" + object
+				+ ", functionName=" + functionName + ", arguments=" + arguments
+				+ ", statements=" + statements + ", vTableFunctionNames="
+				+ vTableFunctionNames + ", extraStatements=" + extraStatements
+				+ ", superCall=" + superCall + ", isConstructor="
+				+ isConstructor + ", tempVariables=" + tempVariables
+				+ ", isToplevel=" + isToplevel + "]";
+	}
+	
 }

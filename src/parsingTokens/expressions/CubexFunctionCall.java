@@ -64,6 +64,7 @@ public final class CubexFunctionCall extends CubexExpression {
 			irFunCall.addArgument(i.type, i.toIr(context));
 			//System.out.println("CUBEX: " + i.type + " " + i.toString());
 		}
+		context.printGlobalFunctions();
 		return irFunCall;
 	}
 

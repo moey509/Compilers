@@ -208,6 +208,8 @@ public class CubexClassGrammar {
 		}
 
 		irFunction.addStatement(new IrCStatement(dec_inputs));
+//		System.out.println(irFunction);
+		context.addGlobalFunction("_" + irFunction.functionName);
 		program.addGlobalFunction(irFunction);
 	}
 
