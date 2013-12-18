@@ -100,6 +100,7 @@ public abstract class IrStatement implements IrProgramElem{
 			System.out.println("  freeAfter: " + freeAfter.toString());
 		}
 		if (hasFreeBefore) {
+			System.out.println("  prevLoop: " + prevLoop.toString());
 			System.out.println("  freeBefore: " + freeBefore.toString());
 		}
 		System.out.println("  inSet: " + inSet.toString());

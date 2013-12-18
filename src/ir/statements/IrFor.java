@@ -102,9 +102,11 @@ public class IrFor extends IrStatement {
 		if(context.lva){
 			if(hasFreeBefore){
 				for(String s : freeBefore){
-//					System.out.println("Free Before For: " + s);
-					output.add("ref_decrement((General_t)" + s + ");");
-					output.add(s + " = NULL;");
+					if (!s.equals(var)) {
+	//					System.out.println("Free Before For: " + s);
+						output.add("ref_decrement((General_t)" + s + ");");
+						output.add(s + " = NULL;");
+					}
 				}
 			}
 			for(String s : inMinusOut()){

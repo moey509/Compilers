@@ -197,9 +197,11 @@ public class IrIf extends IrStatement {
 				
 			}
 			
-			IrStatement afterIf = c.nextList.getFirst();
-			if (statements1.size() >0) {
-				afterIf.topAccessed = false;
+			if (!c.nextList.isEmpty()) {
+				IrStatement afterIf = c.nextList.getFirst();
+				if (statements1.size() >0) {
+					afterIf.topAccessed = false;
+				}
 			}
 
 			if (statements2.size() > 0) {
