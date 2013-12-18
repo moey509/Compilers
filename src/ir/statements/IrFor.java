@@ -286,6 +286,12 @@ public class IrFor extends IrStatement {
 //		}
 		return list;
 	}
+	
+	public List<IrStatement> getAllStatements(){
+		List<IrStatement> output = new ArrayList<IrStatement>();
+		output.addAll(statements);
+		return output;
+	}
 }
 
 

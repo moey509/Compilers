@@ -1,6 +1,7 @@
 package ir.statements;
 
 import java.util.ArrayList;
+
 import java.util.HashSet;
 import java.util.List;
 
@@ -259,5 +260,12 @@ public class IrIf extends IrStatement {
 //			return new IrVariableExpression(varname, ctype);
 //		}
 		return condition;
+	}
+	
+	public List<IrStatement> getAllStatements(){
+		List<IrStatement> output = new ArrayList<IrStatement>();
+		output.addAll(statements1);
+		output.addAll(statements2);
+		return output;
 	}
 }
