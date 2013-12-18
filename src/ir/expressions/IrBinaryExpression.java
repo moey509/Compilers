@@ -25,6 +25,11 @@ public class IrBinaryExpression implements IrExpression {
 		this.operator = operator;
 		this.cubexType = cubexType;
 
+		
+		if (operator.equals("&&")) {
+			System.out.println("lols");
+		}
+		
 		// logic to determine type:
 		if (operator.equals("+") || operator.equals("&&")
 				|| operator.equals("/") || operator.equals("-")
@@ -38,7 +43,7 @@ public class IrBinaryExpression implements IrExpression {
 			type = IrMiscFunctions.ITERABLE;
 		} else {
 			type = null;
-//			System.out.println("WARNING! built it type was not found...");
+			System.out.println("WARNING! built it type was not found...");
 		}
 	}
 
@@ -252,7 +257,13 @@ public class IrBinaryExpression implements IrExpression {
 		System.out.println("C Type: " + leftExpression.getCType());
 		System.out.println("Cubex Type: " + leftExpression.getCubexType());
 
-		throw new RuntimeException("there is no operator in this Binary Expression");
+		throw new RuntimeException("no such operator (" + operator+") with type " + operator +" and cubexType " +
+		cubexType);
+//		private IrExpression leftExpression;
+//		private IrExpression rightExpression;
+//		private String operator;
+//		private String type;
+//		private CubexTypeGrammar cubexType;
 	}
 
 	@Override

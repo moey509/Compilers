@@ -130,8 +130,7 @@ nit_t new_nit() {
   n->is_thru_ward = 0;
 }
 
-Character_t new_character(int input) {
-  printf ("here\n");
+Character_t new_character(int input) {  
   Character_t c = (Character_t)x3malloc(sizeof(struct Character));
   c->ref_count = 0;
   c->fun_names = NULL;
