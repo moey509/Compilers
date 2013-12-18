@@ -1,0 +1,22 @@
+# Common Subexpression Elimination (1)
+# This program does either O(n) steps if there is CSE, or O(5^n) steps without CSE);
+
+fun expo(n : Integer):Integer
+{
+	if(n>0)
+	{
+		a:=expo(n-1);
+		b:=expo(n-1);
+		c:=expo(n-1);
+		d:=expo(n-1);
+		e:=expo(n-1);
+		return a-b+c-d+e+1;
+	}
+	return 0;
+}
+
+if(expo(1000)==1000)
+{
+	return ["Yes"];
+}
+return ["No"];

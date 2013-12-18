@@ -3,7 +3,7 @@
 class Multiplier<A>(a : A, n : Integer) {
   fun getLst() : Iterable<A> {
     ret := [];
-    for (nn in 1..n) {
+    for (nn in [1]) {
       ret := [a] ++ ret;
     }
     return ret;
@@ -15,9 +15,5 @@ class Multiplier<A>(a : A, n : Integer) {
   }
 }
 
-for (i in input)
-{
-	return Multiplier<Integer>(100, 10).getOtherLst<String>(i);
-}
+return Multiplier<Integer>(100, 10).getOtherLst<String>("Hello");
 
-return ["You didn't read the input :("];
