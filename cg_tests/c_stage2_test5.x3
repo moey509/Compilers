@@ -3,16 +3,16 @@
 fun reversefirsttwo() : Iterable<String> {
 	getfirst := true;
 	first:= "";
-	for (i in input)
+	for (bitch in input)
 	{
 		if (getfirst)
 		{
-			first := i;
+			first := bitch;
 			getfirst := false;
 		}
 		else
 		{
-			second := i;
+			second := bitch;
 			return [second]++[first];
 		}
 	}

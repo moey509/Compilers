@@ -155,9 +155,12 @@ public final class IrReturn extends IrStatement {
 		else{
 			//Should be replaced by Ansha's code methinks
 			// free control flow variables
-			for (String s : freeContext) {
-				if (!isMain) {
-					arrList.add("ref_decrement((General_t)" + s + ");");
+			if (expression instanceof IrVariableExpression) {
+				String name = ((IrVariableExpression) expression).getVarName();
+				for (String s : freeContext) {
+					if (!isMain && !s.equals(name)) {
+						arrList.add("ref_decrement((General_t)" + s + ");");
+					}
 				}
 			}
 			

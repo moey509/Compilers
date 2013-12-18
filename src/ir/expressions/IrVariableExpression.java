@@ -39,6 +39,10 @@ public class IrVariableExpression implements IrExpression {
 	public String getCType() {
 		return cType;
 	}
+	
+	public String getVarName() {
+		return variableName;
+	}
 
 	@Override
 	public String toC(CGenerationContext context) {

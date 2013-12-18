@@ -13,9 +13,10 @@ print ("[INFO] Started Compiling...")
 print ("[INFO] Finished Compiling...")
 
 print "[INFO] Started Running files.."
-directory = "../pa4-provided"
+directory = "../cg_tests/autotest"
 for fname in sorted(glob.glob(directory + "/*.x3"), key=getnum):
     num = getnum(fname)
+    print fname
     cur = "java ir.IrMain " + str(fname)
     print "[INFO] running " + cur
     # generate out.c
@@ -32,7 +33,7 @@ for fname in sorted(glob.glob(directory + "/*.x3"), key=getnum):
         print "----running code..."
         myout = subprocess.check_output(running, shell=True)
       except:
-        print "[ERROR] %s error running file"
+        print "[ERROR] %s error running file"% fname
     except:
       print ("[ERROR] %s does not compile" % fname)
       '''
