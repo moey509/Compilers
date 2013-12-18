@@ -144,8 +144,8 @@ public class IrProgram {
 		return preOut;
 	}
 	
-	public void lva() {
-		boolean debug = false; // SET TO FALSE AFTER FINISH DEBUGGING
+	public void lva(boolean d) {
+		boolean debug = d;
 		
 		LvaContext c0 = new LvaContext();
 		c0.doNotDecrement.add("input");
