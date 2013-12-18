@@ -282,6 +282,9 @@ public final class IrReturn extends IrStatement {
 	public void populateSets(LvaContext c) {
 		if (nextSet==null) {
 			nextSet = new HashSet<IrStatement>();
+			if (c.nextList.size() >0) {
+				c.nextList.removeFirst().getTop();
+			}
 			useSet = new HashSet<String>();
 			getExpression().getVars(useSet, c.functionUse);
 			populateSetsTemps(c);
