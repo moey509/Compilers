@@ -75,7 +75,8 @@ public class IrMain {
 			
 			//program.removeCommonSubexpressions();
 			//program.lva();
-			ArrayList<String> programCode = program.toC();
+			CGenerationContext cgcontext = new CGenerationContext();
+			ArrayList<String> programCode = program.toC(cgcontext);
 			// first option for regular stuff, second for automated testing
 			FileWriter writer = new FileWriter(new File("out.c"));
 //			FileWriter writer = new FileWriter(new File("cg_tests/out.c"));
