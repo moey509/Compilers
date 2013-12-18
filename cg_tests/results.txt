@@ -1,0 +1,3054 @@
+This is an overview of the tests that failed:
+
+Test: stage5test3
+generic classes without inheritance
+[Stage 5]
+
+Program:
+class Pair<A,B>(a : A, b : B) {
+  fun pi1() : A  = a;
+  fun pi2() : B = b;
+}
+
+class Map<A>(lst : Iterable<Pair<String, A>>) {
+  fun add(key : String, val : A) : Map<A> {
+    return Map<A>(lst ++ [Pair<String, A>(key, val)]);
+  }
+
+  fun lookup(key : String) : Iterable<A> {
+    for (p in lst) {
+      if (p.pi1().equals(key)) {
+        return [p.pi2()];
+      }
+    }
+    return [];
+  }
+}
+
+x := Map<Integer>([]);
+v := 102;
+for (i in input)
+{
+	x := x.add(i, v);
+	v := v + 1;
+}
+ret := [];
+for (i in input)
+{
+	z := x.lookup(i);
+	zz := [];
+	for (j in z) {
+		zz := zz ++ [character(j)];
+	}
+	ret := ret++[string(zz)];
+}
+return ret;
+
+-------------------------------------------
+
+C program could not be compiled!
+
+Compiler output:
+In file included from out.c:1:0:
+cubex_lib.h: In function ‘toString’:
+cubex_lib.h:668:5: warning: implicit declaration of function ‘printf’ [-Wimplicit-function-declaration]
+cubex_lib.h:668:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:671:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:673:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:678:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:674:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h:666:10: warning: unused variable ‘buffer’ [-Wunused-variable]
+cubex_lib.h: In function ‘totoString’:
+cubex_lib.h:691:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:694:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:696:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:701:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:697:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h: In function ‘_character’:
+cubex_lib.h:727:3: warning: return makes integer from pointer without a cast [enabled by default]
+out.c: In function ‘__Pair’:
+out.c:35:19: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘->’ token
+out.c:35:19: error: expected expression before ‘->’ token
+out.c:36:19: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘->’ token
+out.c:36:1: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+out.c:36:19: error: expected expression before ‘->’ token
+out.c:37:1: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+out.c: In function ‘_Pair_Pair_pi1’:
+out.c:50:8: error: ‘a’ undeclared (first use in this function)
+out.c:50:8: note: each undeclared identifier is reported only once for each function it appears in
+out.c: In function ‘_Pair_Pair_pi2’:
+out.c:53:8: error: ‘b’ undeclared (first use in this function)
+out.c: In function ‘__Map’:
+out.c:56:15: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘->’ token
+out.c:56:15: error: expected expression before ‘->’ token
+out.c:57:1: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+out.c: In function ‘_Map_Map_add’:
+out.c:69:27: error: ‘lst’ undeclared (first use in this function)
+out.c:69:1: warning: implicit declaration of function ‘_Pair’ [-Wimplicit-function-declaration]
+out.c:69:1: warning: passing argument 1 of ‘new_git_obj’ makes pointer from integer without a cast [enabled by default]
+cubex_lib.h:309:7: note: expected ‘void *’ but argument is of type ‘int’
+out.c:72:1: warning: implicit declaration of function ‘_Map’ [-Wimplicit-function-declaration]
+out.c:72:9: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c: In function ‘_Map_Map_lookup’:
+out.c:82:1: error: unknown type name ‘git_t_t’
+out.c:87:27: error: ‘lst’ undeclared (first use in this function)
+out.c:96:1: warning: implicit declaration of function ‘Pair_pi1’ [-Wimplicit-function-declaration]
+out.c:96:9: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:105:1: warning: implicit declaration of function ‘Pair_pi2’ [-Wimplicit-function-declaration]
+out.c:105:9: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:107:15: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
+out.c:108:9: warning: assignment makes integer from pointer without a cast [enabled by default]
+out.c:109:15: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
+out.c:113:1: warning: return makes pointer from integer without a cast [enabled by default]
+out.c:84:7: warning: unused variable ‘__temp3’ [-Wunused-variable]
+out.c:83:7: warning: unused variable ‘__temp2’ [-Wunused-variable]
+out.c: In function ‘cubex_main’:
+out.c:152:9: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:182:1: warning: implicit declaration of function ‘Map_add’ [-Wimplicit-function-declaration]
+out.c:182:51: error: ‘v’ undeclared (first use in this function)
+out.c:230:1: warning: implicit declaration of function ‘Map_lookup’ [-Wimplicit-function-declaration]
+out.c:230:10: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:254:1: warning: implicit declaration of function ‘_Map_character’ [-Wimplicit-function-declaration]
+out.c:254:1: warning: passing argument 1 of ‘new_git_obj’ makes pointer from integer without a cast [enabled by default]
+cubex_lib.h:309:7: note: expected ‘void *’ but argument is of type ‘int’
+out.c:264:1: warning: implicit declaration of function ‘_Map_string’ [-Wimplicit-function-declaration]
+out.c:264:1: warning: passing argument 1 of ‘new_git_obj’ makes pointer from integer without a cast [enabled by default]
+cubex_lib.h:309:7: note: expected ‘void *’ but argument is of type ‘int’
+out.c:140:7: warning: unused variable ‘__temp15’ [-Wunused-variable]
+out.c:139:7: warning: unused variable ‘__temp16’ [-Wunused-variable]
+out.c:137:7: warning: unused variable ‘__temp17’ [-Wunused-variable]
+out.c:130:7: warning: unused variable ‘__temp10’ [-Wunused-variable]
+out.c:129:7: warning: unused variable ‘__temp11’ [-Wunused-variable]
+out.c:128:7: warning: unused variable ‘__temp12’ [-Wunused-variable]
+out.c:126:7: warning: unused variable ‘__temp14’ [-Wunused-variable]
+out.c: In function ‘_Pair_Pair_pi2’:
+out.c:54:1: warning: control reaches end of non-void function [-Wreturn-type]
+out.c: In function ‘_Pair_Pair_pi1’:
+out.c:51:1: warning: control reaches end of non-void function [-Wreturn-type]
+make: *** [out.o] Error 1
+Score: 0/2
+
+
+Test: stage2test3
+non-generic functions
+[Stage 2]
+
+Program:
+unicode := 97;
+
+fun thefun() : Iterable<String> 
+{
+	retval := [];
+	u := unicode;
+	for (x in [2, 7, 4, 9, 456, 877, 123, 56, 678, 10, 89, 345, 491]) {
+		for (m in x % 2) {
+			if (!(0 == m)) {
+				retval := retval ++ [string([character(u)])];
+			}
+		}
+		u := u + 1;
+	}
+	return retval;
+}
+
+return thefun();
+
+-------------------------------------------
+
+C program could not be compiled!
+
+Compiler output:
+In file included from out.c:1:0:
+cubex_lib.h: In function ‘toString’:
+cubex_lib.h:668:5: warning: implicit declaration of function ‘printf’ [-Wimplicit-function-declaration]
+cubex_lib.h:668:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:671:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:673:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:678:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:674:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h:666:10: warning: unused variable ‘buffer’ [-Wunused-variable]
+cubex_lib.h: In function ‘totoString’:
+cubex_lib.h:691:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:694:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:696:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:701:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:697:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h: In function ‘_character’:
+cubex_lib.h:727:3: warning: return makes integer from pointer without a cast [enabled by default]
+out.c: In function ‘_thefun’:
+out.c:77:1: warning: implicit declaration of function ‘Integer_negate’ [-Wimplicit-function-declaration]
+out.c:77:10: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:85:1: warning: implicit declaration of function ‘_string’ [-Wimplicit-function-declaration]
+out.c:85:1: warning: passing argument 1 of ‘new_git_obj’ makes pointer from integer without a cast [enabled by default]
+cubex_lib.h:309:7: note: expected ‘void *’ but argument is of type ‘char’
+out.c:85:1: warning: passing argument 1 of ‘new_git_obj’ makes pointer from integer without a cast [enabled by default]
+cubex_lib.h:309:7: note: expected ‘void *’ but argument is of type ‘int’
+out.c:50:7: warning: variable ‘__temp16’ set but not used [-Wunused-but-set-variable]
+out.c:49:7: warning: unused variable ‘x’ [-Wunused-variable]
+out.c:29:7: warning: unused variable ‘__temp18’ [-Wunused-variable]
+out.c:28:7: warning: unused variable ‘__temp19’ [-Wunused-variable]
+out.c:27:7: warning: unused variable ‘__temp20’ [-Wunused-variable]
+out.c:23:7: warning: unused variable ‘__temp22’ [-Wunused-variable]
+out.c:22:7: warning: unused variable ‘__temp23’ [-Wunused-variable]
+out.c:20:7: warning: unused variable ‘__temp14’ [-Wunused-variable]
+out.c:19:7: warning: unused variable ‘__temp13’ [-Wunused-variable]
+out.c:18:7: warning: unused variable ‘__temp12’ [-Wunused-variable]
+out.c:17:7: warning: unused variable ‘__temp11’ [-Wunused-variable]
+out.c:16:7: warning: unused variable ‘__temp10’ [-Wunused-variable]
+out.c:15:7: warning: unused variable ‘__temp9’ [-Wunused-variable]
+out.c:14:7: warning: unused variable ‘__temp8’ [-Wunused-variable]
+out.c:13:7: warning: unused variable ‘__temp7’ [-Wunused-variable]
+out.c:12:7: warning: unused variable ‘__temp6’ [-Wunused-variable]
+out.c:11:7: warning: unused variable ‘__temp5’ [-Wunused-variable]
+out.c:10:7: warning: unused variable ‘__temp4’ [-Wunused-variable]
+out.c:9:7: warning: unused variable ‘__temp3’ [-Wunused-variable]
+out.c:8:7: warning: unused variable ‘__temp2’ [-Wunused-variable]
+out.c:38:14: warning: ‘retval’ is used uninitialized in this function [-Wuninitialized]
+out.c:43:14: warning: ‘u’ is used uninitialized in this function [-Wuninitialized]
+out.c:46:8: warning: ‘__temp15’ is used uninitialized in this function [-Wuninitialized]
+out.o: In function `_thefun':
+/home/fabian/Documents/CS4120F13/SVN/grading/pa4/group_of_ay226_jkf49_mso32_tn229/out.c:77: undefined reference to `Integer_negate'
+/home/fabian/Documents/CS4120F13/SVN/grading/pa4/group_of_ay226_jkf49_mso32_tn229/out.c:85: undefined reference to `_string'
+collect2: ld returned 1 exit status
+make: *** [all] Error 1
+Score: 0/5
+
+
+Test: stage1test4
+assignment
+[Stage 1]
+
+Program:
+retVal := "";
+s := "The Return Value.";
+retVal := s;
+return [retVal];
+
+-------------------------------------------
+
+Sub-test 1 (15 points):
+
+Input:
+This input should be ignored.
+
+Possible outputs: 
+The Return Value.
+
+Actual output:
+The Return Value.
+
+GC faulty: not all memory freed at end of program: -5.56%
+
+Score: 14.166/15
+
+
+
+Test: stage4test2
+non-generic classes without inheritance
+[Stage 4]
+
+Program:
+class Cons(elem : Character, rest : Iterable<Cons>)
+{
+	super();
+	fun getFirst() : Character = elem;
+	fun getRest() : Iterable<Cons> = rest;
+	fun getIterable() : Iterable<Character>
+	{
+		for(r in rest)
+		{
+			return [elem] ++ r.getIterable();
+		}
+		return [elem];
+	}
+	fun append(list : Cons) : Cons
+	{
+		nrest := [list];
+		for(r in rest)
+		{
+			nrest := [r.append(list)];
+		}
+		return Cons(elem,nrest);
+	}
+	fun reverse() : Cons
+	{
+		ret := Cons(elem,[]);
+		for(r in rest)
+		{
+			ret := r.reverse().append(ret);
+		}
+		return ret;
+	}
+}
+
+fun strToCons(iter : Iterable<Character>) : Iterable<Cons>
+{
+	ret := [];
+	for(c in iter)
+	{
+		ret := [Cons(c,ret)];
+	}
+	for(r in ret)
+	{
+	   return [r.reverse()];
+	}
+	return [];
+}
+ret := [];
+for (str in input)
+{
+	hw := strToCons(str);
+	for(c in hw)
+	{
+		ret:= ret++[string(c.getIterable())];
+	}
+}
+return ret;
+
+-------------------------------------------
+
+C program could not be compiled!
+
+Compiler output:
+In file included from out.c:1:0:
+cubex_lib.h: In function ‘toString’:
+cubex_lib.h:668:5: warning: implicit declaration of function ‘printf’ [-Wimplicit-function-declaration]
+cubex_lib.h:668:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:671:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:673:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:678:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:674:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h:666:10: warning: unused variable ‘buffer’ [-Wunused-variable]
+cubex_lib.h: In function ‘totoString’:
+cubex_lib.h:691:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:694:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:696:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:701:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:697:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h: In function ‘_character’:
+cubex_lib.h:727:3: warning: return makes integer from pointer without a cast [enabled by default]
+out.c: In function ‘__Cons’:
+out.c:20:15: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘->’ token
+out.c:20:15: error: expected expression before ‘->’ token
+out.c:21:21: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘->’ token
+out.c:21:1: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+out.c:21:21: error: expected expression before ‘->’ token
+out.c:22:1: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+out.c: In function ‘_Cons_Cons_getFirst’:
+out.c:35:8: error: ‘elem’ undeclared (first use in this function)
+out.c:35:8: note: each undeclared identifier is reported only once for each function it appears in
+out.c: In function ‘_Cons_Cons_getRest’:
+out.c:38:8: error: ‘rest’ undeclared (first use in this function)
+out.c: In function ‘_Cons_Cons_getIterable’:
+out.c:45:27: error: ‘rest’ undeclared (first use in this function)
+out.c:52:55: error: ‘elem’ undeclared (first use in this function)
+out.c:52:1: warning: implicit declaration of function ‘Cons_getIterable’ [-Wimplicit-function-declaration]
+out.c:52:1: warning: passing argument 2 of ‘iterable_append’ makes pointer from integer without a cast [enabled by default]
+cubex_lib.h:250:7: note: expected ‘git_t’ but argument is of type ‘int’
+out.c:42:7: warning: unused variable ‘__temp0’ [-Wunused-variable]
+out.c: In function ‘_Cons_Cons_append’:
+out.c:66:1: error: unknown type name ‘git_t_t’
+out.c:79:27: error: ‘rest’ undeclared (first use in this function)
+out.c:91:1: warning: implicit declaration of function ‘Cons_append’ [-Wimplicit-function-declaration]
+out.c:91:9: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:106:1: warning: implicit declaration of function ‘_Cons’ [-Wimplicit-function-declaration]
+out.c:106:25: error: ‘elem’ undeclared (first use in this function)
+out.c:67:7: warning: unused variable ‘__temp3’ [-Wunused-variable]
+out.c:66:9: warning: unused variable ‘__temp4’ [-Wunused-variable]
+out.c: In function ‘_Cons_Cons_reverse’:
+out.c:126:25: error: ‘elem’ undeclared (first use in this function)
+out.c:135:27: error: ‘rest’ undeclared (first use in this function)
+out.c:147:1: warning: implicit declaration of function ‘Cons_reverse’ [-Wimplicit-function-declaration]
+out.c:147:9: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:151:9: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:118:7: warning: unused variable ‘__temp9’ [-Wunused-variable]
+out.c:117:7: warning: unused variable ‘__temp8’ [-Wunused-variable]
+out.c: In function ‘_strToCons’:
+out.c:166:1: error: unknown type name ‘git_t_t’
+out.c:170:1: error: unknown type name ‘git_t_t’
+out.c:194:10: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:217:10: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:172:7: warning: unused variable ‘__temp11’ [-Wunused-variable]
+out.c:170:9: warning: unused variable ‘__temp12’ [-Wunused-variable]
+out.c:169:7: warning: unused variable ‘__temp13’ [-Wunused-variable]
+out.c:166:9: warning: unused variable ‘__temp14’ [-Wunused-variable]
+out.c: In function ‘cubex_main’:
+out.c:281:1: warning: implicit declaration of function ‘_string’ [-Wimplicit-function-declaration]
+out.c:281:70: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
+out.c:281:1: warning: passing argument 1 of ‘new_git_obj’ makes pointer from integer without a cast [enabled by default]
+cubex_lib.h:309:7: note: expected ‘void *’ but argument is of type ‘int’
+out.c:240:7: warning: unused variable ‘__temp17’ [-Wunused-variable]
+out.c:239:7: warning: unused variable ‘__temp18’ [-Wunused-variable]
+out.c: In function ‘_Cons_Cons_getRest’:
+out.c:39:1: warning: control reaches end of non-void function [-Wreturn-type]
+out.c: In function ‘_Cons_Cons_getFirst’:
+out.c:36:1: warning: control reaches end of non-void function [-Wreturn-type]
+make: *** [out.o] Error 1
+Score: 0/6
+
+
+Test: stage3test4
+generic functions
+[Stage 3]
+
+Program:
+fun first<T> (l : Iterable<T>) : Iterable<T>
+{
+	ret := [];
+	for(e in l)
+	{
+		return [e];
+	}
+	return ret;
+}
+
+fun rest<T> (l : Iterable<T>) : Iterable<T>
+{
+	ret := [];
+	seenOne := false;
+	for(e in l)
+	{
+		if(seenOne)
+		{
+			ret := ret ++ [e];
+		}
+		else
+		{
+			seenOne:=true;
+		}
+	}
+	return ret;
+}
+
+fun merge<T> (l1 : Iterable<T>, l2 : Iterable<T>) : Iterable<T>
+{
+	ret := [];
+	for(e in l1)
+	{
+		ret := ret ++ [e] ++ first<T>(l2);
+		l2 := rest<T>(l2);
+	}
+	return ret ++ l2;
+}
+
+return [string(merge<Character>("HloWrdX","el ol!Y"))];
+
+-------------------------------------------
+
+C program could not be compiled!
+
+Compiler output:
+In file included from out.c:1:0:
+cubex_lib.h: In function ‘toString’:
+cubex_lib.h:668:5: warning: implicit declaration of function ‘printf’ [-Wimplicit-function-declaration]
+cubex_lib.h:668:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:671:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:673:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:678:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:674:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h:666:10: warning: unused variable ‘buffer’ [-Wunused-variable]
+cubex_lib.h: In function ‘totoString’:
+cubex_lib.h:691:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:694:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:696:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:701:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:697:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h: In function ‘_character’:
+cubex_lib.h:727:3: warning: return makes integer from pointer without a cast [enabled by default]
+out.c: In function ‘_first’:
+out.c:12:1: error: unknown type name ‘git_t_t’
+out.c:12:9: warning: unused variable ‘__temp1’ [-Wunused-variable]
+out.c: In function ‘_merge’:
+out.c:103:7: warning: unused variable ‘__temp8’ [-Wunused-variable]
+out.c:102:7: warning: unused variable ‘__temp7’ [-Wunused-variable]
+out.c: In function ‘cubex_main’:
+out.c:170:1: warning: implicit declaration of function ‘_string’ [-Wimplicit-function-declaration]
+out.c:170:10: warning: assignment makes pointer from integer without a cast [enabled by default]
+make: *** [out.o] Error 1
+Score: 0/3
+
+
+Test: stage6test1
+generic classes with single interface inheritance
+[Stage 6]
+
+Program:
+interface Over
+{
+	fun getNumber() : Integer;
+}
+
+class Under<T>() extends Over
+{
+	fun getNumber() : Integer = 90;
+	fun makePair(t1 : T, t2 : T) : Iterable<T> = [t1, t2];
+}
+
+u := Under<String>();
+n := u.getNumber();
+return u.makePair(string([character(n)]), string([character(n + 9)]));
+
+-------------------------------------------
+
+C program could not be compiled!
+
+Compiler output:
+In file included from out.c:1:0:
+cubex_lib.h: In function ‘toString’:
+cubex_lib.h:668:5: warning: implicit declaration of function ‘printf’ [-Wimplicit-function-declaration]
+cubex_lib.h:668:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:671:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:673:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:678:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:674:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h:666:10: warning: unused variable ‘buffer’ [-Wunused-variable]
+cubex_lib.h: In function ‘totoString’:
+cubex_lib.h:691:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:694:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:696:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:701:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:697:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h: In function ‘_character’:
+cubex_lib.h:727:3: warning: return makes integer from pointer without a cast [enabled by default]
+out.c: In function ‘cubex_main’:
+out.c:67:1: warning: implicit declaration of function ‘_Under’ [-Wimplicit-function-declaration]
+out.c:67:9: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:76:1: warning: implicit declaration of function ‘Under_getNumber’ [-Wimplicit-function-declaration]
+out.c:76:9: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:84:30: error: ‘n’ undeclared (first use in this function)
+out.c:84:30: note: each undeclared identifier is reported only once for each function it appears in
+out.c:90:1: warning: implicit declaration of function ‘_string’ [-Wimplicit-function-declaration]
+out.c:90:9: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:99:9: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:105:10: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:108:1: warning: implicit declaration of function ‘Under_makePair’ [-Wimplicit-function-declaration]
+out.c:108:10: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c: In function ‘_Over_getNumber’:
+out.c:28:1: warning: control reaches end of non-void function [-Wreturn-type]
+make: *** [out.o] Error 1
+Score: 0/10
+
+
+Test: empty-return
+empty output
+[Stage 1]
+
+Program:
+return [];
+
+-------------------------------------------
+
+Sub-test 1 (20 points):
+
+Input:
+
+Possible outputs: 
+
+Actual output:
+
+GC faulty: not all memory freed at end of program: -5.56%
+
+Score: 18.888/20
+
+Sub-test 2 (20 points):
+
+Input:
+This input should be ignored.
+
+Possible outputs: 
+
+Actual output:
+
+GC faulty: not all memory freed at end of program: -5.56%
+
+Score: 18.888/20
+
+
+
+Test: stage6test2
+generic classes with single interface inheritance
+[Stage 6]
+
+Program:
+interface List<T>
+{
+	fun getFirst() : Iterable<T>;
+	fun getRest() : List<T>;
+	fun getIterable() : Iterable<T>;
+	fun append(l:List<T>) : List<T>;
+	fun reverse() : List<T>;
+}
+
+class Nil<T>() extends List<T>
+{
+	super();
+	fun getFirst() : Iterable<T> = [];
+	fun getRest() : List<T> = Nil<T>();
+	fun getIterable() : Iterable<T> = [];
+	fun append(l:List<T>) : List<T> = l;
+	fun reverse() : List<T> = Nil<T>();
+}
+
+class Cons<T>(elem : T,rest : List<T>) extends List<T>
+{
+	super();
+	fun getFirst() : Iterable<T> = [elem];
+	fun getRest() : List<T> = rest;
+	fun getIterable() : Iterable<T>
+	{
+		return [elem] ++ rest.getIterable();
+	}
+	fun append(l:List<T>) : List<T>
+	{
+		return Cons<T>(elem,rest.append(l));
+	}
+	fun reverse() : List<T>
+	{
+		return rest.reverse().append(Cons<T>(elem,Nil<T>()));
+	}
+}
+
+fun strToCons<T>(iter : Iterable<T>) : List<T>
+{
+	ret := Nil<T>().reverse();
+	for(c in iter)
+	{
+		ret := Cons<T>(c,ret);
+	}
+	return ret.reverse();
+}
+
+str := "";
+for (i in input)
+{
+	str := str++i;
+}
+return [string(strToCons<Character>(str).getIterable())];
+
+-------------------------------------------
+
+C program could not be compiled!
+
+Compiler output:
+In file included from out.c:1:0:
+cubex_lib.h: In function ‘toString’:
+cubex_lib.h:668:5: warning: implicit declaration of function ‘printf’ [-Wimplicit-function-declaration]
+cubex_lib.h:668:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:671:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:673:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:678:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:674:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h:666:10: warning: unused variable ‘buffer’ [-Wunused-variable]
+cubex_lib.h: In function ‘totoString’:
+cubex_lib.h:691:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:694:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:696:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:701:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:697:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h: In function ‘_character’:
+cubex_lib.h:727:3: warning: return makes integer from pointer without a cast [enabled by default]
+out.c: At top level:
+out.c:26:1: error: unknown type name ‘List_t’
+out.c:41:20: error: unknown type name ‘List_t’
+out.c: In function ‘_Nil_Nil_getRest’:
+out.c:60:1: warning: implicit declaration of function ‘_Nil’ [-Wimplicit-function-declaration]
+out.c:60:9: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c: At top level:
+out.c:71:23: error: unknown type name ‘List_t’
+out.c: In function ‘_Nil_Nil_reverse’:
+out.c:77:9: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c: At top level:
+out.c:81:30: error: unknown type name ‘List_t’
+out.c: In function ‘_Cons_Cons_getFirst’:
+out.c:99:39: error: ‘elem’ undeclared (first use in this function)
+out.c:99:39: note: each undeclared identifier is reported only once for each function it appears in
+out.c: In function ‘_Cons_Cons_getRest’:
+out.c:104:8: error: ‘rest’ undeclared (first use in this function)
+out.c: In function ‘_Cons_Cons_getIterable’:
+out.c:109:55: error: ‘elem’ undeclared (first use in this function)
+out.c:109:1: warning: implicit declaration of function ‘List_getIterable’ [-Wimplicit-function-declaration]
+out.c:109:87: error: ‘List_t’ undeclared (first use in this function)
+out.c:109:95: error: expected ‘)’ before ‘rest’
+out.c: At top level:
+out.c:113:25: error: unknown type name ‘List_t’
+out.c: In function ‘_Cons_Cons_reverse’:
+out.c:132:9: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:135:1: warning: implicit declaration of function ‘_Cons’ [-Wimplicit-function-declaration]
+out.c:135:25: error: ‘elem’ undeclared (first use in this function)
+out.c:138:1: warning: implicit declaration of function ‘List_reverse’ [-Wimplicit-function-declaration]
+out.c:138:26: error: ‘List_t’ undeclared (first use in this function)
+out.c:138:34: error: expected ‘)’ before ‘rest’
+out.c:141:1: warning: implicit declaration of function ‘List_append’ [-Wimplicit-function-declaration]
+out.c:141:10: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c: In function ‘_strToCons’:
+out.c:158:10: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:162:1: warning: implicit declaration of function ‘Nil_reverse’ [-Wimplicit-function-declaration]
+out.c:162:10: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:181:10: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:190:26: error: ‘List_t’ undeclared (first use in this function)
+out.c:190:34: error: expected ‘)’ before ‘ret’
+out.c:152:7: warning: unused variable ‘__temp14’ [-Wunused-variable]
+out.c: In function ‘cubex_main’:
+out.c:235:31: error: ‘str’ undeclared (first use in this function)
+out.c:238:10: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:241:1: warning: implicit declaration of function ‘_string’ [-Wimplicit-function-declaration]
+out.c:241:10: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:200:7: warning: unused variable ‘__temp17’ [-Wunused-variable]
+out.c: In function ‘_Cons_Cons_getRest’:
+out.c:105:1: warning: control reaches end of non-void function [-Wreturn-type]
+out.c: In function ‘_List_reverse’:
+out.c:44:1: warning: control reaches end of non-void function [-Wreturn-type]
+out.c: In function ‘_List_getIterable’:
+out.c:40:1: warning: control reaches end of non-void function [-Wreturn-type]
+out.c: In function ‘_List_getRest’:
+out.c:38:1: warning: control reaches end of non-void function [-Wreturn-type]
+out.c: In function ‘_List_getFirst’:
+out.c:36:1: warning: control reaches end of non-void function [-Wreturn-type]
+make: *** [out.o] Error 1
+Score: 0/2
+
+
+Test: stage5test2
+generic classes without inheritance
+[Stage 5]
+
+Program:
+class Multiplier<A>(a : A, n : Integer) {
+  fun getLst() : Iterable<A> {
+    ret := [];
+    for (nn in 1..n) {
+      ret := [a] ++ ret;
+    }
+    return ret;
+  }
+
+  fun getOtherLst<B>(b : B) : Iterable<B> {
+    x := Multiplier<B>(b, n);
+    return x.getLst();
+  }
+}
+
+for (i in input)
+{
+	return Multiplier<Integer>(100, 10).getOtherLst<String>(i);
+}
+
+return ["You didn't read the input :("];
+
+-------------------------------------------
+
+C program could not be compiled!
+
+Compiler output:
+In file included from out.c:1:0:
+cubex_lib.h: In function ‘toString’:
+cubex_lib.h:668:5: warning: implicit declaration of function ‘printf’ [-Wimplicit-function-declaration]
+cubex_lib.h:668:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:671:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:673:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:678:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:674:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h:666:10: warning: unused variable ‘buffer’ [-Wunused-variable]
+cubex_lib.h: In function ‘totoString’:
+cubex_lib.h:691:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:694:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:696:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:701:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:697:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h: In function ‘_character’:
+cubex_lib.h:727:3: warning: return makes integer from pointer without a cast [enabled by default]
+out.c: In function ‘__Multiplier’:
+out.c:21:19: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘->’ token
+out.c:21:19: error: expected expression before ‘->’ token
+out.c:22:19: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘->’ token
+out.c:22:1: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+out.c:22:19: error: expected expression before ‘->’ token
+out.c:23:1: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+out.c: In function ‘_Multiplier_Multiplier_getLst’:
+out.c:64:55: error: ‘a’ undeclared (first use in this function)
+out.c:64:55: note: each undeclared identifier is reported only once for each function it appears in
+out.c:57:7: warning: unused variable ‘nn’ [-Wunused-variable]
+out.c:42:7: warning: unused variable ‘__temp5’ [-Wunused-variable]
+out.c:39:7: warning: unused variable ‘__temp3’ [-Wunused-variable]
+out.c:38:7: warning: unused variable ‘__temp2’ [-Wunused-variable]
+out.c:37:7: warning: unused variable ‘__temp1’ [-Wunused-variable]
+out.c: In function ‘_Multiplier_Multiplier_getOtherLst’:
+out.c:80:1: warning: implicit declaration of function ‘_Multiplier’ [-Wimplicit-function-declaration]
+out.c:80:42: error: ‘n’ undeclared (first use in this function)
+out.c:88:1: warning: implicit declaration of function ‘Multiplier_getLst’ [-Wimplicit-function-declaration]
+out.c:88:9: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c: In function ‘cubex_main’:
+out.c:122:10: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:125:1: warning: implicit declaration of function ‘Multiplier_getOtherLst’ [-Wimplicit-function-declaration]
+out.c:125:10: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:140:526: error: empty character constant
+out.c:140:528: warning: character constant too long for its type [enabled by default]
+out.c:140:528: error: expected ‘)’ before '\x756e6928'
+out.c:140:586: warning: character constant too long for its type [enabled by default]
+out.c:140:644: warning: character constant too long for its type [enabled by default]
+out.c:140:702: warning: character constant too long for its type [enabled by default]
+out.c:140:760: warning: character constant too long for its type [enabled by default]
+out.c:140:818: warning: character constant too long for its type [enabled by default]
+out.c:140:876: warning: character constant too long for its type [enabled by default]
+out.c:140:934: warning: character constant too long for its type [enabled by default]
+out.c:140:992: warning: character constant too long for its type [enabled by default]
+out.c:140:1050: warning: character constant too long for its type [enabled by default]
+out.c:140:1108: warning: character constant too long for its type [enabled by default]
+out.c:140:1166: warning: character constant too long for its type [enabled by default]
+out.c:140:1224: warning: character constant too long for its type [enabled by default]
+out.c:140:1282: warning: character constant too long for its type [enabled by default]
+out.c:140:1340: warning: character constant too long for its type [enabled by default]
+out.c:140:1398: warning: character constant too long for its type [enabled by default]
+out.c:140:1456: warning: character constant too long for its type [enabled by default]
+out.c:140:1514: warning: character constant too long for its type [enabled by default]
+out.c:140:1572: warning: character constant too long for its type [enabled by default]
+out.c:140:1630: warning: missing terminating ' character [enabled by default]
+out.c:140:528: error: missing terminating ' character
+out.c:153:1: error: too few arguments to function ‘iterable_append’
+cubex_lib.h:250:7: note: declared here
+out.c:153:1: error: expected declaration or statement at end of input
+out.c:95:12: warning: unused variable ‘_it4’ [-Wunused-variable]
+make: *** [out.o] Error 1
+Score: 0/3
+
+
+Test: stage1test5
+if/else
+[Stage 1]
+
+Program:
+t := [""];
+if (true)
+{
+	t := ["TRUE"];
+}
+else
+{
+	t := ["FALSE"];
+}
+return t;
+
+-------------------------------------------
+
+C program could not be compiled!
+
+Compiler output:
+In file included from out.c:1:0:
+cubex_lib.h: In function ‘toString’:
+cubex_lib.h:668:5: warning: implicit declaration of function ‘printf’ [-Wimplicit-function-declaration]
+cubex_lib.h:668:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:671:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:673:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:678:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:674:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h:666:10: warning: unused variable ‘buffer’ [-Wunused-variable]
+cubex_lib.h: In function ‘totoString’:
+cubex_lib.h:691:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:694:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:696:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:701:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:697:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h: In function ‘_character’:
+cubex_lib.h:727:3: warning: return makes integer from pointer without a cast [enabled by default]
+out.c: In function ‘cubex_main’:
+out.c:31:26: error: ‘__temp2’ undeclared (first use in this function)
+out.c:31:26: note: each undeclared identifier is reported only once for each function it appears in
+make: *** [out.o] Error 1
+Score: 0/10
+
+
+Test: stage1test3
+reading and printing input
+[Stage 1]
+
+Program:
+return input;
+
+-------------------------------------------
+
+Sub-test 1 (10 points):
+
+Input:
+one line.
+
+Possible outputs: 
+one line.
+
+Actual output:
+one line.g��
+
+GC faulty: not all memory freed at end of program: -5.56%
+
+Score: 0/10
+
+Sub-test 2 (5 points):
+
+Input:
+A few parts of the semantics are less than obvious.
+The following constraints,
+along with the above directive to implement the obvious semantics whenever such are available,
+should give you enough information to complete this assignment.
+Of course,
+we reserve the right to add to this list when we discover that we have (inevitably) left something out.
+
+Possible outputs: 
+A few parts of the semantics are less than obvious.
+The following constraints,
+along with the above directive to implement the obvious semantics whenever such are available,
+should give you enough information to complete this assignment.
+Of course,
+we reserve the right to add to this list when we discover that we have (inevitably) left something out.
+
+Actual output:
+A few parts of the semantics are less than obvious.
+The following constraints,
+along with the above directive to implement the obvious semantics whenever such are available,
+should give you enough information to complete this assignment.
+Of course,�Cn
+we reserve the right to add to this list when we discover that we have (inevitably) left something out.
+
+GC faulty: too much memory allocated at once: -5.56%
+
+GC faulty: not all memory freed at end of program: -5.56%
+
+Score: 0/5
+
+
+
+Test: stage1test6
+while loop, boolean operators
+[Stage 1]
+
+Program:
+a := true;
+b := true;
+retval := "How did you get here?";
+
+if (a & b) {
+	retval := "";
+}
+while (a | b) {
+	if (a) {
+		retval := retval++"a";
+		a := false;
+	}
+	else {
+		if (!b) {
+			retval := retval++"Nobody's supposed to be here.";
+			b := false;
+		}
+		else {
+			retval := retval++"b";
+			b := false;
+		}
+	}
+}
+
+return [string(retval)];
+
+-------------------------------------------
+
+C program could not be compiled!
+
+Compiler output:
+In file included from out.c:1:0:
+cubex_lib.h: In function ‘toString’:
+cubex_lib.h:668:5: warning: implicit declaration of function ‘printf’ [-Wimplicit-function-declaration]
+cubex_lib.h:668:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:671:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:673:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:678:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:674:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h:666:10: warning: unused variable ‘buffer’ [-Wunused-variable]
+cubex_lib.h: In function ‘totoString’:
+cubex_lib.h:691:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:694:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:696:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:701:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:697:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h: In function ‘_character’:
+cubex_lib.h:727:3: warning: return makes integer from pointer without a cast [enabled by default]
+out.c: In function ‘cubex_main’:
+out.c:55:26: error: ‘__temp3’ undeclared (first use in this function)
+out.c:55:26: note: each undeclared identifier is reported only once for each function it appears in
+out.c:56:47: error: ‘b’ undeclared (first use in this function)
+out.c:91:26: error: ‘__temp7’ undeclared (first use in this function)
+out.c:98:434: error: empty character constant
+out.c:98:436: warning: character constant too long for its type [enabled by default]
+out.c:98:436: error: expected ‘)’ before '\x756e6928'
+out.c:98:494: warning: character constant too long for its type [enabled by default]
+out.c:98:552: warning: character constant too long for its type [enabled by default]
+out.c:98:610: warning: character constant too long for its type [enabled by default]
+out.c:98:668: warning: character constant too long for its type [enabled by default]
+out.c:98:726: warning: character constant too long for its type [enabled by default]
+out.c:98:784: warning: character constant too long for its type [enabled by default]
+out.c:98:842: warning: character constant too long for its type [enabled by default]
+out.c:98:900: warning: character constant too long for its type [enabled by default]
+out.c:98:958: warning: character constant too long for its type [enabled by default]
+out.c:98:1016: warning: character constant too long for its type [enabled by default]
+out.c:98:1074: warning: character constant too long for its type [enabled by default]
+out.c:98:1132: warning: character constant too long for its type [enabled by default]
+out.c:98:1190: warning: character constant too long for its type [enabled by default]
+out.c:98:1248: warning: character constant too long for its type [enabled by default]
+out.c:98:1306: warning: character constant too long for its type [enabled by default]
+out.c:98:1364: warning: character constant too long for its type [enabled by default]
+out.c:98:1422: warning: character constant too long for its type [enabled by default]
+out.c:98:1480: warning: character constant too long for its type [enabled by default]
+out.c:98:1538: warning: character constant too long for its type [enabled by default]
+out.c:98:1596: warning: character constant too long for its type [enabled by default]
+out.c:98:1654: warning: character constant too long for its type [enabled by default]
+out.c:98:1712: warning: missing terminating ' character [enabled by default]
+out.c:98:436: error: missing terminating ' character
+out.c:114:1: error: expected ‘)’ before ‘}’ token
+out.c:114:1: error: expected ‘)’ before ‘}’ token
+out.c:114:1: error: expected ‘)’ before ‘}’ token
+out.c:114:1: error: too few arguments to function ‘iterable_append’
+cubex_lib.h:250:7: note: declared here
+out.c:114:1: error: expected ‘)’ before ‘}’ token
+out.c:114:1: error: expected ‘)’ before ‘}’ token
+out.c:114:1: error: expected ‘)’ before ‘}’ token
+out.c:114:1: error: expected ‘)’ before ‘}’ token
+out.c:114:1: error: expected ‘)’ before ‘}’ token
+out.c:114:1: error: expected ‘)’ before ‘}’ token
+out.c:114:1: error: expected ‘)’ before ‘}’ token
+out.c:114:1: error: expected ‘;’ before ‘}’ token
+out.c:137:1: warning: implicit declaration of function ‘_string’ [-Wimplicit-function-declaration]
+out.c:137:28: error: ‘retval’ undeclared (first use in this function)
+out.c:20:7: warning: unused variable ‘__temp9’ [-Wunused-variable]
+make: *** [out.o] Error 1
+Score: 0/10
+
+
+Test: stage2test1
+non-generic functions
+[Stage 2]
+
+Program:
+fun coolname() : Iterable<Character> {
+	temp := 20;
+
+	for (num in 1<<100) {
+		if (num != 75) {
+		}
+		else {
+			for (t in num/3) {
+				temp := t;
+			}
+		}
+	}
+	
+	if ((temp > 21) & (temp == 25)) {
+		return [character(121), character(101), character(115)];
+	}
+	
+	return [];
+}
+
+return [string(coolname())];
+
+-------------------------------------------
+
+Error during compilation of cubex code.
+Score: 0/10
+
+
+Test: stage2test4
+non-generic functions
+[Stage 2]
+
+Program:
+unicode := 122;
+
+fun ohthefun() : Iterable<String> 
+{
+	retval := [];
+	u := unicode;
+	for (p in 75...) {
+		if ((p * 2) <= 200) {
+			retval := retval++[string([character(u)])];
+		}
+		else {
+			return retval;
+		}
+		u := u - 1;
+	}
+	return ["Say what?"];
+}
+
+return ohthefun();
+
+-------------------------------------------
+
+C program could not be compiled!
+
+Compiler output:
+out.c:1:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ at end of input
+make: *** [out.o] Error 1
+Score: 0/5
+
+
+Test: stage9test1
+generic classes with multiple interface inheritance
+[Stage 9]
+
+Program:
+interface Building
+{
+	fun getAddress() : String;
+	fun getName() : String;
+}
+
+interface Asset
+{
+	fun getValue() : Integer;
+	fun getManagerName() : String;
+}
+
+class Branch(address : String, name : String, value : Integer, managerName : String) extends Building & Asset
+{
+	super();
+	fun getAddress() : String = address;
+	fun getName() : String = name;
+	fun getValue() : Integer = value;
+	fun getManagerName() : String = managerName;
+}
+
+fun concat(s1 : String, s2: String) : String = string(s1 ++ " " ++ s2);
+
+fun getBuildingData(b : Building) : String = concat(b.getAddress(),b.getName());
+
+fun getAssetData(a : Asset) : String = a.getManagerName();
+
+branch := Branch("1 Main Road", "Main Branch", 9001, "Chuck Norris");
+
+return [concat(getBuildingData(branch),getAssetData(branch))];
+
+-------------------------------------------
+
+Error during compilation of cubex code.
+Score: 0/2
+
+
+Test: GC-loop
+Simple test of the garbage collector
+[Stage 1]
+
+Program:
+out := 67;
+for(i in -10000..10000)
+{
+	out:=out+i;
+}
+return [string([character(out)])];
+
+-------------------------------------------
+
+C program could not be compiled!
+
+Compiler output:
+In file included from out.c:1:0:
+cubex_lib.h: In function ‘toString’:
+cubex_lib.h:668:5: warning: implicit declaration of function ‘printf’ [-Wimplicit-function-declaration]
+cubex_lib.h:668:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:671:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:673:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:678:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:674:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h:666:10: warning: unused variable ‘buffer’ [-Wunused-variable]
+cubex_lib.h: In function ‘totoString’:
+cubex_lib.h:691:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:694:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:696:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:701:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:697:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h: In function ‘_character’:
+cubex_lib.h:727:3: warning: return makes integer from pointer without a cast [enabled by default]
+out.c: In function ‘cubex_main’:
+out.c:31:27: error: ‘__temp6’ undeclared (first use in this function)
+out.c:31:27: note: each undeclared identifier is reported only once for each function it appears in
+out.c:48:30: error: ‘out’ undeclared (first use in this function)
+out.c:54:1: warning: implicit declaration of function ‘_string’ [-Wimplicit-function-declaration]
+out.c:54:10: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:13:7: warning: unused variable ‘__temp7’ [-Wunused-variable]
+make: *** [out.o] Error 1
+Score: 0/10
+
+
+Test: stage9test2
+generic classes with multiple interface inheritance
+[Stage 9]
+
+Program:
+interface Interone<T>
+{
+	fun toIter(t : T) : Iterable<T>;
+}
+
+interface Intertwo<T>
+{
+	fun twoIter(t1 : T, t2 : T) : Iterable<T>;
+}
+
+class Emptier<T>() extends Interone<T> & Intertwo<T>
+{
+	fun toIter(t : T) : Iterable<T> = [];
+	fun twoIter(t1 : T, t2 : T) : Iterable<T> = [];
+}
+
+class Copier<T>() extends Interone<T> & Intertwo<T>
+{
+	fun toIter(t : T) : Iterable<T> = [t];
+	fun twoIter(t1 : T, t2 : T) : Iterable<T> = [t1, t2];
+}
+
+class Doubler<T>() extends Interone<T> & Intertwo<T>
+{
+	fun toIter(t : T) : Iterable<T> = [t, t];
+	fun twoIter(t1 : T, t2 : T) : Iterable<T> = [t1, t1, t2, t2];
+}
+
+class Dynamicasaurus<T>(i : Integer) extends Interone<T> & Intertwo<T>
+{
+	fun toIter(t : T) : Iterable<T>
+	{
+		ret := [];
+		for (x in 1..i)
+		{
+			ret := ret ++ [t];
+		}
+		return ret;
+	}
+	
+	fun twoIter(t1 : T, t2 : T) : Iterable<T> = toIter(t1) ++ toIter(t2);
+}
+
+ret := [];
+int := -1;
+for (i in input)
+{
+	e := Emptier<String>();
+	ret := ret ++ e.toIter(i);
+	ret := ret ++ e.twoIter(string(i++"E"),string(i++"E2"));
+	c := Copier<String>();
+	ret := ret ++ c.toIter(i);
+	ret := ret ++ c.twoIter(string(i++"C"),string(i++"C2"));
+	do := Doubler<String>();
+	ret := ret ++ do.toIter(i);
+	ret := ret ++ do.twoIter(string(i++"Do"),string(i++"Do2"));
+	dy := Dynamicasaurus<String>(int);
+	ret := ret ++ dy.toIter(i);
+	ret := ret ++ dy.twoIter(string(i++"Dy"),string(i++"Dy2"));
+	int := int + 1;
+}
+return ret;
+
+-------------------------------------------
+
+Error during compilation of cubex code.
+Score: 0/6
+
+
+Test: stage7test1
+generic classes with single interface inheritance and interface method implementations
+[Stage 7]
+
+Program:
+interface Land
+{
+	fun getX() : Integer;
+	fun getY() : Integer;
+	fun equals(other : Land) : Boolean;
+}
+interface Sea
+{
+	fun getX() : Integer;
+	fun getY() : Integer;
+	fun equals(other : Land) : Boolean;
+}
+interface Air
+{
+	fun getX() : Integer;
+	fun getY() : Integer;
+	fun getZ() : Integer; 
+	fun equals(other : Land) : Boolean;
+}
+interface TwoD
+{
+	fun getX() : Integer;
+	fun getY() : Integer;
+}
+interface ThreeD extends TwoD
+{
+	fun getZ() : Integer;
+}
+interface Vehicle<T,D>
+{
+	fun getType() : String;
+	fun move(vector : D) : Vehicle<T,D>;
+	fun getPos() : T;
+	fun crashed(other : Vehicle<T,D>) : Boolean;
+}
+interface Car extends Vehicle<Land,TwoD>
+{
+	fun getType() : String = "Car";
+	fun crashed(other : Vehicle<Land,TwoD>) : Boolean
+	{
+		return getPos().equals(other.getPos());
+	}
+}
+interface Boat extends Vehicle<Sea,TwoD>
+{
+	fun getType() : String = "Boat";
+}
+interface Plane extends Vehicle<Air,ThreeD>
+{
+	fun getType() : String = "Plane";
+}
+class FlatLand(x : Integer, y : Integer) extends Land
+{
+	fun getX() : Integer = x;
+	fun getY() : Integer = y;
+	fun equals(other : Land) : Boolean
+	{
+		return other.getX() == x & other.getY() == y;
+	}
+}
+class TwoDVec(x : Integer, y : Integer) extends TwoD
+{
+	fun getX() : Integer = x;
+	fun getY() : Integer = y;
+}
+
+class RaceCar(pos: Land) extends Car
+{
+	p := FlatLand(pos.getX(), pos.getY());
+	fun move(vector: TwoD) : Vehicle<Land,TwoD>
+	{
+		return RaceCar(FlatLand(p.getX() + vector.getX(), p.getY() + vector.getY()));
+	}
+	fun getType() : String = "YAY, A RACE CAR!";
+	fun getPos() : Land = p;
+}
+class AntiqueCar(pos: Land, maxX : Integer, maxY : Integer) extends Car
+{
+	p := FlatLand(pos.getX(), pos.getY());
+	fun move(vector: TwoD) : Vehicle<Land,TwoD>
+	{
+		if(vector.getX() > maxX | vector.getY() > maxY) #Spot the bug here
+		{
+			return AntiqueCar(p,maxX,maxY);
+		}
+		return AntiqueCar(FlatLand(p.getX() + vector.getX(), p.getY() + vector.getY()),maxX,maxY);
+	}
+	fun getPos() : Land = p;
+}
+
+ferrari := RaceCar(FlatLand(0,0));
+mercedes := AntiqueCar(FlatLand(5,0),0,5);
+mercedes := mercedes.move(TwoDVec(-5,0));
+
+if(mercedes.crashed(ferrari))
+{
+	return ["Crash",ferrari.getType(),mercedes.getType()];
+}
+else
+{
+	return ["No crash"];
+}
+
+-------------------------------------------
+
+C program could not be compiled!
+
+Compiler output:
+In file included from out.c:1:0:
+cubex_lib.h: In function ‘toString’:
+cubex_lib.h:668:5: warning: implicit declaration of function ‘printf’ [-Wimplicit-function-declaration]
+cubex_lib.h:668:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:671:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:673:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:678:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:674:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h:666:10: warning: unused variable ‘buffer’ [-Wunused-variable]
+cubex_lib.h: In function ‘totoString’:
+cubex_lib.h:691:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:694:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:696:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:701:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:697:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h: In function ‘_character’:
+cubex_lib.h:727:3: warning: return makes integer from pointer without a cast [enabled by default]
+out.c: At top level:
+out.c:41:1: error: unknown type name ‘Land_t’
+out.c:55:1: error: unknown type name ‘Land_t’
+out.c:69:20: error: unknown type name ‘Land_t’
+out.c:75:19: error: unknown type name ‘Land_t’
+out.c:83:19: error: unknown type name ‘Land_t’
+out.c:91:29: error: expected ‘;’, ‘,’ or ‘)’ before ‘ConstructableComponent’
+out.c:94:29: error: expected ‘;’, ‘,’ or ‘)’ before ‘ConstructableComponent’
+out.c:103:24: error: unknown type name ‘Vehicle_t’
+out.c:112:20: error: unknown type name ‘Vehicle_t’
+out.c:130:44: error: expected ‘;’, ‘,’ or ‘)’ before ‘ConstructableComponent’
+out.c:133:28: error: expected ‘;’, ‘,’ or ‘)’ before ‘ConstructableComponent’
+out.c:136:20: error: unknown type name ‘Vehicle_t’
+out.c:136:46: error: expected ‘;’, ‘,’ or ‘)’ before ‘ConstructableComponent’
+out.c:139:29: error: expected ‘;’, ‘,’ or ‘)’ before ‘ConstructableComponent’
+out.c:149:45: error: expected ‘;’, ‘,’ or ‘)’ before ‘ConstructableComponent’
+out.c:152:29: error: expected ‘;’, ‘,’ or ‘)’ before ‘ConstructableComponent’
+out.c:155:21: error: unknown type name ‘Vehicle_t’
+out.c:155:47: error: expected ‘;’, ‘,’ or ‘)’ before ‘ConstructableComponent’
+out.c:158:30: error: expected ‘;’, ‘,’ or ‘)’ before ‘ConstructableComponent’
+out.c:168:46: error: expected ‘;’, ‘,’ or ‘)’ before ‘ConstructableComponent’
+out.c:171:30: error: expected ‘;’, ‘,’ or ‘)’ before ‘ConstructableComponent’
+out.c:174:22: error: unknown type name ‘Vehicle_t’
+out.c:174:48: error: expected ‘;’, ‘,’ or ‘)’ before ‘ConstructableComponent’
+out.c:177:31: error: expected ‘;’, ‘,’ or ‘)’ before ‘ConstructableComponent’
+out.c: In function ‘__FlatLand’:
+out.c:181:19: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘->’ token
+out.c:181:19: error: expected expression before ‘->’ token
+out.c:182:19: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘->’ token
+out.c:182:1: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+out.c:182:19: error: expected expression before ‘->’ token
+out.c:183:1: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+out.c: In function ‘_FlatLand_FlatLand_getX’:
+out.c:196:8: error: ‘x’ undeclared (first use in this function)
+out.c:196:8: note: each undeclared identifier is reported only once for each function it appears in
+out.c: In function ‘_FlatLand_FlatLand_getY’:
+out.c:199:8: error: ‘y’ undeclared (first use in this function)
+out.c: At top level:
+out.c:201:33: error: unknown type name ‘Land_t’
+out.c: In function ‘__TwoDVec’:
+out.c:230:19: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘->’ token
+out.c:230:19: error: expected expression before ‘->’ token
+out.c:231:19: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘->’ token
+out.c:231:1: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+out.c:231:19: error: expected expression before ‘->’ token
+out.c:232:1: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+out.c: In function ‘_TwoDVec_TwoDVec_getX’:
+out.c:245:8: error: ‘x’ undeclared (first use in this function)
+out.c: In function ‘_TwoDVec_TwoDVec_getY’:
+out.c:248:8: error: ‘y’ undeclared (first use in this function)
+out.c: At top level:
+out.c:250:17: error: unknown type name ‘Land_t’
+out.c:285:29: error: unknown type name ‘TwoD_t’
+out.c: In function ‘_RaceCar_RaceCar_getPos’:
+out.c:336:8: error: ‘p’ undeclared (first use in this function)
+out.c: At top level:
+out.c:338:24: error: unknown type name ‘Vehicle_t’
+out.c:357:20: error: unknown type name ‘Land_t’
+out.c:402:35: error: unknown type name ‘TwoD_t’
+out.c: In function ‘_AntiqueCar_AntiqueCar_getPos’:
+out.c:489:8: error: ‘p’ undeclared (first use in this function)
+out.c: At top level:
+out.c:491:27: error: unknown type name ‘Vehicle_t’
+out.c: In function ‘cubex_main’:
+out.c:551:1: warning: implicit declaration of function ‘_FlatLand’ [-Wimplicit-function-declaration]
+out.c:551:10: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:555:1: warning: implicit declaration of function ‘_RaceCar’ [-Wimplicit-function-declaration]
+out.c:555:10: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:578:10: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:590:1: warning: implicit declaration of function ‘_AntiqueCar’ [-Wimplicit-function-declaration]
+out.c:590:10: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:621:1: warning: implicit declaration of function ‘_TwoDVec’ [-Wimplicit-function-declaration]
+out.c:621:10: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:625:1: warning: implicit declaration of function ‘AntiqueCar_move’ [-Wimplicit-function-declaration]
+out.c:625:10: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:641:1: warning: implicit declaration of function ‘Vehicle_crashed’ [-Wimplicit-function-declaration]
+out.c:641:29: error: ‘Vehicle_t’ undeclared (first use in this function)
+out.c:641:40: error: expected ‘)’ before ‘_mercedes’
+out.c:645:26: error: ‘__temp65’ undeclared (first use in this function)
+out.c:648:26: error: ‘__temp66’ undeclared (first use in this function)
+out.c:649:1: warning: implicit declaration of function ‘RaceCar_getType’ [-Wimplicit-function-declaration]
+out.c:651:26: error: ‘__temp67’ undeclared (first use in this function)
+out.c:652:1: warning: implicit declaration of function ‘Vehicle_getType’ [-Wimplicit-function-declaration]
+out.c:652:40: error: expected ‘)’ before ‘_mercedes’
+out.c:654:26: error: ‘__temp68’ undeclared (first use in this function)
+out.c:667:26: error: ‘__temp69’ undeclared (first use in this function)
+out.c:670:26: error: ‘__temp70’ undeclared (first use in this function)
+out.c:536:7: warning: variable ‘_input’ set but not used [-Wunused-but-set-variable]
+out.c: In function ‘_AntiqueCar_AntiqueCar_getPos’:
+out.c:490:1: warning: control reaches end of non-void function [-Wreturn-type]
+out.c: In function ‘_RaceCar_RaceCar_getPos’:
+out.c:337:1: warning: control reaches end of non-void function [-Wreturn-type]
+out.c: In function ‘_TwoDVec_TwoDVec_getY’:
+out.c:249:1: warning: control reaches end of non-void function [-Wreturn-type]
+out.c: In function ‘_TwoDVec_TwoDVec_getX’:
+out.c:246:1: warning: control reaches end of non-void function [-Wreturn-type]
+out.c: In function ‘_FlatLand_FlatLand_getY’:
+out.c:200:1: warning: control reaches end of non-void function [-Wreturn-type]
+out.c: In function ‘_FlatLand_FlatLand_getX’:
+out.c:197:1: warning: control reaches end of non-void function [-Wreturn-type]
+out.c: In function ‘_Vehicle_getPos’:
+out.c:102:1: warning: control reaches end of non-void function [-Wreturn-type]
+out.c: In function ‘_Vehicle_move’:
+out.c:100:1: warning: control reaches end of non-void function [-Wreturn-type]
+out.c: In function ‘_Vehicle_getType’:
+out.c:98:1: warning: control reaches end of non-void function [-Wreturn-type]
+out.c: In function ‘_ThreeD_getZ’:
+out.c:90:1: warning: control reaches end of non-void function [-Wreturn-type]
+out.c: In function ‘_TwoD_getY’:
+out.c:88:1: warning: control reaches end of non-void function [-Wreturn-type]
+out.c: In function ‘_TwoD_getX’:
+out.c:86:1: warning: control reaches end of non-void function [-Wreturn-type]
+out.c: In function ‘_Air_getZ’:
+out.c:82:1: warning: control reaches end of non-void function [-Wreturn-type]
+out.c: In function ‘_Air_getY’:
+out.c:80:1: warning: control reaches end of non-void function [-Wreturn-type]
+out.c: In function ‘_Air_getX’:
+out.c:78:1: warning: control reaches end of non-void function [-Wreturn-type]
+out.c: In function ‘_Sea_getY’:
+out.c:74:1: warning: control reaches end of non-void function [-Wreturn-type]
+out.c: In function ‘_Sea_getX’:
+out.c:72:1: warning: control reaches end of non-void function [-Wreturn-type]
+out.c: In function ‘_Land_getY’:
+out.c:68:1: warning: control reaches end of non-void function [-Wreturn-type]
+out.c: In function ‘_Land_getX’:
+out.c:66:1: warning: control reaches end of non-void function [-Wreturn-type]
+make: *** [out.o] Error 1
+Score: 0/10
+
+
+Test: stage8test2
+generic classes with class inheritance
+[Stage 8]
+
+Program:
+class Singleton<A>(a : A) {
+  fun get() : A { return a; }
+}
+
+class SettableSingleton<B>(b : B) extends Singleton<B> {
+  super(b);
+
+  fun set(b : B) : SettableSingleton<B> = SettableSingleton<B>(b);
+}
+
+l := [SettableSingleton<String>("hello"), SettableSingleton<String>("foo")];
+for (i in input)
+{
+	l := l ++ [SettableSingleton<String>(i)];
+}
+
+ll := [];
+for (x in l)
+{
+	s := x.get();
+	ll := ll ++ [x.set(string(s++"WAT")).get()];
+}
+
+return ll;
+
+-------------------------------------------
+
+C program could not be compiled!
+
+Compiler output:
+out.c:1:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ at end of input
+make: *** [out.o] Error 1
+Score: 0/2
+
+
+Test: stage2test7
+printing before reading input
+[Stage 2]
+
+Program:
+fun getinput() : Iterable<String>
+{
+	return ["Print this one before reading, too."]++input;
+}
+
+return ["Print this line before reading the input."]++getinput();
+
+-------------------------------------------
+
+C program could not be compiled!
+
+Compiler output:
+In file included from out.c:1:0:
+cubex_lib.h: In function ‘toString’:
+cubex_lib.h:668:5: warning: implicit declaration of function ‘printf’ [-Wimplicit-function-declaration]
+cubex_lib.h:668:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:671:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:673:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:678:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:674:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h:666:10: warning: unused variable ‘buffer’ [-Wunused-variable]
+cubex_lib.h: In function ‘totoString’:
+cubex_lib.h:691:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:694:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:696:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:701:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:697:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h: In function ‘_character’:
+cubex_lib.h:727:3: warning: return makes integer from pointer without a cast [enabled by default]
+out.c: In function ‘_getinput’:
+out.c:8:2134: error: ‘input’ undeclared (first use in this function)
+out.c:8:2134: note: each undeclared identifier is reported only once for each function it appears in
+make: *** [out.o] Error 1
+Score: 0/3
+
+
+Test: stage2test5
+non-generic functions
+[Stage 2]
+
+Program:
+fun reversefirsttwo() : Iterable<String> {
+	getfirst := true;
+	first:= "";
+	for (i in input)
+	{
+		if (getfirst)
+		{
+			first := i;
+			getfirst := false;
+		}
+		else
+		{
+			second := i;
+			return [second]++[first];
+		}
+	}
+	
+	return ["no"];
+}
+
+return reversefirsttwo();
+
+-------------------------------------------
+
+C program could not be compiled!
+
+Compiler output:
+out.c:1:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ at end of input
+make: *** [out.o] Error 1
+Score: 0/15
+
+
+Test: two-words
+two-word output
+[Stage 1]
+
+Program:
+return ["Hello", "World!"];
+
+-------------------------------------------
+
+Sub-test 1 (10 points):
+
+Input:
+
+Possible outputs: 
+Hello
+World!
+
+Actual output:
+Hello
+World!
+
+GC faulty: not all memory freed at end of program: -5.56%
+
+Score: 9.444/10
+
+Sub-test 2 (10 points):
+
+Input:
+This input should be ignored.
+
+Possible outputs: 
+Hello
+World!
+
+Actual output:
+Hello
+World!
+
+GC faulty: not all memory freed at end of program: -5.56%
+
+Score: 9.444/10
+
+
+
+Test: stage8test3
+generic classes with class inheritance
+[Stage 8]
+
+Program:
+class Foo<A>(a : A) {
+  fun get() : A { return a; }
+}
+
+class Bar<A>(a : A) extends Foo<A> { 
+  super(a);
+}
+
+x := Bar<String>("hello");
+y := Foo<String>("world");
+lst := [x, y];
+ret := [];
+for (i in input) {
+	lst := lst ++ [Bar<String>(i), Foo<String>(i)];
+	
+	for (z in lst) {
+		ret := ret ++ [z.get()];
+	}
+	return ret;
+}
+
+return ["You didn't read the input :("];
+
+-------------------------------------------
+
+C program could not be compiled!
+
+Compiler output:
+out.c:1:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ at end of input
+make: *** [out.o] Error 1
+Score: 0/2
+
+
+Test: stage7test3
+generic classes with single interface inheritance and interface method implementations
+[Stage 7]
+
+Program:
+interface TheInterface<T>
+{
+	fun getString() : String = "Interface";
+	fun getIT(it : Iterable<T>) : Iterable<T>;
+}
+
+class TheFirstClass<T>() extends TheInterface<T>
+{
+	fun getIT(it : Iterable<T>) : Iterable<T> = it++it;
+}
+
+class TheSecondClass<T>() extends TheInterface<T>
+{
+	fun getString() : String = "Second Class";
+	fun getIT(it : Iterable<T>) : Iterable<T> = it++it++it;
+}
+
+for (i in input)
+{
+	one := TheFirstClass<Character>();
+	two := TheSecondClass<Character>();
+	return [one.getString()]++[string(one.getIT(i))]++[two.getString()]++[string(two.getIT(i))];
+}
+
+return ["Que paso?"];
+
+-------------------------------------------
+
+C program could not be compiled!
+
+Compiler output:
+In file included from out.c:1:0:
+cubex_lib.h: In function ‘toString’:
+cubex_lib.h:668:5: warning: implicit declaration of function ‘printf’ [-Wimplicit-function-declaration]
+cubex_lib.h:668:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:671:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:673:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:678:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:674:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h:666:10: warning: unused variable ‘buffer’ [-Wunused-variable]
+cubex_lib.h: In function ‘totoString’:
+cubex_lib.h:691:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:694:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:696:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:701:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:697:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h: In function ‘_character’:
+cubex_lib.h:727:3: warning: return makes integer from pointer without a cast [enabled by default]
+out.c: In function ‘cubex_main’:
+out.c:105:1: warning: implicit declaration of function ‘_TheFirstClass’ [-Wimplicit-function-declaration]
+out.c:105:9: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:114:1: warning: implicit declaration of function ‘_TheSecondClass’ [-Wimplicit-function-declaration]
+out.c:114:9: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:122:1: warning: implicit declaration of function ‘TheFirstClass_getString’ [-Wimplicit-function-declaration]
+out.c:122:1: warning: passing argument 1 of ‘new_git_obj’ makes pointer from integer without a cast [enabled by default]
+cubex_lib.h:309:7: note: expected ‘void *’ but argument is of type ‘int’
+out.c:122:1: warning: implicit declaration of function ‘_TheSecondClass_string’ [-Wimplicit-function-declaration]
+out.c:122:1: warning: implicit declaration of function ‘TheFirstClass_getIT’ [-Wimplicit-function-declaration]
+out.c:122:194: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
+out.c:122:1: warning: passing argument 1 of ‘new_git_obj’ makes pointer from integer without a cast [enabled by default]
+cubex_lib.h:309:7: note: expected ‘void *’ but argument is of type ‘int’
+out.c:122:1: warning: implicit declaration of function ‘TheSecondClass_getString’ [-Wimplicit-function-declaration]
+out.c:122:1: warning: passing argument 1 of ‘new_git_obj’ makes pointer from integer without a cast [enabled by default]
+cubex_lib.h:309:7: note: expected ‘void *’ but argument is of type ‘int’
+out.c:122:1: warning: implicit declaration of function ‘TheSecondClass_getIT’ [-Wimplicit-function-declaration]
+out.c:122:407: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
+out.c:122:1: warning: passing argument 1 of ‘new_git_obj’ makes pointer from integer without a cast [enabled by default]
+cubex_lib.h:309:7: note: expected ‘void *’ but argument is of type ‘int’
+out.c:82:7: warning: unused variable ‘__temp6’ [-Wunused-variable]
+out.c:80:7: warning: unused variable ‘__temp5’ [-Wunused-variable]
+out.c: In function ‘_TheInterface_getIT’:
+out.c:38:1: warning: control reaches end of non-void function [-Wreturn-type]
+out.c: In function ‘_TheInterface_getString’:
+out.c:32:14: warning: ‘__temp0’ is used uninitialized in this function [-Wuninitialized]
+out.c: In function ‘_TheFirstClass_TheFirstClass_getIT’:
+out.c:46:14: warning: ‘__temp1’ is used uninitialized in this function [-Wuninitialized]
+out.c: In function ‘_TheFirstClass_getString’:
+out.c:53:14: warning: ‘__temp2’ is used uninitialized in this function [-Wuninitialized]
+out.c: In function ‘_TheSecondClass_TheSecondClass_getString’:
+out.c:66:14: warning: ‘__temp3’ is used uninitialized in this function [-Wuninitialized]
+out.c: In function ‘_TheSecondClass_TheSecondClass_getIT’:
+out.c:73:14: warning: ‘__temp4’ is used uninitialized in this function [-Wuninitialized]
+out.o: In function `cubex_main':
+/home/fabian/Documents/CS4120F13/SVN/grading/pa4/group_of_ay226_jkf49_mso32_tn229/out.c:105: undefined reference to `_TheFirstClass'
+/home/fabian/Documents/CS4120F13/SVN/grading/pa4/group_of_ay226_jkf49_mso32_tn229/out.c:114: undefined reference to `_TheSecondClass'
+/home/fabian/Documents/CS4120F13/SVN/grading/pa4/group_of_ay226_jkf49_mso32_tn229/out.c:122: undefined reference to `TheSecondClass_getIT'
+/home/fabian/Documents/CS4120F13/SVN/grading/pa4/group_of_ay226_jkf49_mso32_tn229/out.c:122: undefined reference to `_TheSecondClass_string'
+/home/fabian/Documents/CS4120F13/SVN/grading/pa4/group_of_ay226_jkf49_mso32_tn229/out.c:122: undefined reference to `TheSecondClass_getString'
+/home/fabian/Documents/CS4120F13/SVN/grading/pa4/group_of_ay226_jkf49_mso32_tn229/out.c:122: undefined reference to `TheFirstClass_getIT'
+/home/fabian/Documents/CS4120F13/SVN/grading/pa4/group_of_ay226_jkf49_mso32_tn229/out.c:122: undefined reference to `_TheSecondClass_string'
+/home/fabian/Documents/CS4120F13/SVN/grading/pa4/group_of_ay226_jkf49_mso32_tn229/out.c:122: undefined reference to `TheFirstClass_getString'
+collect2: ld returned 1 exit status
+make: *** [all] Error 1
+Score: 0/2
+
+
+Test: stage1test2
+multi-line output
+[Stage 1]
+
+Program:
+return ["What"]++["Up"]++["Tho?"];
+
+-------------------------------------------
+
+Sub-test 1 (5 points):
+
+Input:
+This input should be ignored.
+
+Possible outputs: 
+What
+Up
+Tho?
+
+Actual output:
+What
+Up
+Tho?
+
+GC faulty: not all memory freed at end of program: -5.56%
+
+Score: 4.722/5
+
+
+
+Test: stage3test5
+generic functions
+[Stage 3]
+
+Program:
+fun copy<T>(i : Integer, its : Iterable<T>) : Iterable<T>
+{
+	out := [];
+	
+	for (x in 1..i)
+	{
+		out := out++its;
+	}
+	
+	return out;
+}
+
+fun inttostring(i : Integer) : String
+{
+	if (i == 0)
+	{
+		return "0";
+	}
+	
+	neg := false;
+	if (i < 0)
+	{
+		neg := true;
+		i := -i;
+	}
+	
+	retval := "";
+	while (i > 0)
+	{
+		mod := i % 10;
+		for (m in mod) {
+			retval := [character(m + 48)]++retval;
+		}
+		div := i / 10;
+		for (t in div)
+		{
+			i := t;
+		}
+	}
+	
+	if (neg)
+	{
+		retval := "-"++retval;
+	}
+	
+	return string(retval);
+}
+
+fun intstostring(ints : Iterable<Integer>) : String
+{
+	retval := "";
+	
+	for (i in ints)
+	{
+		retval := retval++inttostring(i)++", ";
+	}
+	
+	return string(retval);
+}
+
+retval := [intstostring(copy<Integer>(-5, [54, 9, 23, 87, 5, -587, -432, 0]))]++[intstostring(copy<Integer>(3, 35<.40))];
+
+for (i in input)
+{
+	retval := retval++[string(copy<Character>(10, i))];
+}
+
+return retval;
+
+-------------------------------------------
+
+C program could not be compiled!
+
+Compiler output:
+In file included from out.c:1:0:
+cubex_lib.h: In function ‘toString’:
+cubex_lib.h:668:5: warning: implicit declaration of function ‘printf’ [-Wimplicit-function-declaration]
+cubex_lib.h:668:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:671:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:673:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:678:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:674:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h:666:10: warning: unused variable ‘buffer’ [-Wunused-variable]
+cubex_lib.h: In function ‘totoString’:
+cubex_lib.h:691:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:694:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:696:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:701:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:697:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h: In function ‘_character’:
+cubex_lib.h:727:3: warning: return makes integer from pointer without a cast [enabled by default]
+out.c: In function ‘_copy’:
+out.c:27:7: warning: unused variable ‘x’ [-Wunused-variable]
+out.c:11:7: warning: unused variable ‘__temp5’ [-Wunused-variable]
+out.c:9:7: warning: unused variable ‘__temp3’ [-Wunused-variable]
+out.c:8:7: warning: unused variable ‘__temp2’ [-Wunused-variable]
+out.c:7:7: warning: unused variable ‘__temp1’ [-Wunused-variable]
+out.c: In function ‘_inttostring’:
+out.c:163:1: warning: passing argument 1 of ‘new_git_obj’ makes pointer from integer without a cast [enabled by default]
+cubex_lib.h:309:7: note: expected ‘void *’ but argument is of type ‘char’
+out.c:211:1: warning: implicit declaration of function ‘_string’ [-Wimplicit-function-declaration]
+out.c:211:10: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:68:7: warning: unused variable ‘__temp18’ [-Wunused-variable]
+out.c: In function ‘_intstostring’:
+out.c:251:10: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:223:7: warning: unused variable ‘__temp24’ [-Wunused-variable]
+out.c: In function ‘cubex_main’:
+out.c:268:1: warning: implicit declaration of function ‘Integer_negate’ [-Wimplicit-function-declaration]
+out.c:268:84: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
+out.c:268:1: warning: passing argument 1 of ‘new_git_obj’ makes pointer from integer without a cast [enabled by default]
+cubex_lib.h:309:7: note: expected ‘void *’ but argument is of type ‘int’
+out.c:268:1: warning: passing argument 1 of ‘new_git_obj’ makes pointer from integer without a cast [enabled by default]
+cubex_lib.h:309:7: note: expected ‘void *’ but argument is of type ‘int’
+out.c:268:1: warning: passing argument 2 of ‘new_git_int’ makes integer from pointer without a cast [enabled by default]
+cubex_lib.h:333:7: note: expected ‘int’ but argument is of type ‘Integer_t’
+out.c:268:1: warning: passing argument 3 of ‘new_git_int’ makes integer from pointer without a cast [enabled by default]
+cubex_lib.h:333:7: note: expected ‘int’ but argument is of type ‘Integer_t’
+out.c:268:715: error: expected ‘)’ before ‘;’ token
+out.c:268:715: warning: passing argument 2 of ‘_copy’ from incompatible pointer type [enabled by default]
+out.c:5:7: note: expected ‘git_t’ but argument is of type ‘struct Integer *’
+out.c:283:1: warning: passing argument 1 of ‘new_git_obj’ makes pointer from integer without a cast [enabled by default]
+cubex_lib.h:309:7: note: expected ‘void *’ but argument is of type ‘int’
+out.c:260:7: warning: unused variable ‘__temp27’ [-Wunused-variable]
+make: *** [out.o] Error 1
+Score: 0/8
+
+
+Test: stage3test6
+generic functions
+[Stage 3]
+
+Program:
+fun id<T>(x : T) : T = x;
+return [id<String>("Hi World!")];
+
+-------------------------------------------
+
+Sub-test 1 (10 points):
+
+Input:
+
+Possible outputs: 
+Hi World!
+
+Actual output:
+Hi World!
+
+GC faulty: not all memory freed at end of program: -5.56%
+
+Score: 9.444/10
+
+Sub-test 2 (10 points):
+
+Input:
+This input should be ignored
+
+Possible outputs: 
+Hi World!
+
+Actual output:
+Hi World!
+
+GC faulty: not all memory freed at end of program: -5.56%
+
+Score: 9.444/10
+
+
+
+Test: stage1test1
+one-line output
+[Stage 1]
+
+Program:
+return ["Hello world!!..."];
+
+-------------------------------------------
+
+Sub-test 1 (50 points):
+
+Input:
+This input should be ignored.
+
+Possible outputs: 
+Hello world!!...
+
+Actual output:
+Hello world!!...
+
+GC faulty: not all memory freed at end of program: -5.56%
+
+Score: 47.22/50
+
+
+
+Test: stage5test1
+generic classes without inheritance
+[Stage 5]
+
+Program:
+class Singleton<A>(a : A) {
+  fun get() : A { return a; }
+}
+x := Singleton<String>("hello");
+return [x.get()];
+
+-------------------------------------------
+
+C program could not be compiled!
+
+Compiler output:
+In file included from out.c:1:0:
+cubex_lib.h: In function ‘toString’:
+cubex_lib.h:668:5: warning: implicit declaration of function ‘printf’ [-Wimplicit-function-declaration]
+cubex_lib.h:668:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:671:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:673:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:678:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:674:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h:666:10: warning: unused variable ‘buffer’ [-Wunused-variable]
+cubex_lib.h: In function ‘totoString’:
+cubex_lib.h:691:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:694:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:696:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:701:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:697:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h: In function ‘_character’:
+cubex_lib.h:727:3: warning: return makes integer from pointer without a cast [enabled by default]
+out.c: In function ‘__Singleton’:
+out.c:21:19: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘->’ token
+out.c:21:19: error: expected expression before ‘->’ token
+out.c:22:1: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+out.c: In function ‘_Singleton_Singleton_get’:
+out.c:31:8: error: ‘a’ undeclared (first use in this function)
+out.c:31:8: note: each undeclared identifier is reported only once for each function it appears in
+out.c: In function ‘cubex_main’:
+out.c:48:1: warning: implicit declaration of function ‘_Singleton’ [-Wimplicit-function-declaration]
+out.c:48:9: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:58:1: warning: implicit declaration of function ‘Singleton_get’ [-Wimplicit-function-declaration]
+out.c:58:9: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c: In function ‘_Singleton_Singleton_get’:
+out.c:32:1: warning: control reaches end of non-void function [-Wreturn-type]
+make: *** [out.o] Error 1
+Score: 0/10
+
+
+Test: stage1test8
+for loop, through, onwards
+[Stage 1]
+
+Program:
+str1 := "TenTs:";
+for (i in 0..9) {
+	str1 := str1++"T";
+}
+
+str2 := "";
+for (i in 96<..) {
+	if (i == 123) {
+		return [string(str1)]++[string(str2)];
+	}
+	else {
+		str2 := str2++[character(i)];
+	}
+}
+
+return ["WAT"];
+
+-------------------------------------------
+
+C program could not be compiled!
+
+Compiler output:
+In file included from out.c:1:0:
+cubex_lib.h: In function ‘toString’:
+cubex_lib.h:668:5: warning: implicit declaration of function ‘printf’ [-Wimplicit-function-declaration]
+cubex_lib.h:668:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:671:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:673:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:678:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:674:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h:666:10: warning: unused variable ‘buffer’ [-Wunused-variable]
+cubex_lib.h: In function ‘totoString’:
+cubex_lib.h:691:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:694:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:696:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:701:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:697:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h: In function ‘_character’:
+cubex_lib.h:727:3: warning: return makes integer from pointer without a cast [enabled by default]
+out.c: In function ‘cubex_main’:
+out.c:34:27: error: ‘__temp5’ undeclared (first use in this function)
+out.c:34:27: note: each undeclared identifier is reported only once for each function it appears in
+out.c:37:7: warning: unused variable ‘i’ [-Wunused-variable]
+out.c:59:27: error: ‘__temp10’ undeclared (first use in this function)
+out.c:76:26: error: ‘__temp13’ undeclared (first use in this function)
+out.c:77:1: warning: implicit declaration of function ‘_string’ [-Wimplicit-function-declaration]
+out.c:77:1: warning: passing argument 1 of ‘new_git_obj’ makes pointer from integer without a cast [enabled by default]
+cubex_lib.h:309:7: note: expected ‘void *’ but argument is of type ‘int’
+out.c:77:1: warning: passing argument 1 of ‘new_git_obj’ makes pointer from integer without a cast [enabled by default]
+cubex_lib.h:309:7: note: expected ‘void *’ but argument is of type ‘int’
+out.c:82:26: error: ‘str2’ undeclared (first use in this function)
+out.c:83:26: error: ‘str1’ undeclared (first use in this function)
+out.c:94:1: warning: passing argument 1 of ‘new_git_obj’ makes pointer from integer without a cast [enabled by default]
+cubex_lib.h:309:7: note: expected ‘void *’ but argument is of type ‘char’
+out.c:14:7: warning: unused variable ‘__temp6’ [-Wunused-variable]
+make: *** [out.o] Error 1
+Score: 0/5
+
+
+Test: stage3test3
+generic functions
+[Stage 3]
+
+Program:
+fun id<T> (t : T) : T = t;
+
+fun singleton<T> (t : T) : Iterable<T> = [t];
+
+fun test<T> (t : T) : Iterable<T> = id<Iterable<T>>(singleton<T>(t));
+
+fun output<T> (t : T, b : Boolean) : Iterable<String>
+{
+	ret := "";
+	if (b)
+	{
+		return singleton<String>("Yes.");
+	}
+	else
+	{
+		ret := "FUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU...";
+	}
+	return [ret];
+}
+
+fun charoutput (char : Character) : Iterable<String>
+{
+	bool := false;
+	
+	for (c in test<Character>(char)) {
+		if (c == char) {
+			bool := true;
+		}
+	}
+	
+	return output<Character>(char, bool);	
+}
+
+return charoutput(character(66));
+
+-------------------------------------------
+
+C program could not be compiled!
+
+Compiler output:
+In file included from out.c:1:0:
+cubex_lib.h: In function ‘toString’:
+cubex_lib.h:668:5: warning: implicit declaration of function ‘printf’ [-Wimplicit-function-declaration]
+cubex_lib.h:668:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:671:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:673:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:678:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:674:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h:666:10: warning: unused variable ‘buffer’ [-Wunused-variable]
+cubex_lib.h: In function ‘totoString’:
+cubex_lib.h:691:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:694:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:696:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:701:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:697:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h: In function ‘_character’:
+cubex_lib.h:727:3: warning: return makes integer from pointer without a cast [enabled by default]
+out.c: At top level:
+out.c:76:31: error: two or more data types in declaration specifiers
+out.c: In function ‘_charoutput’:
+out.c:76:1: error: parameter name omitted
+out.c:101:54: error: expected expression before ‘char’
+out.c:117:28: error: expected expression before ‘char’
+out.c:117:28: error: too few arguments to function ‘_output’
+out.c:30:7: note: declared here
+out.c:119:26: error: expected expression before ‘char’
+out.c:81:7: warning: unused variable ‘__temp10’ [-Wunused-variable]
+out.c: In function ‘cubex_main’:
+out.c:134:10: warning: assignment makes pointer from integer without a cast [enabled by default]
+make: *** [out.o] Error 1
+Score: 0/4
+
+
+Test: stage1test7
+equality operators
+[Stage 1]
+
+Program:
+bools := [("a" != "a"), (character(65) == character(66)), (3 > 15), (347 >= 346), (false < true), (true <= true)];
+str := "";
+for (b in bools) {
+	if (b) {
+		str := str++"t";
+	}
+	else {
+		str := str++"f";
+	}
+}
+return [string(str)];
+
+-------------------------------------------
+
+C program could not be compiled!
+
+Compiler output:
+In file included from out.c:1:0:
+cubex_lib.h: In function ‘toString’:
+cubex_lib.h:668:5: warning: implicit declaration of function ‘printf’ [-Wimplicit-function-declaration]
+cubex_lib.h:668:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:671:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:673:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:678:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:674:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h:666:10: warning: unused variable ‘buffer’ [-Wunused-variable]
+cubex_lib.h: In function ‘totoString’:
+cubex_lib.h:691:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:694:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:696:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:701:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:697:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h: In function ‘_character’:
+cubex_lib.h:727:3: warning: return makes integer from pointer without a cast [enabled by default]
+out.c: In function ‘cubex_main’:
+out.c:61:1: warning: implicit declaration of function ‘String_negate’ [-Wimplicit-function-declaration]
+out.c:61:9: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:69:9: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:77:9: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:242:1: warning: implicit declaration of function ‘_string’ [-Wimplicit-function-declaration]
+out.c:242:28: error: ‘str’ undeclared (first use in this function)
+out.c:242:28: note: each undeclared identifier is reported only once for each function it appears in
+make: *** [out.o] Error 1
+Score: 0/12
+
+
+Test: X3Test1
+(No description)
+[Stage 1]
+
+Program:
+# Cubex Compiler Test 1 - Stage 1
+ret := [];
+for ( i in input)
+{
+	ret := [i] ++ ret ++ [i];
+}
+return ret;
+
+-------------------------------------------
+
+Sub-test 1 (5 points):
+
+Input:
+d
+o
+r
+e
+v
+e
+n
+
+Possible outputs: 
+n
+e
+v
+e
+r
+o
+d
+d
+o
+r
+e
+v
+e
+n
+
+Actual output:
+n
+e
+v
+e
+r
+o
+d۬��
+d۬��
+o
+r
+e
+v
+e
+n
+
+GC faulty: too much memory allocated at once: -5.56%
+
+GC faulty: not all memory freed at end of program: -5.56%
+
+Score: 0/5
+
+
+
+Test: stage1test9
+arithmetic operators
+[Stage 1]
+
+Program:
+bools := [(-6 < -90), (11 + 1 == 100), (36 - 6 == 3), (3 * 89 == 267)];
+
+bool := false;
+for (x in 100/9) {
+	if (x == 11) {
+		bool := true;
+	}
+}
+for (x in 29/0) {
+	bool := false;
+}
+bools := bools++[bool];
+
+bool := false;
+for (x in 484%9) {
+	if (x == 7) {
+		bool := true;
+	}
+}
+for (x in 73%0) {
+	bool := false;
+}
+bools := bools++[bool];
+
+str := "";
+for (b in bools) {
+	if (b) {
+		str := str++"t";
+	}
+	else {
+		str := str++"f";
+	}
+}
+return [string(str)];
+
+-------------------------------------------
+
+C program could not be compiled!
+
+Compiler output:
+In file included from out.c:1:0:
+cubex_lib.h: In function ‘toString’:
+cubex_lib.h:668:5: warning: implicit declaration of function ‘printf’ [-Wimplicit-function-declaration]
+cubex_lib.h:668:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:671:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:673:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:678:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:674:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h:666:10: warning: unused variable ‘buffer’ [-Wunused-variable]
+cubex_lib.h: In function ‘totoString’:
+cubex_lib.h:691:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:694:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:696:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:701:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:697:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h: In function ‘_character’:
+cubex_lib.h:727:3: warning: return makes integer from pointer without a cast [enabled by default]
+out.c: In function ‘cubex_main’:
+out.c:119:1: warning: implicit declaration of function ‘Integer_minus’ [-Wimplicit-function-declaration]
+out.c:119:10: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:205:27: error: ‘__temp25’ undeclared (first use in this function)
+out.c:205:27: note: each undeclared identifier is reported only once for each function it appears in
+out.c:233:27: error: ‘__temp31’ undeclared (first use in this function)
+out.c:236:7: warning: unused variable ‘x’ [-Wunused-variable]
+out.c:267:27: error: ‘__temp37’ undeclared (first use in this function)
+out.c:295:27: error: ‘__temp43’ undeclared (first use in this function)
+out.c:298:7: warning: unused variable ‘x’ [-Wunused-variable]
+out.c:356:1: warning: implicit declaration of function ‘_string’ [-Wimplicit-function-declaration]
+out.c:356:28: error: ‘str’ undeclared (first use in this function)
+out.c:29:7: warning: unused variable ‘__temp32’ [-Wunused-variable]
+out.c:20:7: warning: unused variable ‘__temp44’ [-Wunused-variable]
+make: *** [out.o] Error 1
+Score: 0/6
+
+
+Test: stage2test2
+non-generic functions
+[Stage 2]
+
+Program:
+fun myinitial() : String = string([character(66)]);
+
+return [myinitial()];
+
+-------------------------------------------
+
+C program could not be compiled!
+
+Compiler output:
+In file included from out.c:1:0:
+cubex_lib.h: In function ‘toString’:
+cubex_lib.h:668:5: warning: implicit declaration of function ‘printf’ [-Wimplicit-function-declaration]
+cubex_lib.h:668:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:671:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:673:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:678:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:674:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h:666:10: warning: unused variable ‘buffer’ [-Wunused-variable]
+cubex_lib.h: In function ‘totoString’:
+cubex_lib.h:691:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:694:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:696:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:701:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:697:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h: In function ‘_character’:
+cubex_lib.h:727:3: warning: return makes integer from pointer without a cast [enabled by default]
+out.c: In function ‘_myinitial’:
+out.c:15:9: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:21:1: warning: implicit declaration of function ‘_string’ [-Wimplicit-function-declaration]
+out.c:21:9: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:11:14: warning: ‘__temp0’ is used uninitialized in this function [-Wuninitialized]
+out.c:14:14: warning: ‘__temp1’ is used uninitialized in this function [-Wuninitialized]
+out.c:17:14: warning: ‘__temp2’ is used uninitialized in this function [-Wuninitialized]
+out.c:20:14: warning: ‘__temp3’ is used uninitialized in this function [-Wuninitialized]
+out.o: In function `_myinitial':
+/home/fabian/Documents/CS4120F13/SVN/grading/pa4/group_of_ay226_jkf49_mso32_tn229/out.c:21: undefined reference to `_string'
+collect2: ld returned 1 exit status
+make: *** [all] Error 1
+Score: 0/15
+
+
+Test: stage7test2
+generic classes with single interface inheritance and interface method implementations
+[Stage 7]
+
+Program:
+interface MyInterface<T>
+{
+	fun getRandom() : Integer = 4; #Chosen by fair dice roll
+	fun getT() : T;
+}
+class MyClass<T>(t : T) extends MyInterface<T>
+{
+	fun getT() : T = t;
+}
+class MyClass2() extends MyInterface<Integer>
+{
+	fun getT() : Integer = getRandom();
+}
+class MyClass3() extends MyInterface<String>
+{
+	fun getT() : String = "Hello World!";
+}
+
+m1:=MyClass<String>("Hello");
+m2:=MyClass<String>("World!");
+m3:=MyClass2();
+m4:=MyClass3();
+l:=[m1,m2,m4];
+
+for (i in input) {
+	m:=MyClass<String>(i);
+	l:=l++[m];
+}
+
+if(m3.getT() == 4)
+{
+	ret := [];
+	for(e in l)
+	{
+		ret := ret ++ [e.getT()];
+	}
+	return ret;
+}
+else
+{
+	return [""];
+}
+
+-------------------------------------------
+
+C program could not be compiled!
+
+Compiler output:
+In file included from out.c:1:0:
+cubex_lib.h: In function ‘toString’:
+cubex_lib.h:668:5: warning: implicit declaration of function ‘printf’ [-Wimplicit-function-declaration]
+cubex_lib.h:668:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:671:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:673:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:678:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:674:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h:666:10: warning: unused variable ‘buffer’ [-Wunused-variable]
+cubex_lib.h: In function ‘totoString’:
+cubex_lib.h:691:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:694:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:696:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:701:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:697:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h: In function ‘_character’:
+cubex_lib.h:727:3: warning: return makes integer from pointer without a cast [enabled by default]
+out.c: In function ‘__MyClass’:
+out.c:59:19: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘->’ token
+out.c:59:19: error: expected expression before ‘->’ token
+out.c:60:1: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+out.c: In function ‘_MyClass_MyClass_getT’:
+out.c:69:8: error: ‘t’ undeclared (first use in this function)
+out.c:69:8: note: each undeclared identifier is reported only once for each function it appears in
+out.c: In function ‘_MyClass2_MyClass2_getT’:
+out.c:87:1: warning: implicit declaration of function ‘_MyClass2_getRandom’ [-Wimplicit-function-declaration]
+out.c:87:9: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c: At top level:
+out.c:91:7: error: conflicting types for ‘_MyClass2_getRandom’
+out.c:87:11: note: previous implicit declaration of ‘_MyClass2_getRandom’ was here
+out.c: In function ‘cubex_main’:
+out.c:153:1: warning: implicit declaration of function ‘_MyClass’ [-Wimplicit-function-declaration]
+out.c:153:9: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:168:9: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:179:1: warning: implicit declaration of function ‘_MyClass2’ [-Wimplicit-function-declaration]
+out.c:179:10: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:188:1: warning: implicit declaration of function ‘_MyClass3’ [-Wimplicit-function-declaration]
+out.c:188:10: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:216:10: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:238:1: warning: implicit declaration of function ‘MyClass2_getT’ [-Wimplicit-function-declaration]
+out.c:238:10: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:251:26: error: ‘ret’ undeclared (first use in this function)
+out.c:266:1: warning: implicit declaration of function ‘MyInterface_getT’ [-Wimplicit-function-declaration]
+out.c:266:79: error: ‘MyInterface_t’ undeclared (first use in this function)
+out.c:266:94: error: expected ‘)’ before ‘e’
+out.c:259:7: warning: unused variable ‘e’ [-Wunused-variable]
+out.c:281:26: error: ‘__temp20’ undeclared (first use in this function)
+out.c:284:26: error: ‘__temp21’ undeclared (first use in this function)
+out.c:133:7: warning: unused variable ‘__temp19’ [-Wunused-variable]
+out.c:125:7: warning: unused variable ‘__temp13’ [-Wunused-variable]
+out.c:124:7: warning: unused variable ‘__temp14’ [-Wunused-variable]
+out.c: In function ‘_MyClass_MyClass_getT’:
+out.c:70:1: warning: control reaches end of non-void function [-Wreturn-type]
+out.c: In function ‘_MyInterface_getT’:
+out.c:57:1: warning: control reaches end of non-void function [-Wreturn-type]
+make: *** [out.o] Error 1
+Score: 0/3
+
+
+Test: stage8test1
+generic classes with class inheritance
+[Stage 8]
+
+Program:
+class Aa(s : String)
+{
+	super();
+	fun getString() : String = s;
+}
+
+class Bb() extends Aa
+{
+	super("Hello Worllldddddddd!");
+}
+
+return [Bb().getString()];
+
+-------------------------------------------
+
+C program could not be compiled!
+
+Compiler output:
+In file included from out.c:1:0:
+cubex_lib.h: In function ‘toString’:
+cubex_lib.h:668:5: warning: implicit declaration of function ‘printf’ [-Wimplicit-function-declaration]
+cubex_lib.h:668:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:671:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:673:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:678:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:674:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h:666:10: warning: unused variable ‘buffer’ [-Wunused-variable]
+cubex_lib.h: In function ‘totoString’:
+cubex_lib.h:691:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:694:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:696:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:701:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:697:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h: In function ‘_character’:
+cubex_lib.h:727:3: warning: return makes integer from pointer without a cast [enabled by default]
+out.c: In function ‘__Aa’:
+out.c:33:15: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘->’ token
+out.c:33:15: error: expected expression before ‘->’ token
+out.c:34:1: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+out.c: In function ‘_Aa_Aa_getString’:
+out.c:43:8: error: ‘s’ undeclared (first use in this function)
+out.c:43:8: note: each undeclared identifier is reported only once for each function it appears in
+out.c: In function ‘__Bb’:
+out.c:48:1: warning: implicit declaration of function ‘Aa’ [-Wimplicit-function-declaration]
+out.c:48:20: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c: In function ‘_Bb_getString’:
+out.c:53:8: error: ‘s’ undeclared (first use in this function)
+out.c:54:1: warning: implicit declaration of function ‘_Aa_getString’ [-Wimplicit-function-declaration]
+out.c:54:1: warning: return makes pointer from integer without a cast [enabled by default]
+out.c: In function ‘cubex_main’:
+out.c:64:1: warning: implicit declaration of function ‘_Bb’ [-Wimplicit-function-declaration]
+out.c:64:9: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:67:1: warning: implicit declaration of function ‘Bb_getString’ [-Wimplicit-function-declaration]
+out.c:67:9: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c: In function ‘_Aa_Aa_getString’:
+out.c:44:1: warning: control reaches end of non-void function [-Wreturn-type]
+make: *** [out.o] Error 1
+Score: 0/10
+
+
+Test: stage4test1
+non-generic classes without inheritance
+[Stage 4]
+
+Program:
+class MyClass(b : Boolean)
+{
+	fun whatAmI() : String
+	{
+		if(b)
+		{
+			return "I'm true";
+		}
+		else
+		{
+			return "I'm false";
+		}
+	}
+}
+return [MyClass(true).whatAmI(),MyClass(false).whatAmI()];
+
+-------------------------------------------
+
+C program could not be compiled!
+
+Compiler output:
+In file included from out.c:1:0:
+cubex_lib.h: In function ‘toString’:
+cubex_lib.h:668:5: warning: implicit declaration of function ‘printf’ [-Wimplicit-function-declaration]
+cubex_lib.h:668:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:671:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:673:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:678:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:674:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h:666:10: warning: unused variable ‘buffer’ [-Wunused-variable]
+cubex_lib.h: In function ‘totoString’:
+cubex_lib.h:691:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:694:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:696:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:701:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:697:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h: In function ‘_character’:
+cubex_lib.h:727:3: warning: return makes integer from pointer without a cast [enabled by default]
+out.c: In function ‘__MyClass’:
+out.c:25:19: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘->’ token
+out.c:25:19: error: expected expression before ‘->’ token
+out.c:26:1: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+out.c: In function ‘_MyClass_MyClass_whatAmI’:
+out.c:37:4: error: ‘b’ undeclared (first use in this function)
+out.c:37:4: note: each undeclared identifier is reported only once for each function it appears in
+out.c:39:119: error: empty character constant
+out.c:39:121: warning: character constant too long for its type [enabled by default]
+out.c:39:121: error: expected ‘)’ before '\x756e6928'
+out.c:39:179: warning: character constant too long for its type [enabled by default]
+out.c:39:237: warning: character constant too long for its type [enabled by default]
+out.c:39:295: warning: character constant too long for its type [enabled by default]
+out.c:39:353: warning: character constant too long for its type [enabled by default]
+out.c:39:411: warning: character constant too long for its type [enabled by default]
+out.c:39:469: warning: missing terminating ' character [enabled by default]
+out.c:39:121: error: missing terminating ' character
+out.c:42:1: error: expected ‘)’ before ‘}’ token
+out.c:42:1: error: expected ‘)’ before ‘}’ token
+out.c:42:1: error: expected ‘)’ before ‘}’ token
+out.c:42:1: error: too few arguments to function ‘iterable_append’
+cubex_lib.h:250:7: note: declared here
+out.c:42:1: error: expected ‘)’ before ‘}’ token
+out.c:42:1: error: expected ‘;’ before ‘}’ token
+out.c:44:119: error: empty character constant
+out.c:44:121: warning: character constant too long for its type [enabled by default]
+out.c:44:121: error: expected ‘)’ before '\x756e6928'
+out.c:44:179: warning: character constant too long for its type [enabled by default]
+out.c:44:237: warning: character constant too long for its type [enabled by default]
+out.c:44:295: warning: character constant too long for its type [enabled by default]
+out.c:44:353: warning: character constant too long for its type [enabled by default]
+out.c:44:411: warning: character constant too long for its type [enabled by default]
+out.c:44:469: warning: character constant too long for its type [enabled by default]
+out.c:44:527: warning: missing terminating ' character [enabled by default]
+out.c:44:121: error: missing terminating ' character
+out.c:47:1: error: expected ‘)’ before ‘}’ token
+out.c:47:1: error: expected ‘)’ before ‘}’ token
+out.c:47:1: error: expected ‘)’ before ‘}’ token
+out.c:47:1: error: too few arguments to function ‘iterable_append’
+cubex_lib.h:250:7: note: declared here
+out.c:47:1: error: expected ‘)’ before ‘}’ token
+out.c:47:1: error: expected ‘;’ before ‘}’ token
+out.c: In function ‘cubex_main’:
+out.c:64:1: warning: implicit declaration of function ‘_MyClass’ [-Wimplicit-function-declaration]
+out.c:64:9: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:67:1: warning: implicit declaration of function ‘MyClass_whatAmI’ [-Wimplicit-function-declaration]
+out.c:67:9: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:73:9: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:76:9: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c: In function ‘_MyClass_MyClass_whatAmI’:
+out.c:48:1: warning: control reaches end of non-void function [-Wreturn-type]
+make: *** [out.o] Error 1
+Score: 0/10
+
+
+Test: stage3test1
+generic functions
+[Stage 3]
+
+Program:
+fun matrixize<T> (l : Iterable<T>, maxcol : Integer) : Iterable<Iterable<T>>
+{
+	ret := [];
+	curr := [];
+	i := 0;
+	
+	if (maxcol < 1)
+	{
+		return [];
+	}
+	else
+	{
+		for(e in l)
+		{
+			if (i < maxcol)
+			{
+				curr := curr ++ [e];
+				i := i + 1;
+			}
+			else
+			{
+				i := 0;
+				ret := ret ++ [curr];
+				curr := [e];
+			}
+		}
+		return ret ++ [curr];
+	}
+}
+
+fun flatten<T> (l : Iterable<Iterable<T>>) : Iterable<T>
+{
+	ret := [];
+	
+	for (i in l)
+	{
+		for (e in i)
+		{
+			ret := ret ++ [e];
+		}
+	}
+	
+	return ret;
+}
+
+for (i in input)
+{
+	return [string(flatten<Character>(matrixize<Character>(i, 10)))];
+}
+
+return [""];
+
+-------------------------------------------
+
+C program could not be compiled!
+
+Compiler output:
+In file included from out.c:1:0:
+cubex_lib.h: In function ‘toString’:
+cubex_lib.h:668:5: warning: implicit declaration of function ‘printf’ [-Wimplicit-function-declaration]
+cubex_lib.h:668:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:671:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:673:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:678:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:674:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h:666:10: warning: unused variable ‘buffer’ [-Wunused-variable]
+cubex_lib.h: In function ‘totoString’:
+cubex_lib.h:691:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:694:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:696:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:701:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:697:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h: In function ‘_character’:
+cubex_lib.h:727:3: warning: return makes integer from pointer without a cast [enabled by default]
+out.c: In function ‘_matrixize’:
+out.c:14:1: error: unknown type name ‘git_t_t’
+out.c:20:1: error: unknown type name ‘git_t_t’
+out.c:68:15: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
+out.c:70:15: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
+out.c:76:1: warning: return makes pointer from integer without a cast [enabled by default]
+out.c:141:15: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
+out.c:142:10: warning: assignment makes integer from pointer without a cast [enabled by default]
+out.c:143:15: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
+out.c:145:6: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c:147:15: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
+out.c:16:7: warning: unused variable ‘__temp8’ [-Wunused-variable]
+out.c:15:7: warning: unused variable ‘__temp7’ [-Wunused-variable]
+out.c: In function ‘_flatten’:
+out.c:165:7: warning: unused variable ‘__temp17’ [-Wunused-variable]
+out.c: In function ‘cubex_main’:
+out.c:236:1: warning: implicit declaration of function ‘_string’ [-Wimplicit-function-declaration]
+out.c:236:10: warning: assignment makes pointer from integer without a cast [enabled by default]
+make: *** [out.o] Error 1
+Score: 0/8
+
+
+Test: stage2test6
+non-generic functions
+[Stage 2]
+
+Program:
+fun print(s : String, ss : String, b : Boolean) : String
+{
+	out := s;
+	
+	if (b) {
+		out := out++" == ";
+	}
+	else {
+		out := out++" != ";
+	}
+	
+	return string(out++ss);
+}
+
+retval := [print("true", "false", true == false)]++[print("56", "65", 56 == 65)];
+
+for (str in input)
+{
+	for (c in str)
+	{
+		retval := retval++[print(string([c]), string([c]), c == c)];
+	}
+}
+
+for (one in input)
+{
+	for (two in input)
+	{
+		retval := retval++[print(one, two, one == two)];
+	}
+}
+
+return retval;
+
+-------------------------------------------
+
+C program could not be compiled!
+
+Compiler output:
+out.c:1:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ at end of input
+make: *** [out.o] Error 1
+Score: 0/6
+
+
+Test: stage3test2
+generic functions
+[Stage 3]
+
+Program:
+fun isEmpty<T> (l : Iterable<T>) : Boolean
+{
+	ret := true;
+	for (e in l)
+	{
+		ret := false;
+	}
+	return ret;
+}
+
+fun length<T> (l : Iterable<T>) : Integer
+{
+	len := 0;
+	for (e in l)
+	{
+		len := len + 1;
+	}
+	return len;
+}
+
+fun areWeGood<T> (l : Iterable<T>) : Iterable<Character>
+{
+	good := false;
+	
+	if (isEmpty<T>(l))
+	{
+		if (length<T>(l) == 0)
+		{
+			good := true;
+		}
+	}
+	else
+	{
+		if (length<T>(l) > 0)
+		{
+			good := true;
+		}
+	}
+	
+	if (good)
+	{
+		return "Yeah, we good!";
+	}
+	else
+	{
+		return "No, we are not good. Something went very, very wrong.";
+	}
+}
+
+return [string(areWeGood<Integer>(3..15))];
+
+-------------------------------------------
+
+C program could not be compiled!
+
+Compiler output:
+In file included from out.c:1:0:
+cubex_lib.h: In function ‘toString’:
+cubex_lib.h:668:5: warning: implicit declaration of function ‘printf’ [-Wimplicit-function-declaration]
+cubex_lib.h:668:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:671:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:673:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:678:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:674:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h:666:10: warning: unused variable ‘buffer’ [-Wunused-variable]
+cubex_lib.h: In function ‘totoString’:
+cubex_lib.h:691:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:694:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:696:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+cubex_lib.h:701:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+cubex_lib.h:697:7: warning: unused variable ‘temp’ [-Wunused-variable]
+cubex_lib.h: In function ‘_character’:
+cubex_lib.h:727:3: warning: return makes integer from pointer without a cast [enabled by default]
+out.c: In function ‘_isEmpty’:
+out.c:30:7: warning: unused variable ‘e’ [-Wunused-variable]
+out.c:15:7: warning: unused variable ‘__temp1’ [-Wunused-variable]
+out.c: In function ‘_length’:
+out.c:67:7: warning: unused variable ‘e’ [-Wunused-variable]
+out.c:51:7: warning: unused variable ‘__temp3’ [-Wunused-variable]
+out.c:50:7: warning: unused variable ‘__temp4’ [-Wunused-variable]
+out.c: In function ‘cubex_main’:
+out.c:221:1: warning: implicit declaration of function ‘_string’ [-Wimplicit-function-declaration]
+out.c:221:10: warning: assignment makes pointer from integer without a cast [enabled by default]
+out.c: In function ‘_isEmpty’:
+out.c:22:14: warning: ‘ret’ is used uninitialized in this function [-Wuninitialized]
+out.c: In function ‘_length’:
+out.c:59:14: warning: ‘len’ is used uninitialized in this function [-Wuninitialized]
+out.c: In function ‘_areWeGood’:
+out.c:112:14: warning: ‘good’ is used uninitialized in this function [-Wuninitialized]
+out.c:117:14: warning: ‘__temp6’ is used uninitialized in this function [-Wuninitialized]
+out.c:122:14: warning: ‘__temp7’ may be used uninitialized in this function [-Wuninitialized]
+out.c:125:14: warning: ‘__temp8’ may be used uninitialized in this function [-Wuninitialized]
+out.c:128:14: warning: ‘__temp9’ may be used uninitialized in this function [-Wuninitialized]
+out.c:146:14: warning: ‘__temp11’ may be used uninitialized in this function [-Wuninitialized]
+out.c:149:14: warning: ‘__temp12’ may be used uninitialized in this function [-Wuninitialized]
+out.c:152:14: warning: ‘__temp13’ may be used uninitialized in this function [-Wuninitialized]
+out.c:155:14: warning: ‘__temp14’ may be used uninitialized in this function [-Wuninitialized]
+out.c:175:14: warning: ‘__temp16’ may be used uninitialized in this function [-Wuninitialized]
+out.c:182:14: warning: ‘__temp17’ may be used uninitialized in this function [-Wuninitialized]
+out.o: In function `cubex_main':
+/home/fabian/Documents/CS4120F13/SVN/grading/pa4/group_of_ay226_jkf49_mso32_tn229/out.c:221: undefined reference to `_string'
+collect2: ld returned 1 exit status
+make: *** [all] Error 1
+Score: 0/4
+
+
+Test: stage2test2a
+non-generic functions
+[Stage 2]
+
+Program:
+fun myinitial() : String = "Hello World!";
+
+return [myinitial()];
+
+-------------------------------------------
+
+Sub-test 1 (30 points):
+
+Input:
+This input should be ignored.
+
+Possible outputs: 
+Hello World!
+
+Actual output:
+Hello World!
+
+GC faulty: not all memory freed at end of program: -5.56%
+
+Score: 28.332/30
+
+
+
+Score in Stage #f: 0/0
+Score in Stage 1: 122.77199999999999/203
+Score in Stage 2: 28.332/89
+Score in Stage 3: 18.888/47
+Score in Stage 4: 0/16
+Score in Stage 5: 0/15
+Score in Stage 6: 0/12
+Score in Stage 7: 0/15
+Score in Stage 8: 0/14
+Score in Stage 9: 0/8
+
+Total Score: 169.992/419
+
+Normalized Score: 37.0/90
