@@ -37,8 +37,8 @@ public class OptMain {
 	public static void main(String[] args) throws IOException {
 //		 CharStream charStream = new ANTLRFileStream(args[0]);
 
-		CharStream charStream = new ANTLRFileStream("opt_tests/pa6_cse_test1.x3");
-		//CharStream charStream = new ANTLRFileStream("cg_tests/test8.x3");
+//		CharStream charStream = new ANTLRFileStream("opt_tests/pa6_cse_test1.x3");
+		CharStream charStream = new ANTLRFileStream("cg_tests/c_stage1_test5.x3");
 		CubexLexer cubLexer = new CubexLexer(charStream);
 		cubLexer.removeErrorListeners();
 
@@ -74,7 +74,7 @@ public class OptMain {
 			// NOTE: if you turn off LVA, in IrProgram.java turn off the following variable: (48) context.lva = true;
 			
 			program.removeCommonSubexpressions();
-			program.lva(true); // USE FALSE AFTER FINISH DEBUGGING
+			program.lva(false); // USE FALSE AFTER FINISH DEBUGGING
 			CGenerationContext cgcontext = new CGenerationContext();
 			cgcontext.lva = true;
 			ArrayList<String> programCode = program.toC(cgcontext);
@@ -87,7 +87,7 @@ public class OptMain {
 			// TODO: REMOVE THIS BEFORE SUBMITTING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			writer.write("#include \"stdio.h\"\n");
 			for (String s : programCode){
-				System.out.println(counter + "\t" + s);
+				//System.out.println(counter + "\t" + s);
 				counter++;
 				writer.write(s + "\n");
 			}

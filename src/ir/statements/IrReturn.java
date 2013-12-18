@@ -61,7 +61,7 @@ public final class IrReturn extends IrStatement {
 			iterator = "_it" + cur_iterator;
 			context.varDecl.put(iterator, "iterator_t"); 
 			
-			System.out.println("Expression: " + expression);
+			//System.out.println("Expression: " + expression);
 			if(expression instanceof IrIterableComp){
 				IrIterableComp comp = (IrIterableComp)expression;
 				if (comp.comprehension!=null) {
