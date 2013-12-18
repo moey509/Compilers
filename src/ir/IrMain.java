@@ -37,11 +37,11 @@ public class IrMain {
 	public static void main(String[] args) throws IOException {
 //		 CharStream charStream = new ANTLRFileStream(args[0]);
 
-<<<<<<< HEAD
+
 		CharStream charStream = new ANTLRFileStream("cg_tests/eTest.x3");
-=======
-		CharStream charStream = new ANTLRFileStream("cg_tests/c_stage5_test2.x3");
->>>>>>> 66762a3d47e1534533ecf1c3d739b06969a26837
+
+//		CharStream charStream = new ANTLRFileStream("cg_tests/c_stage5_test2.x3");
+
 		//CharStream charStream = new ANTLRFileStream("cg_tests/test8.x3");
 		CubexLexer cubLexer = new CubexLexer(charStream);
 		cubLexer.removeErrorListeners();
