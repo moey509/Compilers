@@ -1,4 +1,4 @@
-# Common Subexpression Elimination (11)
+# Common Subexpression Elimination (7)
 # This program does either O(n) steps if there is CSE, or O(5^n) steps without CSE);
 
 fun expensive(n : Integer) : Integer {
@@ -7,13 +7,8 @@ fun expensive(n : Integer) : Integer {
 	else
 		return expensive(n-1)+expensive(n-2);
 }
-if (expensive(10) > expensive(9)) {
-	fib := expensive(40);
-	fibb := expensive(39);
-} else {
-	fib := expensive(40);
-	fibb := expensive(39);
-}
+fib := expensive(40);
+fibb := expensive(39);
 i := 0;
 sum := 0;
 while (i < 1000) {

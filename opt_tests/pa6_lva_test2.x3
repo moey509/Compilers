@@ -1,0 +1,49 @@
+# Live Variable Analysis (2)
+# This program allocates large iterables and steps recursively. 
+# Before the recursive step, the large iterables should be deallocated
+
+fun build(n : Iterable<Iterable<Nothing>>) : Iterable<Iterable<Nothing>> {
+	b := [[]];
+	a := build(remove(n));
+	for (i in n)
+		b := b ++ a;
+	return b;
+}
+fun remove(s : Iterable<Iterable<Nothing>>) : Iterable<Iterable<Nothing>> {
+	r := [];
+	b := false;
+	for (c in s)
+		if ( b )
+			r := [c]++r;
+		else
+			b := true;
+	return r;
+}
+fun clone(n : Iterable<Iterable<Nothing>>):Iterable<Iterable<Nothing>>
+{
+	ret:=[];
+	for(x in n)
+	{
+		ret:=[x]++ret;
+	}
+	return ret;
+}
+fun sameLength(left : Iterable<Iterable<Nothing>>, right : Iterable<Iterable<Nothing>>) : Iterable<Iterable<Nothing>>
+{
+	for (x in left) {
+		for (y in right)
+			return sameLength(remove(left), remove(right));
+		return left;
+	}
+	return right;
+}
+fun stepper(n : Iterable<Iterable<Nothing>>, m : Iterable<Iterable<Nothing>>):Iterable<Iterable<Nothing>>
+{
+	iter := clone(n);
+	for (x in sameLength(iter, m))
+		return [[]];
+	return stepper(n,[[]]++m);
+}
+for (x in stepper(build([[],[],[],[]]),[]))
+	return ["Yes"];
+return ["No"];

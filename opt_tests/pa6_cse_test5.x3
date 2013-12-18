@@ -1,27 +1,31 @@
-# Common Subexpression Elimination (12)
+# Common Subexpression Elimination (5)
 # This program does either O(n) steps if there is CSE, or O(5^n) steps without CSE);
 
-fun expensive(n : Integer) : Integer {
-	if (n <= 0)
-		return 0;
-	else
-		return expensive(n-1)+expensive(n-2);
+fun build(n : Iterable<Iterable<Nothing>>) : Iterable<Iterable<Nothing>> {
+	b := [[]];
+	a := build(remove(n));
+	for (i in n)
+		b := b ++ a;
+	return b;
 }
-if (expensive(10) > expensive(9)) {
-	fib := expensive(40);
-	fibb := expensive(39);
-	diff := fib - fibb;
-} else {
-	fibb := expensive(40);
-	fib := expensive(39);
-	diff := fibb - fib;
+fun remove(s : Iterable<Iterable<Nothing>>) : Iterable<Iterable<Nothing>> {
+	r := [];
+	b := false;
+	for (c in s)
+		if ( b )
+			r := [c]++r;
+		else
+			b := true;
+	return r;
 }
-i := 0;
-sum := 0;
-while (i < 1000) {
-	i := i + 1;
-	sum := expensive(40) - expensive(39) + sum;
+fun empty(s : Iterable<Iterable<Nothing>>) : Iterable<Iterable<Nothing>> {
+	for (c in remove(s)) {
+		a := empty(remove(s));
+		b := empty(remove(s));
+		return a++b;
+	}
+	return [];
 }
-if (sum == diff * 1000)
-	return ["Yes"];
-return ["No"];
+for (c in empty(build([[],[],[],[]])))
+	return ["No"];
+return ["Yes"];

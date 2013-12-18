@@ -1,20 +1,29 @@
-# Common Subexpression Elimination (7)
+# Common Subexpression Elimination (3)
 # This program does either O(n) steps if there is CSE, or O(5^n) steps without CSE);
 
-fun expensive(n : Integer) : Integer {
+fun build(n : Integer) : String
 	if (n <= 0)
-		return 0;
+	 	return "";
 	else
-		return expensive(n-1)+expensive(n-2);
+		return string(" "++build(n-1));
+fun remove(s : String) : String {
+	r := "";
+	b := false;
+	for (c in s)
+		if ( b )
+			r := string(r++[c]);
+		else
+			b := true;
+	return r;
 }
-fib := expensive(40);
-fibb := expensive(39);
-i := 0;
-sum := 0;
-while (i < 1000) {
-	i := i + 1;
-	sum := expensive(40) - expensive(39) + sum;
+fun empty(s : String) : String {
+	for (c in remove(s)) {
+		a := empty(remove(s));
+		b := empty(remove(s));
+		return string(a++b);
+	}
+	return "";
 }
-if (sum == (fib - fibb) * 1000)
-	return ["Yes"];
-return ["No"];
+for (c in empty(build(1000)))
+	return ["No"];
+return ["Yes"];
