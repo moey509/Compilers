@@ -160,6 +160,11 @@ public class IrFor extends IrStatement {
 			output.add("ref_decrement((General_t)" + var + ");");
 			output.add(var + " = NULL;");
 		}
+		// NOT SURE IF THIS WORKS.
+		else {
+			output.add("ref_decrement((General_t)" + var + ");");
+			output.add(var + " = NULL;");
+		}
 		String endLoop = "}";
 		output.add(endLoop);
 		if(context.lva){

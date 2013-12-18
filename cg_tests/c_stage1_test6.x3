@@ -1,7 +1,7 @@
 #GC test (garbage)
 out := 67;
 
-apple := [];
+apple := [1];
 for (bitch in apple) 
 {
 	a := bitch + 7;
