@@ -37,7 +37,7 @@ public class OptMain {
 	public static void main(String[] args) throws IOException {
 //		 CharStream charStream = new ANTLRFileStream(args[0]);
 
-		CharStream charStream = new ANTLRFileStream("opt_tests/pa6_cse_test1.x3");
+		CharStream charStream = new ANTLRFileStream("cg_tests/c_stage2_test5.x3");
 		//CharStream charStream = new ANTLRFileStream("cg_tests/test8.x3");
 		CubexLexer cubLexer = new CubexLexer(charStream);
 		cubLexer.removeErrorListeners();

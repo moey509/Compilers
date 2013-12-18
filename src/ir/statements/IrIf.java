@@ -252,12 +252,26 @@ public class IrIf extends IrStatement {
 	}
 
 	public IrExpression getExpression() {
-//		int length = temporaryBinds.size();
-//		if (length > 0) {
-//			String varname = temporaryBinds.get(length-1).tuple.variableName;
-//			String ctype = temporaryBinds.get(length-1).tuple.type.toC();
+		int length = temporaryBinds.size();
+		IrExpression e0 = null;
+		if (length > 0) {
+			String varname = temporaryBinds.get(length-1).tuple.variableName;
+			String ctype = temporaryBinds.get(length-1).tuple.type.toC();
+			e0 = new IrVariableExpression(varname, ctype);
 //			return new IrVariableExpression(varname, ctype);
-//		}
+		}
+		if (e0==null || condition==null) {
+//			System.out.println("IrIf : e0 or condition is null");
+		}  else {
+			String s1 = condition.toString();
+			String s2 = e0.toString();
+			if (!s1.equals(s2)) {
+				System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+				System.out.println("IrIf : Condition: " + condition.toString() + " , e0: " + e0.toString());
+				System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+			}
+		}
+
 		return condition;
 	}
 }
