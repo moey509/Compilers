@@ -30,21 +30,21 @@ public class IrBinaryExpression implements IrExpression {
 			System.out.println("lols");
 		}
 		
-		// logic to determine type:
-		if (operator.equals("+") || operator.equals("&&")
-				|| operator.equals("/") || operator.equals("-")
-				|| operator.equals("%") || operator.equals("*"))
-			type = IrMiscFunctions.INTEGER;
-		else if (operator.equals("||") || operator.equals("==")
-				|| operator.equals("<=") || operator.equals("<"))
-			type = IrMiscFunctions.BOOLEAN;
-		else if (operator.equals("..") || operator.equals(".<")
-				|| operator.equals("<.") || operator.equals("<<")) {
-			type = IrMiscFunctions.ITERABLE;
-		} else {
-			type = null;
-			System.out.println("WARNING! built it type was not found...");
-		}
+//		// logic to determine type:
+//		if (operator.equals("+") || operator.equals("&&")
+//				|| operator.equals("/") || operator.equals("-")
+//				|| operator.equals("%") || operator.equals("*"))
+//			type = IrMiscFunctions.INTEGER;
+//		else if (operator.equals("||") || operator.equals("==")
+//				|| operator.equals("<=") || operator.equals("<"))
+//			type = IrMiscFunctions.BOOLEAN;
+//		else if (operator.equals("..") || operator.equals(".<")
+//				|| operator.equals("<.") || operator.equals("<<")) {
+//			type = IrMiscFunctions.ITERABLE;
+//		} else {
+//			type = null;
+//			System.out.println("WARNING! built it type was not found...");
+//		}
 	}
 
 	public String getOperator() {
@@ -94,171 +94,254 @@ public class IrBinaryExpression implements IrExpression {
 		 */
 		// everything else
 		System.out.println("BINOP " + this);
-		if (leftExpression.getCubexType()== null){
-			if (leftExpression.getCType().equals("Integer")) {
-				if (operator.equals("+"))
-					return "Integer_plus(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + ")";
-				else if (operator.equals("-"))
-					return "Integer_subtract(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + ")";
-				else if (operator.equals("*"))
-					return "Integer_times(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + ")";
-				else if (operator.equals("/"))
-					return "Integer_divide(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + ")";
-				else if (operator.equals("%"))
-					return "Integer_modulo(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + ")";
-				else if (operator.equals(".."))
-					return "Integer_through(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + ", 1, 1)";
-				else if (operator.equals("<."))
-					return "Integer_through(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + ", 0, 1)";
-				else if (operator.equals(".<"))
-					return "Integer_through(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + ", 1, 0)";
-				else if (operator.equals("<<"))
-					return "Integer_through(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + ", 0, 0)";
-				else if (operator.equals("<"))
-					return "Integer_lessThan(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + ", 1)";
-				else if (operator.equals("<="))
-					return "Integer_lessThan(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + ", 0)";
-				else if (operator.equals("=="))
-					return "Integer_equals(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + ")";
-			} else if (leftExpression.getCType().equals("Boolean"))  {
-				if (operator.equals("&&"))
-					return "Boolean_and(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + ")";
-				else if (operator.equals("||"))
-					return "Boolean_or(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + ")";
-				else if (operator.equals("||"))
-					return "Boolean_or(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + ")";
-				else if (operator.equals(".."))
-					return "Boolean_through(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + "1, 1)";
-				else if (operator.equals("<."))
-					return "Boolean_through(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + "0, 1)";
-				else if (operator.equals(".<"))
-					return "Boolean_through(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + "1, 0)";
-				else if (operator.equals("<<"))
-					return "Boolean_through(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + "0, 0)";
-				else if (operator.equals("<"))
-					return "Boolean_lessThan(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + ", 1)";
-				else if (operator.equals("<="))
-					return "Boolean_lessThan(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + ", 0)";
-				else if (operator.equals("=="))
-					return "Boolean_equal(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + ")";
-			} else if (leftExpression.getCType().equals("Character"))  {
-				if (operator.equals("=="))
-					return "Character_equals(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + ")";
-			} else if (leftExpression.getCType().equals("String")) {
-				if (operator.equals("=="))
-					return "String_equals(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + ")";
-			}
+		
+		/* Integer cases */
+		
+		if (operator.equals("+")) {
+			return "Integer_plus(" + leftExpression.toC(context) + ", "
+					+ rightExpression.toC(context) + ")";
+		}
+		else if (operator.equals("/")) {
+			return "Integer_divide(" + leftExpression.toC(context) + ", "
+					+ rightExpression.toC(context) + ")";
+		}
+		else if (operator.equals("*")) {
+			return "Integer_times(" + leftExpression.toC(context) + ", "
+					+ rightExpression.toC(context) + ")";
+		}
+		else if (operator.equals("%")) {
+			return "Integer_modulo(" + leftExpression.toC(context) + ", "
+					+ rightExpression.toC(context) + ")";
+		}
+		else if (operator.equals("-")) {
+			return "Integer_subtract(" + leftExpression.toC(context) + ", "
+					+ rightExpression.toC(context) + ")";
+		}
+		
+		/* Boolean cases */
+		else if (operator.equals("||")) {
+			return "Boolean_or(" + leftExpression.toC(context) + ", "
+					+ rightExpression.toC(context) + ")";
+		}
+		else if (operator.equals("&&")) {
+			return "Boolean_and(" + leftExpression.toC(context) + ", "
+					+ rightExpression.toC(context) + ")";
+		}
+		
+		/* General case */
+		else if (operator.equals("==")) {
+			return "General_equals((General_t)" + leftExpression.toC(context) + ", (General_t)"
+					+ rightExpression.toC(context) + ")";
+		}
+		else if (operator.equals("<")) {
+			return "General_lessThan((General_t)" + leftExpression.toC(context) + ", (General_t)"
+					+ rightExpression.toC(context) + ", 1)";
+		}
+		else if (operator.equals("<=")) {
+			return "General_lessThan((General_t)" + leftExpression.toC(context) + ", (General_t)"
+					+ rightExpression.toC(context) + ", 0)";
+		}
+		else if (operator.equals("..")) {
+			return "General_through((General_t)" + leftExpression.toC(context) + ", (General_t)"
+					+ rightExpression.toC(context) + ", 1, 1)";
+		}
+		else if (operator.equals("<.")) {
+			return "General_through((General_t)" + leftExpression.toC(context) + ", (General_t)"
+					+ rightExpression.toC(context) + ", 0, 1)";
+		}
+		else if (operator.equals(".<")) {
+			return "General_through((General_t)" + leftExpression.toC(context) + ", (General_t)"
+					+ rightExpression.toC(context) + ", 1, 0)";
+		}
+		else if (operator.equals("<<")) {
+			return "General_through((General_t)" + leftExpression.toC(context) + ", (General_t)"
+					+ rightExpression.toC(context) + ", 0, 0)";
 		}
 		else {
-			if (leftExpression.getCubexType().name.equals("Integer")) {
-				if (operator.equals("+"))
-					return "Integer_plus(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + ")";
-				else if (operator.equals("-"))
-					return "Integer_subtract(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + ")";
-				else if (operator.equals("*"))
-					return "Integer_times(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + ")";
-				else if (operator.equals("/"))
-					return "Integer_divide(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + ")";
-				else if (operator.equals("%"))
-					return "Integer_modulo(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + ")";
-				else if (operator.equals(".."))
-					return "Integer_through(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + ", 1, 1)";
-				else if (operator.equals("<."))
-					return "Integer_through(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + ", 0, 1)";
-				else if (operator.equals(".<"))
-					return "Integer_through(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + ", 1, 0)";
-				else if (operator.equals("<<"))
-					return "Integer_through(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + ", 0, 0)";
-				else if (operator.equals("<"))
-					return "Integer_lessThan(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + ", 1)";
-				else if (operator.equals("<="))
-					return "Integer_lessThan(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + ", 0)";
-				else if (operator.equals("=="))
-					return "Integer_equals(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + ")";
-			} else if (leftExpression.getCubexType().name.equals("Boolean"))  {
-				if (operator.equals("&&"))
-					return "Boolean_and(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + ")";
-				else if (operator.equals("||"))
-					return "Boolean_or(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + ")";
-				else if (operator.equals("||"))
-					return "Boolean_or(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + ")";
-				else if (operator.equals(".."))
-					return "Boolean_through(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + "1, 1)";
-				else if (operator.equals("<."))
-					return "Boolean_through(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + "0, 1)";
-				else if (operator.equals(".<"))
-					return "Boolean_through(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + "1, 0)";
-				else if (operator.equals("<<"))
-					return "Boolean_through(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + "0, 0)";
-				else if (operator.equals("<"))
-					return "Boolean_lessThan(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + ", 1)";
-				else if (operator.equals("<="))
-					return "Boolean_lessThan(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + ", 0)";
-				else if (operator.equals("=="))
-					return "Boolean_equal(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + ")";
-			} else if (leftExpression.getCubexType().name.equals("Character"))  {
-				if (operator.equals("=="))
-					return "Character_equals(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + ")";
-			} else if (leftExpression.getCubexType().name.equals("String")) {
-				if (operator.equals("=="))
-					return "String_equals(" + leftExpression.toC(context) + ", "
-							+ rightExpression.toC(context) + ")";
-			}
-		}
-//		System.out
-//				.println("WARNING: there is no operator in this Binary Expression");
-		System.out.println("C Type: " + leftExpression.getCType());
-		System.out.println("Cubex Type: " + leftExpression.getCubexType());
+			System.out.println("C Type: " + leftExpression.getCType());
+			System.out.println("Cubex Type: " + leftExpression.getCubexType());
 
-		throw new RuntimeException("no such operator (" + operator+") with type " + operator +" and cubexType " +
-		cubexType);
+			throw new RuntimeException("no such operator (" + operator+") with type " + operator +" and cubexType " +
+			cubexType);
+		}
+		
+		
+//		if (operator.equals("+") || operator.equals("&&")
+//				|| operator.equals("/") || operator.equals("-")
+//				|| operator.equals("%") || operator.equals("*"))
+//			type = IrMiscFunctions.INTEGER;
+//		else if (operator.equals("||") || operator.equals("==")
+//				|| operator.equals("<=") || operator.equals("<"))
+//			type = IrMiscFunctions.BOOLEAN;
+//		else if (operator.equals("..") || operator.equals(".<")
+//				|| operator.equals("<.") || operator.equals("<<")) {	
+		
+		
+//		if (leftExpression.getCubexType()== null){
+//			if (leftExpression.getCType().equals("Integer")) {
+//				if (operator.equals("+"))
+//					return "Integer_plus(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + ")";
+//				else if (operator.equals("-"))
+//					return "Integer_subtract(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + ")";
+//				else if (operator.equals("*"))
+//					return "Integer_times(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + ")";
+//				else if (operator.equals("/"))
+//					return "Integer_divide(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + ")";
+//				else if (operator.equals("%"))
+//					return "Integer_modulo(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + ")";
+//				else if (operator.equals(".."))
+//					return "Integer_through(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + ", 1, 1)";
+//				else if (operator.equals("<."))
+//					return "Integer_through(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + ", 0, 1)";
+//				else if (operator.equals(".<"))
+//					return "Integer_through(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + ", 1, 0)";
+//				else if (operator.equals("<<"))
+//					return "Integer_through(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + ", 0, 0)";
+//				else if (operator.equals("<"))
+//					return "Integer_lessThan(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + ", 1)";
+//				else if (operator.equals("<="))
+//					return "Integer_lessThan(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + ", 0)";
+//				else if (operator.equals("=="))
+//					return "Integer_equals(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + ")";
+//			} else if (leftExpression.getCType().equals("Boolean"))  {
+//				if (operator.equals("&&"))
+//					return "Boolean_and(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + ")";
+//				else if (operator.equals("||"))
+//					return "Boolean_or(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + ")";
+//				else if (operator.equals("||"))
+//					return "Boolean_or(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + ")";
+//				else if (operator.equals(".."))
+//					return "Boolean_through(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + "1, 1)";
+//				else if (operator.equals("<."))
+//					return "Boolean_through(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + "0, 1)";
+//				else if (operator.equals(".<"))
+//					return "Boolean_through(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + "1, 0)";
+//				else if (operator.equals("<<"))
+//					return "Boolean_through(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + "0, 0)";
+//				else if (operator.equals("<"))
+//					return "Boolean_lessThan(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + ", 1)";
+//				else if (operator.equals("<="))
+//					return "Boolean_lessThan(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + ", 0)";
+//				else if (operator.equals("=="))
+//					return "Boolean_equal(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + ")";
+//			} else if (leftExpression.getCType().equals("Character"))  {
+//				if (operator.equals("=="))
+//					return "Character_equals(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + ")";
+//			} else if (leftExpression.getCType().equals("String")) {
+//				if (operator.equals("=="))
+//					return "String_equals(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + ")";
+//			}
+//		}
+//		else {
+//			if (leftExpression.getCubexType().name.equals("Integer")) {
+//				if (operator.equals("+"))
+//					return "Integer_plus(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + ")";
+//				else if (operator.equals("-"))
+//					return "Integer_subtract(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + ")";
+//				else if (operator.equals("*"))
+//					return "Integer_times(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + ")";
+//				else if (operator.equals("/"))
+//					return "Integer_divide(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + ")";
+//				else if (operator.equals("%"))
+//					return "Integer_modulo(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + ")";
+//				else if (operator.equals(".."))
+//					return "Integer_through(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + ", 1, 1)";
+//				else if (operator.equals("<."))
+//					return "Integer_through(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + ", 0, 1)";
+//				else if (operator.equals(".<"))
+//					return "Integer_through(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + ", 1, 0)";
+//				else if (operator.equals("<<"))
+//					return "Integer_through(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + ", 0, 0)";
+//				else if (operator.equals("<"))
+//					return "Integer_lessThan(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + ", 1)";
+//				else if (operator.equals("<="))
+//					return "Integer_lessThan(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + ", 0)";
+//				else if (operator.equals("=="))
+//					return "Integer_equals(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + ")";
+//			} else if (leftExpression.getCubexType().name.equals("Boolean"))  {
+//				if (operator.equals("&&"))
+//					return "Boolean_and(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + ")";
+//				else if (operator.equals("||"))
+//					return "Boolean_or(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + ")";
+//				else if (operator.equals("||"))
+//					return "Boolean_or(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + ")";
+//				else if (operator.equals(".."))
+//					return "Boolean_through(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + "1, 1)";
+//				else if (operator.equals("<."))
+//					return "Boolean_through(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + "0, 1)";
+//				else if (operator.equals(".<"))
+//					return "Boolean_through(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + "1, 0)";
+//				else if (operator.equals("<<"))
+//					return "Boolean_through(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + "0, 0)";
+//				else if (operator.equals("<"))
+//					return "Boolean_lessThan(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + ", 1)";
+//				else if (operator.equals("<="))
+//					return "Boolean_lessThan(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + ", 0)";
+//				else if (operator.equals("=="))
+//					return "Boolean_equal(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + ")";
+//			} else if (leftExpression.getCubexType().name.equals("Character"))  {
+//				if (operator.equals("=="))
+//					return "Character_equals(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + ")";
+//			} else if (leftExpression.getCubexType().name.equals("String")) {
+//				if (operator.equals("=="))
+//					return "String_equals(" + leftExpression.toC(context) + ", "
+//							+ rightExpression.toC(context) + ")";
+//			}
+//		}
+////		System.out
+////				.println("WARNING: there is no operator in this Binary Expression");
+//		System.out.println("C Type: " + leftExpression.getCType());
+//		System.out.println("Cubex Type: " + leftExpression.getCubexType());
+//
+//		throw new RuntimeException("no such operator (" + operator+") with type " + operator +" and cubexType " +
+//		cubexType);
 //		private IrExpression leftExpression;
 //		private IrExpression rightExpression;
 //		private String operator;

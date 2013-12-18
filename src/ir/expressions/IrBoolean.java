@@ -26,7 +26,7 @@ public final class IrBoolean implements IrExpression {
 	}
 
 	public String toC(CGenerationContext context) {
-		return mValue ? "new_integer(1)" : "new_integer(0)";
+		return mValue ? "new_boolean(1)" : "new_boolean(0)";
 	}
 
 	@Override

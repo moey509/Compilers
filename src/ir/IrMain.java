@@ -37,7 +37,7 @@ public class IrMain {
 	public static void main(String[] args) throws IOException {
 //		 CharStream charStream = new ANTLRFileStream(args[0]);
 
-		CharStream charStream = new ANTLRFileStream("cg_tests/c_stage2_test2.x3");
+		CharStream charStream = new ANTLRFileStream("cg_tests/eTest.x3");
 		//CharStream charStream = new ANTLRFileStream("cg_tests/test8.x3");
 		CubexLexer cubLexer = new CubexLexer(charStream);
 		cubLexer.removeErrorListeners();
@@ -46,7 +46,7 @@ public class IrMain {
 		cubLexer.addErrorListener(listener);
 		List<? extends Token> list1 = cubLexer.getAllTokens();
 		if (lexedWithError) {  
-			System.out.print("reject");
+			System.out.print("reject 1");
 			return;
 		}
 		cubLexer.reset();
@@ -60,7 +60,7 @@ public class IrMain {
 
 		CubexCompleteContext c = (new TypeCheckerMain()).initialize();
 		if (cubParser.getNumberOfSyntaxErrors() > 0) {
-			System.out.print("reject");
+			System.out.print("reject 2");
 			return;
 		}
 //		System.out.println(cubParser.programAST);
