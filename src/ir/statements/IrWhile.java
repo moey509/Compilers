@@ -190,6 +190,7 @@ public final class IrWhile extends IrStatement {
 	public void removeCommonSubexpressions(CseContext context) {
 		CseContext context1 = context.clone();
 		context1.stripBinds(statements);
+		context1.printContext();
 		CseContext context2 = context.clone();
 
 		for (IrStatement statement : statements){
@@ -230,5 +231,11 @@ public final class IrWhile extends IrStatement {
 //		}
 
 		return condition;
+	}
+	
+	public List<IrStatement> getAllStatements(){
+		List<IrStatement> output = new ArrayList<IrStatement>();
+		output.addAll(statements);
+		return output;
 	}
 }

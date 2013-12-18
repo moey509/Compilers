@@ -54,6 +54,10 @@ public final class IrReturn extends IrStatement {
 		String endBrace = "";
 		String itDecrement = "";
 		String itNull = "";
+		
+		String stringVarDeclaration = "";
+		String stringVarPopulation = "";
+		String stringVarFree = "";
 		ArrayList<String> beforeIterator = new ArrayList<String>();
 		if (isMain) {
 			int cur_iterator = context.getCurIterator();
@@ -61,7 +65,7 @@ public final class IrReturn extends IrStatement {
 			iterator = "_it" + cur_iterator;
 			context.varDecl.put(iterator, "iterator_t"); 
 			
-			System.out.println("Expression: " + expression);
+			//System.out.println("Expression: " + expression);
 			if(expression instanceof IrIterableComp){
 				IrIterableComp comp = (IrIterableComp)expression;
 				if (comp.comprehension!=null) {
@@ -74,11 +78,12 @@ public final class IrReturn extends IrStatement {
 			}
 			itIncrement = "ref_increment((General_t)" + iterator + ");";
 			itCondition = "while(hasNext(" + iterator + ")) {";
+			stringVarDeclaration = "char* _return_string;";
 			tempVar = "_return = getNext(" + iterator + ");";
-			
+			stringVarPopulation = "_return_string = charToString(_return);";			
 			// newly moved line
-			printline = ("print_line(charToString(_return), stringLength(_return));");
-			
+			printline = ("print_line(_return_string, stringLength(_return));");
+			stringVarFree = "x3free(_return_string);";
 			endBrace = ("}");
 			// free the iterator
 			itDecrement = ("ref_decrement((General_t)" + iterator + ");");
@@ -106,8 +111,11 @@ public final class IrReturn extends IrStatement {
 			arrList.add(itDeclaration);
 			arrList.add(itIncrement);
 			arrList.add(itCondition);
+			arrList.add(stringVarDeclaration);
 			arrList.add(tempVar);
+			arrList.add(stringVarPopulation);
 			arrList.add(printline);
+			arrList.add(stringVarFree);
 			arrList.add(endBrace);
 			arrList.add(itDecrement);
 			arrList.add(itNull);

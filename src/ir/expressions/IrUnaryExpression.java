@@ -31,8 +31,7 @@ public class IrUnaryExpression implements IrExpression {
 		else if (operator.equals("...") || operator.equals("<..")) 
 			this.cType = IrMiscFunctions.ITERABLE;
 		else {
-			this.cType = null;
-			//System.out.println("unary operator: " + operator + " could not be found....");
+			throw new RuntimeException("no such operator (" + operator+")");
 		}
 	}
 	
@@ -46,56 +45,85 @@ public class IrUnaryExpression implements IrExpression {
 
 	@Override
 	public String toC(CGenerationContext context) {
-		if (expression.getCType() != null){
-			if (expression.getCType().equals("Boolean")) {
-				if (operator.equals("!"))
-					return "Boolean_negate(" + expression.toC(context) + ")";
-				else if (operator.equals("..."))
-					return "Boolean_onwards(" + expression.toC(context) + ", 1)";
-				else if (operator.equals("<.."))
-					return "Boolean_onwards(" + expression.toC(context) + ", 0)";
-			} else if (expression.getCType().equals("Integer")) {
-				if (operator.equals("-"))
-					return "Integer_negative(" + expression.toC(context) + ")";
-				else if (operator.equals("..."))
-					return "Integer_onwards(" + expression.toC(context) + ", 1)";
-				else if (operator.equals("<.."))
-					return "Integer_onwards(" + expression.toC(context) + ", 0)";
-			}
-		} else if (expression.getCubexType() != null){
-			if (expression.getCubexType().name.equals("Boolean")) {
-				if (operator.equals("!"))
-					return "Boolean_negate(" + expression.toC(context) + ")";
-				else if (operator.equals("..."))
-					return "Boolean_onwards(" + expression.toC(context) + ", 1)";
-				else if (operator.equals("<.."))
-					return "Boolean_onwards(" + expression.toC(context) + ", 0)";
-			} else if (expression.getCubexType().name.equals("Integer")) {
-				if (operator.equals("-"))
-					return "Integer_negative(" + expression.toC(context) + ")";
-				else if (operator.equals("..."))
-					return "Integer_onwards(" + expression.toC(context) + ", 1)";
-				else if (operator.equals("<.."))
-					return "Integer_onwards(" + expression.toC(context) + ", 0)";
-			} else {
-				if (operator.equals("!"))
-					return "Boolean_negate(" + expression.toC(context) + ")";
-				else if (operator.equals("..."))
-					return "Boolean_onwards(" + expression.toC(context) + ", 1)";
-				else if (operator.equals("<.."))
-					return "Boolean_onwards(" + expression.toC(context) + ", 0)";
-				else if (operator.equals("-"))
-						return "Integer_negative(" + expression.toC(context) + ")";
-				else if (operator.equals("..."))
-					return "Integer_onwards(" + expression.toC(context) + ", 1)";
-				else if (operator.equals("<.."))
-					return "Integer_onwards(" + expression.toC(context) + ", 0)";
-			}
-		} 
-		System.out.println(toString());
-		System.out.println("EXPRESSION " + expression);
-		return expression.getCubexType().name;
-		//return "Boolean_negate(" + expression.toC(context) + ")";
+//		if (operator.equals("!"))
+//			this.cType = IrMiscFunctions.BOOLEAN;
+//		else if (operator.equals("-"))
+//			this.cType = IrMiscFunctions.INTEGER;
+//		else if (operator.equals("...") || operator.equals("<..")) 
+//			this.cType = IrMiscFunctions.ITERABLE;
+		
+		/* Boolean case */
+		if (operator.equals("!")) {
+			return "Boolean_negate(" + expression.toC(context) + ")";
+		}
+		
+		/* Integer Case */
+		else if (operator.equals("-")) {
+			return "Integer_negative(" + expression.toC(context) + ")";
+		}
+		
+		/* General Case */
+		else if (operator.equals("...")) {
+			return "General_onwards((General_t)" + expression.toC(context) + ", 1)";
+		}
+		else if (operator.equals("<..")) {
+			return "General_onwards((General_t)" + expression.toC(context) + ", 0)";
+		}
+		else {
+			
+			throw new RuntimeException("no such operator (" + operator+")");
+		}
+		
+//		if (expression.getCType() != null){
+//			if (expression.getCType().equals("Boolean")) {
+//				if (operator.equals("!"))
+//					return "Boolean_negate(" + expression.toC(context) + ")";
+//				else if (operator.equals("..."))
+//					return "Boolean_onwards(" + expression.toC(context) + ", 1)";
+//				else if (operator.equals("<.."))
+//					return "Boolean_onwards(" + expression.toC(context) + ", 0)";
+//			} else if (expression.getCType().equals("Integer")) {
+//				if (operator.equals("-"))
+//					return "Integer_negative(" + expression.toC(context) + ")";
+//				else if (operator.equals("..."))
+//					return "Integer_onwards(" + expression.toC(context) + ", 1)";
+//				else if (operator.equals("<.."))
+//					return "Integer_onwards(" + expression.toC(context) + ", 0)";
+//			}
+//		} else if (expression.getCubexType() != null){
+//			if (expression.getCubexType().name.equals("Boolean")) {
+//				if (operator.equals("!"))
+//					return "Boolean_negate(" + expression.toC(context) + ")";
+//				else if (operator.equals("..."))
+//					return "Boolean_onwards(" + expression.toC(context) + ", 1)";
+//				else if (operator.equals("<.."))
+//					return "Boolean_onwards(" + expression.toC(context) + ", 0)";
+//			} else if (expression.getCubexType().name.equals("Integer")) {
+//				if (operator.equals("-"))
+//					return "Integer_negative(" + expression.toC(context) + ")";
+//				else if (operator.equals("..."))
+//					return "Integer_onwards(" + expression.toC(context) + ", 1)";
+//				else if (operator.equals("<.."))
+//					return "Integer_onwards(" + expression.toC(context) + ", 0)";
+//			} else {
+//				if (operator.equals("!"))
+//					return "Boolean_negate(" + expression.toC(context) + ")";
+//				else if (operator.equals("..."))
+//					return "Boolean_onwards(" + expression.toC(context) + ", 1)";
+//				else if (operator.equals("<.."))
+//					return "Boolean_onwards(" + expression.toC(context) + ", 0)";
+//				else if (operator.equals("-"))
+//						return "Integer_negative(" + expression.toC(context) + ")";
+//				else if (operator.equals("..."))
+//					return "Integer_onwards(" + expression.toC(context) + ", 1)";
+//				else if (operator.equals("<.."))
+//					return "Integer_onwards(" + expression.toC(context) + ", 0)";
+//			}
+//		} 
+//		System.out.println(toString());
+//		System.out.println("EXPRESSION " + expression);
+//		return expression.getCubexType().name;
+//		//return "Boolean_negate(" + expression.toC(context) + ")";
 	}
 	
 	@Override

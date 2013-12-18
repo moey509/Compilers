@@ -1,7 +1,15 @@
 #GC test (garbage)
 out := 67;
-for(i in -10000..10000)
+
+apple := [];
+for (bitch in apple) 
 {
-	out:=out+i;
+	a := bitch + 7;
+} 
+
+
+for(bees in -10000..10000)
+{
+	out:=out+bees;
 }
 return [string([character(out)])];

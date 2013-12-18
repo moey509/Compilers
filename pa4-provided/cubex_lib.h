@@ -23,7 +23,8 @@ struct General {
   functionPointer* fun_ptrs;
   General_t con_comp;
   int is_iter;
-  int is_thru_ward;
+  int is_thru_ward; /* THIS WILL BE USED TO IDENTIFY IF IT IS A INT (1) OR BOOLEAN (2) */
+  int value;
 };
 
 struct Character {
@@ -151,7 +152,7 @@ Integer_t new_integer(int input) {
   i->fun_ptrs = NULL;
   i->con_comp = NULL; 
   i->is_iter = 0;
-  i->is_thru_ward = 0;
+  i->is_thru_ward = 1;
   i->value = input;
   return i;
 }
@@ -164,7 +165,7 @@ Boolean_t new_boolean(int input) {
   b->fun_ptrs = NULL;
   b->con_comp = NULL;
   b->is_iter = 0;
-  b->is_thru_ward = 0;
+  b->is_thru_ward = 2;
   b->value = input;
   return b;
 }
@@ -485,7 +486,7 @@ void* getNext(iterator_t it) {
       it->cur += 1;
     }
     integer = new_integer(int_temp);
-    integer->is_thru_ward = 1;
+    /* integer->is_thru_ward = 1; */
     return integer;
   }
   /* regular case */
@@ -728,8 +729,9 @@ void increment_iterable(git_t g) {
 }
 
 void ref_decrement(General_t gen) {
-  if (gen == NULL) 
+  if (gen == NULL) {    
     return;
+  }
   if (gen->is_iter) {
     decrement_iterable (gen);
     return;
@@ -773,15 +775,6 @@ void ref_increment(General_t gen) {
     return;
   }
   gen->ref_count += 1;
-}
-
-
-void for_v_free(General_t gen) {
-  if (gen == NULL)
-    return;
-  if (gen->is_thru_ward == 1) {
-    ref_decrement (gen);
-  }
 }
 
 int stringLength(git_t g) {
@@ -854,7 +847,7 @@ Integer_t Integer_plus (Integer_t i1, Integer_t i2) {
   return new_integer(i1->value + i2->value);
 }
 
-Integer_t Integer_subtract (Integer_t i1, Integer_t i2) {
+Integer_t Integer_subtract ( Integer_t i1, Integer_t i2) {
   return new_integer(i1->value - i2->value);
 }
 
@@ -897,6 +890,7 @@ git_t Integer_onwards (Integer_t i1, int include1) {
   return new_git_int(1, int1, 0);
 }
 
+
 Boolean_t Integer_equals (Integer_t i1, Integer_t i2) {
   int ans;
   if (i1->value != i2->value)
@@ -906,7 +900,35 @@ Boolean_t Integer_equals (Integer_t i1, Integer_t i2) {
   return new_boolean(ans);
 }
 
+Boolean_t General_equals (General_t g1, General_t g2) {
+  int ans = 0;
+  if (g1->value == g2->value)
+    ans = 1;
+  return new_boolean(ans);
+}
+
 Boolean_t Integer_lessThan(Integer_t i1, Integer_t i2, int strict) {
+  int int1;
+  int int2;
+  int ans;
+  int1 = i1->value;
+  int2 = i2->value;
+  if (strict == 0) {
+    if (int1 <= int2)
+      ans = 1;
+    else 
+      ans = 0;
+  }
+  else {
+    if (int1 < int2)
+      ans = 1;
+    else
+      ans = 0;
+  }
+  return new_boolean(ans);
+}
+
+Boolean_t General_lessThan(General_t i1, General_t i2, int strict) {
   int int1;
   int int2;
   int ans;
@@ -1057,6 +1079,25 @@ Boolean_t Boolean_lessThan(Boolean_t b1, Boolean_t b2, int strict) {
   return new_boolean(ans);
 } 
 
+git_t General_through (General_t g1, General_t g2, int include1, int include2) {
+  printf ("general_through %d\n", g1->is_thru_ward);
+  /* integer: 1, boolean 2 */
+  if (g1->is_thru_ward == 1){
+    return Integer_through (g1, g2, include1, include2);
+  }
+  else {
+    return Boolean_through (g1, g2, include1, include2);
+  }
+}
+
+git_t General_onwards (General_t g1, int include1) {
+ /* integer: 1, boolean 2 */
+  if (g1->is_thru_ward == 1)
+    return Integer_onwards (g1, include1);
+  else
+    return Boolean_onwards (g1, include1); 
+}
+
 General_t Thing(){  
   General_t __struct = (General_t)x3malloc(sizeof(struct General));
   __struct->ref_count = 0;
@@ -1066,6 +1107,7 @@ General_t Thing(){
   __struct->con_comp = NULL;
   __struct->is_iter = 0;
   __struct->is_thru_ward = 0;
+  __struct->value = 0;
   return __struct;
 }
 
@@ -1080,7 +1122,7 @@ void toString(git_t g) {
   iterator_t it;
   it = new_iterator(g);
   git_t c;
-  git_t temp = g;  
+  git_t temp = g;   
 
   while (temp != NULL) {    
     printf ("--> %c\n", ((Character_t)temp->val)->value);

@@ -136,8 +136,8 @@ public final class IrBind extends IrStatement {
 					output.add(((IrAppend)expression).toC(context, tuple.variableName));
 				}
 				else{
-					if (expression instanceof IrBinaryExpression)
-						System.out.println("toC: " + tuple.toString() + " " + expression.toC(context));
+//					if (expression instanceof IrBinaryExpression)
+//						System.out.println("toC: " + tuple.toString() + " " + expression.toC(context));
 					output.add(tuple.variableName + " = " + expression.toC(context) + ";");
 				}
 				output.add("ref_increment((General_t)" + tuple.variableName + ");");
@@ -211,15 +211,15 @@ public final class IrBind extends IrStatement {
 			tempBind.expression = tempBind.expression.eliminateSubexpression(context);
 			context.putVariable(tempBind.getVariableName(), tempBind.expression.getSubexpressions(context));
 		}
-		System.out.println("------------");
+		//System.out.println("------------");
 		context.printContext();
-		System.out.println("Before CSE: " + getVariableName() + "=" + expression);
+		//System.out.println("Before CSE: " + getVariableName() + "=" + expression);
 		IrExpression temp = expression.eliminateSubexpression(context);
 		if (!temp.equals(expression)){
 			cse = true;
 			expression = temp;
 		}
-		System.out.println("After CSE: " + getVariableName() + "=" + expression);
+		//System.out.println("After CSE: " + getVariableName() + "=" + expression);
 		context.putVariable(getVariableName(), expression.getSubexpressions(context));
 	}
 
