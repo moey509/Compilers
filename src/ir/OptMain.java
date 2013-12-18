@@ -1,8 +1,6 @@
 package ir;
 
-import ir.program.IrComprehensionStruct;
 import ir.program.IrProgram;
-import parser.CompParser;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -32,28 +30,27 @@ import typeChecker.IrGenerationContext;
 import typeChecker.TypeCheckerMain;
 import Exception.SemanticException;
 
-public class CompMain {
+public class OptMain {
 	static boolean lexedWithError = false;
 	static boolean parsedWithError = false;
 
 	public static void main(String[] args) throws IOException {
 //		 CharStream charStream = new ANTLRFileStream(args[0]);
 
-//		CharStream charStream = new ANTLRFileStream("cg_tests/c_stage1_test1.x3");
-		CharStream charStream = new ANTLRFileStream("cg_tests/c_stage2_test3.x3");
-
+		CharStream charStream = new ANTLRFileStream("cg_tests/c_stage1_test7.x3");
+		//CharStream charStream = new ANTLRFileStream("cg_tests/test8.x3");
 		CubexLexer cubLexer = new CubexLexer(charStream);
 		cubLexer.removeErrorListeners();
 
 		ErrorListener listener = new ErrorListener();
 		cubLexer.addErrorListener(listener);
 		List<? extends Token> list1 = cubLexer.getAllTokens();
-		if (lexedWithError) {
+		if (lexedWithError) {  
 			System.out.print("reject");
 			return;
 		}
 		cubLexer.reset();
-		CompParser cubParser = new CompParser(new CommonTokenStream(cubLexer));
+		CubexParser cubParser = new CubexParser(new CommonTokenStream(cubLexer));
 		cubParser.removeErrorListeners();
 		ErrorListener plistener = new ErrorListener();
 		cubParser.addErrorListener(plistener);
@@ -68,27 +65,25 @@ public class CompMain {
 		}
 //		System.out.println(cubParser.programAST);
 		try {
-			System.out.println(cubParser.programAST.toString());
-			
 			cubParser.programAST.typeCheck(c);
-			System.out.println("Passed Typechecker");
 			// replace all C keywords with a safe version
 			cubParser.programAST.replaceCKeyWords();
-			
 			IrGenerationContext context = new IrGenerationContext();
 			IrProgram program = cubParser.programAST.toIr(context, new IrProgram());
-			for(IrComprehensionStruct struct : context.comprehensionStructs){
-				program.addComprehensionStruct(struct);
-			}
-//			program.removeCommonSubexpressions();
-//			program.lva();
-
+			
+			// NOTE: if you turn off LVA, in IrProgram.java turn off the following variable: (48) context.lva = true;
+			
+			//program.removeCommonSubexpressions();
+			program.lva();
 			CGenerationContext cgcontext = new CGenerationContext();
+			cgcontext.lva = true;
 			ArrayList<String> programCode = program.toC(cgcontext);
+			// first option for regular stuff, second for automated testing
 			FileWriter writer = new FileWriter(new File("out.c"));
+//			FileWriter writer = new FileWriter(new File("cg_tests/out.c"));
 //			System.out.println("----------");
 			int counter = 3;
-			writer.write("#include \"cubex_lib.1.h\"\n");
+			writer.write("#include \"cubex_lib.h\"\n");
 			// TODO: REMOVE THIS BEFORE SUBMITTING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			writer.write("#include \"stdio.h\"\n");
 			for (String s : programCode){
@@ -100,8 +95,9 @@ public class CompMain {
 			
 		} catch (SemanticException e) {
 			// TODO GET RID OF e.toString() BEFORE WE SUBMIT
-			e.printStackTrace();
-			System.out.print("reject " + e.toString());
+//			e.printStackTrace();
+//			System.out.print("reject" + e.toString());
+			System.out.print("reject");
 		}
 	}
 

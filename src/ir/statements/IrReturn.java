@@ -72,7 +72,7 @@ public final class IrReturn extends IrStatement {
 			else{
 				itDeclaration = iterator + " = new_iterator((" + expression.toC(context) + "));";
 			}
-//			itIncrement = "ref_increment((General_t)" + iterator + ");";
+			itIncrement = "ref_increment((General_t)" + iterator + ");";
 			itCondition = "while(hasNext(" + iterator + ")) {";
 			tempVar = "_return = getNext(" + iterator + ");";
 			
@@ -81,7 +81,7 @@ public final class IrReturn extends IrStatement {
 			
 			endBrace = ("}");
 			// free the iterator
-//			itDecrement = ("ref_decrement((General_t)" + iterator + ");");
+			itDecrement = ("ref_decrement((General_t)" + iterator + ");");
 			itNull = (iterator + " = NULL;");
 		}
 		if (cse){
@@ -117,26 +117,26 @@ public final class IrReturn extends IrStatement {
 		
 		if(context.lva && hasFreeBefore){
 			for(String s : freeBefore){
-//				arrList.add("ref_decrement((General_t)" + s + ");");
+				arrList.add("ref_decrement((General_t)" + s + ");");
 				arrList.add(s + " = NULL;");
 			}
 		}
 		
 		if(context.lva){
 			for (String s : context.controlFlowVariables) {
-//				arrList.add("ref_decrement((General_t)" + s + ");");
+				arrList.add("ref_decrement((General_t)" + s + ");");
 			}
 			for(String s : inMinusOut()){
 				if(s.equals(expression.toC(context))&& !isMain){
-//					arrList.add("ref_decrement_no_free((General_t)" + s + ");");
+					arrList.add("ref_decrement_no_free((General_t)" + s + ");");
 				}
 				else{
-//					arrList.add("ref_decrement((General_t)" + s + ");");
+					arrList.add("ref_decrement((General_t)" + s + ");");
 					arrList.add(s + " = NULL;");
 				}
 			}
 			if (isMain) {
-//				arrList.add("ref_decrement((General_t)input);");
+				arrList.add("ref_decrement((General_t)input);");
 				arrList.add("ending();");
 				arrList.add("return;");
 			}
@@ -149,30 +149,30 @@ public final class IrReturn extends IrStatement {
 			// free control flow variables
 			for (String s : freeContext) {
 				if (!isMain) {
-//					arrList.add("ref_decrement((General_t)" + s + ");");
+					arrList.add("ref_decrement((General_t)" + s + ");");
 				}
 			}
 			
 			for (String s : context.controlFlowVariables) {
-//				arrList.add("ref_decrement((General_t)" + s + ");");
+				arrList.add("ref_decrement((General_t)" + s + ");");
 			}
 			//NOTE: note sure if supposed to empty this set...
 
 			//Should be replaced by Ansha's code methinks
 			if (isMain) {
 				for (String s : freeContext) {
-//					arrList.add("ref_decrement((General_t)" + s + ");");
+					arrList.add("ref_decrement((General_t)" + s + ");");
 				}
 				//TODO: this looks wrong 
 				for (String s : this.context.typeContext.keySet()) {
 					if (!freeContext.contains(s)) {
-//						arrList.add("ref_decrement((General_t)" + s + ");");
+						arrList.add("ref_decrement((General_t)" + s + ");");
 					}
 				}
 				//GARBAGE COLLECT EVERYTHING
 				for(int i = 0; i < temporaryBinds.size(); i++){
 					IrBind b = temporaryBinds.get(i);
-//					arrList.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
+					arrList.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
 				}
 
 				// extra expressions will not get added
@@ -186,13 +186,13 @@ public final class IrReturn extends IrStatement {
 				for(int i = 0; i < temporaryBinds.size()-1; i++){
 					IrBind b = temporaryBinds.get(i);
 					if(i == temporaryBinds.size()-1 && b.tuple.variableName.equals(b.toC(context, isMain, extras))){
-//						arrList.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
+						arrList.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
 					}
 					else{
-//						arrList.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
+						arrList.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
 					}
 				}
-//				arrList.add("ref_decrement_no_free((General_t)" + expression.toC(context) + ");");
+				arrList.add("ref_decrement_no_free((General_t)" + expression.toC(context) + ");");
 				// add statements that are in extras
 				if (extras != null) {
 					arrList.addAll(extras);

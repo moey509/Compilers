@@ -130,11 +130,11 @@ public class CubexClassGrammar {
 			
 		}
 		for(CubexTypeTuple t : typecontext.contextCollection){
-//			arr.add("ref_decrement(__struct->" + t.getName() + ");");
+			arr.add("ref_decrement(__struct->" + t.getName() + ");");
 		}
 		
 		for(String s : varSet.keySet()){
-//			arr.add("ref_decrement(" + s + ");");
+			arr.add("ref_decrement(" + s + ");");
 		}
 		irFunction.isConstructor = false;
 		irFunction.addStatement(new IrCStatement(arr));
@@ -204,7 +204,7 @@ public class CubexClassGrammar {
 	
 		ArrayList<String> dec_inputs = new ArrayList<String>();
 		for(CubexTypeTuple t : typecontext.contextCollection){
-//			dec_inputs.add("ref_decrement(" + t.getName() + ");");
+			dec_inputs.add("ref_decrement(" + t.getName() + ");");
 		}
 
 		irFunction.addStatement(new IrCStatement(dec_inputs));
@@ -224,7 +224,7 @@ public class CubexClassGrammar {
 			
 			// Hack to free __struct at the bottom of a method call
 			ArrayList<String> dec_inputs = new ArrayList<String>();			
-//			dec_inputs.add("ref_decrement(__struct);");
+			dec_inputs.add("ref_decrement(__struct);");
 			
 			fun.addExtras(dec_inputs);
 			
