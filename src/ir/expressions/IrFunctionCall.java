@@ -56,6 +56,7 @@ public final class IrFunctionCall implements IrExpression {
 	}
 	
 	public String toC(CGenerationContext context) {
+		//System.out.println(toString());
 		boolean firstTime = true;
 		StringBuilder sb = new StringBuilder();
 		ArrayList<IrBind> arr = getExpressions(context);
@@ -83,11 +84,12 @@ public final class IrFunctionCall implements IrExpression {
 				else{
 					sb.append(", (" + tuple.argType.toC() + ") " + tuple.expression.toC(context));
 				}
-				sb.append(", (" + tuple.argType.toC() + ") " + tuple.expression.toC(context));
+				//sb.append(", (" + tuple.argType.toC() + ") " + tuple.expression.toC(context));
 			}
 		}
-		
+		//System.out.println(functionName + "(" + sb.toString() + ")");
 		return functionName + "(" + sb.toString() + ")" ;
+		
 	}
 
 	@Override
