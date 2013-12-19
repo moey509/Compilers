@@ -269,9 +269,9 @@ public class IrIf extends IrStatement {
 			String s1 = condition.toString();
 			String s2 = e0.toString();
 			if (!s1.equals(s2)) {
-				System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-				System.out.println("IrIf : Condition: " + condition.toString() + " , e0: " + e0.toString());
-				System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+//				System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+//				System.out.println("IrIf : Condition: " + condition.toString() + " , e0: " + e0.toString());
+//				System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
 			}
 		}
 

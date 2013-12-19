@@ -93,7 +93,7 @@ public class IrBinaryExpression implements IrExpression {
 		 * } }
 		 */
 		// everything else
-		System.out.println("BINOP " + this);
+		//System.out.println("BINOP " + this);
 		
 		/* Integer cases */
 		
@@ -384,12 +384,12 @@ public class IrBinaryExpression implements IrExpression {
 	public IrExpression eliminateSubexpression(CseContext context) {
 		IrExpression expr = getSubexpressions(context);
 		if (context.containsExpression(expr)){
-			System.out.println("BINOP1: " + context.getVariableExpression(expr));
+			//System.out.println("BINOP1: " + context.getVariableExpression(expr));
 			return context.getVariableExpression(expr);
 		} else {
 			leftExpression = leftExpression.eliminateSubexpression(context);
 			rightExpression = rightExpression.eliminateSubexpression(context);
-			System.out.println("BINOP2: " + this);
+			//System.out.println("BINOP2: " + this);
 			return this;
 		}
 	}
