@@ -39,8 +39,8 @@ public class CompMain {
 	public static void main(String[] args) throws IOException {
 //		 CharStream charStream = new ANTLRFileStream(args[0]);
 
-//		CharStream charStream = new ANTLRFileStream("cg_tests/c_stage1_test1.x3");
 		CharStream charStream = new ANTLRFileStream("comprehensions_tests/a_test1.x3");
+
 
 		CubexLexer cubLexer = new CubexLexer(charStream);
 		cubLexer.removeErrorListeners();
@@ -90,7 +90,7 @@ public class CompMain {
 			FileWriter writer = new FileWriter(new File("out.c"));
 //			System.out.println("----------");
 			int counter = 3;
-			writer.write("#include \"cubex_lib.1.h\"\n");
+			writer.write("#include \"cubex_lib.h\"\n");
 			// TODO: REMOVE THIS BEFORE SUBMITTING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			writer.write("#include \"stdio.h\"\n");
 			for (String s : programCode){
