@@ -1080,7 +1080,6 @@ Boolean_t Boolean_lessThan(Boolean_t b1, Boolean_t b2, int strict) {
 } 
 
 git_t General_through (General_t g1, General_t g2, int include1, int include2) {
-  printf ("general_through %d\n", g1->is_thru_ward);
   /* integer: 1, boolean 2 */
   if (g1->is_thru_ward == 1){
     return Integer_through (g1, g2, include1, include2);
