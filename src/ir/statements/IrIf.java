@@ -248,7 +248,7 @@ public class IrIf extends IrStatement {
 			statement.removeCommonSubexpressions(context2);
 		}
 		context.setContext(context1.merge(context2));
-
+		
 	}
 
 	@Override
