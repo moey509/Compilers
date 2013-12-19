@@ -1,0 +1,3 @@
+#stage1test3
+# not all memory freed at the end of the program
+return input;

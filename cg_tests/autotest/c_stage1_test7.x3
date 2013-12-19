@@ -1,0 +1,6 @@
+#Test: two-words
+#two-word output
+#[Stage 1]
+
+#Program:
+return ["Hello", "World!"];
