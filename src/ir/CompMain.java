@@ -39,7 +39,11 @@ public class CompMain {
 	public static void main(String[] args) throws IOException {
 //		 CharStream charStream = new ANTLRFileStream(args[0]);
 
+<<<<<<< HEAD
 		CharStream charStream = new ANTLRFileStream("comprehensions_tests/blah.x3");
+=======
+		CharStream charStream = new ANTLRFileStream("comprehensions_tests/test3.x3");
+>>>>>>> 5f406e12679172df8e5e203a0526c7900800d4f8
 
 
 		CubexLexer cubLexer = new CubexLexer(charStream);

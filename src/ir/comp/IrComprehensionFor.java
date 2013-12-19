@@ -117,7 +117,8 @@ public class IrComprehensionFor implements IrComprehension{
 		if(expression instanceof IrIterableComp){
 			IrIterableComp comp = (IrIterableComp)expression;
 			s.append(comp.comprehension.toC(context));
-			s.append("__comp->_iterable = iterable_append((" + comp.comprehension.getStructVariableName() + "), NULL);\n");
+			s.append("__comp->_iterable = new_lazy_git_obj((void*) " + comp.comprehension.getStructVariableName() +
+					", &" + comp.comprehension.getComprehensionName()+"_hasNext, " + "&" + comp.comprehension.getComprehensionName()+"_getNext);");
 		}
 		else if(expression instanceof IrComprehension){
 			s.append(expression.toC(context));
@@ -127,6 +128,7 @@ public class IrComprehensionFor implements IrComprehension{
 		{
 			s.append("__comp->_iterable = iterable_append((" + expression.toC(context) + "), NULL);\n");
 		}
+		//__comp->_iterator = new_iterator(new_lazy_git_obj((void*) __compStruct2, &__comp2_hasNext, &__comp2_getNext));
 		s.append("__comp->_iterator = new_iterator(__comp->_iterable);\n");
 		
 		//While there are still elements in the for loop, get the next element and see if we can get another from the nestedComprehension
@@ -171,7 +173,7 @@ public class IrComprehensionFor implements IrComprehension{
 		StringBuilder s = new StringBuilder();
 		s.append("void* " + comprehensionName + "_getNext(" + comprehensionName + "_t __comp){\n");
 		s.append("if(" + nestedComprehensionName + "_hasNext(__comp->_nest_comp) == 1){\n");		
-		s.append("return " + nestedComprehensionName + "_hasNext(__comp->_nest_comp);\n");
+		s.append("return " + nestedComprehensionName + "_getNext(__comp->_nest_comp);\n");
 		s.append("}\n");
 		s.append("}\n");
 		return s.toString();
