@@ -275,7 +275,7 @@ public class IrFor extends IrStatement {
 		context.stripBinds(statements);
 		CseContext context1 = context.clone();
 		context1.containsUnknownVariable(var);
-		context1.putVariable(var, new IrVariableExpression(var, ""));
+		context1.putVariable(var, new IrVariableExpression(var));
 		for (IrStatement statement : statements){
 			statement.removeCommonSubexpressions(context1);
 		}
