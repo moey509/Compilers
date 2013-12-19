@@ -45,7 +45,7 @@ public final class CubexFor extends CubexStatement {
 		}
 		else{
 			IrBind b = arr.get(arr.size()-1);
-			IrFor ir = new IrFor(varfun, new IrVariableExpression(b.tuple.variableName, b.tuple.type.type), cubexContext);
+			IrFor ir = new IrFor(varfun, new IrVariableExpression(b.tuple.variableName), cubexContext);
 			ir.temporaryBinds.addAll(arr);
 
 			ir.addStatement(s.toIr(context));

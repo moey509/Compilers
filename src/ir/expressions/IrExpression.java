@@ -10,9 +10,6 @@ import ir.CGenerationContext;
 import ir.statements.IrBind;
 
 public interface IrExpression {
-	
-	public String getCType();
-	
 	public CubexTypeGrammar getCubexType();
 	
 	public String toC(CGenerationContext context);
