@@ -25,6 +25,7 @@ public class CGenerationContext {
 	public String currentObject;
 	
 	public boolean lva = false;
+	public boolean to_free = true;
 	
 	// final constants:
 	public final String iterator = "_it";

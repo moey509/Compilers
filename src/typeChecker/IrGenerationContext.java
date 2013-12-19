@@ -22,6 +22,8 @@ public class IrGenerationContext {
 	int count = 0;
 	int comprehensionCount = 0;
 	
+	public boolean to_free = true;
+	
 	public int nextCount(){
 		return count++;
 	}

@@ -1,6 +1,7 @@
 package ir.program;
 
 import ir.CGenerationContext;
+import ir.IrMiscFunctions;
 import ir.statements.IrStatement;
 import ir.statements.IrStatementList;
 
@@ -102,7 +103,8 @@ public class IrProgram {
 		output.add("void cubex_main(){");
 
 		output.add("input = get_input();");
-		output.add("ref_increment((General_t)input);");
+		IrMiscFunctions.increment_ref(context, "input", output);
+//		output.add("ref_increment((General_t)input);");
 
 		
 //		for (IrTypeTuple tuple : variables){

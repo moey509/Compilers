@@ -76,6 +76,7 @@ public class CompMain {
 			cubParser.programAST.replaceCKeyWords();
 			
 			IrGenerationContext context = new IrGenerationContext();
+			context.to_free = false;
 			IrProgram program = cubParser.programAST.toIr(context, new IrProgram());
 			for(IrComprehensionStruct struct : context.comprehensionStructs){
 				program.addComprehensionStruct(struct);
@@ -84,6 +85,7 @@ public class CompMain {
 //			program.lva();
 
 			CGenerationContext cgcontext = new CGenerationContext();
+			cgcontext.to_free = false;
 			ArrayList<String> programCode = program.toC(cgcontext);
 			FileWriter writer = new FileWriter(new File("out.c"));
 //			System.out.println("----------");

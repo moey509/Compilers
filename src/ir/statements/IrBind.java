@@ -6,6 +6,7 @@ import java.util.HashSet;
 import optimization.LvaContext;
 import typeChecker.CubexCompleteContext;
 import ir.CGenerationContext;
+import ir.IrMiscFunctions;
 import ir.expressions.IrAppend;
 import ir.expressions.IrBinaryExpression;
 import ir.expressions.IrCFunctionCall;
@@ -107,7 +108,8 @@ public final class IrBind extends IrStatement {
 		//		}
 		if(context.lva && hasFreeBefore){
 			for(String s : freeBefore){
-				output.add("ref_decrement((General_t)" + s + ");");
+				IrMiscFunctions.decrement_ref(context, s, output);
+//				output.add("ref_decrement((General_t)" + s + ");");
 				output.add(s + " = NULL;");
 			}
 		}
@@ -121,20 +123,24 @@ public final class IrBind extends IrStatement {
 					s = temporaryBinds.get(temporaryBinds.size()-1).tuple.variableName;
 				}
 				//No live variable analysis. Decrements whatever was previously set to this variable
-				output.add("ref_decrement((General_t)" + tuple.variableName + ");");
+				IrMiscFunctions.decrement_ref(context, tuple.variableName, output);
+//				output.add("ref_decrement((General_t)" + tuple.variableName + ");");
 				output.add(tuple.variableName + " = " + s + ";");
-				output.add("ref_increment((General_t)" + tuple.variableName + ");");
+				IrMiscFunctions.increment_ref(context, tuple.variableName, output);
+//				output.add("ref_increment((General_t)" + tuple.variableName + ");");
 			}
 			else{
 				//Decrements whatever was previously bound to this variable
-				output.add("ref_decrement((General_t)" + tuple.variableName + ");");
+				IrMiscFunctions.decrement_ref(context, tuple.variableName, output);
+//				output.add("ref_decrement((General_t)" + tuple.variableName + ");");
 				//System.out.println("toC: " + tuple.toString() + " " + expression.toC(context));
 				if (expression instanceof IrFunctionCall) {
 					IrFunctionCall funcCall = (IrFunctionCall) expression;
 					if(!funcCall.functionName.equals("_string") && !funcCall.functionName.equals("_character")){
 						//Increments arguments before a function call
 						for (IrExpressionTuple tuple : funcCall.getArugments()) {
-							output.add("ref_increment((General_t)" + tuple.getExpression().toC(context)+ ");");
+							IrMiscFunctions.increment_ref(context, tuple.getExpression().toC(context), output);
+//							output.add("ref_increment((General_t)" + tuple.getExpression().toC(context)+ ");");
 						}
 					}
 				}
@@ -147,19 +153,22 @@ public final class IrBind extends IrStatement {
 //						System.out.println("toC: " + tuple.toString() + " " + expression.toC(context));
 					output.add(tuple.variableName + " = " + expression.toC(context) + ";");
 				}
-				output.add("ref_increment((General_t)" + tuple.variableName + ");");
+				IrMiscFunctions.increment_ref(context, tuple.variableName, output);
+//				output.add("ref_increment((General_t)" + tuple.variableName + ");");
 			}
 		}
 
 		if(context.lva){
 			for(String s : inMinusOut()){
-				output.add("ref_decrement((General_t)" + s + ");");
+				IrMiscFunctions.decrement_ref(context, s, output);
+//				output.add("ref_decrement((General_t)" + s + ");");
 				output.add(s + " = NULL;");
 			}
 		}
 		else{
 			for(IrBind b : temporaryBinds){
-				output.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
+				IrMiscFunctions.decrement_ref(context, b.tuple.variableName, output);
+//				output.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
 				output.add(b.tuple.variableName + " = NULL;");
 			}
 		}
