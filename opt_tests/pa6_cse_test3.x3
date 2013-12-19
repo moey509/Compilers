@@ -6,6 +6,7 @@ fun build(n : Integer) : String
 	 	return "";
 	else
 		return string(" "++build(n-1));
+		
 fun remove(s : String) : String {
 	r := "";
 	b := false;
@@ -16,6 +17,7 @@ fun remove(s : String) : String {
 			b := true;
 	return r;
 }
+
 fun empty(s : String) : String {
 	for (c in remove(s)) {
 		a := empty(remove(s));
@@ -24,6 +26,7 @@ fun empty(s : String) : String {
 	}
 	return "";
 }
+
 for (c in empty(build(1000)))
 	return ["No"];
 return ["Yes"];

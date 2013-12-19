@@ -190,20 +190,17 @@ public final class IrWhile extends IrStatement {
 	}
 
 	public void removeCommonSubexpressions(CseContext context) {
+		context.stripBinds(statements);
 		CseContext context1 = context.clone();
-		context1.stripBinds(statements);
-		context1.printContext();
-		CseContext context2 = context.clone();
-
+		for (IrBind tempBind : temporaryBinds){
+			tempBind.expression = tempBind.expression.eliminateSubexpression(context1);
+			context1.putVariable(tempBind.getVariableName(), tempBind.expression.getSubexpressions(context1));
+		}
 		for (IrStatement statement : statements){
 			statement.removeCommonSubexpressions(context1);
 		}
-		CseContext context3 = context1.merge(context2);
-		for (IrBind tempBind : temporaryBinds){
-			tempBind.expression = tempBind.expression.eliminateSubexpression(context3);
-			context3.putVariable(tempBind.getVariableName(), tempBind.expression.getSubexpressions(context3));
-		}
-		context.setContext(context3);
+
+		context.setContext(context1.merge(context));
 	}
 
 	@Override

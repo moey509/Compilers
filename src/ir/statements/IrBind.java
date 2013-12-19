@@ -227,11 +227,13 @@ public final class IrBind extends IrStatement {
 		//System.out.println("Before CSE: " + getVariableName() + "=" + expression);
 		IrExpression temp = expression.eliminateSubexpression(context);
 		if (!temp.equals(expression)){
+			System.out.println("Before CSE: " + getVariableName() + " := " + expression);
 			cse = true;
 			expression = temp;
+			System.out.println("After CSE: " + getVariableName() + " := " + expression);
 		}
-		//System.out.println("After CSE: " + getVariableName() + "=" + expression);
 		context.putVariable(getVariableName(), expression.getSubexpressions(context));
+		//context.printContext();
 	}
 
 	@Override

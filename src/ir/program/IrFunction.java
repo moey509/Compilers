@@ -221,10 +221,10 @@ public class IrFunction implements IrProgramElem{
 
 	@Override
 	public void removeCommonSubexpressions(CseContext context) {
+		CseContext context1 = context.clone();
 		for (IrStatement statement : statements){
-			statement.removeCommonSubexpressions(context);
-		}
-		
+			statement.removeCommonSubexpressions(context1);
+		}	
 	}
 
 	@Override
