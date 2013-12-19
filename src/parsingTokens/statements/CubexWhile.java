@@ -40,7 +40,7 @@ public final class CubexWhile extends CubexStatement {
 		}
 		else{
 			IrBind b = arr.get(arr.size()-1);
-			IrWhile ir = new IrWhile(new IrVariableExpression(b.tuple.variableName, b.tuple.type.type), cubexContext);
+			IrWhile ir = new IrWhile(new IrVariableExpression(b.tuple.variableName), cubexContext);
 			ir.temporaryBinds.addAll(arr);
 
 			ir.addStatement(s.toIr(context));

@@ -24,7 +24,6 @@ public class IrComprehensionPair implements IrComprehension{
 	public HashMap<String, String> varMap = new HashMap<String, String>();
 	
 	public CubexTypeGrammar cubexType;
-	public String cType;
 	
 	public IrComprehensionPair(IrComprehension comp, IrExpression expr,
 			CubexTypeGrammar cubexType, String comprehensionName, String nestedComprehensionName, HashMap<String, CubexTypeGrammar> varList) {

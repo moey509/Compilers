@@ -17,17 +17,15 @@ import parsingTokens.typeGrammar.CubexTypeGrammar;
 public final class IrFunctionCall implements IrExpression {
 	public String functionName;	
 	public List<IrExpressionTuple> arguments;
-	private String cType;	
 	private CubexTypeGrammar cubexType;
 	
 	public ArrayList<IrExpression> functions = new ArrayList<IrExpression>();
 	
 	
 	
-	public IrFunctionCall(String functionName, String type, CubexTypeGrammar cubexType) {
+	public IrFunctionCall(String functionName, CubexTypeGrammar cubexType) {
 		this.functionName = functionName;
 		this.arguments = new ArrayList<IrExpressionTuple>();
-		this.cType = type;
 		this.cubexType = cubexType;
 	}
 
@@ -37,10 +35,6 @@ public final class IrFunctionCall implements IrExpression {
 	
 	public void addArgument(String argType, IrExpression argument){
 		this.arguments.add(new IrExpressionTuple(new IrType(argType), argument));
-	}
-
-	public String getCType () {
-		return cType;
 	}
 	
 	public List<IrExpressionTuple> getArugments() {
@@ -165,7 +159,7 @@ public final class IrFunctionCall implements IrExpression {
 
 	@Override
 	public IrExpression getSubexpressions(CseContext context) {
-		IrFunctionCall output = new IrFunctionCall(functionName, cType, cubexType);
+		IrFunctionCall output = new IrFunctionCall(functionName, cubexType);
 		for (IrExpressionTuple tuple : arguments){
 			output.addArgument(tuple.argType, tuple.expression.getSubexpressions(context));
 		}
@@ -173,7 +167,7 @@ public final class IrFunctionCall implements IrExpression {
 	}
 	
 	public IrExpression clone(){
-		IrFunctionCall output = new IrFunctionCall(functionName, cType, cubexType);
+		IrFunctionCall output = new IrFunctionCall(functionName, cubexType);
 		for (IrExpressionTuple tuple : arguments){
 			output.addArgument(new IrType(tuple.argType.type), tuple.expression.clone());
 		}

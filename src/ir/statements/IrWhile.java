@@ -72,8 +72,10 @@ public final class IrWhile extends IrStatement {
 			}
 		}
 		for (IrBind i : temporaryBinds) {
-			context.varDecl.put(i.tuple.variableName, i.tuple.type.toC());
-			context.varInit.put(i.tuple.variableName, "NULL");
+			if(!(context.lva && i.isDead())){
+				context.varDecl.put(i.tuple.variableName, i.tuple.type.toC());
+				context.varInit.put(i.tuple.variableName, "NULL");
+			}
 		}
 		if (isMain) {
 			for(IrStatement s : statements){
@@ -188,20 +190,17 @@ public final class IrWhile extends IrStatement {
 	}
 
 	public void removeCommonSubexpressions(CseContext context) {
+		context.stripBinds(statements);
 		CseContext context1 = context.clone();
-		context1.stripBinds(statements);
-		context1.printContext();
-		CseContext context2 = context.clone();
-
+		for (IrBind tempBind : temporaryBinds){
+			tempBind.expression = tempBind.expression.eliminateSubexpression(context1);
+			context1.putVariable(tempBind.getVariableName(), tempBind.expression.getSubexpressions(context1));
+		}
 		for (IrStatement statement : statements){
 			statement.removeCommonSubexpressions(context1);
 		}
-		CseContext context3 = context1.merge(context2);
-		for (IrBind tempBind : temporaryBinds){
-			tempBind.expression = tempBind.expression.eliminateSubexpression(context3);
-			context3.putVariable(tempBind.getVariableName(), tempBind.expression.getSubexpressions(context3));
-		}
-		context.setContext(context3);
+
+		context.setContext(context1.merge(context));
 	}
 
 	@Override
@@ -210,25 +209,7 @@ public final class IrWhile extends IrStatement {
 	}
 
 	public IrExpression getExpression() {
-//		int length =  temporaryBinds.size();
-//		IrExpression e0 = null;
-//		if (length > 0) {
-//			String varname = temporaryBinds.get(length-1).tuple.variableName;
-//			String ctype = temporaryBinds.get(length-1).tuple.type.toC();
-////			return new IrVariableExpression(varname, ctype);
-//			e0 = new IrVariableExpression(varname, ctype);
-//		}
-//		if (e0==null || condition==null) {
-////			System.out.println("IrWhile : e0 or condition is null");
-//		}  else {
-//			String s1 = condition.toString();
-//			String s2 = e0.toString();
-//			if (!s1.equals(s2)) {
-//				System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-//				System.out.println("IrWhile : e: " + condition.toString() + " , e0: " + e0.toString());
-//				System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-//			}
-//		}
+
 
 		return condition;
 	}

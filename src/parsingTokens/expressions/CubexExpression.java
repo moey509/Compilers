@@ -78,9 +78,9 @@ public class CubexExpression {
 
 	public IrExpression toIr(IrGenerationContext context) {
 		if (context.containsGlobalVariable(name)){
-			return new IrVariableExpression("_" + name, cubexType.name, cubexType);
+			return new IrVariableExpression("_" + name, cubexType);
 		}
-		else return new IrVariableExpression(name, cubexType.name, cubexType);
+		else return new IrVariableExpression(name, cubexType);
 
 	}
 	

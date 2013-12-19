@@ -14,7 +14,6 @@ import ir.statements.IrBind;
 public class IrUnaryExpression implements IrExpression {
 	private IrExpression expression;
 	private String operator;
-	private String cType;
 	private CubexTypeGrammar cubexType;
 
 	public IrUnaryExpression(IrExpression expression, String operator, CubexTypeGrammar cubexType) {
@@ -23,20 +22,6 @@ public class IrUnaryExpression implements IrExpression {
 		this.operator = operator;
 		this.cubexType = cubexType;
 		
-		// logic to determine type:
-		if (operator.equals("!"))
-			this.cType = IrMiscFunctions.BOOLEAN;
-		else if (operator.equals("-"))
-			this.cType = IrMiscFunctions.INTEGER;
-		else if (operator.equals("...") || operator.equals("<..")) 
-			this.cType = IrMiscFunctions.ITERABLE;
-		else {
-			throw new RuntimeException("no such operator (" + operator+")");
-		}
-	}
-	
-	public String getCType() {
-		return cType;
 	}
 	
 	public IrExpression clone() {
@@ -45,13 +30,7 @@ public class IrUnaryExpression implements IrExpression {
 
 	@Override
 	public String toC(CGenerationContext context) {
-//		if (operator.equals("!"))
-//			this.cType = IrMiscFunctions.BOOLEAN;
-//		else if (operator.equals("-"))
-//			this.cType = IrMiscFunctions.INTEGER;
-//		else if (operator.equals("...") || operator.equals("<..")) 
-//			this.cType = IrMiscFunctions.ITERABLE;
-		
+
 		/* Boolean case */
 		if (operator.equals("!")) {
 			return "Boolean_negate(" + expression.toC(context) + ")";
@@ -74,56 +53,6 @@ public class IrUnaryExpression implements IrExpression {
 			throw new RuntimeException("no such operator (" + operator+")");
 		}
 		
-//		if (expression.getCType() != null){
-//			if (expression.getCType().equals("Boolean")) {
-//				if (operator.equals("!"))
-//					return "Boolean_negate(" + expression.toC(context) + ")";
-//				else if (operator.equals("..."))
-//					return "Boolean_onwards(" + expression.toC(context) + ", 1)";
-//				else if (operator.equals("<.."))
-//					return "Boolean_onwards(" + expression.toC(context) + ", 0)";
-//			} else if (expression.getCType().equals("Integer")) {
-//				if (operator.equals("-"))
-//					return "Integer_negative(" + expression.toC(context) + ")";
-//				else if (operator.equals("..."))
-//					return "Integer_onwards(" + expression.toC(context) + ", 1)";
-//				else if (operator.equals("<.."))
-//					return "Integer_onwards(" + expression.toC(context) + ", 0)";
-//			}
-//		} else if (expression.getCubexType() != null){
-//			if (expression.getCubexType().name.equals("Boolean")) {
-//				if (operator.equals("!"))
-//					return "Boolean_negate(" + expression.toC(context) + ")";
-//				else if (operator.equals("..."))
-//					return "Boolean_onwards(" + expression.toC(context) + ", 1)";
-//				else if (operator.equals("<.."))
-//					return "Boolean_onwards(" + expression.toC(context) + ", 0)";
-//			} else if (expression.getCubexType().name.equals("Integer")) {
-//				if (operator.equals("-"))
-//					return "Integer_negative(" + expression.toC(context) + ")";
-//				else if (operator.equals("..."))
-//					return "Integer_onwards(" + expression.toC(context) + ", 1)";
-//				else if (operator.equals("<.."))
-//					return "Integer_onwards(" + expression.toC(context) + ", 0)";
-//			} else {
-//				if (operator.equals("!"))
-//					return "Boolean_negate(" + expression.toC(context) + ")";
-//				else if (operator.equals("..."))
-//					return "Boolean_onwards(" + expression.toC(context) + ", 1)";
-//				else if (operator.equals("<.."))
-//					return "Boolean_onwards(" + expression.toC(context) + ", 0)";
-//				else if (operator.equals("-"))
-//						return "Integer_negative(" + expression.toC(context) + ")";
-//				else if (operator.equals("..."))
-//					return "Integer_onwards(" + expression.toC(context) + ", 1)";
-//				else if (operator.equals("<.."))
-//					return "Integer_onwards(" + expression.toC(context) + ", 0)";
-//			}
-//		} 
-//		System.out.println(toString());
-//		System.out.println("EXPRESSION " + expression);
-//		return expression.getCubexType().name;
-//		//return "Boolean_negate(" + expression.toC(context) + ")";
 	}
 	
 	@Override

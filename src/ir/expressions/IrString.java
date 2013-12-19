@@ -15,15 +15,9 @@ import parsingTokens.typeGrammar.CubexTypeGrammar;
 
 public final class IrString implements IrExpression {
 	private String mValue;
-	private String cType;
 
 	public IrString(String value) {
 		mValue = value;
-		this.cType = IrMiscFunctions.STRING;
-	}
-	
-	public String getCType() {
-		return this.cType;
 	}
 	
 	public IrString clone () {

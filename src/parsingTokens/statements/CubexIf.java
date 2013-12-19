@@ -47,7 +47,7 @@ public class CubexIf extends CubexStatement {
 		}
 		else{
 			IrBind b = arr.get(arr.size()-1);
-			ir = new IrIf(new IrVariableExpression(b.tuple.variableName, b.tuple.type.type), cubexContext);
+			ir = new IrIf(new IrVariableExpression(b.tuple.variableName), cubexContext);
 			ir.temporaryBinds.addAll(arr);
 		}
 		

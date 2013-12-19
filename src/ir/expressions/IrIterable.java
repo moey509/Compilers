@@ -15,12 +15,10 @@ import parsingTokens.typeGrammar.CubexTypeGrammar;
 
 public class IrIterable implements IrExpression {
 	CubexList<IrExpression> list;
-	private String cType;
 	private CubexTypeGrammar cubexType;
 
 	public IrIterable(CubexList<IrExpression> listIn, CubexTypeGrammar cubexType) {
 		list = listIn;
-		this.cType = IrMiscFunctions.ITERABLE;
 		this.cubexType = cubexType;
 	}
 
@@ -29,10 +27,6 @@ public class IrIterable implements IrExpression {
 		if (index == list.size()-1) 
 			return ("iterable_append("+list.get(index).toC(context) +", NULL)");
 		return ("iterable_append(" + list.get(index).toC(context) + ", " + helper(index+1, context) + ")");
-	}
-
-	public String getCType() {
-		return cType;
 	}
 	
 	public String toC(CGenerationContext context) {

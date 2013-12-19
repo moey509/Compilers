@@ -68,9 +68,11 @@ public class IrFor extends IrStatement {
 		
 		for(IrBind b : temporaryBinds){
 			// put variables at the top of fcn here:
-			context.varDecl.put(b.tuple.variableName, b.tuple.type.toC());
-			output.add(b.tuple.variableName + " = NULL;");
-			output.addAll(b.toC(context, isMain, extras));
+			if(!(context.lva && b.isDead())){
+				context.varDecl.put(b.tuple.variableName, b.tuple.type.toC());
+				output.add(b.tuple.variableName + " = NULL;");
+				output.addAll(b.toC(context, isMain, extras));
+			}
 		}
 
 		// there's a reason why these aren't IrBinds! The rhs is not really an IrFunctionCall ...
@@ -138,9 +140,12 @@ public class IrFor extends IrStatement {
 		}
 
 		output.add(tempVar);
+		output.add(tempVarInc);
+		/* Ansha was this wrong?
 		if(!context.lva || freeAfter.contains(var)){
 			output.add(tempVarInc);
 		}
+		*/
 
 		/*** vvv THE FOLLOWING IS A CODE BLOCK ***/
 		// MODIFY CONTEXT
@@ -263,20 +268,17 @@ public class IrFor extends IrStatement {
 	}
 
 	public void removeCommonSubexpressions(CseContext context) {
+		for (IrBind tempBind : temporaryBinds){
+			tempBind.expression = tempBind.expression.eliminateSubexpression(context);
+			context.putVariable(tempBind.getVariableName(), tempBind.expression.getSubexpressions(context));
+		}
+		context.stripBinds(statements);
 		CseContext context1 = context.clone();
-		context1.stripBinds(statements);
-		CseContext context2 = context.clone();
-		context1.printContext();
-		context2.printContext();
+		context1.containsUnknownVariable(var);
+		context1.putVariable(var, new IrVariableExpression(var));
 		for (IrStatement statement : statements){
 			statement.removeCommonSubexpressions(context1);
 		}
-		CseContext context3 = context1.merge(context2);
-		for (IrBind tempBind : temporaryBinds){
-			tempBind.expression = tempBind.expression.eliminateSubexpression(context3);
-			context3.putVariable(tempBind.getVariableName(), tempBind.expression.getSubexpressions(context3));
-		}
-		context.setContext(context3);
 	}
 
 	@Override
@@ -285,25 +287,6 @@ public class IrFor extends IrStatement {
 	}
 
 	public IrExpression getExpression() {
-//		int length = temporaryBinds.size();
-//		IrExpression e0 = null;
-//		if (length > 0) {
-//			String varname = temporaryBinds.get(length-1).tuple.variableName;
-//			String ctype = temporaryBinds.get(length-1).tuple.type.toC();
-//			e0 = new IrVariableExpression(varname, ctype);
-////			return new IrVariableExpression(varname, ctype);
-//		}
-//		if (e0==null || list==null) {
-////			System.out.println("IrFor : e0 or condition is null");
-//		}  else {
-//			String s1 = list.toString();
-//			String s2 = e0.toString();
-//			if (!s1.equals(s2)) {
-//				System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-//				System.out.println("IrFor : e: " + list.toString() + " , e0: " + e0.toString());
-//				System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-//			}
-//		}
 
 		return list;
 	}

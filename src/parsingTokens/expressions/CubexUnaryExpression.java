@@ -31,7 +31,7 @@ public abstract class CubexUnaryExpression extends CubexExpression {
 		}
 		else{
 			IrBind bindRight = arr.get(arr.size()-1);
-			var1 = new IrVariableExpression(bindRight.tuple.variableName, mArgument.type);
+			var1 = new IrVariableExpression(bindRight.tuple.variableName);
 		}
 		ret.addAll(arr);
 		

@@ -70,9 +70,11 @@ public class IrIf extends IrStatement {
 		}
 		
 		for(IrBind b : temporaryBinds){
-			context.varDecl.put(b.tuple.variableName, b.tuple.type.toC());
-			context.varInit.put(b.tuple.variableName, "NULL");
-			arrList.addAll(b.toC(context, isMain, extras));
+			if(!(context.lva && b.isDead())){
+				context.varDecl.put(b.tuple.variableName, b.tuple.type.toC());
+				context.varInit.put(b.tuple.variableName, "NULL");
+				arrList.addAll(b.toC(context, isMain, extras));
+			}
 		}
 		arrList.add("if(((Boolean_t)" + condition.toC(context) + ")->value) {");
 		//TODO: Should be replaced by Ansha's code methinks
@@ -259,8 +261,7 @@ public class IrIf extends IrStatement {
 		IrExpression e0 = null;
 		if (length > 0) {
 			String varname = temporaryBinds.get(length-1).tuple.variableName;
-			String ctype = temporaryBinds.get(length-1).tuple.type.toC();
-			e0 = new IrVariableExpression(varname, ctype);
+			e0 = new IrVariableExpression(varname);
 //			return new IrVariableExpression(varname, ctype);
 		}
 		if (e0==null || condition==null) {
@@ -269,9 +270,9 @@ public class IrIf extends IrStatement {
 			String s1 = condition.toString();
 			String s2 = e0.toString();
 			if (!s1.equals(s2)) {
-				System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-				System.out.println("IrIf : Condition: " + condition.toString() + " , e0: " + e0.toString());
-				System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+//				System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+//				System.out.println("IrIf : Condition: " + condition.toString() + " , e0: " + e0.toString());
+//				System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
 			}
 		}
 

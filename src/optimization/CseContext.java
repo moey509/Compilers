@@ -54,7 +54,7 @@ public class CseContext {
 	public IrVariableExpression getVariableExpression(IrExpression expr){
 		String name = expressionToVariableMap.get(expr);
 //		System.out.println(expr);
-		return new IrVariableExpression(name, expr.getCType(), expr.getCubexType());
+		return new IrVariableExpression(name, expr.getCubexType());
 	}
 	
 	
@@ -106,9 +106,7 @@ public class CseContext {
 					output.putVariable(entry.getKey(), entry.getValue());
 				}
 				else{
-					output.putVariable(entry.getKey(),
-							new IrVariableExpression(entry.getKey(), entry.getValue().getCType(), 
-									entry.getValue().getCubexType()));
+					output.putVariable(entry.getKey(), new IrVariableExpression(entry.getKey(), entry.getValue().getCubexType()));
 				}
 			}
 		}
@@ -131,7 +129,7 @@ public class CseContext {
 				if (variableToExpressionMap.containsKey(bind.getVariableName())){
 					IrExpression expr = variableToExpressionMap.get(bind.getVariableName());
 					unknownVariables.add(bind.getVariableName());
-					putVariable(bind.getVariableName(), new IrVariableExpression(bind.getVariableName(), expr.getCType(), expr.getCubexType()));
+					putVariable(bind.getVariableName(), new IrVariableExpression(bind.getVariableName(), expr.getCubexType()));
 				}
 			}
 			if (stmt instanceof IrStatementList){
@@ -159,8 +157,8 @@ public class CseContext {
 		for (Map.Entry<String, IrExpression> entry : variableToExpressionMap.entrySet()){
 			System.out.println(entry.getKey() + " => " + entry.getValue().toString());
 		}
-		System.out.println(variableToExpressionMap.toString());
-		System.out.println(expressionToVariableMap.toString());
+//		System.out.println(variableToExpressionMap.toString());
+//		System.out.println(expressionToVariableMap.toString());
 		System.out.println(unknownVariables.toString());
 		System.out.println("------------");
 	}

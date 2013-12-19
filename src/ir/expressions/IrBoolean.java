@@ -14,15 +14,9 @@ import ir.statements.IrBind;
 
 public final class IrBoolean implements IrExpression {
 	private boolean mValue;
-	private String cType;
 
 	public IrBoolean(boolean value) {
 		mValue = value;
-		cType = IrMiscFunctions.BOOLEAN;
-	}
-	
-	public String getCType() {
-		return cType;
 	}
 
 	public String toC(CGenerationContext context) {
