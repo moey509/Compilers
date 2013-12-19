@@ -345,7 +345,9 @@ int hasNext(iterator_t it) {
     }
     /*  through case */
     if (n->status == 0) {
+      printf ("through %d until %d\n", it->cur, n->high);
       if (it->cur > n->high) {
+        printf ("should be in here!\n");
         it->g = g->next;
         it->set = 0;
         return hasNext(it);
@@ -1082,6 +1084,7 @@ Boolean_t Boolean_lessThan(Boolean_t b1, Boolean_t b2, int strict) {
 git_t General_through (General_t g1, General_t g2, int include1, int include2) {
   /* integer: 1, boolean 2 */
   if (g1->is_thru_ward == 1){
+    printf("integer through\n");
     return Integer_through (g1, g2, include1, include2);
   }
   else {
@@ -1251,8 +1254,7 @@ int pure_length(git_t g) {
   int counter;
   counter = 0;
   temp = g;
-  while (temp != NULL) {
-    printf ("laaazy? %d\n", g->is_lazy);
+  while (temp != NULL) {    
     temp = temp->next;
     counter +=1 ;
   }
