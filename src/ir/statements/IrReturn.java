@@ -1,3 +1,4 @@
+
 package ir.statements;
 
 import ir.CGenerationContext;
@@ -202,7 +203,18 @@ public final class IrReturn extends IrStatement {
 						arrList.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
 					}
 				}
-				arrList.add("ref_decrement_no_free((General_t)" + expression.toC(context) + ");");
+				
+				String no_free_temp = expression.toC(context);
+				
+				if (no_free_temp.length() > 8 && no_free_temp.substring(0, 8).equals("__struct")) {
+					
+				}
+				else {
+					arrList.add("ref_decrement_no_free((General_t)" + expression.toC(context) + ");");
+				}
+				
+				
+				
 				// add statements that are in extras
 				if (extras != null) {
 					arrList.addAll(extras);

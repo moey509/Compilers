@@ -344,8 +344,7 @@ int hasNext(iterator_t it) {
       it->set = 1;
     }
     /*  through case */
-    if (n->status == 0) {
-      printf ("through %d until %d\n", it->cur, n->high);
+    if (n->status == 0) {      
       if (it->cur > n->high) {
         printf ("should be in here!\n");
         it->g = g->next;

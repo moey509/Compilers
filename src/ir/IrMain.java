@@ -38,7 +38,7 @@ public class IrMain {
 //		 CharStream charStream = new ANTLRFileStream(args[0]);
 
 
-		CharStream charStream = new ANTLRFileStream("cg_tests/c_stage5_test2.x3");
+		CharStream charStream = new ANTLRFileStream("cg_tests/c_stage5_test3.x3");
 
 //		CharStream charStream = new ANTLRFileStream("cg_tests/c_stage5_test2.x3");
 
