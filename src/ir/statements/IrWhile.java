@@ -199,8 +199,7 @@ public final class IrWhile extends IrStatement {
 		for (IrStatement statement : statements){
 			statement.removeCommonSubexpressions(context1);
 		}
-
-		context.setContext(context1.merge(context));
+		context.clearUnknownVariables();
 	}
 
 	@Override

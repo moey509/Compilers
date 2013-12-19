@@ -2,11 +2,18 @@
 # This program allocates large iterables and steps recursively. 
 # Before the recursive step, the large iterables should be deallocated
 
+fun isEmpty(n : Iterable<Iterable<Nothing>>) : Iterable<Iterable<Nothing>> {
+	for (x in n)
+		return [[]];
+	return [];
+}
 fun build(n : Iterable<Iterable<Nothing>>) : Iterable<Iterable<Nothing>> {
 	b := [[]];
-	a := build(remove(n));
-	for (i in n)
-		b := b ++ a;
+	for (x in isEmpty(n)) {
+		a := build(remove(n));
+		for (i in n)
+			b := b ++ a;
+	}
 	return b;
 }
 fun remove(s : Iterable<Iterable<Nothing>>) : Iterable<Iterable<Nothing>> {
@@ -44,6 +51,6 @@ fun stepper(n : Iterable<Iterable<Nothing>>, m : Iterable<Iterable<Nothing>>):It
 		return [[]];
 	return stepper(n,[[]]++m);
 }
-for (x in stepper(build([[],[],[],[]]),[]))
+for (x in stepper(build([[],[],[],[],[]]),[]))
 	return ["Yes"];
 return ["No"];

@@ -1,11 +1,18 @@
 # Common Subexpression Elimination (6)
 # This program does either O(n) steps if there is CSE, or O(5^n) steps without CSE);
 
+fun isEmpty(n : Iterable<Iterable<Nothing>>) : Iterable<Iterable<Nothing>> {
+	for (x in n)
+		return [[]];
+	return [];
+}
 fun build(n : Iterable<Iterable<Nothing>>) : Iterable<Iterable<Nothing>> {
 	b := [[]];
-	a := build(remove(n));
-	for (i in n)
-		b := b ++ a;
+	for (x in isEmpty(n)) {
+		a := build(remove(n));
+		for (i in n)
+			b := b ++ a;
+	}
 	return b;
 }
 fun remove(s : Iterable<Iterable<Nothing>>) : Iterable<Iterable<Nothing>> {
@@ -24,6 +31,6 @@ fun empty(s : Iterable<Iterable<Nothing>>) : Iterable<Iterable<Nothing>> {
 	}
 	return [];
 }
-for (c in empty(build([[],[],[],[]])))
+for (c in empty(build([[],[],[]])))
 	return ["No"];
 return ["Yes"];
