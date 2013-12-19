@@ -68,9 +68,11 @@ public class IrFor extends IrStatement {
 		
 		for(IrBind b : temporaryBinds){
 			// put variables at the top of fcn here:
-			context.varDecl.put(b.tuple.variableName, b.tuple.type.toC());
-			output.add(b.tuple.variableName + " = NULL;");
-			output.addAll(b.toC(context, isMain, extras));
+			if(!(context.lva && b.isDead())){
+				context.varDecl.put(b.tuple.variableName, b.tuple.type.toC());
+				output.add(b.tuple.variableName + " = NULL;");
+				output.addAll(b.toC(context, isMain, extras));
+			}
 		}
 
 		// there's a reason why these aren't IrBinds! The rhs is not really an IrFunctionCall ...
@@ -138,9 +140,12 @@ public class IrFor extends IrStatement {
 		}
 
 		output.add(tempVar);
+		output.add(tempVarInc);
+		/* Ansha was this wrong?
 		if(!context.lva || freeAfter.contains(var)){
 			output.add(tempVarInc);
 		}
+		*/
 
 		/*** vvv THE FOLLOWING IS A CODE BLOCK ***/
 		// MODIFY CONTEXT

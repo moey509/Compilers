@@ -39,7 +39,9 @@ public final class IrBind extends IrStatement {
 	}
 	
 	public void addDeclaration(ArrayList<String> arr, CGenerationContext context){
-		context.varDecl.put(tuple.variableName, "void*");
+		if(!(context.lva && isDead())){
+			context.varDecl.put(tuple.variableName, "void*");
+		}
 //		if(!context.variablesDeclaredInScope.contains(tuple.variableName)){
 //			arr.add("void* " + tuple.variableName + ";");
 //			context.variablesDeclaredInScope.add(tuple.variableName);
@@ -47,7 +49,9 @@ public final class IrBind extends IrStatement {
 	}
 	
 	public void addInitialization(ArrayList<String> arr, CGenerationContext context){
-		context.varInit.put(tuple.variableName, "NULL");
+		if(!(context.lva && isDead())){
+			context.varInit.put(tuple.variableName, "NULL");
+		}
 //		if(!context.variablesInitializedInScope.contains(tuple.variableName)){
 //			arr.add(tuple.variableName + " = NULL;");
 //			context.variablesInitializedInScope.add(tuple.variableName);
@@ -57,6 +61,9 @@ public final class IrBind extends IrStatement {
 	@Override
 	public ArrayList<String> toC(CGenerationContext context, boolean isMain, ArrayList<String> extras) {
 		//Hacky fix for Comprehensions
+		if(tuple.variableName.equals("y")){
+			System.out.println("BINDCONTEXT:" + context.varDecl);
+		}
 		ArrayList<String> output = new ArrayList<String>();
 		if(expression instanceof IrIterableComp){
 			IrIterableComp comp = (IrIterableComp)expression;
@@ -80,15 +87,19 @@ public final class IrBind extends IrStatement {
 		//output.add(tuple.type.toC() + " " + tuple.variableName + " = " + expression.toC(context) + ";");
 		for(IrBind b : temporaryBinds){
 			// put variables at the top of main() here:
-			if (isMain) {
-				context.varDecl.put(b.tuple.variableName, tuple.type.toC());
-				context.varInit.put(b.tuple.variableName, "NULL");
+			if(!(context.lva && b.isDead())){
+				if (isMain) {
+					context.varDecl.put(b.tuple.variableName, tuple.type.toC());
+					context.varInit.put(b.tuple.variableName, "NULL");
+				}
+				output.add(b.tuple.variableName + " = NULL;");
+				output.addAll(b.toC(context, isMain, extras));
 			}
-			output.add(b.tuple.variableName + " = NULL;");
-			output.addAll(b.toC(context, isMain, extras));
 		}
-		context.varDecl.put(tuple.variableName, tuple.type.toC());
-		context.varInit.put(tuple.variableName, "NULL");
+		if(!(context.lva && isDead())){
+			context.varDecl.put(tuple.variableName, tuple.type.toC());
+			context.varInit.put(tuple.variableName, "NULL");
+		}
 
 		// put everything in fcnVarDecl ->
 		// the check for whether things already exist in temporaryBinds happens in IrFunction

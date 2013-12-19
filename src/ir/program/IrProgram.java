@@ -48,7 +48,7 @@ public class IrProgram {
 		
 		// The value of this boolean depends on whether lva is turned off or on.
 //		context.lva = true;
-//		context.lva = false;
+		context.lva = false;
 		ArrayList<String> output = new ArrayList<String>();
 		ArrayList<String> preOut = new ArrayList<String>();
 		ArrayList<String> postOut = new ArrayList<String>();

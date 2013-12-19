@@ -72,8 +72,10 @@ public final class IrWhile extends IrStatement {
 			}
 		}
 		for (IrBind i : temporaryBinds) {
-			context.varDecl.put(i.tuple.variableName, i.tuple.type.toC());
-			context.varInit.put(i.tuple.variableName, "NULL");
+			if(!(context.lva && i.isDead())){
+				context.varDecl.put(i.tuple.variableName, i.tuple.type.toC());
+				context.varInit.put(i.tuple.variableName, "NULL");
+			}
 		}
 		if (isMain) {
 			for(IrStatement s : statements){
