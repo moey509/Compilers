@@ -1,7 +1,6 @@
 # Live Variable Analysis (3)
 # This tests whether live variable analysis on input is handled correctly
 
-Program:
 fun length(x: String) : Integer
 {
 	len:=0;

@@ -38,7 +38,7 @@ public class OptMain {
 //		 CharStream charStream = new ANTLRFileStream(args[0]);
 
 
-		CharStream charStream = new ANTLRFileStream("opt_tests/pa6_lva_test1.x3");
+		CharStream charStream = new ANTLRFileStream("opt_tests/pa6_cse_test7.x3");
 //		CharStream charStream = new ANTLRFileStream("opt_tests/pa6_lva_test1.x3");
 
 		CubexLexer cubLexer = new CubexLexer(charStream);
