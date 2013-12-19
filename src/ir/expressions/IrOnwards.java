@@ -16,7 +16,6 @@ public class IrOnwards extends IrUnaryExpression {
 	public String toC(CGenerationContext context) {
 		// int case
 		// new_git_int(-1, 5, 0);
-		System.out.println(expression.getCubexType());
 //		if (expression.getCType().equals("integer")) {
 			String in;
 			if (include)

@@ -350,11 +350,11 @@ public final class IrReturn extends IrStatement {
 		}  else {
 			String s1 = expression.toString();
 			String s2 = e0.toString();
-			if (!s1.equals(s2)) {
-				System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-				System.out.println("IrReturn : Condition: " + expression.toString() + " , e0: " + e0.toString());
-				System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-			}
+//			if (!s1.equals(s2)) {
+//				System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+//				System.out.println("IrReturn : Condition: " + expression.toString() + " , e0: " + e0.toString());
+//				System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+//			}
 		}
 
 		return expression;

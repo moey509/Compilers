@@ -35,10 +35,6 @@ public abstract class Comp {
 	public abstract IrComprehension toIr(IrGenerationContext context, HashMap<String, CubexTypeGrammar> extras);
 	
 	public String addStruct(IrGenerationContext context, String nestedComprehensionName, HashMap<String, CubexTypeGrammar> extras) {
-		System.out.println("struct: " + this);
-//		if(comp != null && !(this instanceof CompPair)){
-//			nestedComprehensionName = comp.addStruct(context);
-//		}
 		this.comprehensionName = context.nextComprehensionName();
 		IrComprehensionStruct struct = new IrComprehensionStruct(comprehensionName, nestedComprehensionName);
 		//TODO: Check this to make sure IrType is correct

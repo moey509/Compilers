@@ -70,8 +70,6 @@ public class CompPair extends Comp {
 		if (comp == null){
 			addStruct(context, null, extras);
 			output = new IrComprehensionPair(null, e.toIr(context), cubexType, comprehensionName, nestedComprehensionName, varList, extras);
-			System.out.println("PAIR: " + this.comprehensionName);
-			System.out.println("PAIRtoIR: " + this);
 		}
 		else{
 			IrComprehension c = comp.toIr(context, extras);

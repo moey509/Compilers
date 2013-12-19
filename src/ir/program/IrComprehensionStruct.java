@@ -40,8 +40,10 @@ public class IrComprehensionStruct implements IrProgramElem {
 		arr.add("int evaluatedValue;");
 		Set<String> varSet = new HashSet<String>();
 		for(IrTypeTuple t : structVariables){
-			arr.add(t.type.declarationInStruct() + " " + t.variableName + ";");
-			varSet.add(t.variableName);
+			if(!varSet.contains(t.variableName)){
+				arr.add(t.type.declarationInStruct() + " " + t.variableName + ";");
+				varSet.add(t.variableName);
+			}
 		}
 		//context.objectToDataMap.put(structName, varSet);
 		

@@ -38,7 +38,6 @@ public class IrComprehensionFor implements IrComprehension{
 	
 	public String toC(CGenerationContext context, String variableName) {
 		// TODO Auto-generated method stub
-		System.out.println("FOR: " + this.comprehensionName);
 		StringBuilder s = new StringBuilder();
 		structVariableName = variableName;
 		context.varDecl.put(structVariableName, this.getComprehensionName() + "_t");
@@ -51,14 +50,11 @@ public class IrComprehensionFor implements IrComprehension{
 			s.append(structVariableName + "->" + str + " = " + str + ";\n");
 		}
 		if(comp != null){
-			System.out.println("COMP SHOULD NOT BE NULL " + this.comprehensionName);
 			String nestName = context.getComprehensionStruct();
 			s.append(comp.toC(context, nestName, true));
-			System.out.println(comp.getStructVariableName());
 			s.append(structVariableName + "->_nest_comp = " + nestName + ";");
 		}
 		
-		System.out.println("--FOR, " + this.comprehensionName + " adding functions... ");
 		context.comprehensionFunctions.add(addHasNextFunction(context));
 		context.comprehensionFunctions.add(addGetNextFunction(context));
 		
@@ -67,7 +63,6 @@ public class IrComprehensionFor implements IrComprehension{
 	
 	public String toC(CGenerationContext context, String variableName, boolean embe) {
 		// TODO Auto-generated method stub
-		System.out.println("FOR: " + this.comprehensionName);
 		StringBuilder s = new StringBuilder();
 		structVariableName = variableName;
 		context.varDecl.put(structVariableName, this.getComprehensionName() + "_t");
@@ -80,14 +75,11 @@ public class IrComprehensionFor implements IrComprehension{
 			s.append(structVariableName + "->" + str + " = " + str + ";\n");
 		}
 		if(comp != null){
-			System.out.println("COMP SHOULD NOT BE NULL " + this.comprehensionName);
 			String nestName = context.getComprehensionStruct();
 			s.append(comp.toC(context, nestName, true));
-			System.out.println(comp.getStructVariableName());
 			s.append(structVariableName + "->_nest_comp = " + nestName + ";");
 		}
 		
-		System.out.println("--FOR, " + this.comprehensionName + " adding functions... ");
 		context.comprehensionFunctions.add(addHasNextFunction(context));
 		context.comprehensionFunctions.add(addGetNextFunction(context));
 		

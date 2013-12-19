@@ -58,7 +58,7 @@ public class IrGenerationContext {
 	}
 	
 	public void printGlobalVariables(){
-		System.out.println("Global Variables: " + globalVariables.toString());
+//		System.out.println("Global Variables: " + globalVariables.toString());
 	}
 	
 	public void addGlobalFunction(String function){
@@ -70,7 +70,7 @@ public class IrGenerationContext {
 	}
 	
 	public void printGlobalFunctions(){
-		System.out.println("Global Functions: " + globalFunctions.toString());
+//		System.out.println("Global Functions: " + globalFunctions.toString());
 	}
 	
 	public String getSuperType(String type){

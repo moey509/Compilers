@@ -46,7 +46,6 @@ public class IrComprehensionPair implements IrComprehension{
 	}
 	
 	public String toC(CGenerationContext context, String variableName) {
-		System.out.println("PAIRZEES: " + this.comprehensionName);
 		// TODO Auto-generated method stub
 		StringBuilder s = new StringBuilder();
 		structVariableName = variableName;
@@ -57,7 +56,6 @@ public class IrComprehensionPair implements IrComprehension{
 		s.append(structVariableName + "->hasEvaluatedOnce = " + "0;\n");
 		s.append(structVariableName + "->evaluatedValue = " + "0;\n");
 		for(String str : varList.keySet()){
-			System.out.println("VARLIST: " + varList.get(str));
 			s.append(structVariableName + "->" + str + " = " + str + ";\n");
 		}
 		if(comp != null){
@@ -65,8 +63,6 @@ public class IrComprehensionPair implements IrComprehension{
 			s.append(comp.toC(context, nestName, true));
 			s.append(structVariableName + "->_nest_comp = " + nestName + ";");
 		}
-		System.out.println("PAIRZEES: " + this.comprehensionName);
-		System.out.println("--PAIR, " + this.comprehensionName + " adding functions... ");
 		context.comprehensionFunctions.add(addHasNextFunction(context));
 		context.comprehensionFunctions.add(addGetNextFunction(context));
 		
@@ -74,7 +70,6 @@ public class IrComprehensionPair implements IrComprehension{
 	}
 	
 	public String toC(CGenerationContext context, String variableName, boolean embedded) {
-		System.out.println("PAIRZEES: " + this.comprehensionName);
 		// TODO Auto-generated method stub
 		StringBuilder s = new StringBuilder();
 		structVariableName = variableName;
@@ -85,7 +80,6 @@ public class IrComprehensionPair implements IrComprehension{
 		s.append(structVariableName + "->hasEvaluatedOnce = " + "0;\n");
 		s.append(structVariableName + "->evaluatedValue = " + "0;\n");
 		for(String str : varList.keySet()){
-			System.out.println("VARLIST: " + varList.get(str));
 			s.append(structVariableName + "->" + str + " = " + str + ";\n");
 		}
 		if(comp != null){
@@ -93,8 +87,6 @@ public class IrComprehensionPair implements IrComprehension{
 			s.append(comp.toC(context, nestName));
 			s.append(structVariableName + "->_nest_comp = " + nestName + ";");
 		}
-		System.out.println("PAIRZEES: " + this.comprehensionName);
-		System.out.println("--PAIR, " + this.comprehensionName + " adding functions... ");
 		context.comprehensionFunctions.add(addHasNextFunction(context));
 		context.comprehensionFunctions.add(addGetNextFunction(context));
 		
@@ -156,6 +148,10 @@ public class IrComprehensionPair implements IrComprehension{
 					s.append(comp.comprehension.toC(context));
 				}
 			}
+		}
+		if(expr instanceof IrIterableComp){
+			IrIterableComp comp = (IrIterableComp)expr;
+			s.append(comp.comprehension.toC(context));
 		}
 		s.append("return (void*)" + expr.toC(context) + ";\n");
 		s.append("}");

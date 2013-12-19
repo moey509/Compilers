@@ -24,11 +24,6 @@ public class IrBinaryExpression implements IrExpression {
 		this.rightExpression = rightExpression;
 		this.operator = operator;
 		this.cubexType = cubexType;
-
-		
-		if (operator.equals("&&")) {
-			System.out.println("lols");
-		}
 		
 //		// logic to determine type:
 //		if (operator.equals("+") || operator.equals("&&")
@@ -127,8 +122,6 @@ public class IrBinaryExpression implements IrExpression {
 					+ rightExpression.toC(context) + ", 0, 0)";
 		}
 		else {
-			System.out.println("Cubex Type: " + leftExpression.getCubexType());
-
 			throw new RuntimeException("no such operator (" + operator+") with type " + operator +" and cubexType " +
 			cubexType);
 		}

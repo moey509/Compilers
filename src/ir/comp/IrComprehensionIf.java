@@ -35,7 +35,6 @@ public class IrComprehensionIf implements IrComprehension{
 	
 	public String toC(CGenerationContext context, String variableName) {
 		// TODO Auto-generated method stub
-		System.out.println("IF: " + this.comprehensionName);
 		StringBuilder s = new StringBuilder();
 		structVariableName = variableName;
 		context.varDecl.put(structVariableName, this.getComprehensionName() + "_t");
@@ -53,7 +52,6 @@ public class IrComprehensionIf implements IrComprehension{
 			s.append(structVariableName + "->_nest_comp = " + nestName + ";");
 		}
 		
-		System.out.println("--IF, " + this.comprehensionName + " adding functions... ");
 		context.comprehensionFunctions.add(addHasNextFunction(context));
 		context.comprehensionFunctions.add(addGetNextFunction(context));
 		
@@ -61,7 +59,6 @@ public class IrComprehensionIf implements IrComprehension{
 	}
 	public String toC(CGenerationContext context, String variableName, boolean embedded) {
 		// TODO Auto-generated method stub
-		System.out.println("IF: " + this.comprehensionName);
 		StringBuilder s = new StringBuilder();
 		structVariableName = variableName;
 		context.varDecl.put(structVariableName, this.getComprehensionName() + "_t");
@@ -79,7 +76,6 @@ public class IrComprehensionIf implements IrComprehension{
 			s.append(structVariableName + "->_nest_comp = " + nestName + ";");
 		}
 		
-		System.out.println("--If, " + this.comprehensionName + " adding functions... ");
 		context.comprehensionFunctions.add(addHasNextFunction(context));
 		context.comprehensionFunctions.add(addGetNextFunction(context));
 		
