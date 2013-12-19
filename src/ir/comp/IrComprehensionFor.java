@@ -171,7 +171,7 @@ public class IrComprehensionFor implements IrComprehension{
 		StringBuilder s = new StringBuilder();
 		s.append("void* " + comprehensionName + "_getNext(" + comprehensionName + "_t __comp){\n");
 		s.append("if(" + nestedComprehensionName + "_hasNext(__comp->_nest_comp) == 1){\n");		
-		s.append("return " + nestedComprehensionName + "_hasNext(__comp->_nest_comp);\n");
+		s.append("return " + nestedComprehensionName + "_getNext(__comp->_nest_comp);\n");
 		s.append("}\n");
 		s.append("}\n");
 		return s.toString();
