@@ -61,9 +61,6 @@ public final class IrBind extends IrStatement {
 	@Override
 	public ArrayList<String> toC(CGenerationContext context, boolean isMain, ArrayList<String> extras) {
 		//Hacky fix for Comprehensions
-		if(tuple.variableName.equals("y")){
-			System.out.println("BINDCONTEXT:" + context.varDecl);
-		}
 		ArrayList<String> output = new ArrayList<String>();
 		if(expression instanceof IrIterableComp){
 			IrIterableComp comp = (IrIterableComp)expression;
@@ -86,15 +83,17 @@ public final class IrBind extends IrStatement {
 
 		//output.add(tuple.type.toC() + " " + tuple.variableName + " = " + expression.toC(context) + ";");
 		for(IrBind b : temporaryBinds){
-			// put variables at the top of main() here:
-			if(!(context.lva && b.isDead())){
-				if (isMain) {
+			// put variables at the top of main() here
+			if (isMain) {
+				if(!(context.lva && b.isDead())){
 					context.varDecl.put(b.tuple.variableName, tuple.type.toC());
 					context.varInit.put(b.tuple.variableName, "NULL");
 				}
-				output.add(b.tuple.variableName + " = NULL;");
-				output.addAll(b.toC(context, isMain, extras));
 			}
+			if(!(context.lva && b.isDead())){
+				output.add(b.tuple.variableName + " = NULL;");
+			}
+			output.addAll(b.toC(context, isMain, extras));
 		}
 		if(!(context.lva && isDead())){
 			context.varDecl.put(tuple.variableName, tuple.type.toC());
@@ -107,12 +106,9 @@ public final class IrBind extends IrStatement {
 		//			context.varDecl.put(tuple.variableName, tuple.type.toC());
 		//		}
 		if(context.lva && hasFreeBefore){
-			if(hasFreeBefore){
-				for(String s : freeBefore){
-					//					System.out.println("FREE BEFORE: " + s);
-					output.add("ref_decrement((General_t)" + s + ");");
-					output.add(s + " = NULL;");
-				}
+			for(String s : freeBefore){
+				output.add("ref_decrement((General_t)" + s + ");");
+				output.add(s + " = NULL;");
 			}
 		}
 		if(!(context.lva && isDead())){

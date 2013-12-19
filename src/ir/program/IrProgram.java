@@ -47,7 +47,7 @@ public class IrProgram {
 //		CGenerationContext context = new CGenerationContext();
 		
 		// The value of this boolean depends on whether lva is turned off or on.
-		context.lva = true;
+//		context.lva = true;
 //		context.lva = false;
 		ArrayList<String> output = new ArrayList<String>();
 		ArrayList<String> preOut = new ArrayList<String>();
