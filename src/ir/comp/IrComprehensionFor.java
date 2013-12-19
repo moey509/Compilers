@@ -18,12 +18,13 @@ public class IrComprehensionFor implements IrComprehension{
 	public String nestedComprehensionName;
 	public String structVariableName;
 	public HashMap<String, CubexTypeGrammar> varList;
+	public HashMap<String, CubexTypeGrammar> extras;
 	public HashMap<String, String> varMap = new HashMap<String, String>();
 	
 	public CubexTypeGrammar cubexType;
 	
 	public IrComprehensionFor(IrComprehension comp, IrExpression expression,
-			String variableName, CubexTypeGrammar cubexType, String comprehensionName, String nestedComprehensionName, HashMap<String, CubexTypeGrammar> varList) {
+			String variableName, CubexTypeGrammar cubexType, String comprehensionName, String nestedComprehensionName, HashMap<String, CubexTypeGrammar> varList, HashMap<String, CubexTypeGrammar> extras) {
 		this.comp = comp;
 		this.expression = expression;
 		this.variableName = variableName;
@@ -31,6 +32,7 @@ public class IrComprehensionFor implements IrComprehension{
 		this.comprehensionName = comprehensionName;
 		this.nestedComprehensionName = nestedComprehensionName;
 		this.varList = varList;
+		this.extras = extras;
 	}
 
 	
@@ -138,6 +140,9 @@ public class IrComprehensionFor implements IrComprehension{
 			for(String str : varList.keySet()){
 				s.append("__comp->_nest_comp->" + str + " = __comp->" + str + ";\n");
 			}
+			for(String str : extras.keySet()){
+				s.append("__comp->_nest_comp->" + str + " = __comp->" + str + ";\n");
+			}
 			s.append("__comp->_nest_comp->" + variableName + "= getNext(__comp->_iterator);\n");
 			s.append("if(" + nestedComprehensionName + "_hasNext(__comp->_nest_comp) == 1){return 1;}\n");		
 		}
@@ -160,6 +165,9 @@ public class IrComprehensionFor implements IrComprehension{
 				for(String str : varList.keySet()){
 					s.append("__comp->_nest_comp->" + str + " = __comp->" + str + ";\n");
 				}
+				for(String str : extras.keySet()){
+					s.append("__comp->_nest_comp->" + str + " = __comp->" + str + ";\n");
+				}
 				s.append("__comp->_nest_comp->" + variableName + "= getNext(__comp->_iterator);\n");
 				s.append("if(" + nestedComprehensionName + "_hasNext(__comp->_nest_comp) == 1){return 1;}\n");		
 			}
@@ -171,10 +179,8 @@ public class IrComprehensionFor implements IrComprehension{
 	}
 	public String addGetNextFunction(CGenerationContext context){
 		StringBuilder s = new StringBuilder();
-		s.append("void* " + comprehensionName + "_getNext(" + comprehensionName + "_t __comp){\n");
-		s.append("if(" + nestedComprehensionName + "_hasNext(__comp->_nest_comp) == 1){\n");		
+		s.append("void* " + comprehensionName + "_getNext(" + comprehensionName + "_t __comp){\n");	
 		s.append("return " + nestedComprehensionName + "_getNext(__comp->_nest_comp);\n");
-		s.append("}\n");
 		s.append("}\n");
 		return s.toString();
 	}

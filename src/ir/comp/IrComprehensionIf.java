@@ -17,18 +17,20 @@ public class IrComprehensionIf implements IrComprehension{
 	public String nestedComprehensionName;
 	public String structVariableName;
 	public HashMap<String, CubexTypeGrammar> varList;
+	public HashMap<String, CubexTypeGrammar> extras;
 	public HashMap<String, String> varMap = new HashMap<String, String>();
 	
 	public CubexTypeGrammar cubexType;
 	
 	public IrComprehensionIf(IrComprehension comp, IrExpression expression,
-			CubexTypeGrammar cubexType, String comprehensionName, String nestedComprehensionName, HashMap<String, CubexTypeGrammar> varList) {
+			CubexTypeGrammar cubexType, String comprehensionName, String nestedComprehensionName, HashMap<String, CubexTypeGrammar> varList, HashMap<String, CubexTypeGrammar> extras) {
 		this.comp = comp;
 		this.expression = expression;
 		this.cubexType = cubexType;
 		this.comprehensionName = comprehensionName;
 		this.nestedComprehensionName = nestedComprehensionName;
 		this.varList = varList;
+		this.extras = extras;
 	}
 	
 	public String toC(CGenerationContext context, String variableName) {
@@ -115,6 +117,9 @@ public class IrComprehensionIf implements IrComprehension{
 			for(String str : varList.keySet()){
 				s.append("__comp->_nest_comp->" + str + " = __comp->" + str + ";\n");
 			}
+			for(String str : extras.keySet()){
+				s.append("__comp->_nest_comp->" + str + " = __comp->" + str + ";\n");
+			}
 		}
 		s.append("}\n");
 		
@@ -136,9 +141,7 @@ public class IrComprehensionIf implements IrComprehension{
 		StringBuilder s = new StringBuilder();
 		s.append("int " + comprehensionName + "_getNext(" + comprehensionName + "_t __comp){\n");
 		if(nestedComprehensionName != null){
-			s.append("if(" + nestedComprehensionName + "_hasNext(__comp->_nest_comp) == 1){\n");
 			s.append("return " + nestedComprehensionName + "_getNext(__comp->_nest_comp);\n");
-			s.append("}");
 		}
 		else{
 			s.append("return NULL;\n");

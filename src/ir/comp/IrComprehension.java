@@ -1,7 +1,9 @@
 package ir.comp;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import parsingTokens.typeGrammar.CubexTypeGrammar;
 import typeChecker.IrGenerationContext;
 import ir.CGenerationContext;
 import ir.statements.IrBind;

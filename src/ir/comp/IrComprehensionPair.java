@@ -21,18 +21,20 @@ public class IrComprehensionPair implements IrComprehension{
 	public String nestedComprehensionName;
 	public String structVariableName;
 	public HashMap<String, CubexTypeGrammar> varList;
+	public HashMap<String, CubexTypeGrammar> extras;
 	public HashMap<String, String> varMap = new HashMap<String, String>();
 	
 	public CubexTypeGrammar cubexType;
 	
 	public IrComprehensionPair(IrComprehension comp, IrExpression expr,
-			CubexTypeGrammar cubexType, String comprehensionName, String nestedComprehensionName, HashMap<String, CubexTypeGrammar> varList) {
+			CubexTypeGrammar cubexType, String comprehensionName, String nestedComprehensionName, HashMap<String, CubexTypeGrammar> varList,HashMap<String, CubexTypeGrammar> extras) {
 		this.comp = comp;
 		this.expr = expr;
 		this.cubexType = cubexType;
 		this.comprehensionName = comprehensionName;
 		this.nestedComprehensionName = nestedComprehensionName;
 		this.varList = varList;
+		this.extras = extras;
 	}
 
 	public String toC(CGenerationContext context) {
@@ -119,6 +121,9 @@ public class IrComprehensionPair implements IrComprehension{
 			for(String str : varList.keySet()){
 				s.append("__comp->_nest_comp->" + str + " = __comp->" + str + ";\n");
 			}
+			for(String str : extras.keySet()){
+				s.append("__comp->_nest_comp->" + str + " = __comp->" + str + ";\n");
+			}
 		}
 		s.append("return 1;\n");
 		s.append("}\n");
@@ -158,9 +163,7 @@ public class IrComprehensionPair implements IrComprehension{
 		//See if we can get an element from farther down in the list of comprehensions
 		//ex: [e,e,e,c]
 		if(nestedComprehensionName != null){
-			s.append("if(" + nestedComprehensionName + "_hasNext(__comp->_nest_comp) == 1){\n");
 			s.append("return " + nestedComprehensionName + "_getNext(__comp->_nest_comp);\n");
-			s.append("}");
 		}
 		else{
 			s.append("return NULL;\n");

@@ -3,15 +3,20 @@ output := [];
 for (j in evens){
 	if (j == 2) {
 		output := output++["2"];
-	} if (j == 4) {
+	} 
+	if (j == 4) {
 		output := output++["4"];
-	} if (j == 6) {
+	} 
+	if (j == 6) {
 		output := output++["6"];
-	} if (j == 8) {
+	} 
+	if (j == 8) {
 		output := output++["8"];
-	} if (j == 10) {
+	} 
+	if (j == 10) {
 		output := output++["10"];
-	} else {
+	} 
+	else {
 		output := output++["This should not appear"];
 	}
 }
