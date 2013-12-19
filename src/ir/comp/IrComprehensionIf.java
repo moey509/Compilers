@@ -111,6 +111,10 @@ public class IrComprehensionIf implements IrComprehension{
 		s.append("__comp->evaluatedValue = 1;\n");
 		s.append("__comp->hasEvaluatedOnce = 1;\n");
 		s.append("}\n");
+		s.append("else{\n");
+		s.append("__comp->evaluatedValue = 0;\n");
+		s.append("__comp->hasEvaluatedOnce = 1;\n");
+		s.append("}\n");
 		//Need to reset the future comprehensions
 		if(comp != null){
 			s.append("__comp->_nest_comp->hasEvaluatedOnce = 0;\n");
