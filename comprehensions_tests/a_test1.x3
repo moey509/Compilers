@@ -1,1 +1,1 @@
-return [for (i in "a") "hello"];
+return ["hello", if (true) "world", if (false) "!", "!!"];
