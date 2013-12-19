@@ -1,10 +1,197 @@
 test
+--- ../cg_tests/autotest/c_stage1_test7.x3
+Hello
+World!
+---FINAL COUNT: 0
+~~~~~~~
+
 --- ../cg_tests/autotest/c_stage1_test3.x3
 TRUE
 ---FINAL COUNT: 0
 ~~~~~~~
 
+--- ../cg_tests/autotest/c_stage1_test1.x3
+The Return Value.
+---FINAL COUNT: 0
+~~~~~~~
+
+--- ../cg_tests/autotest/c_stage1_test8.x3
+What
+Up
+Tho?
+---FINAL COUNT: 0
+~~~~~~~
+
 --- ../cg_tests/autotest/c_stage1_test2.x3
+---FINAL COUNT: 0
+~~~~~~~
+
+--- ../cg_tests/autotest/c_stage1_test6.x3
+C
+---FINAL COUNT: 0
+~~~~~~~
+
+--- ../cg_tests/autotest/c_stage1_test9.x3
+tffttt
+---FINAL COUNT: 0
+~~~~~~~
+
+--- ../cg_tests/autotest/c_stage1_test5.x3
+ab
+---FINAL COUNT: 0
+~~~~~~~
+
+--- ../cg_tests/autotest/c_stage1_test4.x3
+one
+line.
+---FINAL COUNT: 0
+~~~~~~~
+
+--- ../cg_tests/autotest/c_stage1_test10.x3
+fffttt
+---FINAL COUNT: 0
+~~~~~~~
+
+--- ../cg_tests/autotest/c_stage2_test5.x3
+world
+hello
+---FINAL COUNT: 0
+~~~~~~~
+
+--- ../cg_tests/autotest/c_stage2_test7a.x3
+
+---FINAL COUNT: 0
+~~~~~~~
+
+--- ../cg_tests/autotest/c_stage2_test3.x3
+z
+y
+x
+w
+v
+u
+t
+s
+r
+q
+p
+o
+n
+m
+l
+k
+j
+i
+h
+g
+f
+e
+d
+c
+b
+a
+---FINAL COUNT: 0
+~~~~~~~
+
+--- ../cg_tests/autotest/c_stage2_test8.x3
+Hello World!
+---FINAL COUNT: 0
+~~~~~~~
+
+--- ../cg_tests/autotest/c_stage2_test1.x3
+b
+d
+f
+g
+k
+l
+m
+---FINAL COUNT: 0
+~~~~~~~
+
+--- ../cg_tests/autotest/c_stage2_test7.x3
+true != false
+56 != 65
+a == a
+s == s
+s == s
+o == o
+as == as
+as != so
+so != as
+so == so
+---FINAL COUNT: 0
+~~~~~~~
+
+--- ../cg_tests/autotest/c_stage2_test6.x3
+B
+---FINAL COUNT: 0
+~~~~~~~
+
+--- ../cg_tests/autotest/c_stage2_test2.x3
+yes
+---FINAL COUNT: 0
+~~~~~~~
+
+--- ../cg_tests/autotest/c_stage2_test4.x3
+Print this line before reading the input.
+Print this one before reading, too.
+lalala
+---FINAL COUNT: 0
+~~~~~~~
+
+--- ../cg_tests/autotest/c_stage3_test3.x3
+Yes.
+---FINAL COUNT: 0
+~~~~~~~
+
+--- ../cg_tests/autotest/c_stage3_test5.x3
+Yeah, we good!
+---FINAL COUNT: 0
+~~~~~~~
+
+--- ../cg_tests/autotest/c_stage3_test2.x3
+Hi World!
+---FINAL COUNT: 0
+~~~~~~~
+
+--- ../cg_tests/autotest/c_stage3_test4.x3
+123456789abcd
+---FINAL COUNT: 0
+~~~~~~~
+
+--- ../cg_tests/autotest/c_stage3_test1.x3
+should be in here!
+
+36, 37, 38, 39, 40, 36, 37, 38, 39, 40, 36, 37, 38, 39, 40, 
+---FINAL COUNT: 0
+~~~~~~~
+
+--- ../cg_tests/autotest/c_stage4_test2.x3
+I'm true
+I'm false
+---FINAL COUNT: 0
+~~~~~~~
+
+--- ../cg_tests/autotest/c_stage4_test1.x3
+olleh
+dlrow
+---FINAL COUNT: 0
+~~~~~~~
+
+--- ../cg_tests/autotest/c_stage5_test3.x3
+~~~~~~~
+
+--- ../cg_tests/autotest/c_stage5_test4.x3
+~~~~~~~
+
+--- ../cg_tests/autotest/c_stage5_test1.x3
+Hello World!XY
+---FINAL COUNT: 0
+~~~~~~~
+
+--- ../cg_tests/autotest/c_stage5_test2.x3
+You didn't read the input :(
 ---FINAL COUNT: 0
 ~~~~~~~
 
