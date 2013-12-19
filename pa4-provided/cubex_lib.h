@@ -14,7 +14,9 @@ typedef struct Character * Character_t;
 typedef struct Boolean * Boolean_t;
 typedef void* (*functionPointer)();
 
-
+void ref_decrement(General_t gen);
+void ref_decrement_no_free(General_t gen);
+void ref_increment(General_t gen);
 
 struct General {
   int ref_count;
@@ -130,6 +132,7 @@ nit_t new_nit() {
   n->con_comp = NULL;
   n->is_iter = 0;
   n->is_thru_ward = 0;
+  return n;
 }
 
 Character_t new_character(int input) {  
@@ -173,8 +176,9 @@ Boolean_t new_boolean(int input) {
 
 
 iterator_t new_iterator (git_t g) {
+  iterator_t it;
   if (g == NULL) return NULL;
-  iterator_t it = (iterator_t) x3malloc(sizeof(struct iterator));
+  it = (iterator_t) x3malloc(sizeof(struct iterator));
 
   it->ref_count = 0;
   it->fun_names = NULL;
@@ -196,10 +200,8 @@ iterator_t new_iterator (git_t g) {
 
 /* function look up: given a class struct and the name of a function
  *     , will return a function pointer to the appropriate function */
-functionPointer function_lookup (General_t gen, char * function_name    ) {
-  int error;
-  int length;
-  int temp;
+functionPointer function_lookup (General_t gen, char * function_name    ) {  
+  int length;  
   char** arr;
   functionPointer * pointers;
   int i;
@@ -207,14 +209,12 @@ functionPointer function_lookup (General_t gen, char * function_name    ) {
   int eof;
   char* name;
   char c1;
-  char c2;
+  char c2;  
   /* error checking... */
-  if (gen == NULL) {
-    error = 1;
+  if (gen == NULL) {    
     return NULL;
   }
-  if (function_name == NULL) {
-    error = 2;
+  if (function_name == NULL) {    
     return NULL;
   }
   
@@ -347,7 +347,7 @@ int hasNext(iterator_t it) {
     /*  through case */
     if (n->status == 0) {      
       if (it->cur > n->high) {
-        printf ("should be in here!\n");
+        
         it->g = g->next;
         it->set = 0;
         return hasNext(it);
@@ -364,7 +364,7 @@ int hasNext(iterator_t it) {
     /* check the dummy case */
     if (g->dummy == 1) {
       /* check if there's anything left */
-      if ((it->lazy_block->lazy_has_next)(it->lazy_block->val) == 1) {
+      if ((it->lazy_block->lazy_has_next)(it->lazy_block->val) == (void*)1) {
         return 1;
       }
       else {
@@ -387,30 +387,13 @@ void* getNext(iterator_t it) {
   git_t new_git;
   Integer_t integer;
   git_t g;
-  nit_t n;
-  iterator_t new_it;
-  iterator_t temp_it;
+  nit_t n;  
 
   if (it == NULL) {
     return NULL;
   }  
 
-  /*
-  if (it->g == NULL) {    
-    /* if there is a linked iterator still available, do that 
-    if (it->chained_it != NULL) {
-      /* swap the value of it and free the extra iterator *          
-      temp_it = (iterator_t) x3malloc (sizeof (struct iterator));
-      *temp_it = *(it->chained_it);
-      *(it->chained_it) = *it;
-      *it = *(it->chained_it);
-      x3free(temp_it);
-      x3free(it->chained_it);      
-      
-      return getNext(it->chained_it);
-    }
-  }
-*/
+ 
   /* if no more elements, check regular loop */
   if (it->g == NULL) {
     /* check the lazy block */
@@ -427,29 +410,7 @@ void* getNext(iterator_t it) {
   g = it->g;
 
   /* lazy case */
-  if (g->is_lazy) {       
-    /* check for a null "lazy" field, if so try to fill it *
-    if (g->lazy == NULL) {      
-      /* lazy_function should return us a git object 
-      temp_git = (g->lazy_function)(g);      
-      if (temp_git != NULL) {
-        g->lazy = temp_git;        
-      }            
-    }
-    */
-
-    /* create a temp iterator and replace the current one with new one 
-    new_it = new_iterator(g->lazy);
-    /* swap the iterators *
-    temp_it = (iterator_t) x3malloc (sizeof (struct iterator));
-    *temp_it = *new_it;
-    *new_it = *it;
-    *it = *temp_it;
-    x3free(temp_it);
-
-    /* initialize certain fields *
-    it->lazy_block = g;
-    it->chained_it = new_it;  */
+  if (g->is_lazy) {         
 
     /* initialize certain fields */
     it->lazy_block = g;
@@ -496,11 +457,11 @@ void* getNext(iterator_t it) {
     /* check to see if we're at a dummy node */
     if (g->dummy == 1) {
       /* check if theres anything left */
-      if ((it->lazy_block->lazy_has_next)(it->lazy_block->val) == 1) {
+      if ((it->lazy_block->lazy_has_next)(it->lazy_block->val) == (void*)1) {
         new_git = new_git_obj((it->lazy_block->lazy_get_next)(it->lazy_block->val));
 
         /* swap g and new_git */
-        temp_git = (iterator_t) x3malloc (sizeof (struct git));
+        temp_git = (git_t) x3malloc (sizeof (struct git));
         *temp_git = *new_git;
         *new_git = *g;
         *g = *temp_git;
@@ -533,7 +494,6 @@ git_t iterable_append (git_t first, git_t second) {
   git_t temp;
   git_t itr;
   git_t prev = NULL;
-  git_t new_lazy;
   g = NULL;
 
   /* regular cases */
@@ -592,7 +552,7 @@ git_t iterable_append (git_t first, git_t second) {
     temp->storage = itr->storage;
 
     temp->lazy = itr->lazy;
-    temp->is_lazy = itr->lazy;
+    temp->is_lazy = itr->is_lazy;
     temp->lazy_has_next = itr->lazy_has_next;
     temp->lazy_get_next = itr->lazy_get_next;  
     temp->dummy = itr->dummy;
@@ -665,13 +625,11 @@ void memery_kopee(char* src, char* dst, int length) {
 
 void free_name_array(General_t gen) {
   int length;
-  int i;
-  char* arr;
+  int i;  
   if (gen == NULL) {
     return;
   }
-  length = gen->fun_length;
-  arr = gen->fun_names;
+  length = gen->fun_length;  
   /*x3free(gen->fun_names[0]);*/
   for (i = 0; i < length; i++) {
     x3free((gen->fun_names)[i]);
@@ -684,16 +642,16 @@ void decrement_iterable(git_t g) {
   git_t temp;
   itr = g;
   while (itr != NULL) {
-    ref_decrement (itr->val);
+    ref_decrement ((General_t)(itr->val));
     temp = itr;
     itr = itr->next;
     temp->ref_count -= 1;
     if (temp->ref_count <= 0) {  
       if (temp->fun_length > 0) {
-        (function_lookup (temp, "__kill"))(temp);
+        (function_lookup ((General_t)temp, "__kill"))(temp);
       }
       if (temp->fun_names != NULL) {  
-        free_name_array(temp);      
+        free_name_array((General_t)temp);      
         x3free(temp->fun_names);  
       }
       if (temp->fun_ptrs != NULL) {      
@@ -720,7 +678,6 @@ void decrement_iterable_no_free(git_t g) {
 
 void increment_iterable(git_t g) {
   git_t itr;
-  git_t temp;
   itr = g;
   while (itr != NULL) {
     ref_increment (itr->val);
@@ -735,7 +692,7 @@ void ref_decrement(General_t gen) {
     return;
   }
   if (gen->is_iter) {
-    decrement_iterable (gen);
+    decrement_iterable ((git_t)gen);
     return;
   }
   gen->ref_count -= 1;
@@ -762,7 +719,7 @@ void ref_decrement_no_free(General_t gen) {
   if (gen == NULL) 
     return;
   if (gen->is_iter) {
-    decrement_iterable_no_free (gen);
+    decrement_iterable_no_free ((git_t)gen);
     return;
   }
   gen->ref_count -= 1;
@@ -773,7 +730,7 @@ void ref_increment(General_t gen) {
   if (gen == NULL)
     return;
   if (gen->is_iter) {
-    increment_iterable (gen);
+    increment_iterable ((git_t)gen);
     return;
   }
   gen->ref_count += 1;
@@ -821,7 +778,7 @@ char* charToString(git_t g) {
 git_t stringToIterableHelper(char* buf, int offset) {
   Character_t c;
   git_t g;
-  git_t temp;
+  
   if (buf[offset] == '\0') {
     return NULL;
   }
@@ -933,7 +890,7 @@ Boolean_t General_equals (General_t g1, General_t g2) {
 
   /* check to see if it is a string compare */
   if (g1->is_thru_ward == 3) {
-    return String_equals(g1, g2);
+    return String_equals((git_t)g1, (git_t)g2);
   }
   if (g1->value == g2->value)
     ans = 1;
@@ -1091,19 +1048,19 @@ Boolean_t Boolean_lessThan(Boolean_t b1, Boolean_t b2, int strict) {
 git_t General_through (General_t g1, General_t g2, int include1, int include2) {
   /* integer: 1, boolean 2 */
   if (g1->is_thru_ward == 1){    
-    return Integer_through (g1, g2, include1, include2);
+    return Integer_through ((Integer_t)g1, (Integer_t)g2, include1, include2);
   }
   else {
-    return Boolean_through (g1, g2, include1, include2);
+    return Boolean_through ((Boolean_t)g1, (Boolean_t)g2, include1, include2);
   }
 }
 
 git_t General_onwards (General_t g1, int include1) {
  /* integer: 1, boolean 2 */
   if (g1->is_thru_ward == 1)
-    return Integer_onwards (g1, include1);
+    return Integer_onwards ((Integer_t)g1, include1);
   else
-    return Boolean_onwards (g1, include1); 
+    return Boolean_onwards ((Boolean_t)g1, include1); 
 }
 
 General_t Thing(){  
@@ -1119,50 +1076,6 @@ General_t Thing(){
   return __struct;
 }
 
-/* prints out a single string */
-void toString(git_t g) {
-  int count = 5;
-  char * buffer;
-  if (g == NULL) {
-    printf ("[null]\n");
-    return;
-  }
-  iterator_t it;
-  it = new_iterator(g);
-  git_t c;
-  git_t temp = g;   
-
-  while (temp != NULL) {    
-    printf ("--> %c\n", ((Character_t)temp->val)->value);
-    temp = temp->next;
-     /*count -= 1;*/    
-  }
-  printf ("[null]\n");
-}
-
-/* prints out a list of strings */
-void totoString(git_t g) {
-  char * buffer;
-  if (g == NULL) {
-    printf ("[null]\n");
-    return;
-  }
-  iterator_t it;
-  it = new_iterator(g);
-  git_t c;  
-  git_t itr = g;
-  while (itr != NULL) {  
-    
-    if (g->is_lazy == 1) {
-      totoString(g->lazy);
-    }
-
-    buffer = charToString(itr->val);
-    printf ("--> %s\n", buffer);     
-    itr = itr->next;
-  }
-  printf ("[NULL]\n");
-}
 
 
 Character_t _character(Integer_t i) {
@@ -1186,8 +1099,7 @@ int _lazy_input_has(void* lazy_block) {
 
 git_t _lazy_input_get(void* lazy_block) {
   char* buf;
-  git_t string;
-  git_t temp = NULL;
+  git_t string;  
   int len;
   
   if (next_line_len() <= 0) {
@@ -1197,7 +1109,7 @@ git_t _lazy_input_get(void* lazy_block) {
   buf = (char*)x3malloc(sizeof(char) * (len+1));  
   read_line(buf);    
   buf[len] = '\0';
-  printf ("buffer: %s, length: %d\n", buf, len);
+/*   printf ("buffer: %s, length: %d\n", buf, len); */
   string = stringToIterable(buf);
   x3free(buf);  
   /*
@@ -1210,8 +1122,7 @@ git_t _lazy_input_get(void* lazy_block) {
 git_t get_input () {
   char * buf;
   int len;
-  git_t temp;
-  git_t temp2;
+  git_t temp;  
   git_t cur;
   git_t string;
   git_t head = NULL;  
