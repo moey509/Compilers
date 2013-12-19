@@ -64,6 +64,7 @@ public class IrComprehensionPair implements IrComprehension{
 			s.append(structVariableName + "->_nest_comp = " + nestName + ";");
 		}
 		System.out.println("PAIRZEES: " + this.comprehensionName);
+		System.out.println("--PAIR, " + this.comprehensionName + " adding functions... ");
 		context.comprehensionFunctions.add(addHasNextFunction(context));
 		context.comprehensionFunctions.add(addGetNextFunction(context));
 		
@@ -91,6 +92,7 @@ public class IrComprehensionPair implements IrComprehension{
 			s.append(structVariableName + "->_nest_comp = " + nestName + ";");
 		}
 		System.out.println("PAIRZEES: " + this.comprehensionName);
+		System.out.println("--PAIR, " + this.comprehensionName + " adding functions... ");
 		context.comprehensionFunctions.add(addHasNextFunction(context));
 		context.comprehensionFunctions.add(addGetNextFunction(context));
 		

@@ -69,8 +69,6 @@ public class CGenerationContext {
 	}
 	int comprehensionCount = 0;
 	private int getComprehensionCount() {
-		// TODO Auto-generated method stub
-		
 		return comprehensionCount++;
 	}
 	

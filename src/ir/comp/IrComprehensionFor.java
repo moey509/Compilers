@@ -49,12 +49,14 @@ public class IrComprehensionFor implements IrComprehension{
 			s.append(structVariableName + "->" + str + " = " + str + ";\n");
 		}
 		if(comp != null){
-			System.out.println("COMP SHOULD NOT BE NULL");
+			System.out.println("COMP SHOULD NOT BE NULL " + this.comprehensionName);
 			String nestName = context.getComprehensionStruct();
 			s.append(comp.toC(context, nestName, true));
 			System.out.println(comp.getStructVariableName());
 			s.append(structVariableName + "->_nest_comp = " + nestName + ";");
 		}
+		
+		System.out.println("--FOR, " + this.comprehensionName + " adding functions... ");
 		context.comprehensionFunctions.add(addHasNextFunction(context));
 		context.comprehensionFunctions.add(addGetNextFunction(context));
 		
@@ -76,12 +78,14 @@ public class IrComprehensionFor implements IrComprehension{
 			s.append(structVariableName + "->" + str + " = __comp->" + str + ";\n");
 		}
 		if(comp != null){
-			System.out.println("COMP SHOULD NOT BE NULL");
+			System.out.println("COMP SHOULD NOT BE NULL " + this.comprehensionName);
 			String nestName = context.getComprehensionStruct();
 			s.append(comp.toC(context, nestName, true));
 			System.out.println(comp.getStructVariableName());
 			s.append(structVariableName + "->_nest_comp = " + nestName + ";");
 		}
+		
+		System.out.println("--FOR, " + this.comprehensionName + " adding functions... ");
 		context.comprehensionFunctions.add(addHasNextFunction(context));
 		context.comprehensionFunctions.add(addGetNextFunction(context));
 		
@@ -166,8 +170,7 @@ public class IrComprehensionFor implements IrComprehension{
 	public String addGetNextFunction(CGenerationContext context){
 		StringBuilder s = new StringBuilder();
 		s.append("void* " + comprehensionName + "_getNext(" + comprehensionName + "_t __comp){\n");
-		s.append("if(" + nestedComprehensionName + "_hasNext(__comp->_nest_comp) == 1){\n");
-		s.append(comp.toC(context, true));
+		s.append("if(" + nestedComprehensionName + "_hasNext(__comp->_nest_comp) == 1){\n");		
 		s.append("return " + nestedComprehensionName + "_hasNext(__comp->_nest_comp);\n");
 		s.append("}\n");
 		s.append("}\n");

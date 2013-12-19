@@ -50,6 +50,8 @@ public class IrComprehensionIf implements IrComprehension{
 			s.append(comp.toC(context, nestName, true));
 			s.append(structVariableName + "->_nest_comp = " + nestName + ";");
 		}
+		
+		System.out.println("--IF, " + this.comprehensionName + " adding functions... ");
 		context.comprehensionFunctions.add(addHasNextFunction(context));
 		context.comprehensionFunctions.add(addGetNextFunction(context));
 		
@@ -74,6 +76,8 @@ public class IrComprehensionIf implements IrComprehension{
 			s.append(comp.toC(context, nestName, true));
 			s.append(structVariableName + "->_nest_comp = " + nestName + ";");
 		}
+		
+		System.out.println("--If, " + this.comprehensionName + " adding functions... ");
 		context.comprehensionFunctions.add(addHasNextFunction(context));
 		context.comprehensionFunctions.add(addGetNextFunction(context));
 		
