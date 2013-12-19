@@ -71,8 +71,8 @@ public class IrFor extends IrStatement {
 			if(!(context.lva && b.isDead())){
 				context.varDecl.put(b.tuple.variableName, b.tuple.type.toC());
 				output.add(b.tuple.variableName + " = NULL;");
-				output.addAll(b.toC(context, isMain, extras));
 			}
+				output.addAll(b.toC(context, isMain, extras));
 		}
 
 		// there's a reason why these aren't IrBinds! The rhs is not really an IrFunctionCall ...
@@ -105,14 +105,12 @@ public class IrFor extends IrStatement {
 			if(hasFreeBefore){
 				for(String s : freeBefore){
 					if (!s.equals(var)) {
-	//					System.out.println("Free Before For: " + s);
 						output.add("ref_decrement((General_t)" + s + ");");
 						output.add(s + " = NULL;");
 					}
 				}
 			}
 			for(String s : inMinusOut()){
-//				System.out.println("Free inMinusOut For: " + s);
 				output.add("ref_decrement((General_t)" + s + ");");
 				output.add(s + " = NULL;");
 			}

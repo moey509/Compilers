@@ -65,7 +65,6 @@ public final class IrReturn extends IrStatement {
 			iterator = "_it" + cur_iterator;
 			context.varDecl.put(iterator, "iterator_t"); 
 			
-			//System.out.println("Expression: " + expression);
 			if(expression instanceof IrIterableComp){
 				IrIterableComp comp = (IrIterableComp)expression;
 				if (comp.comprehension!=null) {
@@ -91,21 +90,19 @@ public final class IrReturn extends IrStatement {
 		}
 		if (cse){
 			String s = expression.toC(context);
-//			System.out.println("RETURN: " +s);
 		}
 		else {
 			if(temporaryBinds.size()>0){
 			String s = temporaryBinds.get(temporaryBinds.size()-1).tuple.variableName;
-//			System.out.println("RETURN: " +s);
 			}
 		}
 		
 		for(IrBind b : temporaryBinds){
 			if(!(context.lva && b.isDead())){
-				arrList.addAll(b.toC(context, isMain, extras));
 				context.varDecl.put(b.tuple.variableName, b.tuple.type.toC());
 				context.varInit.put(b.tuple.variableName, "NULL");
 			}
+			arrList.addAll(b.toC(context, isMain, extras));
 		}
 		
 		if (isMain) {
