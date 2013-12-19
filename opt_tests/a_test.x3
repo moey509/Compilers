@@ -1,4 +1,7 @@
-a := "";
+a := 0;
+
+if (a == 1000)
+	return ["no"];
 
 
-return [a++""];
+return ["yes"];

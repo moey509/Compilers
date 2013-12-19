@@ -277,6 +277,7 @@ public class IrFor extends IrStatement {
 		for (IrStatement statement : statements){
 			statement.removeCommonSubexpressions(context1);
 		}
+		context.clearUnknownVariables();
 	}
 
 	@Override

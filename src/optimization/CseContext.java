@@ -74,6 +74,10 @@ public class CseContext {
 		return unknownVariables.contains(variable);
 	}
 	
+	public void clearUnknownVariables(){
+		unknownVariables.clear();
+	}
+	
 	public CseContext clone(){
 		CseContext output = new CseContext();
 		
