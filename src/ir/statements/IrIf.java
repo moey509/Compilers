@@ -261,8 +261,7 @@ public class IrIf extends IrStatement {
 		IrExpression e0 = null;
 		if (length > 0) {
 			String varname = temporaryBinds.get(length-1).tuple.variableName;
-			String ctype = temporaryBinds.get(length-1).tuple.type.toC();
-			e0 = new IrVariableExpression(varname, ctype);
+			e0 = new IrVariableExpression(varname);
 //			return new IrVariableExpression(varname, ctype);
 		}
 		if (e0==null || condition==null) {

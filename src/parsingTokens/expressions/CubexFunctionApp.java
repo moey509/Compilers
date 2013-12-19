@@ -57,7 +57,7 @@ public final class CubexFunctionApp extends CubexExpression {
 			fun = v_v.replaceAll("_", "__");
 		}
 		
-		IrFunctionCall irFunCall = new IrFunctionCall("_" + obj + "_" + fun, type, cubexType);
+		IrFunctionCall irFunCall = new IrFunctionCall("_" + obj + "_" + fun, cubexType);
 		irFunCall.addArgument(expr.type, expr.toIr(context));
 		for (CubexExpression i : functionParams.contextCollection) {
 			irFunCall.addArgument(i.type, i.toIr(context));
@@ -88,7 +88,7 @@ public final class CubexFunctionApp extends CubexExpression {
 				else {
 					tuple = new IrTypeTuple(t, e.toString());
 				}
-				tempParams.add(new IrBind(tuple, new IrVariableExpression(tuple.variableName, tuple.type.type), cubexContext));
+				tempParams.add(new IrBind(tuple, new IrVariableExpression(tuple.variableName), cubexContext));
 			}
 			//Throw in a temporary variable
 			else{
@@ -112,16 +112,17 @@ public final class CubexFunctionApp extends CubexExpression {
 		String functionName =  "\"" +"_" + obj + "_" + fun + "\"";
 		String functionCall = "(function_lookup(" + instance + ", " + functionName +"))";
 //		System.out.println(functionCall);
-		IrFunctionCall call = new IrFunctionCall(functionCall, "void*", cubexType);
+		IrFunctionCall call = new IrFunctionCall(functionCall, cubexType);
 		//Have to add in all arguments. Must figure out how much each has
 		if(thisPointer.size() != 0){
-			call.addArgument("void*", new IrVariableExpression(thisPointer.get(thisPointer.size()-1).tuple.variableName, thisPointer.get(thisPointer.size()-1).tuple.type.type));
+			call.addArgument("void*", new IrVariableExpression(thisPointer.get(thisPointer.size()-1).tuple.variableName));
 		}
 		else{
 			call.addArgument(expr.type, expr.toIr(context));
 		}
 		for(IrBind bind : tempParams){
-			call.addArgument(bind.tuple.type, new IrVariableExpression(bind.tuple.variableName, bind.tuple.type.type, null));
+			//TODO: NULL
+			call.addArgument(bind.tuple.type, new IrVariableExpression(bind.tuple.variableName, null));
 		}
 		b = new IrBind(tuple, call, cubexContext);
 		

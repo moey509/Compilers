@@ -13,24 +13,16 @@ import parsingTokens.typeGrammar.CubexTypeGrammar;
 
 public class IrCFunctionCall implements IrExpression {
 	private String functionName;
-	private String cType;
 	private ArrayList<String> parameters;
 	private ArrayList<String> parameterTypes;
 	private CubexTypeGrammar cubexType;
 	public ArrayList<String> input = new ArrayList<String>();
 	
-	public IrCFunctionCall(String fName, ArrayList<String> params, ArrayList<String> parameterTypes, String cType) {
+	public IrCFunctionCall(String fName, ArrayList<String> params, ArrayList<String> parameterTypes) {
 		this.functionName = fName;
 		this.parameters = params;
-		this.cType = cType;
 		this.parameterTypes = parameterTypes;
 		this.cubexType = null;
-	}
-
-	@Override
-	public String getCType() {
-		// TODO Auto-generated method stub
-		return cType;
 	}
 
 	@Override
@@ -126,13 +118,13 @@ public class IrCFunctionCall implements IrExpression {
 	
 	@Override
 	public IrExpression getSubexpressions(CseContext context) {
-		IrFunctionCall output = new IrFunctionCall(functionName, cType, cubexType);
+		IrFunctionCall output = new IrFunctionCall(functionName, cubexType);
 		for (int i = 0; i < parameters.size(); i++){
 			if (context.containsVariable(parameters.get(i))){
 				output.addArgument(parameterTypes.get(i), context.getExpression(parameters.get(i)));
 			}
 			else {
-				output.addArgument(parameterTypes.get(i), new IrVariableExpression(parameters.get(i), parameterTypes.get(i)));
+				output.addArgument(parameterTypes.get(i), new IrVariableExpression(parameters.get(i)));
 			}
 		}
 		return output;
@@ -147,6 +139,6 @@ public class IrCFunctionCall implements IrExpression {
 		for (String s : parameterTypes){
 			newParamTypes.add(new String(s));
 		}
-		return new IrCFunctionCall(new String(functionName), newParams, newParamTypes, new String(cType));
+		return new IrCFunctionCall(new String(functionName), newParams, newParamTypes);
 	}
 }

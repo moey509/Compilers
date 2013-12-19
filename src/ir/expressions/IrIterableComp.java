@@ -14,17 +14,10 @@ import parsingTokens.typeGrammar.CubexTypeGrammar;
 public class IrIterableComp implements IrExpression{
 	public IrComprehension comprehension;
 	
-	public String cType;
 	public CubexTypeGrammar cubexType;
 
 	public IrIterableComp(IrComprehension comprehension){
 		this.comprehension = comprehension;
-	}
-	
-	@Override
-	public String getCType() {
-		// TODO Auto-generated method stub
-		return cType;
 	}
 
 	@Override

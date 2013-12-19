@@ -317,12 +317,9 @@ public final class IrReturn extends IrStatement {
 		IrExpression e0 = null;
 		if (length > 0) {
 			String varname = temporaryBinds.get(length-1).tuple.variableName;
-			String ctype = temporaryBinds.get(length-1).tuple.type.toC();
-			e0 = new IrVariableExpression(varname, ctype);
-//			return new IrVariableExpression(varname, ctype);
+			e0 = new IrVariableExpression(varname);
 		}
 		if (e0==null || expression==null) {
-//			System.out.println("IrReturn : e0 or condition is null");
 		}  else {
 			String s1 = expression.toString();
 			String s2 = e0.toString();

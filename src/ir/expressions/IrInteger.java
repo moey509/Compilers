@@ -14,15 +14,9 @@ import ir.statements.IrBind;
 
 public final class IrInteger implements IrExpression {
 	private int mValue;
-	private String cType;
 
 	public IrInteger(int value) {
 		mValue = value;
-		cType = IrMiscFunctions.INTEGER;
-	}
-	
-	public String getCType(){
-		return cType;
 	}
 	
 	public String toC(CGenerationContext context) {

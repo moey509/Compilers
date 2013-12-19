@@ -17,30 +17,22 @@ import ir.statements.IrBind;
 
 public class IrVariableExpression implements IrExpression {
 	private String variableName;
-	private String cType;
 	private CubexTypeGrammar cubexType;
 	
-	public IrVariableExpression(String variableName, String cType) {
+	public IrVariableExpression(String variableName) {
 		this.variableName = variableName;
-		this.cType = cType;
 		this.cubexType = null;
 	}
 	
 	public IrExpression clone() {
-		System.out.println(cType);
-		return new IrVariableExpression(new String(variableName), new String(cType), cubexType);
+		return new IrVariableExpression(new String(variableName), cubexType);
 	}
 
-	public IrVariableExpression(String variableName, String cType, CubexTypeGrammar cubexType) {
+	public IrVariableExpression(String variableName, CubexTypeGrammar cubexType) {
 		this.variableName = variableName;
-		this.cType = cType;
 		this.cubexType = cubexType;
 	}
-	
-	public String getCType() {
-		return cType;
-	}
-	
+
 	public String getVarName() {
 		return variableName;
 	}

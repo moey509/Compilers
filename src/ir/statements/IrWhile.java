@@ -212,25 +212,7 @@ public final class IrWhile extends IrStatement {
 	}
 
 	public IrExpression getExpression() {
-//		int length =  temporaryBinds.size();
-//		IrExpression e0 = null;
-//		if (length > 0) {
-//			String varname = temporaryBinds.get(length-1).tuple.variableName;
-//			String ctype = temporaryBinds.get(length-1).tuple.type.toC();
-////			return new IrVariableExpression(varname, ctype);
-//			e0 = new IrVariableExpression(varname, ctype);
-//		}
-//		if (e0==null || condition==null) {
-////			System.out.println("IrWhile : e0 or condition is null");
-//		}  else {
-//			String s1 = condition.toString();
-//			String s2 = e0.toString();
-//			if (!s1.equals(s2)) {
-//				System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-//				System.out.println("IrWhile : e: " + condition.toString() + " , e0: " + e0.toString());
-//				System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-//			}
-//		}
+
 
 		return condition;
 	}

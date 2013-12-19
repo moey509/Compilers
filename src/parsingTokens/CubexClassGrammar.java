@@ -152,7 +152,7 @@ public class CubexClassGrammar {
 			irFunction.addFunctionArgument(argument);
 			
 			IrVariableExpression variable = 
-					new IrVariableExpression(tuple.getName(), tuple.getTypeGrammar().toIrType().type, tuple.getTypeGrammar());
+					new IrVariableExpression(tuple.getName(), tuple.getTypeGrammar());
 			IrBind bind = new IrBind(new IrTypeTuple(tuple.getTypeGrammar().toIrType(), "__struct->" +tuple.getName()), 
 					variable, completeContext);
 			irFunction.addStatement(bind);
@@ -198,7 +198,7 @@ public class CubexClassGrammar {
 		}
 		
 		if (constructableComponent != "Thing"){
-			IrExpression e = new IrFunctionCall(this.constructableComponent,this.constructableComponent + "*", extendsType);
+			IrExpression e = new IrFunctionCall(this.constructableComponent, extendsType);
 			irFunction.addSuperCall(e);
 		}
 	

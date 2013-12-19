@@ -39,7 +39,7 @@ public class CubexAppend extends CubexExpression {
 		IrExpression vare2;
 		if(tempe1.size() > 0){
 			IrBind binde1 = tempe1.get(tempe1.size()-1);
-			vare1 = new IrVariableExpression(binde1.tuple.variableName, binde1.tuple.type.type);
+			vare1 = new IrVariableExpression(binde1.tuple.variableName);
 		}
 		else{
 //			System.out.println("tempe1: " + this);
@@ -47,7 +47,7 @@ public class CubexAppend extends CubexExpression {
 		}
 		if(tempe2.size() > 0){
 			IrBind binde2 = tempe2.get(tempe2.size()-1);		
-			vare2 = new IrVariableExpression(binde2.tuple.variableName, binde2.tuple.type.type);
+			vare2 = new IrVariableExpression(binde2.tuple.variableName);
 		}
 		else{
 			vare2 = e2.toIr(context);

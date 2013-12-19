@@ -31,14 +31,14 @@ public abstract class CubexBinaryExpression extends CubexExpression {
 		}
 		else{
 			IrBind bindRight = arr1.get(arr1.size()-1);
-			var1 = new IrVariableExpression(bindRight.tuple.variableName, mLeft.type);
+			var1 = new IrVariableExpression(bindRight.tuple.variableName);
 		}
 		if(arr2.size() == 0){
 			var2 = mRight.toIr(context);
 		}
 		else{
 			IrBind bindLeft = arr2.get(arr2.size()-1);
-			var2 = new IrVariableExpression(bindLeft.tuple.variableName, mRight.type);
+			var2 = new IrVariableExpression(bindLeft.tuple.variableName);
 		}
 		ret.addAll(arr1);
 		ret.addAll(arr2);
