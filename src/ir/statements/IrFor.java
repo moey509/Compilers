@@ -10,6 +10,7 @@ import typeChecker.CubexCompleteContext;
 import ir.CGenerationContext;
 import ir.IrMiscFunctions;
 import ir.expressions.IrExpression;
+import ir.expressions.IrIterableComp;
 import ir.expressions.IrVariableExpression;
 
 
@@ -79,6 +80,11 @@ public class IrFor extends IrStatement {
 		// there's a reason why these aren't IrBinds! The rhs is not really an IrFunctionCall ...
 		// there is no CubexTypeGrammar for the expression, and the arguments don't have IrTypes
 		// can discuss later?
+		String iterComp = "";
+		if(list instanceof IrIterableComp){
+			IrIterableComp comp = (IrIterableComp)list;
+			iterComp = comp.comprehension.toC(context);
+		}
 		String iterDeclaration = iterable + " = iterable_append((" + list.toC(context) + "), NULL);";
 		String inc1Declaration = iterable;
 //		String inc1Declaration = "ref_increment((General_t)" + iterable + ");";
@@ -98,7 +104,9 @@ public class IrFor extends IrStatement {
 		String tempVarInc = var;
 //		String tempVarInc = "ref_increment((General_t)" + var + ");";
 
-
+		if(list instanceof IrIterableComp){
+			output.add(iterComp);
+		}
 		output.add(iterDeclaration);
 		IrMiscFunctions.increment_ref(context, inc1Declaration, output);
 //		output.add(inc1Declaration);
