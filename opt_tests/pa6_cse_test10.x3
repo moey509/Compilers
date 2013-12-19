@@ -7,15 +7,15 @@ fun expensive(n : Integer) : Integer {
 	else
 		return expensive(n-1)+expensive(n-2);
 }
-n := 40;
+n := 20;
 fib := expensive(n);
-n := 39;
+n := 19;
 fibb := expensive(n);
 i := 0;
 sum := 0;
 while (i < 1000) {
 	i := i + 1;
-	sum := expensive(40) - expensive(39) + sum;
+	sum := expensive(20) - expensive(19) + sum;
 }
 if (sum == (fib - fibb) * 1000)
 	return ["Yes"];

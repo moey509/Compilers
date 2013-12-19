@@ -8,17 +8,17 @@ fun expensive(n : Integer) : Integer {
 		return expensive(n-1)+expensive(n-2);
 }
 if (expensive(10) > expensive(9)) {
-	fib := expensive(40);
-	fibb := expensive(39);
+	fib := expensive(20);
+	fibb := expensive(19);
 } else {
-	fib := expensive(40);
-	fibb := expensive(39);
+	fib := expensive(20);
+	fibb := expensive(19);
 }
 i := 0;
 sum := 0;
 while (i < 1000) {
 	i := i + 1;
-	sum := expensive(40) - expensive(39) + sum;
+	sum := expensive(20) - expensive(19) + sum;
 }
 if (sum == (fib - fibb) * 1000)
 	return ["Yes"];
