@@ -39,8 +39,8 @@ public class CompMain {
 	public static void main(String[] args) throws IOException {
 //		 CharStream charStream = new ANTLRFileStream(args[0]);
 
-//		CharStream charStream = new ANTLRFileStream("cg_tests/c_stage1_test1.x3");
-		CharStream charStream = new ANTLRFileStream("cg_tests/c_stage2_test3.x3");
+		CharStream charStream = new ANTLRFileStream("comprehensions_tests/a_test1.x3");
+
 
 		CubexLexer cubLexer = new CubexLexer(charStream);
 		cubLexer.removeErrorListeners();
@@ -76,6 +76,7 @@ public class CompMain {
 			cubParser.programAST.replaceCKeyWords();
 			
 			IrGenerationContext context = new IrGenerationContext();
+			context.to_free = false;
 			IrProgram program = cubParser.programAST.toIr(context, new IrProgram());
 			for(IrComprehensionStruct struct : context.comprehensionStructs){
 				program.addComprehensionStruct(struct);
@@ -84,11 +85,12 @@ public class CompMain {
 //			program.lva();
 
 			CGenerationContext cgcontext = new CGenerationContext();
+			cgcontext.to_free = false;
 			ArrayList<String> programCode = program.toC(cgcontext);
 			FileWriter writer = new FileWriter(new File("out.c"));
 //			System.out.println("----------");
 			int counter = 3;
-			writer.write("#include \"cubex_lib.1.h\"\n");
+			writer.write("#include \"cubex_lib.h\"\n");
 			// TODO: REMOVE THIS BEFORE SUBMITTING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			writer.write("#include \"stdio.h\"\n");
 			for (String s : programCode){

@@ -1,6 +1,8 @@
+
 package ir.statements;
 
 import ir.CGenerationContext;
+import ir.IrMiscFunctions;
 import ir.expressions.IrExpression;
 import ir.expressions.IrIterableComp;
 import ir.expressions.IrVariableExpression;
@@ -75,7 +77,8 @@ public final class IrReturn extends IrStatement {
 			else{
 				itDeclaration = iterator + " = new_iterator((" + expression.toC(context) + "));";
 			}
-			itIncrement = "ref_increment((General_t)" + iterator + ");";
+			itIncrement = iterator;
+//			itIncrement = "ref_increment((General_t)" + iterator + ");";
 			itCondition = "while(hasNext(" + iterator + ")) {";
 			stringVarDeclaration = "char* _return_string;";
 			tempVar = "_return = getNext(" + iterator + ");";
@@ -85,7 +88,8 @@ public final class IrReturn extends IrStatement {
 			stringVarFree = "x3free(_return_string);";
 			endBrace = ("}");
 			// free the iterator
-			itDecrement = ("ref_decrement((General_t)" + iterator + ");");
+			itDecrement = iterator;
+//			itDecrement = ("ref_decrement((General_t)" + iterator + ");");
 			itNull = (iterator + " = NULL;");
 		}
 		if (cse){
@@ -108,7 +112,8 @@ public final class IrReturn extends IrStatement {
 		if (isMain) {
 			arrList.addAll(beforeIterator);
 			arrList.add(itDeclaration);
-			arrList.add(itIncrement);
+			IrMiscFunctions.increment_ref(context, itIncrement, arrList);
+//			arrList.add(itIncrement);
 			arrList.add(itCondition);
 			arrList.add(stringVarDeclaration);
 			arrList.add(tempVar);
@@ -116,7 +121,8 @@ public final class IrReturn extends IrStatement {
 			arrList.add(printline);
 			arrList.add(stringVarFree);
 			arrList.add(endBrace);
-			arrList.add(itDecrement);
+			IrMiscFunctions.decrement_ref(context, itDecrement, arrList);
+//			arrList.add(itDecrement);
 			arrList.add(itNull);
 		}
 		
@@ -124,26 +130,31 @@ public final class IrReturn extends IrStatement {
 		
 		if(context.lva && hasFreeBefore){
 			for(String s : freeBefore){
-				arrList.add("ref_decrement((General_t)" + s + ");");
+				IrMiscFunctions.decrement_ref(context, s, arrList);
+//				arrList.add("ref_decrement((General_t)" + s + ");");
 				arrList.add(s + " = NULL;");
 			}
 		}
 		
 		if(context.lva){
 			for (String s : context.controlFlowVariables) {
-				arrList.add("ref_decrement((General_t)" + s + ");");
+				IrMiscFunctions.decrement_ref(context, s, arrList);
+//				arrList.add("ref_decrement((General_t)" + s + ");");
 			}
 			for(String s : inMinusOut()){
 				if(s.equals(expression.toC(context))&& !isMain){
-					arrList.add("ref_decrement_no_free((General_t)" + s + ");");
+					IrMiscFunctions.no_free_decrement_ref(context, s, arrList);
+//					arrList.add("ref_decrement_no_free((General_t)" + s + ");");
 				}
 				else{
-					arrList.add("ref_decrement((General_t)" + s + ");");
+					IrMiscFunctions.decrement_ref(context, s, arrList);
+//					arrList.add("ref_decrement((General_t)" + s + ");");
 					arrList.add(s + " = NULL;");
 				}
 			}
 			if (isMain) {
-				arrList.add("ref_decrement((General_t)input);");
+				IrMiscFunctions.decrement_ref(context, "input", arrList);
+//				arrList.add("ref_decrement((General_t)input);");
 				arrList.add("ending();");
 				arrList.add("return;");
 			}
@@ -158,31 +169,36 @@ public final class IrReturn extends IrStatement {
 				String name = ((IrVariableExpression) expression).getVarName();
 				for (String s : freeContext) {
 					if (!isMain && !s.equals(name)) {
-						arrList.add("ref_decrement((General_t)" + s + ");");
+						IrMiscFunctions.decrement_ref(context, s, arrList);
+//						arrList.add("ref_decrement((General_t)" + s + ");");
 					}
 				}
 			}
 			
 			for (String s : context.controlFlowVariables) {
-				arrList.add("ref_decrement((General_t)" + s + ");");
+				IrMiscFunctions.decrement_ref(context, s, arrList);
+//				arrList.add("ref_decrement((General_t)" + s + ");");
 			}
 			//NOTE: note sure if supposed to empty this set...
 
 			//Should be replaced by Ansha's code methinks
 			if (isMain) {
 				for (String s : freeContext) {
-					arrList.add("ref_decrement((General_t)" + s + ");");
+					IrMiscFunctions.decrement_ref(context, s, arrList);
+//					arrList.add("ref_decrement((General_t)" + s + ");");
 				}
 				//TODO: this looks wrong 
 				for (String s : this.context.typeContext.keySet()) {
 					if (!freeContext.contains(s)) {
-						arrList.add("ref_decrement((General_t)" + s + ");");
+						IrMiscFunctions.decrement_ref(context, s, arrList);
+//						arrList.add("ref_decrement((General_t)" + s + ");");
 					}
 				}
 				//GARBAGE COLLECT EVERYTHING
 				for(int i = 0; i < temporaryBinds.size(); i++){
 					IrBind b = temporaryBinds.get(i);
-					arrList.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
+					IrMiscFunctions.decrement_ref(context, b.tuple.variableName, arrList);
+//					arrList.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
 				}
 
 				// extra expressions will not get added
@@ -196,13 +212,27 @@ public final class IrReturn extends IrStatement {
 				for(int i = 0; i < temporaryBinds.size()-1; i++){
 					IrBind b = temporaryBinds.get(i);
 					if(i == temporaryBinds.size()-1 && b.tuple.variableName.equals(b.toC(context, isMain, extras))){
-						arrList.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
+						IrMiscFunctions.decrement_ref(context, b.tuple.variableName, arrList);
+//						arrList.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
 					}
 					else{
-						arrList.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
+						IrMiscFunctions.decrement_ref(context, b.tuple.variableName, arrList);
+//						arrList.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
 					}
 				}
-				arrList.add("ref_decrement_no_free((General_t)" + expression.toC(context) + ");");
+				
+				String no_free_temp = expression.toC(context);
+				
+				if (no_free_temp.length() > 8 && no_free_temp.substring(0, 8).equals("__struct")) {
+					
+				}
+				else {
+					IrMiscFunctions.no_free_decrement_ref(context, expression.toC(context), arrList);
+//					arrList.add("ref_decrement_no_free((General_t)" + expression.toC(context) + ");");
+				}
+				
+				
+				
 				// add statements that are in extras
 				if (extras != null) {
 					arrList.addAll(extras);
@@ -238,7 +268,7 @@ public final class IrReturn extends IrStatement {
 //		}
 //		for(int i = 0; i < temporaryBinds.size()-1; i++){
 //			IrBind b = temporaryBinds.get(i);
-			output.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
+//			output.add("ref_decrement((General_t)" + b.tuple.variableName + ");");
 //		}
 //		output.add(itDeclaration);
 //		output.add(itCondition);
@@ -246,7 +276,7 @@ public final class IrReturn extends IrStatement {
 		
 //		for (String s : freeContext) {
 //			if (!s.equals("_input"))
-			output.add("ref_decrement((General_t)" + s + ");");
+//			output.add("ref_decrement((General_t)" + s + ");");
 //		}
 ////		
 //		output.add("print_line(charToString(_return), stringLength(_return));");

@@ -14,8 +14,10 @@ fun matrixize<T> (l : Iterable<T>, maxcol : Integer) : Iterable<Iterable<T>>
 	{
 		for(e in l)
 		{
+			#if current counter is less than max
 			if (i < maxcol)
 			{
+				# append next character onto curr
 				curr := curr ++ [e];
 				i := i + 1;
 			}
@@ -30,6 +32,7 @@ fun matrixize<T> (l : Iterable<T>, maxcol : Integer) : Iterable<Iterable<T>>
 	}
 }
 
+#flattens multiple strings into just one
 fun flatten<T> (l : Iterable<Iterable<T>>) : Iterable<T>
 {
 	ret := [];
@@ -45,8 +48,9 @@ fun flatten<T> (l : Iterable<Iterable<T>>) : Iterable<T>
 	return ret;
 }
 
+
 for (i in input)
-{
+{	
 	return [string(flatten<Character>(matrixize<Character>(i, 10)))];
 }
 

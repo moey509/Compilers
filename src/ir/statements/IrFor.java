@@ -8,6 +8,7 @@ import optimization.LvaContext;
 import optimization.CseContext;
 import typeChecker.CubexCompleteContext;
 import ir.CGenerationContext;
+import ir.IrMiscFunctions;
 import ir.expressions.IrExpression;
 import ir.expressions.IrVariableExpression;
 
@@ -79,9 +80,11 @@ public class IrFor extends IrStatement {
 		// there is no CubexTypeGrammar for the expression, and the arguments don't have IrTypes
 		// can discuss later?
 		String iterDeclaration = iterable + " = iterable_append((" + list.toC(context) + "), NULL);";
-		String inc1Declaration = "ref_increment((General_t)" + iterable + ");";
+		String inc1Declaration = iterable;
+//		String inc1Declaration = "ref_increment((General_t)" + iterable + ");";
 		String itDeclaration = iterator + " = new_iterator((" + iterable + "));";
-		String inc2Declaration = "ref_increment((General_t)" + iterator + ");";
+		String inc2Declaration = iterator;
+//		String inc2Declaration = "ref_increment((General_t)" + iterator + ");";
 
 		//add iterable to list of stuff declared at the top of the function
 		context.varDecl.put(iterable, "git_t");
@@ -92,33 +95,39 @@ public class IrFor extends IrStatement {
 //		context.fcnVarDecl.put(iterator, "iterator_t");
 		String itCondition = "while(hasNext(" + iterator + ")) {";
 		String tempVar = "void* " + var + " = getNext(" + iterator + ");";
-		String tempVarInc = "ref_increment((General_t)" + var + ");";
+		String tempVarInc = var;
+//		String tempVarInc = "ref_increment((General_t)" + var + ");";
 
 
 		output.add(iterDeclaration);
-		output.add(inc1Declaration);
+		IrMiscFunctions.increment_ref(context, inc1Declaration, output);
+//		output.add(inc1Declaration);
 		output.add(itDeclaration);
-		output.add(inc2Declaration);
+		IrMiscFunctions.increment_ref(context, inc2Declaration, output);
+//		output.add(inc2Declaration);
 		
 		//Should be replaced by Ansha's code
 		if(context.lva){
 			if(hasFreeBefore){
 				for(String s : freeBefore){
 					if (!s.equals(var)) {
-						output.add("ref_decrement((General_t)" + s + ");");
+						IrMiscFunctions.decrement_ref(context, s, output);
+//						output.add("ref_decrement((General_t)" + s + ");");
 						output.add(s + " = NULL;");
 					}
 				}
 			}
 			for(String s : inMinusOut()){
-				output.add("ref_decrement((General_t)" + s + ");");
+				IrMiscFunctions.decrement_ref(context, s, output);
+//				output.add("ref_decrement((General_t)" + s + ");");
 				output.add(s + " = NULL;");
 			}
 		}
 		else{
 			for(IrBind b : this.temporaryBinds){
 				String s = b.tuple.variableName;
-				output.add("ref_decrement((General_t)" + s + ");");
+				IrMiscFunctions.decrement_ref(context, s, output);
+//				output.add("ref_decrement((General_t)" + s + ");");
 			}
 		}
 		output.add(itCondition);
@@ -138,7 +147,8 @@ public class IrFor extends IrStatement {
 		}
 
 		output.add(tempVar);
-		output.add(tempVarInc);
+		IrMiscFunctions.increment_ref(context, tempVarInc, output);
+//		output.add(tempVarInc);
 		/* Ansha was this wrong?
 		if(!context.lva || freeAfter.contains(var)){
 			output.add(tempVarInc);
@@ -162,12 +172,14 @@ public class IrFor extends IrStatement {
 		/*** ^^^^ END CODE BLOCK ***/
 		
 		if(context.lva){
-			output.add("ref_decrement((General_t)" + var + ");");
+			IrMiscFunctions.decrement_ref(context, var, output);
+//			output.add("ref_decrement((General_t)" + var + ");");
 			output.add(var + " = NULL;");
 		}
 		// NOT SURE IF THIS WORKS.
 		else {
-			output.add("ref_decrement((General_t)" + var + ");");
+			IrMiscFunctions.decrement_ref(context, var, output);
+//			output.add("ref_decrement((General_t)" + var + ");");
 			output.add(var + " = NULL;");
 		}
 		String endLoop = "}";
@@ -175,20 +187,24 @@ public class IrFor extends IrStatement {
 		if(context.lva){
 			for(String s : freeAfter){
 				if(!s.equals(var)){
-					output.add("ref_decrement((General_t)" + s + ");");
+					IrMiscFunctions.decrement_ref(context, s, output);
+//					output.add("ref_decrement((General_t)" + s + ");");
 					output.add(s + " = NULL;");
 				}
 			}
 		}
 		
 		///Shouldn't be replaced by Ansha's code?...what if there are two for loops in a row with the same iterable? who cares?
-		String dec1Declaration = "ref_decrement((General_t)" + iterable + ");";
-		String dec2Declaration = "ref_decrement((General_t)" + iterator + ");";
+//		String dec1Declaration = "ref_decrement((General_t)" + iterable + ");";
+//		String dec2Declaration = "ref_decrement((General_t)" + iterator + ");";
 		String null1Declaration = iterable + " = NULL;";
 		String null2Declaration = iterator + " = NULL;";
 		
-		output.add(dec1Declaration);
-		output.add(dec2Declaration);
+		IrMiscFunctions.decrement_ref(context, iterable, output);
+		IrMiscFunctions.decrement_ref(context, iterator, output);
+		
+//		output.add(dec1Declaration);
+//		output.add(dec2Declaration);
 		output.add(null1Declaration);
 		output.add(null2Declaration);
 
@@ -196,7 +212,8 @@ public class IrFor extends IrStatement {
 		//Should be replaced by Ansha's code methinks
 		if(!context.lva){
 			for (String s : freeContext) {
-				output.add("ref_decrement((General_t)" + s + ");");
+				IrMiscFunctions.decrement_ref(context, s, output);
+//				output.add("ref_decrement((General_t)" + s + ");");
 			}
 		}
 		

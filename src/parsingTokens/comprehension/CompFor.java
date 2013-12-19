@@ -52,7 +52,11 @@ public class CompFor extends Comp {
 			throw new SemanticException(v + " is a variable that has already been declared");
 		}
 		CubexCompleteContext c1 = c.clone();
-		c1.typeContext.put(v, exprType.getTypeList().get(0));
+		System.out.println(exprType);
+		if (exprType.name.equals("String"))
+			c1.typeContext.put(v, new CubexTypeClass("Character", new CubexList<CubexTypeGrammar>()));
+		else
+			c1.typeContext.put(v, exprType.getTypeList().get(0));
 		//System.out.println(c1.toString());
 		cubexType = comp.typeCheck(c1);
 		return cubexType;

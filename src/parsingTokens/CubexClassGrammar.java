@@ -25,6 +25,7 @@ import typeChecker.IrGenerationContext;
 import typeChecker.KindContext;
 import typeChecker.TypeContext;
 import typeChecker.TypeContextReturn;
+import ir.IrMiscFunctions;
 import ir.IrType;
 import ir.expressions.IrExpression;
 import ir.expressions.IrFunctionCall;
@@ -130,11 +131,13 @@ public class CubexClassGrammar {
 			
 		}
 		for(CubexTypeTuple t : typecontext.contextCollection){
-			arr.add("ref_decrement(__struct->" + t.getName() + ");");
+			IrMiscFunctions._decrement_ref(context, "__struct->" + t.getName(), arr);
+//			arr.add("ref_decrement(__struct->" + t.getName() + ");");
 		}
 		
 		for(String s : varSet.keySet()){
-			arr.add("ref_decrement(" + s + ");");
+			IrMiscFunctions._decrement_ref(context, s, arr);
+//			arr.add("ref_decrement(" + s + ");");
 		}
 		irFunction.isConstructor = false;
 		irFunction.addStatement(new IrCStatement(arr));
@@ -204,7 +207,8 @@ public class CubexClassGrammar {
 	
 		ArrayList<String> dec_inputs = new ArrayList<String>();
 		for(CubexTypeTuple t : typecontext.contextCollection){
-			dec_inputs.add("ref_decrement(" + t.getName() + ");");
+			IrMiscFunctions._decrement_ref(context, t.getName(), dec_inputs);
+//			dec_inputs.add("ref_decrement(" + t.getName() + ");");
 		}
 
 		irFunction.addStatement(new IrCStatement(dec_inputs));
@@ -223,8 +227,9 @@ public class CubexClassGrammar {
 			addedFunctions.add(funDef.name);
 			
 			// Hack to free __struct at the bottom of a method call
-			ArrayList<String> dec_inputs = new ArrayList<String>();			
-			dec_inputs.add("ref_decrement(__struct);");
+			ArrayList<String> dec_inputs = new ArrayList<String>();	
+			IrMiscFunctions._decrement_ref(context, "(__struct)", dec_inputs);
+//			dec_inputs.add("ref_decrement(__struct);");
 			
 			fun.addExtras(dec_inputs);
 			

@@ -1,1 +1,1 @@
-return [for (i in [1,2]) "hello"];
+return [for (i in "a") "hello"];

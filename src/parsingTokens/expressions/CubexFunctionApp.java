@@ -113,16 +113,16 @@ public final class CubexFunctionApp extends CubexExpression {
 		String functionCall = "(function_lookup(" + instance + ", " + functionName +"))";
 //		System.out.println(functionCall);
 		IrFunctionCall call = new IrFunctionCall(functionCall, cubexType);
-		//Have to add in all arguments. Must figure out how much each has
+		//Have to add in all arguments. Must figure out how much each has		
+		for(IrBind bind : tempParams){
+			//TODO: NULL
+			call.addArgument(bind.tuple.type, new IrVariableExpression(bind.tuple.variableName, null));
+		}
 		if(thisPointer.size() != 0){
 			call.addArgument("void*", new IrVariableExpression(thisPointer.get(thisPointer.size()-1).tuple.variableName));
 		}
 		else{
 			call.addArgument(expr.type, expr.toIr(context));
-		}
-		for(IrBind bind : tempParams){
-			//TODO: NULL
-			call.addArgument(bind.tuple.type, new IrVariableExpression(bind.tuple.variableName, null));
 		}
 		b = new IrBind(tuple, call, cubexContext);
 		

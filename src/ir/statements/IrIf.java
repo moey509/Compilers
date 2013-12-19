@@ -1,7 +1,6 @@
 package ir.statements;
 
 import java.util.ArrayList;
-
 import java.util.HashSet;
 import java.util.List;
 
@@ -9,6 +8,7 @@ import optimization.LvaContext;
 import optimization.CseContext;
 import typeChecker.CubexCompleteContext;
 import ir.CGenerationContext;
+import ir.IrMiscFunctions;
 import ir.expressions.IrExpression;
 import ir.expressions.IrVariableExpression;
 
@@ -63,7 +63,8 @@ public class IrIf extends IrStatement {
 		ArrayList<String> arrList = new ArrayList<String>();
 		if(context.lva && hasFreeBefore){
 			for(String s : freeBefore){
-				arrList.add("ref_decrement((General_t)" + s + ");");
+				IrMiscFunctions.decrement_ref(context, s, arrList);
+//				arrList.add("ref_decrement((General_t)" + s + ");");
 				arrList.add(s + " = NULL;");
 			}
 		}
@@ -80,13 +81,15 @@ public class IrIf extends IrStatement {
 		if(!context.lva){
 			for(IrBind b : temporaryBinds){
 				String s = b.tuple.variableName;
-				arrList.add("ref_decrement((General_t)" + s + ");"); 
+				IrMiscFunctions.decrement_ref(context, s, arrList);
+//				arrList.add("ref_decrement((General_t)" + s + ");"); 
 				arrList.add(s + "= NULL;");
 			}
 		}
 		else{
 			for(String s : inMinusOut()){
-				arrList.add("ref_decrement((General_t)" + s + ");"); 
+				IrMiscFunctions.decrement_ref(context, s, arrList);
+//				arrList.add("ref_decrement((General_t)" + s + ");"); 
 				arrList.add(s + "= NULL;");
 			}
 		}
@@ -96,7 +99,8 @@ public class IrIf extends IrStatement {
 		//Should be replaced by Ansha's code methinks
 		if(!context.lva){
 			for (String s : freeContext) {
-				arrList.add("ref_decrement((General_t)" + s + ");");
+				IrMiscFunctions.decrement_ref(context, s, arrList);
+//				arrList.add("ref_decrement((General_t)" + s + ");");
 			}
 		}
 		if (statements2.isEmpty()) {
@@ -105,13 +109,15 @@ public class IrIf extends IrStatement {
 			if(!context.lva){
 				for(IrBind b : temporaryBinds){
 					String s = b.tuple.variableName;
-					arrList.add("ref_decrement((General_t)" + s + ");");
+					IrMiscFunctions.decrement_ref(context, s, arrList);
+//					arrList.add("ref_decrement((General_t)" + s + ");");
 					arrList.add(s + "= NULL;");
 				}
 			}
 			else{
 				for(String s : inMinusOut()){
-					arrList.add("ref_decrement((General_t)" + s + ");"); 
+					IrMiscFunctions.decrement_ref(context, s, arrList);
+//					arrList.add("ref_decrement((General_t)" + s + ");"); 
 					arrList.add(s + "= NULL;");
 				}
 			}
@@ -121,13 +127,15 @@ public class IrIf extends IrStatement {
 			if(!context.lva){
 				for(IrBind b : temporaryBinds){
 					String s = b.tuple.variableName;
-					arrList.add("ref_decrement((General_t)" + s + ");"); 
+					IrMiscFunctions.decrement_ref(context, s, arrList);
+//					arrList.add("ref_decrement((General_t)" + s + ");"); 
 					arrList.add(s + "= NULL;");
 				}
 			}
 			else{
 				for(String s : inMinusOut()){
-					arrList.add("ref_decrement((General_t)" + s + ");"); 
+					IrMiscFunctions.decrement_ref(context, s, arrList);
+//					arrList.add("ref_decrement((General_t)" + s + ");"); 
 					arrList.add(s + "= NULL;");
 				}
 			}
@@ -138,7 +146,8 @@ public class IrIf extends IrStatement {
 			//Should be replaced by Ansha's code methinks
 			if(!context.lva){
 				for (String s : freeContext2) {
-					arrList.add("ref_decrement((General_t)" + s + ");");
+					IrMiscFunctions.decrement_ref(context, s, arrList);
+//					arrList.add("ref_decrement((General_t)" + s + ");");
 				}
 			}
 			arrList.add("}");
