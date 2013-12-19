@@ -100,8 +100,10 @@ public class IrFunction implements IrProgramElem{
 		arr.add(s);
 		
 		for(IrBind b : tempVariables){
-			arr.add(b.tuple.type.type + " " + b.tuple.variableName + ";");
-			tempVarSet.add(b.tuple.variableName);
+			if(!(context.lva && b.isDead())){
+				arr.add(b.tuple.type.type + " " + b.tuple.variableName + ";");
+				tempVarSet.add(b.tuple.variableName);
+			}
 		}
 		
 		ArrayList<String> postarr = new ArrayList<String>();
@@ -157,7 +159,6 @@ public class IrFunction implements IrProgramElem{
 		for(IrStatement st : statements){
 			postarr.addAll(st.toC(context, false, extraStatements));
 		}
-
 		context.currentObject = null;
 		
 		if (isConstructor){
@@ -167,8 +168,9 @@ public class IrFunction implements IrProgramElem{
 		// add binding vars to the output, add everything above (postarr) to the output
 		for (String str : context.varDecl.keySet()) {
 			if (!tempVarSet.contains(str)) {
-				if (!isConstructor)
+				if (!isConstructor){
 					arr.add(context.varDecl.get(str) + " " + str + ";");
+				}
 //				arr.add("void* " + str + ";");
 			}
 		}

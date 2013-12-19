@@ -70,9 +70,11 @@ public class IrIf extends IrStatement {
 		}
 		
 		for(IrBind b : temporaryBinds){
-			context.varDecl.put(b.tuple.variableName, b.tuple.type.toC());
-			context.varInit.put(b.tuple.variableName, "NULL");
-			arrList.addAll(b.toC(context, isMain, extras));
+			if(!(context.lva && b.isDead())){
+				context.varDecl.put(b.tuple.variableName, b.tuple.type.toC());
+				context.varInit.put(b.tuple.variableName, "NULL");
+				arrList.addAll(b.toC(context, isMain, extras));
+			}
 		}
 		arrList.add("if(((Boolean_t)" + condition.toC(context) + ")->value) {");
 		//TODO: Should be replaced by Ansha's code methinks

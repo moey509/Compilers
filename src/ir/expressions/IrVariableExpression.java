@@ -27,6 +27,7 @@ public class IrVariableExpression implements IrExpression {
 	}
 	
 	public IrExpression clone() {
+		System.out.println(cType);
 		return new IrVariableExpression(new String(variableName), new String(cType), cubexType);
 	}
 

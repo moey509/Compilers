@@ -101,9 +101,11 @@ public final class IrReturn extends IrStatement {
 		}
 		
 		for(IrBind b : temporaryBinds){
-			arrList.addAll(b.toC(context, isMain, extras));
-			context.varDecl.put(b.tuple.variableName, b.tuple.type.toC());
-			context.varInit.put(b.tuple.variableName, "NULL");
+			if(!(context.lva && b.isDead())){
+				arrList.addAll(b.toC(context, isMain, extras));
+				context.varDecl.put(b.tuple.variableName, b.tuple.type.toC());
+				context.varInit.put(b.tuple.variableName, "NULL");
+			}
 		}
 		
 		if (isMain) {
