@@ -1,4 +1,4 @@
-a := [1];
-b := [for (i in a) "hello" ];
+a := ["hello", "world"];
+b := [for (i in a) "a" ];
 
 return b;

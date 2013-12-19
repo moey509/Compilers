@@ -1,3 +1,4 @@
+
 package ir;
 
 import ir.program.IrProgram;
@@ -38,7 +39,7 @@ public class IrMain {
 //		 CharStream charStream = new ANTLRFileStream(args[0]);
 
 
-		CharStream charStream = new ANTLRFileStream("cg_tests/c_stage8_test1.x3");
+		CharStream charStream = new ANTLRFileStream("cg_tests/c_stage5_test2.x3");
 
 //		CharStream charStream = new ANTLRFileStream("cg_tests/c_stage5_test2.x3");
 

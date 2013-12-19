@@ -1,0 +1,57 @@
+#Test: stage3test1
+#generic functions
+fun matrixize<T> (l : Iterable<T>, maxcol : Integer) : Iterable<Iterable<T>>
+{
+	ret := [];
+	curr := [];
+	i := 0;
+	
+	if (maxcol < 1)
+	{
+		return [];
+	}
+	else
+	{
+		for(e in l)
+		{
+			#if current counter is less than max
+			if (i < maxcol)
+			{
+				# append next character onto curr
+				curr := curr ++ [e];
+				i := i + 1;
+			}
+			else
+			{
+				i := 0;
+				ret := ret ++ [curr];
+				curr := [e];
+			}
+		}
+		return ret ++ [curr];
+	}
+}
+
+#flattens multiple strings into just one
+fun flatten<T> (l : Iterable<Iterable<T>>) : Iterable<T>
+{
+	ret := [];
+	
+	for (i in l)
+	{
+		for (e in i)
+		{
+			ret := ret ++ [e];
+		}
+	}
+	
+	return ret;
+}
+
+
+for (i in input)
+{	
+	return [string(flatten<Character>(matrixize<Character>(i, 10)))];
+}
+
+return [""];

@@ -41,7 +41,6 @@ public class CompMain {
 
 		CharStream charStream = new ANTLRFileStream("comprehensions_tests/test6.x3");
 
-
 		CubexLexer cubLexer = new CubexLexer(charStream);
 		cubLexer.removeErrorListeners();
 

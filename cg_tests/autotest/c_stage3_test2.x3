@@ -1,0 +1,3 @@
+#stage3test6
+fun id<T>(x : T) : T = x;
+return [id<String>("Hi World!")];

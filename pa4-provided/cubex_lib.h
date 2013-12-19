@@ -23,7 +23,8 @@ struct General {
   functionPointer* fun_ptrs;
   General_t con_comp;
   int is_iter;
-  int is_thru_ward; /* THIS WILL BE USED TO IDENTIFY IF IT IS A INT (1) OR BOOLEAN (2) */
+  /* THIS WILL BE USED TO IDENTIFY IF IT IS A INT (1) OR BOOLEAN (2) OR GIT (3)*/
+  int is_thru_ward; 
   int value;
 };
 
@@ -253,7 +254,7 @@ git_t new_git_obj(void* obj) {
   g->fun_ptrs = NULL;
   g->con_comp = NULL;
   g->is_iter = 1;
-  g->is_thru_ward = 0;
+  g->is_thru_ward = 3;
 
   g->val = obj;
   g->is_int = 0;
@@ -286,7 +287,7 @@ git_t new_lazy_git_obj(void* comp, functionPointer has,
   g->fun_ptrs = NULL;
   g->con_comp = NULL;
   g->is_iter = 1;
-  g->is_thru_ward = 0;
+  g->is_thru_ward = 3;
 
   g->val = comp;
   g->is_int = 0;
@@ -901,8 +902,39 @@ Boolean_t Integer_equals (Integer_t i1, Integer_t i2) {
   return new_boolean(ans);
 }
 
+Boolean_t String_equals (git_t g1, git_t g2) {
+  git_t t1;
+  git_t t2;
+  Character_t c1;
+  Character_t c2;
+  int flag;
+  int ans;
+  t1 = g1;
+  t2 = g2;
+  flag = 0;
+  while (t1 != NULL && t2 != NULL && flag == 0) {
+    c1 = t1->val;
+    c2 = t2->val;
+    if (c1->value != c2->value)
+      flag = 1;
+    t1 = t1->next;
+    t2 = t2->next;
+  }
+  /* only way that the two were equal: */
+  if (t1 == NULL && t2 == NULL && flag == 0)
+    ans = 1;
+  else
+    ans = 0;
+  return new_boolean(ans);
+}
+
 Boolean_t General_equals (General_t g1, General_t g2) {
   int ans = 0;
+
+  /* check to see if it is a string compare */
+  if (g1->is_thru_ward == 3) {
+    return String_equals(g1, g2);
+  }
   if (g1->value == g2->value)
     ans = 1;
   return new_boolean(ans);
@@ -959,31 +991,7 @@ Boolean_t Character_equals (Character_t c1, Character_t c2) {
   return new_boolean (ans);
 }
 
-Boolean_t String_equals (git_t g1, git_t g2) {
-  git_t t1;
-  git_t t2;
-  Character_t c1;
-  Character_t c2;
-  int flag;
-  int ans;
-  t1 = g1;
-  t2 = g2;
-  flag = 0;
-  while (t1 != NULL && t2 != NULL && flag == 0) {
-    c1 = t1->val;
-    c2 = t2->val;
-    if (c1->value != c2->value)
-      flag = 1;
-    t1 = t1->next;
-    t2 = t2->next;
-  }
-  /* only way that the two were equal: */
-  if (t1 == NULL && t2 == NULL && flag == 0)
-    ans = 1;
-  else
-    ans = 0;
-  return new_boolean(ans);
-}
+
 
 Boolean_t Boolean_negate(Boolean_t b) {
   int ans;
